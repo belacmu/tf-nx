@@ -1,0 +1,4 @@
+server wss://SERVER_HOST
+ip SERVER_IP
+name SWITCH
+inputdelay 2

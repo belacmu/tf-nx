@@ -1,0 +1,4 @@
+# The translator's output (tools/tfex/translate.sh): never merged by hand. A merge keeps this side's gen/ (merge driver "ours":
+# `git config merge.ours.driver true`, once per clone; worktrees share it); then tools/tfex/check-gen.sh says whether gen/ is the
+# merged rules' output, and `tools/tfex/translate.sh all <tag>` regenerates it. The hand runtime is tfex/runtime/ (merged normally).
+hw-probe/exlaunch/source/program/tfex/gen/** merge=ours linguist-generated=true

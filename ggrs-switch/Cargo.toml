@@ -1,0 +1,35 @@
+[package]
+name = "ggrs-switch"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+ggrs-spike = { path = "../ggrs-spike" }
+ggrs = { path = "../../../Towerfall Browser/vendor/netplay-src/ggrs" }
+serde = { version = "1", features = ["derive"] }
+bincode = "1.3"
+tfx-rtc = { path = "../tfx-rtc" }
+# raw DEFLATE for the runtime's zip writer (src/deflate.rs; the version flate2 already brings)
+miniz_oxide = { version = "0.9.1", default-features = false, features = ["with-alloc"] }
+# TF.EX's own native netplay library (ggrs_ffi, its netplay_* C API), built for the Switch: ../ggrs-ffi-switch/README.md.
+# Linked into this staticlib (one Rust std in the module); nothing calls it yet (docs/ws-ggrs-ffi.md).
+ggrs-ffi = { path = "../ggrs-ffi-switch/ggrs-ffi/core", default-features = false, features = ["switch"] }
+
+[profile.release]
+panic = "abort"
+opt-level = 2
+
+[patch.crates-io]
+# tfx-rtc's pure-Rust DTLS certificate (no aws-lc): ../tfx-rtc/README.md
+str0m-rust-crypto = { path = "../tfx-rtc/vendor/str0m-rust-crypto" }
+# tfx-rtc's SCTP fix (no FORWARD-TSN per SACK on the unreliable channel): ../docs/ws-rtc-perf.md
+sctp-proto = { path = "../tfx-rtc/vendor/sctp-proto" }
+# ggrs-ffi's socket: tfx-rtc's Mesh behind matchbox_socket's API (TFEX-DIFF, as the browser's matchbox-browser)
+matchbox_socket = { path = "../ggrs-ffi-switch/matchbox-switch" }
+
+# ggrs-ffi's GGRS fork = the one this crate uses (the browser's vendored, patched copy)
+[patch."https://github.com/Fcornaire/ggrs"]
+ggrs = { path = "../../../Towerfall Browser/vendor/netplay-src/ggrs" }

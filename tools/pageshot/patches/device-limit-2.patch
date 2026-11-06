@@ -1,0 +1,13 @@
+diff --git a/src/network/TF.EX.Domain/Models/Constants.cs b/src/network/TF.EX.Domain/Models/Constants.cs
+index 596a8a6..fd8f8ca 100644
+--- a/src/network/TF.EX.Domain/Models/Constants.cs
++++ b/src/network/TF.EX.Domain/Models/Constants.cs
+@@ -22,7 +22,7 @@ namespace TF.EX.Domain.Models
+ 
+         public const int WIDE_MAX_PLAYERS = 8;
+ 
+-        public const int MAX_DEVICES = 4;
++        public const int MAX_DEVICES = 2;
+ 
+         public static int LobbyMaxPlayers => ServiceCollections.ResolveWiderSetModApi()?.IsWide == true ? Math.Min(WIDE_MAX_PLAYERS, TFGame.Players.Length) : MAX_PLAYERS;
+ 

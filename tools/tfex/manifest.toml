@@ -1,0 +1,90 @@
+# Where our port implements each TF.EX member (TFEX-BASE.md section 7, layer 3). Read by tools/tfex/update.py.
+#   key  = "<file under vendor/tfex/src> <Type>.<Member>" (Member without "(...)" = all overloads; "Type.*" = the type; "<file> *" = the file;
+#          the file part is an fnmatch glob). A manifest entry wins over an override for the same member.
+#   at   = our file (relative to hw-probe/exlaunch/source/program) and function(s); "a.cpp F; b.cpp G" for several places
+#   conf = high (cites TF.EX / same logic) | medium (same job, other structure) | low (guess)
+#   note = "partial: <missing>" / "R S-xxx" (reimplemented on purpose, TFEX-BASE.md section 3 key)
+#   hash = the upstream body hash the port matches (tools/tfex/manifest.py fill <tag> after porting <tag>); update.sh flags the
+#          entry stale when the new tag's hash differs.
+# First filled 2026-10-16 from the code at master 4142e4b, by reading it against TF.EX v0.19.2 (three passes: ui, svc, state).
+[port]
+
+# ---- ui: TF.EX.Patchs and CustomComponent -> tfex/MainMenuPatch.cpp, tfex/NetplayScreens.cpp, xplay.cpp ----
+
+# ---- svc: TF.EX.Domain (not CustomComponent), TF.EX.Core, TF.EX.Common, TF.EX.API -> tfex/MatchmakingService, Models, NetplayManager, xplay.cpp ----
+"network/TF.EX.Domain/Services/MatchmakingService.cs WSAction.<type>" = { at = "tfex/MatchmakingService.cpp enum Req", conf = "high", note = "", hash = "ce5befff7ffe" }
+# TODO(several local players per device, docs/research-couch-online.md section 5): LocalSeat/SetLocalSeat become a seat mask; the
+# translator already asks svc::IsLocalSeat(seat) for "seat == the local seat".
+"network/TF.EX.Domain/Ports/IMatchmakingService.cs *" = { at = "tfex/MatchmakingService.hpp MatchmakingService", conf = "medium", note = "S-native: no interface, concrete class", hash = "7fbb53c91012" }
+"network/TF.EX.Domain/Ports/INetplayManager.cs *" = { at = "xplay.cpp StartLobbyMatch, EndLobbyMatch, NetplayGate", conf = "low", note = "R S-start", hash = "9b4af384e42b" }
+"network/TF.EX.Domain/Ports/IArcherService.cs *" = { at = "tfex/NetplayManager.cpp ResolveArchers", conf = "low", note = "", hash = "338cda5ed015" }
+"network/TF.EX.Domain/Ports/TF/IInputService.cs *" = { at = "xplay.cpp InputStoreHook", conf = "low", note = "R S-input", hash = "9f4510fc5939" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.RoomId" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "3edb40d1d271" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.MaxPlayers" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "3a145da0cfea" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.Spectators" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "e45474819219" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.EndGameChoice" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "5ac97a6167b8" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.Mods" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "a88e6edb3b3f" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.InGame" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "1a6f0f7f0f96" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.JoinCode" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "972206ea2d20" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.MissingVariants" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "7895feb6cd03" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.CanJoin" = { at = "tfex/MainMenuPatch.cpp WhyNotJoinable", conf = "medium", note = "partial: plus Switch v1 limits", hash = "d2a9946402f5" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.CanNotJoinReason" = { at = "tfex/MainMenuPatch.cpp WhyNotJoinable", conf = "medium", note = "", hash = "86ceb3ba39d1" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs LobbyKind.<type>" = { at = "tfex/Models.hpp Lobby.Kind (strings)", conf = "medium", note = "", hash = "624251d45c48" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs EndGameVote.*" = { at = "tfex/Models.hpp EndGameChoice", conf = "high", note = "", hash = "1a7b6a2a76d3" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs GameData.*" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (GameData)", conf = "high", note = "", hash = "9d2889e3a497" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Player.*" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Player)", conf = "high", note = "", hash = "975a4ee78e28" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs CustomMod.<type>" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (CustomMod)", conf = "high", note = "", hash = "c07738644bfa" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs CustomMod.Name" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (CustomMod)", conf = "high", note = "", hash = "9c48170aa8e2" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs CustomMod.Data" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (CustomMod)", conf = "high", note = "", hash = "12cccb781c7d" }
+"network/TF.EX.Domain/Models/WebSocket/Client/ArcherSelectChoiceMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::ArcherSelectChoice", conf = "high", note = "JSON written/read inline", hash = "f2314a092d0e" }
+"network/TF.EX.Domain/Models/WebSocket/Client/CreateLobbyMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::CreateLobby", conf = "high", note = "JSON written/read inline", hash = "1d56d3f34880" }
+"network/TF.EX.Domain/Models/WebSocket/Client/EnterQuickPlayMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::EnterQuickPlay", conf = "high", note = "JSON written/read inline", hash = "f575f8a51807" }
+"network/TF.EX.Domain/Models/WebSocket/Client/ExitQuickPlayMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::ExitQuickPlay", conf = "high", note = "JSON written/read inline", hash = "083dd8cb28ab" }
+"network/TF.EX.Domain/Models/WebSocket/Client/GetLobbiesMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::GetLobbies", conf = "high", note = "JSON written/read inline", hash = "3d6a3868acbd" }
+"network/TF.EX.Domain/Models/WebSocket/Client/IdentifyMessage.cs *" = { at = "tfex/MatchmakingService.cpp SendIdentity", conf = "high", note = "JSON written/read inline", hash = "0511428bab69" }
+"network/TF.EX.Domain/Models/WebSocket/Client/JoinLobbyMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::JoinLobby", conf = "high", note = "JSON written/read inline", hash = "5d69486547da" }
+"network/TF.EX.Domain/Models/WebSocket/Client/JoinPrivateMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::JoinPrivate", conf = "high", note = "JSON written/read inline", hash = "cebf48209ad0" }
+"network/TF.EX.Domain/Models/WebSocket/Client/LeaveLobbyMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::LeaveLobby", conf = "high", note = "JSON written/read inline", hash = "0e210a66f8b8" }
+"network/TF.EX.Domain/Models/WebSocket/Client/RematchLobbyChoiceMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::RematchChoice", conf = "high", note = "JSON written/read inline", hash = "3273cb109786" }
+"network/TF.EX.Domain/Models/WebSocket/Client/StartLobbyChoiceMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::RequestStart", conf = "high", note = "JSON written/read inline", hash = "2dbdc0fc81a0" }
+"network/TF.EX.Domain/Models/WebSocket/Client/UpdateLobbySettingsMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::UpdateLobbySettings", conf = "high", note = "JSON written/read inline", hash = "02484d7bccce" }
+"network/TF.EX.Domain/Models/WebSocket/Client/UpdatePlayerMessage.cs *" = { at = "tfex/MatchmakingService.cpp SendPlayerMessage", conf = "high", note = "JSON written/read inline", hash = "65b4779c92f4" }
+"network/TF.EX.Domain/Models/WebSocket/KeepAliveMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (KeepAlive echo)", conf = "high", note = "JSON written/read inline", hash = "aedbd87253fc" }
+"network/TF.EX.Domain/Models/WebSocket/Server/ArcherSelectMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (ArcherSelectLobby)", conf = "high", note = "JSON written/read inline", hash = "e5cf59927daa" }
+"network/TF.EX.Domain/Models/WebSocket/Server/CreateLobbyResponseMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (CreateLobbyResponse)", conf = "high", note = "JSON written/read inline", hash = "280737aa12b4" }
+"network/TF.EX.Domain/Models/WebSocket/Server/GetLobbiesResponseMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (GetLobbiesResponse)", conf = "high", note = "JSON written/read inline", hash = "eb46489e7e9f" }
+"network/TF.EX.Domain/Models/WebSocket/Server/JoinLobbyResponseMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (JoinLobbyResponse)", conf = "high", note = "JSON written/read inline", hash = "fe0bcab05f83" }
+"network/TF.EX.Domain/Models/WebSocket/Server/LeaveLobbyResponseMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (LeaveLobbyResponse)", conf = "high", note = "JSON written/read inline", hash = "56438d31bffd" }
+"network/TF.EX.Domain/Models/WebSocket/Server/LobbyUpdateMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (LobbyUpdate)", conf = "high", note = "JSON written/read inline", hash = "653e885f6650" }
+"network/TF.EX.Domain/Models/WebSocket/Server/PrivateJoinResultMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (PrivateJoinResult)", conf = "high", note = "JSON written/read inline", hash = "41f5d8fd06dc" }
+"network/TF.EX.Domain/Models/WebSocket/Server/QuickPlayMatchFoundMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (QuickPlayMatchFound)", conf = "high", note = "JSON written/read inline", hash = "47fb5dabb9df" }
+"network/TF.EX.Domain/Models/WebSocket/Server/QuickPlayStatusMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (QuickPlayStatus)", conf = "high", note = "JSON written/read inline", hash = "da46d82b9234" }
+"network/TF.EX.Domain/Models/WebSocket/Server/RematchLobbyMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (RematchLobby)", conf = "high", note = "JSON written/read inline", hash = "9eb2aaa51333" }
+"network/TF.EX.Domain/Models/WebSocket/Client/MatchEndedMessage.cs *" = { at = "tfex/MatchmakingService.cpp MatchmakingService::NotifyMatchEnded", conf = "high", note = "partial: frame 0, checksum null", hash = "377c8d7fafd7" }
+"network/TF.EX.Domain/Models/EventsImpl.cs Event.<type>" = { at = "../../../../ggrs-switch/src/lib.rs TfxEvent (kind 1..7)", conf = "high", note = "", hash = "15208ed2421a" }
+"network/TF.EX.Domain/Models/NetplayRequestsImpl.cs NetplayRequest.<type>" = { at = "../../../../ggrs-switch/src/lib.rs TfxRequest (kind 1 save, 2 load, 3 advance)", conf = "high", note = "", hash = "dfc6a5461064" }
+"network/TF.EX.Domain/Models/Constants.cs Constants.CONNECTION_TIMEOUT_MS" = { at = "xplay.cpp NpStart (15000)", conf = "high", note = "", hash = "24932f5cbab4" }
+"network/TF.EX.Domain/Models/NetplayPreferences.cs NetplayPreferences.MaxNameLength" = { at = "tfex/MatchmakingService.cpp NetplayPreferences::Load", conf = "high", note = "R S-settings", hash = "aebb6e3a5394" }
+"network/TF.EX.Domain/Models/NetplayMode.cs NetplayMode.<type>" = { at = "xplay.cpp g_npOn, g_lobbyStart", conf = "low", note = "R S-start: lobby (server) and hw.txt test modes only", hash = "577efd971e83" }
+"network/TF.EX.Domain/Models/NetworkStats.cs NetworkStats.ping" = { at = "xplay.cpp TelemetryStats (tfx_ping_ms)", conf = "low", note = "partial: telemetry only", hash = "22b3cb110a50" }
+
+# ---- state: TF.State.Patchs, level generation, RNG -> rnd.cpp, xplay.cpp, pcgameplay.cpp, dm.cpp, tfex/gen State_* ----
+"state/TF.State.Patchs/LocalSettingsGuard.cs *" = { at = "rnd.cpp UnlockGuard", conf = "high", note = "IsExSession = rnd::Capture(); NoDarkWorldOverride not needed (Switch DarkWorldDLC is always true)", hash = "78f271a706d7" }
+# --- arrows, corpses, hats ---
+# --- level entities ---
+# --- treasure ---
+# --- orb logic ---
+# --- spawns ---
+# --- sound ---
+# --- TF.State logic outside Patchs (not in the member list; listed so the engine skip globs don't hide them) ---
+"state/TF.State.TowerFallExtensions/Entity/LevelEntity/MiasmaSequenceController.cs *" = { at = "tfex/gen/tfexgen_Auto_MiasmaSequenceController.cpp (generated)", conf = "high", note = "", hash = "502705a20eaf" }
+"state/TF.State.TowerFallExtensions/Entity/LevelEntity/SensorBlock.cs SensorBlockOwnedState.*" = { at = "tfex/gen/tfexgen_Auto_SensorBlockOwnedState.cpp (generated)", conf = "high", note = "", hash = "1baf619cb432" }
+
+# ---- tfex-lockstep (2026-10-16): TF.EX v0.20.0 / v0.20.1 / v0.21.0, docs/ws-tfex-lockstep.md ----
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.RelayedPairs" = { at = "tfex/Models.hpp Lobby; tfex/Models.cpp Read, Write", conf = "high", note = "", hash = "2a380bb77510" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.IsCheckingConnections" = { at = "tfex/Models.hpp Lobby; tfex/Models.cpp Read, Write", conf = "high", note = "", hash = "6dd1eec89719" }
+"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.IsReportEnabled" = { at = "tfex/Models.hpp Lobby; tfex/Models.cpp Read, Write", conf = "high", note = "read only: no MatchReport", hash = "12b023ff664b" }
+"network/TF.EX.Domain/Models/WebSocket/Server/KickedFromLobbyMessage.cs *" = { at = "tfex/MatchmakingService.cpp HandleMessageContents (KickedFromLobby)", conf = "high", note = "", hash = "76b9d5ab7a2e" }
+
+"network/TF.EX.Domain/Models/ConnectionQuality.cs *" = { at = "tfex/MatchmakingService.cpp ConnectionQualities", conf = "high", note = "", hash = "f9c896d962b5" }
+"network/TF.EX.Domain/Models/WebSocket/Client/PeerMeasuredMessage.cs *" = { at = "tfex/MatchmakingService.cpp SendPeerMeasured", conf = "high", note = "", hash = "29e584a0898b" }

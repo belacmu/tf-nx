@@ -1,0 +1,15 @@
+# Stand-in for matchbox_socket 0.12 in the Switch build of ggrs-ffi (TFEX-DIFF: the Switch has no tokio sockets or
+# threads for matchbox's own client): the same API subset as the browser's netplay/matchbox-browser, with WebRTC done by
+# tfx-rtc's Mesh (../../tfx-rtc, the client ggrs-switch's rtc.rs already uses) and the room's WebSocket and UDP socket
+# owned by the module (net.cpp), which moves bytes through the netplay_switch_socket_* C functions. Swapped in with
+# [patch.crates-io] in ggrs-switch/Cargo.toml.
+[package]
+name = "matchbox_socket"
+version = "0.12.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "matchbox_socket API subset for the Switch build of ggrs-ffi, backed by tfx-rtc"
+
+[dependencies]
+uuid = "1"
+tfx-rtc = { path = "../../tfx-rtc" }

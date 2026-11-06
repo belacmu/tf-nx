@@ -1,0 +1,6 @@
+rngcapture 1
+lobbyhost 0
+lobbyui 0
+lobbyscript 0
+npdelay 2
+lobbypred 8

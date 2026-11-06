@@ -1,0 +1,20 @@
+.save-backup/
+__pycache__/
+.save-backup-original/
+target/
+.DS_Store
+hw-probe/exlaunch/rustlib/*.a
+hw-probe/exlaunch/build.log
+hw-probe/tests/refgen/bin/
+hw-probe/tests/refgen/obj/
+.cache/
+.devserve/
+
+# Rust build output (2026-10-18: was committed by mistake, 270 MB)
+tfx-rtc/target*/
+.pvp-out/
+plugins/*/plugin.elf
+
+# tools/release.sh output
+dist/
+hw-probe/exlaunch/deploy-core/

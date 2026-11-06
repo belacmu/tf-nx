@@ -1,0 +1,229 @@
+# TFEX-BASE.md section 6 (the hand reading of v0.19.2 -> v0.21.0) as expected labels, so update.py can check its rules.
+# match = "<file glob> <member glob>" as in manifest.toml; class = the label the member must carry (it may carry others).
+# Class E items are checked among the syntax-only changes.
+
+# ---- A: lockstep ----
+[[item]]
+class = "A"
+what = "random tower: the four unlockable towers count as unlocked while the map buttons are built"
+match = "network/TF.EX.Patchs/Scene/MapScene.cs MapScenePatch.InitVersusButtons_*"
+[[item]]
+class = "A"
+what = "random tower: MapScene.NoRandom cleared on netplay entry"
+match = "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.ResolveNetplayEntry"
+[[item]]
+class = "A"
+what = "random tower: MapScene.NoRandom cleared on NetplayManager reset"
+match = "network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.Reset"
+[[item]]
+class = "A"
+what = "level list sorted by folder then file name"
+match = "state/TF.State.Domain/Extensions/VersusLevelSystemExtensions.cs VersusLevelSystemExtensions.*"
+[[item]]
+class = "A"
+what = "unlock events off in a netplay session (UnlockData getters)"
+match = "state/TF.State.Patchs/UnlockData.cs *"
+[[item]]
+class = "A"
+what = "player sprites refreshed once at the end of Level.Update (Player.cs)"
+match = "network/TF.EX.Patchs/Entity/LevelEntity/Player.cs PlayerPatch.*"
+[[item]]
+class = "A"
+what = "player sprites refreshed once at the end of Level.Update (Level.cs)"
+match = "network/TF.EX.Patchs/Scene/Level.cs LevelPatch.Level_Update__Postfix"
+[[item]]
+class = "A"
+what = "session players = Lobby.MatchPlayers (the property)"
+match = "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.SessionPlayers"
+[[item]]
+class = "A"
+what = "SessionPlayers use: ResolveArchers"
+match = "network/TF.EX.Domain/Extensions/ArcherData.cs ArcherDataExtensions.ResolveArchers"
+[[item]]
+class = "A"
+what = "SessionPlayers use: MapScene StartSession"
+match = "network/TF.EX.Patchs/Scene/MapScene.cs MapScenePatch.StartSession_*"
+[[item]]
+class = "A"
+what = "SessionPlayers use: TryGetNetplayName"
+match = "network/TF.EX.Patchs/PlayerInput/PlayerInput.cs PlayerInputPatch.TryGetNetplayName"
+[[item]]
+class = "A"
+what = "SessionPlayers use: teams and archers from the lobby"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.[AR]*[sd]FromLobbyIfNeeded"
+[[item]]
+class = "A"
+what = "SessionPlayers use: ApplyTeamsToMatchSettings"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.ApplyTeamsToMatchSettings"
+[[item]]
+class = "A"
+what = "seats normalised over MatchPlayers (HandleLobbyUpdate)"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.HandleLobbyUpdate"
+[[item]]
+class = "A"
+what = "TF.State snapshot fixes (Arrow.CannotHit, Lantern, lastCaught depth): test only"
+match = "state/TF.State.TowerFallExtensions/* *"
+[[item]]
+class = "A"
+what = "TF.State snapshot fix: Lantern home chain (patch)"
+match = "state/TF.State.Patchs/Entity/LevelEntity/Lantern.cs *"
+
+# ---- B: protocol ----
+[[item]]
+class = "B"
+what = "KickedFromLobby (server -> client)"
+match = "network/TF.EX.Domain/Models/WebSocket/Server/KickedFromLobbyMessage.cs *"
+[[item]]
+class = "B"
+what = "KickedFromLobby handled"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.HandleMessageContents"
+[[item]]
+class = "B"
+what = "PeerMeasured (client -> server)"
+match = "network/TF.EX.Domain/Models/WebSocket/Client/PeerMeasuredMessage.cs *"
+[[item]]
+class = "B"
+what = "PeerMeasured sent"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.SendPeerMeasured"
+[[item]]
+class = "B"
+what = "Lobby.RelayedPairs"
+match = "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.RelayedPairs"
+[[item]]
+class = "B"
+what = "Lobby.IsCheckingConnections"
+match = "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.IsCheckingConnections"
+[[item]]
+class = "B"
+what = "Lobby.IsReportEnabled"
+match = "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.IsReportEnabled"
+[[item]]
+class = "B"
+what = "Lobby.MatchPlayers"
+match = "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.MatchPlayers"
+[[item]]
+class = "B"
+what = "endpoint /relay/room/<room>?peer="
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.GetRelayUrl"
+[[item]]
+class = "B"
+what = "endpoint /relay/ping_measurement/<room>"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.StartOrStopPingMeasurementIfNeeded"
+[[item]]
+class = "B"
+what = "ping_measurement_* gain an isRelay flag"
+match = "network/TF.EX.Domain/Externals/GGRSFFI.cs GGRSFFI.ping_measurement_*"
+[[item]]
+class = "B"
+what = "IsAwaitingHostStart waits while the server checks connections"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.IsAwaitingHostStart"
+[[item]]
+class = "B"
+what = "TF.EX's own relay fallback (relay peers into the GGRS config)"
+match = "network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.ApplyRelay"
+
+# ---- C: UI ----
+[[item]]
+class = "C"
+what = "ConnectionIcon (new, pixel art drawn with Draw.Rect)"
+match = "network/TF.EX.Patchs/ConnectionIcon.cs *"
+[[item]]
+class = "C"
+what = "ping overlay fading behind archers/arrows"
+match = "network/TF.EX.Patchs/Layer/GameplayLayer.cs GameplayLayerPatch.*"
+[[item]]
+class = "C"
+what = "CHECKING CONNECTIONS banner (RenderBannerWithDots)"
+match = "network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.Render[BC]*"
+[[item]]
+class = "C"
+what = "MATCH STARTING banner through RenderBannerWithDots"
+match = "network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.RenderQuickPlayStarting"
+[[item]]
+class = "C"
+what = "connection icon beside rollcall pings"
+match = "network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.MainMenu_Render"
+[[item]]
+class = "C"
+what = "notification: kicked"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.HandleKickedFromLobby"
+[[item]]
+class = "C"
+what = "notification: connection updated"
+match = "network/TF.EX.Domain/Services/MatchmakingService.cs MatchmakingService.NotifyConnectionUpdate"
+[[item]]
+class = "C"
+what = "notification: Dark World DLC required"
+match = "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.RequestNetplayEntry"
+[[item]]
+class = "C"
+what = "notification: two connect-failure messages"
+match = "network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.FailedConnectionMessage"
+[[item]]
+class = "C"
+what = "notification: connect-failure message shown"
+match = "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGameUpdate_Patch"
+[[item]]
+class = "C"
+what = "InputDelayAdvisor's relay factor"
+match = "network/TF.EX.Patchs/InputDelayAdvisor.cs *"
+
+# ---- D: not ours ----
+[[item]]
+class = "D"
+what = "MatchReport (crash/desync upload)"
+match = "network/TF.EX.Domain/MatchReport.cs *"
+[[item]]
+class = "D"
+what = "MatchReport hooks: TFGame finalizers"
+match = "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.*Finalizer"
+[[item]]
+class = "D"
+what = "instant replay"
+match = "network/TF.EX.Domain/InstantReplayFootage.cs *"
+[[item]]
+class = "D"
+what = "instant replay viewer"
+match = "state/TF.State.Patchs/Layer/InstantReplayViewer.cs *"
+[[item]]
+class = "D"
+what = "instant replay: Session EndRound while baking"
+match = "network/TF.EX.Patchs/Session.cs *"
+[[item]]
+class = "D"
+what = "ReplayService"
+match = "network/TF.EX.Domain/Services/ReplayService.cs *"
+[[item]]
+class = "D"
+what = "Scenarios"
+match = "network/TF.EX.Domain/Scenarios/* *"
+[[item]]
+class = "D"
+what = "TFCommands"
+match = "network/TF.EX.Core/TFCommands.cs *"
+[[item]]
+class = "D"
+what = "LightPauseMenu"
+match = "network/TF.EX.Domain/CustomComponent/LightPauseMenu.cs *"
+[[item]]
+class = "D"
+what = "ModIO (FortRise path)"
+match = "state/TF.State.Patchs/ModIO.cs *"
+[[item]]
+class = "D"
+what = "Dark World DLC gate (always true on the Switch)"
+match = "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.RequestNetplayEntry"
+
+# ---- E: noise ----
+[[item]]
+class = "E"
+what = "C# 12 syntax: Lobby collections"
+match = "network/TF.EX.Domain/Models/WebSocket/Lobby.cs *"
+[[item]]
+class = "E"
+what = "C# 12 syntax: RollcallLayout constants"
+match = "network/TF.EX.Patchs/Entity/MenuItem/RollcallLayout.cs *"
+[[item]]
+class = "E"
+what = "C# 12 syntax: GGRSConfig"
+match = "network/TF.EX.Domain/Models/GGRSConfig.cs NetplayConfig.*"

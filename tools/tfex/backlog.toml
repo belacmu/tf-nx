@@ -1,0 +1,84 @@
+# The queue for TF.EX code that doesn't run on the Switch yet (tools/tfex/backlog.py, docs/STRATEGY-2026-10-28.md section 2).
+# [assign] "<key>" = <step>: keys as in manifest.toml ("<file glob> <Type>.<Member>"; "<file> *" = the whole file). First match wins.
+# Only members not generated, replaced or hand-ported reach these rules; an assignment wins over a skip in overrides.toml (the step
+# deletes that skip when it ports the member). Members that will never run on the Switch go to overrides.toml [skip] instead.
+# Helpers nothing calls yet (the translator emits only what running code reaches) are queued with the step whose code calls them.
+# First classification 2026-10-28 (the user: debug tools and tests kept, spectators now, replays last).
+
+[steps]
+2 = "automatic desync diffs in test runs (harness; no TF.EX code)"
+3 = "disconnect and leaving a match"
+4 = "spectators"
+5 = "TF.EX's menu screens"
+6 = "TF.State remainder, match stats, input-delay advice"
+7 = "TF.EX's tests as host checks"
+8 = "replays"
+
+[assign]
+# ---- (8) TF.State's debug tools: reflection (GetProperties / GetFields) and DeepEqual, which the Switch's build lacks; a translator
+# feature (a description of each state model) first. Replay verification is their main user (ReplayService.ClassifyStateDiff), so they
+# come with replays (the user, 2026-10-28). TF.EX doesn't use them for online desyncs (only checksums cross the wire): step 2 is
+# the harness's statedump + statediff.py instead. ----
+"state/TF.State.Domain/StateDiff.cs *" = 8
+"state/TF.State.Domain/StateDescriber.cs *" = 8
+"state/TF.State.TowerFallExtensions/EntityDumper.cs *" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.ClassifyStateDiff" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.CompareStates" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.DescribePlayers" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.DescribeState" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.DumpEntities" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.StateMatchesWithFrame" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.GetFrameOf" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.GetCurrentFrame" = 8
+"network/TF.EX.Domain/Scenarios/ScenarioCatalog.cs ScenarioCatalog.LogCoverage" = 8
+
+# ---- 3: a match's end, a peer leaving, the way back to the menu; MatchEnded as the real server checks it ----
+"network/TF.EX.Patchs/Scene/LevelLoaderXML.cs LevelLoaderXMLPatch.LevelLoaderXML_Update" = 3
+"network/TF.EX.Patchs/PlayerInput/PlayerInput.cs PlayerInputPatch.PlayerInput_AssignInputs" = 3
+
+# ---- 4: spectators (240 Hz is in) ----
+"network/TF.EX.Domain/SpectatorInputDisplay.cs *" = 4
+
+# ---- 5: TF.EX's menu screens: profile, leaderboard, ranked, tutorial, changelog, support, netplay options ----
+"network/TF.EX.Domain/CustomComponent/PlayerProfilePanel.cs *" = 5
+"network/TF.EX.Domain/CustomComponent/LeaderboardPanel.cs *" = 5
+"network/TF.EX.Domain/CustomComponent/MenuIcons.cs *" = 5
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.MainMenu_CreateVersusOptions" = 5
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.CreateLeaderboard" = 5
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.OnLeaderboardFailed" = 5
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.OpenPlayerProfile" = 5
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.CreatePlayerProfile" = 5
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.OnPlayerProfileFailed" = 5
+"network/TF.EX.Domain/Utils/Changelog.cs *" = 5
+"network/TF.EX.Domain/Utils/Tutorial.cs *" = 5
+"network/TF.EX.Core/NetplaySettings.cs NetplaySettings.HasSeenTutorial" = 5
+"network/TF.EX.Domain/Services/UrlService.cs *" = 5
+"network/TF.EX.Patchs/Entity/MenuItem/*.cs *" = 5
+
+# ---- 6: the rest of TF.State, match stats, the input-delay advisor; variants ----
+# RestorePerPlayerVariants: TF.EX's ClearNetplayMode restores the per-player variants NormalizeForNetplay (generated, runs) changed; the
+# Switch's ClearNetplayMode (S-start rule, MainMenuPatch.cpp) only clears its netplay flag, so they likely stay normalized after netplay
+"state/TF.State.Patchs/Layer/InstantReplayViewer.cs *" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.*InstantReplay*" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.*Trials*" = 8
+"state/TF.State.Core/Api/TfStateApi.cs TfStateApi.GetGameStateBytesForRecording" = 8
+
+# ---- 8: replays, the instant replay, the input displayer ----
+"replay/* *" = 8
+"utilities/* *" = 8
+"network/TF.EX.Domain/Services/ReplayService.cs *" = 8
+"network/TF.EX.Domain/InstantReplayFootage.cs *" = 8
+"network/TF.EX.Patchs/ReplayRecorder.cs *" = 8
+"network/TF.EX.Patchs/Layer/ReplayViewer.cs *" = 8
+"network/TF.EX.Patchs/Music.cs *" = 8
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_OnExiting" = 8
+"network/TF.EX.Domain/NetplayOptions.cs NetplayOptions.UseInstantReplay" = 8
+"network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.IsReplayMode" = 8
+"network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.SetReplayMode" = 8
+"network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.GetArchersInfo" = 8
+"network/TF.EX.Domain/Extensions/InputCodecExtensions.cs *" = 8
+"network/TF.EX.Domain/Models/InputCodec.cs *" = 8
+"network/TF.EX.Domain/Interop/ReplayApi.cs *" = 8
+"network/TF.EX.Domain/Interop/InputDisplayerApi.cs *" = 8
+"network/TF.EX.Core/Api/TfExApi.cs *" = 8
+"network/TF.EX.Domain/Context/ReplayIntroPacing.cs *" = 8

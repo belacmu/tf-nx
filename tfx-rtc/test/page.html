@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><title>rtc</title><body><pre id=o></pre><script>
+// The peer setup of netplay/tfnet.js (createPeer/offer/accept/onSignal), plus ping/pong.
+const q = new URLSearchParams(location.search);
+const url = `${q.get("room")}?peer=${crypto.randomUUID()}`;
+const log = (s) => { console.log(s); o.textContent += s + "\n"; };
+const R = (window.result = { id: null, peers: {} });
+const ws = new WebSocket(url);
+const signal = (receiver, data) => ws.send(JSON.stringify({ Signal: { receiver, data } }));
+const peers = new Map();
+const createPeer = (uuid) => {
+  const pc = new RTCPeerConnection({ iceServers: [] });
+  const dc = pc.createDataChannel("matchbox_socket_0", { ordered: false, maxRetransmits: 0, negotiated: true, id: 0 });
+  dc.binaryType = "arraybuffer";
+  const peer = { pc, dc, pending: [], remoteSet: false, n: 0 };
+  R.peers[uuid] = { open: false, pongs: 0 };
+  // ?rate=N&size=B: a GGRS-like load instead of pings (N/60 packets of B bytes every frame), received packets counted
+  const rate = +(q.get("rate") || 0), soak = new Uint8Array(+(q.get("size") || 60)).fill(0x5a);
+  R.peers[uuid].got = 0;
+  dc.onopen = () => { R.peers[uuid].open = true; log(`open ${uuid}`); peer.timer = rate
+    ? setInterval(() => { for (let k = 0; k < rate / 60; k++) dc.send(soak); }, 1000 / 60)
+    : setInterval(() => dc.send(new TextEncoder().encode(`ping ${peer.n++}`)), 200); };
+  dc.onmessage = (e) => {
+    if (rate) { R.peers[uuid].got++; return; }
+    const s = new TextDecoder().decode(e.data);
+    if (s.startsWith("ping ")) dc.send(new TextEncoder().encode("pong " + s.slice(5)));
+    else if (s.startsWith("pong ")) R.peers[uuid].pongs++;
+  };
+  pc.onconnectionstatechange = () => log(`${uuid} ${pc.connectionState}`);
+  peers.set(uuid, peer);
+  return peer;
+};
+const addCandidate = async (peer, json) => { let init = null; try { init = JSON.parse(json); } catch { return; } try { await peer.pc.addIceCandidate(init ?? undefined); } catch (e) { log("bad candidate " + e); } };
+const remoteSet = async (peer) => { peer.remoteSet = true; for (const c of peer.pending.splice(0)) await addCandidate(peer, c); };
+const trickle = (uuid, peer) => { peer.pc.onicecandidate = (e) => signal(uuid, { IceCandidate: e.candidate ? JSON.stringify(e.candidate.toJSON()) : "null" }); };
+const gathered = (pc) => pc.iceGatheringState === "complete" ? Promise.resolve() : new Promise((r) => { const t = setTimeout(r, 1000); pc.addEventListener("icegatheringstatechange", () => pc.iceGatheringState === "complete" && (clearTimeout(t), r())); });
+const offer = async (uuid) => { const peer = createPeer(uuid); await peer.pc.setLocalDescription(await peer.pc.createOffer()); await gathered(peer.pc); signal(uuid, { Offer: peer.pc.localDescription.sdp }); trickle(uuid, peer); };
+const accept = async (uuid, sdp) => { const peer = peers.get(uuid) ?? createPeer(uuid); await peer.pc.setRemoteDescription({ type: "offer", sdp }); await remoteSet(peer); await peer.pc.setLocalDescription(await peer.pc.createAnswer()); await gathered(peer.pc); signal(uuid, { Answer: peer.pc.localDescription.sdp }); trickle(uuid, peer); };
+let chain = Promise.resolve();
+ws.onmessage = (e) => { chain = chain.then(async () => {
+  const msg = JSON.parse(e.data);
+  if (msg.IdAssigned) { R.id = msg.IdAssigned; log("id " + R.id); }
+  else if (msg.NewPeer) await offer(msg.NewPeer);
+  else if (msg.PeerLeft) log("left " + msg.PeerLeft);
+  else if (msg.Signal) { const { sender, data } = msg.Signal;
+    if ("Offer" in data) await accept(sender, data.Offer);
+    else if ("Answer" in data) { const p = peers.get(sender); await p.pc.setRemoteDescription({ type: "answer", sdp: data.Answer }); await remoteSet(p); }
+    else if ("IceCandidate" in data) { const p = peers.get(sender) ?? createPeer(sender); if (p.remoteSet) await addCandidate(p, data.IceCandidate); else p.pending.push(data.IceCandidate); } }
+}).catch((err) => log("error " + err)); };
+</script>

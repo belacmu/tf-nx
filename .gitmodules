@@ -1,0 +1,27 @@
+[submodule "vendor/tfex"]
+	path = vendor/tfex
+	url = https://github.com/Fcornaire/TF.EX.git
+[submodule "vendor/fortrise"]
+	path = vendor/fortrise
+	url = https://github.com/FortRise/FortRise.git
+[submodule "vendor/teamplus"]
+	path = vendor/teamplus
+	url = https://github.com/belacmu/tf-teamsplus.git
+[submodule "vendor/soccer"]
+	path = vendor/soccer
+	url = https://github.com/belacmu/tf-mod-fortrise-gamemode-soccer.git
+[submodule "vendor/moveordie"]
+	path = vendor/moveordie
+	url = https://github.com/ebe1kenobi/tf-mod-fortrise-variant-moveordie.git
+[submodule "vendor/loader-ai"]
+	path = vendor/loader-ai
+	url = https://github.com/ebe1kenobi/tf-mod-fortrise-loader-ai.git
+	branch = dev/fortrise5
+[submodule "vendor/ai-jimmy"]
+	path = vendor/ai-jimmy
+	url = https://github.com/ebe1kenobi/tf-mod-fortrise-ai-jimmy.git
+	branch = dev/fortrise5
+[submodule "vendor/ai-nova"]
+	path = vendor/ai-nova
+	url = https://github.com/ebe1kenobi/tf-mod-fortrise-ai-nova.git
+	branch = main

@@ -1,0 +1,43 @@
+[hw] hardware probe injected (built Oct 15 2026 07:02:14)
+[xplay] FPCR=0 (FZ=0 DN=0 RMode=0)
+[xplay] mathtest sin 07301656689ca354 cos 5ca7e6ef1f70778b atan2 c85d1691abc73032 pow d3d1af53b719d844 musl-pow 2ca2e37827dfbaea
+[xplay] fixes: pow -> musl, Math.Round -> ties to even
+[xplay] fixes: fixed timestep
+[rnd] whitelist hooks installed (15 of the required methods; arrow bounce, hats, chains, orbs, spikeballs, lava control and team spawns still to do)
+[rnd] System.Random replaced by .NET's seeded algorithm (1024 state slots)
+[rnd] self-test (seed 42 through the game's own function addresses): Next 1434747710 302596119, Next(100) 12, Next(5,10) 7, Sample 0.168434: matches .NET
+[rnd] self-test (gameplay stream, seed 1234): Next 97886956, Next(100) 84, Next(5,10) 8, Sample 0.870269; another object still .NET: 1434747710: OK
+[rnd] self-test (depth and ignore counters): OK
+[dm] Math.Sin/Cos/Atan2/Pow redirected to TF.EX's DeterministicMath
+[dm] self-test through the game's Math wrappers, 200,000 inputs: sin ce7dcc6f8e1d2c87 cos 9c9e3438fa8667ca atan2 eaace4c67e471e6b pow c046da3aeaff708d: matches TF.EX's DeterministicMath on .NET (688 ms)
+ws: network init: nifm 0 available 1, socket 0
+ws: no address for <your-server>
+[tele] report 'boot' not delivered
+network probe: SD mounted
+conn: FAIL (no address for <your-server>)
+np: connect failed
+network probe: done
+ws: no address for <your-server>
+[tele] report 'periodic' not delivered
+ws: no address for <your-server>
+[tele] report 'periodic' not delivered
+ws: no address for <your-server>
+[tele] report 'periodic' not delivered
+[menu] FightButton at (100, 140) from (-160, 120) text 0x3f4d59d580 players 0x3f4d4d12f0: b8 2f db 3a 06 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 56 00 45 00 52 00 53 00 55 00 53 00 00 00 00 00 00 00 00 00
+[menu] CoOpButton at (220, 140) from (480, 120) text 0x3f4d5002a0 players 0x3f4d4d0f00: b8 2f db 3a 06 00 00 00 00 00 00 00 00 00 00 00 05 00 00 00 43 00 4f 00 2d 00 4f 00 50 00 00 00 00 00 00 00 00 00 00 00
+[menu] ArchivesButton at (270, 210) from (270, 300) text 0x3f4d4d29a0 players 0x3f4d437160: b8 2f db 3a 06 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 41 00 52 00 43 00 48 00 49 00 56 00 45 00 53 00 00 00 00 00
+[menu] TrialsButton at (200, 210) from (200, 300) text 0x3f4d59bff0 players 0x3f4d437160: b8 2f db 3a 06 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 54 00 52 00 49 00 41 00 4c 00 53 00 00 00 00 00 00 00 00 00
+[menu] FightButton 0x3f4d6a8d00: +0x88->btn1
+[menu]   63af0d110 0 42c8000000010101 430c0000 0 3fda9fab40 3fda9fae00 0 | 0 3fdaa122d0 ffffffff00000000 fffffff6 0 0 0 3fd8dc2ea0 | 0 3f4d68dd80 0 0 0 0 3fdaa3c180 0 | 3fdaa3c4c0 3f4d59d580 3f4d4d12f0 c320000000000000 42c8000042f00000 430c0000 3fda1bde00 3fda1bdd90 | 63af12aa8 0 1 3fdaa139c0 3f4d6
+[menu] CoOpButton 0x3f4d68dd80: +0x78->btn3 +0x90->btn0
+[menu]   63af04528 0 435c000000010101 430c0000 0 3fda9fa780 3fda9fab20 0 | 0 3fdaa12190 ffffffff00000000 fffffff6 0 0 0 3f4d6a8c00 | 0 0 3f4d6a8d00 0 0 0 3fdaa3c080 0 | 3fda1669c0 3f4d5002a0 3f4d4d0f00 43f0000000000000 435c000042f00000 430c0000 3fda995460 3fdaa120a0 | 3fef9eab3ca3d70a 3fda166980 41
+[menu] ArchivesButton 0x3fdaadedd0: +0x80->btn1 +0x90->btn3
+[menu]   63aefdc60 0 4387000000010101 43520000 0 3fda9fa540 3fda9fa560 0 | 0 3fdaa12050 ffffffff00000000 fffffff6 0 0 0 0 | 3f4d68dd80 0 3f4d6a8c00 0 0 0 3fda1668c0 0 | 3fda166800 3f4d4d29a0 3f4d437160 4387000000000000 4387000043960000 43520000 3fda2c8d20 3fda2c8cb0 | 3fda166680 0 63aeca7d8 0 3fdaa
+[menu] TrialsButton 0x3f4d6a8c00: +0x80->btn1 +0x88->btn2
+[menu]   63af204b8 0 4348000000010101 43520000 0 3fda9fa500 3fda9fa520 0 | 0 3fdaa4ffa0 ffffffff00000000 fffffff6 0 0 0 0 | 3f4d68dd80 3fdaadedd0 3fd8dc2ea0 0 0 0 3fda166480 0 | 3fda166280 3f4d59bff0 3f4d437160 4348000000000000 4348000043960000 43520000 3fda2c8b60 0 | 63af0d110 0 42c8000000010101 4
+[menu] StandardModeButton at (90, 90) from (-160, 120) text 0x3f4d570370 players 0x3f4d437160: b8 2f db 3a 06 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 53 00 54 00 41 00 4e 00 44 00 41 00 52 00 44 00 00 00 00 00
+[menu] WideModeButton at (230, 90) from (530, 120) text 0x3f4d4d15f0 players 0x3f4d437160: b8 2f db 3a 06 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 36 00 2d 00 50 00 4c 00 41 00 59 00 45 00 52 00 00 00 00 00
+ws: no address for <your-server>
+[tele] report 'periodic' not delivered
+ws: no address for <your-server>
+[tele] report 'periodic' not delivered

@@ -1,0 +1,6 @@
+tcp MAC_LAN_IP 9000
+tls <relay-probe-worker> 443 172.67.150.78
+ggrs 600 0
+ggrs 600 2
+ggrs 600 6
+relay <relay-probe-worker> 443 1 120 172.67.150.78

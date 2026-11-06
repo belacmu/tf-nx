@@ -1,0 +1,52 @@
+{
+ "id": 11,
+ "at": 1792042345563,
+ "report": {
+  "kind": "switch",
+  "v": 1,
+  "session": "1f9e50d6-a5dd-4440-9565-f419ceb901d6",
+  "seq": 1,
+  "event": "periodic",
+  "uptimeMs": 52380,
+  "build": "Oct 15 2026 07:25:44",
+  "name": "SWITCH",
+  "server": "wss://<your-server>",
+  "stats": {
+   "vsOn": false,
+   "lvTick": 0,
+   "npOn": 0,
+   "npFrame": 0,
+   "stateFrame": -1,
+   "updMsP50x100": 0,
+   "updMsP90x100": 0,
+   "updMsMaxx100": 0,
+   "frameMsP50x100": 0,
+   "frameMsP90x100": 0,
+   "frameMsP99x100": 0,
+   "worstUpdMs": 0,
+   "npSent": 0,
+   "npRecvd": 128,
+   "npDropped": 20,
+   "npState": 2,
+   "npEvents": [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "rbLoads": 0,
+   "rbMaxDepth": 0,
+   "rbResimTicks": 0,
+   "rbLowered": 0,
+   "rbExtraFrames": 0,
+   "gcSafePoints": 0,
+   "heapKB": 62820,
+   "logLinesLost": 0
+  },
+  "log": "network probe: SD mounted\nws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address\nconn: name resolution failed; using 172.67.150.78\nconn: joined room xnet-hw1 as 94cb20f8-6d0c-40fd-8fc1-b6891afdd935\nnp: relay connected\nnp: sent 0 received 50 dropped 0\nnp: sent 0 received 100 dropped 0\n[menu] FightButton at (100, 140) from (-160, 120) text 0x58faf9d580 players 0x58faed12f0: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 56 00 45 00 52 00 53 00 55 00 53 00 00 00 00 00 00 00 00 00 \n[menu] CoOpButton at (220, 140) from (480, 120) text 0x58faf002a0 players 0x58faed0f00: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 05 00 00 00 43 00 4f 00 2d 00 4f 00 50 00 00 00 00 00 00 00 00 00 00 00 \n[menu] ArchivesButton at (270, 210) from (270, 300) text 0x58faed29a0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 41 00 52 00 43 00 48 00 49 00 56 00 45 00 53 00 00 00 00 00 \n[menu] TrialsButton at (200, 210) from (200, 300) text 0x58faf9bff0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 54 00 52 00 49 00 41 00 4c 00 53 00 00 00 00 00 00 00 00 00 \n[menu] FightButton 0x58fb0a8d00: +0x88->btn1\n[menu]   5b4bd0d110 0 42c8000000010101 430c0000 0 598680ee20 598680ee40 0 | 0 5987bd1d70 ffffffff00000000 fffffff6 0 0 0 597f6e1ea0 | 0 58fb08dd80 0 0 0 0 5987d95b00 0 | 5987d95fc0 58faf9d580 58faed12f0 c320000000000000 42c8000042f00000 430c0000 5987ccb460 5987ccb1c0 | 5b4bd12aa8 0 1 5988419f60 58f\n[menu] CoOpButton 0x58fb08dd80: +0x78->btn3 +0x90->btn0\n[menu]   5b4bd04528 0 435c000000010101 430c0000 0 598680ede0 598680ee00 0 | 0 5987bd1c80 ffffffff00000000 fffffff6 0 0 0 58fb0a8c00 | 0 0 58fb0a8d00 0 0 0 5987d95a00 0 | 5987d95900 58faf002a0 58faed0f00 43f0000000000000 435c000042f00000 430c0000 5988352460 5987bd1b90 | 40648ff43ca3d70a 5987d95800 4\n[menu] ArchivesButton 0x59884dedd0: +0x80->btn1 +0x90->btn3\n[menu]   5b4bcfdc60 0 4387000000010101 43520000 0 598680ed40 598680ed60 0 | 0 5987bd1b40 ffffffff00000000 fffffff6 0 0 0 0 | 58fb08dd80 0 58fb0a8c00 0 0 0 5987d95700 0 | 5987d95600 58faed29a0 58fae37160 4387000000000000 4387000043960000 43520000 5987b875b0 5987b87540 | 5987d955c0 0 5b4bcca7d8 0 598\n[menu] TrialsButton 0x58fb0a8c00: +0x80->btn1 +0x88->btn2\n[menu]   5b4bd204b8 0 4348000000010101 43520000 0 598680ed00 598680ed20 0 | 0 5987bd1aa0 ffffffff00000000 fffffff6 0 0 0 0 | 58fb08dd80 59884dedd0 597f6e1ea0 0 0 0 5987d95540 0 | 5987d954c0 58faf9bff0 58fae37160 4348000000000000 4348000043960000 43520000 5987b871c0 0 | 5b4bd0d110 0 42c8000000010101\n[menu] StandardModeButton at (90, 90) from (-160, 120) text 0x58faf70370 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 53 00 54 00 41 00 4e 00 44 00 41 00 52 00 44 00 00 00 00 00 \n[menu] WideModeButton at (230, 90) from (530, 120) text 0x58faed15f0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 36 00 2d 00 50 00 4c 00 41 00 59 00 45 00 52 00 00 00 00 00 \n"
+ }
+}

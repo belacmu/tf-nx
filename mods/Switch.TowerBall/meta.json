@@ -1,0 +1,8 @@
+{
+  "name": "Switch.TowerBall",
+  "version": "1.0.0",
+  "displayName": "TowerBall",
+  "author": "crab (the Switch port of TowerBall 3.1's rules)",
+  "description": "TowerBall on the Switch: carry the ball into the other team's basket. Local play. TF.NX's native port (megamod/towerball*.hpp); its art and levels from the TowerBall mod.",
+  "dependencies": [{ "name": "FortRise", "version": "5.5.0-beta.4" }]
+}

@@ -1,0 +1,22 @@
+# AINova (ebe1.kenobi's FortRise mod, main (03a3847)), a TF.NX catalog mod: mods/README.md says what each key means. a bot that simulates the archer's physics, through LoaderAI's API.
+# Translated with no rule of its own: translate.toml [code_mods] "ainova/" (auto: its Mod subclass and patch classes read from its source).
+meta = "meta.json"                         # its release's meta.json (vendor/ai-nova/ModFile/meta.json at the vendored commit)
+logic = "translated"
+vendored = "../../vendor/ai-nova/VSCode"
+needs = []
+boot = "tfex::gen::codemods::Boot_AINova"  # generated (CodeGen.CodeModBoots)
+
+[folder]
+build = "./build_folder.sh"                # its ModFile folder from the vendored source (meta.json only)
+extras = false
+
+[overview]
+source = "vendor/ai-nova: ebe1kenobi/tf-mod-fortrise-ai-nova, main (03a3847)"
+download = "the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)"
+permission = "not asked yet (no licence): not in TF.NX's release"
+works = "local: AI archers (LoaderAI + AINova together; on the console a button on archer select adds one); online: not checked"
+
+
+[check]
+with = ["LOCALRUN_EXACTPADS=1 tools/megamod/localrun.sh 2 3 localnarrow 'localai 1'"]   # one AI by the right stick: LoaderAI's first type (AINova registers first)
+expect = ["[mods] AINova constructed", "[aislot] LoaderAI's AI types: 2", "[aislot] an AI joins slot", "[aislot] P3's marker: LoaderAI's AI name", "[mmtest] an AI player moved", "[mmtest] level ran 30 s"]

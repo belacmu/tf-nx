@@ -1,0 +1,12 @@
+diff --git a/src/state/TF.State.Patchs/RoundLogic/RoundLogic.cs b/src/state/TF.State.Patchs/RoundLogic/RoundLogic.cs
+index fb40f56..cf49027 100644
+--- a/src/state/TF.State.Patchs/RoundLogic/RoundLogic.cs
++++ b/src/state/TF.State.Patchs/RoundLogic/RoundLogic.cs
+@@ -161,6 +161,7 @@ namespace TF.State.Patchs.RoundLogic
+                 teamSpawnsB = ApplyOrder(teamSpawnsB, order);
+             }
+ 
++            System.Console.WriteLine($"[pageshot] tower {__instance.Session.MatchSettings.LevelSystem.Theme.Name} width {TowerFall.WrapMath.AddWidth.X}: player spawns [{string.Join(" ", level.GetXMLPositions("PlayerSpawn").ConvertAll(v => $"{v.X},{v.Y}"))}] | blue (team A) gets [{string.Join(" ", teamSpawnsA.ConvertAll(v => $"{v.X},{v.Y}"))}], red (team B) [{string.Join(" ", teamSpawnsB.ConvertAll(v => $"{v.X},{v.Y}"))}]");
+             SpawnTeam(__instance, TowerFall.Allegiance.Blue, teamSpawnsA);
+             SpawnTeam(__instance, TowerFall.Allegiance.Red, teamSpawnsB);
+ 

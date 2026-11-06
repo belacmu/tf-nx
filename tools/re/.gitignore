@@ -1,0 +1,5 @@
+# generated: main.flat from the NSO (nso.py), the index caches, Python bytecode
+main.flat
+*.idx
+__pycache__/
+venv/

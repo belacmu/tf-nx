@@ -1,0 +1,36 @@
+# WiderSet (Teuria.WiderSet), a TF.NX catalog mod: mods/README.md says what each key means.
+meta = "meta.json"                         # the WiderSet version the Switch's stand-in plays as (TF.EX matches lobbies on it)
+logic = "native"                           # TFEX-DIFF S-native: the Switch's stand-in (its wide mode, pcgameplay.cpp's WiderSet tables,
+                                           # src/eightplayer.hpp's 8 seats), not WiderSet's code
+needs = ["Content/WideLevels/Versus/00 - Sacred Ground/00.oel",
+         "Content/WideLevels/Versus/01 - Twilight Spire/00.oel",
+         "Content/WideLevels/Versus/02 - Backfire/00.oel",
+         "Content/WideLevels/Versus/03 - Flight/00.oel",
+         "Content/WideLevels/Versus/04 - Mirage/00.oel",
+         "Content/WideLevels/Versus/05 - Thornwood/00.oel",
+         "Content/WideLevels/Versus/06 - Frostfang Keep/00.oel",
+         "Content/WideLevels/Versus/07 - Kings Court/00.oel",
+         "Content/WideLevels/Versus/08 - Sunken City/00.oel",
+         "Content/WideLevels/Versus/09 - Moonstone/00.oel",
+         "Content/WideLevels/Versus/10 - TowerForge/00.oel",
+         "Content/WideLevels/Versus/11 - Ascension/00.oel",
+         "Content/WideLevels/Versus/12 - The Amaranth/00.oel",
+         "Content/WideLevels/Versus/13 - Dreadwood/00.oel",
+         "Content/WideLevels/Versus/14 - Darkfang/00.oel",
+         "Content/WideLevels/Versus/15 - Cataclysm/00.oel"]   # one level per tower (build_folder.sh checks every one)
+early = "widerset::Early"                  # the 8 seats' arrays, 6 -> 8, at module start: the game makes them before any folder loads
+boot = "widerset::Boot"                    # wide levels from the folder (FortRise mod paths), local play on them, the 2-8 lobby
+
+[folder]
+build = "./build_folder.sh"                # the player's own WiderSet 0.9.0 download (not redistributable)
+extras = false
+
+[overview]
+source = "the Switch's stand-in: mods/Teuria.WiderSet/src, pcgameplay.cpp's WiderSet tables and constants, the game's own wide mode"
+download = "WiderSet 0.9.0 from GameBanana (608884), the zip extracted as sd:/xplay/mods/WiderSet (not redistributable: never hosted)"
+permission = "levels and art: the player's own download; WiderSet's gameplay tables ported into pcgameplay.cpp: Teuria not asked"
+works = "local: the 2-8 lobby on its levels; online: wide lobbies (2-4 players; 5-8 waits for TF.EX PRs A-B)"
+
+[check]
+with = ["tools/megamod/localrun.sh 8 3", "LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet tools/smoke.sh lobby 'lobbywide 1'"]
+expect = ["[pc] WiderSet started", "[8player] the 2-8 lobby offered", "Content/WideLevels/"]

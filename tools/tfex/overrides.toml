@@ -1,0 +1,662 @@
+# The TFEX-BASE.md section 3 ledger as data (section 7, layer 4). Read by tools/tfex/update.py.
+#   [skip]    "<key>" = "<S-key | D | cosmetic | S-tools ...>: reason"   members deliberately not ported: changes are listed, not work
+#   [replace] "<key>" = { key = "S-xxx", at = "<our replacement>", hash = "<upstream hash at the last review>" }
+#             an upstream change to a replaced member is listed under "Overrides to review"
+#   [names]   PC member -> the Switch's (for names that differ on 1.4.1.6)
+# Keys as in manifest.toml. Members simply not ported yet (TFEX-BASE.md section 4) have no entry: they must show up as work.
+
+
+[skip]
+# ---- step 6 (2026-10-29): TF.State's helpers no code the Switch runs calls (the translator makes a member as soon as a unit calls it;
+# checked against vendor/tfex's sources for callers anywhere, comments stripped)
+"state/TF.State.Domain/Context/StateFlags.cs StateFlags.Reset" = "dead upstream: no caller in TF.EX or TF.State"
+"state/TF.State.Domain/Extensions/BytesExtension.cs BytesExtension.*" = "dead upstream: no caller (TF.EX's network/TF.EX.Domain has its own ToModel / ToBool, generated)"
+"state/TF.State.Domain/Extensions/DictionnaryExtensions.cs DictionnaryExtensions.Copy" = "dead upstream: no caller (Player.cs's .Copy is List's, ResultsSaveStats' is Array.Copy)"
+"state/TF.State.Domain/Extensions/ModesExtensions.cs ModesExtensions.ToName" = "dead upstream: no caller"
+"state/TF.State.Domain/Extensions/ModesExtensions.cs ModesExtensions.ToTF" = "dead upstream: no caller (MatchStats / KillStats call their own ToTF)"
+"state/TF.State.Domain/Logging/LoggingExtensions.cs LoggerExtensions.Formatter" = "S-native: the Log* helpers' formatter; those are the Switch's log ([service] LoggerExtensions.Log*)"
+"state/TF.State.Domain/ServiceCollections.cs ServiceCollections.SetLogger" = "S-native: TF.State's module bootstrap's only (TFStateModule, skipped: xplay.cpp drives TF.State); its logger is the [service] rule's"
+"state/TF.State.Domain/ServiceCollections.cs ServiceCollections.Cache" = "S-native: LazyCache's cache, read only by GetCached / AddToCache / PurgeCache..., which are the glue's entity cache (translate.toml [[replace]] -> GlueState)"
+"state/TF.State.TowerFallExtensions/BGElement.cs BGElementExtensions.*" = "dead upstream: the background / foreground elements' state, its calls commented out (Level.cs 756, 1264-1277)"
+"state/TF.State.TowerFallExtensions/Layer/Background.cs BackgroundExtensions.GetBGElements" = "dead upstream: as BGElementExtensions (Level.cs's commented-out background state)"
+"state/TF.State.TowerFallExtensions/Level.cs LevelExtensions.*BackgroundAndForeground*" = "dead upstream: as BGElementExtensions (its call at Level.cs 756 commented out)"
+"state/TF.State.TowerFallExtensions/Level.cs LevelExtensions.Get?GElementByIndex" = "dead upstream: as BGElementExtensions"
+"state/TF.State.TowerFallExtensions/Calc.cs CalcExtensions.OwnMapButtonShuffle" = "dead upstream: no caller"
+"state/TF.State.TowerFallExtensions/Layer/Layer.cs LayerExtensions.IsMenuLayer" = "dead upstream: no caller"
+"state/TF.State.TowerFallExtensions/Scene/MainMenu.cs MainMenuExtensions.GetMainLayer" = "dead upstream: no caller"
+"state/TF.State.TowerFallExtensions/Scene/Scene.cs SceneExtensions.*" = "not called by the code the Switch runs: TF.State's Level code calls its own LevelExtensions helpers (the glue's entity index, S-performance), TF.EX its TowerFallSceneExtensions; GetAllToBeSpawned / DeleteAllByDepth are called and generated"
+"state/TF.State.TowerFallExtensions/TFGame.cs TFGameExtensions.ResetVersusChoices" = "dead upstream: TF.State's copy of TF.EX's TFGameExtensions.ResetVersusChoices (TF.EX calls its own, generated)"
+"state/TF.State.TowerFallExtensions/XGamePadInput.cs XGamePadInputExtensions.GetRightStick" = "dead upstream: TF.State's copy of TF.EX's GetRightStick (TF.EX calls its own, generated)"
+"network/TF.EX.Domain/Models/Vector2f.cs Vector2f.*" = "not called by the code the Switch runs: ToString (logging), IsAfterThreshold and the < / > operators have no caller in TF.EX"
+"network/TF.EX.Domain/Context/ExFlags.cs ExFlags.Reset" = "dead upstream: no caller in TF.EX (its flags are set by NetplayManager and pushed by ExFlags.Push, generated)"
+"network/TF.EX.Domain/Extensions/MatchVariants.cs MatchVariantsExtensions.ContainsCustomVariant" = "dead upstream: TF.EX's only calls (MainMenu.cs 705, 2131) are commented out"
+"state/TF.State.Patchs/Entity/LevelEntity/ChaliceGhost.cs ChaliceGhostPatch.*" = "S-version: TowerFall.ChaliceGhost isn't in the Switch's 1.4.1.6 (no type to patch)"
+"state/TF.State.Patchs/ModIO.cs ModIOPatch.*" = "S-native: FortRise's ModIO.LoadXml isn't on the Switch (content mods load through the Switch's mod registry)"
+# ---- tfex-lockstep (2026-10-16), docs/ws-tfex-lockstep.md ----
+# ---- ui: TF.EX.Patchs and CustomComponent -> tfex/MainMenuPatch.cpp, tfex/NetplayScreens.cpp, xplay.cpp ----
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.MainMenu_ctor" = "S-tools: enables Monocle's debug console (PC keyboard); our tooling is hw.txt"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.ResolveRequiredUpdate" = "S-update: auto-updater flow (a server-required version: the Switch's build)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.RequestRequiredUpdate" = "S-update: auto-updater flow (as ResolveRequiredUpdate)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch._restartWhenReady" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch._updateFailed" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch._updaterDialog" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.HandleAutoUpdate" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.StartUpdate" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_Update_Finalizer" = "S-native: a Harmony finalizer (a .NET exception out of TFGame.Update -> MatchReport.OnCrash); the Switch's build has no finalizer hooks, a fault there is a native crash, reported by devupdate.cpp's crash-report upload"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_Draw_Finalizer" = "S-native: as TFGame_Update_Finalizer, for TFGame.Draw"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.ArtificialSlow" = "S-tools: PC debug keys (hurtboxes, frame by frame, artificial slow, console)"
+# ---- tfex-update (2026-10-17): PC-only input and Harmony run-time reflection, not applicable on the Switch (the coverage report
+# lists [skip] apart from the applicable methods) ----
+"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.Pressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
+"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.PadPressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
+"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.PadButtonPressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
+"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.KeyboardPressed" = "S-input: the PC keyboard (KeyboardConfig); the Switch's menu input is the game's own"
+"network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.GameMousePosition" = "S-input: PC mouse position (Game.Window, Screen.Scale); no mouse on the Switch"
+"network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.UpdateMouse" = "S-input: hovering the advisor's track with the PC mouse; no mouse on the Switch"
+"network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.WideOffset" = "S-input: UpdateMouse's only (the mouse position against the track)"
+"network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.TrackContains" = "S-input: UpdateMouse's only (is the mouse over the track)"
+"network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.DelayAt" = "S-input: UpdateMouse's only (the delay under the mouse)"
+"network/TF.EX.Domain/CustomComponent/LightPauseMenu.cs LightPauseMenu.KeyboardPressed" = "S-input: the PC keyboard (KeyboardInput); no keyboard players on the Switch"
+"network/TF.EX.Patchs/VariantButton.cs VariantButton*Patch.TargetMethods" = "S-hooks: Harmony's TargetMethods (the methods to patch, found by reflection at run time); the Switch's hooks are exlaunch's, at fixed offsets"
+"network/TF.EX.Core/NetplaySettings.cs NetplaySettings.MigrateLegacyConfig" = "S-native: moves a PC TF.EX config of older versions into the settings; the Switch never had one"
+"network/TF.EX.Patchs/VariantButton.cs SeriesVariantLock.GetMethod" = "S-hooks: finds methods by Harmony reflection (AccessTools) to patch at run time; the Switch's hooks are exlaunch's, at fixed offsets"
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_OnExiting" = "D: replay export on exit (server mode)"
+"network/TF.EX.Patchs/Music.cs *" = "D: instant replay holds the music (InstantReplayFootage.HoldMusic)"
+"network/TF.EX.Patchs/ReplayRecorder.cs *" = "D: instant replay / kill-cam; Level.ReplayRecorder is nulled by TF.EX's own LevelPatch.Level_ctor (generated hook)"
+"network/TF.EX.Patchs/Layer/ReplayViewer.cs *" = "D: kill-cam viewer; never runs since the recorder is nulled"
+"network/TF.EX.Patchs/PlayerInput/KeyboardInput.cs *" = "S-input: no PC keyboard input on the Switch"
+"network/TF.EX.Domain/CustomComponent/UpdaterDialog.cs *" = "S-update: no auto-updater"
+# ---- svc: TF.EX.Domain (not CustomComponent), TF.EX.Core, TF.EX.Common, TF.EX.API -> tfex/MatchmakingService, Models, NetplayManager, xplay.cpp ----
+"network/TF.EX.Domain/Services/ArcherService.cs ArcherService..ctor" = "S-native: DI constructor (the unit is hosted: functions)"
+"network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.IsReplayMode" = "D: replay (TF.Replay)"
+"network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.SetReplayMode" = "D: replay (TF.Replay)"
+"network/TF.EX.Domain/Services/TF/InputService.cs InputService..ctor" = "S-native: DI constructor"
+"network/TF.EX.Domain/Services/ReplayService.cs *" = "D: replay recording/playback (recorder nulled)"
+"network/TF.EX.Domain/Ports/IReplayService.cs *" = "D: replay"
+"network/TF.EX.Domain/Ports/ISyncTestUtilsService.cs *" = "S-tools: sync test"
+"network/TF.EX.Domain/Models/Constants.cs Constants.DRIVER_NAME" = "S-native: TF.State frame-driver name (no TF.State API)"
+"network/TF.EX.Domain/Models/PlayerDraw.cs PlayerDraw.<type>" = "S-tools: local-mode test config"
+"network/TF.EX.Domain/Models/InputCodec.cs InputCodec.*" = "D: TF.Replay's flat input layout"
+"network/TF.EX.Domain/Extensions/InputCodecExtensions.cs *" = "D: TF.Replay's flat input layout"
+"network/TF.EX.Domain/Context/ReplayIntroPacing.cs *" = "D: replay"
+"network/TF.EX.Domain/InstantReplayFootage.cs *" = "D: instant replay (recorder nulled)"
+"network/TF.EX.Domain/NetplayOptions.cs *" = "D: forces the replay options for netplay (replays are off)"
+"network/TF.EX.Domain/Utils/GameFilesIntegrity.cs *" = "S-native: hashes the PC game files; HaveModifiedGameFiles is always false"
+"network/TF.EX.Domain/Utils/GameFilesManifest.cs *" = "S-native: PC game file manifest"
+"network/TF.EX.Domain/Utils/AttributeManager.cs *" = "S-native: generic C# helper"
+"network/TF.EX.Domain/Interop/ITfReplayApi.cs *" = "D: TF.Replay interop"
+"network/TF.EX.Core/Api/TfExApi.cs *" = "D: replay skin seats"
+"network/TF.EX.Common/AutoUpdater.cs *" = "S-update: no auto-updater"
+"network/TF.EX.Common/SerializationOptions.cs *" = "S-rollback: MessagePack state serialization"
+"network/TF.EX.Common/Extensions/EnumerableExtensions.cs *" = "S-native: generic C# helper"
+"network/TF.EX.Common/Extensions/LoggingExtensions.cs *" = "S-native: ILogger helpers (netws::Log)"
+# ---- state: TF.State.Patchs, level generation, RNG -> rnd.cpp, xplay.cpp, pcgameplay.cpp, dm.cpp, miasma_seq.hpp ----
+# --- cosmetic (CosmeticFreeze only while TF.EX re-simulates, or drawing only) ---
+# (2026-10-26: the S-rollback skips of TF.State's own code are gone: TF.State is the Switch's rollback since 2c843ea, so its
+#  untranslated members are gaps the update report lists, not ignored differences)
+# --- tooling / not ours / 60 Hz ---
+"state/TF.State.Patchs/Scene/OptionsScroll.cs *" = "D: FortRise options-menu scroll fix (not ours)"
+"state/TF.State.Patchs/Layer/InstantReplayViewer.cs *" = "D: instant replay viewer (TF.Replay not ported, recorder nulled)"
+# --- the TF.State engine: replaced by the memory rollback ---
+"state/TF.State.Domain/Context/InstantReplay.cs *" = "D: instant replay (TF.Replay not ported)"
+
+[replace]
+# ---- intentional replacements that were listed as hand ports (manifest.toml [port]), moved here 2026-10-29: our code does these on
+# purpose for the Switch (key + why); a hand port in [port] is one meant to be generated later ----
+"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_Update_orig" = { key = "S-native", at = "xplay.cpp FrameHook, NetplayGate", why = "a Harmony reverse patch (the original TFGame.Update): the generated hook's Orig, called by TF.EX's TFGameUpdate_Patch", hash = "8adab0938652" }
+"network/TF.EX.Patchs/Scene/Level.cs LevelPatch.StaticSetter<T>(string)" = { key = "S-native", at = "tfex/gen/tfexgen_LevelPatch.cpp (translator SetterInvoke)", why = "Harmony reflection (AccessTools.PropertySetter + CreateDelegate): excluded; its three delegate fields' invokes are generated as Engine.set_TimeMult / set_DeltaTime / set_DeltaTicks calls", hash = "b757631468f7" }
+"network/TF.EX.Domain/Models/Input.cs Input.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs Input; xplay.cpp TfxInput", why = "generated (st::Input / EX_Vector2f); the Switch's GGRS (ggrs-switch/src/lib.rs) keeps the same layout for the wire: a change here needs the same change there", hash = "5228fa2616ee" }
+"network/TF.EX.Domain/Models/Input.cs InputExtensions.ToInt" = { key = "S-transport", at = "xplay.cpp NpPadInput", why = "generated (st::Input / EX_Vector2f); the Switch's GGRS (ggrs-switch/src/lib.rs) keeps the same layout for the wire: a change here needs the same change there", hash = "51439c2e2b6f" }
+"network/TF.EX.Domain/Models/Vector2f.cs Vector2f.<type>" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs Vector2f", why = "generated (st::Input / EX_Vector2f); the Switch's GGRS (ggrs-switch/src/lib.rs) keeps the same layout for the wire: a change here needs the same change there", hash = "bbf5c39812f9" }
+"network/TF.EX.Domain/Models/Vector2f.cs Vector2f.X" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs Vector2f", why = "generated (st::Input / EX_Vector2f); the Switch's GGRS (ggrs-switch/src/lib.rs) keeps the same layout for the wire: a change here needs the same change there", hash = "20189bd5e133" }
+"network/TF.EX.Domain/Models/Vector2f.cs Vector2f.Y" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs Vector2f", why = "generated (st::Input / EX_Vector2f); the Switch's GGRS (ggrs-switch/src/lib.rs) keeps the same layout for the wire: a change here needs the same change there", hash = "85ef7d1626b9" }
+"network/TF.EX.Domain/Extensions/Vector2f.cs *" = { key = "S-transport", at = "xplay.cpp NpPadInput, NpSeatInputBytes (aim axis)", why = "generated (st::Input / EX_Vector2f); the Switch's GGRS (ggrs-switch/src/lib.rs) keeps the same layout for the wire: a change here needs the same change there", hash = "699e557c24ee" }
+"network/TF.EX.Domain/Context/GameContext.cs *" = { key = "gap", at = "tfexgen_services.cpp the archer copies", why = "translator gap, not a Switch need: TF.EX keeps the lobby's Player objects by value in Dictionary<int, Player>; the translator holds a lobby model only as a pointer into its message, so the archer selections are runtime copies (tfexgen_services.cpp). To close: models kept by value in a value map (as gen::KeepModel does for fields)", hash = "e00d6103d17a" }
+"state/TF.State.Patchs/DeterministicMathPatch.cs DeterministicMathPatch.*" = { key = "S-native", at = "dm.cpp Install", why = "TFEX-DIFF: no IL transpilers on the Switch): every caller of Math.Sin/Cos/Atan2/Pow is redirected to the generated State_DeterministicMath, not a per-method transpiler", hash = "acc720db5004" }
+# ---- ui: TF.EX.Patchs and CustomComponent -> tfex/MainMenuPatch.cpp, tfex/NetplayScreens.cpp, xplay.cpp ----
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.CopyPrivateCodeToClipboard" = { key = "S-keyboard", at = "translate.toml [[replace]] -> glue Rewrites.ShowPrivateCode", hash = "aa2ca9346727" }
+"network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.ReadClipboard" = { key = "S-keyboard", at = "overrides.toml [service] ClipboardService.GetText; tfex/NetplayScreens.cpp KeyboardCode; swkbd.cpp", hash = "d9cefad7f9a4" }
+"network/TF.EX.Patchs/Scene/WiderSetMenu.cs *" = { key = "S-wide", at = "tfex/MainMenuPatch.cpp ModeButtonAction, StandardModeActionHook, WideModeActionHook", hash = "f553a77c65f9" }
+"network/TF.EX.Patchs/Entity/MenuItem/RollCallElement.cs RollCallElementPatch.RollcallElement_StartVersus_Prefix" = { key = "S-start", at = "tfex/MainMenuPatch.cpp Update; tfex/NetplayManager.cpp NetplayManagerStartLobbyMatch; xplay.cpp StartLobbyMatch", hash = "736ee7d1c770" }
+"network/TF.EX.Patchs/Entity/MenuItem/RollCallElement.cs RollCallElementPatch.RollcallElement_StartVersus_Postfix" = { key = "S-start", at = "tfex/MainMenuPatch.cpp Update; tfex/NetplayManager.cpp NetplayManagerStartLobbyMatch; xplay.cpp StartLobbyMatch; tfex/MapScenePatch.cpp Enter, FinishTransitionHook (State = Fade, FadeAction = GotoVersusLevelSelect)", hash = "bfee5d52fa91" }
+"network/TF.EX.Domain/CustomComponent/JoinCodeEntry.cs *" = { key = "S-keyboard", at = "swkbd.cpp; tfex/NetplayScreens.cpp CreatePrivateJoinCode, SubmitCode, BladeConfirmHook", hash = "a00111dedac5" }
+# ---- svc: TF.EX.Domain (not CustomComponent), TF.EX.Core, TF.EX.Common, TF.EX.API -> tfex/MatchmakingService, Models, NetplayManager, xplay.cpp ----
+"network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.SetLocalMode" = { key = "S-tools", at = "xplay.cpp LoadHwConfig (hw.txt np/npseat/npdelay)", hash = "ff891157ffdd" }
+"network/TF.EX.Domain/Services/TF/InputService.cs InputService._supportsTestInputs" = { key = "S-tools", at = "xplay.cpp NpLocalInput (vs0/vs1.txt scripts)", hash = "af091368d263" }
+"network/TF.EX.Domain/Services/TF/InputService.cs InputService.PushTestInputs" = { key = "S-tools", at = "xplay.cpp NpLocalInput (vs0/vs1.txt scripts)", hash = "4cb93f311874" }
+"network/TF.EX.Domain/Services/TF/InputService.cs InputService.EnsureFakeControllers" = { key = "S-tools", at = "xplay.cpp NpLocalInput (vs0/vs1.txt scripts)", hash = "d2b2c6e9e1c5" }
+"network/TF.EX.Domain/Services/ClipboardService.cs *" = { key = "S-keyboard", at = "swkbd.cpp; tfex/NetplayScreens.cpp (code shown on screen)", hash = "2964f64336f9" }
+"network/TF.EX.Domain/Services/TokenService.cs *" = { key = "S-identity", at = "tfex/MatchmakingService.cpp SendIdentity", hash = "8f97957d83fd" }
+"network/TF.EX.Domain/Services/SteamIdentity.cs *" = { key = "S-identity", at = "tfex/MatchmakingService.cpp SendIdentity", hash = "31b30ee4c3ab" }
+"network/TF.EX.Domain/Services/UpnpService.cs *" = { key = "S-transport", at = "net.cpp RunRtc (STUN in tfx-rtc)" }
+"network/TF.EX.Domain/Services/SyncTestUtilsService.cs *" = { key = "S-tools", at = "xplay.cpp RbDrill", hash = "7def78d0292d" }
+"network/TF.EX.Domain/Ports/ITokenService.cs *" = { key = "S-identity", at = "tfex/MatchmakingService.cpp SendIdentity", hash = "72ec96c7d25d" }
+"network/TF.EX.Domain/Ports/IUpnpService.cs *" = { key = "S-transport", at = "net.cpp RunRtc", hash = "924d82ba19f3" }
+"network/TF.EX.Domain/Models/Input.cs Inputs.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance (plain C arrays, no FFI handles)", hash = "9fa271b0c5c9" }
+"network/TF.EX.Domain/Models/Input.cs InputsImpl.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance (plain C arrays, no FFI handles)", hash = "5a517ab6e767" }
+"network/TF.EX.Domain/Models/Input.cs InputsHandle.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance (plain C arrays, no FFI handles)", hash = "a55bf20481a5" }
+"network/TF.EX.Domain/Models/Input.cs InputExtensions.ToModel" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance (plain C arrays, no FFI handles)", hash = "be8db8f1b142" }
+"network/TF.EX.Domain/Models/EventsImpl.cs Events.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_next_event", hash = "ba681325d984" }
+"network/TF.EX.Domain/Models/EventsImpl.cs EventsImpl.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_next_event", hash = "0ccf024e14aa" }
+"network/TF.EX.Domain/Models/EventsImpl.cs EventsStructExtension.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_next_event", hash = "49696d736a71" }
+"network/TF.EX.Domain/Models/EventsImpl.cs EventsExtension.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_next_event", hash = "71c494094bf3" }
+"network/TF.EX.Domain/Models/EventsImpl.cs EventsHandle.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_next_event", hash = "b4a382006cca" }
+"network/TF.EX.Domain/Models/NetplayRequestsImpl.cs NetplayRequets.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance_requests", hash = "71a3aa5c3de3" }
+"network/TF.EX.Domain/Models/NetplayRequestsImpl.cs NetplayRequestsImpl.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance_requests", hash = "f368224e4b39" }
+"network/TF.EX.Domain/Models/NetplayRequestsImpl.cs NetplayRequestsHandle.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance_requests", hash = "efc23b147320" }
+"network/TF.EX.Domain/Models/NetplayRequestsImpl.cs NeplayRequestExtension.*" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_advance_requests", hash = "ab863aa02e0d" }
+"network/TF.EX.Domain/Models/StatusImpl.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_last_error", hash = "1e0b89531d5a" }
+"network/TF.EX.Domain/Extensions/StatusExtensions.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs tfx_last_error", hash = "088cec4bb0c2" }
+"network/TF.EX.Domain/Models/GGRSConfig.cs GGRSConfig.Test" = { key = "S-tools", at = "xplay.cpp LoadHwConfig", hash = "1943ce3c0288" }
+"network/TF.EX.Domain/Models/GGRSConfig.cs GGRSConfig.DefaultTest" = { key = "S-tools", at = "xplay.cpp LoadHwConfig", hash = "cfbad25ddd9e" }
+"network/TF.EX.Domain/Models/GGRSConfig.cs GGRSConfig.DefaultLocal" = { key = "S-tools", at = "xplay.cpp LoadHwConfig", hash = "67b5ab1c91e5" }
+"network/TF.EX.Domain/Models/GGRSConfig.cs GGRSConfig.Name" = { key = "S-tools", at = "xplay.cpp LoadHwConfig", hash = "b82d7a35ad02" }
+"network/TF.EX.Domain/Models/GGRSConfig.cs NetplayLocalConfig.*" = { key = "S-tools", at = "xplay.cpp LoadHwConfig", hash = "41d214e85aad" }
+"network/TF.EX.Domain/Models/GGRSConfig.cs TestConfig.*" = { key = "S-tools", at = "xplay.cpp LoadHwConfig", hash = "a995ec2ff776" }
+"network/TF.EX.Domain/Models/Constants.cs Constants.NETPLAY_INPUT_DELAY_TITLE" = { key = "S-settings", at = "tfex/MatchmakingService.cpp NetplayPreferences::Load", hash = "4c36767d837e" }
+"network/TF.EX.Domain/Models/Constants.cs Constants.NETPLAY_USERNAME_TITLE" = { key = "S-settings", at = "tfex/MatchmakingService.cpp NetplayPreferences::Load", hash = "c3d50c7b9c12" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.Get<T>" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "d7d19ccfece6" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.GetAll<T>" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "701d71de5ae7" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.GetAllToBeSpawned<T>" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "e6855d34e670" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.GetToBeSpawned<T>" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "80e643f9fc34" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.RemoveToBeSpawned" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "96fa2d1e919b" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.DeleteAll<T>" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "de836bf100c4" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.GetGameplayLayer" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "ae5e85629027" }
+"network/TF.EX.Domain/Extensions/TowerFallScene.cs TowerFallSceneExtensions.GetHUDLayer" = { key = "S-native", at = "tfex/MainMenuPatch.cpp TypeName, Is, SceneIs (typed offset access)", hash = "7b07bb97a3f2" }
+"network/TF.EX.Domain/Externals/GGRSFFI.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs; ping_measurement_* = net.cpp pm + ggrs-switch/src/ping_measurement.rs (direct only)", hash = "4be4aefd665d" }
+"network/TF.EX.Domain/ActionResult.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (GGRSFFI return type)", hash = "2a7161ae4ccd" }
+"network/TF.EX.Domain/ServiceCollections.cs *" = { key = "S-native", at = "main.cpp; singletons (MatchmakingService::Instance)", hash = "3b7441d6721a" }
+"network/TF.EX.Domain/DebugLayer.cs *" = { key = "S-tools", at = "xplay.cpp LoadHwConfig, LoadVsScripts, RbDrill", hash = "291d5d0d423c" }
+"network/TF.EX.Domain/Utils/Platform.cs *" = { key = "S-identity", at = "tfex/MainMenuPatch.cpp (Player.Platform)", hash = "9215c6ce98bd" }
+"network/TF.EX.Domain/Interop/ITfStateApi.cs *" = { key = "S-rollback", at = "rollback.cpp; rnd.cpp", hash = "f4ecf255cf4d" }
+"network/TF.EX.Core/NetplaySettings.cs NetplaySettings.OnVerify" = { key = "S-settings", at = "tfex/MatchmakingService.cpp NetplayPreferences::Load", hash = "6017e2c4d655" }
+"network/TF.EX.Core/TFCommands.cs *" = { key = "S-tools", at = "xplay.cpp LoadHwConfig (hw.txt)", hash = "3c7f139aaafb" }
+"network/TF.EX.Core/TFEXModModule.cs *" = { key = "S-native", at = "main.cpp", hash = "e04157ebc902" }
+"network/TF.EX.Common/Handle/SafeBytes.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "248def908e1a" }
+"network/TF.EX.Common/Handle/SafeHandle.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "8576385f52d4" }
+"network/TF.EX.Common/Handle/SafeRawBytes.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "9d41ad279bd6" }
+# ---- state: TF.State.Patchs, level generation, RNG -> rnd.cpp, xplay.cpp, pcgameplay.cpp, dm.cpp, miasma_seq.hpp ----
+"state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs *" = { key = "S-mode", at = "pcgameplay.cpp version-gap table (no TeamReviver from corpses)", hash = "1f097f8f3375" }
+
+[names]
+# PC (TowerFall 1.3.3.3 / FNA) -> Switch 1.4.1.6. No such type on the Switch: TF.EX's patches on it are the S-input replace above.
+"TowerFall.XGamepadInput" = "TowerFall.PlayerInput (virtual GetState / Menu* on the Switch's controller input objects; xplay.cpp InputMenuConfirmHook, Player.Update GetState call site)"
+"TowerFall.XGamepadInput.GetState" = "PlayerInput vtable GetState (Player.Update +0xaef280 call site)"
+"TowerFall.XGamepadInput.get_MenuConfirm" = "PlayerInput vtable slot 0x38 MenuConfirm (xplay.cpp InputMenuConfirmHook)"
+"TowerFall.ChaliceGhost" = "(none: no such type on 1.4.1.6)"
+
+
+[service]
+# TF.EX members the translated code calls that the Switch provides differently (tools/tfex/translator: the service map).
+#   cpp = "<C++>"             the Switch's (tfex/runtime/tfexgen_services.hpp over the hand-written services); $0, $1... = the arguments
+#   value = "<C++ literal>"   a fixed result; key = the ledger key (TFEX-BASE.md section 3), D (not ours), or "todo" (missing on the
+#                             Switch: work, listed apart in tfexgen_report.txt)
+#   noop = true               a void call that does nothing on the Switch (same keys)
+# Keys: "<Namespace.Type>.<Member>"; a trailing * matches every member of the type.
+#   parked = "<unit or feature>"   a rule kept for code no translation reaches yet (tools/tfex/translate.sh rules <tag> lists every key
+#                             that doesn't resolve at the tag, and every unused one that isn't parked: delete those)
+# -- DI: a service is a token; the calls on it are mapped by method below
+"TowerFall.OptionsButton.Wiggle" = { cpp = "gen::Fn<void (*)(void*)>(bind::m_OptionsButton_OnSelect)($self)", key = "S-native", why = "no OptionsButton.Wiggle on the Switch (FortRise's): PC's body is selectedWiggler.Start(), what the Switch's OnSelect does (StaticOptionsButton.OnSelect, the join-code screen)" }
+"TF.EX.Domain.CustomComponent.JoinCodeEntry.OnConfirm" = { cpp = "tfex::NetplayScreens::CodeEntryConfirm($self)", include = "../NetplayScreens.hpp", key = "S-keyboard", why = "TFEX-DIFF: on the PC the code is typed before A; the Switch has no typing, so A on an empty code opens the software keyboard (TF.EX's Paste with the keyboard as its provider), then TF.EX's Submit" }
+"TF.EX.Patchs.Scene.MainMenuPatch.ReadClipboard" = { cpp = "tfex::NetplayScreens::KeyboardCode()", include = "../NetplayScreens.hpp", key = "S-keyboard", why = "TFEX-DIFF: JoinCodeEntry's paste (Alt) reads the PC clipboard; on the Switch it opens the software keyboard (or the harness's test code)" }
+"TF.EX.Domain.ServiceCollections.ResolveMatchmakingService" = { cpp = "tfex::gen::svc::GenMM()", key = "S-native", why = "the generated MatchmakingService object (the DI singleton on the PC)" }
+"TF.EX.Domain.ServiceCollections.ResolveNetplayManager" = { cpp = "tfex::gen::svc::GenNM()", key = "S-native", why = "the generated NetplayManager object (the DI singleton on the PC; made on the first menu frame, tfex/EndOfMatch.cpp)" }
+"TF.EX.Domain.ServiceCollections.ResolveWiderSetModApi" = { cpp = "tfex::gen::ModCollections::ResolveWiderSet(tfex::gen::svc::GenModCollections())", include = "tfexgen_ModCollections.hpp", key = "S-native", why = "TF.EX's _modCollections?.ResolveWiderSet() (FortRise's GetApi over the registry: WiderSet's API object; its members are the S-wide rules)" }
+"TF.EX.Domain.ServiceCollections.ResolveModCollections" = { cpp = "tfex::gen::svc::GenModCollections()", key = "S-native", why = "TF.EX's ModCollections (generated), made once over the registry (the DI singleton on the PC)" }
+"TF.EX.Domain.ServiceCollections.Resolve*" = { cpp = "tfex::gen::svc::Service()", why = "TF.EX's service locator: a token (svc::Service), whose members are the services' rules or their generated classes", key = "S-native" }
+"TF.EX.Patchs.InputDelayAdvisor.GuideRightMargin" = { cpp = "tfex::MainMenuPatch::AdvisorLeftMargin()", include = "../MainMenuPatch.hpp", key = "S-wide", why = "the advisor's guides in TF.EX's left layout (beside COPY CODE) at the wide roll call's left edge: the advisor is drawn UIXOffset right there (its slider on the right edge, AdvisorShiftBegin), so its left margin is 2 - 100 while shifted; 2 otherwise (the right layout's 320 - 2 folds and is unaffected)" }
+# -- RollcallReconcile (translate.toml, hosted = true): MatchmakingService's roll-call state lives on the hand service's side
+"TF.EX.Domain.Services.MatchmakingService.peerId" = { cpp = "tfex::gen::svc::GetRoomPeerId()", set = "tfex::gen::svc::SetRoomPeerId($value)", why = "the hand service keeps the peer id (its callers read it there)", key = "S-transport" }
+"TF.EX.Domain.Services.MatchmakingService.ownLobby" = { cpp = "tfex::gen::svc::GetOwnLobby()", why = "the own lobby lives in the native transport's service (tfex/MatchmakingService.cpp), which TF.EX's generated code and the Switch's lobby screen both read", key = "S-transport" }
+# -- RollCallElementPatch (EnterJoined / LeaveJoined / Update): no skins, no archer mods on the Switch
+# -- TF.EX's MatchmakingService (generated: translate.toml, the commented unit) over the hand transport (tfex/MatchmakingService.cpp): the socket,
+#    the net thread's send queue, ping measurement (net.cpp ping_measurement_*), the relayed peers (tools/tfex/reports/matchmakingservice-edge-rules.toml)
+"TF.EX.Domain.Services.MatchmakingService.cancellationTokenSource" = { cpp = "nullptr", set = "((void)0)", key = "S-net" }
+"TF.EX.Domain.Services.MatchmakingService.cancellationToken" = { cpp = "0", set = "((void)0)", key = "S-net" }
+"TF.EX.Domain.Ports.ISkinStreamService.GetOrBuildArcherBundle" = { cpp = "tfex::gen::SkinStreamService::GetOrBuildArcherBundle(tfex::gen::GlueSkins::Stream(), $0, $1)", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native", why = "TF.EX's SkinStreamService (generated), one object (glue Skins.Stream: the PC's DI singleton)" }
+"TF.EX.Domain.Ports.ISkinStreamService.MarkPublished" = { cpp = "tfex::gen::SkinStreamService::MarkPublished(tfex::gen::GlueSkins::Stream(), $0, $1)", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinStreamService.GetPublished" = { cpp = "tfex::gen::SkinStreamService::GetPublished(tfex::gen::GlueSkins::Stream())", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinStreamService.ReceiveChunk" = { cpp = "tfex::gen::SkinStreamService::ReceiveChunk(tfex::gen::GlueSkins::Stream(), $0, $1)", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinStreamService.GetBundle" = { cpp = "tfex::gen::SkinStreamService::GetBundle(tfex::gen::GlueSkins::Stream(), $0)", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinStreamService.InflateRgba" = { cpp = "tfex::gen::SkinStreamService::InflateRgba(tfex::gen::GlueSkins::Stream(), $0)", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinStreamService.Reset" = { cpp = "tfex::gen::SkinStreamService::Reset(tfex::gen::GlueSkins::Stream())", include = "tfexgen_SkinStreamService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinOverlayService.ResolveArcherSkinned" = { cpp = "tfex::gen::SkinOverlayService::ResolveArcherSkinned(tfex::gen::GlueSkins::Overlay(), $0, $1, $2, $3)", include = "tfexgen_SkinOverlayService.hpp, tfexgen_GlueSkins.hpp", key = "S-native", why = "TF.EX's SkinOverlayService (generated), one object (glue Skins.Overlay)" }
+"TF.EX.Domain.Ports.ISkinOverlayService.SetReplaySkinSeats" = { cpp = "tfex::gen::SkinOverlayService::SetReplaySkinSeats(tfex::gen::GlueSkins::Overlay(), $0, $1)", include = "tfexgen_SkinOverlayService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.Ports.ISkinOverlayService.ClearReplaySkinSeats" = { cpp = "tfex::gen::SkinOverlayService::ClearReplaySkinSeats(tfex::gen::GlueSkins::Overlay())", include = "tfexgen_SkinOverlayService.hpp, tfexgen_GlueSkins.hpp", key = "S-native" }
+"TF.EX.Domain.NetplayOptions.UseInstantReplay" = { value = "false", key = "D", why = "instant replays are off (the user's decision)" }
+"TF.EX.Domain.Utils.Platform.Current" = { cpp = "tfex::gen::svc::PlatformCurrent()", key = "S-identity", why = "\"Switch\", what this console publishes as Player.Platform" }
+"TF.EX.Domain.Models.NetplayPreferences.LocalServer" = { cpp = "tfex::gen::svc::SwitchOwnServer()", key = "S-native", why = "ws://127.0.0.1:3000 is a server on the same PC; a console runs none: the SERVER entry's LOCAL preset is the Switch's own default server (MatchmakingService.cpp), so OFFICIAL / ours is one button each" }
+"TF.EX.Common.Extensions.LoggerExtensions.Log*" = { cpp = "tfex::gen::svc::Log($1)", why = "TF.EX's logger: the console's log (hwlog)", key = "S-native" }
+"TF.State.Domain.Logging.LoggerExtensions.Log*" = { cpp = "tfex::gen::svc::Log($1)", key = "S-native", why = "TF.State's ILogger helpers -> the Switch's log, as TF.EX's (VersusLevelSystemPatch's one line per match)" }
+# -- IMatchmakingService (tfex/MatchmakingService.hpp keeps TF.EX's names)
+# IMatchmakingService (2026-10-18, Integration A's request): TF.EX's generated MatchmakingService is the only lobby, so its calls go to
+# the generated class itself (the translator's interface -> single implementation), on the object ResolveMatchmakingService returns;
+# only the transport edge keeps rules (the excluded members: Send, Close, EnsureConnection, ConnectToServerAndListen,
+# SwitchPingMeasurement, RunOnGameThread, DrainGameThreadActions, IsConnectedToServer, GetRelayedPeersFrom)
+"TF.EX.Domain.Ports.IMatchmakingService.GetLobbies" = { cpp = "tfex::gen::svc::GetLobbies({$0}, {$1})", key = "S-native", why = "the generated GetLobbies() returns a model collection (C++ auto, not callable from other units yet); both overloads" }
+"TF.EX.Domain.Ports.IMatchmakingService.UpdateLobbySettings" = { cpp = "tfex::gen::svc::UpdateLobbySettings($0, $1)", key = "S-native", why = "its mods parameter needs the caller's copy converted (translator follow-up)" }
+"TF.EX.Domain.Ports.IMatchmakingService.ResetLobby" = { cpp = "tfex::gen::svc::ResetLobby()", key = "S-native", why = "used as a method group (a delegate through the interface: translator follow-up)" }
+"TF.EX.Domain.Ports.IMatchmakingService.ExitQuickPlay" = { cpp = "tfex::gen::svc::ExitQuickPlay()", key = "S-native", why = "used as a method group (a delegate through the interface: translator follow-up)" }
+"TF.EX.Domain.Ports.IMatchmakingService.StartOrStopPingMeasurementIfNeeded" = { noop = true, key = "S-net", why = "TFGameUpdate_Patch calls it right after DrainGameThreadActions, and the Switch's DrainGameThreadActions (the transport's game-thread queue, tfex/MatchmakingService.cpp) already makes this call, with its condition (the measurement socket closes before the match's room socket connects)" }
+# -- IArcherService: TF.EX's ArcherService, generated (unit ArcherService); its GameContext archer store is the runtime's (IGameContext rules)
+# -- INetplayManager: the hand port is xplay.cpp's native start + GGRS (S-start, S-rollback)
+"TF.EX.Domain.SpectatorInputDisplay.*" = { noop = true, key = "todo", why = "spectators" }
+"TF.EX.Domain.Ports.INetplayManager.IsReplayMode" = { value = "false", key = "D", why = "replay not ported" }
+"TF.EX.Domain.Externals.GGRSFFI.IsInInit" = { cpp = "tfex::gen::ffi::InInit()", set = "tfex::gen::ffi::SetInInit($value)", include = "tfexgen_ffi.hpp", key = "S-native", why = "GGRSFFI's static flag (GGRSFFI.cs isn't translated): Connect sets it around netplay_init on the worker thread" }
+"TF.EX.Domain.Externals.GGRSFFI.ping_measurement_stats" = { cpp = "tfex::gen::svc::PingMeasurementStats($0, $1, &$2)", key = "S-transport", why = "net.cpp's ping measurement (direct only: a relayed peer has no stats)" }
+"TF.EX.Domain.Externals.GGRSFFI.netplay_reset" = { cpp = "(xplay::EndLobbyMatch(), ::netplay_reset())", include = "../../lobbymatch.hpp", key = "S-rollback", why = "NetplayManager.Reset's native part: ggrs_ffi's reset, after the Switch's match teardown (rollback log, GC, controller slots: xplay::EndLobbyMatch)" }
+"TF.EX.Domain.Externals.GGRSFFI.ping_measurement_start" = { cpp = "tfex::gen::svc::PingMeasurementStart($0, $1)", key = "S-transport", why = "net.cpp's measurement (its own thread, UDP socket and mesh; the match sockets' bind / STUN settings); no relay measurement" }
+"TF.EX.Domain.Externals.GGRSFFI.ping_measurement_stop" = { cpp = "tfex::gen::svc::PingMeasurementStop($0)", key = "S-transport", why = "as ping_measurement_start" }
+# ggrs_ffi's result wrappers (translator construct 3, tfexgen_ffi): $self is the native struct the ToModel rule's `&($0)` points at
+"TF.EX.Domain.Models.EventsStructExtension.ToModel" = { cpp = "tfex::gen::ffi::Hold($0)", include = "tfexgen_ffi.hpp", key = "S-native", why = "EventsImpl over the native struct" }
+"TF.EX.Domain.Models.EventsImpl._events" = { cpp = "tfex::gen::ffi::EventStrings(*reinterpret_cast<const tfex::gen::st::Events*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.EventsImpl.Dispose" = { cpp = "tfex::gen::ffi::FreeEvents(*reinterpret_cast<const tfex::gen::st::Events*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Extensions.StatusExtension.ToModelGGrsFFI" = { cpp = "tfex::gen::ffi::Hold($0)", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.StatusImpl.IsOk" = { cpp = "tfex::gen::ffi::IsOk(*reinterpret_cast<const tfex::gen::st::Status*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.StatusImpl.Info" = { cpp = "($self)", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.InfoHandle.AsString" = { cpp = "tfex::gen::ffi::StatusInfo(*reinterpret_cast<const tfex::gen::st::Status*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.StatusImpl.Dispose" = { cpp = "tfex::gen::ffi::FreeStatus(*reinterpret_cast<const tfex::gen::st::Status*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.InputExtensions.ToModel" = { cpp = "tfex::gen::ffi::Hold($0)", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.InputsImpl._inputs" = { cpp = "tfex::gen::ffi::InputList(*reinterpret_cast<const tfex::gen::st::Inputs*>($self))", include = "tfexgen_ffi.hpp", key = "S-native", why = "the native inputs as TF.EX's List<Input> (NetplayManager.AdvanceGameState -> InputService.UpdateCurrent)" }
+"TF.EX.Domain.Models.InputsImpl.Dispose" = { cpp = "tfex::gen::ffi::FreeInputs(*reinterpret_cast<const tfex::gen::st::Inputs*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.NeplayRequestExtension.ToModel" = { cpp = "tfex::gen::ffi::Hold($0)", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Domain.Models.NetplayRequestsImpl._requests" = { cpp = "tfex::gen::ffi::RequestList(*reinterpret_cast<const tfex::gen::st::NetplayRequets*>($self))", include = "tfexgen_ffi.hpp", key = "S-native", why = "the native request kinds as TF.EX's List<NetplayRequest>" }
+"TF.EX.Domain.Models.NetplayRequestsImpl.Dispose" = { cpp = "tfex::gen::ffi::FreeRequests(*reinterpret_cast<const tfex::gen::st::NetplayRequets*>($self))", include = "tfexgen_ffi.hpp", key = "S-native" }
+"TF.EX.Common.Handle.SafeRawBytes.ToBytesFFI" = { cpp = "tfex::gen::ffi::RawFFI($self)", include = "tfexgen_ffi.hpp", key = "S-rollback", why = "the snapshot handle's bytes (tfexgen_ffi RawOfArr / RawOfFFI)" }
+"TF.EX.Common.Handle.SafeRawBytes.PtrToBytes" = { cpp = "tfex::gen::ffi::RawToArr($self)", include = "tfexgen_ffi.hpp", key = "S-rollback" }
+"TF.EX.Common.Handle.SafeRawBytes.Dispose" = { cpp = "tfex::gen::ffi::FreeRaw($self)", include = "tfexgen_ffi.hpp", key = "S-rollback", why = "ggrs_ffi's bytes: netplay_free_game_state (SafeRawBytes' cleanup)" }
+"TF.EX.Domain.Ports.INetplayManager.UpdatePlayers" = { cpp = "tfex::gen::svc::UpdatePlayers($0, $1)", include = "tfexgen_services.hpp", key = "S-native", why = "the generated UpdatePlayers (the session's players and spectators): the lobby's List<Player,4> / List<Player,8> read as List<Player,16> (same layout up to count, only read)" }
+# -- NetplayManager (generated, step (a) of the split agreed with Integration B, docs/ws-match.md): the session's state lives in
+#    xplay.cpp (a rollback restores the GC heap, so a field of the generated object written in a match would be taken back by the next
+#    load). Each such field reads xplay's state; writes go nowhere (xplay owns them). Written by tfex-translator, reviewed by B.
+# GameContext is TF.EX's object (unit GameContext); the services holding it read the one made at boot
+"TF.EX.Domain.Services.TF.InputService.context" = { cpp = "tfex::gen::svc::GameContextObj()", key = "S-native", why = "InputService is hosted (a token): its GameContext is the object made at boot with the NetplayManager (EndOfMatch.cpp)" }
+"TF.EX.Domain.Services.TF.InputService._extraLocalInputs" = { cpp = "tfex::gen::GlueRewrites::ExtraLocalInputs()", include = "tfexgen_GlueRewrites.hpp", key = "S-native", why = "InputService is hosted (a token): its one field (the guests' inputs for ggrs_ffi, v0.28.0) is the glue's (a GC root)" }
+"TowerFall.PlayerInput.Icon" = { cpp = "tfex::gen::GlueRewrites::ControllerIcon($self)", include = "tfexgen_GlueRewrites.hpp", key = "S-input", why = "the Switch's PlayerInput has no Icon (the PC's controller-kind picture; LocalPlayersPanel, v0.28.0): the JoyConInput's own style icon (glue Rewrites.ControllerIcon)" }
+# TF.EX v0.28.0's PlayerPatch.Player_InitHead_Prefix / EnsureTeamHeadTextures (a custom archer's head without red / blue textures gets
+# its own texture for them): ArcherData.Sprites[hatState], an indexer on the game's SpriteInfo struct (+0x96e920: this + 8 / 0x10 / 0x18
+# by HatStates), called with the struct's address; and the atlas setter FortRise adds on the PC (patch_Atlas: SubTextures[key] = value)
+"TowerFall.ArcherData.SpriteInfo.this[]" = { cpp = "gen::Fn<void* (*)(const void*, int32_t)>(0x96e920)(&($self), $0)", key = "S-native", why = "a game struct's indexer (the translator calls game properties on objects): the Switch's SpriteInfo.get_Item, +0x96e920 (gen::Fn takes the offset: it adds the module's base)" }
+"Monocle.Atlas.this[]" = { cpp = "gen::Fn<void* (*)(void*, void*)>(bind::m_Atlas_get_Item_6538)($self, $0)", set = "tfex::gen::GlueRewrites::AtlasSet($self, $0, $value)", include = "tfexgen_GlueRewrites.hpp", key = "S-native", why = "FortRise's Atlas setter (the PC's patch_Atlas): the Switch's Atlas has a getter only (the read: the game's own, never the glue: a glue getter written atlas[key] came back through this rule, an endless loop on the loader thread that froze every GC, 2026-10-30); SubTextures[key] = value as FortRise's" }
+# TF.State v0.28.0's PlayerExtensions.ToActions default arm (a scheduled action by any other name: typeof(Player).GetMethod(name, flags,
+# Type.EmptyTypes), skipped when null). The Switch has no by-name reflection, and its saves only name the five actions statert::ActionName
+# knows (another is logged as an ERROR when saved): no other name can come back, so the lookup is null, as the PC's for an unknown name
+"System.Type.GetMethod(string, System.Reflection.BindingFlags, System.Type[])" = { value = "nullptr", key = "S-native", why = "by-name reflection: the Switch's saves only name actions ToActions' own arms rebuild (statert::ActionName); another name finds nothing, as on the PC" }
+"System.Type.EmptyTypes" = { value = "nullptr", key = "S-native", why = "GetMethod's argument above (no by-name reflection on the Switch)" }
+"System.Reflection.MethodInfo.op_Inequality" = { cpp = "($0 != $1)", key = "S-native", why = "MethodInfo's operator !=: reference inequality (the Switch's corlib has no operator)" }
+"TF.EX.Domain.Services.ArcherService._gameContext" = { cpp = "tfex::gen::svc::GameContextObj()", key = "S-native", why = "as InputService._context" }
+"TF.EX.Domain.Services.SkinOverlayService._gameContext" = { cpp = "tfex::gen::svc::GameContextObj()", key = "S-native", why = "as InputService._context" }
+"TF.EX.Domain.Context.GameContext.ResetArcherSelections" = { cpp = "tfex::gen::svc::ResetArcherSelections()", key = "S-native", why = "inside TF.EX's GameContext.Reset: the archer copies (IGameContext.GetArchers)" }
+# the right stick (TF.EX's XGamePadInputExtensions.GetRightStick: its thresholds run as written), TFEX-DIFF S-input: the PC pad's
+# XGamepadData is the Switch's controller input object; its right stick is the npad state the game polls (rightstick.cpp)
+"TowerFall.XGamepadInput.XGamepad" = { cpp = "$self", key = "S-input", why = "the PC pad's XGamepadData: on the Switch the JoyConInput itself, whose right stick XGamepadData.GetRightStick reads" }
+"Monocle.MInput.XGamepadData.GetRightStick" = { cpp = "tfex::gen::svc::RightStickOf($self)", key = "S-input", why = "the controller's second stick from the npad state the game polled (rightstick.cpp: Pro, pair, handheld; zero on a single Joy-Con), Y down as Monocle's" }
+"TF.EX.Domain.Context.IGameContext.GetArchers" = { cpp = "tfex::gen::svc::ArcherSelections()", key = "S-native", why = "GameContext's archer selections: the runtime's store (copies of the lobby's Players: the Switch's models are values that move on lobby updates)" }
+"TF.EX.Domain.Context.IGameContext.GetPlayers" = { cpp = "tfex::gen::svc::ArcherPlayers()", key = "S-native", snap = true }
+"TF.EX.Domain.Context.IGameContext.AddArcher" = { cpp = "tfex::gen::svc::AddArcher($0, $1)", key = "S-native" }
+"TF.EX.Domain.Context.IGameContext.ResetArcherSelections" = { cpp = "tfex::gen::svc::ResetArcherSelections()", key = "S-native" }
+"TF.EX.Domain.Context.IGameContext.RemoveArcher" = { cpp = "tfex::gen::svc::RemoveArcher($0)", key = "S-native" }
+"TF.EX.Domain.Services.NetplayManager.IsReplayMode" = { value = "false", key = "D", why = "replays are off by decision" }
+"TF.EX.Domain.Services.NetplayManager._synchronizationTimer" = { cpp = "(tfex::gen::svc::SyncWaitMs() >= 0 ? (void*)1 : nullptr)", set = "((void)0)", key = "S-rollback", why = "TF.EX starts it in Init (xplay's): non-null while a lobby match waits for its first synchronization (B, AbortIfSynchronizationFailed)" }
+"System.Diagnostics.Stopwatch.ElapsedMilliseconds" = { cpp = "tfex::gen::svc::SyncWaitMs()", key = "S-rollback", why = "only NetplayManager's _synchronizationTimer is a Stopwatch in the generated code: xplay's sync-wait clock" }
+"TF.EX.Domain.Services.NetplayManager._cancellationTokenSource" = { cpp = "nullptr", set = "((void)0)", key = "S-rollback", why = "TF.EX makes it in Init (xplay's native engine): none on the Switch; Reset's Cancel and new one go nowhere (B, step (b): a Cancel on the null field crashed the generated Reset, run 235547)" }
+"TF.EX.Domain.Services.NetplayManager._cancellationToken" = { cpp = "0", set = "((void)0)", key = "S-rollback" }
+"bool.TryParse" = { cpp = "tfex::gen::svc::BoolTryParse($0, &$1)", key = "S-native", why = "bool.TryParse(string, out bool) isn't in the game's AOT build (the binding by name took System.Version.TryParse through System.ValueType: WiderSet's MISSING VALUE); .NET's semantics in the runtime" }
+"System.Threading.CancellationTokenSource.Cancel" = { noop = true, key = "S-net", why = "the Switch has no TF.EX cancellation sources (NetplayManager, MatchmakingService: the fields read null); a Cancel on one crashed" }
+# -- ExFlags (StateFlags): the Switch's own state
+"TF.EX.Domain.Context.ExFlags.IsReplayMode" = { set = "(void)($value)", value = "false", why = "replays are off (step 8, the user's decision): never in replay mode", key = "D" }
+# -- IInputService: Switch controller input (S-input)
+"TF.EX.Domain.Ports.TF.IInputService.GetLocalPlayerInputIndex" = { cpp = "tfex::gen::svc::GetLocalSeat()", key = "S-input", why = "our main seat only. TF.EX: the lobby seat in menus, GGRS's local handle in a match; the Switch's lockstep seats the local player at its lobby seat. Comparisons with it should be svc::IsLocalInputIndex (several local players per device planned)" }
+"TF.EX.Domain.CustomComponent.RawMenuInput.Pressed" = { cpp = "tfex::gen::svc::LightPausePressed((int32_t)($0))", key = "S-input", why = "TF.EX (v0.29.0: RawMenuInput, LightPauseMenu and ConfirmDialog's) reads XGamepadInput / KeyboardInput's raw buttons; the Switch reads the local JoyConInputs' menu getters (tfex/InputLock.cpp MenuPressed)" }
+# -- TF.State's engine (S-rollback: the raw-memory rollback replaces it)
+"TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart" = { cpp = "((void)0)", key = "S-tools", why = "TF.State's desktop sync-test entity dump to <cwd>/EntitiesDump/*.json at each round start (test mode only): no such folder or reflection on the Switch; the sync test's check is ggrs_ffi's checksum" }
+"TF.EX.Domain.Interop.ITfStateApi.CaptureGameState" = { cpp = "tfex::gen::svc::CaptureForSeam()", key = "S-rollback", why = "TF.State's CaptureGameState through xplay's rollback seam (netplay_gate.cpp SeamCapture: the frame loop's side ring and the cost logs around it)" }
+"TF.EX.Domain.Interop.ITfStateApi.RestoreGameStateBytes" = { cpp = "tfex::gen::svc::RestoreForSeam($0)", key = "S-rollback", why = "TF.State's RestoreGameStateBytes through xplay's rollback seam (netplay_gate.cpp SeamRestore: the side ring, the state frame, the [rb] / [desync] logs)" }
+"TF.EX.Domain.Ports.INetplayManager.Poll" = { cpp = "tfex::gen::svc::PollForGate()", key = "S-tools", why = "TF.EX's Poll on the generated NetplayManager, then xplay's per-event logs and its own match bookkeeping (netplay_gate.cpp AfterPoll)" }
+"Monocle.Engine.EnableFixedTimeStep" = { cpp = "tfex::gen::svc::EnableFixedTimeStep($self, $0)", key = "S-native", why = "FortRise's patch_Engine.EnableFixedTimeStep (not in the Switch's game): its body on the game's Engine fields (IsFixedTimeStep, TargetElapsedTime 1/240 s or 1/60 s); TF.EX's ManageTimeStep turns it on for a session" }
+# TF.State's own context, now that its patches run on the Switch: TF.EX's calls reach TF.State's TfStateApi (generated State_Api). The
+# snapshot / byte calls stay no-ops: the Switch's rollback engine snapshots memory instead.
+"TF.EX.Domain.Interop.ITfStateApi.SetInstantReplay" = { noop = true, key = "D", why = "the round-end instant replay: replays aren't on the Switch (the user, 2026-10-28); every other member is TF.State's own, through [[interop]]" }
+"TF.EX.Domain.Ports.IReplayService.Export" = { cpp = "tfex::gen::svc::ExportReplay()", key = "D", why = "ReplayService.Export with TF.Replay absent (item 12): ReplayApi.Current.Export() gives no file (null), then its MatchReport.OnReplayExported(null): the report without a replay" }
+"TF.EX.Domain.Ports.IReplayService.*" = { noop = true, why = "ReplayService (TF.Replay) isn't on the Switch (step 8)", key = "D" }
+"TF.EX.Domain.InstantReplayFootage.IsBaking" = { value = "false", why = "instant replays are off (the user's decision): nothing bakes", key = "D" }
+"TF.EX.Domain.Ports.ISyncTestUtilsService.*" = { noop = true, key = "S-tools" }
+"System.Text.RegularExpressions.Regex..ctor" = { cpp = "tfex::gen::scen::RegexNew($0, (int32_t)($1))", include = "tfexgen_scenario_rt.hpp", key = "S-native", why = "no Regex in the Switch build: the subset TF.EX's ScenarioMapWriter uses (runtime/tfexgen_scenario_rt.cpp)" }
+"System.Text.RegularExpressions.Regex.Replace(string, string, int)" = { cpp = "tfex::gen::scen::RegexReplace($self, $0, $1, $2)", include = "tfexgen_scenario_rt.hpp", key = "S-native", why = "as Regex..ctor" }
+"System.IO.Directory.CreateDirectory" = { value = "nullptr", key = "S-native", why = "ScenarioMapWriter's EXScenarios folder: the maps are kept in memory (File.WriteAllText), no folder" }
+"System.IO.File.WriteAllText" = { cpp = "tfex::gen::scen::MemFileWrite($0, $1)", include = "tfexgen_scenario_rt.hpp", key = "S-native", why = "the Switch's game folder is read-only: a scenario map is kept in memory under its path, and Calc.LoadXML of that path (pcgameplay.cpp) gets it" }
+"TF.EX.Domain.Scenarios.ScenarioCatalog.LogCoverage" = { noop = true, key = "S-tools", why = "the sweep's closing coverage line (TrackedTypes against the scenarios' Covers, ToHashSet(StringComparer.OrdinalIgnoreCase)): docs/tfstate-rollback-measurement.md lists the coverage; each run's result line is TF.EX's" }
+"TF.EX.Domain.Services.UrlService.Open" = { cpp = "tfex::gen::Fault(\"UrlService.Open: no web browser for the game on the console\")", key = "S-native", throws = true, why = "the PC opens the page through SDL_OpenURL; the console has none, so it fails as SDL_OpenURL does on a PC without a browser and TF.EX's own catch runs (SUPPORT: the page's address as a notification)" }
+"TF.EX.Common.IAutoUpdater.GetCurrentVersion" = { cpp = "tfex::gen::svc::TfexVersion()", key = "S-update", why = "the version this port implements (MatchmakingService.hpp TFEX_VERSION): the server URL's ?version=" }
+"TF.EX.Common.IAutoUpdater.IsStatusFresh" = { value = "true", key = "S-update", why = "no updater on the Switch: the console build is the version, its status always known (else the official server's NETPLAY waited on CHECKING VERSION with the controllers taken away, HandleAutoUpdate absent, and crashed when the lock ran out); the server refuses an old version itself (MIN_CLIENT_VERSION)" }
+"TF.EX.Common.IAutoUpdater.GetStatus" = { value = "1", key = "S-update", why = "UpdateStatus.UpToDate: as IsStatusFresh (nothing to update to on the console)" }
+"TF.EX.Common.IAutoUpdater.*" = { noop = true, key = "S-update" }
+# -- TF.EX features the ledger keeps off the Switch: their entry points as no-ops, so callers translate (keys as in [skip] above)
+"TF.EX.Domain.Services.ClipboardService.GetText" = { value = "nullptr", key = "S-keyboard", why = "no clipboard on the Switch (swkbd; the code is shown on screen)" }
+"TF.EX.Domain.Services.ClipboardService.*" = { noop = true, key = "S-keyboard", why = "no clipboard on the Switch" }
+"TF.EX.Domain.InstantReplayFootage.*" = { noop = true, key = "D", why = "instant replay (recorder nulled)" }
+"TF.EX.Patchs.Engine.TFGamePatch.WarnAboutModifiedGameFiles" = { noop = true, key = "S-native", why = "GameFilesIntegrity: the eShop build's files" }
+"TF.EX.Patchs.Scene.WiderSetMenu.SelectionState" = { value = "gen::Opt<int32_t>(7)", key = "S-wide", why = "WiderSet is built into the Switch: its STANDARD / WIDE picker is MainMenu state 7 (VERSUS's), so NETPLAY goes through it as with WiderSet on the PC; its mode buttons continue to NetplaySelect (tfex/MainMenuPatch.cpp ModeButtonAction, WiderSet's SelectionButton_MenuAction postfix)" }
+"TF.EX.Patchs.Scene.WiderSetMenu.Resolve" = { value = "gen::Opt<int32_t>(7)", key = "S-wide", why = "WiderSet's menu state by reflection; the Switch's wide mode is built in (tfex/MainMenuPatch.cpp)" }
+# -- the BCL classes the game's code lacks (TF.EX's MatchReport: a zip of the log, POSTed): the runtime's stand-ins, real work the Switch's
+#    way (runtime/tfexgen_bcl.cpp: miniz_oxide's DEFLATE, nn::fs, netws's HTTP); native objects from fixed pools, freed by Dispose
+"System.IO.MemoryStream..ctor" = { cpp = "tfex::gen::bcl::MemoryNew()", include = "tfexgen_bcl.hpp", key = "S-native", why = "a MemoryStream over the runtime's 1 MB report buffer" }
+"System.IO.MemoryStream.ToArray" = { cpp = "tfex::gen::bcl::MemoryToArray($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.IO.MemoryStream.Dispose" = { cpp = "tfex::gen::bcl::MemoryDispose($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.IO.Compression.ZipArchive..ctor" = { cpp = "tfex::gen::bcl::ZipNew($0, $1, $2)", include = "tfexgen_bcl.hpp", key = "S-native", why = "ZipArchive (Create): the runtime's zip writer" }
+"System.IO.Compression.ZipArchive.CreateEntry" = { cpp = "tfex::gen::bcl::ZipCreateEntry($self, $0, $1)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.IO.Compression.ZipArchive.Dispose" = { cpp = "tfex::gen::bcl::ZipDispose($self)", include = "tfexgen_bcl.hpp", key = "S-native", why = "writes the central directory, as .NET's" }
+"System.IO.Compression.ZipFileExtensions.CreateEntryFromFile" = { cpp = "tfex::gen::bcl::ZipAddFile($0, $1, $2, $3)", include = "tfexgen_bcl.hpp", key = "S-native", why = "the file read from the SD card (nn::fs)" }
+"System.IO.Compression.ZipArchiveEntry.Open" = { cpp = "tfex::gen::bcl::ZipEntryOpen($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.IO.Stream.Write" = { cpp = "tfex::gen::bcl::StreamWrite($self, $0, $1, $2)", include = "tfexgen_bcl.hpp", key = "S-native", why = "a zip entry's stream (DEFLATE, CRC-32); the runtime's only Stream" }
+"System.IO.Stream.Dispose" = { cpp = "tfex::gen::bcl::StreamDispose($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.IO.File.Exists" = { cpp = "tfex::gen::bcl::FileExists($0)", include = "tfexgen_bcl.hpp", key = "S-native", why = "nn::fs (sd: paths)" }
+"System.IO.Path.GetFileName" = { cpp = "tfex::gen::bcl::PathGetFileName($0)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.Uri.EscapeDataString" = { cpp = "tfex::gen::bcl::EscapeDataString($0)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.Net.WebSockets.ClientWebSocket..ctor" = { cpp = "tfex::gen::bcl::WsNew()", include = "tfexgen_bcl.hpp", key = "S-net", why = "TF.EX's server connection over netws (the console's sockets and TLS): the runtime's ClientWebSocket" }
+"System.Net.WebSockets.ClientWebSocket.State" = { cpp = "tfex::gen::bcl::WsState($self)", include = "tfexgen_bcl.hpp", key = "S-net" }
+"System.Net.WebSockets.ClientWebSocket.ConnectAsync" = { cpp = "tfex::gen::bcl::WsConnect($self, $0)", include = "tfexgen_bcl.hpp", key = "S-net", throws = true }
+"System.Net.WebSockets.ClientWebSocket.ReceiveAsync" = { cpp = "tfex::gen::bcl::WsReceive($self, $0)", include = "tfexgen_bcl.hpp", key = "S-net", throws = true, yields = true, why = "the listen loop runs on the game thread (the Switch's managed Thread runs its work on the caller): with nothing yet, its pass returns" }
+"System.Net.WebSockets.ClientWebSocket.SendAsync" = { cpp = "tfex::gen::bcl::WsSend($self, $0, $1, $2)", include = "tfexgen_bcl.hpp", key = "S-net", throws = true }
+"System.Net.WebSockets.ClientWebSocket.CloseStatus" = { cpp = "gen::Opt<int32_t>{}", key = "S-net", why = "netws keeps no close status: a closed connection is a lost one" }
+"System.IO.MemoryStream.Write" = { cpp = "tfex::gen::bcl::StreamWrite($self, $0, $1, $2)", include = "tfexgen_bcl.hpp", key = "S-native", why = "the runtime's MemoryStream (TF.EX's listen loop: a message's pieces)" }
+"System.Net.WebSockets.WebSocket.CloseStatusDescription" = { value = "nullptr", key = "S-net", why = "netws keeps no close status: a closed connection is a lost one" }
+"System.Net.WebSockets.ClientWebSocket.CloseStatusDescription" = { value = "nullptr", key = "S-net", why = "netws keeps no close status: a closed connection is a lost one" }
+"System.Net.WebSockets.WebSocketReceiveResult.Count" = { cpp = "tfex::gen::bcl::WsResultCount($self)", include = "tfexgen_bcl.hpp", key = "S-net" }
+"System.Net.WebSockets.WebSocketReceiveResult.MessageType" = { cpp = "tfex::gen::bcl::WsResultType($self)", include = "tfexgen_bcl.hpp", key = "S-net" }
+"System.Net.WebSockets.WebSocketReceiveResult.EndOfMessage" = { cpp = "tfex::gen::bcl::WsResultEnd($self)", include = "tfexgen_bcl.hpp", key = "S-net" }
+"System.Uri..ctor" = { cpp = "$0", key = "S-net", why = "a Uri is its string here (ClientWebSocket.ConnectAsync parses it)" }
+"System.ArraySegment<T>..ctor" = { cpp = "$0", key = "S-net", why = "a segment over a whole byte[]: the array itself (TF.EX's only use: the socket's buffers)" }
+"System.Threading.SemaphoreSlim..ctor" = { value = "nullptr", key = "S-net", why = "TF.EX's send gate: none (the stand-in's send queue serializes the frames)" }
+"System.Threading.SemaphoreSlim.WaitAsync" = { noop = true, key = "S-net", why = "TF.EX's send gate: the stand-in's send queue serializes the frames (one game thread sends)" }
+"System.Threading.SemaphoreSlim.Release" = { noop = true, key = "S-net", why = "as WaitAsync" }
+"System.Text.Encoding.GetString" = { cpp = "tfex::gen::bcl::Utf8String($0, $1, $2)", include = "tfexgen_bcl.hpp", key = "S-native", why = "UTF-8 (TF.EX's only encoding: Encoding.UTF8)" }
+"System.Text.Encoding.GetBytes" = { cpp = "tfex::gen::bcl::Utf8Bytes($0)", include = "tfexgen_bcl.hpp", key = "S-native", why = "UTF-8 (TF.EX's only encoding: Encoding.UTF8)" }
+"System.Net.Http.HttpClient..ctor" = { cpp = "tfex::gen::bcl::HttpNew()", include = "tfexgen_bcl.hpp", key = "S-native", why = "HTTP through netws (the Switch's sockets / TLS)" }
+"System.Net.Http.HttpClient.Timeout" = { cpp = "0LL", set = "tfex::gen::bcl::HttpSetTimeout($self, $value)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.Net.Http.HttpClient.PostAsync" = { cpp = "tfex::gen::bcl::HttpPost($self, $0, $1)", include = "tfexgen_bcl.hpp", key = "S-native", why = "a blocking POST on the caller's thread (MatchReport's upload worker); await is the call (S-async)" }
+"System.Net.Http.ByteArrayContent..ctor" = { cpp = "tfex::gen::bcl::ContentNew($0)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.Net.Http.ByteArrayContent.Dispose" = { cpp = "tfex::gen::bcl::ContentDispose($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.Net.Http.HttpResponseMessage.StatusCode" = { cpp = "tfex::gen::bcl::HttpStatus($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+"System.Net.Http.HttpResponseMessage.Dispose" = { cpp = "tfex::gen::bcl::HttpResponseDispose($self)", include = "tfexgen_bcl.hpp", key = "S-native" }
+# -- FortRise content mods on the Switch (archer path): FortRise's interfaces on the glue's objects (translator/glue/fortrise/SwitchMods.cs,
+#    our code standing for FortRise's framework). TFEX-DIFF S-native: no FortRise mod loader on the Switch; content mods are SD card folders
+#    loaded once at boot: queues invoke at once, only the archer path's registries exist
+"FortRise.IModContent.Root" = { cpp = "tfex::gen::GlueFrMods::ContentRoot($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+# FortRise's IModInterop for mods finding each other (TF.EX's ModCollections, generated): answered from the Switch's mod registry
+# (runtime/tfexgen_mods.cpp) through the glue's mod objects (glue/fortrise/SwitchMods.cs LoadedMods: SwitchModContent per loaded mod)
+"FortRise.IModuleContext.Interop" = { cpp = "tfex::gen::svc::Service()", key = "S-native", why = "FortRise's interop object: the Switch's registry answers its members (the rules below)" }
+"FortRise.IModInterop.LoadedMods" = { cpp = "tfex::gen::GlueFrMods::LoadedMods()", include = "tfexgen_GlueFrMods.hpp", arr = true, key = "S-native", why = "FortRise's ModuleManager.Mods: the registry's loaded mods (built-in and SD), an array of the glue's mod objects" }
+"FortRise.IModInterop.GetApi" = { cpp = "tfex::gen::svc::ModApi($0)", key = "S-native", why = "a mod's exported API (Mod.GetApi): the mods built into the module whose API the Switch provides (TF.State, WiderSet: their interfaces' members are [service] rules) answer a non-null object, others null as FortRise for a mod without one" }
+"FortRise.IModResource.Metadata" = { cpp = "($self)", key = "S-native", why = "a loaded mod's object stands for its ModuleMetadata" }
+"FortRise.ModuleMetadata.Version" = { cpp = "tfex::gen::GlueFrMods::ContentVersion($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "the meta.json's version text (SemanticVersion's ToString: the next rule)" }
+"FortRise.SemanticVersion.ToString" = { cpp = "($self)", key = "S-native", why = "a version is its text on the Switch (ModuleMetadata.Version's rule)" }
+"FortRise.ModuleMetadata.ToString" = { cpp = "tfex::gen::GlueFrMods::ContentToString($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's \"{Name} {Version}\"" }
+"FortRise.ModuleMetadata.op_Equality" = { cpp = "tfex::gen::GlueFrMods::ContentEquals($0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's ==: both null, or the same name and version (the registry has one entry per name)" }
+"FortRise.ModuleMetadata.DisplayName" = { cpp = "tfex::gen::GlueFrMods::ContentDisplayName($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+# FortRise's MODS menu (Fr_UIModMenu, Fr_UIModPanel, Fr_ModItem: translated) over the Switch's registry
+"FortRise.RiseCore.ModuleManager" = { cpp = "tfex::gen::svc::Service()", key = "S-native", why = "FortRise's ModuleManager: the registry answers the members the MODS menu reads (the rules below)" }
+"FortRise.ModuleManager.InternalModuleMetadatas" = { cpp = "tfex::gen::GlueFrMods::LoadedModSet()", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "the loaded mods' metadata: the registry's loaded mods (built-in and SD)" }
+"FortRise.ModuleManager.InternalFortModules" = { cpp = "tfex::gen::GlueFrMods::LoadedModList()", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "the loaded mods' modules: their objects stand for them (Mod.Meta, Mod.CreateSettings: the next rules)" }
+"FortRise.Mod.Meta" = { cpp = "($self)", key = "S-native" }
+"FortRise.Mod.CreateSettings" = { cpp = "tfex::gen::GlueFrMods::ContentSettings($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "non-null for a mod with a settings page (TF.EX's)" }
+"FortRise.ModuleManager.NameToIcon" = { cpp = "tfex::gen::GlueFrMods::ModIcons()", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's table of mods' icon.png (filled by its LoadContent): the glue loads them from the mods' SD folders" }
+"FortRise.RiseCore.UpdateChecks.HasUpdates" = { cpp = "tfex::gen::GlueFrMods::HasUpdates()", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's updater (GitHub / GameBanana) doesn't run on the Switch: empty" }
+"FortRise.ModuleMetadata.Update" = { value = "nullptr", key = "S-native", why = "no update source on the Switch (FortRise's updater)" }
+"TowerFall.patch_MainMenu.FilterMod" = { cpp = "tfex::gen::GlueFrMods::GetFilterMod()", set = "tfex::gen::GlueFrMods::SetFilterMod($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's field on MainMenu (the mod OPTIONS shows): a static in the glue" }
+"TowerFall.patch_MainMenu.ToStartSelected" = { cpp = "nullptr", set = "tfex::gen::GlueFrMods::SetToStartSelected($self, $value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "[MonoModPublic] setter: the game's MainMenu.ToStartSelected" }
+"TowerFall.patch_MainMenu.TweenBGCameraToY" = { cpp = "tfex::gen::GlueFrMods::TweenBGCameraToY($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "[MonoModPublic]: the game's MainMenu.TweenBGCameraToY" }
+"FortRise.FortRiseModule.UIModTogglerEntry" = { cpp = "tfex::gen::svc::Service()", key = "S-native", why = "TOGGLE MODS' screen (FortRise's UIModToggler: enables / disables mods for the next start); the Switch's mods are built in or on the SD card, nothing to toggle: its state is the MODS list again (the next rule)" }
+"FortRise.IMenuStateEntry.MenuState" = { cpp = "tfex::gen::svc::ModsMenuState()", key = "S-native", why = "FortRise's registered menu state: the Switch's MODS state (tfex/ModsMenu.cpp)" }
+"FortRise.TextUtils.DrawOutlinedIconText" = { cpp = "tfex::gen::GlueFrMods::DrawOutlinedIconText($0, $1, $2, $3, $4)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "ReadOnlySpan<char> parsing (not translated): its body for text without icon tags, the only text the MODS menu passes here (a tag marks a mod with an update)" }
+"FortRise.OptionsButtonExt.extension(TowerFall.OptionsButton).Description" = { cpp = "tfex::gen::GlueFrMods::ButtonDescription($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "a C# 14 extension property (not translated): its getter, DynamicData's fortrise_description (glue SwitchMods.ButtonDescription)" }
+"FortRise.SpriteFontExt.extension(Microsoft.Xna.Framework.Graphics.SpriteFont).WrapText(string, float)" = { cpp = "tfex::gen::GlueFrMods::WrapText($self, $0, $1)", include = "tfexgen_GlueFrMods.hpp", arr = true, key = "S-native", why = "a C# 14 extension over spans (not translated): its algorithm over strings (glue SwitchMods.WrapText)" }
+"FortRise.ModuleMetadata.DLL" = { cpp = "tfex::gen::GlueFrMods::ContentDll($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.ModuleMetadata.Dependencies" = { cpp = "tfex::gen::GlueFrMods::ContentDependencies($self)", include = "tfexgen_GlueFrMods.hpp", arr = true, key = "S-native" }
+"FortRise.ModuleMetadata.OptionalDependencies" = { cpp = "tfex::gen::GlueFrMods::ContentOptionalDependencies($self)", include = "tfexgen_GlueFrMods.hpp", arr = true, key = "S-native" }
+"FortRise.IModContent.Metadata" = { cpp = "($self)", key = "S-native", why = "a mod's content object stands for its ModuleMetadata (its Name: the next rule)" }
+"FortRise.ModuleMetadata.Name" = { cpp = "tfex::gen::GlueFrMods::ContentName($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.Content.ContentModule.CurrentModMetadata" = { cpp = "tfex::gen::GlueFrMods::CurrentMod()", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.Content.ContentModule.Instance" = { cpp = "tfex::gen::svc::Service()", key = "S-native" }
+"FortRise.Mod.Logger" = { cpp = "tfex::gen::svc::Service()", key = "S-native", why = "ILogger -> the Switch's log (the LoggerExtensions rule)" }
+"FortRise.IResourceInfo.Xml" = { cpp = "tfex::gen::GlueFrMods::ResXml($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.Name" = { cpp = "tfex::gen::GlueFrMods::ResName($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.Path" = { cpp = "tfex::gen::GlueFrMods::ResPath($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.RootPath" = { cpp = "tfex::gen::GlueFrMods::ResRootPath($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.Stream" = { cpp = "tfex::gen::GlueFrMods::ResStream($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.Text" = { cpp = "tfex::gen::GlueFrMods::ResText($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.GetRelativePath" = { cpp = "tfex::gen::GlueFrMods::ResGetRelative($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.ExistsRelativePath" = { cpp = "tfex::gen::GlueFrMods::ResExists($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.TryGetRelativePath" = { cpp = "tfex::gen::GlueFrMods::ResTryGet($self, $0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IResourceInfo.EnumerateChildrens" = { cpp = "tfex::gen::GlueFrMods::ResEnumerate($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"Monocle.patch_Atlas.SafeAdd" = { cpp = "tfex::gen::GlueFrMods::AtlasAdd($self, $0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise stages a texture in a field it adds to the game's Atlas (a ConcurrentDictionary, for its multithreaded content load) that TFGame merges by ConvertToFastLookup; the Switch loads mods on one thread at boot and its Atlas has no room for the field: straight into the atlas" }
+"FortRise.ResourceTree.IsExist" = { value = "false", key = "S-native", why = "FortRise's index of loaded mods' files: none on the Switch (a mod's files are its SD folder's, read by path: ModIO.IsFileExists's File.Exists answers)" }
+"FortRise.IModRegistry.Subtextures" = { cpp = "tfex::gen::GlueFrMods::RegistrySubtextures($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "this mod's FortRise ModSubtextures (translated, Fr_ModSubtextures)" }
+"FortRise.IModRegistry.Sprites" = { cpp = "tfex::gen::GlueFrMods::RegistrySprites($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "this mod's FortRise ModSprites (translated, Fr_ModSprites)" }
+"FortRise.IModRegistry.Musics" = { cpp = "tfex::gen::GlueFrMods::RegistryMusics($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "this mod's FortRise ModMusics (translated, Fr_ModMusics)" }
+"FortRise.IModRegistry.SFXs" = { cpp = "tfex::gen::GlueFrMods::RegistrySFXs($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "this mod's FortRise ModSFXs (translated, Fr_ModSFXs)" }
+"FortRise.IModRegistry.CharacterSounds" = { cpp = "tfex::gen::GlueFrMods::RegistryCharacterSounds($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "this mod's FortRise ModCharacterSounds (translated)" }
+"FortRise.IModRegistry.Variants" = { cpp = "($self)", key = "S-native" }
+"FortRise.IModVariants.RegisterVariant" = { cpp = "tfex::gen::GlueFrMods::RegisterVariant(tfex::gen::GlueFrMods::RegistryMod($self), $0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's ModVariants over the Switch's registry (glue SwitchMods.RegisterVariant)" }
+"FortRise.IModVariants.GetVariant" = { cpp = "tfex::gen::GlueFrMods::GetVariant(tfex::gen::GlueFrMods::RegistryMod($self), $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IVariantEntry.Name" = { cpp = "tfex::gen::GlueFrMods::VariantName($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IVariantEntry.Configuration" = { cpp = "tfex::gen::GlueFrMods::VariantConfig($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IVariantEntry.IsActive()" = { cpp = "tfex::gen::GlueFrMods::VariantIsActive($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's VariantEntry.IsActive over the Switch's entry (glue SwitchMods: its body)" }
+"FortRise.IVariantEntry.IsActive(int)" = { cpp = "tfex::gen::GlueFrMods::VariantIsActivePlayer($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IVariantEntry.IsActive(TowerFall.MatchVariants)" = { cpp = "tfex::gen::GlueFrMods::VariantIsActiveIn($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IVariantEntry.IsActive(TowerFall.MatchVariants, int)" = { cpp = "tfex::gen::GlueFrMods::VariantIsActiveFor($self, $0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.VariantRegistry.Variants" = { cpp = "tfex::gen::GlueFrMods::RegisteredVariants()", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's static VariantRegistry: the glue's (SwitchMods.RegisterVariant)" }
+# FortRise's fields added to MatchVariants: the glue's side table by object (SwitchMods.Ext); the constructor's `= new()` makes nothing new
+"TowerFall.patch_MatchVariants.InternalCustomVariants" = { cpp = "tfex::gen::GlueFrMods::CustomVariantsOf($self)", set = "((void)0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "a field FortRise adds to the game's MatchVariants: no room on the Switch's object, kept by the glue per object" }
+"TowerFall.patch_MatchVariants.Customs" = { cpp = "tfex::gen::GlueFrMods::CustomsOf($self)", set = "((void)0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "as InternalCustomVariants" }
+"TowerFall.patch_MatchVariants.StartWithVariants" = { cpp = "tfex::gen::GlueFrMods::StartWithOf($self)", set = "((void)0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "as InternalCustomVariants" }
+"FortRise.IArrowEntry.ArrowTypes" = { value = "0", key = "S-native", why = "FortRise's custom arrows: none on the Switch, so no registered variant has a StartWith arrow (the call is never reached)" }
+"TowerFall.MatchVariants.CustomVariants" = { cpp = "tfex::gen::GlueFrMods::CustomVariantsOf($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's CustomVariants: InternalCustomVariants (the glue's side table)" }
+"TowerFall.patch_MatchVariants.orig_ctor" = { noop = true, key = "S-native", why = "MonoMod's orig_ctor: tfex/FrVariants.cpp's hook runs the game's constructor first (here a constructor called with this = null allocates and returns the object), then FortRise's part on it; what FortRise sets before orig_ctor is the glue's side table only" }
+"FortRise.IModRegistry.Archers" = { cpp = "tfex::gen::GlueFrMods::RegistryArchers($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IModMusics.RegisterMusic" = { cpp = "tfex::gen::Fr_ModMusics::RegisterMusic($self, $0, $1)", include = "tfexgen_Fr_ModMusics.hpp", key = "S-native", why = "FortRise's ModMusics (translated)" }
+"FortRise.IModMusics.GetMusic" = { cpp = "tfex::gen::Fr_ModMusics::GetMusic($self, $0)", include = "tfexgen_Fr_ModMusics.hpp", key = "S-native" }
+"Monocle.patch_Audio.loopList" = { cpp = "(gen::Cctor(bind::c_Audio), gen::Static<void*>(bind::f_Audio_loopList))", key = "S-native", why = "FortRise's static patch_Audio (no base type) names the game's Audio.loopList (MonoMod merges it): the game's static, which Audio's own looping code walks" }
+"Monocle.patch_SFX.Data" = { cpp = "gen::Fld<void*>($self, bind::f_SFX_Data)", set = "gen::Fld<void*>($self, bind::f_SFX_Data) = ($value)", key = "S-native", why = "FortRise's [MonoModIgnore] property: the game's SFX.Data (+0x10, SFX(string, bool) stores SoundEffect.FromStream's there)" }
+"Monocle.patch_SFXVaried.Datas" = { cpp = "gen::GameArr<void*>(gen::Fld<void*>($self, bind::f_SFXVaried_Datas), bind::m_Array_get_Length)", set = "gen::Fld<void*>($self, bind::f_SFXVaried_Datas) = ($value).obj", key = "S-native", why = "FortRise's [MonoModIgnore] property: the game's SFXVaried.Datas" }
+"Monocle.patch_SFXLooped.Instance" = { cpp = "gen::Fld<void*>($self, bind::f_SFXLooped_Instance)", set = "gen::Fld<void*>($self, bind::f_SFXLooped_Instance) = ($value)", key = "S-native", why = "FortRise's [MonoModIgnore] property: the game's SFXLooped.Instance" }
+"Monocle.patch_SFX.ctor(bool)" = { cpp = "gen::Fn<void* (*)(void*, bool)>(0x949f40)($self, $0)", key = "S-native", why = "FortRise's ctor(bool) (MonoModReplace, the PC's: ObeysMasterPitch, Audio.pitchList) is the game's own SFX(bool) +0x949f40 (`strb [x0,#0x18]` = ObeysMasterPitch, the pitch list): called on the object the glue made" }
+"Monocle.patch_SFXVaried.thisctor" = { cpp = "gen::Fn<void* (*)(void*, bool)>(0x949f40)($self, $0)", key = "S-native", why = "FortRise's [MonoModLinkTo] Monocle.SFX .ctor(bool): the game's +0x949f40" }
+"FortRise.IModSFXs.RegisterSFX(string, FortRise.IResourceInfo, bool)" = { cpp = "tfex::gen::Fr_ModSFXs::RegisterSFX($self, $0, $1)", include = "tfexgen_Fr_ModSFXs.hpp", key = "S-native", why = "FortRise's ModSFXs (translated)" }
+"FortRise.IModSFXs.RegisterSFX(string, System.Func<Monocle.SFX>, bool)" = { cpp = "tfex::gen::Fr_ModSFXs::RegisterSFX_1($self, $0, $1)", include = "tfexgen_Fr_ModSFXs.hpp", key = "S-native" }
+"FortRise.IModSFXs.RegisterSFXLooped(string, FortRise.IResourceInfo, bool)" = { cpp = "tfex::gen::Fr_ModSFXs::RegisterSFXLooped($self, $0, $1)", include = "tfexgen_Fr_ModSFXs.hpp", key = "S-native" }
+"FortRise.IModSFXs.RegisterSFXVaried(string, FortRise.IResourceInfo[], bool)" = { cpp = "tfex::gen::Fr_ModSFXs::RegisterSFXVaried($self, $0, $1)", include = "tfexgen_Fr_ModSFXs.hpp", key = "S-native" }
+"FortRise.IModCharacterSounds.RegisterCharacterSounds" = { cpp = "tfex::gen::Fr_ModCharacterSounds::RegisterCharacterSounds($self, $0, $1)", include = "tfexgen_Fr_ModCharacterSounds.hpp", key = "S-native", why = "FortRise's ModCharacterSounds (translated)" }
+"FortRise.IModCharacterSounds.GetCharacterSound" = { cpp = "tfex::gen::Fr_ModCharacterSounds::GetCharacterSound($self, $0)", include = "tfexgen_Fr_ModCharacterSounds.hpp", key = "S-native" }
+"FortRise.ICharacterSoundEntry.SFXID" = { cpp = "tfex::gen::Fr_CharacterSoundEntry::get_SFXID($self)", include = "tfexgen_Fr_CharacterSoundEntry.hpp", key = "S-native", why = "FortRise's CharacterSoundEntry (translated)" }
+"FortRise.ICharacterSoundEntry.Name" = { cpp = "tfex::gen::Fr_CharacterSoundEntry::get_Name($self)", include = "tfexgen_Fr_CharacterSoundEntry.hpp", key = "S-native" }
+"FortRise.ICharacterSoundEntry.Configuration" = { cpp = "tfex::gen::Fr_CharacterSoundEntry::get_Configuration($self)", include = "tfexgen_Fr_CharacterSoundEntry.hpp", key = "S-native" }
+"FortRise.IBaseSFXEntry.BaseSFX" = { cpp = "tfex::gen::GlueFrMods::BaseSfx($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "three entry kinds behind the interface (glue BaseSfx: by type)" }
+"FortRise.IBaseSFXEntry.Name" = { cpp = "tfex::gen::GlueFrMods::SfxEntryName($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.ISFXVariedEntry.SFXVaried" = { cpp = "tfex::gen::Fr_SFXVariedEntry::get_SFXVaried($self)", include = "tfexgen_Fr_SFXVariedEntry.hpp", key = "S-native" }
+"FortRise.ISFXLoopedEntry.SFXLooped" = { cpp = "tfex::gen::Fr_SFXLoopedEntry::get_SFXLooped($self)", include = "tfexgen_Fr_SFXLoopedEntry.hpp", key = "S-native" }
+"FortRise.ISFXEntry.SFX" = { cpp = "tfex::gen::Fr_SFXEntry::get_SFX($self)", include = "tfexgen_Fr_SFXEntry.hpp", key = "S-native" }
+"FortRise.IModArchers.RegisterArcher" = { cpp = "tfex::gen::Fr_ModArchers::RegisterArcher($self, $0, $1)", include = "tfexgen_Fr_ModArchers.hpp", key = "S-native", why = "FortRise's ModArchers (translated)" }
+"FortRise.IModArchers.GetArcher" = { cpp = "tfex::gen::Fr_ModArchers::GetArcher($self, $0)", include = "tfexgen_Fr_ModArchers.hpp", key = "S-native" }
+"FortRise.IModArchers.GetAllArchers" = { cpp = "tfex::gen::Fr_ModArchers::GetAllArchers($self)", include = "tfexgen_Fr_ModArchers.hpp", key = "S-native", why = "FortRise's ModArchers (translated): TF.EX's ArcherDataExtensions reads the registry through it" }
+"FortRise.IModArchers.RegisteredArchers" = { cpp = "tfex::gen::Fr_ModArchers::get_RegisteredArchers($self)", include = "tfexgen_Fr_ModArchers.hpp", key = "S-native" }
+"System.Collections.Generic.IReadOnlyDictionary<string, FortRise.IArcherEntry>.TryGetValue(TKey, TValue)" = { cpp = "tfex::gen::GlueFrMods::RegisteredTryGet($self, $0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's RegisteredArchers (IReadOnlyDictionary): the translated registry's Dictionary<string, object>, its own TryGetValue (no interface dispatch on the Switch)" }
+"FortRise.IArcherEntry.Index" = { cpp = "tfex::gen::Fr_ArcherEntry::get_Index($self)", include = "tfexgen_Fr_ArcherEntry.hpp", key = "S-native", why = "FortRise's ArcherEntry (translated)" }
+"FortRise.IArcherEntry.Name" = { cpp = "tfex::gen::Fr_ArcherEntry::get_Name($self)", include = "tfexgen_Fr_ArcherEntry.hpp", key = "S-native" }
+"FortRise.IArcherEntry.Type" = { cpp = "tfex::gen::Fr_ArcherEntry::get_Type($self)", include = "tfexgen_Fr_ArcherEntry.hpp", key = "S-native" }
+"FortRise.IArcherEntry.Configuration" = { cpp = "tfex::gen::Fr_ArcherEntry::get_Configuration($self)", include = "tfexgen_Fr_ArcherEntry.hpp", key = "S-native" }
+"FortRise.IArcherEntry.ArcherData" = { cpp = "tfex::gen::Fr_ArcherEntry::get_ArcherData($self)", include = "tfexgen_Fr_ArcherEntry.hpp", key = "S-native" }
+"FortRise.ModuleManager.CreateQueue" = { cpp = "tfex::gen::GlueFrMods::CreateQueue($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's queue once LoadState is Ready: it invokes at once" }
+"FortRise.RegistryQueue<T>.AddOrInvoke" = { cpp = "tfex::gen::GlueFrMods::AddOrInvoke($self, $0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.IDPool.Obtain" = { cpp = "tfex::gen::GlueFrMods::Obtain($0)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's IDPool (warmed as its RiseCore: archers from 8)" }
+"FortRise.Content.VanillaXmlCacher.GetAllAvailableSubtexturesID" = { cpp = "tfex::gen::GlueFrMods::VanillaSubtextureIds()", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise reads the PC's atlas XML files; the Switch's loaded atlases hold the same IDs" }
+"TowerFall.patch_ArcherData.Archers" = { cpp = "tfex::gen::GlueFrMods::GetArchers()", set = "tfex::gen::GlueFrMods::SetArchers($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's [MonoModIgnore] [MonoModPublic] accessors: the game's ArcherData.Archers" }
+"TowerFall.patch_ArcherData.AltArchers" = { cpp = "tfex::gen::GlueFrMods::GetAltArchers()", set = "tfex::gen::GlueFrMods::SetAltArchers($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"TowerFall.patch_ArcherData.SecretArchers" = { cpp = "tfex::gen::GlueFrMods::GetSecretArchers()", set = "tfex::gen::GlueFrMods::SetSecretArchers($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"TowerFall.patch_ArcherData.ExtraHairData" = { cpp = "tfex::gen::frmods::ExtraHairData($self)", set = "tfex::gen::frmods::SetExtraHairData($self, $value)", include = "tfexgen_frmods.hpp", key = "S-native", why = "FortRise's hair, its addition to ArcherData: no room on the Switch's object and too big for the side table: the runtime's table per ArcherData (frmods kMaxHair)" }
+"TowerFall.ArcherData.ExtraHairData" = { cpp = "tfex::gen::frmods::ExtraHairData($self)", set = "tfex::gen::frmods::SetExtraHairData($self, $value)", include = "tfexgen_frmods.hpp", key = "S-native", why = "as patch_ArcherData.ExtraHairData (TF.EX's SkinOverlayService reads it through ArcherData)" }
+"FortRise.ArcherConfiguration.Hair" = { value = "{}", key = "S-native", why = "no hair on the Switch (the content-mod loader's TFEX-DIFF): a bundle the Switch builds has none (Option<HairInfo>.None)" }
+"TowerFall.patch_ArcherData.*" = { noop = true, key = "S-native", why = "FortRise's other ArcherData additions (hair, SFX ids, the archer's FortRise data): not in the Switch's game, no archer-path loader needs them" }
+"FortRise.IMusicEntry.Name" = { cpp = "tfex::gen::Fr_MusicEntry::get_Name($self)", include = "tfexgen_Fr_MusicEntry.hpp", key = "S-native", why = "FortRise's MusicEntry (translated)" }
+"FortRise.IMusicEntry.MusicPath" = { cpp = "tfex::gen::Fr_MusicEntry::get_MusicPath($self)", include = "tfexgen_Fr_MusicEntry.hpp", key = "S-native" }
+# FortRise's patch_Music (its own music engine on the PC: XACT cues and OGG / WAV tracks) as far as a mod track needs it: TFEX-DIFF
+# S-native, the game's Music (XACT) stays for its cues and a registered track plays as the game's SoundEffectInstance (glue SwitchMods'
+# music part; tfex/FrModsBoot.cpp: the game's Music.Play / PlayImmediate / Stop end it, its Update plays PlayNext's queue)
+"Monocle.patch_Music.TrackMap" = { cpp = "tfex::gen::GlueFrMods::TrackMap()", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"Monocle.patch_Music.PlayImmediate(string, bool)" = { cpp = "tfex::gen::GlueFrMods::MusicPlayImmediate($0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"Monocle.patch_Music.PlayImmediate(string)" = { cpp = "tfex::gen::GlueFrMods::MusicPlayImmediate($0, true)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"Monocle.patch_Music.PlayNext" = { cpp = "tfex::gen::GlueFrMods::MusicPlayNext($0, $1)", include = "tfexgen_GlueFrMods.hpp", key = "S-native" }
+"FortRise.Logger.*" = { cpp = "tfex::gen::svc::Log($0)", key = "S-native", why = "FortRise's logger -> the Switch's log" }
+"Microsoft.Extensions.Logging.LoggerExtensions.Log*" = { cpp = "tfex::gen::svc::Log($1)", key = "S-native", why = "ILogger -> the Switch's log" }
+"System.OperatingSystem.Is*" = { value = "false", key = "S-platform", why = "the Switch is none of Windows/Linux/macOS" }
+# -- versus mode: netplay is not a Modes value on the Switch (S-start: native start, vanilla modes)
+
+# -- TF.State: its gameplay RNG (StateContext, RngService, CalcPatch, DeterministicRandom) is TF.State's own code, generated (2026-10-26); rnd.cpp
+# only routes System.Random's devirtualized calls on a DeterministicRandom to its generated methods (TFEX-DIFF, rnd.cpp)
+
+
+# NetplayManager.AdvanceFrame's desync branch (ggrs-ffi port, construct 5): Regex.Matches only finds the frame for
+# SyncTestUtilsService.Compare, TF.EX's sync-test tooling (S-tools on the Switch: its desync check is the digest). No matches: frame -1, no detail.
+"System.Text.RegularExpressions.Regex.Matches" = { value = "nullptr", key = "S-tools", why = "only the sync-test detail of a desync message (SyncTestUtilsService, desktop test tooling)" }
+"System.Text.RegularExpressions.MatchCollection.Count" = { value = "0", key = "S-tools", why = "with Matches null: the detail is skipped" }
+
+# the ggrs-ffi port (translator construct 2): the config's bytes for netplay_init are a runtime buffer (glue Ffi.GgrsConfigBytes)
+"TF.EX.Common.Handle.SafeBytes<TF.EX.Domain.Models.GGRSConfig>.ToBytesFFI" = { cpp = "tfex::gen::ffi::BytesFFI($self)", include = "tfexgen_ffi.hpp", key = "S-native", parked = "NativeInit: GGRSFFI.netplay_init's argument, once the ggrs-ffi port replaces the GGRSFFI.* no-op wildcard", why = "the buffer as ggrs_ffi's SafeBytesFFI {ptr, size}" }
+"TF.EX.Common.Handle.SafeBytes<TF.EX.Domain.Models.GGRSConfig>.Dispose" = { cpp = "tfex::gen::ffi::FreeBytes($self)", include = "tfexgen_ffi.hpp", key = "S-native", why = "the using's end: the buffer back to the pool" }
+
+# -- TF.EX's module boot (TFEXModModule, unit TfexModule: RegisterAndLoad, then OnInitialize's ConfigureChangelog / ConfigureTutorial) on the
+#    Switch's FortRise layer (glue/fortrise/SwitchMods.cs). TF.EX's own code registers its images, the online icon, the tutorial slides and
+#    configures the changelog and the tutorial; the PC loader's parts (Harmony, DI, the mode registry, other mods' interop) are the Switch's
+#    own boot, each a rule with its reason. tfex/MatchmakingService.cpp TfexModuleBoot runs it once on the first main-menu frame.
+"FortRise.IModuleContext.Registry" = { cpp = "tfex::gen::GlueFrMods::ContextRegistry($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "the module's own registry: a translated code mod's context is the registry of its folder (Teams+: SwitchMods.ContextRegistry); TF.EX's module has none and gets its own (SwitchMods.TfexRegistry: its content folder sd:/xplay/tfex/, as the mod ships)" }
+"FortRise.Mod.GetSettings" = { cpp = "tfex::gen::frmods::ModSettings($self)", include = "tfexgen_frmods.hpp", key = "S-native", why = "each mod's own ModuleSettings (its CreateSettings object, registered by its generated boot; TF.EX's: its NetplaySettings): tfexgen_frmods.cpp ModSettings" }
+"FortRise.Mod.SaveSettings" = { cpp = "tfex::gen::frmods::SaveModSettings($self)", include = "tfexgen_frmods.hpp", key = "S-native", why = "FortRise's settings save (a mod calls it through reflection): its JSON (generated) into sd:/xplay/<mod>.settings.json" }
+"FortRise.Mod.OnInitialize" = { cpp = "nullptr", set = "tfex::gen::GlueFrMods::SetOnInitialize($self, $value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's ModuleManager invokes every mod's, in load order, once the settings are loaded; the Switch's boot does (SwitchMods.Initialize, after NetplaySettingsFile::Apply)" }
+"TF.EX.TFEXModModule._tutorialSlides" = { cpp = "tfex::gen::GlueFrMods::GetTutorialSlides()", set = "tfex::gen::GlueFrMods::SetTutorialSlides($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "the module object's field: the hosted unit has no object, the glue keeps the list" }
+"TF.EX.TFEXModModule.IsReturningPlayer" = { cpp = "tfex::NetplaySettingsFile::Existed", include = "../MatchmakingService.hpp", key = "S-native", why = "TF.EX: its settings file or a TF.Replay replay on disk (the PC's Saves folder); the Switch: sd:/xplay/TF.EX.settings.json existed at boot (no replays on the Switch)" }
+"FortRise.IModRegistry.GameModes" = { cpp = "tfex::gen::GlueFrMods::RegistryGameModes($self)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "the registry's FortRise ModGameModes (translated, made per mod: glue SwitchMods)" }
+"FortRise.IModGameModes.RegisterVersusGameMode(string, FortRise.IVersusGameMode)" = { cpp = "tfex::gen::Fr_ModGameModes::RegisterVersusGameMode($self, $0, $1)", include = "tfexgen_Fr_ModGameModes.hpp", key = "S-native", why = "FortRise's ModGameModes (translated): the overload naming the mode (a mod's RegisterVersusGameMode(name, mode))" }
+"FortRise.IModGameModes.RegisterVersusGameMode" = { cpp = "tfex::gen::Fr_ModGameModes::RegisterVersusGameMode($self, $0)", include = "tfexgen_Fr_ModGameModes.hpp", key = "S-native", why = "FortRise's ModGameModes (translated)" }
+"FortRise.IModGameModes.GetVersusGameMode" = { cpp = "tfex::gen::Fr_ModGameModes::GetVersusGameMode($self, $0)", include = "tfexgen_Fr_ModGameModes.hpp", key = "S-native" }
+"TowerFall.VersusModeButton.currentIndex" = { cpp = "tfex::gen::Fr_VersusModeButton::currentIndex", set = "(tfex::gen::Fr_VersusModeButton::currentIndex = $value)", include = "tfexgen_Fr_VersusModeButton.hpp", key = "S-native", why = "FortRise's GAME MODE index (a static it adds to the button), read by name by TF.EX's VersusModeButtonPatch (DynamicData): the translated FortRise unit's static" }
+"TowerFall.patch_VersusModeButton.modeSelect" = { cpp = "tfex::gen::GlueFrMods::get_VersusModeSelect()", set = "tfex::gen::GlueFrMods::set_VersusModeSelect($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's GAME MODE list, a field it adds to the button: the Switch's objects have no added fields, and one such button exists at a time (VERSUS's): the FortRise layer keeps it (SwitchMods.VersusModeSelect, a GC root)" }
+"TowerFall.VersusModeButton.modeSelect" = { cpp = "tfex::gen::GlueFrMods::get_VersusModeSelect()", set = "tfex::gen::GlueFrMods::set_VersusModeSelect($value)", include = "tfexgen_GlueFrMods.hpp", key = "S-native", why = "FortRise's GAME MODE list, a field it adds to the button: the Switch's objects have no added fields, and one such button exists at a time (VERSUS's): the FortRise layer keeps it (SwitchMods.VersusModeSelect, a GC root)" }
+"TowerFall.patch_VersusModeButton.ModeSwitch" = { value = "nullptr", key = "S-native", why = "FortRise's event when the GAME MODE changes: no handler on the Switch (nothing translated subscribes), so its invoke is skipped" }
+"FortRise.IVersusGameMode.NameColor" = { cpp = "tfex::frvmodes::NameColor($self)", include = "../FrVersusModes.hpp", key = "S-native", why = "as IVersusGameMode.Name" }
+"FortRise.IVersusGameMode.Icon" = { cpp = "tfex::frvmodes::Icon($self)", include = "../FrVersusModes.hpp", key = "S-native", why = "as IVersusGameMode.Name" }
+"FortRise.IVersusGameMode.OnStartGame" = { cpp = "tfex::frvmodes::OnStartGame($self, $0)", include = "../FrVersusModes.hpp", key = "S-native", why = "as IVersusGameMode.Name" }
+"FortRise.IVersusGameMode.Name" = { cpp = "tfex::frvmodes::Name($self)", include = "../FrVersusModes.hpp", key = "S-native", why = "FortRise's interface on a registered versus mode: dispatched by the object's class (tfex/FrVersusModes.cpp: Teams+'s ThreeTeamGameMode or TF.EX's NetplayVersusMode; the translator has no interface dispatch across compilations)" }
+"TowerFall.patch_MatchSettings.PlayerGoals" = { cpp = "tfex::gen::frmods::PlayerGoals($self, $0, $1, $2)", include = "tfexgen_frmods.hpp", key = "S-native", why = "FortRise's [MonoModIgnore] stub for the game's private PlayerGoals: the Switch's build has it only inlined, so the PC's body (by TFGame.PlayerAmount: 3 -> p3, 4 -> p4, else p2)" }
+"TowerFall.patch_MatchSettings.orig_get_GoalScore" = { cpp = "tfex::gen::frmods::VanillaGoalScore($self)", include = "tfexgen_frmods.hpp", key = "S-native", why = "the game's own GoalScore, whose PlayerGoals calls the Switch's build inlined: TF.EX's PlayerGoals postfix applied there (tfexgen_frmods.cpp VanillaGoalScore; tools/tfex/inlined.py)" }
+"TowerFall.patch_MatchSettings.GoalMultiplier" = { cpp = "tfex::gen::frmods::GoalMultiplier()", include = "tfexgen_frmods.hpp", key = "S-native", why = "the game's static multipliers (FortRise's custom GoalScore): the Switch's build has no field, its GoalScore reads {0.01, 0.5, 1, 2} from rodata (+0x38e2240)" }
+"FortRise.GameModeRegistry.ModesToVersusGameMode" = { cpp = "tfex::gen::Fr_GameModeRegistry::ModesToVersusGameMode()", include = "tfexgen_Fr_GameModeRegistry.hpp", key = "S-native", why = "FortRise's registry is translated (Fr_GameModeRegistry): TF.EX's and TF.State's reads go there, not to a game static (the Switch's game has no GameModeRegistry)" }
+"FortRise.GameModeRegistry.RegistryVersusGameModes" = { cpp = "tfex::gen::Fr_GameModeRegistry::RegistryVersusGameModes()", include = "tfexgen_Fr_GameModeRegistry.hpp", key = "S-native", why = "FortRise's registry is translated (Fr_GameModeRegistry): TF.EX's and TF.State's reads go there, not to a game static (the Switch's game has no GameModeRegistry)" }
+"FortRise.GameModeRegistry.NameToModes" = { cpp = "tfex::gen::Fr_GameModeRegistry::NameToModes()", include = "tfexgen_Fr_GameModeRegistry.hpp", key = "S-native", why = "FortRise's registry is translated (Fr_GameModeRegistry): TF.EX's and TF.State's reads go there, not to a game static (the Switch's game has no GameModeRegistry)" }
+"FortRise.GameModeRegistry.VersusGameModes" = { cpp = "tfex::gen::Fr_GameModeRegistry::VersusGameModes()", include = "tfexgen_Fr_GameModeRegistry.hpp", key = "S-native", why = "FortRise's registry is translated (Fr_GameModeRegistry): TF.EX's and TF.State's reads go there, not to a game static (the Switch's game has no GameModeRegistry)" }
+"FortRise.IVersusGameMode.OnCreateRoundLogic" = { cpp = "tfex::frvmodes::OnCreateRoundLogic($self, $0)", include = "../FrVersusModes.hpp", key = "S-native", why = "FortRise's interface on a registered versus mode: dispatched by the object's class (tfex/FrVersusModes.cpp: Teams+'s ThreeTeamGameMode or TF.EX's NetplayVersusMode; the translator has no interface dispatch across compilations)" }
+"FortRise.IVersusGameMode.IsTeamMode" = { cpp = "tfex::frvmodes::IsTeamMode($self)", include = "../FrVersusModes.hpp", key = "S-native", why = "FortRise's interface on a registered versus mode: dispatched by the object's class (tfex/FrVersusModes.cpp: Teams+'s ThreeTeamGameMode or TF.EX's NetplayVersusMode; the translator has no interface dispatch across compilations)" }
+"FortRise.IVersusGameMode.GetMinimumPlayers" = { cpp = "tfex::frvmodes::GetMinimumPlayers($self, $0)", include = "../FrVersusModes.hpp", key = "S-native", why = "FortRise's interface on a registered versus mode: dispatched by the object's class (tfex/FrVersusModes.cpp: Teams+'s ThreeTeamGameMode or TF.EX's NetplayVersusMode; the translator has no interface dispatch across compilations)" }
+"FortRise.IVersusGameMode.GetMinimumTeamPlayers" = { cpp = "tfex::frvmodes::GetMinimumTeamPlayers($self, $0)", include = "../FrVersusModes.hpp", key = "S-native", why = "FortRise's interface on a registered versus mode: dispatched by the object's class (tfex/FrVersusModes.cpp: Teams+'s ThreeTeamGameMode or TF.EX's NetplayVersusMode; the translator has no interface dispatch across compilations)" }
+"FortRise.IVersusGameModeEntry.Modes" = { cpp = "tfex::gen::Fr_VersusGameModeEntry::get_Modes($self)", include = "tfexgen_Fr_VersusGameModeEntry.hpp", key = "S-native", why = "FortRise's VersusGameModeEntry (translated)" }
+"FortRise.IVersusGameModeEntry.Name" = { cpp = "tfex::gen::Fr_VersusGameModeEntry::get_Name($self)", include = "tfexgen_Fr_VersusGameModeEntry.hpp", key = "S-native" }
+"FortRise.IVersusGameModeEntry.VersusGameMode" = { cpp = "tfex::gen::Fr_VersusGameModeEntry::get_VersusGameMode($self)", include = "tfexgen_Fr_VersusGameModeEntry.hpp", key = "S-native" }
+"TF.EX.Core.TFCommands..ctor" = { value = "nullptr", key = "S-tools", why = "Monocle's debug console commands (PC keyboard): the Switch's test commands are hw.txt's (xplay.cpp LoadHwConfig)" }
+"TF.EX.Core.TFCommands.Register" = { noop = true, key = "S-tools", why = "as TFCommands..ctor" }
+"TF.EX.Domain.ServiceCollections.RegisterServices" = { noop = true, key = "S-native", why = "the DI container: the Switch's services are tokens and generated objects made at first use (svc::Service, GenMM, GenNM)" }
+"TF.EX.Domain.ServiceCollections.Build" = { noop = true, key = "S-native", why = "as RegisterServices" }
+"TF.EX.Domain.ServiceCollections.RegisterModCollections" = { noop = true, key = "S-native", why = "the Switch's ModCollections is made once at first use (svc::GenModCollections, ResolveModCollections' rule)" }
+"TF.EX.Domain.Ports.IReplayService.RegisterPlaybackCallbacks" = { noop = true, key = "D", why = "TF.Replay isn't on the Switch" }
+"FortRise.IModuleContext.Harmony" = { value = "nullptr", key = "S-hooks", why = "Harmony's run-time patching: the Switch's hooks are exlaunch's, installed at boot (xplay.cpp, HookGen's)" }
+"FortRise.IHarmony.PatchAll" = { noop = true, key = "S-hooks", why = "as IModuleContext.Harmony" }
+"TF.EX.Patchs.Scene.WiderSetMenu.PatchSelectionButtons" = { noop = true, key = "S-hooks", why = "Harmony patches found by reflection at run time; the Switch's wide mode is native (WiderSet's buttons: its own menu)" }
+
+# ---- Teams+ (vendor/teamplus: our FortRise mod; translate.toml's "Teams+" units, docs/PLAN-THREETEAM-FORTRISE-2026-10-31.md) ----
+"FortRise.IHarmony.Patch" = { noop = true, key = "S-hooks", why = "a patch registered in code: HookGen made its hook at translate time (HookGen.ScanCalls); Teams+'s boot turns its classes on" }
+"TeamsPlus.Hooks.ResultsHooks.Load" = { noop = true, key = "S-native", why = "only registers its transpiler (the results board's `new int[2]`, over the coroutine bodies found by reflection): a native patch on the Switch (tfex/TeamsPlus.cpp)" }
+"TeamsPlus.Hooks.SafetyHooks.Load" = { noop = true, key = "S-native", why = "registers the StartGame postfix (a HookGen hook, on with the class) and its sensor-block transpiler over the coroutine bodies found by reflection: a native patch on the Switch (tfex/TeamsPlus.cpp)" }
+"System.Diagnostics.Debugger.IsAttached" = { value = "false", key = "S-platform", why = "no debugger on the console (FortRise's mod template asks before Debugger.Launch)" }
+"System.Diagnostics.Debugger.Launch" = { value = "false", key = "S-platform", why = "as IsAttached" }
+"System.Diagnostics.Debugger.Break" = { noop = true, key = "S-platform", why = "as IsAttached" }
+"System.Environment.GetEnvironmentVariable" = { value = "nullptr", key = "S-platform", why = "no environment variables on the console (Teams+ reads its PC self-test switches)" }
+"TowerFall.MatchSettings.CustomVersusGameMode" = { cpp = "tfex::gen::Fr_MatchSettings::get_CustomVersusGameMode($self)", include = "tfexgen_Fr_MatchSettings.hpp", key = "S-native", why = "FortRise's patch_MatchSettings property (its custom mode object): the translated FortRise unit's, as the Switch's game has no such member" }
+"Microsoft.Xna.Framework.Rectangle.Empty" = { value = "gen::Rectangle{}", key = "S-native", why = "FNA's static Rectangle.Empty (all zeros), not bound on the Switch: the zero rectangle" }
+
+[scope]
+# Phase 1 (docs/CORE-FLOW.md THE PLAN): the translator's coverage covers ALL of TF.EX (src/network), minus only what the Switch
+# deliberately replaces. tools/tfex/translate.sh coverage reads this table; the report lists the exclusions.
+# 2026-10-18 (evaluation rec. 8): TF.State's gameplay patches too (state/TF.State.Patchs, the gameplay services of TF.State.Domain,
+# the owned-state controllers of TowerFallExtensions); their serialization stays out ([scope.exclude], and the [skip] S-rollback keys).
+include = ["network/", "state/TF.State.Patchs/", "state/TF.State.Domain/", "state/TF.State.TowerFallExtensions/"]
+
+[scope.exclude]
+# "<path glob>" = "<why>"  (a trailing / = the whole folder; * within a path segment, ** across)
+"network/TF.EX.Domain/Externals/GGRSFFI.cs" = "GGRS FFI (the Rust ggrs library over P/Invoke): the Switch's rollback engine is native (xplay.cpp, rollback.cpp, ggrs-switch)"
+"network/TF.EX.Common/Handle/" = "native memory handles for the GGRS FFI's results (SafeBytes / SafeHandle / SafeRawBytes): part of the replaced rollback engine"
+"network/TF.EX.Domain/Models/StatusImpl.cs" = "GGRS FFI result wrappers (Status, StatusImpl, InfoHandle over native memory): part of the replaced rollback engine"
+"network/TF.EX.Domain/Models/EventsImpl.cs" = "GGRS FFI event list (native string array): part of the replaced rollback engine"
+"network/TF.EX.Domain/Models/NetplayRequestsImpl.cs" = "GGRS FFI request list (native array): part of the replaced rollback engine"
+"network/TF.EX.Domain/Interop/ITfStateApi.cs" = "TF.State bridge (state serialization / restore): the Switch's rollback engine snapshots memory instead"
+"network/TF.EX.Domain/Interop/StateApi.cs" = "TF.State bridge (state serialization / restore): the Switch's rollback engine snapshots memory instead"
+"network/TF.EX.Domain/Services/SteamIdentity.cs" = "Steam identity: no Steam on the Switch"
+"network/TF.EX.Domain/Services/ClipboardService.cs" = "desktop clipboard (SDL): none on the Switch"
+"network/TF.EX.Domain/Services/UpnpService.cs" = "UPnP port mapping on the desktop's router: the Switch connects through the relay / WebRTC"
+"network/TF.EX.Common/AutoUpdater.cs" = "desktop auto-updater (downloads and replaces the mod's files): the Switch's mod is updated with the console build"
+"network/TF.EX.Domain/Utils/GameFilesIntegrity.cs" = "hashes the PC game's files (modified-files check): the Switch reports HaveModifiedGameFiles = false"
+"network/TF.EX.Domain/Utils/GameFilesManifest.cs" = "the PC game files' hash manifest (as GameFilesIntegrity)"
+"network/TF.EX.Core/TFCommands.cs" = "Monocle's debug console commands (PC keyboard): the Switch's tooling is hw.txt"
+"network/TF.EX.Domain/DebugLayer.cs" = "desktop debug overlay (PC keyboard toggles)"
+"network/TF.EX.Domain/Interop/InputDisplayerApi.cs" = "TF.InputDisplayer (a separate desktop mod, src/utilities): not on the Switch"
+"network/TF.EX.Domain/InstantReplayFootage.cs" = "the round-end instant replay recorder: replays come last (the user, 2026-10-28; backlog step 8); its calls are no-op rules until then"
+"state/TF.State.Core/" = "TF.State's module bootstrap and frame driver: xplay.cpp drives TF.State's GetState / LoadState (the rollback since 2026-10-22); TfStateApi's desync tools (StateDiff, StateDescriber) are backlog step 2"
+"state/TF.State.Domain/Models/" = "TF.State's MessagePack state models: serialized by the generated glue (translate.sh state-msgpack, glue/StateMsgPack.cs), not by the translator's units"
+"replay/" = "TF.Replay (src/replay): replays come last (the user, 2026-10-28; backlog step 8), not translated until then"
+"tests/" = "TF.EX's xunit tests (tests/TF.EX.Utils): run as host checks, ApiSurfaceTests' ITfStateApi slice as translate.toml [[interop]] (every code run), InputCodecTests as translator/test/codec-test.sh; the TF.Replay ones with replays (step 8)"
+"utilities/" = "TF.InputDisplayer (src/utilities): with replays (backlog step 8); its spectator display with spectators (step 4)"
+
+[scope.owner]
+# who writes a [service] rule a method needs, by a substring of its file; the first match wins, the rest is A
+# (A: menus, lobby, matchmaking, roll call; B: match and after)
+"TF.EX.Patchs/Scene/Level" = "B"
+"TF.EX.Patchs/Scene/MapScene" = "B"
+"TF.EX.Patchs/Entity/LevelEntity/" = "B"
+"TF.EX.Patchs/Entity/HUD/" = "B"
+"TF.EX.Patchs/Entity/PauseMenu" = "B"
+"TF.EX.Patchs/Entity/WhiteArcherPrison" = "B"
+"TF.EX.Patchs/Layer/" = "B"
+"TF.EX.Patchs/Session" = "B"
+"TF.EX.Patchs/Music" = "B"
+"TF.EX.Patchs/Engine/" = "B"
+"TF.EX.Patchs/PlayerInput/" = "B"
+"TF.EX.Patchs/ReplayRecorder" = "B"
+"TF.EX.Patchs/Component/" = "B"
+"TF.EX.Patchs/ConnectionIcon" = "B"
+"TF.EX.Domain/Services/NetplayManager" = "B"
+"TF.EX.Domain/Services/ReplayService" = "B"
+"TF.EX.Domain/Services/SyncTestUtilsService" = "B"
+"TF.EX.Domain/Services/TF/InputService" = "B"
+"TF.EX.Domain/InstantReplayFootage" = "B"
+"TF.EX.Domain/SpectatorInputDisplay" = "B"
+"TF.EX.Domain/MatchReport" = "B"
+"TF.EX.Domain/FakeController" = "B"
+"TF.EX.Domain/Context/ReplayIntroPacing" = "B"
+"TF.EX.Domain/Context/VersusMatchResultsInputGate" = "B"
+"TF.EX.Domain/CustomComponent/LightPauseMenu" = "B"
+"TF.EX.Domain/CustomComponent/MatchEndChoices" = "B"
+"TF.EX.Domain/CustomComponent/SeriesScreen" = "B"
+"TF.EX.Domain/CustomComponent/SpectatorSeriesTally" = "B"
+"TF.EX.Domain/Extensions/Level" = "B"
+"TF.EX.Domain/Extensions/InputCodec" = "B"
+
+# ---- [after]: TF.EX's member generated as usual, the Switch's code on every way out of it (translator: CodeGen.AfterRule) ----
+[after]
+"TF.EX.Domain.Services.TF.InputService.UpdatePolledInput" = { cpp = "tfex::gen::svc::ScriptFeedSeat(seat)", key = "T", why = "tests (hw.txt script): the script stays the scripted seat's input when the idle controller's GetState postfix writes it" }
+"TF.EX.Domain.Services.TF.InputService.ResetPolledInput" = { cpp = "tfex::gen::svc::ScriptFeed()", key = "T", why = "tests (hw.txt script): the scripted seats' input for the next advance into GameContext's polled input (xplay.cpp ScriptFeed)" }
+"TF.EX.Patchs.MatchVariantsPatchs.MatchVariants_ctor" = { cpp = "tfex::frvariants::AddSwitchOnlyVariants(UnauthorizedVariant())", include = "../FrVariants.hpp", key = "S-native", why = "cross-play: the Switch's game has four variants the PC's lacks (PASS THROUGH TEAM, KEEP YOUR ARROWS, NO HYPERS, REAPER CHALICE); a PC or browser peer can't play them, so TF.EX's netplay hides them as it hides its own UnauthorizedVariant (2026-10-29 console: the browser refused a lobby with PASS THROUGH TEAM)" }
+"TF.EX.Domain.Context.GameContext.SetLocalInput" = { cpp = "tfex::gen::svc::LogLocalInput(input)", key = "S-native", why = "the console log: the local controller's first few changes" }
+"TF.EX.Domain.Context.GameContext.SetInputLocked" = { cpp = "tfex::gen::svc::LogInputLocked(locked)", key = "S-native", why = "the console log: each lock and unlock" }
+"TF.State.Domain.ServiceCollections.PurgeCache" = { cpp = "tfex::gen::GlueState::ClearCache()", include = "tfexgen_GlueState.hpp", key = "S-native", why = "LazyCache's reset token cancelled: every entry of the Switch's cache dictionary goes (glue/State.cs)" }
+"TF.EX.Domain.Extensions.VersusModeExtensions.ApplyNetplayMode" = { cpp = "tfex::ApplyNetplayMode()", include = "../MainMenuPatch.hpp", key = "S-start", why = "after TF.EX's body (MatchSettings.Mode = its Netplay mode 11, IsCustom, CustomVersusModeName, the variant rules): the Switch's online-mode flag (its hand code's IsNetplay) and pcgameplay.cpp's PC gameplay on" }
+"TF.EX.Domain.Extensions.VersusModeExtensions.ClearNetplayMode" = { cpp = "tfex::ClearNetplayMode()", include = "../MainMenuPatch.hpp", key = "S-start", why = "TF.EX's body (local mode back, variants off, the per-player values NormalizeForNetplay took given back), then the Switch's online-mode flag and PC gameplay off" }
+"TF.EX.Domain.Utils.Changelog.MarkSeen" = { cpp = "tfex::NetplaySettingsFile::StoreObject()", include = "../MatchmakingService.hpp", key = "S-native", why = "FortRise saves a module's settings with the game's save (the Saver TF.EX adds); the Switch's are their own file: LastVersionSeen saved here" }
+"TF.EX.Domain.Utils.Tutorial.MarkSeen" = { cpp = "tfex::NetplaySettingsFile::StoreObject()", include = "../MatchmakingService.hpp", key = "S-native", why = "as Changelog.MarkSeen: HasSeenTutorial saved" }
+

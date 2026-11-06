@@ -1,0 +1,45 @@
+[hw] hardware probe injected (built Oct 15 2026 07:02:14)
+[xplay] FPCR=0 (FZ=0 DN=0 RMode=0)
+[xplay] mathtest sin 07301656689ca354 cos 5ca7e6ef1f70778b atan2 c85d1691abc73032 pow d3d1af53b719d844 musl-pow 2ca2e37827dfbaea
+[xplay] fixes: pow -> musl, Math.Round -> ties to even
+[xplay] fixes: fixed timestep
+[rnd] whitelist hooks installed (15 of the required methods; arrow bounce, hats, chains, orbs, spikeballs, lava control and team spawns still to do)
+[rnd] System.Random replaced by .NET's seeded algorithm (1024 state slots)
+[rnd] self-test (seed 42 through the game's own function addresses): Next 1434747710 302596119, Next(100) 12, Next(5,10) 7, Sample 0.168434: matches .NET
+[rnd] self-test (gameplay stream, seed 1234): Next 97886956, Next(100) 84, Next(5,10) 8, Sample 0.870269; another object still .NET: 1434747710: OK
+[rnd] self-test (depth and ignore counters): OK
+[dm] Math.Sin/Cos/Atan2/Pow redirected to TF.EX's DeterministicMath
+[dm] self-test through the game's Math wrappers, 200,000 inputs: sin ce7dcc6f8e1d2c87 cos 9c9e3438fa8667ca atan2 eaace4c67e471e6b pow c046da3aeaff708d: matches TF.EX's DeterministicMath on .NET (689 ms)
+ws: network init: nifm 0 available 1, socket 0
+network probe: SD mounted
+ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+conn: name resolution failed; using 172.67.150.78
+conn: joined room xnet-hw1 as 94cb20f8-6d0c-40fd-8fc1-b6891afdd935
+np: relay connected
+np: sent 0 received 50 dropped 0
+np: sent 0 received 100 dropped 0
+[menu] FightButton at (100, 140) from (-160, 120) text 0x58faf9d580 players 0x58faed12f0: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 56 00 45 00 52 00 53 00 55 00 53 00 00 00 00 00 00 00 00 00 
+[menu] CoOpButton at (220, 140) from (480, 120) text 0x58faf002a0 players 0x58faed0f00: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 05 00 00 00 43 00 4f 00 2d 00 4f 00 50 00 00 00 00 00 00 00 00 00 00 00 
+[menu] ArchivesButton at (270, 210) from (270, 300) text 0x58faed29a0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 41 00 52 00 43 00 48 00 49 00 56 00 45 00 53 00 00 00 00 00 
+[menu] TrialsButton at (200, 210) from (200, 300) text 0x58faf9bff0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 54 00 52 00 49 00 41 00 4c 00 53 00 00 00 00 00 00 00 00 00 
+[menu] FightButton 0x58fb0a8d00: +0x88->btn1
+[menu]   5b4bd0d110 0 42c8000000010101 430c0000 0 598680ee20 598680ee40 0 | 0 5987bd1d70 ffffffff00000000 fffffff6 0 0 0 597f6e1ea0 | 0 58fb08dd80 0 0 0 0 5987d95b00 0 | 5987d95fc0 58faf9d580 58faed12f0 c320000000000000 42c8000042f00000 430c0000 5987ccb460 5987ccb1c0 | 5b4bd12aa8 0 1 5988419f60 58f
+[menu] CoOpButton 0x58fb08dd80: +0x78->btn3 +0x90->btn0
+[menu]   5b4bd04528 0 435c000000010101 430c0000 0 598680ede0 598680ee00 0 | 0 5987bd1c80 ffffffff00000000 fffffff6 0 0 0 58fb0a8c00 | 0 0 58fb0a8d00 0 0 0 5987d95a00 0 | 5987d95900 58faf002a0 58faed0f00 43f0000000000000 435c000042f00000 430c0000 5988352460 5987bd1b90 | 40648ff43ca3d70a 5987d95800 4
+[menu] ArchivesButton 0x59884dedd0: +0x80->btn1 +0x90->btn3
+[menu]   5b4bcfdc60 0 4387000000010101 43520000 0 598680ed40 598680ed60 0 | 0 5987bd1b40 ffffffff00000000 fffffff6 0 0 0 0 | 58fb08dd80 0 58fb0a8c00 0 0 0 5987d95700 0 | 5987d95600 58faed29a0 58fae37160 4387000000000000 4387000043960000 43520000 5987b875b0 5987b87540 | 5987d955c0 0 5b4bcca7d8 0 598
+[menu] TrialsButton 0x58fb0a8c00: +0x80->btn1 +0x88->btn2
+[menu]   5b4bd204b8 0 4348000000010101 43520000 0 598680ed00 598680ed20 0 | 0 5987bd1aa0 ffffffff00000000 fffffff6 0 0 0 0 | 58fb08dd80 59884dedd0 597f6e1ea0 0 0 0 5987d95540 0 | 5987d954c0 58faf9bff0 58fae37160 4348000000000000 4348000043960000 43520000 5987b871c0 0 | 5b4bd0d110 0 42c8000000010101
+[menu] StandardModeButton at (90, 90) from (-160, 120) text 0x58faf70370 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 53 00 54 00 41 00 4e 00 44 00 41 00 52 00 44 00 00 00 00 00 
+[menu] WideModeButton at (230, 90) from (530, 120) text 0x58faed15f0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 36 00 2d 00 50 00 4c 00 41 00 59 00 45 00 52 00 00 00 00 00 
+ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+np: sent 0 received 128 dropped 23
+np: sent 0 received 128 dropped 72
+np: sent 0 received 128 dropped 122
+np: sent 0 received 128 dropped 172
+ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+np: sent 0 received 128 dropped 222
+np: sent 0 received 128 dropped 271
+np: sent 0 received 128 dropped 321
+ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+np: sent 0 received 128 dropped 371

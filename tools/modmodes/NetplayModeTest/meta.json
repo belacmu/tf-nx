@@ -1,0 +1,20 @@
+{
+	"name": "NetplayModeTest",
+	"version": "0.1.0",
+	"displayName": "Netplay Mode Test",
+	"author": "crab",
+	"description": "A test versus mode for TF.EX's mod modes online: Last Man Standing's rules in a mod's own round logic.",
+	"dll": "NetplayModeTest.dll",
+	"dependencies": [
+		{
+			"name": "FortRise",
+			"version": "5.3.0"
+		}
+	],
+	"optionalDependencies": [
+		{
+			"name": "TF.EX",
+			"version": "0.28.1"
+		}
+	]
+}

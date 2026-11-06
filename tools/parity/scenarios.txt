@@ -1,0 +1,10 @@
+# tools/parity-sweep.sh scenarios: name | seed | hw.txt lines (;) | environment
+# Mixed on purpose: many features per match; a failure is split into smaller scenarios to find the cause.
+# Variant titles: the builder's (log "[screens] variant titles"); lobbyvariants holds 160 characters.
+# Wide needs the page's WiderSet: LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c. Teams: the page joins RED (LVB_TEAMKEY).
+
+mix-team-two-wide | 2001 | lobbymode 5; lobbyteam 0; lobbymax 3; lobbylocal2 1; lobbywide 1; lobbyvariants START WITH BOMB ARROWS|SLOW TIME|EXPLODING CORPSES|DOUBLE JUMPING|TEAM REVIVE | LVB_TEAMKEY=ArrowDown LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+mix-ffa-two | 2002 | lobbymax 3; lobbylocal2 1; lobbyvariants START WITH LASER ARROWS|SUPER SEEKING ARROWS|REGENERATING SHIELDS|BIG HEADS|ALWAYS DARK | 
+mix-team-wide | 2003 | lobbymode 5; lobbyteam 0; lobbywide 1; lobbyvariants START WITH DRILL ARROWS|OFFSET WORLD|CURSED BOWS|RETURN AS GHOSTS|SLIPPERY FLOORS | LVB_TEAMKEY=ArrowDown LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+mix-ffa | 2004 | lobbyvariants START WITH BRAMBLE ARROWS|START WITH WINGS|SUPER DODGING|TRIGGER CORPSES|ALWAYS LAVA|ALWAYS SCROLLING | 
+mix-two | 2005 | lobbymax 3; lobbylocal2 1; lobbyvariants START WITH PRISM ARROWS|START WITH FEATHER ARROWS|STEALTH ARCHERS|DARK PORTALS|MAX TREASURE | 

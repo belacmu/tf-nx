@@ -1,0 +1,27 @@
+cp: Mods/switch-online/.runs/lvb-netplay.txt.bak: Not a directory
+cp: Mods/switch-online/.runs/lvb-net.txt.bak: Not a directory
+cp: Mods/switch-online/.runs/lvb-script.txt.bak: Not a directory
+tools/lobby-vs-browser.sh: line 29: $out/lvb-server.log: ambiguous redirect
+tools/lobby-vs-browser.sh: line 30: $out/lvb-serve.log: ambiguous redirect
+tools/lobby-vs-browser.sh: line 34: $out/lvb-run.out: ambiguous redirect
+tools/lobby-vs-browser.sh: line 41: $out/lvb-driver.log: ambiguous redirect
+MANUAL: drive the page with curl localhost:19400/LA/key?k=<key>, screenshot localhost:19400/LA/shot
+tools/lobby-vs-browser.sh: line 61: $out/lvb-sd.txt: ambiguous redirect
+grep: ~/Code/Towerfall: No such file or directory
+grep: Switch: No such file or directory
+grep: Mods/switch-online/.runs/lvb-run.out: No such file or directory
+grep: ~/Code/Towerfall: No such file or directory
+grep: Switch: No such file or directory
+grep: Mods/switch-online/.runs/lvb-browser.txt: No such file or directory
+grep: ~/Code/Towerfall: No such file or directory
+grep: Switch: No such file or directory
+grep: Mods/switch-online/.runs/lvb-sd.txt: No such file or directory
+browser:  ticks; switch:  lines
+Traceback (most recent call last):
+  File "~/Code/Towerfall Switch Mods/switch-online/tools/compare-vs.py", line 11, in <module>
+    for l in open(sys.argv[1], errors="replace"):
+             ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '~/Code/Towerfall'
+cp: ~/Library/Application Support/Ryujinx/sdcard/xplay/netplay.txt: Not a directory
+cp: ~/Library/Application Support/Ryujinx/sdcard/xplay/net.txt: Not a directory
+cp: ~/Library/Application Support/Ryujinx/sdcard/xplay/script.txt: Not a directory

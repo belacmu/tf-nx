@@ -1,0 +1,47 @@
+# Twice a day: is anything TF.NX carries behind its upstream (TF.EX, FortRise, every catalog mod)? tools/updates/check.py
+# (docs/PLAN-TFNX-2026-11-04.md 5b). Something newer -> one open issue labelled "update-check", its body the current table (updated in
+# place, not a new issue per run); everything current again -> that issue is closed. A source that can't be reached fails the run.
+name: update check
+on:
+  schedule:
+    - cron: "0 7,17 * * *"   # 07:00 and 17:00 UTC
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4   # (no submodules: the check reads the committed generated code and mods/)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: check
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 tools/updates/check.py > table.txt; code=$?
+          cat table.txt
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          [ $code = 1 ] && exit 1 || exit 0
+      - name: open or update the issue
+        if: steps.check.outputs.code == '2'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create update-check --color FBCA04 --description "tools/updates/check.py found something newer" 2>/dev/null || true
+          { echo "Something TF.NX carries has a newer upstream version (tools/updates/check.py, $(date -u +%F' '%H:%M) UTC):"; echo; echo '```'; cat table.txt; echo '```'
+            echo; echo "If TF.EX is newer: its official server only lets the latest version play online, so Switch players are locked out until a TF.NX release follows (tools/tfex/update.sh)."; } > body.md
+          n=$(gh issue list --label update-check --state open --json number --jq '.[0].number')
+          if [ -n "$n" ]; then gh issue edit "$n" --body-file body.md; else gh issue create --title "Upstream update available" --label update-check --body-file body.md; fi
+      - name: close the issue when everything is current
+        if: steps.check.outputs.code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --label update-check --state open --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Everything TF.NX carries is current again ($(date -u +%F))."
+          done

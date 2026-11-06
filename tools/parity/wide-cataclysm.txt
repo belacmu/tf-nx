@@ -1,0 +1,7 @@
+# tools/parity-sweep.sh tools/parity/wide-cataclysm.txt: wide Cataclysm (procedural: every seed generates other levels) by RANDOM
+# with seeds that roll it; checks the PC ports of its geometry, items and background (levelgeom/levelitems/levelbg_core.hpp).
+wide-cataclysm-2101 | 2101 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-cataclysm-2114 | 2114 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-cataclysm-2117 | 2117 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-cataclysm-2123 | 2123 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-cataclysm-2140 | 2140 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c

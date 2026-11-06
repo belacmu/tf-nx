@@ -1,0 +1,195 @@
+# cd=0 replay=off cotrace=1 (no restores at all), seed 42, 2400 ticks; excerpt: round-change boundary, then every VersusStart coroutine update of round 1
+[xplay2co] Level.Update done level=965edc4 pending=True
+[xplay2] T 2150 rng=73388a504b50739b p0 43400000 434a0000 3f666652 00000000 alive=1 p1 00000000 00000000 00000000 00000000 alive=0
+[xplay2] R 2150 arrows=5 q0=0 q1=- list=41a80000:431d0000:t0:s4;42980000:43030000:t0:s4;43250000:42de0000:t0:s4;435b0000:42bc0000:t0:s4;43908000:43140000:t0:s4
+[xplay2co] Level.Update frame=2417 level=965edc4 round=0 firstpass=False
+[xplay2co] Level.Update done level=965edc4 pending=True
+[xplay2] T 2151 rng=73388a504b50739b p0 43400000 434a0000 3f666652 00000000 alive=1 p1 00000000 00000000 00000000 00000000 alive=0
+[xplay2] R 2151 arrows=5 q0=0 q1=- list=41a80000:431d0000:t0:s4;42980000:43030000:t0:s4;43250000:42de0000:t0:s4;435b0000:42bc0000:t0:s4;43908000:43140000:t0:s4
+[xplay2co] Level.Update frame=2418 level=965edc4 round=0 firstpass=False
+[xplay2co] Level.Update done level=965edc4 pending=True
+[xplay2] T 2152 rng=73388a504b50739b p0 43400000 434a0000 3f666652 00000000 alive=1 p1 00000000 00000000 00000000 00000000 alive=0
+[xplay2] R 2152 arrows=5 q0=0 q1=- list=41a80000:431d0000:t0:s4;42980000:43030000:t0:s4;43250000:42de0000:t0:s4;435b0000:42bc0000:t0:s4;43908000:43140000:t0:s4
+[xplay2co] Level.Update frame=2419 level=965edc4 round=0 firstpass=False
+[xplay2co] Engine.Scene = LevelLoaderXML frame=2419
+[xplay2setup] after Session.GotoNextRound round=1 rng=73388a504b50739b ggrs_frame=2419
+[xplay2setup] after Session.LevelLoadStart round=1 level=05.oel rng=95b476455b8f399d ggrs_frame=2419
+[xplay2setup] after Session.OnLevelLoadFinish round=1 rng=c1276bbf399104ae ggrs_frame=2419
+[xplay2co] Engine.Scene = Level frame=2419
+[xplay2co] Level.Update frame=2419 level=ffd50c6 round=1 firstpass=False
+[xplay2co] VS frame=2419 round=1 depth=1 wait=0 delay=0 timemult=3f800010
+[xplay2co] Level.Update done level=ffd50c6 pending=False
+[xplay2co] Level.Update done level=965edc4 pending=False
+[xplay2co] Level.Update frame=2420 level=ffd50c6 round=1 firstpass=False
+[xplay2co] VS frame=2420 round=1 depth=2 wait=0 delay=0 timemult=3f800010
+[xplay2co] Level.Update done level=ffd50c6 pending=True
+[xplay2] T 2154 rng=c1276bbf399104ae p0 438c0000 43180000 00000000 00000000 alive=1 p1 42200000 43180000 00000000 00000000 alive=1
+# ... all VersusStart updates of round 1:
+[xplay2co] VS frame=2419 round=1 depth=1 wait=0 delay=0 timemult=3f800010
+[xplay2co] VS frame=2420 round=1 depth=2 wait=0 delay=0 timemult=3f800010
+[xplay2co] VS frame=2421 round=1 depth=2 wait=30 delay=0 timemult=3f800010
+[xplay2co] VS frame=2422 round=1 depth=2 wait=28.999998 delay=0 timemult=3f800010
+[xplay2co] VS frame=2423 round=1 depth=2 wait=27.999996 delay=0 timemult=3f800010
+[xplay2co] VS frame=2424 round=1 depth=2 wait=26.999994 delay=0 timemult=3f800010
+[xplay2co] VS frame=2425 round=1 depth=2 wait=25.999992 delay=0 timemult=3f800010
+[xplay2co] VS frame=2426 round=1 depth=2 wait=24.99999 delay=0 timemult=3f800010
+[xplay2co] VS frame=2427 round=1 depth=2 wait=23.999989 delay=0 timemult=3f800010
+[xplay2co] VS frame=2428 round=1 depth=2 wait=22.999987 delay=0 timemult=3f800010
+[xplay2co] VS frame=2429 round=1 depth=2 wait=21.999985 delay=0 timemult=3f800010
+[xplay2co] VS frame=2430 round=1 depth=2 wait=20.999983 delay=0 timemult=3f800010
+[xplay2co] VS frame=2431 round=1 depth=2 wait=19.99998 delay=0 timemult=3f800010
+[xplay2co] VS frame=2432 round=1 depth=2 wait=18.999979 delay=0 timemult=3f800010
+[xplay2co] VS frame=2433 round=1 depth=2 wait=17.999977 delay=0 timemult=3f800010
+[xplay2co] VS frame=2434 round=1 depth=2 wait=16.999975 delay=0 timemult=3f800010
+[xplay2co] VS frame=2435 round=1 depth=2 wait=15.999973 delay=0 timemult=3f800010
+[xplay2co] VS frame=2436 round=1 depth=2 wait=14.999971 delay=0 timemult=3f800010
+[xplay2co] VS frame=2437 round=1 depth=2 wait=13.9999695 delay=0 timemult=3f800010
+[xplay2co] VS frame=2438 round=1 depth=2 wait=12.999968 delay=0 timemult=3f800010
+[xplay2co] VS frame=2439 round=1 depth=2 wait=11.999966 delay=0 timemult=3f800010
+[xplay2co] VS frame=2440 round=1 depth=2 wait=10.999964 delay=0 timemult=3f800010
+[xplay2co] VS frame=2441 round=1 depth=2 wait=9.999962 delay=0 timemult=3f800010
+[xplay2co] VS frame=2442 round=1 depth=2 wait=8.99996 delay=0 timemult=3f800010
+[xplay2co] VS frame=2443 round=1 depth=2 wait=7.999958 delay=0 timemult=3f800010
+[xplay2co] VS frame=2444 round=1 depth=2 wait=6.999956 delay=0 timemult=3f800010
+[xplay2co] VS frame=2445 round=1 depth=2 wait=5.999954 delay=0 timemult=3f800010
+[xplay2co] VS frame=2446 round=1 depth=2 wait=4.9999523 delay=0 timemult=3f800010
+[xplay2co] VS frame=2447 round=1 depth=2 wait=3.9999504 delay=0 timemult=3f800010
+[xplay2co] VS frame=2448 round=1 depth=2 wait=2.9999485 delay=0 timemult=3f800010
+[xplay2co] VS frame=2449 round=1 depth=2 wait=1.9999466 delay=0 timemult=3f800010
+[xplay2co] VS frame=2450 round=1 depth=2 wait=0.9999447 delay=0 timemult=3f800010
+[xplay2co] VS frame=2451 round=1 depth=2 wait=-5.722046E-05 delay=1 timemult=3f800010
+[xplay2co] VS frame=2452 round=1 depth=2 wait=30 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2453 round=1 depth=2 wait=28.999998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2454 round=1 depth=2 wait=27.999996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2455 round=1 depth=2 wait=26.999994 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2456 round=1 depth=2 wait=25.999992 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2457 round=1 depth=2 wait=24.99999 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2458 round=1 depth=2 wait=23.999989 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2459 round=1 depth=2 wait=22.999987 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2460 round=1 depth=2 wait=21.999985 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2461 round=1 depth=2 wait=20.999983 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2462 round=1 depth=2 wait=19.99998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2463 round=1 depth=2 wait=18.999979 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2464 round=1 depth=2 wait=17.999977 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2465 round=1 depth=2 wait=16.999975 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2466 round=1 depth=2 wait=15.999973 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2467 round=1 depth=2 wait=14.999971 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2468 round=1 depth=2 wait=13.9999695 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2469 round=1 depth=2 wait=12.999968 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2470 round=1 depth=2 wait=11.999966 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2471 round=1 depth=2 wait=10.999964 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2472 round=1 depth=2 wait=9.999962 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2473 round=1 depth=2 wait=8.99996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2474 round=1 depth=2 wait=7.999958 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2475 round=1 depth=2 wait=6.999956 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2476 round=1 depth=2 wait=5.999954 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2477 round=1 depth=2 wait=4.9999523 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2478 round=1 depth=2 wait=3.9999504 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2479 round=1 depth=2 wait=2.9999485 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2480 round=1 depth=2 wait=1.9999466 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2481 round=1 depth=2 wait=0.9999447 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2482 round=1 depth=2 wait=-5.722046E-05 delay=1 timemult=3f800010
+[xplay2co] VS frame=2483 round=1 depth=2 wait=10 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2484 round=1 depth=2 wait=8.999998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2485 round=1 depth=2 wait=7.999996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2486 round=1 depth=2 wait=6.9999943 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2487 round=1 depth=2 wait=5.9999924 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2488 round=1 depth=2 wait=4.9999905 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2489 round=1 depth=2 wait=3.9999886 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2490 round=1 depth=2 wait=2.9999866 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2491 round=1 depth=2 wait=1.9999847 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2492 round=1 depth=2 wait=0.99998283 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2493 round=1 depth=2 wait=-1.9073486E-05 delay=1 timemult=3f800010
+[xplay2co] VS frame=2494 round=1 depth=2 wait=50 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2495 round=1 depth=2 wait=49 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2496 round=1 depth=2 wait=48 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2497 round=1 depth=2 wait=47 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2498 round=1 depth=2 wait=46 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2499 round=1 depth=2 wait=45 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2500 round=1 depth=2 wait=44 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2501 round=1 depth=2 wait=43 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2502 round=1 depth=2 wait=42 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2503 round=1 depth=2 wait=41 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2504 round=1 depth=2 wait=40 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2505 round=1 depth=2 wait=39 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2506 round=1 depth=2 wait=38 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2507 round=1 depth=2 wait=37 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2508 round=1 depth=2 wait=36 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2509 round=1 depth=2 wait=35 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2510 round=1 depth=2 wait=34 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2511 round=1 depth=2 wait=33 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2512 round=1 depth=2 wait=31.999998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2513 round=1 depth=2 wait=30.999996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2514 round=1 depth=2 wait=29.999994 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2515 round=1 depth=2 wait=28.999992 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2516 round=1 depth=2 wait=27.99999 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2517 round=1 depth=2 wait=26.999989 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2518 round=1 depth=2 wait=25.999987 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2519 round=1 depth=2 wait=24.999985 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2520 round=1 depth=2 wait=23.999983 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2521 round=1 depth=2 wait=22.99998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2522 round=1 depth=2 wait=21.999979 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2523 round=1 depth=2 wait=20.999977 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2524 round=1 depth=2 wait=19.999975 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2525 round=1 depth=2 wait=18.999973 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2526 round=1 depth=2 wait=17.999971 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2527 round=1 depth=2 wait=16.99997 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2528 round=1 depth=2 wait=15.999968 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2529 round=1 depth=2 wait=14.999966 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2530 round=1 depth=2 wait=13.999964 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2531 round=1 depth=2 wait=12.999962 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2532 round=1 depth=2 wait=11.99996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2533 round=1 depth=2 wait=10.999958 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2534 round=1 depth=2 wait=9.999956 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2535 round=1 depth=2 wait=8.999954 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2536 round=1 depth=2 wait=7.9999523 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2537 round=1 depth=2 wait=6.9999504 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2538 round=1 depth=2 wait=5.9999485 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2539 round=1 depth=2 wait=4.9999466 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2540 round=1 depth=2 wait=3.9999447 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2541 round=1 depth=2 wait=2.9999428 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2542 round=1 depth=2 wait=1.9999409 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2543 round=1 depth=2 wait=0.99993896 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2544 round=1 depth=2 wait=-6.2942505E-05 delay=1 timemult=3f800010
+[xplay2co] VS frame=2545 round=1 depth=2 wait=10 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2546 round=1 depth=2 wait=8.999998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2547 round=1 depth=2 wait=7.999996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2548 round=1 depth=2 wait=6.9999943 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2549 round=1 depth=2 wait=5.9999924 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2550 round=1 depth=2 wait=4.9999905 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2551 round=1 depth=2 wait=3.9999886 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2552 round=1 depth=2 wait=2.9999866 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2553 round=1 depth=2 wait=1.9999847 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2554 round=1 depth=2 wait=0.99998283 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2555 round=1 depth=2 wait=-1.9073486E-05 delay=1 timemult=3f800010
+[xplay2co] VS frame=2556 round=1 depth=2 wait=30 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2557 round=1 depth=2 wait=28.999998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2558 round=1 depth=2 wait=27.999996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2559 round=1 depth=2 wait=26.999994 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2560 round=1 depth=2 wait=25.999992 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2561 round=1 depth=2 wait=24.99999 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2562 round=1 depth=2 wait=23.999989 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2563 round=1 depth=2 wait=22.999987 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2564 round=1 depth=2 wait=21.999985 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2565 round=1 depth=2 wait=20.999983 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2566 round=1 depth=2 wait=19.99998 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2567 round=1 depth=2 wait=18.999979 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2568 round=1 depth=2 wait=17.999977 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2569 round=1 depth=2 wait=16.999975 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2570 round=1 depth=2 wait=15.999973 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2571 round=1 depth=2 wait=14.999971 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2572 round=1 depth=2 wait=13.9999695 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2573 round=1 depth=2 wait=12.999968 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2574 round=1 depth=2 wait=11.999966 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2575 round=1 depth=2 wait=10.999964 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2576 round=1 depth=2 wait=9.999962 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2577 round=1 depth=2 wait=8.99996 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2578 round=1 depth=2 wait=7.999958 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2579 round=1 depth=2 wait=6.999956 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2580 round=1 depth=2 wait=5.999954 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2581 round=1 depth=2 wait=4.9999523 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2582 round=1 depth=2 wait=3.9999504 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2583 round=1 depth=2 wait=2.9999485 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2584 round=1 depth=2 wait=1.9999466 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2585 round=1 depth=2 wait=0.9999447 delay=-1.9073486E-06 timemult=3f800010
+[xplay2co] VS frame=2586 round=1 depth=2 wait=-5.722046E-05 delay=1 timemult=3f800010

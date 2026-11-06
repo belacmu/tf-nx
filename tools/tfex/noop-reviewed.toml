@@ -1,0 +1,59 @@
+# Every no-op rule the generated code reaches (tfexgen_report.txt "service map: no-op"), reviewed one by one: why doing nothing on the
+# Switch gives TF.EX's result. tools/tfex/prerun-check.py fails on a reached no-op that isn't listed here (2026-10-21: the ITfStateApi
+# wildcard no-op hid ResetRng / SetSeed / ResetRngOverride, and with them a desync, until a draw-by-draw comparison found it).
+# `gameplay = true`: it touches the simulation; the reason says why the Switch's result equals TF.EX's.
+[reviewed]
+"TF.EX.Domain.Services.UrlService.Open" = { gameplay = false, why = "the support link: no web browser for a game on the console" }
+"TF.EX.Domain.MatchStatsReport.Save" = { gameplay = false, why = "the match's stats stay null, TF.EX's path for a session without MatchStats: MatchEnded carries none (the server's ranked stats and profiles get nothing from a Switch match yet: a to-do)" }
+"TF.EX.Domain.MatchStatsReport.RecordAwards" = { gameplay = false, why = "as Save" }
+"System.Threading.SemaphoreSlim.WaitAsync" = { gameplay = false, why = "TF.EX's send gate (MatchmakingService.Send): the ClientWebSocket stand-in queues each frame whole on the game thread, its listen pass sends them in order" }
+"System.Threading.SemaphoreSlim.Release" = { gameplay = false, why = "as WaitAsync" }
+"TF.EX.Domain.Interop.ITfStateApi.SetInstantReplay" = { gameplay = false, why = "instant replays are off (the user's decision)" }
+"TF.EX.Domain.Interop.ITfStateApi.HasStateEvents" = { gameplay = false, why = "mods' state events: none on the Switch (false: TreasureSpawnerPatch.IsModuleSafe only asks it for modded pickups)" }
+"TF.EX.Domain.Context.IGameContext.Reset" = { gameplay = true, why = "its StateApi.ResetMatch runs at every lobby match's start (statert::BeforeMatch); the seat / archer selections are the Switch's lobby" }
+"TF.EX.Domain.Context.IGameContext.ResetPlayersIndex" = { gameplay = false, why = "seats: the Switch's lobby assigns them" }
+"TF.EX.Domain.Context.IGameContext.SetLocalSeat" = { gameplay = false, why = "seats: the Switch's lobby assigns them" }
+"TF.EX.Domain.Ports.INetplayManager.UpdatePlayer2Name" = { gameplay = false, why = "a display name" }
+"System.Threading.CancellationTokenSource.Cancel" = { gameplay = false, why = "TF.State's PurgeCache expires LazyCache entries; the glue cache (glue/State.cs) has no expiry. Only TF.State's LoadState reads it (the measurement, not the Switch's rollback yet): revisit at the rollback switch-over" }
+"TF.EX.Domain.Ports.TF.IInputService.ResetPolledInput" = { gameplay = false, why = "the Switch polls its controller itself (xplay.cpp); to-do in TFEX-BASE section 6" }
+"TF.EX.Domain.SpectatorInputDisplay.Render" = { gameplay = false, why = "drawing (spectators)" }
+"TF.EX.Domain.SpectatorInputDisplay.RenderGuide" = { gameplay = false, why = "drawing (spectators)" }
+"TF.EX.Domain.InstantReplayFootage.NotifyRoundEndBlocked" = { gameplay = false, why = "instant replays are off" }
+"TF.EX.Domain.InstantReplayFootage.PlayedThisMatch" = { gameplay = false, why = "instant replays are off" }
+"TF.EX.Domain.InstantReplayFootage.ResetMatch" = { gameplay = false, why = "instant replays are off" }
+"TF.EX.Domain.InstantReplayFootage.UsesScreenRecorder" = { gameplay = false, why = "instant replays are off" }
+"TF.EX.Domain.InstantReplayFootage.Track" = { gameplay = false, why = "instant replays are off (LevelPatch's Update prefix: the recorder's level)" }
+"TF.EX.Domain.InstantReplayFootage.HoldResults" = { gameplay = false, why = "instant replays are off (LevelPatch's Update postfix: holds the results while a replay plays)" }
+"TF.EX.Domain.Interop.ITfReplayApi.GetLoadedArcherNames" = { gameplay = false, why = "TF.Replay: not on the Switch" }
+"TF.EX.Domain.Interop.ITfReplayApi.IsPlayback" = { gameplay = false, why = "TF.Replay: not on the Switch (false)" }
+"TF.EX.Domain.Ports.IReplayService.Initialize" = { gameplay = false, why = "replays: not on the Switch" }
+"TF.EX.Domain.Ports.IReplayService.Reset" = { gameplay = false, why = "replays: not on the Switch" }
+"TF.EX.Domain.Services.ClipboardService.SetText" = { gameplay = false, why = "no clipboard (the code is shown on the roll call)" }
+"TF.EX.Patchs.Engine.TFGamePatch.WarnAboutDesyncRiskMods" = { gameplay = false, why = "no FortRise mods on the Switch" }
+"TF.EX.Patchs.Engine.TFGamePatch.WarnAboutModifiedGameFiles" = { gameplay = false, why = "the Switch's game files are the console's" }
+"TF.EX.Domain.Ports.ISyncTestUtilsService.Compare" = { gameplay = false, why = "desktop sync-test tooling (the Switch's check is the digest)" }
+"TF.EX.Domain.Ports.ISyncTestUtilsService.Reset" = { gameplay = false, why = "desktop sync-test tooling" }
+"TF.EX.Domain.Scenarios.ScenarioCatalog.LogCoverage" = { gameplay = false, why = "a desktop log" }
+"TF.EX.Common.IAutoUpdater.CheckForUpdate" = { gameplay = false, why = "the auto-updater: the Switch's mod updates with its build" }
+"TF.EX.Common.IAutoUpdater.GetCurrentVersion" = { gameplay = false, why = "the auto-updater" }
+"TF.EX.Common.IAutoUpdater.GetLatestVersion" = { gameplay = false, why = "the auto-updater" }
+"TF.EX.Common.IAutoUpdater.GetStatus" = { gameplay = false, why = "the auto-updater" }
+"TF.EX.Common.IAutoUpdater.IsStatusFresh" = { gameplay = false, why = "the auto-updater" }
+
+[open]
+"TF.EX.Domain.Interop.ITfReplayApi.GetTakeoverSeat" = { gameplay = false, why = "TF.Replay's take-over in the GetState patch (XGamepadInput_GetState on JoyConInput): only reached when IsReplayMode, false on the Switch (no TF.Replay)" }
+"TF.EX.Domain.Interop.ITfReplayApi.GetTakeoverInputFlat" = { gameplay = false, why = "as GetTakeoverSeat: replay take-over only" }
+"TF.EX.Domain.Ports.TF.IInputService.UpdatePolledInput" = { gameplay = true, why = "the GetState patch records the local seat's raw state for GGRS here on the PC; the Switch's netplay gate polls the local controller itself (xplay.cpp NpPadInput through tfex::InputLock::RawGetState, the original under the gate), so GGRS gets the same raw state" }
+"TF.EX.Domain.Ports.IReplayService.GetLoadedReplayMode" = { gameplay = false, why = "NetplayRoundLogic asks it only in replay mode (IsReplayMode), which the Switch doesn't have (TF.Replay not ported)" }
+"TF.EX.Domain.Ports.IReplayService.AddRecord" = { gameplay = false, why = "NetplayLogic's replay record of each saved state: TF.Replay isn't on the Switch" }
+"TF.EX.Domain.Ports.IReplayService.RemovePredictedRecords" = { gameplay = false, why = "as AddRecord: the replay's predicted records after a load" }
+"TF.EX.Domain.Ports.ISyncTestUtilsService.AddFrame" = { gameplay = false, why = "the sync test's saved states, only for the text of a mismatch (SyncTestUtilsService.Compare); ggrs_ffi's SyncTestSession finds the mismatch itself" }
+"TF.EX.Domain.Ports.ISyncTestUtilsService.Remove" = { gameplay = false, why = "as AddFrame" }
+"TF.EX.Domain.InstantReplayFootage.Abort" = { gameplay = false, why = "instant replays are off (the user's decision): nothing to abort" }
+"TF.EX.Domain.InstantReplayFootage.StepPause" = { gameplay = true, why = "instant replays off: false, so TFGameUpdate_Patch's accumulator never skips a tick for a replay pause (TF.EX's result with no replay)" }
+"TF.EX.Domain.InstantReplayFootage.TryStart" = { gameplay = false, why = "instant replays are off" }
+"TF.EX.Domain.Interop.ITfReplayApi.UpdatePlaybackControls" = { gameplay = false, why = "TFGameUpdate_Patch's replay-mode branch only (IsReplayMode is false on the Switch)" }
+"TF.EX.Domain.Ports.IReplayService.RunFrame" = { gameplay = false, why = "as UpdatePlaybackControls: replay mode only" }
+"TF.EX.Domain.SpectatorInputDisplay.Feed" = { gameplay = false, why = "the spectators' input overlay: no spectators in a Switch session" }
+"TF.EX.Domain.Ports.IMatchmakingService.StartOrStopPingMeasurementIfNeeded" = { gameplay = false, why = "made once per frame by the Switch's DrainGameThreadActions (tfex/MatchmakingService.cpp), just before; TFGameUpdate_Patch's second call would do it again (and at boot, before the generated service exists)" }
+"TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart" = { gameplay = false, why = "test mode's entity dump to files only (no state change)" }

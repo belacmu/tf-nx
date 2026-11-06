@@ -1,0 +1,40 @@
+# tools/devserver.py: what the console keeps in sync (<sd path> <local path, relative to switch-online/>); missing local files are skipped.
+# The mod (Atmosphère loads it from exefs at launch)
+sd:/atmosphere/contents/0100A1C00359C000/exefs/subsdk9   hw-probe/exlaunch/deploy/subsdk9
+sd:/atmosphere/contents/0100A1C00359C000/exefs/main.npdm hw-probe/exlaunch/deploy/main.npdm
+# Test settings and scripts (read at launch); put the files under .devserve/ to publish them
+sd:/xplay/hw.txt          .devserve/hw.txt
+sd:/xplay/netplay.txt     .devserve/netplay.txt
+# TF.EX's settings: not synced (2026-11-01), so the console keeps what the player sets in TF.EX's netplay options (SERVER: RESET = the
+# official server, LOCAL = ours). To force them at each boot again (a 1024-byte padded .devserve/TF.EX.settings.json), uncomment:
+# sd:/xplay/TF.EX.settings.json .devserve/TF.EX.settings.json
+sd:/xplay/vs0.txt         .devserve/vs0.txt
+sd:/xplay/vs1.txt         .devserve/vs1.txt
+# TF.EX's mod folder as it ships (its module boot reads them: CHANGELOG.md, the NETPLAY icon, the tutorial's slides; glue SwitchMods.TfexContent)
+sd:/xplay/tfex/CHANGELOG.md   vendor/tfex/Changelog/CHANGELOG.md
+sd:/xplay/tfex/icon.png   vendor/tfex/src/network/TF.EX.Core/icon.png
+sd:/xplay/tfex/imgs/netplay.png   vendor/tfex/src/network/TF.EX.Core/imgs/netplay.png
+sd:/xplay/tfex/imgs/tutorial/welcome.png   vendor/tfex/src/network/TF.EX.Core/imgs/tutorial/welcome.png
+sd:/xplay/tfex/imgs/tutorial/name.png   vendor/tfex/src/network/TF.EX.Core/imgs/tutorial/name.png
+sd:/xplay/tfex/imgs/tutorial/options.png   vendor/tfex/src/network/TF.EX.Core/imgs/tutorial/options.png
+sd:/xplay/tfex/imgs/tutorial/netplayEntry.png   vendor/tfex/src/network/TF.EX.Core/imgs/tutorial/netplayEntry.png
+# SSB.SacredClone (Mewtwo), premultiplied as the old Switch port's atlas was (light colour under its transparent pixels showed as a
+# box in one pose, on the Switch and the PC, 2026-11-01); the originals: ../additional-characters/fortrise-mods-originals/
+sd:/xplay/mods/SSB.SacredClone/Content/Atlas/atlas.png       ../additional-characters/fortrise-mods/SSB.SacredClone/Content/Atlas/atlas.png
+sd:/xplay/mods/SSB.SacredClone/Content/Atlas/menuAtlas.png   ../additional-characters/fortrise-mods/SSB.SacredClone/Content/Atlas/menuAtlas.png
+# The PC versus levels (tools/pc-levels.sh .devserve/romfs): the console's romfs is then the PC's levels, as make-sd installs it
+sd:/atmosphere/contents/0100A1C00359C000/romfs/ .devserve/romfs/
+# The mod folders our tools build (mods/<name>/mod.toml [folder]): devserve-publish.sh builds them and adds their lines
+# Leftovers of older layouts (2026-11-04), removed if present (at most 8 delete lines): WiderSet's folder before it was named after the
+# mod (Teuria.WiderSet), and romfs files nothing reads now: WiderSet's levels (its folder), the megamod's 6P-Versus spawn edits and
+# TowerBall's tb.oel (WiderSet's and TowerBall's folders), the megamod's TowerBall atlas (TowerBall's folder)
+delete sd:/xplay/mods/WiderSet
+delete sd:/xplay/mods/ThreeTeamMode
+delete sd:/xplay/mods/TeamPlus
+delete sd:/atmosphere/contents/0100A1C00359C000/romfs/Content/Levels/PCWide
+delete sd:/atmosphere/contents/0100A1C00359C000/romfs/Content/Levels/6P-Versus
+delete sd:/atmosphere/contents/0100A1C00359C000/romfs/Content/Levels/Versus
+delete sd:/atmosphere/contents/0100A1C00359C000/romfs/DarkWorldContent/Atlas
+delete sd:/atmosphere/contents/0100A1C00359C000/romfs/Content/Levels/PCVersus
+# (The PC levels once lay over the Switch's in romfs Content/Levels/Versus; a `delete` of that folder cleaned old installs until
+# 2026-10-30. Retired: the megamod's TowerBall levels live there now, tools/megamod/romfs.py.)

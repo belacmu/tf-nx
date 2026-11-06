@@ -1,0 +1,27 @@
+# Teams+ (TeamsPlus; ThreeTeamMode before 2026-11-05, TeamPlus briefly), a TF.NX catalog mod: mods/README.md says what each key means.
+meta = "meta.json"                         # its release's meta.json (name, version, dependencies, update source)
+logic = "translated"                       # tools/tfex/translate.toml's Tp_ units over vendor/teamplus/src (FortRise patches as hooks)
+vendored = "../../vendor/teamplus"         # its vendored release: when checked out, meta.json must equal it and `needs` hold every
+                                           # "Content/..." literal in its src/ (catalog.py; a build never needs the submodule)
+needs = ["Content/gameModes/threeteam.png", "Content/menu/teamC2x.png"]
+boot = "tfex::gen::codemods::Boot_TeamsPlus"   # generated (translate.toml [code_mods]): its module constructed, its patch classes on
+
+[folder]
+build = "./build_folder.sh"                # its PC release zip as it ships (ours; the console and the emulator get it too)
+extras = false
+
+[release]
+ship = true                                # ours: its release folder goes in TF.NX's release zip (tools/release.sh)
+
+[update]
+local = "three-team-mod/pc-fortrise/meta.json"   # ours: its PC repository's version (tools/updates/check.py)
+
+[overview]
+source = "../three-team-mod/pc-fortrise (our own)"
+download = "release/TeamsPlus.zip of that repository (GameBanana kit ready, not posted)"
+permission = "ours"
+works = "local; online in TF.EX lobbies (mode 12 with Teams+ installed)"
+
+[check]
+with = ["tools/megamod/localrun.sh 4 TEAMS+"]   # a local Teams+ match
+expect = ["[mods] TeamsPlus constructed: 7 of 7 patch classes hooked, 1 load-time postfixes replayed"]

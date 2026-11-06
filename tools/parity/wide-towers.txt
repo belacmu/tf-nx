@@ -1,0 +1,18 @@
+# tools/parity-sweep.sh tools/parity/wide-towers.txt: every wide (WiderSet) tower once, the Switch hosting, 2 players, no variants.
+# RANDOM with a seed that rolls the tower (tfex/NetplayManager.cpp SelectWide's shuffle), as TF.EX plays a wide lobby: its builder
+# offers MapId -1..15 only, so a wide match always rolls (docs/ws-wide.md). The page plays WIDE (LVB_PAGEWIDE=1).
+wide-00-sacred-ground | 2111 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-01-twilight-spire | 2102 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-02-backfire | 2103 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-03-flight | 2109 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-04-mirage | 2162 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-05-thornwood | 2100 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-06-frostfang-keep | 2110 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-07-kings-court | 2106 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-08-sunken-city | 2144 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-09-moonstone | 2119 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-10-towerforge | 2118 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-11-ascension | 2131 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-12-the-amaranth | 2112 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-14-darkfang | 2105 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c
+wide-15-cataclysm | 2101 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c

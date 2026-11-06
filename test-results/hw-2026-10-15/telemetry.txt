@@ -1,0 +1,284 @@
+=== #8 07:27:05 session 17866dbb seq 0 event boot uptime 5s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=1, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=0, npDropped=0, npState=0, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | [hw] hardware probe injected (built Oct 15 2026 07:02:14)
+    | [xplay] FPCR=0 (FZ=0 DN=0 RMode=0)
+    | [xplay] mathtest sin 07301656689ca354 cos 5ca7e6ef1f70778b atan2 c85d1691abc73032 pow d3d1af53b719d844 musl-pow 2ca2e37827dfbaea
+    | [xplay] fixes: pow -> musl, Math.Round -> ties to even
+    | [xplay] fixes: fixed timestep
+    | [rnd] whitelist hooks installed (15 of the required methods; arrow bounce, hats, chains, orbs, spikeballs, lava control and team spawns still to do)
+    | [rnd] System.Random replaced by .NET's seeded algorithm (1024 state slots)
+    | [rnd] self-test (seed 42 through the game's own function addresses): Next 1434747710 302596119, Next(100) 12, Next(5,10) 7, Sample 0.168434: matches .NET
+    | [rnd] self-test (gameplay stream, seed 1234): Next 97886956, Next(100) 84, Next(5,10) 8, Sample 0.870269; another object still .NET: 1434747710: OK
+    | [rnd] self-test (depth and ignore counters): OK
+    | [dm] Math.Sin/Cos/Atan2/Pow redirected to TF.EX's DeterministicMath
+    | [dm] self-test through the game's Math wrappers, 200,000 inputs: sin ce7dcc6f8e1d2c87 cos 9c9e3438fa8667ca atan2 eaace4c67e471e6b pow c046da3aeaff708d: matches TF.EX's DeterministicMath on .NET (54 ms)
+    | [hw] config: drill off (period 0, extra updates 4 / 12), hotset off (every 0)
+    | [xplay] script: 24 steps
+    | [vs] menu: players 000000 archers 0 0 0 0, match settings none
+    | [xplay] menu poll 120: scene IntroScene state 0: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 240: scene IntroScene state 0: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | ws: network init: nifm 0 available 0, socket 0
+    [previousSessionLog: 9054 chars saved]
+=== #9 07:27:30 session 17866dbb seq 1 event netplay_synchronized uptime 30s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=1, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=69, npRecvd=14, npDropped=0, npState=2, pingMs=0, ggrsFrame=1, ggrsConfirmed=-1, npEvents=['0', '4', '1', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=95588, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 7, errno 0); using the configured address
+    | [xplay] menu poll 360: scene IntroScene state 0: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [xplay] menu poll 480: scene SavingInfoScene state 1065353216: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [xplay] npad polls in the first 3000: id0:500(500 connected) id1:500(500 connected) id2:500(500 connected) id3:500(500 connected) id4:500(500 connected) id5:500(500 connected)
+    | [xplay] menu poll 600: scene SavingInfoScene state 1065353216: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [vs] menu: players 000000 archers 0 1 2 3, match settings none
+    | [xplay] menu poll 720: scene MainMenu state 2: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [menu] FightButton at (100, 140) from (-160, 120) text 0x20a07d3580 players 0x20a07072f0: b8 2f ab 0c 00 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 56 00 45 00 52 00 53 00 55 00 53 00 00 00 00 00 00 00 00 00 
+    | [menu] CoOpButton at (220, 140) from (480, 120) text 0x20a07362a0 players 0x20a0706f00: b8 2f ab 0c 00 00 00 00 00 00 00 00 00 00 00 00 05 00 00 00 43 00 4f 00 2d 00 4f 00 50 00 00 00 00 00 00 00 00 00 00 00 
+    | [menu] ArchivesButton at (270, 210) from (270, 300) text 0x20a07089a0 players 0x20a066d160: b8 2f ab 0c 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 41 00 52 00 43 00 48 00 49 00 56 00 45 00 53 00 00 00 00 00 
+    | [menu] TrialsButton at (200, 210) from (200, 300) text 0x20a07d1ff0 players 0x20a066d160: b8 2f ab 0c 00 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 54 00 52 00 49 00 41 00 4c 00 53 00 00 00 00 00 00 00 00 00 
+    | [menu] FightButton 0x20a08ded00: +0x88->btn1
+    | [menu]   cc0d110 0 42c8000000010101 430c0000 0 2133c3dc20 2133c3dc40 0 | 0 2131ef55a0 ffffffff00000000 fffffff6 0 0 0 21334e3ea0 | 0 20a08c3d80 0 0 0 0 213341b2c0 0 | 213341b480 20a07d3580 20a07072f0 c320000000000000 42c8000042f00000 430c0000 2133b41460 2133b413f0 | cc12aa8 0 1 2133c139c0 20a08d517
+    | [menu] CoOpButton 0x20a08c3d80: +0x78->btn3 +0x90->btn0
+    | [menu]   cc04528 0 435c000000010101 430c0000 0 2133c3dbe0 2133c3dc00 0 | 0 2131ef7e60 ffffffff00000000 fffffff6 0 0 0 20a08dec00 | 0 0 20a08ded00 0 0 0 213341b140 0 | 213341b040 20a07362a0 20a0706f00 43f0000000000000 435c000042f00000 430c0000 2133b527e0 2131ef7730 | 3e2858c73ca3d70a 21334ddf80 41f0
+    | [menu] ArchivesButton 0x2133cdedd0: +0x80->btn1 +0x90->btn3
+    | [menu]   cbfdc60 0 4387000000010101 43520000 0 2133c3db40 2133c3db60 0 | 0 2131ef75a0 ffffffff00000000 fffffff6 0 0 0 0 | 20a08c3d80 0 20a08dec00 0 0 0 21334ddf00 0 | 21334dde80 20a07089a0 20a066d160 4387000000000000 4387000043960000 43520000 212bac25b0 0 | 0 0 cbca7d8 0 2133cdef10 100000008 2133cd
+    | [menu] TrialsButton 0x20a08dec00: +0x80->btn1 +0x88->btn2
+    | [menu]   cc204b8 0 4348000000010101 43520000 0 2133c3db00 2133c3db20 0 | 0 2131ef7500 ffffffff00000000 fffffff6 0 0 0 0 | 20a08c3d80 2133cdedd0 21334e3ea0 0 0 0 21334dde40 0 | 21334dde00 20a07d1ff0 20a066d160 4348000000000000 4348000043960000 43520000 212bac24d0 0 | cc0d110 0 42c8000000010101 430c0
+    | [xplay] menu poll 840: scene MainMenu state 3: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [xplay] menu poll 960: scene MainMenu state 3: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [menu] StandardModeButton at (90, 90) from (-160, 120) text 0x20a07a6370 players 0x20a066d160: b8 2f ab 0c 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 53 00 54 00 41 00 4e 00 44 00 41 00 52 00 44 00 00 00 00 00 
+    | [menu] WideModeButton at (230, 90) from (530, 120) text 0x20a07075f0 players 0x20a066d160: b8 2f ab 0c 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 36 00 2d 00 50 00 4c 00 41 00 59 00 45 00 52 00 00 00 00 00 
+    | [xplay] menu poll 1080: scene MainMenu state 7: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [xplay] menu poll 1200: scene MainMenu state 7: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [vs] menu: players 000000 archers 0 1 2 3, match settings none
+    | [xplay] menu poll 1320: scene MainMenu state 7: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | network probe: SD mounted
+    | conn: name resolution failed; using 104.21.88.33
+    | conn: joined room xnet-hw1 as 94cb20f8-6d0c-40fd-8fc1-b6891afdd935
+    | np: relay connected
+    | [vs] menu: players 010000 archers 0 1 2 3, match settings set
+    | [xplay] menu poll 1440: scene MainMenu state 5: players 0100 chars 0 1 2 3 settings 0x21333f3aa0 mode 4
+    | [xplay] menu poll 1560: scene MainMenu state 5: players 0100 chars 0 1 2 3 settings 0x21333f3aa0 mode 4
+    | [vs] menu: players 110000 archers 0 1 2 3, match settings set
+    | [xplay] menu poll 1680: scene MainMenu state 5: players 1100 chars 0 1 2 3 settings 0x21333f3aa0 mode 4
+    | [vs] MenuInputs[0] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] MenuInputs[1] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] MenuInputs[2] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] MenuInputs[3] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] script 0: 487 steps
+    | [vs] script 1: 456 steps
+    | [vs] DoSlowMoKill: final-kill slow motion 0.25 -> 0.5 (as TF.EX/PC)
+    | [rb] GC_free_space_divisor 2 -> 1
+    | [rb] garbage collection off for the match (GC_dont_gc 1), heap grown to 95588 KB
+    | [rb] config: on 1, drill every 0 roll back 0
+    | [np] session created: seat 0 local, input delay 2, max prediction 8 (0 = lockstep), 60 fps
+    | [vs] Coroutine.OneFrameDelay before StartSession: 1
+    | [vs] TFGame.Players before StartSession: 1100
+    | [xplay] native versus start: mode 3, MapScene.StartSession
+    | [rnd] Session.StartGame: gameplay RNG reseeded from the lobby seed 42
+    | [vs] levels(10): 00.oel 05.oel 06.oel 03.oel 08.oel 09.oel 04.oel 01.oel 02.oel 07.oel
+    | [xplay] native versus start: StartSession returned
+    | [vs] Coroutine.OneFrameDelay after StartSession: 1
+    | [vs] TFGame.Players after StartSession: 1100
+    | [vs] PlayerInputs non-null mask now 3f (Level.Update tick 0)
+    | [vs] TFGame.Players now 1100 (scene MainMenu, Level.Update tick 0)
+    | [rnd] SpawnPlayersFFA entered (capture 1)
+    | [rnd] Random() built inside SpawnPlayersFFA (capture 1)
+    | np: sent 38 received 0 dropped 0
+    | [np] synchronizing 1/5
+    | [np] event 2 (0, 0) at frame 0
+=== #10 07:31:54 session 1f9e50d6 seq 0 event boot uptime 6s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=0, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=0, npDropped=0, npState=0, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=49124, logLinesLost=0
+    | [hw] hardware probe injected (built Oct 15 2026 07:02:14)
+    | [xplay] FPCR=0 (FZ=0 DN=0 RMode=0)
+    | [xplay] mathtest sin 07301656689ca354 cos 5ca7e6ef1f70778b atan2 c85d1691abc73032 pow d3d1af53b719d844 musl-pow 2ca2e37827dfbaea
+    | [xplay] fixes: pow -> musl, Math.Round -> ties to even
+    | [xplay] fixes: fixed timestep
+    | [rnd] whitelist hooks installed (15 of the required methods; arrow bounce, hats, chains, orbs, spikeballs, lava control and team spawns still to do)
+    | [rnd] System.Random replaced by .NET's seeded algorithm (1024 state slots)
+    | [rnd] self-test (seed 42 through the game's own function addresses): Next 1434747710 302596119, Next(100) 12, Next(5,10) 7, Sample 0.168434: matches .NET
+    | [rnd] self-test (gameplay stream, seed 1234): Next 97886956, Next(100) 84, Next(5,10) 8, Sample 0.870269; another object still .NET: 1434747710: OK
+    | [rnd] self-test (depth and ignore counters): OK
+    | [dm] Math.Sin/Cos/Atan2/Pow redirected to TF.EX's DeterministicMath
+    | [dm] self-test through the game's Math wrappers, 200,000 inputs: sin ce7dcc6f8e1d2c87 cos 9c9e3438fa8667ca atan2 eaace4c67e471e6b pow c046da3aeaff708d: matches TF.EX's DeterministicMath on .NET (689 ms)
+    | ws: network init: nifm 0 available 1, socket 0
+=== #11 07:32:25 session 1f9e50d6 seq 1 event periodic uptime 52s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=0, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=128, npDropped=20, npState=2, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | network probe: SD mounted
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | conn: name resolution failed; using 172.67.150.78
+    | conn: joined room xnet-hw1 as 94cb20f8-6d0c-40fd-8fc1-b6891afdd935
+    | np: relay connected
+    | np: sent 0 received 50 dropped 0
+    | np: sent 0 received 100 dropped 0
+    | [menu] FightButton at (100, 140) from (-160, 120) text 0x58faf9d580 players 0x58faed12f0: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 56 00 45 00 52 00 53 00 55 00 53 00 00 00 00 00 00 00 00 00 
+    | [menu] CoOpButton at (220, 140) from (480, 120) text 0x58faf002a0 players 0x58faed0f00: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 05 00 00 00 43 00 4f 00 2d 00 4f 00 50 00 00 00 00 00 00 00 00 00 00 00 
+    | [menu] ArchivesButton at (270, 210) from (270, 300) text 0x58faed29a0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 41 00 52 00 43 00 48 00 49 00 56 00 45 00 53 00 00 00 00 00 
+    | [menu] TrialsButton at (200, 210) from (200, 300) text 0x58faf9bff0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 54 00 52 00 49 00 41 00 4c 00 53 00 00 00 00 00 00 00 00 00 
+    | [menu] FightButton 0x58fb0a8d00: +0x88->btn1
+    | [menu]   5b4bd0d110 0 42c8000000010101 430c0000 0 598680ee20 598680ee40 0 | 0 5987bd1d70 ffffffff00000000 fffffff6 0 0 0 597f6e1ea0 | 0 58fb08dd80 0 0 0 0 5987d95b00 0 | 5987d95fc0 58faf9d580 58faed12f0 c320000000000000 42c8000042f00000 430c0000 5987ccb460 5987ccb1c0 | 5b4bd12aa8 0 1 5988419f60 58f
+    | [menu] CoOpButton 0x58fb08dd80: +0x78->btn3 +0x90->btn0
+    | [menu]   5b4bd04528 0 435c000000010101 430c0000 0 598680ede0 598680ee00 0 | 0 5987bd1c80 ffffffff00000000 fffffff6 0 0 0 58fb0a8c00 | 0 0 58fb0a8d00 0 0 0 5987d95a00 0 | 5987d95900 58faf002a0 58faed0f00 43f0000000000000 435c000042f00000 430c0000 5988352460 5987bd1b90 | 40648ff43ca3d70a 5987d95800 4
+    | [menu] ArchivesButton 0x59884dedd0: +0x80->btn1 +0x90->btn3
+    | [menu]   5b4bcfdc60 0 4387000000010101 43520000 0 598680ed40 598680ed60 0 | 0 5987bd1b40 ffffffff00000000 fffffff6 0 0 0 0 | 58fb08dd80 0 58fb0a8c00 0 0 0 5987d95700 0 | 5987d95600 58faed29a0 58fae37160 4387000000000000 4387000043960000 43520000 5987b875b0 5987b87540 | 5987d955c0 0 5b4bcca7d8 0 598
+    | [menu] TrialsButton 0x58fb0a8c00: +0x80->btn1 +0x88->btn2
+    | [menu]   5b4bd204b8 0 4348000000010101 43520000 0 598680ed00 598680ed20 0 | 0 5987bd1aa0 ffffffff00000000 fffffff6 0 0 0 0 | 58fb08dd80 59884dedd0 597f6e1ea0 0 0 0 5987d95540 0 | 5987d954c0 58faf9bff0 58fae37160 4348000000000000 4348000043960000 43520000 5987b871c0 0 | 5b4bd0d110 0 42c8000000010101
+    | [menu] StandardModeButton at (90, 90) from (-160, 120) text 0x58faf70370 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 53 00 54 00 41 00 4e 00 44 00 41 00 52 00 44 00 00 00 00 00 
+    | [menu] WideModeButton at (230, 90) from (530, 120) text 0x58faed15f0 players 0x58fae37160: b8 2f bb 4b 5b 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 36 00 2d 00 50 00 4c 00 41 00 59 00 45 00 52 00 00 00 00 00 
+=== #12 07:32:55 session 1f9e50d6 seq 2 event periodic uptime 83s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=0, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=128, npDropped=173, npState=2, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | np: sent 0 received 128 dropped 23
+    | np: sent 0 received 128 dropped 72
+    | np: sent 0 received 128 dropped 122
+    | np: sent 0 received 128 dropped 172
+=== #13 07:33:26 session 1f9e50d6 seq 3 event periodic uptime 113s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=0, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=128, npDropped=323, npState=2, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | np: sent 0 received 128 dropped 222
+    | np: sent 0 received 128 dropped 271
+    | np: sent 0 received 128 dropped 321
+=== #14 07:34:42 session 2a9880dc seq 0 event boot uptime 6s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=1, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=0, npDropped=0, npState=0, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=49124, logLinesLost=0
+    | [hw] hardware probe injected (built Oct 15 2026 07:02:14)
+    | [xplay] FPCR=0 (FZ=0 DN=0 RMode=0)
+    | [xplay] mathtest sin 07301656689ca354 cos 5ca7e6ef1f70778b atan2 c85d1691abc73032 pow d3d1af53b719d844 musl-pow 2ca2e37827dfbaea
+    | [xplay] fixes: pow -> musl, Math.Round -> ties to even
+    | [xplay] fixes: fixed timestep
+    | [rnd] whitelist hooks installed (15 of the required methods; arrow bounce, hats, chains, orbs, spikeballs, lava control and team spawns still to do)
+    | [rnd] System.Random replaced by .NET's seeded algorithm (1024 state slots)
+    | [rnd] self-test (seed 42 through the game's own function addresses): Next 1434747710 302596119, Next(100) 12, Next(5,10) 7, Sample 0.168434: matches .NET
+    | [rnd] self-test (gameplay stream, seed 1234): Next 97886956, Next(100) 84, Next(5,10) 8, Sample 0.870269; another object still .NET: 1434747710: OK
+    | [rnd] self-test (depth and ignore counters): OK
+    | [dm] Math.Sin/Cos/Atan2/Pow redirected to TF.EX's DeterministicMath
+    | [dm] self-test through the game's Math wrappers, 200,000 inputs: sin ce7dcc6f8e1d2c87 cos 9c9e3438fa8667ca atan2 eaace4c67e471e6b pow c046da3aeaff708d: matches TF.EX's DeterministicMath on .NET (689 ms)
+    | [hw] config: drill off (period 0, extra updates 4 / 12), hotset off (every 0)
+    | [xplay] script: 24 steps
+    | [vs] menu: players 000000 archers 0 0 0 0, match settings none
+    | [xplay] menu poll 120: scene IntroScene state 0: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | ws: network init: nifm 0 available 1, socket 0
+    [previousSessionLog: 4877 chars saved]
+=== #15 07:35:12 session 2a9880dc seq 1 event periodic uptime 37s build Oct 15 2026 07:25:44
+    stats: vsOn=False, lvTick=0, npOn=1, npFrame=0, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=0, npRecvd=108, npDropped=0, npState=2, npEvents=['0', '0', '0', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | [xplay] menu poll 240: scene IntroScene state 0: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 360: scene IntroScene state 0: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 480: scene SavingInfoScene state 1065353216: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 600: scene SavingInfoScene state 1065353216: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [vs] menu: players 000000 archers 0 0 0 0, match settings none
+    | [xplay] menu poll 720: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | network probe: SD mounted
+    | conn: name resolution failed; using 172.67.150.78
+    | conn: joined room xnet-hw1 as 94cb20f8-6d0c-40fd-8fc1-b6891afdd935
+    | np: relay connected
+    | [xplay] menu poll 840: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 960: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 1080: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 1200: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [vs] menu: players 000000 archers 0 0 0 0, match settings none
+    | [xplay] menu poll 1320: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | np: sent 0 received 52 dropped 0
+    | [xplay] menu poll 1440: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 1560: scene MainMenu state 1: players 0000 chars 0 0 0 0 settings 0 mode -1
+    | [xplay] menu poll 1680: scene MainMenu state 2: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [xplay] menu poll 1800: scene MainMenu state 2: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [vs] menu: players 000000 archers 0 1 2 3, match settings none
+    | [xplay] menu poll 1920: scene MainMenu state 2: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | np: sent 0 received 102 dropped 0
+    | [xplay] menu poll 2040: scene MainMenu state 2: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [menu] FightButton at (100, 140) from (-160, 120) text 0x481559d580 players 0x48154d12f0: b8 2f fb 80 0d 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 56 00 45 00 52 00 53 00 55 00 53 00 00 00 00 00 00 00 00 00 
+    | [menu] CoOpButton at (220, 140) from (480, 120) text 0x48155002a0 players 0x48154d0f00: b8 2f fb 80 0d 00 00 00 00 00 00 00 00 00 00 00 05 00 00 00 43 00 4f 00 2d 00 4f 00 50 00 00 00 00 00 00 00 00 00 00 00 
+    | [menu] ArchivesButton at (270, 210) from (270, 300) text 0x48154d29a0 players 0x4815437160: b8 2f fb 80 0d 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 41 00 52 00 43 00 48 00 49 00 56 00 45 00 53 00 00 00 00 00 
+    | [menu] TrialsButton at (200, 210) from (200, 300) text 0x481559bff0 players 0x4815437160: b8 2f fb 80 0d 00 00 00 00 00 00 00 00 00 00 00 06 00 00 00 54 00 52 00 49 00 41 00 4c 00 53 00 00 00 00 00 00 00 00 00 
+    | [menu] FightButton 0x48156a8d00: +0x88->btn1
+    | [menu]   d8110d110 0 42c8000000010101 430c0000 0 4899cb7fa0 4899cb7fc0 0 | 0 48a21d79b0 ffffffff00000000 fffffff6 0 0 0 4899cbaea0 | 0 481568dd80 0 0 0 0 48a2213d00 0 | 48a2213e80 481559d580 48154d12f0 c320000000000000 42c8000042f00000 430c0000 48a21f57e0 48a21f5770 | d81112aa8 0 1 48a2a6e600 48156
+    | [menu] CoOpButton 0x481568dd80: +0x78->btn3 +0x90->btn0
+    | [menu]   d81104528 0 435c000000010101 430c0000 0 4899cb7f60 4899cb7f80 0 | 0 48a21d78c0 ffffffff00000000 fffffff6 0 0 0 48156a8c00 | 0 0 48156a8d00 0 0 0 48a2213c80 0 | 48a2213c00 48155002a0 48154d0f00 43f0000000000000 435c000042f00000 430c0000 48a2995460 48a21d77d0 | 3fccd5143ca3d70a 48a2213b80 41
+    | [menu] ArchivesButton 0x48a2adedd0: +0x80->btn1 +0x90->btn3
+    | [menu]   d810fdc60 0 4387000000010101 43520000 0 4899cb7ec0 4899cb7ee0 0 | 0 48a21d7780 ffffffff00000000 fffffff6 0 0 0 0 | 481568dd80 0 48156a8c00 0 0 0 48a2213b00 0 | 48a2213a80 48154d29a0 4815437160 4387000000000000 4387000043960000 43520000 48a21f51c0 489a8b18c0 | 48a2213a00 0 d810ca7d8 0 48a2a
+    | [menu] TrialsButton 0x48156a8c00: +0x80->btn1 +0x88->btn2
+    | [menu]   d811204b8 0 4348000000010101 43520000 0 4899cb7e80 4899cb7ea0 0 | 0 48a21d76e0 ffffffff00000000 fffffff6 0 0 0 0 | 481568dd80 48a2adedd0 4899cbaea0 0 0 0 48a2213980 0 | 48a2213900 481559bff0 4815437160 4348000000000000 4348000043960000 43520000 489a8b1770 0 | d8110d110 0 42c8000000010101 4
+=== #16 07:35:27 session 2a9880dc seq 2 event netplay_synchronized uptime 52s build Oct 15 2026 07:25:44
+    stats: vsOn=True, lvTick=7, npOn=1, npFrame=7, stateFrame=-1, updMsP50x100=0, updMsP90x100=0, updMsMaxx100=0, frameMsP50x100=0, frameMsP90x100=0, frameMsP99x100=0, worstUpdMs=0, npSent=151, npRecvd=163, npDropped=50, npState=2, pingMs=-1, ggrsFrame=7, ggrsConfirmed=10, npEvents=['0', '4', '1', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | [xplay] menu poll 2160: scene MainMenu state 3: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [xplay] menu poll 2280: scene MainMenu state 3: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [menu] StandardModeButton at (90, 90) from (-160, 120) text 0x4815570370 players 0x4815437160: b8 2f fb 80 0d 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 53 00 54 00 41 00 4e 00 44 00 41 00 52 00 44 00 00 00 00 00 
+    | [menu] WideModeButton at (230, 90) from (530, 120) text 0x48154d15f0 players 0x4815437160: b8 2f fb 80 0d 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 36 00 2d 00 50 00 4c 00 41 00 59 00 45 00 52 00 00 00 00 00 
+    | [xplay] menu poll 2400: scene MainMenu state 7: players 0000 chars 0 1 2 3 settings 0 mode -1
+    | [vs] menu: players 000000 archers 0 1 2 3, match settings none
+    | [xplay] menu poll 2520: scene MainMenu state 5: players 0000 chars 0 1 2 3 settings 0x48a21d7c80 mode 4
+    | np: sent 0 received 128 dropped 23
+    | [xplay] menu poll 2640: scene MainMenu state 5: players 0000 chars 0 1 2 3 settings 0x48a21d7c80 mode 4
+    | [xplay] menu poll 2760: scene MainMenu state 5: players 0000 chars 0 1 2 3 settings 0x48a21d7c80 mode 4
+    | [vs] menu: players 100000 archers 0 1 2 3, match settings set
+    | [vs] menu: players 110000 archers 0 1 2 3, match settings set
+    | [xplay] menu poll 2880: scene MainMenu state 5: players 1100 chars 0 1 2 3 settings 0x48a21d7c80 mode 4
+    | [vs] MenuInputs[0] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] MenuInputs[1] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] MenuInputs[2] is JoyConInput, MenuConfirm body +0xa61b80
+    | [vs] script 0: 487 steps
+    | [vs] script 1: 456 steps
+    | [vs] DoSlowMoKill: final-kill slow motion 0.25 -> 0.5 (as TF.EX/PC)
+    | [rb] config: on 0, drill every 0 roll back 0
+    | [np] session created: seat 0 local, input delay 4, max prediction 0 (0 = lockstep), 60 fps
+    | [vs] Coroutine.OneFrameDelay before StartSession: 1
+    | [vs] TFGame.Players before StartSession: 1100
+    | [xplay] native versus start: mode 3, MapScene.StartSession
+    | [rnd] Session.StartGame: gameplay RNG reseeded from the lobby seed 42
+    | [vs] levels(10): 00.oel 05.oel 06.oel 03.oel 08.oel 09.oel 04.oel 01.oel 02.oel 07.oel
+    | [xplay] native versus start: StartSession returned
+    | [vs] Coroutine.OneFrameDelay after StartSession: 1
+    | [vs] TFGame.Players after StartSession: 1100
+    | [vs] PlayerInputs non-null mask now 07 (Level.Update tick 0)
+    | [vs] TFGame.Players now 1100 (scene MainMenu, Level.Update tick 0)
+    | [rnd] SpawnPlayersFFA entered (capture 1)
+    | [rnd] Random() built inside SpawnPlayersFFA (capture 1)
+    | [np] synchronizing 1/5
+    | [np] event 2 (0, 0) at frame 0
+=== #17 07:35:57 session 2a9880dc seq 3 event periodic uptime 82s build Oct 15 2026 07:25:44
+    stats: vsOn=True, lvTick=1320, npOn=1, npFrame=1320, stateFrame=-1, updMsP50x100=113, updMsP90x100=143, updMsMaxx100=172384, frameMsP50x100=1674, frameMsP90x100=1738, frameMsP99x100=6684, worstUpdMs=1725, npSent=2013, npRecvd=3090, npDropped=50, npState=2, pingMs=66, ggrsFrame=1320, ggrsConfirmed=1323, npEvents=['0', '4', '1', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | [xplay] npad polls in the first 3000: id0:3000(3000 connected)
+    | np: sent 482 received 681 dropped 50
+    | [vs] origin: tick 266 (seat 0 state 0)
+    | [xplay] player under control (first NormalUpdate) at poll 2942
+    | [vs] Arrow.Create #1 type 0 at (244.00, 193.00) dir -0.785 -> 0x48a21e46c0
+    | [rnd] DefaultArrow: Arrow.EnterFallMode body +0x988ea0 hooked (distinct body 1)
+    | [vs] Arrow.Create #2 type 0 at (44.00, 211.00) dir 0.785 -> 0x48a21e4240
+    | [vs] Arrow.Create #3 type 0 at (66.00, 211.00) dir -0.785 -> 0x48a21e4240
+    | [vs] Arrow.Create #4 type 0 at (44.00, 211.00) dir 0.000 -> 0x481569e000
+    | [vs] Arrow.Create #5 type 0 at (264.00, 195.00) dir 3.142 -> 0x48a22f2d80
+    | [vs] Arrow.Create #6 type 0 at (54.00, 211.00) dir 3.142 -> 0x48a22f2b40
+    | [vs] Arrow.Create #7 type 0 at (44.00, 195.00) dir 3.142 -> 0x48a22f2b40
+    | [vs] Arrow.Create #8 type 0 at (263.00, 173.00) dir 2.356 -> 0x48a22f2b40
+    | np: sent 1013 received 1526 dropped 50
+    | [hw] timing, in-level frames 1..600: update ms p50 1.13 p90 1.43 p99 2.17 max 1723.84 (worst so far 1723.84); frame period ms p50 16.75 p90 17.39 p99 66.85 max 100.02
+    | [hw] gameplay rng: 15 draws so far (arrow bounces hooked: 0), state fold 69710fca3ad62567
+    | np: sent 1671 received 2551 dropped 50
+=== #18 07:36:22 session 2a9880dc seq 4 event round_end uptime 106s build Oct 15 2026 07:25:44
+    stats: vsOn=True, lvTick=2299, npOn=1, npFrame=2299, stateFrame=-1, updMsP50x100=116, updMsP90x100=142, updMsMaxx100=167955, frameMsP50x100=1659, frameMsP90x100=1754, frameMsP99x100=6719, worstUpdMs=1827, npSent=3402, npRecvd=5316, npDropped=50, npState=2, pingMs=68, ggrsFrame=2299, ggrsConfirmed=2300, npEvents=['0', '4', '1', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | np: sent 2265 received 3507 dropped 50
+    | [hw] timing, in-level frames 601..1200: update ms p50 1.22 p90 1.46 p99 2.49 max 1827.21 (worst so far 1827.21); frame period ms p50 16.67 p90 17.44 p99 66.82 max 217.28
+    | [hw] gameplay rng: 15 draws so far (arrow bounces hooked: 0), state fold 69710fca3ad62567
+    | [vs] Miasma found in tag 12; Update body +0xacaf30
+    | np: sent 2857 received 4408 dropped 50
+    | [hw] timing, in-level frames 1201..1800: update ms p50 1.16 p90 1.42 p99 2.67 max 1679.55 (worst so far 1827.21); frame period ms p50 16.60 p90 17.54 p99 67.20 max 117.58
+    | [hw] gameplay rng: 15 draws so far (arrow bounces hooked: 0), state fold 69710fca3ad62567
+    | np: sent 3402 received 5310 dropped 50
+=== #19 07:36:52 session 2a9880dc seq 5 event periodic uptime 137s build Oct 15 2026 07:25:44
+    stats: vsOn=True, lvTick=3462, npOn=1, npFrame=3461, stateFrame=-1, updMsP50x100=113, updMsP90x100=134, updMsMaxx100=175707, frameMsP50x100=1664, frameMsP90x100=1758, frameMsP99x100=6613, worstUpdMs=1827, npSent=5089, npRecvd=7932, npDropped=50, npState=2, pingMs=66, ggrsFrame=3461, ggrsConfirmed=3464, npEvents=['0', '4', '1', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | [rnd] SpawnPlayersFFA entered (capture 1)
+    | [rnd] Random() built inside SpawnPlayersFFA (capture 1)
+    | np: sent 3791 received 5900 dropped 50
+    | np: sent 4425 received 6912 dropped 50
+    | [hw] timing, in-level frames 1801..2400: update ms p50 1.13 p90 1.35 p99 2.23 max 1757.07 (worst so far 1827.21); frame period ms p50 16.64 p90 17.59 p99 66.14 max 99.93
+    | [hw] gameplay rng: 38 draws so far (arrow bounces hooked: 0), state fold 0bba6d3c5158e831
+    | np: sent 4994 received 7785 dropped 50
+=== #20 07:37:16 session 2a9880dc seq 6 event round_end uptime 161s build Oct 15 2026 07:25:44
+    stats: vsOn=True, lvTick=4394, npOn=1, npFrame=4393, stateFrame=-1, updMsP50x100=122, updMsP90x100=139, updMsMaxx100=171201, frameMsP50x100=1662, frameMsP90x100=1771, frameMsP99x100=6679, worstUpdMs=1827, npSent=6420, npRecvd=10053, npDropped=50, npState=2, pingMs=83, ggrsFrame=4393, ggrsConfirmed=4394, npEvents=['0', '4', '1', '0', '0', '0', '0', '0'], rbLoads=0, rbMaxDepth=0, rbResimTicks=0, rbLowered=0, rbExtraFrames=0, gcSafePoints=0, heapKB=62820, logLinesLost=0
+    | ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address
+    | [hw] timing, in-level frames 2401..3000: update ms p50 1.18 p90 1.38 p99 2.54 max 1716.10 (worst so far 1827.21); frame period ms p50 16.60 p90 17.68 p99 67.21 max 83.94
+    | [hw] gameplay rng: 38 draws so far (arrow bounces hooked: 0), state fold 0bba6d3c5158e831
+    | np: sent 5645 received 8805 dropped 50
+    | np: sent 6189 received 9663 dropped 50
+    | [hw] timing, in-level frames 3001..3600: update ms p50 1.22 p90 1.40 p99 2.38 max 1712.01 (worst so far 1827.21); frame period ms p50 16.62 p90 17.72 p99 66.80 max 100.13
+    | [hw] gameplay rng: 38 draws so far (arrow bounces hooked: 0), state fold 0bba6d3c5158e831

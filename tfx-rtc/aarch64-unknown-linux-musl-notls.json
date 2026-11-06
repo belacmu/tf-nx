@@ -1,0 +1,58 @@
+{
+ "arch": "aarch64",
+ "crt-objects-fallback": "musl",
+ "crt-static-default": true,
+ "crt-static-respected": true,
+ "data-layout": "e-m:e-p270:32:32-p271:32:32-p272:64:64-i8:8:32-i16:16:32-i64:64-i128:128-n32:64-S128-Fn32",
+ "default-uwtable": true,
+ "dynamic-linking": true,
+ "env": "musl",
+ "features": "+v8a,+outline-atomics",
+ "frame-pointer": "non-leaf",
+ "has-rpath": true,
+ "has-thread-local": false,
+ "linker-flavor": "gnu-cc",
+ "llvm-target": "aarch64-unknown-linux-musl",
+ "max-atomic-width": 128,
+ "metadata": {
+  "description": "ARM64 Linux with musl 1.2.5",
+  "host_tools": true,
+  "std": true,
+  "tier": 2
+ },
+ "os": "linux",
+ "position-independent-executables": true,
+ "pre-link-args": {
+  "gnu-cc": [
+   "-Wl,--fix-cortex-a53-843419"
+  ],
+  "gnu-lld-cc": [
+   "-Wl,--fix-cortex-a53-843419"
+  ]
+ },
+ "relro-level": "full",
+ "stack-probes": {
+  "kind": "inline"
+ },
+ "supported-sanitizers": [
+  "address",
+  "leak",
+  "memory",
+  "thread",
+  "cfi"
+ ],
+ "supported-split-debuginfo": [
+  "packed",
+  "unpacked",
+  "off"
+ ],
+ "supports-xray": true,
+ "target-family": [
+  "unix"
+ ],
+ "target-mcount": "\u0001_mcount",
+ "target-pointer-width": 64,
+ "cpu": "cortex-a57",
+ "panic-strategy": "abort",
+ "relocation-model": "pic"
+}

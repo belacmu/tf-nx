@@ -1,0 +1,17 @@
+# tools/parity-sweep.sh: every versus tower once (free for all, 2 players, no variants): the 2026-10-24 sweep as a regression set
+tower-0 | 1000 | lobbymap 0 | 
+tower-1 | 1001 | lobbymap 1 | 
+tower-2 | 1002 | lobbymap 2 | 
+tower-3 | 1003 | lobbymap 3 | 
+tower-4 | 1004 | lobbymap 4 | 
+tower-5 | 1005 | lobbymap 5 | 
+tower-6 | 1006 | lobbymap 6 | 
+tower-7 | 1007 | lobbymap 7 | 
+tower-8 | 1008 | lobbymap 8 | 
+tower-9 | 1009 | lobbymap 9 | 
+tower-10 | 1010 | lobbymap 10 | 
+tower-11 | 1011 | lobbymap 11 | 
+tower-12 | 1012 | lobbymap 12 | 
+tower-13 | 1013 | lobbymap 13 | 
+tower-14 | 1014 | lobbymap 14 | 
+tower-15 | 1015 | lobbymap 15 | 

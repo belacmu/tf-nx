@@ -1,0 +1,3 @@
+# tools/parity-sweep.sh tools/parity/wide-dreadwood.txt: the wide Dreadwood tower (6P tower 13) by RANDOM: seed 2113 rolls it
+# (tfex/NetplayManager.cpp SelectWide's shuffle). It desynced from frame 0 (2026-10-26, docs/BACKLOG-2026-10-25.md item 1).
+wide-dreadwood | 2113 | lobbywide 1 | LVB_PAGEWIDE=1 LVB_MODS=TF.EX,Teuria.WiderSet LVB_XLOBBY_EXTRA=wide=1 LVB_PREKEYS=c

@@ -1,0 +1,52 @@
+{
+ "id": 10,
+ "at": 1792042314793,
+ "report": {
+  "kind": "switch",
+  "v": 1,
+  "session": "1f9e50d6-a5dd-4440-9565-f419ceb901d6",
+  "seq": 0,
+  "event": "boot",
+  "uptimeMs": 5740,
+  "build": "Oct 15 2026 07:25:44",
+  "name": "SWITCH",
+  "server": "wss://<your-server>",
+  "stats": {
+   "vsOn": false,
+   "lvTick": 0,
+   "npOn": 0,
+   "npFrame": 0,
+   "stateFrame": -1,
+   "updMsP50x100": 0,
+   "updMsP90x100": 0,
+   "updMsMaxx100": 0,
+   "frameMsP50x100": 0,
+   "frameMsP90x100": 0,
+   "frameMsP99x100": 0,
+   "worstUpdMs": 0,
+   "npSent": 0,
+   "npRecvd": 0,
+   "npDropped": 0,
+   "npState": 0,
+   "npEvents": [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "rbLoads": 0,
+   "rbMaxDepth": 0,
+   "rbResimTicks": 0,
+   "rbLowered": 0,
+   "rbExtraFrames": 0,
+   "gcSafePoints": 0,
+   "heapKB": 49124,
+   "logLinesLost": 0
+  },
+  "log": "[hw] hardware probe injected (built Oct 15 2026 07:02:14)\n[xplay] FPCR=0 (FZ=0 DN=0 RMode=0)\n[xplay] mathtest sin 07301656689ca354 cos 5ca7e6ef1f70778b atan2 c85d1691abc73032 pow d3d1af53b719d844 musl-pow 2ca2e37827dfbaea\n[xplay] fixes: pow -> musl, Math.Round -> ties to even\n[xplay] fixes: fixed timestep\n[rnd] whitelist hooks installed (15 of the required methods; arrow bounce, hats, chains, orbs, spikeballs, lava control and team spawns still to do)\n[rnd] System.Random replaced by .NET's seeded algorithm (1024 state slots)\n[rnd] self-test (seed 42 through the game's own function addresses): Next 1434747710 302596119, Next(100) 12, Next(5,10) 7, Sample 0.168434: matches .NET\n[rnd] self-test (gameplay stream, seed 1234): Next 97886956, Next(100) 84, Next(5,10) 8, Sample 0.870269; another object still .NET: 1434747710: OK\n[rnd] self-test (depth and ignore counters): OK\n[dm] Math.Sin/Cos/Atan2/Pow redirected to TF.EX's DeterministicMath\n[dm] self-test through the game's Math wrappers, 200,000 inputs: sin ce7dcc6f8e1d2c87 cos 9c9e3438fa8667ca atan2 eaace4c67e471e6b pow c046da3aeaff708d: matches TF.EX's DeterministicMath on .NET (689 ms)\nws: network init: nifm 0 available 1, socket 0\n"
+ }
+}

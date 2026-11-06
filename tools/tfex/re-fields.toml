@@ -1,0 +1,26 @@
+# Game fields the Switch's 1.4.1.6 build has without a field record (no name in its metadata): their offsets, read from its code. bind.py
+# answers a field request from here when no record or accessor names it. Each entry: the offset and where it was read (tools/re disasm.py).
+
+["TowerFall.LevelTiles.bitData"]
+off = 0x100
+evidence = "LevelTiles..ctor +0xa981e0: `mov x21, x2` (the solidsBitData argument), then `str x21, [x19, #0x100]` (+0xa98264); the PC's ctor stores solidsBitData in bitData"
+
+["TowerFall.LevelTiles.overwriteData"]
+off = 0x108
+evidence = "LevelTiles..ctor: the ReadCSVIntGrid / new int[,] result, `str x0, [x19, #0x108]` (+0xa98344); the PC's ctor stores it in overwriteData"
+
+["TowerFall.LevelTiles.tilemap"]
+off = 0x110
+evidence = "LevelTiles.Added +0xa98480: the new Tilemap, `str x0, [x19, #0x110]` (+0xa984d4); HandleGraphicsReset +0xa98560 passes [x19, #0x110] to LoadTiles (+0xa98590), as the PC's LoadTiles(tilemap)"
+
+["TowerFall.Player.input"]
+off = 0x148
+evidence = "Player.Update +0xaef280 stores PlayerInputs[i].GetState()'s 28-byte InputState at +0x148..+0x163 (xplay.cpp off::Player_Update_InputStore +0xaef934: `str w11, [x19, #0x160]`), the PC's `input = ...GetState()`"
+
+["TowerFall.Player.moveAxis"]
+off = 0x170
+evidence = "Player.NormalUpdate +0xae81d0 reads floats at [x19, #0x170] / #0x174 (+0xae82c4, +0xae8348, +0xae8354) where the PC's NormalUpdate reads moveAxis.X / .Y (ldflda moveAxis)"
+
+["TowerFall.Player.aimer"]
+off = 0x230
+evidence = "Player..ctor +0xae6870: a new Image (bl +0x935cc0) stored `str x0, [x19, #0x230]` (+0xae7290), then its origin and Visible = false (strb wzr, [x8, #0x22]), as the PC's `aimer = new Image(...)`"

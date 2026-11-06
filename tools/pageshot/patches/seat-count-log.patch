@@ -1,0 +1,9 @@
+--- a/src/network/TF.EX.Core/TFCommands.cs
++++ b/src/network/TF.EX.Core/TFCommands.cs
+@@ -128,5 +128,6 @@
+         public static void LaunchScenario(string[] args)
+         {
++            System.Console.WriteLine($"[pageshot] the game's seats: TFGame.Players.Length {TFGame.Players.Length}");
+             args = CollapseVariantBlock(args);
+ 
+             var names = ParseScenarioNames(args, 0);

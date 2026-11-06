@@ -1,0 +1,2924 @@
+# TF.EX -> Switch C++ translator configuration (tools/tfex/translator, README.md "Translator").
+
+[refs]
+# What TF.EX compiles against, for Roslyn's semantic model (types of every expression, overloads, game vs TF.EX members).
+# TowerFall.exe: the PC game (1.3.3.3, the one the browser loads); FNA / FortRise / Harmony / DI: the browser's build;
+# MessagePack, Markdig, LazyCache: TF.EX's release zip.
+# The game: FortRise-patched first (docs/research-fortrise.md item 3: what TF.EX and the browser really run, so FortRise's members
+# bind instead of being Invalid), made by the browser's tools/FortRisePatch from a copy of the Steam PC exe (1.3.3.x, FortRise
+# 5.5.0-beta.3; TF.EX 0.21.0 targets beta.2): .cache/fortrise-patched/TowerFall.Patch.dll. Without it, the vanilla exe.
+files = [
+  "$TFEX_TOWERFALL_EXE",
+  "~/Code/Towerfall Switch Mods/switch-online/.cache/fortrise-patched/TowerFall.Patch.dll",
+  "/Applications/TowerFall.app/Contents/MacOS/TowerFall.exe",
+  "~/Code/Towerfall Browser/web/bin/Release/net10.0/FNA.dll",
+]
+# Mono's mscorlib and the FNA the game shipped with: their metadata order of overloads is the Switch binary's (BRUTE emits
+# method records in IL order), for members of corlib / FNA types (String, List`1, SpriteFont...).
+mono = [
+  "/Applications/TowerFall.app/Contents/MacOS/mscorlib.dll",
+  "/Applications/TowerFall.app/Contents/MacOS/System.dll",
+  "/Applications/TowerFall.app/Contents/MacOS/System.Core.dll",
+  "/Applications/TowerFall.app/Contents/MacOS/System.Xml.dll",   # FortRise.Content's loaders read XML (XmlNode.get_Item, XmlDocument.Load)
+  "/Applications/TowerFall.app/Contents/MacOS/FNA.dll",
+]
+dirs = [
+  "~/Code/Towerfall Browser/vendor/fortrise/lib",
+  "~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX",
+]
+
+[mods]
+# The mods built into the module (runtime/tfexgen_mods.cpp's registry, the MODS menu, FortRise's interop for mods finding each other):
+# their meta.json as TF.EX ships it, paths under vendor/tfex/src. TF.Replay and TF.InputDisplayer join when they're ported (step 8).
+# FortRise's own entry comes from vendor/fortrise/version.txt.
+builtin = ["network/TF.EX.Core/meta.json", "state/TF.State.Core/meta.json"]
+# FortRise's internal mods the Switch runs (translated): their meta.json under vendor/fortrise. FortRise.Content: the content loaders
+# (archers, sprites, textures), which content mods depend on
+fortrise = ["InternalMods/FortRise.Content/meta.json"]
+
+[mods.native]
+# mods the Switch carries its own way (no source in vendor), always listed: their metadata as FortRise would read it. (WiderSet was here
+# until 2026-11-04: it is a catalog mod now, Teuria.WiderSet below, listed only when its folder is on the card.)
+# Archer (ebe1.kenobi's profiles and Forge): not on the Switch (the user, 2026-11-05); its profile names API, the part LoaderAI needs
+# (SetPlayerName / GetPlayerName), stands in as glue TfexGlue.ProfilesApi ([[interop]]). Listed so LoaderAI's required dependency is met,
+# as FortRise checks it (tfexgen_mods.cpp Resolve). (Online, a peer sees Archer 1.1.0 listed: the Switch has no profiles nor forged archers.)
+"Archer" = '''{"name": "Archer", "version": "1.1.0", "displayName": "Archer (player names only)", "author": "ebe1.kenobi", "description": "On the Switch: only the profile names API LoaderAI uses (no profiles, no Forge)"}'''
+
+# TF.NX's catalog mods (the code mods whose logic the module carries, each turned on by its folder): not here any more (2026-11-04):
+# one folder per mod, mods/<name>/mod.toml, tools/mods/catalog.py -> modcatalog.gen.hpp (mods/README.md).
+
+[models]
+# Fixed storage for the lobby models (C# has no limits): default capacities, then per "Class.Prop" ("*.Prop": any class;
+# ".item" = the elements of a list, ".key"/".value" = a dictionary's). Chosen like the hand-written tfex/Models.hpp.
+string = 48
+list = 16
+map = 4
+map_key = 24
+map_value = 48
+
+[models.caps]
+"*.Name" = 40
+"*.RoomPeerId" = 72
+"*.RoomId" = 72
+"*.room_peer_id" = 72
+"PlayerProfile.Stats" = 120            # the server's totals per raw stat key: one per field of the game's MatchStats / KillStats (MatchStatsReport: 113)
+"SeatStats.RawStats" = 120             # MatchStatsReport.BuildRawStats: 113 keys (glue/GameFields.cs), up to 25 characters ("DeathsDuringDodgeCooldown")
+"SeatStats.RawStats.key" = 32
+"PlayerProfile.Stats.key" = 40
+"MatchEnded.Checksum" = 72              # TF.EX's LastStateChecksum: SHA-256 as 64 hex characters (the server compares both sides')
+"Lobby.Players" = 8                     # capacity, not the rule: a wide lobby seats TFGame.Players.Length (the Switch's 8); more is a PoolFull error
+"Lobby.MatchPlayers" = 8
+"Lobby.Spectators" = 8
+"Lobby.EndGameChoice" = 12
+"Lobby.Mods" = 8
+"Lobby.RelayedPairs" = 28              # every pair of 8 players (8 * 7 / 2)
+"Lobby.RelayedPairs.item" = 2
+"Lobby.RelayedPairs.item.item" = 72
+"Player.Platform" = 32
+"Lobby.Kind" = 16
+"Lobby.JoinCode" = 16
+"EndGameVote.Choice" = 16
+"*.Message" = 96
+"*.Reason" = 96
+"*.AbortReason" = 96
+"*.Status" = 16
+"Series.Sides" = 4
+"Series.Sides.item" = 4
+"Series.Games" = 16
+"Series.Picks" = 4
+"SeriesGame.Scores" = 4
+"MatchEnded.Scores" = 8
+"GetLobbiesResponse.Lobbies" = 16
+"SkinChunk.BundleId" = 72        # the SHA-256 of the bundle in hex: 64 characters
+"SkinChunk.CustomArcherId" = 257  # TF.EX's SkinLimits.MaxStringLength (256)
+"Player.CustomArcherId" = 257     # the same id in the lobby (FortRise's "<mod>/<archer>")
+"SkinChunk.Data" = "managed"   # a 192 KB chunk in base64 (262 KB): a managed string reference (MStr), not fixed storage in every model ring copy
+
+# ---- code units (translator CodeGen): tfexgen_<name>.{hpp,cpp} in namespace tfex::gen::<name> ----
+# file (under vendor/tfex/src), type (the C# class), members (optional: these and what they call in the same class)
+
+[[unit]]
+name = "ConnectionIcon"
+file = "network/TF.EX.Patchs/ConnectionIcon.cs"
+type = "ConnectionIcon"
+
+[[unit]]
+name = "NetplaySettings"            # TF.EX's settings object (TF.EX.Core/NetplaySettings.cs): its properties and Apply (-> NetplayPreferences);
+file = "network/TF.EX.Core/NetplaySettings.cs"   # Integration A's settings store makes one, loads / saves sd:/xplay/TF.EX.settings.json, calls Apply
+type = "NetplaySettings"            # (Create / OnVerify / MigrateLegacyConfig: FortRise's settings UI and PC file paths, not on the Switch)
+members = ["Apply", "Create"]   # Create: its options entries, on the Switch's OPTIONS screen (glue SettingsUi, tfex/NetplayOptions.cpp)
+
+[[unit]]
+name = "ArcherService"              # TF.EX's ArcherService (seats -> GGRS handles, the archers applied to TFGame.Characters / AltSelect / Players):
+file = "network/TF.EX.Domain/Services/ArcherService.cs"   # Integration B2's native match start calls CompactSeatsToHandles + ApplyToGame
+type = "ArcherService"              # (functions: its only field, _gameContext, is GameContext's archer store, svc::ArcherSelections ...)
+hosted = true
+members = ["AddArcher", "GetArchers", "GetFinalArchers", "CompactSeatsToHandles", "ApplyToGame", "RemoveArcher", "Reset"]
+
+[[unit]]
+name = "GameContext"                # TF.EX's GameContext, its own object (made at boot with the NetplayManager, svc::GameContextObj): the local
+file = "network/TF.EX.Domain/Context/GameContext.cs"   # controller, the input lock (5 s timeout), the local seat, GetLocalPlayerIndex(es), the polled inputs (C2 step 2) and the
+type = "GameContext"                # current inputs (step 3: GGRS's inputs of the frame being simulated, rollback's diagnostics read them); the
+exclude = ["GetArchers", "GetPlayers", "AddArcher", "ResetArcherSelections", "RemoveArcher"]   # archer copies stay the runtime's (S-native)
+
+[[unit]]
+name = "InputService"               # TF.EX's InputService: the local controller (ObserveLocalDevice / RebindLocalInput), its seat
+file = "network/TF.EX.Domain/Services/TF/InputService.cs"   # (EnsureLocalControllerSeats, the guests' inputs, DisableAllControllerExceptLocal) and the input lock
+type = "InputService"               # (Disable / EnableAllControllers, IsInputLocked); its _context is GameContext's input store (IGameContext rules).
+hosted = true                       # The Switch's own controller refresh waits while these hold PlayerInputs (tfex/InputLock.cpp, TFEX-DIFF S-input)
+exclude = [".ctor"]                 # (the DI constructor: hosted, its object a token; `context` and _extraLocalInputs are [service] rules)
+# (the whole class since TF.EX v0.28.0: its local players (guest inputs) live in it)
+
+[[unit]]
+name = "SeriesScreen"               # TF.EX's series lobby screen between a best-of's games (MenuState.SeriesLobby; MainMenuPatch.HandleSeriesLobby
+file = "network/TF.EX.Domain/CustomComponent/SeriesScreen.cs"   # makes and removes it): a runtime-made class (Integration A's batch 3)
+type = "SeriesScreen"
+
+[[unit]]
+name = "NetplayEntry"               # TF.EX's TFGamePatch: the NETPLAY entry (DLC / version check, mod warnings) and the netplay frame loop: the
+file = "network/TF.EX.Patchs/Engine/TFGame.cs"   # TFGame.Update prefix (TFGameUpdate_Patch: Poll, the accumulator at the session's rate,
+type = "TFGamePatch"                # NetplayLogic, the frame's own advance, the original through the reverse patch), its ManageTimeStep
+hooks = true                        # (only TFGameUpdate_Patch is hooked: members; xplay.cpp's Switch steps wrap it, FrameShell)
+members = ["RequestNetplayEntry", "ResolveNetplayEntry", "NetplayLogic", "CanRunNetplayFrames", "TFGameUpdate_Patch", "ManageTimeStep", "RestoreTimeStep", "TFGame_OnSceneTransition", "TFGame_Load"]   # (TFGame_OnSceneTransition: TF.EX's cleanup from a Level back to the main menu, 2026-10-28)
+
+[[unit]]
+name = "NetplayMenus"               # TF.EX's netplay screens (CORE-FLOW rows 2-6): MainMenu_CallStateFunc dispatches NetplaySelect, PrivateSelect, the lobby
+file = "network/TF.EX.Patchs/Scene/MainMenu.cs"   # browser (list, refresh, join), the lobby builder and the quick-play search; functions only:
+type = "MainMenuPatch"              # Integration A's hand CallStateFunc hook calls them (its hook owns MainMenu.CallStateFunc)
+members = ["MainMenu_CallStateFunc", "MainMenu_Update_Postfix", "TryOpenLobbyEditor", "MainMenu_Render", "MainMenu_CallStateFunc_Postfix", "IsCopyCodeGuideVisible"]   # (the postfix: the roll call's EDIT LOBBY guide, NetplayScreens.cpp calls it after the original)
+
+[[unit]]
+name = "MainMenuCreate"             # TF.EX's MainMenu.CreateMain postfix + AddNetplayButtonToMenu (Integration A's CreateMainHook calls it; row 1)
+file = "network/TF.EX.Patchs/Scene/MainMenu.cs"
+type = "MainMenuPatch"
+members = ["MainMenu_CreateMain", "AddNetplayButtonToMenu"]
+
+[[unit]]
+name = "XGamePadInputPatch"         # TF.EX's XGamepadInput getter postfixes (MenuConfirm / Start / Back / Left ... on the roll call): functions for
+file = "network/TF.EX.Patchs/PlayerInput/XGamePadInput.cs"   # Integration A's input hooks (the Switch's controllers are PlayerInput, S-input)
+type = "XGamePadInputPatch"
+
+[[unit]]
+name = "MainMenuStale"              # MainMenuPatch.RemoveStaleMenuItems for tfex-adopt's hand CallStateFunc hook ("Create": items of other states go)
+file = "network/TF.EX.Patchs/Scene/MainMenu.cs"
+type = "MainMenuPatch"
+members = ["RemoveStaleMenuItems"]
+
+[[unit]]
+name = "MainMenuBanner"
+file = "network/TF.EX.Patchs/Scene/MainMenu.cs"
+type = "MainMenuPatch"
+members = ["RenderBannerWithDots"]
+
+[[unit]]
+name = "NetplayRoundLogic"          # TF.EX's netplay round logic (a TowerFall.RoundLogic subclass, IRoundPlayerSpawner): a lobby match's round logic,
+file = "network/TF.EX.Core/RoundLogic/NetplayRoundLogic.cs"   # made where FortRise's GetRoundLogic patch makes it (xplay.cpp GetRoundLogicHook)
+type = "NetplayRoundLogic"
+
+[[unit]]
+name = "NetplayVersusMode"          # TF.EX's FortRise versus mode (IVersusGameMode): registered by TFEXModModule through FortRise's mode registry
+file = "network/TF.EX.Core/RoundLogic/NetplayRoundLogic.cs"   # (translated, Fr_ModGameModes); ResolveMode: NetplayRoundLogic's mode (the
+type = "NetplayVersusMode"          # replay's, else the lobby's)
+members = ["ResolveMode", "Name", "get_Name", "OnCreateRoundLogic", "IsTeamMode", "get_IsTeamMode", "GetMinimumPlayers", "OnStartGame", "NameColor", "get_NameColor", "Icon", "get_Icon"]
+
+[[unit]]
+name = "LobbyPanel"                 # tfex-subclass's phase 3: the LobbyBrowser's lobby panel (a Monocle.Entity subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyPanel.cs"
+type = "LobbyPanel"
+
+[[unit]]
+name = "LobbyInfos"                 # tfex-subclass's phase 3: the LobbyBrowser's lobby list entry
+file = "network/TF.EX.Domain/CustomComponent/LobbyInfos.cs"
+type = "LobbyInfos"
+
+[[unit]]
+name = "LeaderboardPanel"           # v0.27.0's leaderboard screen (MainMenu state Leaderboard): a TowerFall.MenuItem subclass
+file = "network/TF.EX.Domain/CustomComponent/LeaderboardPanel.cs"
+type = "LeaderboardPanel"
+
+[[unit]]
+name = "PlayerProfilePanel"         # v0.27.0's player profile screen (MainMenu state PlayerProfile): a TowerFall.MenuItem subclass
+file = "network/TF.EX.Domain/CustomComponent/PlayerProfilePanel.cs"
+type = "PlayerProfilePanel"
+
+# ---- hand rules: game members the binder can't pick mechanically (each listed in tfexgen_report.txt) ----
+[pin."Microsoft.Xna.Framework.Graphics.SpriteBatch.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode,Microsoft.Xna.Framework.Graphics.BlendState,Microsoft.Xna.Framework.Graphics.SamplerState,Microsoft.Xna.Framework.Graphics.DepthStencilState,Microsoft.Xna.Framework.Graphics.RasterizerState,Microsoft.Xna.Framework.Graphics.Effect,Microsoft.Xna.Framework.Matrix)"]
+body = 0xc49d0
+why = "the Switch's FNA keeps one Begin body (FNA has 5 overloads); Monocle's call sites (Camera +0x910018) pass this, w1 sort mode, x2-x6 states and effect, x7 = &Matrix: the 7-argument one"
+
+[[unit]]
+name = "GlueChangelog"              # TF.EX's changelog on the Switch: its markdown without Markdig, Configure's inputs (translator/glue/ChangelogMarkdown.cs)
+file = "glue/ChangelogMarkdown.cs"
+type = "ChangelogMarkdown"
+
+[[unit]]
+name = "GlueReports"                # TF.EX's MatchReport where it meets the PC: its upload worker, the session log (translator/glue/Reports.cs)
+file = "glue/Reports.cs"
+type = "Reports"
+
+[[unit]]
+name = "MatchReport"                # TF.EX's match reports (TF.EX.Domain/MatchReport.cs): a desync / disconnect / crash report, zipped and sent
+file = "network/TF.EX.Domain/MatchReport.cs"   # to the server's /report when the lobby has IsReportEnabled
+type = "MatchReport"
+
+[[unit]]
+name = "ChangelogPanel"             # TF.EX's changelog panel (a MenuItem of ours): MainMenuPatch.HandleChangelog makes it in MenuState.Changelog
+file = "network/TF.EX.Domain/CustomComponent/ChangelogPanel.cs"
+type = "ChangelogPanel"
+
+[[unit]]
+name = "MainMenuSetState"           # MainMenuPatch.MainMenu_set_State: PressStart -> Main becomes the changelog while one is pending
+file = "network/TF.EX.Patchs/Scene/MainMenu.cs"
+type = "MainMenuPatch"
+members = ["MainMenu_set_State"]
+hooks = true
+
+[[unit]]
+name = "GlueSettingsUi"             # FortRise's ISettingsCreate on the Switch: the game's OptionsButtons (translator/glue/SettingsUi.cs)
+file = "glue/SettingsUi.cs"
+type = "SettingsUi"
+
+[[unit]]
+name = "GlueKeyboardEntity"         # FortRise's UIInputText on the Switch: the software keyboard once added (translator/glue/SettingsUi.cs)
+file = "glue/SettingsUi.cs"
+type = "KeyboardEntity"
+
+[[unit]]
+name = "ServerOptionsButton"        # TF.EX's SERVER entry (an OptionsButton of ours: RESET / LOCAL, the text input)
+file = "network/TF.EX.Core/ServerOptionsButton.cs"
+type = "ServerOptionsButton"
+
+[[unit]]
+name = "GlueModsButton"             # FortRise's MODS button on the Switch's main menu (translator/glue/ModsButton.cs)
+file = "glue/ModsButton.cs"
+type = "ModsButton"
+
+[[unit]]
+name = "GlueRewrites"               # hand rules as C# (translator/glue/Rewrites.cs)
+file = "glue/Rewrites.cs"
+type = "Rewrites"
+
+[[unit]]
+name = "GlueFfi"                    # the ggrs-ffi port's glue (translator/glue/Ffi.cs): GGRSConfig's JSON for netplay_init, Task.Run
+file = "glue/Ffi.cs"
+type = "Ffi"
+
+[[unit]]
+name = "GlueWiderSetApi"            # WiderSet's API over the Switch's wide mode, every mod's copy of its interface ([[interop]]; translator/glue/WiderSetApi.cs)
+file = "glue/WiderSetApi.cs"
+type = "WiderSetApi"
+
+[[unit]]
+name = "GlueProfilesApi"              # the Archer mod's profile names API, standing in for Archer (not on the Switch) ([[interop]]; translator/glue/ProfilesApi.cs)
+file = "glue/ProfilesApi.cs"
+type = "ProfilesApi"
+
+[[unit]]
+name = "GlueAiNames"                  # LoaderAI's AI names on the round results (Archer's MyVersusRoundResults, AIs only; tfex/AiSlotButton.cpp calls it)
+file = "glue/AiNames.cs"
+type = "AiNames"
+
+[[unit]]
+name = "GlueProfileNames"             # the names ProfilesApi keeps (a static class: its statics made at first use)
+file = "glue/ProfilesApi.cs"
+type = "ProfileNames"
+
+[[unit]]
+name = "GlueLedger"                 # ledger differences as C# (translator/glue/Ledger.cs)
+file = "glue/Ledger.cs"
+type = "Ledger"
+
+[[unit]]
+name = "Notification"               # stage 3: TF.EX's Notification as a generated Monocle.Entity subclass
+file = "network/TF.EX.Domain/CustomComponent/Notification.cs"
+type = "Notification"
+
+[[unit]]
+name = "VersusSelectBanner"         # tfex-subclass's phase 3: a TowerFall.MenuItem subclass NetplayScreens makes (New + Track)
+file = "network/TF.EX.Domain/CustomComponent/VersusSelectBanner.cs"
+type = "VersusSelectBanner"
+
+# ---- hand rules: calls rewritten to glue, members replaced by the ledger ----
+[[rewrite]]
+call = "System.Threading.Tasks.Task.Run(System.Action, System.Threading.CancellationToken)"
+in = "TF.EX.Domain.Services.NetplayManager"
+to = "TfexGlue.Ffi.RunWorker"
+key = "S-native"
+why = "Task.Run(() => Connect(roundLogic), token): a game Thread (GC-registered), one at a time; netplay_init blocks there, not the game"
+
+[[rewrite]]
+call = "System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>, System.Threading.CancellationToken)"
+in = "TF.EX.Domain.Services.MatchmakingService"
+to = "TfexGlue.Ffi.RunListener"
+key = "S-native"
+why = "ConnectToServerAndListen's listen loop: a game Thread (GC-registered), one at a time; the ClientWebSocket stand-in blocks there"
+
+[[rewrite]]
+call = "TF.EX.Domain.Services.MatchmakingService.HandleMessageContents(string)"
+in = "TF.EX.Domain.Services.MatchmakingService"
+to = "TfexGlue.Ffi.HandleOnGameThread"
+key = "S-net"
+why = "the listen loop's message to the game thread, where TF.EX's handler runs (PumpTransport): the runtime's object pools aren't thread-safe"
+
+[[rewrite]]
+new = "System.ArraySegment<T>.ArraySegment(T[])"
+in = "TF.EX.Domain.Services.MatchmakingService"
+to = "TfexGlue.Ffi.Segment"
+key = "S-net"
+why = "new ArraySegment<byte>(buffer): the array itself (a segment over all of it; the socket's buffers)"
+
+[[rewrite]]
+call = "System.Threading.CancellationTokenSource.Cancel()"
+in = "TF.EX.Domain.Services.MatchmakingService"
+to = "TfexGlue.Ffi.CancelSockets"
+key = "S-net"
+why = "TF.EX's Close(): the cancellation ends the listen loop's receive (the stand-in's open socket aborts)"
+
+[[rewrite]]
+new = "TF.EX.Common.Handle.SafeBytes<T>.SafeBytes(T, bool)"
+in = "TF.EX.Domain.Services.NetplayManager"
+to = "TfexGlue.Ffi.GgrsConfigBytes"
+key = "S-native"
+why = "SafeBytes<GGRSConfig>(config, true) in NativeInit: TF.EX's JSON of the config in a runtime buffer (no MessagePack / Marshal on the Switch); its Fps and delays as TF.EX set them"
+
+[[rewrite]]
+new = "TF.EX.Common.Handle.SafeRawBytes.SafeRawBytes(byte[])"
+in = "TF.EX.Domain.Services.NetplayManager"
+to = "TfexGlue.Ffi.RawBytes"
+key = "S-rollback"
+why = "SaveGameState's bytes for ggrs_ffi: on the Switch rollback.cpp's 16-byte snapshot handle (TFEX-DIFF, performance)"
+
+[[rewrite]]
+new = "TF.EX.Common.Handle.SafeRawBytes.SafeRawBytes(TF.EX.Common.Handle.SafeBytesFFI, System.Action)"
+in = "TF.EX.Domain.Services.NetplayManager"
+to = "TfexGlue.Ffi.RawBytesFFI"
+key = "S-rollback"
+why = "LoadGameState: the bytes ggrs_ffi returns (the snapshot handle); Dispose frees them with netplay_free_game_state"
+
+# FortRise's GAME MODE button: the Switch's built-in versus modes (tfexgen_services.cpp BuiltInVersusMode)
+[[rewrite]]
+expr = "mode is Modes.LastManStanding or Modes.TeamDeathmatch or Modes.HeadHunters"
+in = "TowerFall.patch_VersusModeButton"
+cpp = "tfex::gen::svc::BuiltInVersusMode(mode)"
+key = "S-native"
+why = "the PC's three built-in versus modes; the Switch's local play has a fourth, the megamod's TOWERBALL (mode 6, megamod.cpp appends it to FortRise's list), which is no registered custom mode either"
+
+[[rewrite]]
+expr = "BuiltInModeCount"
+in = "TowerFall.patch_VersusModeButton"
+cpp = "tfex::gen::svc::BuiltInVersusModeCount()"
+key = "S-native"
+why = "FortRise's count of built-in modes before the registered ones in its list (3): 4 in the Switch's local play, the megamod's TOWERBALL inserted fourth (megamod.cpp)"
+
+# FakeController's controller icons: the Switch's own (tfexgen_services.cpp SwitchMenuIcon)
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/player1\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"stick\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/player1; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/stick\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"stick\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/stick; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/a\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"a\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/a; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/b\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"b\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/b; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/x\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"x\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/x; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/y\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"y\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/y; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/lt\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"lt\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/lt; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/rt\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"rt\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/rt; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "TFGame.MenuAtlas[\"controls/xb360/start\"]"
+in = "TF.EX.Domain.FakeController"
+cpp = "tfex::gen::svc::SwitchMenuIcon(\"start\")"
+key = "S-native"
+why = "the PC's Xbox 360 icon controls/xb360/start; the Switch's MenuAtlas has controls/buttons/<name> (no player icon: the stick's)"
+
+[[rewrite]]
+expr = "level.Session.Scores.ToArray()"
+in = "TF.State.TowerFallExtensions.LevelExtensions"
+cpp = "tfex::gen::statert::SeatsToPc($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "per-seat arrays: the Switch's game has 6 seats, the PC's 4 (8 with WiderSet in a wide match); the state carries the PC's length (checksummed bytes)"
+
+[[rewrite]]
+expr = "self.Session.MatchStats"
+in = "TF.State.TowerFallExtensions.LevelExtensions"
+cpp = "tfex::gen::statert::SeatsToPcView($e)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "as Scores: v0.27's GameState.MatchStats = Session.MatchStats.Select(ToDomain) has one entry per seat (the Switch's 6, the PC's 4); LoadMatchStats copies back min(both) seats"
+
+[[rewrite]]
+expr = "level.Session.OldScores.ToArray()"
+in = "TF.State.TowerFallExtensions.LevelExtensions"
+cpp = "tfex::gen::statert::SeatsToPc($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "as Scores"
+
+[[rewrite]]
+expr = "level.Session.RoundLogic.Kills.ToArray()"
+in = "TF.State.TowerFallExtensions.LevelExtensions"
+cpp = "tfex::gen::statert::SeatsToPc($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "as Scores (LoadState copies it seat by seat into the live array)"
+
+[[rewrite]]
+expr = "session.Scores.ToArray()"
+in = "TF.State.TowerFallExtensions.LevelExtensions"
+cpp = "tfex::gen::statert::SeatsToGame($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "a loaded per-seat array back to the Switch's 6 seats (the game indexes it by seat)"
+
+[[rewrite]]
+expr = "session.OldScores.ToArray()"
+in = "TF.State.TowerFallExtensions.LevelExtensions"
+cpp = "tfex::gen::statert::SeatsToGame($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "as Scores"
+
+[[rewrite]]
+expr = "crown.HasCrown.ToArray()"
+in = "TF.State.TowerFallExtensions.EventLogExtensions"
+cpp = "tfex::gen::statert::SeatsToPc($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "as Scores: CrownChangeEvent.HasCrown is per seat (the Switch's 6, the PC's 4 / WiderSet's 8); the state carries the PC's length"
+
+[[rewrite]]
+expr = "evt.PlayerWithCrown.ToArray()"
+in = "TF.State.TowerFallExtensions.EventLogExtensions"
+cpp = "tfex::gen::statert::SeatsToGame($0)"
+include = "tfexgen_state.hpp"
+key = "S-native"
+why = "a loaded CrownChange back to the Switch's seats (the game indexes HasCrown by seat)"
+
+[[rewrite]]
+expr = "input is XGamepadInput pad && other is XGamepadInput otherPad"
+in = "TF.EX.Domain.Services.TF.InputService"
+cpp = "((pad = tfex::gen::svc::AsPad(input)) != nullptr) && ((otherPad = tfex::gen::svc::AsPad(other)) != nullptr)"
+key = "S-input"
+why = "InputService.IsSameDevice (v0.28.1): the PC's XGamepadInput doesn't exist on the Switch (its controllers are JoyConInputs; a remote seat's JoyConInput stand-in is no gamepad): tfexgen_services.cpp AsPad"
+
+[[rewrite]]
+expr = "ReferenceEquals(pad.XGamepad, otherPad.XGamepad)"
+in = "TF.EX.Domain.Services.TF.InputService"
+cpp = "tfex::gen::svc::SamePad(pad, otherPad)"
+key = "S-input"
+why = "InputService.IsSameDevice (v0.28.1): one pad = one shared XGamepadData on the PC, one JoyCon (JoyConData) on the Switch: tfexgen_services.cpp SamePad"
+
+[[rewrite]]
+expr = "ServiceCollections.ResolveWiderSetModApi() != null ? 8 : 4"
+in = "TF.EX.Domain.Services.TF.InputService"
+cpp = "tfex::gen::svc::ControllerSlots()"
+key = "S-input"
+why = "TF.EX's controller slots, 4 (or WiderSet's 8) on the PC: the Switch has six (MInput.JoyCons, the array PlayerInput.AssignInputs makes)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateNumber(string, int, System.Action<int>, string, int, int, int)"
+to = "TfexGlue.SettingsUi.CreateNumber"
+key = "S-native"
+why = "FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateOptions(string, string, string[], System.Action<(string, int)>, string)"
+to = "TfexGlue.SettingsUi.CreateOptions"
+key = "S-native"
+why = "FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateOnOff(string, bool, System.Action<bool>, string)"
+to = "TfexGlue.SettingsUi.CreateOnOff"
+key = "S-native"
+why = "FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateInput(string, string, System.Action<string>, string, FortRise.InputBehavior)"
+to = "TfexGlue.SettingsUi.CreateInput"
+key = "S-native"
+why = "FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateOnOff(string, bool, System.Action<bool>)"
+to = "TfexGlue.SettingsUi.CreateOnOffPlain"
+key = "S-native"
+why = "FortRise's shorter overload (its defaults) -> the game's OPTIONS screen entry (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateOnOff(string, bool, System.Action<bool>, bool)"
+to = "TfexGlue.SettingsUi.CreateOnOffRestart"
+key = "S-native"
+why = "FortRise's shorter overload (its defaults) -> the game's OPTIONS screen entry (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateNumber(string, int, System.Action<int>, int, int, int)"
+to = "TfexGlue.SettingsUi.CreateNumberPlain"
+key = "S-native"
+why = "FortRise's shorter overload (its defaults) -> the game's OPTIONS screen entry (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateOptions(string, string, string[], System.Action<(string, int)>)"
+to = "TfexGlue.SettingsUi.CreateOptionsPlain"
+key = "S-native"
+why = "FortRise's shorter overload (its defaults) -> the game's OPTIONS screen entry (glue SettingsUi.cs)"
+
+[[rewrite]]
+call = "FortRise.ISettingsCreate.CreateCustomOptions(System.Func<TowerFall.OptionsButton>)"
+to = "TfexGlue.SettingsUi.CreateCustomOptions"
+key = "S-native"
+why = "FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)"
+
+[[rewrite]]
+new = "FortRise.UIInputText.UIInputText(TowerFall.MenuItem, System.Action<string>, Microsoft.Xna.Framework.Vector2, int, string)"
+to = "TfexGlue.SettingsUi.KeyboardText"
+key = "S-native"
+why = "FortRise's typed-text entity -> the Switch's software keyboard (swkbd), its text handed back the next frame (glue SettingsUi.cs)"
+
+[[rewrite]]
+new = "FortRise.UIInputText.UIInputText(TowerFall.MenuItem, System.Action<string>, Microsoft.Xna.Framework.Vector2, string)"
+to = "TfexGlue.SettingsUi.KeyboardTextAny"
+key = "S-native"
+why = "as the one above, for the constructor without a player (FortRise's UISearchPanel); FortRise's compilation (glue/fortrise/Rewrites.cs)"
+
+[[rewrite]]
+call = "Monocle.Draw.TextureCentered(Monocle.Subtexture, Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Color)"
+in = "TF.EX.Domain.CustomComponent.LocalPlayersPanel"
+to = "TfexGlue.Rewrites.DrawControllerIcon"
+key = "S-input"
+why = "the netplay menu's local players: a Joy-Con's picture in its own colours, as the Switch's archer select (JoyConInput.DrawIcon); the button hints, no Joy-Con's picture, drawn as before"
+
+[[rewrite]]
+call = "Monocle.Entity.GetFirst<Monocle.Tween>()"
+to = "TfexGlue.Rewrites.EntityGetFirstTween"
+why = "generic game method (TF.State's BramblesExtensions): Monocle's body over Tween"
+
+[[rewrite]]
+call = "Monocle.Entity.Remove<Monocle.Tween>()"
+to = "TfexGlue.Rewrites.EntityRemoveTweens"
+why = "generic game method (TF.State's BramblesExtensions.LoadTween): Monocle's body over Tween"
+
+[[rewrite]]
+call = "TowerFall.KeyboardInput.InitIcons()"
+in = "TFModFortRiseLoaderAI.Input"
+skip = true
+key = "S-input"
+why = "LoaderAI's AI input re-makes its key pictures for its per-slot keys (Q, A, F1, F13...): the Switch's build has no keyboard art for them (KeyboardInput.GetIcon faults). On the console the keys are the AI-slot button (tfex/AiSlotButton.cpp); the input keeps the icons its base constructor made"
+
+[[rewrite]]
+new = "TowerFall.KeyboardInput.KeyboardInput()"
+in = "TF.EX.Domain.Services.TF.InputService"
+to = "TfexGlue.Rewrites.RemoteSeatInput"
+key = "S-input"
+why = "EnsureRemoteControllers' remote-seat controller: no keyboard on the Switch, a JoyConInput over the local JoyCon (tfexgen_services.cpp NewRemoteSeatInput)"
+
+[[rewrite]]
+call = "Monocle.Cache.Create<TowerFall.Explosion>()"
+to = "TfexGlue.Rewrites.CacheCreateExplosion"
+why = "generic game method: the Switch's instantiation (+0xa3e240, called by Explosion.Spawn / SpawnSuper); TF.State's LoadExplosions"
+
+[[rewrite]]
+call = "Monocle.Cache.Create<TowerFall.EnemyAttack>()"
+to = "TfexGlue.Rewrites.CacheCreateEnemyAttack"
+why = "generic game method: the Switch's instantiation (+0xa38680, called by EnemyAttack.Spawn); TF.State's LoadEnemyAttacks"
+
+[[rewrite]]
+call = "TF.EX.Patchs.InputDelayAdvisor.Render()"
+in = "TF.EX.Patchs.Scene.MainMenuPatch"
+to = "TfexGlue.Rewrites.InputDelayAdvisorRender"
+key = "S-wide"
+why = "the Switch's wide roll call spans the 420 screen (its six seats, its guides at the right edge); TF.EX's advisor is anchored to a 320 screen's right edge: drawn UIXOffset right there, on the guides' edge (2026-10-29: it sat mid-screen). Standard and the series lobby as TF.EX (glue Rewrites.InputDelayAdvisorRender, tfex/MainMenuPatch.cpp AdvisorShiftBegin)"
+
+[[rewrite]]
+call = "Monocle.Scene.Add<T>(T)"
+in = "TF.EX.Patchs.Scene.MainMenuPatch"
+to = "TfexGlue.Rewrites.SceneAddMenu"
+key = "S-wide"
+why = "TF.EX's button-guide entities (EDIT LOBBY, COPY CODE, CREATE) on the Switch's guide layer 0 instead of the PC's -1: the Switch's MenuButtonGuide places itself in screen coordinates (360 / 410 by RollcallMode) on layer 0, whose camera has no +50, so on -1 TF.EX's guides landed 50 right, past the screen (2026-10-29 console: only EDIT shown); then as SceneAdd"
+
+[[rewrite]]
+call = "Monocle.Scene.Add<T>(T)"
+in = "TF.EX.Domain.CustomComponent.LocalPlayersPanel"
+to = "TfexGlue.Rewrites.SceneAddUi"
+key = "S-wide"
+why = "LocalPlayersPanel (v0.28.0: local players and JOIN / SWAP / QUIT on the netplay menu) draws at a 320 screen's positions (P1 at 24, the hints right-aligned at 316) on layer 0; the Switch's main menu is the 420 screen there, its UI layer -1 the one whose camera (+50) is the PC's 320: on 0 the P1 column sat under the left frame and the hints mid-screen (2026-10-31 console). On -1, as TF.EX's menu buttons; then as SceneAdd"
+
+[[rewrite]]
+call = "Monocle.Scene.Add<T>(T)"
+to = "TfexGlue.Rewrites.SceneAdd"
+why = "generic method: no instantiation over a TF.EX class on the Switch"
+
+[[rewrite]]
+new = "Monocle.Canvas.Canvas(int, int)"
+in = "TF.EX.Domain.CustomComponent.Notification"
+to = "TfexGlue.Ledger.SharedCanvas"
+key = "S-rollback"
+why = "a Canvas is a GPU render target outside the rollback undo log: one per toast leaks one per resimulated tick; TF.EX only reads its Width"
+
+[[replace]]
+member = "TowerFall.patch_MainMenu.InitModOptions"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.InitModOptions"
+key = "S-native"
+why = "FortRise's InitModOptions builds each FortModule's settings through its OptionsCreate; on the Switch the one ModuleSettings is TF.EX's NetplaySettings, whose entries tfex/NetplayOptions.cpp adds (its UPDATE MOD / GITHUB / GAMEBANANA extras need FortRise's updater: none)"
+
+[[replace]]
+member = "FortRise.OptionsButtonHeader.base_Update"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.MenuItemUpdate"
+key = "S-native"
+why = "[MonoModLinkTo(MenuItem.Update)]: the game's MenuItem.Update called directly (OptionsButton's own skipped)"
+
+[[replace]]
+member = "FortRise.OptionsButtonHeader.base_Render"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.EntityRender"
+key = "S-native"
+why = "[MonoModLinkTo(Entity.Render)]: the game's Entity.Render called directly (OptionsButton's own skipped)"
+
+[[replace]]
+member = "TF.State.Domain.Extensions.SFXExtensions.ToSoundEffectInstance"
+to = "TfexGlue.StateGlue.SfxInstance"
+key = "S-native"
+why = "FNA's internal SoundEffectInstance(SoundEffect) constructor, called by reflection, isn't in the Switch's MonoGame audio: SoundEffect.CreateInstance makes the same unpooled instance (glue State.cs)"
+
+[[replace]]
+member = "TF.EX.Domain.MatchReport.ReadCurrentLog"
+to = "TfexGlue.Reports.CurrentLog"
+key = "S-native"
+why = "TF.EX's log is a file of this process in <game>/Logs (Process.StartTime, DirectoryInfo); the Switch's session log is the hw log (sd:/xplay/hw-log.txt), flushed and read (runtime/tfexgen_bcl.cpp CurrentLog)"
+
+[[rewrite]]
+call = "System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>)"
+in = "TF.EX.Domain.MatchReport"
+to = "TfexGlue.Reports.RunUpload"
+key = "S-native"
+why = "Task.Run(() => Upload(...)): the zip and the blocking POST on a game Thread (GC-registered), one at a time, off the game thread"
+
+[[replace]]
+member = "TF.EX.Domain.Utils.Changelog.Parse"
+to = "TfexGlue.ChangelogMarkdown.Parse"
+key = "S-native"
+why = "Markdig (Markdown.Parse) isn't on the Switch: the same blocks for CHANGELOG.md's markdown, then TF.EX's own steps (glue ChangelogMarkdown.cs)"
+
+[[replace]]
+member = "TF.EX.Domain.CustomComponent.Notification.CenterX"
+to = "TfexGlue.Ledger.NotificationCenterX"
+key = "S-hud"
+
+[pin."Monocle.Sprite`1[System.String].currentFrame()"]
+off = 0xb0
+why = "the CurrentFrame getter is `ldr w0, [x0, #0xb0]; ret` (+0x1726b34 / +0x1724b68); TF.State's Sprite LoadState writes it"
+[pin."Monocle.Sprite`1[System.String].timer()"]
+off = 0xd0
+why = "Sprite.Update (+0x171909c / +0x170d5a4) loads and stores the float at 0xd0 beside Rate (0xa0): timer += TimeMult * Rate; after currentAnim (0xb8..0xd0) in the PC's order"
+
+[pin."Monocle.Sprite`1[System.Int32].currentFrame()"]
+off = 0xb0
+why = "the CurrentFrame getter is `ldr w0, [x0, #0xb0]; ret` (+0x1726b34 / +0x1724b68); TF.State's Sprite LoadState writes it"
+[pin."Monocle.Sprite`1[System.Int32].timer()"]
+off = 0xd0
+why = "Sprite.Update (+0x171909c / +0x170d5a4) loads and stores the float at 0xd0 beside Rate (0xa0): timer += TimeMult * Rate; after currentAnim (0xb8..0xd0) in the PC's order"
+
+[pin."Monocle.Cache.cache()"]
+static = 0x488bd58
+why = "the game's Cache.Create<T> instantiations (Explosion +0xa3e240, EnemyAttack +0xa38680) load the pool dictionary through the slot +0x4792308 (relocated to +0x488bd58, Cache's static storage); TF.State's DropLiveFromEntityPool<T> after a load"
+
+[pin."Monocle.Tween.cached()"]
+static = 0x488c240
+why = "Tween.Removed (+0x959e00) pushes this on its type's pool: the slot +0x47921b0 (relocated to +0x488c240, Tween's static storage) holds the Stack (as Calc.Random: slot +0x47919d0 -> +0x488bd70); TF.State's TweenPatch pops it"
+
+[pin."Monocle.Alarm.cached()"]
+static = 0x488bcb0
+why = "Alarm.Removed (+0x903a10) pushes this on the pool through the slot +0x47918c8 (relocated to +0x488bcb0, Alarm's static storage; as Tween.cached); TF.State's AlarmPatch clears it"
+[pin."TowerFall.Brambles.cached()"]
+static = 0x488c648
+why = "Brambles.Removed (+0x9acf50: base.Removed, Remove<Tween>, cached.Push(this)) through the slot +0x4792f80 (relocated to +0x488c648); TF.State's BramblesPatch"
+[pin."TowerFall.Background+LightningFlashLayer.alarm()"]
+off = 0x20
+why = "the layout rule between anchors (layoutpredict) and every using method's access (privfield.py): 0x20"
+[pin."TowerFall.PlayerCorpse.ghostCoroutine()"]
+off = 0x180
+why = "the layout rule (384) and the using methods' accesses (privfield.py): 0x180"
+[pin."TowerFall.OptionsButton.selectedWiggler()"]
+off = 0xf8
+why = "the game's OnSelect (+0xad8780) is `ldr x0, [x0, #0xf8]; b Wiggler.Start`: selectedWiggler.Start() (PC OptionsButton.OnSelect); FortRise's OnSelect wiggles the same"
+[pin."TowerFall.PlayerIndicator.characterIndex()"]
+off = 0x54
+why = "the constructor (+0xb04bf0) stores TFGame.Characters[playerIndex] (ldr w8, [x8, w19, sxtw #2]) at 0x54, playerIndex at 0x50; the layout rule agrees"
+[pin."TowerFall.PlayerIndicator.colorSwitch()"]
+off = 0x39
+why = "the layout rule (57) and the using methods (privfield.py): 0x39, beside crown 0x38"
+[pin."TowerFall.PlayerIndicator.crown()"]
+off = 0x38
+why = "the constructor (+0xb04bf0) stores the crown argument (strb w21, [x20, #0x38]); the layout rule agrees"
+[pin."TowerFall.PlayerIndicator.offset()"]
+off = 0x24
+why = "the layout rule (a Vector2 at 0x24) and the using methods' accesses at 0x24 / 0x28"
+[pin."TowerFall.PlayerIndicator.sine()"]
+off = 0x40
+why = "the constructor stores new SineWave(40) at 0x40 (str x0, [x20, #0x40]); the layout rule and privfield.py agree"
+[pin."TowerFall.SensorBlock.detector()"]
+off = 0x10c
+why = "the layout rule (a Rectangle at 0x10c..0x11c) between canDetectMovement 0x108 and startPos 0x11c, both verified by the hand port that ran in sync (tfstate_ports.cpp SensorBlockPatch, 2026-10)"
+[pin."TowerFall.TeamReviver.targetLightAlpha()"]
+off = 0x140
+why = "the layout rule (320) and the using methods' accesses (privfield.py): 0x140"
+[pin."TowerFall.TreasureChest.preview()"]
+off = 0x118
+why = "the layout rule (280) and the using methods' accesses (privfield.py, 2 of 2): 0x118"
+
+[pin."TowerFall.LastManStandingRoundLogic.done()"]
+off = 0x70
+why = "the using methods' accesses (privfield.py) and the layout rule agree: 0x70"
+[pin."TowerFall.LastManStandingRoundLogic.roundEndCounter()"]
+off = 0x68
+why = "the layout rule between RoundLogic's end (0x68) and done at 0x70 (confirmed): the reference just before it"
+[pin."TowerFall.TeamDeathmatchRoundLogic.done()"]
+off = 0x70
+why = "the using methods' accesses (privfield.py) and the layout rule agree: 0x70"
+[pin."TowerFall.TeamDeathmatchRoundLogic.roundEndCounter()"]
+off = 0x68
+why = "the layout rule between RoundLogic's end (0x68) and done at 0x70 (confirmed): the reference just before it"
+[pin."TowerFall.HeadhuntersRoundLogic.done()"]
+off = 0x70
+why = "the using methods' accesses (privfield.py) and the layout rule agree: 0x70"
+[pin."TowerFall.HeadhuntersRoundLogic.roundEndCounter()"]
+off = 0x68
+why = "the layout rule between RoundLogic's end (0x68) and done at 0x70 (confirmed): the reference just before it"
+[pin."TowerFall.WarlordRoundLogic.roundEndCounter()"]
+off = 0x68
+why = "the layout rule from RoundLogic's end (0x68) to the class size 0x70: its only field"
+
+# ---- TF.State fields confirmed from the Switch's compiled code (2026-10-22, the rollback switch-over's step 1): each a load or store
+# in a method whose PC IL reads or writes the field, at the offset, with the width and order the IL implies
+[pin."Monocle.Wiggler.sineCounter()"]
+off = 0x28
+why = "Wiggler.Update (Switch 0x95afe0): ldr s8,[x19,#0x28] (0x95b02c); s9=[#0x30] (sineAdd); fmul by TimeMult, fadd, str s0,[x19,#0x28] (0x95b048), matching IL sineCounter += sineAdd*TimeMult; Counter(#0x24) -= increment(#0x2c)*TimeMult. Init (0x95ad30) stur ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Brambles.soundPlayed()"]
+off = 0x110
+why = "TweenOut (Switch 0x9abba0): IL tests tweenedOut first = ldrb w8,[x19,#0x130] (0x9abbd0, so 0x130 is tweenedOut, not soundPlayed, which is why privfield's lead was 0x130); brothers = ldr x8,[x19,#0xf8]; the loop reads brother.soundPlayed = ldrb ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.CrumbleBlock.explodeCounter()"]
+off = 0xf4
+why = "CrumbleBlock.Update (Switch 0x9dc250): ldr s8,[x19,#0xf4] (0x9dc288); bl Engine.TimeMult; fsub; fcmp s0,#0; str s0,[x19,#0xf4] (0x9dc298); b.le -> tail call Destroy; matches IL explodeCounter -= TimeMult; if (!(explodeCounter > 0)) Destroy(). (static confirmation, 2026-10-22)"
+[pin."TowerFall.CrumbleWall.shaking()"]
+off = 0x118
+why = "Destroy (Switch 0x9dd1a0): ldrb [x19,#0x108] (0x9dd1c8, destroyed guard), then strb w8(=1),[x19,#0x108] and strb w8,[x19,#0x118] (0x9dd1e4/0x9dd1e8) = IL destroyed=true; shaking=true. Update (0x9dcd90): ldrb w8,[x19,#0x118]; cbz (0x9dcddc) right after base ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.DummyHead.image()"]
+off = 0xe8
+why = ".ctor (Switch 0xa31b20): str x0,[x19,#0xe8] (0xa31c14) right after Image newobj (IL stfld image), then ldr x8,[x19,#0xe8]; str s0,[x8,#0x34] (Scale.X = arg3, IL image.Scale.X = (float)arg3). Update (0xa31ec0) loads [x19,#0xe8] for Rotation update. (static confirmation, 2026-10-22)"
+[pin."TowerFall.DummyHead.rotateSign()"]
+off = 0xf8
+why = ".ctor (0xa31b20): after Math.Sign(speed.X) (bl 0x258270; cmp w0,#0; csinc w8,w0,wzr,ne = 'if 0 then 1') str w8,[x19,#0xf8] (0xa31ce0) = IL rotateSign=Sign(speed.X); if (rotateSign==0) rotateSign=1. Update: ldr s1,[x19,#0xf8]; scvtf s1,s1 (0xa32030) = IL ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.DummyHead.speed()"]
+off = 0xf0
+why = "Vector2 at 0xf0 (X) / 0xf4 (Y). CollideH (Switch 0xa31e10): ldr s0,[x0,#0xf0]; fmul by const; str s0,[x0,#0xf0] = IL speed.X *= -0.6. CollideV (0xa31e30): ldr s0,[x19,#0xf4] compared to 1.2 and *= -0.5 = IL speed.Y. ctor: str s0,[x19,#0xf4] (Range(-2,-1.2) ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Icicle.falling()"]
+off = 0xfc
+why = "Update (Switch 0xa5b460): ldrb w8,[x19,#0xfc]; cbz (0xa5b498) right after base Update = IL ldfld falling first; canFall is the adjacent bool 0xfd (ldrb [x19,#0xfd] at 0xa5b630 / OnPlayerCollide 0xa5bcac, first test; falling tested second at 0xa5bcfc ldrb ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Icicle.ownerIndex()"]
+off = 0xf8
+why = "Update (0xa5b460): ldr w2,[x19,#0xf8] (0xa5b5ac) loaded as the 2nd int arg of Enemy.Hurt (IL ldfld ownerIndex as the owner arg, after const 1), and ldr w1,[x19,#0xf8] (0xa5b618) as arg to TreasureChest.OpenChest(int) (IL_00dc). (static confirmation, 2026-10-22)"
+[pin."TowerFall.Icicle.vSpeed()"]
+off = 0x100
+why = "Update (0xa5b460): ldr s8,[x19,#0x100] (0xa5b4c4); fadd with 0.3*TimeMult; fmin 5 (bl 0x257880); str s0,[x19,#0x100] (0xa5b4e8); then ldr s9,[x19,#0x100] used times TimeMult added to Y = IL vSpeed=Min(vSpeed+0.3*TimeMult,5); Y += vSpeed*TimeMult. (static confirmation, 2026-10-22)"
+[pin."TowerFall.LaserArrow.infiniteBounces()"]
+off = 0x1e0
+why = "Added (Switch 0xa752e0): strb w8,[x19,#0x1e0] (0xa7534c and 0xa75360) = IL infiniteBounces = Variants.InfiniteLasers[PlayerIndex] or 0. OnCollideH (0xa75d20): ldr w8,[x19,#0x1c8] (Bounced); add 1; cmp w8,#7; str [#0x1c8]; b.lt; ldrb w8,[x19,#0x1e0] ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.MovingPlatform.cataclysm()"]
+off = 0xf1
+why = ".ctor (Switch 0xad4410): w22=w3 (the bool ctor arg, mov w22,w3 at 0xad4438); strb w22,[x19,#0xf1] (0xad44c0) = IL stfld cataclysm = arg. HandleGraphicsReset (0xad49c0): ldrb w20,[x19,#0xf1] (0xad4a14) = IL ldfld cataclysm picks the atlas texture. (static confirmation, 2026-10-22)"
+[pin."TowerFall.MovingPlatform.end()"]
+off = 0x118
+why = ".ctor (0xad4410): Vector2 node arg is s9(X)/s8(Y) (mov v9,v2; mov v8,v3); str s9,[x19,#0x118]; str s8,[x19,#0x11c] (0xad44ac/b0) then the same pair into 0x100/0x104; IL stores node to end then (dup) to moveTarget (end first, moveTarget second). ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.MovingPlatform.moveTarget()"]
+off = 0x100
+why = "Same ctor store pair str s9/s8,[x19,#0x100/#0x104] (0xad44b4/b8), IL stfld moveTarget = node (second store). Slot is the 8-byte Vector2 between tilemap (0xf8) and counter (0x108); consistent with declared field order. Caveat as for end: the two copies are ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.MovingPlatform.start()"]
+off = 0x110
+why = ".ctor (0xad4410): ldur x8,[x19,#0x14] (Entity.Position as 8 bytes, 0xad44a4); str x8,[x19,#0x110] (0xad44bc) = IL start = Position. Counter newobj stored str x0,[x19,#0x108] (0xad44cc), shakeCounter str x0,[x19,#0x120] (0xad44e0), matching the order ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Orb.explodes()"]
+off = 0x114
+why = "Orb ctor 0xad8970 `strb w21, [x19, #0x114]` stores the bool ctor argument (IL: ctor(Vector2, bool explodes) stfld explodes); privfield also shows Update 0xad92d0 / Shatter 0xad8f60 / OnArrowHit 0xad9e30 touching 0x114 (0x100 is a different field, 0x115 the ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.OrbLogic.control()"]
+off = 0x48
+why = "OnLavaFinish 0xadb750 `str xzr, [x0, #0x48]; ret` (IL: control = null); DoLavaOrb 0xadb640 `ldr x0,[x20,#0x48]` then, after the Level.Ending check and `bl 0xa7a170` (new LavaControl(mode,int)), `str x0, [x20, #0x48]` at 0xadb6b4 (IL: control = new ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.OrbLogic.oldDarkAlpha()"]
+off = 0x1c
+why = "StartDark 0xada8d0: `strb w8,[x19,#0x18]` (darkened=true), `ldr w8,[x0,#0x70]` (LightingLayer.TargetAlpha) then `str w8,[x19,#0x1c]` at 0xada928 (IL: oldDarkAlpha = Level.LightingLayer.TargetAlpha), then `str #0x3f800000 -> [x0,#0x70]` (TargetAlpha = 1). ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.OrbLogic.spaceSpeed()"]
+off = 0x60
+why = "EndScroll 0xadbeb0: after Vector2.get_Zero `stp s0,s1,[x19,#0x58]` at 0xadbf14 (targetSpaceSpeed=Zero) and a second Zero `stp s0,s1,[x19,#0x60]` at 0xadbf24 (IL: targetSpaceSpeed = Zero; spaceSpeed = Zero), then `ldr x0,[x19,#0x50]` -> Counter.Set(0) ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Player.didDetonate()"]
+off = 0x330
+why = "DetonateTriggerArrows 0xaf1b60: after canDetonateCounter check (0x1f8), the triggerArrows list (0x328) loop and Clear, `mov w8,#1; strb w8,[x19,#0x330]` at 0xaf1c14 (IL_0059: ldc.i4.1; stfld bool didDetonate). Also NormalUpdate reads 0x331 (the next bool). (static confirmation, 2026-10-22)"
+[pin."TowerFall.Player.dodgeSpeed()"]
+off = 0x30c
+why = "EnterDodge 0xae9f90: at the end `ldur/ldr x9,[x19,#0x2c8]` (Player.Speed, 8 bytes) then `add x8,x19,#0x30c; str x9,[x8]` at 0xaea24c-0xaea254 (IL_0247/024c: ldfld Speed; stfld dodgeSpeed). LeaveDodge 0xaea390 also touches 0x30c and 0x310 (two 4-byte ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Player.startAimingDown()"]
+off = 0x308
+why = "DuckingUpdate 0xaea610: after set_Aiming(true), `mov w8,#1; mov w0,wzr; strb w8,[x19,#0x308]` at 0xaeac4c (IL_02f8: ldc.i4.1; stfld startAimingDown; ldc.i4.0; stloc state) and `strb wzr,[x19,#0x308]` at 0xaead78 after clearing Aiming (0x179). NormalUpdate ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.QuestSpawnPortal.lastFacing()"]
+off = 0xf0
+why = "ctor 0xb27680: `mov w8,#1 ... str w8,[x19,#0xf0]` at 0xb2770c, right after `str x20,[x19,#0x108]` (Nodes, IL_0013) and before Entity.Tag (IL_0019/001a: ldc.i4.1; stfld Facing lastFacing). 4-byte enum store matches. (static confirmation, 2026-10-22)"
+[pin."TowerFall.RotatePlatform.currentAngle()"]
+off = 0xf0
+why = "ctor 0xb36da0: `stp s10,s9,[x20,#0xe8]` (rotateFrom arg Vector2), `str w21,[x20,#0xf4]` (rotateRadius arg), then Vector2 arithmetic and `bl 0x909f60` (Calc.Angle) followed by `str s0,[x20,#0xf0]` at 0xb36f0c (IL_0071/0076: Calc.Angle(...); stfld ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.RoundLogic.miasma()"]
+off = 0x60
+why = "OnUpdate 0xb38110: counter at 0x58 (miasmaCounter Update/op_Implicit via 0x9228c0), then `bl 0xaca490` (new Miasma(mode 0)) and `str x0,[x19,#0x60]` at 0xb38240 followed by Scene.Add (IL_0089-0096: newobj Miasma; dup; stfld miasma; Scene.Add<Miasma>). ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.SensorBlock.startPos()"]
+off = 0x11c
+why = "ctor 0xb40e90: after the Solid base ctor `bl 0xb547d0`, `ldur x9,[x19,#0x14]` (Entity.Position, 8 bytes) then `add x8,x19,#0x11c ... str x9,[x8]` at 0xb40f30-0xb40f48 (IL_0024/0029: ldfld Entity::Position; stfld startPos), next to `strb w20,[x19,#0x10]` ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.ShiftBlock.moveFrom()"]
+off = 0x124
+why = "StartMoving 0xb492b0: `mov w8,#2; str w8,[x19,#0x110]` (state=2), call StopShake 0xb49150, `ldur x8,[x19,#0x14]` (Entity.Position) then `add x9,x19,#0x124; str x8,[x9]` at 0xb492f4-0xb492f8 (IL_001c: stfld moveFrom = Position). privfield's 0x110 answer was ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.ShiftBlock.moveLerp()"]
+off = 0x134
+why = "StartMoving 0xb492b0 ends with `str wzr,[x19,#0x134]` at 0xb49358 (IL_0054/0059: ldc.r4 0.0; stfld float32 moveLerp). 4-byte zero store of a float. (static confirmation, 2026-10-22)"
+[pin."TowerFall.ShiftBlock.moveTo()"]
+off = 0x12c
+why = "StartMoving 0xb492b0: compares Position with startPosition (0x114, Vector2.op_Equality 0x105840), `csel x8, [x19+0x11c] (node) / [x19+0x114] (startPosition)`, `ldr x8,[x8]; add x9,x19,#0x12c; str x8,[x9]` at 0xb49350-0xb49354 (IL_003b/0040/004e: moveTo = ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.SnowClump.solidOffset()"]
+off = 0xf4
+why = "SceneBegin 0xb54390: CollideFirst result stored `str x0,[x19,#0xe8]` (solid), then `ldp s0,s1,[x19,#0x14]` (Position) minus `ldp s2,s3,[x8,#0x14]` (solid.Position) via Vector2.op_Subtraction `bl 0x1057d0`, `stp s0,s1,[x19,#0xf4]` at 0xb54468 (IL_0062: ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Spikeball.firstHalf()"]
+off = 0x104
+why = "ctor 0xb61260: `mov w8,#1; strb w8,[x19,#0x104]` at 0xb61638-0xb61640 (IL_0195/0196: ldc.i4.1; stfld bool firstHalf), between link `str x0,[x20,#0xf8]` (IL_018f) and shakeCounter `str x0,[x20,#0x108]` (IL_01a1). Same ctor stores exploding at 0x110 (strb ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Spikeball.spinRate()"]
+off = 0x114
+why = "ctor 0xb61260: `mov w8,#0x3f800000; str w8,[x20,#0x114]` at 0xb61648-0xb6164c (IL_01a7/01ac: ldc.r4 1; stfld float32 spinRate), right after the Counter ctor call and firstHalf store, before spinDir 0x118 (`str w8,[x20,#0x118]`, IL_01d0). (static confirmation, 2026-10-22)"
+[pin."TowerFall.SteelHat.image()"]
+off = 0xf8
+why = "ctor 0xb63950: `str x23,[x19,#0xf0]` (archerData arg, IL_000d), then Image ctor `bl 0x935cc0; str x0,[x19,#0xf8]` at 0xb63a1c (IL_0060 stfld image), followed by `bl 0x932b20` (CenterOrigin) on [x19,#0xf8], set_FlipX(flipped arg `and w1,w21,#1`) and ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.WoodenHat.image()"]
+off = 0xf8
+why = "ctor 0xbce990: `str x23,[x19,#0xf0]` (archerData) then `bl 0x935cc0; str x0,[x19,#0xf8]` at 0xbcea5c (IL_0060 stfld image), CenterOrigin/FlipX/Add on [x19,#0xf8] at 0xbcea60-0xbcea78 (IL_006b..0086); Update 0xbcf0f0 loads `[x20,#0xf8]` twice. (static confirmation, 2026-10-22)"
+[pin."TowerFall.TechnoMage+TechnoMissile.explodeCounter()"]
+off = 0xf8
+why = "ctor 0xb6e4b0: `mov w1,#0x1e; bl 0x922680` (new Counter(30)) then `str x0,[x19,#0xf8]` at 0xb6e6e8 (IL_00d2-00d9: ldc.i4.s 30; newobj Counter; stfld explodeCounter), followed by Counter(0x14) -> `str x0,[x19,#0x100]` (collidableCounter, IL_00df-00e6). (static confirmation, 2026-10-22)"
+[pin."TowerFall.TechnoMage+TechnoMissile.normal()"]
+off = 0xe8
+why = "ctor 0xb6e4b0: `str s9,[x19,#0xe8]; str s8,[x19,#0xec]` at 0xb6e544-0xb6e548 (the ctor arg `dir` Vector2 in v9/v8, IL_001d: ldarg.2; stfld normal), after set_Depth(-0x59) (IL_0013) and before speed store. (static confirmation, 2026-10-22)"
+[pin."TowerFall.TechnoMage+TechnoMissile.speed()"]
+off = 0xf0
+why = "ctor 0xb6e4b0: `mov w8,#0x3f000000; str w8,[x19,#0xf0]` at 0xb6e540-0xb6e54c (IL_0023/0028: ldc.r4 0.5; stfld float32 speed), directly after normal at 0xe8/0xec. Image goes to 0xd8 (`str x0,[x19,#0xd8]`, IL_004b). (static confirmation, 2026-10-22)"
+[pin."TowerFall.TechnoMage+TechnoMissile.target()"]
+off = 0xe0
+why = "ctor 0xb6e4b0: `str x20,[x19,#0xe0]` at 0xb6e538, the first field store after the LevelEntity base ctor (`bl 0xa80d50`) and just before set_Depth `mov w1,#-0x59; bl 0x92d970` (IL_000d: ldarg.3 (Player target); stfld target; then set_Depth(-89)). 8-byte ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.TrialsControl.canEnd()"]
+off = 0x9c
+why = "ctor 0xb88ac0: `mov w8,#1; strb w8,[x19,#0x9c]` at 0xb88af8-0xb88b00 (IL_0000-0002: ldc.i4.1; stfld bool canEnd), then set_Depth(-10000) `mov w1,#-0x2710` (IL_0010). Update 0xb898f0 also reads 0x9c. (static confirmation, 2026-10-22)"
+[pin."TowerFall.ArrowCushion.lockOffset()"]
+off = 0x3c
+why = ".ctor(bool,bool) 0x989c20: `and w20,w20,#1` (w20=arg1) then `strb w20,[x21,#0x3c]` at 0x989c80; IL stores ldarg.1 into lockOffset (bool, width 1) right after Component::.ctor; 0x3c is not Component/known. (static confirmation, 2026-10-22)"
+[pin."TowerFall.ArrowCushion.lockDirection()"]
+off = 0x3d
+why = "same .ctor 0x989c20: `strb w19,[x21,#0x3d]` at 0x989c84 where w19=arg2 (mov w19,w2 at 0x989c30); IL stores ldarg.2 into lockDirection, declared right after lockOffset (adjacent byte). (static confirmation, 2026-10-22)"
+[pin."TowerFall.ArrowCushion.offset()"]
+off = 0x34
+why = "get_Offset 0x98a000 is `ldp s0,s1,[x0,#0x34]; ret`; set_Offset 0x98a010 compares against `ldp s2,s3,[x19,#0x34]` and stores `str s9,[x19,#0x34]` / `str s8,[x19,#0x38]` (0x98a094/98); UpdateArrowPosition 0x98a150 adds it to the cushion owner position. (static confirmation, 2026-10-22)"
+[pin."TowerFall.ArrowCushion.rotation()"]
+off = 0x30
+why = "get_Rotation 0x989de0 is `ldr s0,[x0,#0x30]; ret` (a single float, IL ldfld float32 rotation); set_Rotation 0x989df0: `ldr s0,[x19,#0x30]; fcmp s0,s8; ... str s8,[x19,#0x30]` (0x989e2c/0x989e3c); UpdateArrowRotation 0x989fe0 `ldr s0,[x0,#0x30]; ldr ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.Prism.counter()"]
+off = 0x11c
+why = "Init(Vector2,int) 0xb085c0: `mov w9,#0x42f00000` (=120.0f, IL ldc.r4 120 -> stfld counter) then `str w9,[x19,#0x11c]` at 0xb08618; Update 0xb08ac0 loads/stores s at [x19,#0x11c] (0xb08b2c, 0xb08b40) matching IL counter decrement/compare with -30. (static confirmation, 2026-10-22)"
+[pin."TowerFall.Prism.finished()"]
+off = 0x118
+why = "Init 0xb085c0 `strb wzr,[x19,#0x118]` at 0xb08604 (IL: ldc.i4.0; stfld finished is the first field store, before startedShaking and counter); Update 0xb08ac0 `ldrb w8,[x19,#0x118]` at 0xb08af0 (IL ldfld finished first thing in Update). (static confirmation, 2026-10-22)"
+[pin."TowerFall.Prism.startedShaking()"]
+off = 0x130
+why = "Init 0xb085c0 `strb wzr,[x19,#0x130]` at 0xb08614 (IL: second stfld, ldc.i4.0 -> startedShaking, between finished and counter=120); Update 0xb08ac0 reads `ldrb w8,[x19,#0x130]` at 0xb08b98 and stores a 1 with `strb w8,[x19,#0x130]` at 0xb08bdc (IL: ldfld ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.PlayerHair.offsets()"]
+off = 0x40
+why = ".ctor(Entity, Vector2, float) 0xb03620: the first newarr (0xb03748, IL: newarr Vector2 -> stfld offsets) stored `str x0,[x19,#0x40]` at 0xb03754, then the loop fills it (offsets[i] = (0, 3i)). PC field order Follow +0x28, Position +0x30, Alpha +0x38 (bound), offsets, images. (static confirmation, 2026-10-30)"
+[pin."TowerFall.PlayerHair.images()"]
+off = 0x48
+why = ".ctor 0xb03620: the second newarr (0xb037e4, IL: newarr Subtexture -> stfld images) stored `str x0,[x19,#0x48]` at 0xb037f0. (static confirmation, 2026-10-30)"
+[pin."TowerFall.PlayerHair.scale()"]
+off = 0x68
+why = ".ctor 0xb03620: the scale argument (s0 -> s8) stored `str s8,[x19,#0x68]` at 0xb036e8 (IL: ldarg.3; stfld scale), after sine +0x60. (static confirmation, 2026-10-30)"
+[pin."TowerFall.PlayerHair.links()"]
+off = 0x74
+why = ".ctor 0xb03620: `str w8,[x19,#0x74]` at 0xb036ec (IL: stfld links, an int, after addSpeed +0x6c), the count both newarr use. (static confirmation, 2026-10-30)"
+[pin."TowerFall.PlayerHair.linkDist()"]
+off = 0x78
+why = ".ctor 0xb03620: `fmov s0,#3.0` then `str s0,[x19,#0x78]` at 0xb036f4 (IL: ldc.r4 3; stfld linkDist), after links. (static confirmation, 2026-10-30)"
+[pin."TowerFall.TeamReviver.Mode()"]
+off = 0xec
+why = ".ctor(PlayerCorpse, Modes) 0xb69260: `mov x21,x2` (arg2 = Modes) at 0xb69274 and `str w21,[x19,#0xec]` at 0xb692ec (IL: ldarg.2; stfld Mode); the corpse arg (x1/x20) goes to 0xe0 (Corpse backing field), and the next declared field normalHitbox is stored at ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.enemy()"]
+off = 0xd8
+why = "Init 0xa38840: `mov x23,x1` (arg1 = Enemy) then `str x23,[x20,#0xd8]` at 0xa388a0 (IL: ldarg.1; stfld enemy first); get_AdjustedOffset 0xa384c0 and OnPlayerCollide use 0xd8 as the enemy. (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.offset()"]
+off = 0xe0
+why = "Init 0xa38840: `stp s9,s8,[x20,#0xe0]` at 0xa388a4 where s9/s8 are the Vector2 arg (v0/v1 saved at 0xa38870/74); IL: ldarg.2 (Vector2) -> stfld offset; get_AdjustedOffset reads 0xe0/0xe4 (X*Facing, Y). (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.hitbox()"]
+off = 0xe8
+why = "Init 0xa38840: `ldr x8,[x20,#0xe8]` at 0xa38900 and 0xa3892c, then virtual calls at vtable +0x80 / +0x90 with scvtf s0,w22 / w21 (Collider.set_Width(width), set_Height(height)), matching IL ldfld hitbox; callvirt set_Width/set_Height. Written by the .ctor ... (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.timer()"]
+off = 0xf0
+why = "Init 0xa38840 tail: `ldr x0,[x20,#0xf0]; mov w1,w19; b #0x922780` (0xa38954..0xa38978); 0x922780 is Monocle.Counter::Set (callmap body_names) and w19 is the `time` int arg (mov w19,w4); IL: ldfld timer; ldarg time; callvirt Counter::Set(int32). (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.onHit()"]
+off = 0xf8
+why = "Init 0xa38840: `ldr x26,[x29,#0x10]` (the 9th argument, stack arg = Action onHit, last IL parameter) then `str x26,[x20,#0xf8]` at 0xa388ac; OnPlayerCollide 0xa38c20 loads 0xf8 as the callback. (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.deflectsArrows()"]
+off = 0x100
+why = "Init 0xa38840: `and w27,w5,#1` (bool arg5) at 0xa38894 then `strb w27,[x20,#0x100]` at 0xa388b4; IL: ldarg.s deflectsArrows -> stfld bool. (static confirmation, 2026-10-22)"
+[pin."TowerFall.EnemyAttack.deflectionDirection()"]
+off = 0x104
+why = "Init 0xa38840: the Nullable<Vector2> argument arrives in x6 (8 bytes) + w7 (4 bytes): `add x8,x20,#0x104; str x25,[x8]` (x25=x6) at 0xa388b0/bc and `str w24,[x20,#0x10c]` (w24=w7) at 0xa388c0; OnArrowHit 0xa38c90 reads 0x104/0x108. 0x100 is the preceding bool. (static confirmation, 2026-10-22)"
+
+[pin."TowerFall.Orb.sprite()"]
+off = 0xf0
+why = "Orb(Vector2, bool) (+0xad8970) stores the made sprite at +0xf0 (`str x0, [x19, #0xf0]`) and PlayEyeAnim reads it there; privfield: 4 of the field's uses at 0xf0"
+[pin."TowerFall.Spikeball.exploding()"]
+off = 0x110
+why = "Spikeball(Vector2, Vector2, bool) (+0xb61260) stores the exploding argument at +0x110 (`strb w21, [x20, #0x110]`)"
+[pin."TowerFall.Spikeball.spinDir()"]
+off = 0x118
+why = "the same constructor's `new Random()` Next(2) into the {1, -1} array, stored at +0x118 (`str w8, [x20, #0x118]`): rnd.cpp's hand port wrote it there, in sync"
+[pin."TowerFall.VersusLevelSystem.levels()"]
+off = 0x30
+why = "GenLevels (+0xbae7a0): levels = VersusTowerData (+0x28).GetLevels(...) is `str x0, [x19, #0x30]`, then read there for each use"
+[pin."TowerFall.VersusLevelSystem.lastLevel()"]
+off = 0x38
+why = "GenLevels: the FixedFirst test reads lastLevel at +0x38 (`ldr x8, [x19, #0x38]`) and lastLevel = levels[0] stores it there"
+
+[pin."System.Text.StringBuilder..ctor()"]
+body = 0x3ca380
+why = "new StringBuilder() (TF.EX's ScenarioMapWriter): Mono's parameterless constructor, which allocates when this is null and calls StringBuilder(string null) (+0x3ca420); classmeta's .ctor list for StringBuilder runs into its neighbours' records, so the overload order can't pick it"
+
+[pin."System.Threading.Thread.Start()"]
+body = 0x3f6990
+why = "AOT stripped the public Thread.Start(); its body StartInternal (classmeta System.Threading.Thread, DIRECT 0x3f6990) takes only this (x0: x1 is not read before it is reloaded): the ggrs-ffi port's RunWorker (glue Ffi.cs)"
+
+[pin."Monocle.Layer.toAdd()"]
+off = 0x60
+why = "a private field (BRUTE's reflection has public/internal ones only); Layer.Add's body: ldr x0,[x0,#0x60]; b List.Add (docs/ws-tfex-subclass.md)"
+
+
+# private game fields (not in BRUTE's reflection; the PC's field order doesn't give them: the Switch's 1.4.1.6 classes have other
+# fields than the PC's 1.3.3.3). Offsets the hand port found and verified (tfex/Game.hpp).
+[pin."TowerFall.MainModeButton.tweenTo()"]
+off = 0xe4
+why = "private; tfex/Game.hpp MainModeButton::tweenTo (hand-verified: tfex/MainMenuPatch.cpp SetTweenTo); AddNetplayButtonToMenu's Traverse.Field(\"tweenTo\")"
+
+[pin."TowerFall.MainMenu.state()"]
+off = 0xb4
+why = "private; tfex/Game.hpp MainMenu::state (hand-verified)"
+[pin."TowerFall.MainMenu.switchTo()"]
+off = 0xc0
+why = "private; tfex/Game.hpp MainMenu::switchTo"
+[pin."TowerFall.RollcallElement.playerIndex()"]
+off = 0xc4
+why = "private; tfex/Game.hpp RollcallElement::playerIndex"
+[pin."TowerFall.RollcallElement.input()"]
+off = 0xc8
+why = "private; tfex/Game.hpp RollcallElement::input"
+[pin."TowerFall.RollcallElement.portrait()"]
+off = 0x98
+why = "private; tfex/Game.hpp RollcallElement::portrait"
+[pin."TowerFall.RollcallElement.finishedJoined()"]
+off = 0xb8
+why = "private; tfex/Game.hpp RollcallElement::finishedJoined"
+[pin."TowerFall.RollcallElement.archerType()"]
+off = 0xbc
+why = "private; tfex/Game.hpp RollcallElement::archerType"
+[pin."TowerFall.Ice.tiles()"]
+off = 0xd8
+why = "private; ClearTiles (+0xa5a8d0) moves [0xd8] to [0xe0] and clears [0xd8] (oldTiles = tiles; tiles = null), BuildTiles (+0xa5a1c0) stores its new array at 0xd8; the layout rule agrees (TF.State v0.27's IceExtensions)"
+[pin."TowerFall.Ice.oldTiles()"]
+off = 0xe0
+why = "private; as tiles: ClearTiles / BuildTiles copy tiles into 0xe0; the layout rule agrees"
+[pin."TowerFall.Ice.oldTilesXOffset()"]
+off = 0xe8
+why = "private; privfield.py: 0xe8 (Update, Render); the layout rule agrees"
+[pin."TowerFall.Ice.oldTilesAlpha()"]
+off = 0xec
+why = "private; privfield.py: 0xec (ClearTiles stores 1f there); the layout rule agrees"
+[pin."TowerFall.MenuButtonGuide.icon()"]
+off = 0x38
+why = "private; SetDetails(mode, title) (+0xac6260) stores title (x2) at 0x30; the layout rule puts icon at 0x38 (privfield.py: 0x30/0x38 the two pointers touched); SeriesScreen.GuideWidth's DynamicData Get<Subtexture>(\"icon\")"
+[pin."TowerFall.MainModeButton.text()"]
+off = 0xc8
+why = "private; tfex/Game.hpp MainModeButton::text"
+[pin."TowerFall.VersusMatchResults.finished()"]
+off = 0xa1
+why = "private; xplay/MainMenuPatch's end-of-match hook reads it (commit f19be68: VersusMatchResults finished +0xa1)"
+
+[pin."TowerFall.ScreenTitle.targetTexture()"]
+off = 0x80
+why = "private; ScreenTitle.ChangeState (+0xb3fc20) stores the looked-up texture at +0x80"
+
+# private game fields found with tools/re/privfield.py and confirmed in the disassembly (ws/tfex-bind, docs/ws-tfex-bind.md)
+[pin."TowerFall.PauseMenu.menuType()"]
+off = 0x68
+why = "private; PauseMenu.ctor (+0xae02c0) stores its MenuType argument (w2) at +0x68 and switches on it"
+[pin."TowerFall.PauseMenu.level()"]
+off = 0x78
+why = "private; PauseMenu.ctor stores its Level argument (x1) at +0x78; 20 PauseMenu methods read it"
+[pin."TowerFall.PauseMenu.optionIndex()"]
+off = 0x80
+why = "private; PauseMenu.Update (+0xae3b90): compared with optionNames.Count - 1, incremented / decremented, indexes optionActions"
+[pin."TowerFall.PauseMenu.optionNames()"]
+off = 0xa0
+why = "private; PauseMenu.AddItem (+0xae2550): [+0xa0].Add(name)"
+[pin."TowerFall.PauseMenu.selectedOptionNames()"]
+off = 0xa8
+why = "private; PauseMenu.AddItem: [+0xa8].Add(\"> \" + name)"
+[pin."TowerFall.PauseMenu.optionActions()"]
+off = 0xb0
+why = "private; PauseMenu.AddItem: [+0xb0].Add(action)"
+[pin."TowerFall.PauseMenu.oldMusicVolume()"]
+off = 0xc0
+why = "private; PauseMenu.ctor stores Music.MasterVolume (s0) at +0xc0"
+[pin."TowerFall.RollcallElement.state()"]
+off = 0xd0
+why = "private; RollcallElement.ctor (+0xb31f10): new StateMachine(2) at +0xd0, then SetCallbacks x3 and Add(state)"
+[pin."Monocle.Counter.counter()"]
+off = 0x24
+why = "private; Counter.Set (+0x922780): scvtf s0,w1; str s0,[x0,#0x24]; get_Value: ldr s0,[x0,#0x24]"
+[pin."TowerFall.PlayerIndicator.text()"]
+off = 0x30
+why = "private; PlayerIndicator.ctor (+0xb04bf0): (playerIndex + 1).ToString() (+0x21b160) into a concat (+0x3ba440) stored at +0x30"
+[pin."TowerFall.PlayerIndicator.playerIndex()"]
+off = 0x50
+why = "private; PlayerIndicator.ctor (+0xb04bf0): its int argument (w1) stored at +0x50 (crown, w2, at +0x38)"
+[pin."TowerFall.PlayerIndicator.showCounter()"]
+off = 0x48
+why = "private; PlayerIndicator.ctor (+0xb04bf0): new Counter() stored at +0x48"
+[pin."Monocle.Commands.currentText()"]
+off = 0x58
+why = "private; Commands.ctor and the end of EnterCommand (+0x919610) store \"\" at +0x58; EnterCommand splits [+0x58]"
+[pin."TowerFall.Variant.playerValues()"]
+off = 0x60
+why = "private; Variant.get_PerPlayer (+0xb9c560): ldr x8,[x0,#0x60]; cmp x8,#0 (PC: playerValues != null)"
+[pin."TowerFall.Variant.value()"]
+off = 0x58
+why = "private; Variant.get_Value (+0xb9c570): with playerValues null, returns ldrb [x0,#0x58]"
+[pin."TowerFall.ArcherPortrait.joined()"]
+off = 0x64
+why = "private; ArcherPortrait.Leave (+0x96fd70): if ([+0x64]) strb wzr,[+0x64] (PC: if (joined) joined = false)"
+[pin."TowerFall.ArcherPortrait.portrait()"]
+off = 0x68
+why = "private; ArcherPortrait.ctor (+0x96ea3c): new Image(ArcherData.Portraits.NotJoined) at +0x68, then CenterOrigin, Color, Add"
+[pin."TowerFall.VersusPlayerMatchResults.portrait()"]
+off = 0xb8
+why = "private; VersusPlayerMatchResults.ctor (+0xbb2648): the second new Image (bg is +0xb0), placed from bg's height"
+[pin."TowerFall.VersusPlayerMatchResults.gem()"]
+off = 0xc8
+why = "private; VersusPlayerMatchResults.ctor (+0xbb2774): MenuSpriteData.GetSpriteString(...) stored at +0xc8"
+[pin."TowerFall.VersusMatchResults.roundResults()"]
+off = 0x90
+why = "private; VersusMatchResults.ctor (+0xbaf7e0): stp x1(session), x2(roundResults), [this,#0x88]"
+[pin."TowerFall.Player.lastAimDirection()"]
+off = 0x2e8
+why = "private; Player.set_Aiming (+0xaec75c) stores -1f at +0x2e8; Player.Update (+0xaefd88) compares it with -1 and AimDirection"
+[pin."TowerFall.UnlockData.Ascension()"]
+off = 0x13
+why = "renamed on the Switch: AscensionAndCataclysm (+0x13). GetTowerUnlocked (+0xb990f0) returns it for tower 11 (PC: Ascension) and 15"
+[pin."Monocle.Engine.scene()"]
+off = 0xe8
+why = "private; tfex/Game.hpp Engine::scene (hand-verified); privfield.py: 5 of 5 Engine methods"
+[pin."Monocle.Engine.nextScene()"]
+off = 0xf0
+why = "private; tfex/Game.hpp Engine::nextScene (hand-verified); privfield.py: 4 of 4 Engine methods"
+
+[[unit]]
+name = "VersusCoinButtonPatch"      # hook generation, proven end to end: hw.txt "genpatch VersusCoinButtonPatch"
+file = "network/TF.EX.Patchs/Entity/MenuItem/VersusCoinButton.cs"
+type = "VersusCoinButtonPatch"
+hooks = true
+
+[[unit]]
+name = "LoaderPatch"                # Loader.TweenIn throws NotImplementedException in vanilla; TF.EX's prefix tweens it in (the generated menus' AddLoader)
+file = "network/TF.EX.Patchs/Entity/MenuItem/Loader.cs"
+type = "LoaderPatch"
+hooks = true
+
+[[unit]]
+name = "ReadyBannerPatch"           # a target the hand port hooks too (tfex/MainMenuPatch.cpp GetReadyStateHook): chained when enabled
+file = "network/TF.EX.Patchs/Entity/MenuItem/ReadyBanner.cs"
+type = "ReadyBannerPatch"
+hooks = true
+
+[[unit]]
+name = "ScreenTitlePatch"           # the end-to-end hook demo (hw.txt "genpatch ScreenTitlePatch"): chained over the hand NetplayScreens hooks
+file = "network/TF.EX.Patchs/Entity/ScreenTitle.cs"
+type = "ScreenTitlePatch"
+hooks = true
+
+[[unit]]
+name = "GameplayLayerPatch"         # TF.EX's in-match ping lines (RenderPings, UpdatePingAlpha, DrawPingLine): hw.txt "genpatch GameplayLayerPatch"
+file = "network/TF.EX.Patchs/Layer/GameplayLayer.cs"
+type = "GameplayLayerPatch"
+hooks = true
+
+# FortRise's custom variants: its patch_MatchVariants constructor (unit Fr_MatchVariants) adds the registry's variants to every
+# MatchVariants (tfex/FrVariants.cpp hooks the game's constructor); TF.EX's own bodies read them (TF.EX's RIGHT STICK SHOT)
+[[unit]]
+name = "Fr_MatchVariants"            # FortRise's patch_MatchVariants.ctor ([MonoModConstructor]): the vanilla Variant fields by name, then each
+file = "fortrise/TowerFall.FortRise.mm/Patches/MatchVariants.cs"   # registered variant appended to Variants (the game's menu lists it
+type = "patch_MatchVariants"         # under its header); tfex/FrVariants.cpp's hook on the game's constructor calls it
+hosted = true
+members = ["ctor"]
+
+[[replace]]
+member = "TowerFall.patch_MatchVariants.StoreVanillaVariantsAsCustom"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.StoreVanillaVariantsAsCustom"
+key = "S-native"
+why = "GetType().GetFields() where FieldType == Variant: no reflection on the Switch; the same fields by name, generated (glue GameFields, translate.sh fields-glue)"
+
+# ---- members the reference TowerFall.exe lacks (FortRise's additions), by C# source text: Roslyn has no symbol for them ----
+# TF.EX's roll-call reconcile (MatchmakingService.cs ReconcileRollcall*, UnreadyOwnRollcall): hosted = the MatchmakingService object
+# is the hand-written one (tfex/MatchmakingService.cpp); its fields and the archer / input services come from overrides.toml
+# [service] rules (tfex-adopt): peerId, ownLobby, pendingRollcallLobby (get/set), previousPlayersCount (get/set),
+# modifiedFilesNotified / platformNotified (gen::ValSet<void*>*), IArcherService.AddArcher / RemoveArcher, IInputService.
+# EnsureLocalControllerSeat / EnsureRemoteControllers ($0 = a lazy int sequence: seats([&](int32_t s) { ...; return true; })).
+# Compile-checked against stubs of those (2026-10-17). Uncomment once the rules exist.
+[[unit]]
+name = "RollcallReconcile"
+file = "network/TF.EX.Domain/Services/MatchmakingService.cs"
+type = "MatchmakingService"
+hosted = true
+members = ["ReconcileRollcallIfPending", "ReconcileRollcall", "UnreadyOwnRollcall", "GetRollcallElements"]
+
+# TF.EX's MatchmakingService as a class of ours (it would replace tfex/MatchmakingService.cpp's mirror). Translates whole (116 methods)
+# and compiles against stubs of its edge (2026-10-17): the members below stay the Switch's (socket, game-thread queue, ping
+# measurement, state checksum, the relay-pair bookkeeping, GetEndGameStatus' service), and overrides.toml [service] needs the rules in
+# tools/tfex/reports/matchmakingservice-edge-rules.toml (the class's own excluded methods and edge fields, the archer / input / skin /
+# late-spectator services). Messages are JSON through the models (runtime/tfexgen_msgpack.hpp); HandleMessageContents must run on the
+# game thread (the net thread queues the text). Uncomment with tfex-adopt's switch-over.
+[[unit]]
+name = "MatchmakingService"
+file = "network/TF.EX.Domain/Services/MatchmakingService.cs"
+type = "MatchmakingService"
+
+[[unit]]
+name = "NetplayManager"             # TF.EX's NetplayManager drives the lobby match's session over ggrs_ffi (docs/ws-ggrs-ffi.md); its session
+file = "network/TF.EX.Domain/Services/NetplayManager.cs"   # fields survive a rollback's heap restore (xplay KeepSave/KeepRestore, TFEX-DIFF)
+type = "NetplayManager"
+exclude = ["IsReplayMode", "SetReplayMode"]
+
+[enums]
+# TF.EX enums the hand code reads, emitted as gen/tfexgen_enums.hpp (gen::en::<Name>::<Value>): new values arrive with a re-run
+export = ["TF.EX.Domain.Models.MenuState"]
+
+[hand]
+# Game members the hand-written code (tfex/*.cpp, xplay.cpp) takes from tfexgen_binding.hpp (bind::<kind>_<Type>_<Member>) that no
+# unit uses: "<kind> <Type> [<Member> [<IL signature>]]", kind f = field (static or instance), m = method, t = type. Ask the
+# translator session, or add a line and regenerate (translate.sh all) yourself.
+need = [
+  "m TowerFall.OptionsButton OnSelect",   # tfex-translator: the OptionsButton.Wiggle rule (StaticOptionsButton)
+  "m System.Object MemberwiseClone",       # tfex-update: glue Skins.Clone (TF.EX's SkinOverlayService.Clone: MemberwiseClone by reflection on the PC)
+  "t TowerFall.ArcherData",
+  "t Monocle.SFX", "t Monocle.SFXVaried", "t Monocle.SFXLooped", "t TowerFall.CharacterSounds",   # glue SwitchMods.NewSfx* / NewCharacterSounds (FortRise's archer sounds)               # tfex-update: runtime/tfexgen_frmods.cpp NewArcherData (FortRise's patch_ArcherData())
+  "f Monocle.Audio loopList", "c Monocle.Audio",
+  "f Monocle.SFX Data", "f Monocle.SFXVaried Datas", "f Monocle.SFXLooped Instance",   # FortRise's [MonoModIgnore] properties over them (overrides.toml)   # FortRise's patch_Audio.loopList is the game's (Fr_SFXLooped's constructor adds to it)
+  "f TowerFall.Sounds ui_invalid",        # tfex-adopt: ReconcileRollcall notices (TF.EX plays it with them)
+  "f TowerFall.Sounds ui_clickSpecial",   # same
+  # tfex-adopt: TF.EX's NETPLAY globe icon (MenuIcons.Online) as a Subtexture made from the module's embedded PNG
+  "m Microsoft.Xna.Framework.Graphics.Texture2D .ctor Microsoft.Xna.Framework.Graphics.GraphicsDevice,int32,int32",
+  "m Microsoft.Xna.Framework.Graphics.Texture2D FromStream Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.IO.Stream",
+  "m System.IO.MemoryStream .ctor uint8[]",
+  "m Microsoft.Xna.Framework.Game get_GraphicsDevice",
+  "m Monocle.Texture .ctor Microsoft.Xna.Framework.Graphics.Texture2D",
+  "m Monocle.Subtexture .ctor Monocle.Texture",
+  "m Monocle.Engine get_Instance",
+  "m Monocle.Texture .ctor string,bool",
+  "m TowerFall.TFGame get_Atlas",
+  "m Monocle.Atlas get_Item string",
+  "m TowerFall.TFGame get_Loaded",        # ws-match2: runtime/tfexgen_glue.cpp TestModeFrame waits for it (TF.EX's test command needs a loaded game)
+]
+
+[capacity]
+# runtime value maps (gen::ValMap, 64 entries by default) that TF.State fills further, by C# type: the per-frame snapshots SFXService and
+# MatchStatsService keep for SFX_SNAPSHOT_HISTORY = 960 frames (every GetState saves one: at 64 they dropped one a frame from frame 64)
+"System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<TF.State.Domain.Models.SFX>>" = 1024
+"System.Collections.Generic.Dictionary<int, TF.State.Domain.Models.MatchStats[]>" = 1024
+# StateContext._soundEffects: every SFX's file name -> its SoundEffect (SFXPatch's constructor postfix; the game makes a few hundred)
+"System.Collections.Generic.Dictionary<string, Microsoft.Xna.Framework.Audio.SoundEffect>" = 1024
+# MatchStatsReport.BuildRawStats: one entry per field of the game's MatchStats / KillStats (113; glue/GameFields.cs)
+"System.Collections.Generic.Dictionary<string, double>" = 128
+# AIJimmy's path search (AILogic.FindPathUsingMovementLibrary): the cells it visited, up to a wide level's 42 x 24 = 1008 (at 64 it
+# dropped them: 8193 drops in a console 8-player round, 2026-11-06); a hash index at this size (gen::ValSet)
+"System.Collections.Generic.HashSet<Microsoft.Xna.Framework.Point>" = 1024
+# FortRise's InternalCustomVariants (glue SwitchMods' SwitchMatchVariantsExt): the game's 88 variants (GameFieldsFr) and the mods' own
+"System.Collections.Generic.Dictionary<string, TowerFall.Variant>" = 256
+# and value lists (gen::VList, 128 inline entries by default) of big structs TF.State holds few of: GameState.MatchStats (one per player; 128 x
+# 264 bytes made each save allocate 33 KB twice, most of what the GC collected at 240 Hz, 2026-10-29). 8: the game's 6 seats and room;
+# more is a pools error (VList's PoolFull)
+"System.Collections.Generic.List<TF.State.Domain.Models.MatchStats>" = 8
+"System.Collections.Generic.IEnumerable<TF.State.Domain.Models.MatchStats>" = 8   # (GameState.MatchStats' declared type: the same list)
+
+[pin]
+# Game members the binder can't pick by name and metadata order, each proven from the game's own call of it (tools/re disasm.py)
+# System.Random's three Next overloads: the Switch's corlib Random (JKISS32, not Mono's) has them in another order than Mono's metadata
+# (Next(int, int), Next(int), Next(); vtable 0x4594cb0 slots 0x20 / 0x28 / 0x30 hold those bodies). Proven by rnd.cpp's boot self-test:
+# through these addresses a seed-42 Random gives .NET's Next() 1434747710 and Next(5, 10) 7. Without the pins Next() bound to Next(int, int).
+"System.Random.Next()" = { body = 0x272130, slot = 0x30, why = "System.Random's vtable slot 0x30 (relocation at +0x4594ce0); rnd.cpp's self-test: seed 42 gives .NET's first Next() 1434747710" }
+"System.Random.Next(int32)" = { body = 0x272040, slot = 0x28, why = "System.Random's vtable slot 0x28 (relocation at +0x4594cd8); rnd.cpp's self-test: seed 42's Next(100) after two Next() is .NET's 12" }
+"System.Random.Next(int32,int32)" = { body = 0x271f40, slot = 0x20, why = "System.Random's vtable slot 0x20 (relocation at +0x4594cd0); rnd.cpp's self-test: seed 42's Next(5, 10) is .NET's 7" }
+"System.Xml.XmlDocument..ctor()" = { body = 0x55eb50, why = "Monocle's Calc.LoadXML (+0x90c570) calls it with this = null (allocates) and no argument" }
+"Microsoft.Xna.Framework.Graphics.Texture2D..ctor(Microsoft.Xna.Framework.Graphics.GraphicsDevice,int32,int32)" = { body = 0xdb090, why = "Monocle's Texture(int, int, Color) (+0x956180) and Canvas(int, int) call it with (null: allocates, the device, width, height)" }
+"System.IO.MemoryStream..ctor(uint8[])" = { body = 0x236d10, why = "this = null allocates (NewObject), then InternalConstructor (+0x236e40, classmeta) with (buffer, 0, buffer.Length, true): Mono's MemoryStream(byte[])" }
+"Microsoft.Xna.Framework.Graphics.Texture2D.FromStream(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.IO.Stream)" = { body = 0xdb960, why = "Monocle's Texture.Load (+0x956530) calls it with the device and Calc.OpenFile's stream" }
+"System.Xml.XmlNode.get_Item(string)" = { slot = 0x78, why = "the vtable slot Calc.ChildText (+0x90d190) calls xml[childName] through; XmlNode, XmlElement and XmlDocument share the body (+0x575260)" }
+"System.Xml.XmlNodeList.get_Count()" = { slot = 0x20, why = "XmlNodeList's abstract slots are its null vtable entries 0x20 / 0x30 / 0x38; XmlNodeListChildren fills 0x20 with get_Count (+0x57a5e0, classmeta), XmlNodeArrayList with its own (+0x579fa0)" }
+"System.Xml.XmlNodeList.Item(int32)" = { slot = 0x38, why = "as get_Count: XmlNodeListChildren's Item (+0x57a7d0) and XmlNodeArrayList's (+0x57a000) at 0x38" }
+"TowerFall.VersusModeButton.iconWiggler()" = { off = 0xc0, why = "VersusModeButton's constructor stores the new Wiggler (bl 0x95ab20) at [this + 0xc0] (+0xbb1b18) and adds it as a component; tools/re privfield.py agrees (3 using methods)" }
+"Monocle.SpriteData.atlas()" = { off = 0x10, why = "SpriteData's constructor (+0x94cb40) keeps its atlas argument (x2) in x21 and stores it at [this + 0x10]" }
+"Monocle.SpriteData.sprites()" = { off = 0x18, why = "SpriteData.GetXML (+0x94d9b0) looks the id up in [this + 0x18]; the constructor stores the parsed dictionary there" }
+"TowerFall.MatchVariants.canRandoms()" = { off = 0x300, why = "MatchVariants' constructor (+0xabcec0) stores a new List<Variant> at [this + 0x300] (+0xabcf34) and its variant loop adds a variant there when its canRandom flag is set (+0xabd8e8); Randomize (+0xabf9c0) reads it" }
+"TowerFall.BladeButton.tweenTo()" = { off = 0xb8, why = "BladeButton's constructor (+0x9a42c0) stores Position ([this + 0x14], after MenuItem's constructor) at [this + 0xb8]: the PC's tweenTo = Position (glue ModsButton.cs: FortRise's patch_BladeButton.SetX)" }
+"TowerFall.BladeButton.tweenFrom()" = { off = 0xc0, why = "the constructor's next store, [this + 0xc0] = Position + UnitX * -100 (+0x9a436c): the PC's tweenFrom" }
+"TowerFall.BladeButton.selected()" = { off = 0xb0, why = "the constructor's [this + 0xb0] = tweenTo ([this + 0xb8]) + (30, 0) (+0x9a4390): the PC's selected" }
+"TowerFall.ScreenTitle.textures()" = { off = 0x70, why = "ScreenTitle.ChangeState (+0xb3fc20) looks the state up in [this + 0x70] (+0xb3fce4, Dictionary<MenuState, Subtexture>.get_Item +0xb3f8e0): the PC's textures (glue ModsButton.cs: the MODS title, FortRise's patch_ScreenTitle)" }
+"TowerFall.JumpThru.counter()" = { off = 0xe0, why = "JumpThru.Move (+0xa648a0) adds the move to [this + 0xe0] (ldp s0, s1 / stp at +0xa64960) and rounds it: the PC's counter += move; Math.Round(counter.X). Unresolved, TF.State's LoopPlatform save read 0 and its load wrote nowhere: The Amaranth's loop platforms desynced from frame 120 (2026-10-24)" }
+"Microsoft.Xna.Framework.Audio.SoundEffectInstance.get_State()" = { body = 0x47220, why = "classmeta: SoundEffectInstance's get_State (native state +0x19310 of [this + 0x30], 2 = Stopped without a voice); the name's second body (+0x4d3d0) is a neighbouring XACT class's, whose `ldr [x0, #0x40]` the binder took as a field past the 0x38-byte object (TF.State's SFXService.RemoveFinishedSfx)" }
+"Microsoft.Xna.Framework.Audio.SoundEffectInstance.Stop()" = { body = 0x47970, why = "classmeta: SoundEffectInstance's first Stop (+0x47970; Stop(bool) +0x47aa0 is the same body): native stop +0x18ef0 of [this + 0x30], then the pool's Remove (+0x47f30)" }
+
+[instantiation]
+"System.Func`1[Monocle.Subtexture]" = { as = "System.Func`1[System.Object]", why = "TF.EX's SkinOverlayService.RegisterImage: `() => subtexture` for FortRise's RegisterTexture; the game has Func<object> (same code for any reference result)" }
+# Generic instantiations BRUTE never compiled -> one it did, for objects our own code creates (reference type arguments, no casts)
+"System.Collections.Generic.Dictionary`2[System.String, Monocle.Texture]" = { as = "System.Collections.Generic.Dictionary`2[System.String, System.Object]", why = "FortRise.Content's SubtextureLoader.textureCache: its own static dictionary of loaded textures" }
+
+[invalid]
+# Members the reference TowerFall.exe lacks, by their C# source text. Empty since 2026-10-18: the FortRise-patched reference DLL
+# (translate.sh fails without it) has FortRise's members, and [fortrise] marks them absent on the Switch (EnableFixedTimeStep,
+# MatchSettings.IsCustom, MapScene.NoRandom ...). translate.sh rules lists a key here no translation uses.
+"registry.SFXs.RegisterSFXLooped(id + \"_\" + type + \"_SFX\", f)" = { cpp = "tfex::gen::Fr_ModSFXs::RegisterSFXLooped_1(tfex::gen::GlueFrMods::RegistrySFXs(registry), tfex::gen::GlueFrMods::SfxId(id, type), f)", include = "tfexgen_Fr_ModSFXs.hpp", key = "S-native", why = "FortRise.Content's ArcherLoader passes its Func<SFXLooped> fallback where ModSFXs takes Func<patch_SFXLooped> (one type under MonoMod, not to the compiler): ModSFXs.RegisterSFXLooped(id, callback) (translated)" }
+"registry.SFXs.RegisterSFXVaried(id + \"_\" + type + \"_SFX\", fallback)" = { cpp = "tfex::gen::Fr_ModSFXs::RegisterSFXVaried_2(tfex::gen::GlueFrMods::RegistrySFXs(registry), tfex::gen::GlueFrMods::SfxId(id, type), fallback)", include = "tfexgen_Fr_ModSFXs.hpp", key = "S-native", why = "as RegisterSFXLooped: its Func<SFXVaried> fallback" }
+
+[[rewrite]]
+call = "Monocle.Calc.ChildEnum<TowerFall.TFGame.Genders>(System.Xml.XmlElement, string, TowerFall.TFGame.Genders)"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.ChildEnumGenders"
+why = "generic game method (FortRise.Content's ArcherLoader): no Switch instantiation for this enum; Monocle's body"
+
+[[rewrite]]
+call = "Monocle.Calc.ChildEnum<TowerFall.ArcherData.HatMaterials>(System.Xml.XmlElement, string, TowerFall.ArcherData.HatMaterials)"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.ChildEnumHatMaterials"
+why = "as ChildEnum<Genders>"
+
+[[rewrite]]
+call = "Monocle.Scene.Add<T>(params T[])"
+to = "TfexGlue.Rewrites.SceneAddArray"
+why = "generic method: no instantiation over a TF.EX class on the Switch (Monocle's body: one Add per entity)"
+
+[[rewrite]]
+call = "Monocle.Scene.Add<T>(System.Collections.Generic.List<T>)"
+to = "TfexGlue.Rewrites.SceneAddList"
+why = "generic method: no instantiation over a TF.EX class on the Switch (Monocle's body: one Add per entity)"
+
+[[rewrite]]
+call = "Monocle.Scene.Remove<T>(T)"
+to = "TfexGlue.Rewrites.SceneRemove"
+why = "generic method (the Switch's only non-generic Scene.Remove is Remove(GameTags), which the binder had paired with it): Monocle's body"
+
+[[rewrite]]
+call = "Monocle.Scene.Remove<T>(params T[])"
+to = "TfexGlue.Rewrites.SceneRemoveArray"
+why = "generic method: Monocle's body (one Remove per entity)"
+
+[[rewrite]]
+call = "Monocle.Scene.Remove<T>(System.Collections.Generic.List<T>)"
+to = "TfexGlue.Rewrites.SceneRemoveList"
+why = "generic method: Monocle's body (one Remove per entity)"
+
+[[rewrite]]
+call = "Monocle.Calc.Shuffle<T>(System.Collections.Generic.List<T>, System.Random)"
+to = "TfexGlue.Rewrites.Shuffle"
+why = "generic extension with no Switch instantiation for TF.EX's element types: Monocle's body as a generic glue, copied per type argument"
+
+# ---- FortRise's additions to the game (bound against the patched reference, absent from the Switch's 1.4.1.6): reads give the
+# default / an empty sequence, writes / calls on them / foreach over them do nothing: TF.EX with no FortRise mod loaded ----
+[fortrise]
+"FortRise.ModuleSettings" = { absent = true, key = "S-settings", why = "FortRise's settings base (its UI, its JSON file): TF.EX's NetplaySettings derives from object on the Switch; Integration A's store loads / saves it" }
+"TF.EX.Patchs.Engine.TFGamePatch.HandleAutoUpdate" = { absent = true, key = "S-update", why = "TF.EX's auto-updater flow (ledger [skip]): the Switch's mod is updated with the console build; HandleMenuAction's call is a no-op" }
+"FortRise.ModIO.OpenRead" = { absent = true, key = "S-native", why = "FortRise's file constructors of SFX / SFXVaried / SFXLooped (MonoModReplace of the game's own, which loads the game's sounds: not hooked here, so never called; units Fr_SFX ... translate the Stream ones)" }
+"FortRise.ModIO.IsDirectoryOrFileExists" = { absent = true, key = "S-native", why = "as ModIO.OpenRead" }
+"TowerFall.GamepadConfig" = { absent = true, key = "S-input", why = "the PC's XInput pad mapping type, not in the Switch's build (XGamepadInput.Config, below): no object of it exists, its members read as defaults" }
+"TowerFall.XGamepadInput.Config" = { absent = true, key = "S-input", why = "the PC's XInput pad mapping (GamepadConfig); the Switch's XGamepadInput has none: the console maps its own controllers. Read as null (LoaderAI's ControlNames then draws no key names; the console's AI-slot button stands in for its keyboard, PLAN-TFNX section 11)" }
+"TowerFall.patch_PlayerHair.Color" = { absent = true, side = true, key = "S-native", why = "FortRise adds the field to PlayerHair (MonoMod); the Switch's object has no room: per object in the side table (DynamicData's)" }
+"TowerFall.patch_PlayerHair.OutlineColor" = { absent = true, side = true, key = "S-native", why = "as patch_PlayerHair.Color" }
+"TowerFall.patch_PlayerHair.Offset" = { absent = true, side = true, key = "S-native", why = "as patch_PlayerHair.Color" }
+"TowerFall.patch_PlayerHair.DuckingOffset" = { absent = true, side = true, key = "S-native", why = "as patch_PlayerHair.Color" }
+"FortRise.PickupsRegistry.GetAllPickups" = { absent = true, key = "S-native", why = "FortRise's modded pickups: none on the Switch (TF.State's TreasureSpawnerPatch adds no extra arrow types)" }
+"FortRise.PickupsRegistry.GetPickup" = { absent = true, key = "S-native", why = "FortRise's pickup registry: none on the Switch; null is 'module safe' in TF.State's TreasureSpawnerPatch.IsModuleSafe" }
+"TowerFall.patch_RoundLogic.orig_GetRoundLogic" = { absent = true, orig = "GetRoundLogic", key = "S-native", why = "MonoMod's original body: on the Switch the original under FortRise's hook (HookGen, Fr_RoundLogic)" }
+"TowerFall.patch_MatchSettings.orig_get_CanPlayThisMode" = { absent = true, orig = "get_CanPlayThisMode", key = "S-native", why = "as orig_GetRoundLogic (Fr_MatchSettings)" }
+"TowerFall.MatchSettings.IsCustom" = { absent = true, side = true, key = "S-native", why = "FortRise adds the field to MatchSettings (MonoMod); the Switch's object has no room: per object in the side table (DynamicData's)" }
+"TowerFall.patch_MatchSettings.IsCustom" = { absent = true, side = true, key = "S-native", why = "as MatchSettings.IsCustom (FortRise's own code reads it)" }
+"TowerFall.MatchSettings.CustomVersusModeName" = { absent = true, side = true, key = "S-native", why = "as IsCustom (TF.EX sets it through DynamicData, FortRise reads the property)" }
+"TowerFall.patch_MatchSettings.CustomVersusModeName" = { absent = true, side = true, key = "S-native", why = "as IsCustom" }
+"TowerFall.TreasureSpawner.orig_GetRandomArrowType" = { absent = true, orig = "GetRandomArrowType", key = "S-native", why = "FortRise's name for the vanilla body (it wraps GetRandomArrowType for modded arrows): on the Switch the original under the hook (TF.State's TreasureSpawnerPatch prefix calls it)" }
+"TowerFall.Session.StartGame" = { after = "tfex::gen::svc::FortRiseStartGameTail($self)", key = "S-native", why = "FortRise's Session.StartGame (MonoModReplace) is the game's body plus a custom mode's OnStartGame at its end (Teams+ sizes the score arrays to its groups): that call, right after the Switch's own body" }
+"TowerFall.TreasureSpawner.GetArrowShufflePickups" = { after = "tfex::gen::svc::FortRiseArrowShuffleTail($result)", key = "S-native", why = "FortRise's GetArrowShufflePickups (the PC's) is orig_ (the vanilla shuffle, trimmed to 2) + modded arrows (none) + list.Shuffle() again: one more gameplay draw inside TF.State's registration; the Switch has no FortRise (the page's stream: 9 draws at Session.StartGame, the Switch made 8)" }
+"TowerFall.MapScene.NoRandom" = { absent = true, key = "S-native", why = "FortRise's towers kept out of RANDOM: none on the Switch (ResolveNetplayEntry's Clear is a no-op)" }
+"TF.EX.Domain.Utils.Changelog.AddEntries" = { absent = true, key = "S-native", why = "Changelog.Parse's Markdig half (Parse is the glue's on the Switch: ChangelogMarkdown.cs has these steps)" }
+"TF.EX.Domain.Utils.Changelog.InlineText" = { absent = true, key = "S-native", why = "Changelog.Parse's Markdig half (Parse is the glue's on the Switch: ChangelogMarkdown.cs has these steps)" }
+"TF.EX.Domain.Utils.Changelog.ToRelease" = { absent = true, key = "S-native", why = "Changelog.Parse's Markdig half (Parse is the glue's on the Switch: ChangelogMarkdown.cs has these steps)" }
+"TF.EX.Domain.Utils.Changelog.ToEntry" = { absent = true, key = "S-native", why = "Changelog.Parse's Markdig half (Parse is the glue's on the Switch: ChangelogMarkdown.cs has these steps)" }
+"TF.EX.Domain.Utils.Changelog.ToBracketFree" = { absent = true, key = "S-native", why = "Changelog.Parse's Markdig half (Parse is the glue's on the Switch: ChangelogMarkdown.cs has these steps)" }
+"TF.EX.Domain.Utils.Changelog.ToDisplayText" = { absent = true, key = "S-native", why = "Changelog.Parse's Markdig half (Parse is the glue's on the Switch: ChangelogMarkdown.cs has these steps)" }
+"TF.EX.Patchs.InputDelayAdvisor.UpdateMouse" = { absent = true, key = "S-input", why = "the advisor's mouse drag on the delay track (Mouse.GetState, MInput.Mouse): no mouse on the Switch; its controller gesture (Alt2 + Left / Right) is TF.EX's" }
+"TF.EX.Patchs.InputDelayAdvisor.GameMousePosition" = { absent = true, key = "S-input", why = "the PC mouse in screen coordinates (Game.Window, Screen.Scale), for UpdateMouse only" }
+"TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch.UpdateControllerIcon" = { absent = true, key = "S-input", why = "PC gamepad icons (xb360 textures) on the roll call: the Switch keeps its Joy-Con icons (its RollcallElement.HandleControlChange)" }
+"TF.EX.Patchs.Scene.WiderSetMenu.IsSelectionState" = { absent = true, key = "S-wide", why = "WiderSet's mode screens: the Switch's own wide handling; ResolveNetplayEntryState then returns to Main or the default" }
+"TF.EX.Domain.Services.SkinOverlayService.MemberwiseCloneMethod" = { absent = true, key = "same behaviour", why = "typeof(object).GetMethod(\"MemberwiseClone\") for Clone, which is the game's MemberwiseClone here ([[replace]] SkinOverlayService.Clone)" }
+"TF.EX.Domain.Services.SteamIdentity.TryGet" = { absent = true, key = "S-platform", why = "Steamworks through reflection: no Steam on the Switch (null: no steam: id)" }
+"TF.EX.Domain.Utils.GameFilesIntegrity.IsModified" = { absent = true, key = "S-native", why = "hashes the PC game folder against TF.EX's list: the Switch's romfs is the console's own (false)" }
+"TF.EX.Domain.Utils.GameFilesIntegrity.Modified" = { absent = true, key = "S-native", why = "same (no modified files)" }
+"TF.EX.Patchs.Engine.TFGamePatch.StartUpdate" = { absent = true, key = "S-update", why = "TF.EX's self-updater: no updater on the Switch (NetplayPreferences.AutoUpdate is off there)" }
+"TowerFall.RollcallElement.controlIcon" = { absent = true, side = true, key = "S-input", why = "PC's per-player controller Image at ControlIconPos (0, 90); the Switch's RollcallElement has none (its own icon subtexture +0xa0, drawn at the same place). TF.EX reads it by DynamicData (RollCallElementPatch.UpdateOpenSeat: the open-seat orb goes at its Position, it hides while the orb shows): the side table, where tfex/MainMenuPatch.cpp ControlIconStandIns puts an undrawn Image at (0, 90) per element" }
+
+# ---- tfex-adopt's next units (docs/ws-tfex-adopt.md "Later"): generated beside the hand ports; tfex-adopt switches them over ----
+[[unit]]
+name = "WhiteArcherPrisonPatch"     # hw.txt "genpatch WhiteArcherPrisonPatch" (hand port: TF.State WhiteArcherPrison)
+file = "network/TF.EX.Patchs/Entity/WhiteArcherPrison.cs"
+type = "WhiteArcherPrisonPatch"
+hooks = true
+
+[[unit]]
+name = "FightButtonPatch"           # hw.txt "genpatch FightButtonPatch" (hand port: tfex/MainMenuPatch.cpp FightButton.MenuAction)
+file = "network/TF.EX.Patchs/Entity/MenuItem/FightButton.cs"
+type = "FightButtonPatch"
+hooks = true
+
+[[unit]]
+name = "RollcallLayout"             # TF.EX's roll call layout helper (static; the hand RollcallPings.cpp uses its own copy)
+file = "network/TF.EX.Patchs/Entity/MenuItem/RollcallLayout.cs"
+type = "RollcallLayout"
+
+[[unit]]
+name = "LobbyBorderButton"          # tfex-adopt: the lobby screen's border button (a MenuItem subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyBorderButton.cs"
+type = "LobbyBorderButton"
+
+
+
+[[unit]]
+name = "LobbyVersusModeButton"   # tfex-adopt: a LobbyBuilder option button (LobbyBorderButton subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyVersusModeButton.cs"
+type = "LobbyVersusModeButton"
+
+[[unit]]
+name = "LobbyVersusMapButton"   # tfex-adopt: a LobbyBuilder option button (LobbyBorderButton subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyVersusMapButton.cs"
+type = "LobbyVersusMapButton"
+
+[[unit]]
+name = "LobbyVersusPlayerCountButton"   # tfex-adopt: a LobbyBuilder option button (LobbyBorderButton subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyVersusPlayerCountButton.cs"
+type = "LobbyVersusPlayerCountButton"
+
+[[unit]]
+name = "LobbyVersusCoinButton"   # tfex-adopt: a LobbyBuilder option button (LobbyBorderButton subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyVersusCoinButton.cs"
+type = "LobbyVersusCoinButton"
+
+[[unit]]
+name = "LobbyVersusSeriesButton"   # tfex-adopt: a LobbyBuilder option button (LobbyBorderButton subclass)
+file = "network/TF.EX.Domain/CustomComponent/LobbyVersusSeriesButton.cs"
+type = "LobbyVersusSeriesButton"
+
+[[unit]]
+name = "NetplayMenuButton"   # tfex-adopt: the NETPLAY screens' menu button (a MainModeButton subclass; abstract slots proven by bind.py)
+file = "network/TF.EX.Domain/CustomComponent/NetplayMenuButton.cs"
+type = "NetplayMenuButton"
+
+[[unit]]
+name = "NetplayButton"   # tfex-adopt: the main menu's NETPLAY button (a MainModeButton subclass; abstract slots proven by bind.py)
+file = "network/TF.EX.Domain/CustomComponent/NetplayButton.cs"
+type = "NetplayButton"
+
+[[unit]]
+name = "CompactCoOpButton"   # tfex-adopt: the compact co-op button (its skull animation: a Coroutine over its iterator) (a MainModeButton subclass; abstract slots proven by bind.py)
+file = "network/TF.EX.Domain/CustomComponent/CompactCoOpButton.cs"
+type = "CompactCoOpButton"
+
+# ---- tfex-adopt candidates, complete at v0.21.1 (hooks install only with hw.txt "genpatch <Class>") ----
+[[unit]]
+name = "PlayerPatch"
+file = "network/TF.EX.Patchs/Entity/LevelEntity/Player.cs"
+type = "PlayerPatch"
+hooks = true
+
+# PlayerCorpsePatch (TF.EX's PlayerCorpse.Added postfix, TEAM REVIVE online: Fcornaire/TF.EX#312, merged 2026-11-04): back with the first
+# upstream release that has it (after v0.29.0)
+
+[[unit]]
+name = "PlayerInputPatch"           # AssignInputs' prefix: a netplay lobby keeps TF.EX's controller arrangement; EndOfMatch.cpp's shell skips it
+file = "network/TF.EX.Patchs/PlayerInput/PlayerInput.cs"   # at the results (S-input: rebuilding the npad set there desynced the next match)
+type = "PlayerInputPatch"
+hooks = true
+
+[[unit]]
+name = "ModCollections"             # TF.EX's IModCollections over FortRise's interop (the Switch's mod registry answers it): mod versions for the
+file = "network/TF.EX.Core/Api/ModCollections.cs"   # lobby, other mods' APIs, the desync-risk warning on entering NETPLAY
+type = "ModCollections"
+
+[[unit]]
+name = "VersusBeginButtonPatch"     # VERSUS options' BEGIN: its constructor postfix leaves any lobby and resets TF.EX's archers (local versus
+file = "network/TF.EX.Patchs/Entity/MenuItem/VersusBeginButton.cs"   # after netplay); OnConfirm's netplay branch needs FortRise's netplay mode
+type = "VersusBeginButtonPatch"     # (none on the Switch: it falls through)
+hooks = true
+
+[[unit]]
+name = "MenuItemPatch"              # VERSUS options' mode <-> BEGIN navigation in FortRise's netplay mode (never on the Switch: no such mode)
+file = "network/TF.EX.Patchs/Entity/MenuItem/MenuItem.cs"
+type = "MenuItemPatch"
+hooks = true
+
+[[unit]]
+name = "SaveDataPatch"              # SaveData.Save: TF.EX's NetplayOptions put the player's own options back around the save while netplay
+file = "network/TF.EX.Patchs/SaveData.cs"   # forces them (replays, tips), so the forced values never reach the save file
+type = "SaveDataPatch"
+hooks = true
+
+[[unit]]
+name = "MainMenuVersusOptions"      # MainMenu.CreateVersusOptions' postfix: the mode button selected first in Last Man Standing
+file = "network/TF.EX.Patchs/Scene/MainMenu.cs"
+type = "MainMenuPatch"
+members = ["MainMenu_CreateVersusOptions"]
+hooks = true
+
+[[unit]]
+name = "LevelLoaderXMLPatch"        # "Waiting for other players..." on the first level load until the session synchronizes
+file = "network/TF.EX.Patchs/Scene/LevelLoaderXML.cs"
+type = "LevelLoaderXMLPatch"
+hooks = true
+
+[[unit]]
+name = "SessionPatch"
+file = "network/TF.EX.Patchs/Session.cs"
+type = "SessionPatch"
+hooks = true
+
+[[unit]]
+name = "MatchSettingsPatch"
+file = "network/TF.EX.Patchs/MatchSettings.cs"
+type = "MatchSettingsPatch"
+hooks = true
+
+[[unit]]
+name = "VersusVariantButtonPatch"
+file = "network/TF.EX.Patchs/Entity/MenuItem/VersusVariantButton.cs"
+type = "VersusVariantButtonPatch"
+hooks = true
+
+[[unit]]
+name = "VariantTogglePatch"         # a variant toggle that may not switch on: restricted in netplay, a player lacking it, or a series lobby's lock
+file = "network/TF.EX.Patchs/VariantToggle.cs"
+type = "VariantTogglePatch"
+hooks = true
+
+[[unit]]
+name = "VariantButtonConfirmPatch"  # SeriesVariantLock: in a series lobby's builder the preset buttons refuse ("LOCKED (SERIES ON)")
+file = "network/TF.EX.Patchs/VariantButton.cs"
+type = "VariantButtonConfirmPatch"
+exclude = ["TargetMethods"]         # (Harmony's reflection: the targets below are its result, as data)
+hooks = true                        # TargetMethods() = SeriesVariantLock.GetMethod("OnConfirm") over its LockedButtons (FortRise's three: not on the Switch)
+targets = ["TowerFall.VariantDisableAll.OnConfirm", "TowerFall.VariantRandomize.OnConfirm", "TowerFall.VariantTournament1v1.OnConfirm",
+           "TowerFall.VariantTournament2v2.OnConfirm", "TowerFall.VariantPreset.OnConfirm"]
+
+[[unit]]
+name = "VariantButtonRenderPatch"   # ... and draw a locked overlay on them
+file = "network/TF.EX.Patchs/VariantButton.cs"
+type = "VariantButtonRenderPatch"
+exclude = ["TargetMethods"]
+hooks = true
+targets = ["TowerFall.VariantDisableAll.Render", "TowerFall.VariantRandomize.Render", "TowerFall.VariantTournament1v1.Render",
+           "TowerFall.VariantTournament2v2.Render", "TowerFall.VariantPreset.Render"]
+
+[[unit]]
+name = "PlayerIndicatorPatch"       # the name over the archer in an online match: the indicator's text is the seat's player name (GetNameForSeat)
+file = "network/TF.EX.Patchs/Component/PlayerIndicator.cs"
+type = "PlayerIndicatorPatch"
+hooks = true
+
+[[unit]]
+name = "ResultsVoteLock"
+file = "network/TF.EX.Patchs/PlayerInput/ResultsVoteLock.cs"
+type = "ResultsVoteLock"
+hooks = true
+
+[[unit]]
+name = "HUDPatch"
+file = "network/TF.EX.Patchs/Entity/HUD/HUD.cs"
+type = "HUDPatch"
+hooks = true
+
+[[unit]]
+name = "MapScenePatch"                  # the versus map screen in netplay (safe maps, random tower, StartSession, Begin); tfex/MapScenePatch.cpp's TF.EX side
+file = "network/TF.EX.Patchs/Scene/MapScene.cs"
+type = "MapScenePatch"
+hooks = true                            # its four targets hooked by HookGen; tfex/MapScenePatch.cpp's Wrap shells add the Switch's parts (the
+                                        # native session start before StartSession's original, a wide lobby's tower port, the map's logs)
+
+
+[[unit]]
+name = "RollCallElementPatch"           # TF.EX's roll call (archer select in a lobby): seats, ready, open seats, team selection, controller icons
+file = "network/TF.EX.Patchs/Entity/MenuItem/RollCallElement.cs"
+type = "RollCallElementPatch"
+hooks = true
+# UpdateControllerIcon: PC gamepad icons (xb360 textures) on the roll call; the Switch keeps its Joy-Con icons (S-input).
+# StartVersus_Prefix / _Postfix: the ledger's S-start (tfex/MainMenuPatch.cpp, NetplayManager.cpp start the lobby match).
+exclude = ["RollcallElement_StartVersus_Prefix", "RollcallElement_StartVersus_Postfix"]   # (UpdateControllerIcon: absent, [fortrise] table)
+
+[[unit]]
+name = "LightPauseMenu"                 # TF.EX's mid-match netplay pause (RESUME / QUIT on the HUD layer): HandleStartPress, ForceClose, IsOpen for the hand code
+file = "network/TF.EX.Domain/CustomComponent/LightPauseMenu.cs"
+type = "LightPauseMenu"
+# its menu input is RawMenuInput.Pressed (v0.29.0 moved its PC input readers there, unchanged): overrides.toml [service]
+# "TF.EX.Domain.CustomComponent.RawMenuInput.Pressed" -> tfex::gen::svc::LightPausePressed(int32_t button), Confirm 0 Back 1 Up 2 Down 3 Start 4
+
+[[unit]]
+name = "LevelPatch"                     # TF.EX's whole LevelPatch as hooks (on by default): the Level ctor postfix (no ReplayRecorder in netplay), Update's
+file = "network/TF.EX.Patchs/Scene/Level.cs"   # prefix / postfix (session step, indicators, FlushDeferred, the waiting notification, SFX, the
+type = "LevelPatch"                     # nested level load) and both HandlePausing prefixes; xplay.cpp only Wraps Level.Update for its test tooling
+hooks = true
+exclude = ["StaticSetter"]              # (its reflection: the delegate fields it makes are their setters' calls, translator SetterInvoke)
+
+[[unit]]
+name = "PauseMenuPatch"                 # the end-of-match vote menu (REMATCH! / CONTINUE / ARCHER SELECT / QUIT) and QUIT in a netplay level
+file = "network/TF.EX.Patchs/Entity/PauseMenu.cs"
+type = "PauseMenuPatch"
+hooks = true
+
+[[unit]]
+name = "VersusModeButtonPatch"
+file = "network/TF.EX.Patchs/Entity/MenuItem/VersusModeButton.cs"
+type = "VersusModeButtonPatch"
+hooks = true
+
+[[unit]]
+name = "MatchVariantsPatchs"
+file = "network/TF.EX.Patchs/MatchVariants.cs"
+type = "MatchVariantsPatchs"
+hooks = true
+
+[[unit]]
+name = "LobbyUpdateFeed"
+file = "network/TF.EX.Domain/CustomComponent/LobbyUpdateFeed.cs"
+type = "LobbyUpdateFeed"
+
+[[unit]]
+name = "LobbyVarianText"
+file = "network/TF.EX.Domain/CustomComponent/LobbyVarianText.cs"
+type = "LobbyVarianText"
+
+# ---- TF.State's gameplay patches that translate fully (evaluation rec. 8): hooks installed only under hw.txt "genstate 1" (tfexgen_glue
+# GenStateOn; OFF by default: the hand ports in xplay.cpp / rnd.cpp / tfstate_ports.cpp stand aside then, Integration B2's half).
+# The list and their hand ports: docs/ws-tfex-update.md "TF.State patches".
+[[unit]]
+name = "State_ArrowCushion"
+file = "state/TF.State.Patchs/Component/ArrowCushion.cs"
+type = "ArrowCushionPatch"
+hooks = true
+
+[[unit]]
+name = "State_LevelEntity"
+file = "state/TF.State.Patchs/Entity/LevelEntity.cs"
+type = "LevelEntityPatch"
+hooks = true
+
+[[unit]]
+name = "State_Bat"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Bat.cs"
+type = "BatPatch"
+hooks = true
+
+[[unit]]
+name = "State_Coroutine"             # TF.State's CoroutinePatch: counts the round intro's (VersusStart SetupSequence) and the round results'
+file = "state/TF.State.Patchs/Component/Coroutine.cs"   # coroutine steps into the HUD state while capturing (LoadState replays the intro to
+type = "CoroutinePatch"              # that count; without it the intro was dropped and the round never started); Miasma / MoonGlassBlock's
+hooks = true                         # coroutines are driven by TF.State's controllers while capturing (hw.txt "genpatch CoroutinePatch")
+
+[[unit]]
+name = "State_Layer"                 # TF.State's LayerPatch: the HUD state reset when the intro / round results leave, the miasma state when
+file = "state/TF.State.Patchs/Layer/Layer.cs"   # the miasma does (hw.txt "genpatch LayerPatch")
+type = "LayerPatch"
+hooks = true
+
+[[unit]]
+name = "State_LevelScreenShake"      # TF.State's LevelScreenShakePatch: no Level.ScreenShake while TF.State restores (a load replays entities that
+file = "state/TF.State.Patchs/Scene/LevelScreenShake.cs"   # shake the screen: ScreenShake.CounterValue came back 20 after a round trip)
+type = "LevelScreenShakePatch"
+hooks = true
+
+[[unit]]
+name = "State_Arrow"                 # TF.State's ArrowPatch, whole (EnforceLimit and DoWrapRender too, since 2026-10-26: their hand copies
+file = "state/TF.State.Patchs/Entity/LevelEntity/Arrow.cs"   # in xplay.cpp / pcgameplay.cpp are deleted)
+type = "ArrowPatch"
+hooks = true
+
+[[unit]]
+name = "State_Chain"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Chain.cs"
+type = "ChainPatch"
+hooks = true
+
+[[unit]]
+name = "State_CrownRng"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Hat.cs"
+type = "CrownRngPatch"
+hooks = true
+
+[[unit]]
+name = "State_SteelHatRng"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Hat.cs"
+type = "SteelHatRngPatch"
+hooks = true
+
+[[unit]]
+name = "State_WoodenHatRng"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Hat.cs"
+type = "WoodenHatRngPatch"
+hooks = true
+
+[[unit]]
+name = "State_Lava"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Lava.cs"
+type = "LavaPatch"
+hooks = true
+
+[[unit]]
+name = "State_LavaControl"
+file = "state/TF.State.Patchs/Entity/LevelEntity/LavaControl.cs"
+type = "LavaControlPatch"
+hooks = true
+
+[[unit]]
+name = "State_Pickup"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Pickup.cs"
+type = "PickupPatch"
+hooks = true
+
+[[unit]]
+name = "State_PlayerState"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Player.cs"
+type = "PlayerStatePatch"
+hooks = true
+
+[[unit]]
+name = "State_PlayerGhost"
+file = "state/TF.State.Patchs/Entity/LevelEntity/PlayerGhost.cs"
+type = "PlayerGhostPatch"
+hooks = true
+
+[[unit]]
+name = "State_Slime"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Slime.cs"
+type = "SlimePatch"
+hooks = true
+
+
+# ---- FortRise content mods on the Switch, archer path (docs/research-fortrise-mods-on-switch.md). FortRise's own code (vendor/fortrise,
+#      MIT), files "fortrise/...", translated from its own compilation (Workspace.ForFortRise); its framework stands in glue
+#      (translator/glue/fortrise/SwitchMods.cs, our code) and overrides.toml [service] "FortRise content mods" rules
+# FortRise's MODS screen (step 5b part 4): its own menu state and panels; the mods are the Switch's registry (glue LoadedMods)
+[[unit]]
+name = "Fr_CustomMenuState"         # FortRise's custom MainMenu state (Create / Destroy), the MODS screen's base
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/MenuState/CustomMenuState.cs"
+type = "CustomMenuState"
+exclude = ["Create", "Destroy"]       # (abstract: ModsMenu.cpp calls UIModMenu's own)
+
+[[unit]]
+name = "Fr_UIModMenu"               # FortRise's MODS screen: a panel per mod (UIModPanel), the TOGGLE MODS and search panels
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModMenu.cs"
+type = "UIModMenu"
+
+[[unit]]
+name = "Fr_UIModPanel"              # a mod's panel: icon, name, version (MenuItem subclass)
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModPanel.cs"
+type = "UIModPanel"
+
+[[unit]]
+name = "Fr_ModItem"                 # a panel's mod: its upper-cased name and version, its icon
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModPanel.cs"
+type = "ModItem"
+
+[[unit]]
+name = "Fr_UIModListPanel"          # the TOGGLE MODS panel (MenuItem subclass)
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModListPanel.cs"
+type = "UIModListPanel"
+
+[[unit]]
+name = "Fr_OptionsButtonHeader"     # FortRise: a mod's name above its entries on OPTIONS (an OptionsButton that is only a label)
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/OptionsButtonHeader.cs"
+type = "OptionsButtonHeader"
+
+[[unit]]
+name = "Fr_MainMenuOptions"         # FortRise's patch_MainMenu.InitOptions (MonoModReplace): OPTIONS' layout with headers; tfex/NetplayOptions.cpp calls it for the game's
+file = "fortrise/TowerFall.FortRise.mm/Patches/MainMenu.cs"
+type = "patch_MainMenu"
+members = ["InitOptions"]
+
+[[unit]]
+name = "Fr_UISearchPanel"           # the search panel: typed text (FortRise's UIInputText: the Switch keyboard, glue SettingsUi)
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UISearchPanel.cs"
+type = "UISearchPanel"
+
+[[unit]]
+name = "Fr_ArcherLoader"            # FortRise.Content: archerData.xml -> ArcherConfiguration -> registry.Archers.RegisterArcher
+file = "fortrise/InternalMods/FortRise.Content/Loaders/ArcherLoader.cs"
+type = "ArcherLoader"
+
+[[unit]]
+name = "Fr_SpriteDataLoader"        # FortRise.Content: SpriteData xml -> SpriteConfiguration<T> -> registry.Sprites.Register*Sprite
+file = "fortrise/InternalMods/FortRise.Content/Loaders/SpriteDataLoader.cs"
+type = "SpriteDataLoader"
+
+[[unit]]
+name = "Fr_SubtextureLoader"        # FortRise.Content: atlas xml -> registry.Subtextures.RegisterTexture (and LoadTexture's file paths)
+file = "fortrise/InternalMods/FortRise.Content/Loaders/SubtextureLoader.cs"
+type = "SubtextureLoader"
+
+[[unit]]
+name = "Fr_MusicLoader"             # FortRise.Content: a mod's Content/Music/*.ogg|wav -> registry.Musics.RegisterMusic (its file name the id)
+file = "fortrise/InternalMods/FortRise.Content/Loaders/MusicLoader.cs"
+type = "MusicLoader"
+
+[[unit]]
+name = "Fr_RoundLogic"               # FortRise's patch_RoundLogic.GetRoundLogic (MonoMod): a custom mode's round logic (TF.EX's Netplay mode:
+file = "fortrise/TowerFall.FortRise.mm/Patches/RoundLogic.cs"   # NetplayVersusMode.OnCreateRoundLogic = NetplayRoundLogic), else the original
+type = "patch_RoundLogic"
+monomod = true
+hosted = true
+members = ["GetRoundLogic"]          # (OnLevelLoadFinish's replacement: its mod event with mods' events)
+
+[[unit]]
+name = "Fr_LevelTiles"               # FortRise's patch_LevelTiles (MonoMod): ReloadTiles (LoadTiles(tilemap)) and Replace, which it adds to the game's
+file = "fortrise/TowerFall.FortRise.mm/Patches/LevelTiles.cs"   # LevelTiles; their fields (bitData, overwriteData, tilemap) the game's
+type = "patch_LevelTiles"            # (re-fields.toml: no field records on 1.4.1.6)
+monomod = true
+hosted = true
+members = ["ReloadTiles", "Replace"]
+
+[[unit]]
+name = "Fr_PlayerHair"               # FortRise's patch_PlayerHair (MonoMod): its Render / RenderBlack / RenderOutline (an archer's hair texture,
+file = "fortrise/TowerFall.FortRise.mm/Patches/PlayerHair.cs"   # colour, offsets, links), the constructor's defaults (White / Black), ChangeHairTexture;
+type = "patch_PlayerHair"            # its added fields (Color, OutlineColor, Offset, DuckingOffset) in the side table
+monomod = true
+hosted = true
+
+[[unit]]
+name = "Fr_Player"                   # FortRise's patch_Player: Added's postfix gives the player's hair the archer's HairInfo (FortRise.Content's <Hair>)
+file = "fortrise/TowerFall.FortRise.mm/Patches/Player.cs"
+type = "patch_Player"
+monomod = true
+hosted = true
+members = ["Added_Postfix"]
+
+[[unit]]
+name = "Fr_VersusModeButton"         # FortRise's patch_VersusModeButton (MonoMod): VERSUS's GAME MODE button over the built-in modes and the
+file = "fortrise/TowerFall.FortRise.mm/Patches/VersusModeButton.cs"   # registered custom ones (Teams+'s TEAMS+); its list made after the
+type = "patch_VersusModeButton"      # constructor, Update / UpdateSides replaced, GetModeIcon / GetModeName for a custom mode
+monomod = true
+hosted = true
+members = ["Create", "Update", "UpdateSides", "GetModeIcon", "GetModeName"]
+
+[[unit]]
+name = "Fr_OptionsButton"            # FortRise's patch_OptionsButton (MonoMod): OnSelect tweens the menu camera to the entry (MainMenu.TweenUICameraToY,
+file = "fortrise/TowerFall.FortRise.mm/Patches/OptionsButton.cs"   # capped by MaxUICameraY, which FortRise's InitOptions sets): the OPTIONS screen
+type = "OptionsButton"              # with the mods' settings scrolls (console 2026-11-01: TF.EX's entries below the screen were out of reach)
+monomod = true
+hosted = true
+members = ["OnSelect"]
+
+[[unit]]
+name = "Fr_MatchSettings"            # FortRise's patch_MatchSettings (MonoMod): GoalScore, TeamMode, CanPlayThisMode for a custom mode (IsCustom,
+file = "fortrise/TowerFall.FortRise.mm/Patches/MatchSettings.cs"   # CustomVersusModeName: per object, [fortrise] side); CleanSettingsVersus
+type = "patch_MatchSettings"         # with local custom modes (VERSUS's menus: patch_VersusModeButton)
+monomod = true
+hosted = true
+members = ["get_GoalScore", "get_TeamMode", "get_CanPlayThisMode", "CustomVersusGameMode", "get_CustomVersusGameMode"]
+
+[[unit]]
+name = "Fr_GameModeRegistry"         # FortRise's game-mode registry (Core/Registry/GameMode): the registered versus modes by name and by Modes value
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/GameMode/GamemodeRegistry.cs"   # (TF.EX registers its Netplay mode; TF.State's ModesExtensions
+type = "GameModeRegistry"            # reads ModesToVersusGameMode); co-op modes when a mod brings one
+members = ["Register", "AddVersusGamemode", "GetVersusGameMode", "GetGameModeModes"]
+
+[[unit]]
+name = "Fr_ModGameModes"             # FortRise: a mod's IModGameModes (RegisterVersusGameMode: an entry with the next free Modes value, queued)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/GameMode/ModGameModes.cs"
+type = "ModGameModes"
+members = [".ctor", "RegisterVersusGameMode", "GetVersusGameMode", "VersusInvoke", "RegisteredVersusGameModes"]   # (co-op and roll-call modes: when a mod brings one)
+
+[[unit]]
+name = "Fr_VersusGameModeEntry"      # FortRise: a registered versus mode (IVersusGameModeEntry's rules read it)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/GameMode/VersusGameModeEntry.cs"
+type = "VersusGameModeEntry"
+
+[[rewrite]]
+new = "Monocle.patch_SFX.patch_SFX(System.IO.Stream, bool)"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.NewSfx"
+key = "S-native"
+why = "FortRise's [MonoModConstructor] ctor(Stream, bool) (Fr_SFX): the game's SFX object, then that body (SFX(bool), SoundEffect.FromStream)"
+
+[[rewrite]]
+new = "Monocle.patch_SFXVaried.patch_SFXVaried(System.IO.Stream[], int, bool)"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.NewSfxVaried"
+key = "S-native"
+why = "as patch_SFX's (Fr_SFXVaried): the game's SFXVaried object"
+
+[[rewrite]]
+new = "Monocle.patch_SFXLooped.patch_SFXLooped(System.IO.Stream, bool)"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.NewSfxLooped"
+key = "S-native"
+why = "as patch_SFX's (Fr_SFXLooped): the game's SFXLooped object"
+
+[[rewrite]]
+call = "FortRise.EnumPool.Obtain<TowerFall.Modes>()"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.ObtainMode"
+key = "S-native"
+why = "FortRise's EnumPool (generic math, CollectionsMarshal: not translatable) gives the enum's highest value + 1 and counts on; with FortRise's patch_Modes.Custom = 10 that is 11 on the Switch too (the PC's number: TF.EX's Netplay mode in the browser is 11)"
+
+[[unit]]
+name = "Fr_ModSFXs"                  # FortRise: a mod's IModSFXs (RegisterSFX / RegisterSFXVaried / RegisterSFXLooped: an entry per sound, queued to
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/SFXs/ModSFXs.cs"   # patch_Sounds.AddSFX); FortRise.Content's ArcherLoader registers an archer's own sounds
+type = "ModSFXs"
+exclude = ["GetSFX", "GetSFXInstanced", "GetSFXLooped", "GetSFXVaried", "RegisterSFXInstanced"]   # (FortRise.Content's archer sounds need the Register* only)
+
+[[unit]]
+name = "Fr_SFXEntry"                 # FortRise: a registered SFX (made from its file's stream at first use, or its fallback's)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/SFXs/SFXEntry.cs"
+type = "SFXEntry"
+
+[[unit]]
+name = "Fr_SFXVariedEntry"           # FortRise: a registered SFXVaried (its _01.._NN files)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/SFXs/SFXVariedEntry.cs"
+type = "SFXVariedEntry"
+
+[[unit]]
+name = "Fr_SFXLoopedEntry"           # FortRise: a registered SFXLooped
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/SFXs/SFXLoopedEntry.cs"
+type = "SFXLoopedEntry"
+
+[[unit]]
+name = "Fr_ModCharacterSounds"       # FortRise: a mod's IModCharacterSounds (RegisterCharacterSounds: an SFXID from IDPool, a CharacterSounds of the
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/CharacterSounds/ModCharacterSounds.cs"   # entries' sounds into ModdedSounds)
+type = "ModCharacterSounds"
+
+[[unit]]
+name = "Fr_CharacterSoundsRegistry"  # FortRise's static CharacterSoundsRegistry (the registered character sounds by name, ModdedSounds)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/CharacterSounds/ModCharacterSounds.cs"
+type = "CharacterSoundsRegistry"
+
+[[unit]]
+name = "Fr_CharacterSoundEntry"      # FortRise: a registered archer's sounds (its SFXID, its configuration)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/CharacterSounds/CharacterSoundEntry.cs"
+type = "CharacterSoundEntry"
+
+[[unit]]
+name = "Fr_ModMusics"                # FortRise: a mod's IModMusics (RegisterMusic: an entry per track, queued into patch_Music.TrackMap; GetMusic by
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Musics/ModMusics.cs"   # name); FortRise.Content's ArcherLoader registers an archer's <VictoryMusic> file
+type = "ModMusics"
+
+[[unit]]
+name = "Fr_MusicRegistry"            # FortRise's static MusicRegistry (the registered tracks by name)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Musics/MusicRegistry.cs"
+type = "MusicRegistry"
+
+[[unit]]
+name = "Fr_MusicEntry"               # FortRise: a registered track (its name "<mod>/<id>", its file)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Musics/MusicEntry.cs"
+type = "MusicEntry"
+
+[[unit]]
+name = "Fr_ArcherDataMusic"          # FortRise's patch_ArcherData.PlayVictoryMusic (MonoMod replace): a registered track (patch_Music.TrackMap) plays
+file = "fortrise/TowerFall.FortRise.mm/Patches/ArcherData.cs"   # once, then TheArchives; else the game's Victory<name> cue
+type = "patch_ArcherData"
+monomod = true
+hosted = true
+members = ["PlayVictoryMusic"]
+
+[[unit]]
+name = "Fr_Sounds"                   # FortRise's patch_Sounds.LoadModdedCharacterSounds (TFGame.MainMenuLoadWait on the PC; the glue's LoadAll here):
+file = "fortrise/TowerFall.FortRise.mm/Patches/Sounds.cs"   # Sounds.Characters grown by the mods' CharacterSounds; AddSFX queues a mod sound
+type = "patch_Sounds"
+hosted = true
+members = ["LoadModdedCharacterSounds", "AddSFX"]
+
+[[unit]]
+name = "Fr_SFX"                      # FortRise's patch_SFX constructor from a Stream (a mod's .wav: SoundEffect.FromStream) over the game's SFX(bool)
+file = "fortrise/TowerFall.FortRise.mm/Patches/Monocle/SFX.cs"   # (the glue allocates the object: SwitchMods.NewSfx)
+type = "patch_SFX"
+hosted = true
+members = ["ctor"]
+
+[[unit]]
+name = "Fr_SFXVaried"                # FortRise's patch_SFXVaried constructor from Streams (SwitchMods.NewSfxVaried)
+file = "fortrise/TowerFall.FortRise.mm/Patches/Monocle/SFXVaried.cs"
+type = "patch_SFXVaried"
+hosted = true
+members = ["ctor"]
+
+[[unit]]
+name = "Fr_SFXLooped"                # FortRise's patch_SFXLooped constructor from a Stream (SwitchMods.NewSfxLooped)
+file = "fortrise/TowerFall.FortRise.mm/Patches/Monocle/SFXLooped.cs"
+type = "patch_SFXLooped"
+hosted = true
+members = ["ctor"]
+
+[[unit]]
+name = "Fr_ModSprites"              # FortRise: a mod's IModSprites (Register*Sprite<T>: an entry from a SpriteConfiguration<T>, into SpriteRegistry
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Sprites/ModSprites.cs"   # and, by its queue, the game's SpriteData of its kind; Get*SpriteEntry)
+type = "ModSprites"
+
+[[unit]]
+name = "Fr_SpriteRegistry"          # FortRise's static SpriteRegistry (registered sprites by ID; the game's own as entries whose XML is looked up)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Sprites/SpriteRegistry.cs"
+type = "SpriteRegistry"
+
+[[unit]]
+name = "Fr_SpriteContainerEntry"    # FortRise: a registered sprite's container (its entry and kind)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Sprites/SpriteContainerEntry.cs"
+type = "SpriteContainerEntry"
+
+[[unit]]
+name = "Fr_SpriteEntry_String"      # FortRise: a registered sprite (its XML built from its SpriteConfiguration<T>, or the game's own), one unit per
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Sprites/SpriteEntry.cs"   # sprite kind FortRise has (string / int animation ids)
+type = "SpriteEntry"
+typeargs = ["string"]
+
+[[unit]]
+name = "Fr_SpriteEntry_Int32"
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Sprites/SpriteEntry.cs"
+type = "SpriteEntry"
+typeargs = ["int"]
+
+[[unit]]
+name = "Fr_ModSubtextures"          # FortRise: a mod's IModSubtextures (RegisterTexture from a file or a callback: an entry per texture, into
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Subtextures/ModSubtextures.cs"   # SubtextureRegistry and, by its queue, the game's atlas;
+type = "ModSubtextures"             # GetTexture: a registered one, else the game's own)
+
+[[unit]]
+name = "Fr_SubtextureRegistry"      # FortRise's static SubtextureRegistry (registered textures per atlas; the game's own as entries, by the atlas
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Subtextures/SubtextureRegistry.cs"   # XMLs' names)
+type = "SubtextureRegistry"
+exclude = ["GetAllSubtextures", "GetAllAvailableSubtexturesID", "LoadXml", "CheckDarkWorld"]   # (GetAllSubtextures: no caller in FortRise; the
+# others: the vanilla names' scan, replaced by the [[rewrite]]s below)
+
+[[rewrite]]
+expr = "GetAllAvailableSubtexturesID()"
+in = "FortRise.SubtextureRegistry"
+cpp = "nullptr"
+key = "S-native"
+why = "FortRise's set of the game's texture names, read from its four atlas XMLs into a HashSet<string>: the Switch's build has no HashSet<string> (a value set holds 64), and the game's loaded atlases hold the same names (the next rewrite asks them)"
+
+[[rewrite]]
+expr = "getAll.Contains(id)"
+in = "FortRise.SubtextureRegistry"
+cpp = "tfex::gen::GlueFrMods::IsVanillaSubtexture(id)"
+include = "tfexgen_GlueFrMods.hpp"
+key = "S-native"
+why = "whether the game's atlases have the texture (the names FortRise reads from their XMLs): asked of the loaded atlases (glue SwitchMods.IsVanillaSubtexture)"
+
+[[unit]]
+name = "Fr_SubtextureEntry"         # FortRise: a registered texture (its file's Texture2D at first use, or its callback's)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Subtextures/SubtextureEntry.cs"
+type = "SubtextureEntry"
+
+[[unit]]
+name = "Fr_ModArchers"              # FortRise: RegisterArcher (IDs, entries) and Invoke (the game's archer arrays resized and filled)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Archers/ModArchers.cs"
+type = "ModArchers"
+
+[[unit]]
+name = "Fr_ArcherEntry"             # FortRise: a registered archer (IArcherEntry's rules read it)
+file = "fortrise/TowerFall.FortRise.mm/Core/Registry/Archers/ArcherEntry.cs"
+type = "ArcherEntry"
+
+[[unit]]
+name = "GlueFrMods"                 # our code: the SD card's mods, the boot driver, the registries FortRise's framework would provide
+file = "fortrise/glue/SwitchMods.cs"
+type = "SwitchMods"
+
+[[unit]]
+name = "GlueFrRewrites"             # the [[rewrite]] glue as FortRise's compilation sees it (translator/glue/fortrise/Rewrites.cs)
+file = "fortrise/glue/Rewrites.cs"
+type = "Rewrites"
+
+[[rewrite]]
+new = "TowerFall.patch_CharacterSounds.patch_CharacterSounds()"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.NewCharacterSounds"
+key = "S-native"
+why = "FortRise's ModCharacterSounds.Invoke: `new patch_CharacterSounds { ... }`, MonoMod's empty constructor added to CharacterSounds: the game's object (game::brute::NewObject: it goes into Sounds.Characters), the members then set"
+
+[[rewrite]]
+new = "TowerFall.patch_ArcherData.patch_ArcherData()"
+to = "TfexGlue.FortRiseSwitch.SwitchMods.NewArcherData"
+key = "S-native"
+why = "FortRise's ModArchers.Invoke: `new patch_ArcherData { ... }`, MonoMod's empty constructor added to ArcherData: here an ArcherData object with nothing parsed (game::brute::NewObject), the members then set"
+
+# ---- custom skins (item 11): TF.EX's skin stream (bundles built from a FortRise archer, chunked over the lobby server, received and
+# checked) and overlay (a streamed bundle's textures and sprites registered through FortRise's registries, the archer's data skinned)
+[[unit]]
+name = "SkinStreamService"
+file = "network/TF.EX.Domain/Services/SkinStreamService.cs"
+type = "SkinStreamService"
+
+[[unit]]
+name = "SkinOverlayService"
+file = "network/TF.EX.Domain/Services/SkinOverlayService.cs"
+type = "SkinOverlayService"
+
+[[unit]]
+name = "ArcherDataPatch"            # TF.EX's ArcherData.Get postfix: the seat's skinned archer (SkinSlot.CurrentSeat) while it is drawn
+file = "network/TF.EX.Patchs/ArcherData.cs"
+type = "ArcherDataPatch"
+hooks = true
+
+[[unit]]
+name = "GlueSkins"                  # TF.EX's skin services where they meet .NET / MessagePack-CSharp (translator/glue/Skins.cs: OUR OWN CODE)
+file = "glue/Skins.cs"
+type = "Skins"
+
+[[rewrite]]
+call = "MessagePack.MessagePackSerializer.Serialize<TF.EX.Domain.Models.Skin.ArcherSkinBundle>(TF.EX.Domain.Models.Skin.ArcherSkinBundle, MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken)"
+to = "TfexGlue.Skins.Serialize"
+why = "MessagePack-CSharp's formatter for a [MessagePackObject] class: its integer keys as an array (glue/Skins.cs; the runtime's writer)"
+
+[[rewrite]]
+call = "MessagePack.MessagePackSerializer.Deserialize<TF.EX.Domain.Models.Skin.ArcherSkinBundle>(System.ReadOnlyMemory<byte>, MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken)"
+to = "TfexGlue.Skins.Deserialize"
+why = "as Serialize: null for bytes that aren't a bundle (TF.EX catches MessagePack's exception and drops the bundle)"
+
+[[rewrite]]
+call = "System.Security.Cryptography.SHA256.HashData(byte[])"
+to = "TfexGlue.Skins.Sha256"
+why = "not in the Switch's Mono: the runtime's SHA-256 (the bundle id)"
+
+[[rewrite]]
+call = "System.Convert.ToHexString(byte[])"
+to = "TfexGlue.Skins.HexUpper"
+why = "not in the Switch's Mono (.NET 5): upper-case hex, as .NET's"
+
+[[rewrite]]
+call = "Microsoft.Xna.Framework.Graphics.Texture2D.GetData<Microsoft.Xna.Framework.Color>(int, Microsoft.Xna.Framework.Rectangle?, Microsoft.Xna.Framework.Color[], int, int)"
+to = "TfexGlue.Skins.GetData"
+why = "the Switch has the game's GetData<Color>(Color[]) (whole texture), not this overload: the whole texture, then the rect's pixels"
+
+[[rewrite]]
+call = "Microsoft.Xna.Framework.Graphics.Texture2D.SetData<Microsoft.Xna.Framework.Color>(Microsoft.Xna.Framework.Color[])"
+to = "TfexGlue.Skins.SetColors"
+why = "the Switch's game expands SetData<Color>(Color[]) inline (no callable body): its two calls (Teams+'s Recolor)"
+
+[[rewrite]]
+call = "Microsoft.Xna.Framework.Graphics.Texture2D.SetData<byte>(byte[])"
+to = "TfexGlue.Skins.SetData"
+why = "the Switch has the game's SetData<Color>(Color[]): the same RGBA bytes as Colors"
+
+[[replace]]
+member = "TF.EX.Domain.Services.SkinStreamService.Deflate"
+to = "TfexGlue.Skins.Deflate"
+key = "S-native"
+why = "MemoryStream + DeflateStream(CompressionLevel.Optimal): raw DEFLATE by the runtime (miniz_oxide, the Rust lib's tfx_deflate)"
+
+[[replace]]
+member = "TF.EX.Domain.Services.SkinStreamService.InflateRgba"
+to = "TfexGlue.Skins.InflateRgba"
+key = "S-native"
+why = "TF.EX's checks kept; its DeflateStream read (exactly the expected bytes, nothing after) as one raw inflate (tfx_inflate) into that size"
+
+[[replace]]
+member = "TF.EX.Domain.Services.SkinOverlayService.Clone"
+to = "TfexGlue.Skins.Clone"
+key = "S-native"
+why = "object.MemberwiseClone through reflection (typeof(object).GetMethod): the game's MemberwiseClone"
+
+[[rewrite]]
+call = "System.Convert.FromBase64String(string)"
+to = "TfexGlue.Skins.FromBase64"
+why = "the game's runtime has no base64 decoding (Mono's InternalFromBase64String icall, +0x6cb0, always throws): the runtime's decoder (an invalid string: an empty byte[], as TF.EX's FormatException handlers treat it)"
+
+[[unit]]
+name = "VersusPlayerMatchResultsPatch"   # its SkinSlot scope around the end-of-match portrait (custom skins); only that pair is enabled (FrModsBoot.cpp)
+file = "network/TF.EX.Patchs/Entity/HUD/VersusPlayerMatchResults.cs"
+type = "VersusPlayerMatchResultsPatch"
+hooks = true
+
+# ---- TF.State's state path, for the rollback measurement (docs/tfstate-rollback-measurement.md): GetState / LoadState of the Level and
+# every entity they reach, TfStateApi's serialize / deserialize. Not switched on: only the measurement hook (hw.txt "statemeasure") calls it.
+[[unit]]
+name = "State_Level"
+file = "state/TF.State.TowerFallExtensions/Level.cs"
+type = "LevelExtensions"
+members = ["GetState", "LoadState"]
+
+# TF.State's entity helpers (Level.cs), TFEX-DIFF S-performance: the same results over a per-layer entity index instead of a scan with a type test
+# per entity per type, ~70 of them per save / load (a third of a save on the console, 2026-10-24 profile); glue/State.cs, statert::Ent*
+[[replace]]
+member = "TF.State.TowerFallExtensions.LevelExtensions.GetAll"
+to = "TfexGlue.StateGlue.GetAll"
+key = "S-performance"
+
+[[replace]]
+member = "TF.State.TowerFallExtensions.LevelExtensions.Get"
+to = "TfexGlue.StateGlue.Get"
+key = "S-performance"
+
+[[replace]]
+member = "TF.State.TowerFallExtensions.LevelExtensions.DeleteAll"
+to = "TfexGlue.StateGlue.DeleteAll"
+key = "S-performance"
+
+[[replace]]
+member = "TF.State.TowerFallExtensions.LevelExtensions.Delete"
+to = "TfexGlue.StateGlue.Delete"
+key = "S-performance"
+
+[[unit]]
+name = "GlueState"                  # our glue (translator/glue/State.cs): the entity index, the entity cache, action names
+file = "glue/State.cs"
+type = "StateGlue"
+
+[[unit]]
+name = "State_Api"                  # TF.State's TfStateApi: the state as bytes and back (the measurement hook calls these)
+file = "state/TF.State.Core/Api/TfStateApi.cs"
+type = "TfStateApi"
+members = ["GetGameStateBytes", "LoadGameStateBytes", "CaptureGameState", "RestoreGameStateBytes", "SetCurrentFrame", "ResetMatch", "ResetSession", "SetSessionRoundStarted", "StepOwnedControllers", "PurgeCache", "GenerateVersusLevels", "SetVersusLevels", "SetFrameDriver", "GetFrameDriver", "SetSeed", "GetSeed", "ResetRng", "ResetRngOverride", "SynchronizeSfx", "ClearSfx", "ResetSfx", "SetSpawnHatRules", "SetRestoring", "SetDriverFlags", "SetSfxCapture", "HasStateEvents"]
+
+[[unit]]
+name = "GlueGameFields"             # generated: TF.EX's reflection over game structs' public fields (translate.sh fields-glue)
+file = "glue/GameFields.cs"
+type = "GameFields"
+
+[[replace]]
+member = "TF.EX.Domain.MatchStatsReport.BuildRawStats"
+to = "TfexGlue.GameFields.RawFields_MatchStats"
+key = "S-native"
+why = "typeof(MatchStats).GetFields + FieldInfo.GetValue: no reflection the translator can call on the Switch; the same keys and values, one line per field in metadata order (generated, glue/GameFields.cs)"
+
+[[unit]]
+name = "GlueStateMsgPack"           # generated: TF.State's GameState as MessagePack-CSharp's bytes (translate.sh state-msgpack)
+file = "glue/StateMsgPack.cs"
+type = "StateMsgPack"
+
+[[rewrite]]
+call = "MessagePack.MessagePackSerializer.Serialize<TF.State.Domain.Models.GameState>(TF.State.Domain.Models.GameState, MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken)"
+to = "TfexGlue.StateMsgPack.Serialize"
+why = "MessagePack-CSharp's formatters for TF.State's GameState (generated glue) and its Lz4BlockArray compression (the runtime's port of its LZ4 codec)"
+
+[[rewrite]]
+call = "MessagePack.MessagePackSerializer.Deserialize<TF.State.Domain.Models.GameState>(System.ReadOnlyMemory<byte>, MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken)"
+to = "TfexGlue.StateMsgPack.Deserialize"
+why = "as Serialize"
+
+[[rewrite]]
+call = "MessagePack.MessagePackSerializer.Serialize<TF.State.Domain.Models.MatchStats[]>(TF.State.Domain.Models.MatchStats[], MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken)"
+to = "TfexGlue.StateMsgPack.SerializeMatchStatsArray"
+why = "VersusAwards' seed (MatchStatsExtensions.GetAwardsSeed): MessagePack-CSharp's default bytes of the stats (generated glue, no LZ4)"
+
+[[rewrite]]
+call = "Microsoft.Xna.Framework.Graphics.SpriteBatch.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode, Microsoft.Xna.Framework.Graphics.BlendState, Microsoft.Xna.Framework.Graphics.SamplerState, Microsoft.Xna.Framework.Graphics.DepthStencilState, Microsoft.Xna.Framework.Graphics.RasterizerState, Microsoft.Xna.Framework.Graphics.Effect, Microsoft.Xna.Framework.Matrix)"
+to = "TfexGlue.Rewrites.SpriteBatchBegin"
+key = "S-native"
+why = "the Switch's MonoGame SpriteBatch.Begin takes the transform as a Matrix? (64 bytes, then hasValue at +0x40, by pointer; SwitchHud.hpp), the PC's FNA a Matrix: passed bare, hasValue was stack garbage and TF.EX's transform was dropped (its roll-call overlay without the UI camera's +50, 2026-10-29 console; PlayerPatch.RefreshSprites' too). The runtime's SpriteBatchBegin passes it as the Switch's"
+
+[[rewrite]]
+call = "TF.EX.Domain.Ports.IMatchmakingService.JoinLobby(string, bool, System.Action, System.Action)"
+in = "TF.EX.Patchs.Scene.MainMenuPatch"
+to = "TfexGlue.Rewrites.JoinLobbyNoSpectate"
+key = "D"
+why = "spectators aren't on the Switch yet (step 4): the lobby list's SPECTATE says so instead of joining as a spectator; a player's join unchanged (glue/Rewrites.cs). Remove with spectators"
+
+[[rewrite]]
+call = "TowerFall.MenuButtonGuide.SetDetails(TowerFall.MenuButtonGuide.ButtonModes, string)"
+in = "TF.EX.Patchs.Scene.MainMenuPatch"
+to = "TfexGlue.Rewrites.SpectateGuide"
+key = "D"
+why = "the lobby list's SPECTATE guide hidden while spectators aren't on the Switch (step 4); every other guide unchanged. Remove with spectators"
+
+[[rewrite]]
+call = "System.Array.Clear(System.Array)"
+to = "TfexGlue.Rewrites.ArrayClear"
+why = "not in the Switch's Mono (its one Clear is Clear(Array, int, int); bound by name, the one-argument call threw: VersusModeExtensions.RestorePerPlayerVariants): the whole array, Clear(a, 0, a.Length) (glue/Rewrites.cs)"
+
+[[rewrite]]
+call = "System.BitConverter.ToInt32(System.ReadOnlySpan<byte>)"
+to = "TfexGlue.StateGlue.ToInt32"
+why = "not in the Switch's Mono: the first 4 bytes little-endian (glue/State.cs)"
+
+[[replace]]
+member = "TF.State.Domain.Extensions.ActionExtensions.ToNames"
+to = "TfexGlue.StateGlue.ActionNames"
+key = "S-native"
+why = "Delegate.Method isn't on the Switch's runtime: each delegate's name from its body (statert::ActionName; glue/State.cs)"
+
+[[replace]]
+member = "TF.State.Domain.ServiceCollections.AddEntityToCache"
+to = "TfexGlue.StateGlue.AddEntityToCache"
+key = "S-native"
+why = "LazyCache (CachingService, MemoryCacheEntryOptions, expiry tokens) isn't on the Switch: a dictionary with TF.State's keys and its purges (glue/State.cs)"
+
+[[replace]]
+member = "TF.State.Domain.ServiceCollections.PurgeCachedPickup"
+to = "TfexGlue.StateGlue.PurgeCachedPickup"
+key = "S-native"
+why = "as AddEntityToCache: the pickups' entries out of the dictionary (TF.State's IAppCache.Remove of each)"
+
+[[replace]]
+member = "TF.State.Domain.ServiceCollections.AddToCache"
+to = "TfexGlue.StateGlue.AddToCache"
+key = "S-native"
+why = "as AddEntityToCache"
+
+[[replace]]
+member = "TF.State.Domain.ServiceCollections.GetCachedEntity"
+to = "TfexGlue.StateGlue.GetCachedEntity"
+key = "S-native"
+why = "as AddEntityToCache"
+
+[[replace]]
+member = "TF.State.Domain.ServiceCollections.GetCached"
+to = "TfexGlue.StateGlue.GetCached"
+key = "S-native"
+why = "as AddEntityToCache"
+
+[[unit]]
+name = "GlueStateSpawn"             # TEST ONLY: the TF.State plan's spawn scene (hw.txt statespawn; translator/glue/StateSpawn.cs)
+file = "glue/StateSpawn.cs"
+type = "StateSpawn"
+
+# ---- TF.EX's scenario sweep (the TF.State plan, user decision 2026-10-21): TF.EX's own deterministic test scenarios in test mode
+# (GGRS sync test), for TF.State's coverage and its LoadState test. TEST ONLY (hw.txt "scenario"); docs/tfstate-rollback-measurement.md
+[[unit]]
+name = "ScenarioCatalog"
+file = "network/TF.EX.Domain/Scenarios/ScenarioCatalog.cs"
+type = "ScenarioCatalog"
+exclude = ["LogCoverage"]   # (overrides.toml [service] noop: the closing coverage line, ToHashSet(StringComparer); the doc lists the coverage)
+
+[[unit]]
+name = "ScenarioSweeper"
+file = "network/TF.EX.Domain/ScenarioSweeper.cs"
+type = "ScenarioSweeper"
+
+[[unit]]
+name = "ScenarioMapWriter"
+file = "network/TF.EX.Domain/Scenarios/ScenarioMapWriter.cs"
+type = "ScenarioMapWriter"
+
+[[unit]]
+name = "InputScripter"
+file = "network/TF.EX.Domain/InputScripter.cs"
+type = "InputScripter"
+members = ["Start", "MarkRoundBegun", "Stop", "GetInput", "FromScript", "Enabled", "PlayerCount"]   # (GetAllInputs: for TF.EX's InputService.GetPolledInput, which the Switch's input path replaces, S-input; the test mode asks GetInput per seat)
+
+[[unit]]
+name = "ScenarioLaunch"              # TFCommands' scenario command (the PC's dev console): its launch, test mode, match start and teardown
+file = "network/TF.EX.Core/TFCommands.cs"
+type = "TFCommands"
+members = ["LaunchScenario", "LaunchTestMode", "StartTestMode", "StartGame", "ResetForNextRun", "ReturnToMenu"]   # (LaunchTestMode: hw.txt "tfextest <TF.EX test args>", TF.EX's own parser)
+
+# ---- TF.State's remaining patches, batch 1 (2026-10-21): the patch classes of TF.State.Patchs with no rnd.cpp hand port, so LoadState has
+# the side state they keep (the six tfstate_ports.cpp hand ports they replace are deleted). Not here:
+# - batch 2 (next): the patches rnd.cpp hand-ports on its gameplay stream (CalcPushRandom, TreasureSpawner, OrbLogic, Orb, Spikeball, OrbPickup,
+#   UnlockData, LevelLoaderXMLState, RoundLogic, SessionState's StartGame, LevelTestRoundLogic, LocalSettingsGuard, VersusLevelSystem);
+# - InstantReplayViewer (no kill-cam on the Switch), ModIO (FortRise), OptionsScroll (the main menu), DeterministicMathPatch (an IL
+#   transpiler, TFEX-DIFF: the Switch runs no transpilers, so dm.cpp redirects the game's Math.Sin/Cos/Atan2/Pow wrappers to the generated
+#   State_DeterministicMath), FadeLayerPatch (commented out in TF.EX), ChaliceGhostPatch (no ChaliceGhost type on the Switch's 1.4.1.6).
+[[unit]]
+name = "State_DeterministicMath"      # TF.State's software Sin/Cos/Atan2/Pow (2026-10-26, replacing the hand copy dmath.hpp): dm.cpp's
+file = "state/TF.State.Domain/DeterministicMath.cs"   # redirected Math wrappers call it; built with -ffp-contract=off (config.mk), as .NET (no FMA)
+type = "DeterministicMath"
+
+[[unit]]
+name = "State_Monocle"                # TF.State's MonoclePatch: Audio.Stop while capturing stops the pitched SFX only (2026-10-26)
+file = "state/TF.State.Patchs/Monocle.cs"
+type = "MonoclePatch"
+hooks = true
+
+[[unit]]
+name = "State_SFX"                    # TF.State's sound capture (2026-10-26, replacing sfx.cpp): the SFX constructor postfix names every
+file = "state/TF.State.Patchs/SFX/SFX.cs"   # SoundEffect, SFX.Play's prefix records the sound in SFXService instead of playing it while capturing
+type = "SFXPatch"
+hooks = true
+
+[[unit]]
+name = "State_SFXInstanced"
+file = "state/TF.State.Patchs/SFX/SFXInstanced.cs"
+type = "SFXInstancedPatch"
+hooks = true
+
+[[unit]]
+name = "State_SessionState"           # its LevelLoadStart postfix (TF.State's Miasma state reset per level); Session_StartGame (the gameplay
+file = "state/TF.State.Patchs/Session.cs"   # stream's reset and RandomLevelSeed) is batch 2: rnd.cpp's StartGameHook hand-ports it today
+type = "SessionStatePatch"
+hooks = true
+
+[[unit]]
+name = "State_DarkPortalsVariantSequence"
+file = "state/TF.State.Patchs/DarkPortalsVariantSequence.cs"
+type = "DarkPortalsVariantSequencePatch"
+hooks = true
+
+[[unit]]
+name = "State_MatchVariants"
+file = "state/TF.State.Patchs/MatchVariants.cs"
+type = "MatchVariantsPatch"
+hooks = true
+
+[[unit]]
+name = "State_SceneInterval"
+file = "state/TF.State.Patchs/Scene.cs"
+type = "SceneIntervalPatch"
+hooks = true
+
+[[unit]]
+name = "State_Background"
+file = "state/TF.State.Patchs/Background/Background.cs"
+type = "BackgroundPatch"
+hooks = true
+
+[[unit]]
+name = "State_Entity"
+file = "state/TF.State.Patchs/Entity/Entity.cs"
+type = "EntityPatch"
+hooks = true
+
+[[unit]]
+name = "State_ParticleSystem"
+file = "state/TF.State.Patchs/Entity/ParticleSystem.cs"
+type = "ParticleSystemPatch"
+hooks = true
+
+[[unit]]
+name = "State_BrambleArrow"
+file = "state/TF.State.Patchs/Entity/LevelEntity/BrambleArrow.cs"
+type = "BrambleArrowPatch"
+hooks = true
+
+[[unit]]
+name = "State_Brambles"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Brambles.cs"
+type = "BramblesPatch"
+hooks = true
+
+[[unit]]
+name = "State_CosmeticFreeze"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "CosmeticFreeze"
+
+[[unit]]
+name = "State_LanternCosmetic"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "LanternCosmeticPatch"
+hooks = true
+
+[[unit]]
+name = "State_BombParticle"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "BombParticlePatch"
+hooks = true
+
+[[unit]]
+name = "State_PirateBanner"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "PirateBannerPatch"
+hooks = true
+
+[[unit]]
+name = "State_DreadBGTentacle"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "DreadBGTentaclePatch"
+hooks = true
+
+[[unit]]
+name = "State_YellowArcherStatue"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "YellowArcherStatuePatch"
+hooks = true
+
+[[unit]]
+name = "State_BGCrystal"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "BGCrystalPatch"
+hooks = true
+
+[[unit]]
+name = "State_CataclysmMeat"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "CataclysmMeatPatch"
+hooks = true
+
+[[unit]]
+name = "State_HeavyPhysicsObject"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "HeavyPhysicsObjectPatch"
+hooks = true
+
+[[unit]]
+name = "State_ShockCircle"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "ShockCirclePatch"
+hooks = true
+
+[[unit]]
+name = "State_PlayerHair"
+file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+type = "PlayerHairPatch"
+hooks = true
+
+[[unit]]
+name = "State_DummyHead"
+file = "state/TF.State.Patchs/Entity/LevelEntity/DummyHead.cs"
+type = "DummyHeadPatch"
+hooks = true
+
+[[unit]]
+name = "State_Icicle"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Icicle.cs"
+type = "IciclePatch"
+hooks = true
+
+[[unit]]
+name = "State_Lantern"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Lantern.cs"
+type = "LanternPatch"
+hooks = true
+
+[[unit]]
+name = "State_Miasma"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Miasma.cs"
+type = "MiasmaPatch"
+hooks = true
+
+[[unit]]
+name = "State_MoonGlassBlock"
+file = "state/TF.State.Patchs/Entity/LevelEntity/MoonGlassBlock.cs"
+type = "MoonGlassBlockPatch"
+hooks = true
+
+[[unit]]
+name = "State_PlayerCorpse"
+file = "state/TF.State.Patchs/Entity/LevelEntity/PlayerCorpse.cs"
+type = "PlayerCorpsePatch"
+hooks = true
+
+[[unit]]
+name = "State_QuestSpawnPortal"
+file = "state/TF.State.Patchs/Entity/LevelEntity/QuestSpawnPortal.cs"
+type = "QuestSpawnPortalPatch"
+hooks = true
+
+[[unit]]
+name = "State_ScenarioPlatformHolder"
+file = "state/TF.State.Patchs/Entity/LevelEntity/ScenarioPlatformHolder.cs"
+type = "ScenarioPlatformHolder"
+
+[[unit]]
+name = "State_LoopPlatform"
+file = "state/TF.State.Patchs/Entity/LevelEntity/ScenarioPlatformHolder.cs"
+type = "LoopPlatformPatch"
+hooks = true
+
+[[unit]]
+name = "State_MovingPlatform"
+file = "state/TF.State.Patchs/Entity/LevelEntity/ScenarioPlatformHolder.cs"
+type = "MovingPlatformPatch"
+hooks = true
+
+[[unit]]
+name = "State_ShiftBlockHold"
+file = "state/TF.State.Patchs/Entity/LevelEntity/ScenarioPlatformHolder.cs"
+type = "ShiftBlockHoldPatch"
+hooks = true
+
+[[unit]]
+name = "State_RotatePlatform"
+file = "state/TF.State.Patchs/Entity/LevelEntity/ScenarioPlatformHolder.cs"
+type = "RotatePlatformPatch"
+hooks = true
+
+[[unit]]
+name = "State_SensorBlock"
+file = "state/TF.State.Patchs/Entity/LevelEntity/SensorBlock.cs"
+type = "SensorBlockPatch"
+hooks = true
+
+[[unit]]
+name = "State_TeamReviver"
+file = "state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs"
+type = "TeamReviverPatch"
+hooks = true
+
+[[unit]]
+name = "State_TechnoMage"
+file = "state/TF.State.Patchs/Entity/LevelEntity/TechnoMage.cs"
+type = "TechnoMagePatch"
+hooks = true
+
+[[unit]]
+name = "State_TreasureChest"
+file = "state/TF.State.Patchs/Entity/LevelEntity/TreasureChest.cs"
+type = "TreasureChestPatch"
+hooks = true
+
+[[unit]]
+name = "State_TreasurePreview"
+file = "state/TF.State.Patchs/Entity/LevelEntity/TreasurePreview.cs"
+type = "TreasurePreviewPatch"
+hooks = true
+
+[[unit]]
+name = "State_VersusMatchResults"
+file = "state/TF.State.Patchs/Entity/HUD/VersusMatchResults.cs"
+type = "VersusMatchResultsPatch"
+hooks = true
+
+[[unit]]
+name = "State_LastManStandingRoundLogic"
+file = "state/TF.State.Patchs/RoundLogic/LastManStandingRoundLogic.cs"
+type = "LastManStandingRoundLogicPatch"
+hooks = true
+
+[[unit]]
+name = "State_Alarm"
+file = "state/TF.State.Patchs/Component/Alarm.cs"
+type = "AlarmPatch"
+hooks = true
+
+[[unit]]
+name = "State_PlayerIndicatorState"
+file = "state/TF.State.Patchs/Component/PlayerIndicator.cs"
+type = "PlayerIndicatorStatePatch"
+hooks = true
+
+[[unit]]
+name = "State_Tween"
+file = "state/TF.State.Patchs/Component/Tween.cs"
+type = "TweenPatch"
+hooks = true
+
+[[unit]]
+name = "State_LightingLayer"
+file = "state/TF.State.Patchs/Layer/LightingLayer.cs"
+type = "LightingLayerPatch"
+hooks = true
+
+[[unit]]
+name = "State_LightningFlashLayer"
+file = "state/TF.State.Patchs/Layer/LightningFlashLayer.cs"
+type = "LightningFlashLayerPatch"
+hooks = true
+
+# ---- TF.State's patches, batch 2 part 1 (2026-10-21): treasure and pickups. rnd.cpp's hand ports deleted with them (ChestSpawnsHook,
+# ArrowTypeHook, ArrowShuffleHook, SpawnerCtorHook, OrbPickupCollideHook, UnlockGuard, the UnlockData getters, LevelLoaderCtorHook);
+# the gameplay stream is TF.State's own (StateContext's DeterministicRandom, generated; 2026-10-26).
+[[unit]]
+name = "State_TreasureSpawner"
+file = "state/TF.State.Patchs/Entity/TreasureSpawner.cs"
+type = "TreasureSpawnerPatch"
+hooks = true
+
+[[unit]]
+name = "State_OrbPickup"
+file = "state/TF.State.Patchs/Entity/LevelEntity/OrbPickup.cs"
+type = "OrbPickupPatch"
+hooks = true
+
+[[unit]]
+name = "State_UnlockData"
+file = "state/TF.State.Patchs/UnlockData.cs"
+type = "UnlockDataPatch"
+hooks = true
+
+[[unit]]
+name = "State_LocalSettingsGuard"
+file = "state/TF.State.Patchs/LocalSettingsGuard.cs"
+type = "LocalSettingsGuard"
+
+[[unit]]
+name = "State_LevelLoaderXMLState"
+file = "state/TF.State.Patchs/Scene/LevelLoaderXML.cs"
+type = "LevelLoaderXMLStatePatch"
+hooks = true
+
+# ---- TF.State's patches, batch 2 part 2 (2026-10-21): level generation and spawns. rnd.cpp's hand ports deleted with them (StartGameHook,
+# GenLevelsHook, SpawnFFAHook, the SpawnPlayersTeams inline hooks and TopUpTeams).
+[[unit]]
+name = "State_VersusLevelSystem"
+file = "state/TF.State.Patchs/VersusLevelSystem.cs"
+type = "VersusLevelSystemPatch"
+hooks = true
+
+[[unit]]
+name = "State_RoundLogic"
+file = "state/TF.State.Patchs/RoundLogic/RoundLogic.cs"
+type = "RoundLogicPatch"
+hooks = true
+
+[[unit]]
+name = "State_LevelTestRoundLogic"
+file = "state/TF.State.Patchs/RoundLogic/LevelTestRoundLogic.cs"
+type = "LevelTestRoundLogicPatch"
+hooks = true
+
+# ---- TF.State's patches, batch 2 part 3 (2026-10-21): orbs, spikeballs, PushRandom, the arrows' Drop / EnterFallMode. rnd.cpp's hand ports
+# deleted with them (OrbUpdateHook, DoSpaceOrbHook, DoDarkOrbHook, DoTimeOrbHook, OffsetWorldHook, StartScrollHook, OrbCtorHook,
+# SpikeballCtorHook, PushRandom0Hook, ArrowDropHook and the EnterFallMode vtable pool).
+[[unit]]
+name = "State_OrbLogic"
+file = "state/TF.State.Patchs/OrbLogic.cs"
+type = "OrbLogicPatch"
+hooks = true
+
+[[unit]]
+name = "State_Orb"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Orb.cs"
+type = "OrbPatch"
+hooks = true
+
+[[unit]]
+name = "State_Spikeball"
+file = "state/TF.State.Patchs/Entity/LevelEntity/Spikeball.cs"
+type = "SpikeballPatch"
+hooks = true
+
+[[unit]]
+name = "State_CalcPushRandom"
+file = "state/TF.State.Patchs/Calc/Calc.cs"
+type = "CalcPushRandomPatch"
+hooks = true
+
+# ---- TF.State's v0.27 patches without a unit until 2026-10-28 (docs/STRATEGY-2026-10-28.md step 6) ----
+[[unit]]
+name = "State_TriggerArrowRng"       # TriggerArrow.PlayEyeAnim on TF.State's gameplay stream (CalcPatch.RegisterRng / UnregisterRng)
+file = "state/TF.State.Patchs/Entity/LevelEntity/TriggerArrow.cs"
+type = "TriggerArrowRngPatch"
+hooks = true
+
+[[unit]]
+name = "State_Ice"                   # while capturing, Ice.Update only fades the old tiles, then turns itself off
+file = "state/TF.State.Patchs/Entity/LevelEntity/Ice.cs"
+type = "IcePatch"
+hooks = true
+
+[[unit]]
+name = "State_VersusAwards"          # VersusAwards.GetAwards under a PushRandom seeded from the match stats (every peer gets the same awards)
+file = "state/TF.State.Patchs/VersusAwards.cs"
+type = "VersusAwardsPatch"
+hooks = true
+
+[[replace]]
+member = "TF.EX.Domain.Services.TF.InputService.GetInputIndex"
+to = "TfexGlue.Rewrites.InputIndex"
+key = "gap"
+why = "a LINQ search through an anonymous type (Select((x, i) => new { Value, Index })): the same search as a loop"
+
+[[replace]]
+member = "TF.EX.Patchs.Scene.MainMenuPatch.CopyPrivateCodeToClipboard"
+to = "TfexGlue.Rewrites.ShowPrivateCode"
+key = "S-keyboard"
+why = "no clipboard on the Switch: TF.EX's COPY CODE (Alt2 tap on a private lobby's roll call) shows the code in its notification instead of copying it (TF.EX's checks, sound and Notification otherwise); its guide reads SHOW CODE (Rewrites.SpectateGuide)"
+
+[[replace]]
+member = "TF.EX.Domain.Utils.VersusGraphics.GetVersusGraphics"
+to = "TfexGlue.Rewrites.VersusGraphics"
+key = "gap"
+why = "decompiler output (CollectionsMarshal.SetCount/AsSpan for a 2-element list): no Span on the Switch's runtime; built with List.Add"
+
+[[unit]]
+name = "TfexModule"                 # TF.EX's TFEXModModule: its boot as FortRise runs it (the online icon, the tutorial, the changelog) on the
+file = "network/TF.EX.Core/TFEXModModule.cs"   # Switch's FortRise layer; the PC loader's parts are rules (overrides.toml, "TF.EX's module boot")
+type = "TFEXModModule"
+hosted = true
+members = ["RegisterAndLoad", "ConfigureChangelog", "ConfigureTutorial", "CreateTutorialSlide", "OnVariantsRegister"]
+
+# TF.EX's ApiSurfaceTests (tests/TF.EX.Utils) on the Switch's side: TF.EX's interop interface against the provider the Switch runs, checked
+# on every code run (translator RuleCheck.CheckInterop). TF.Replay's pairs aren't here: replays aren't on the Switch.
+[[interop]]
+consumer = "TF.EX.Domain.Interop.ITfStateApi"
+provider = "TF.State.Core.Api.TfStateApi"
+
+[[interop]]
+consumer = "TF.EX.Common.Interop.IWiderSetModApi"   # TF.EX's copy of WiderSet's API
+provider = "TfexGlue.WiderSetApi"                    # the Switch's wide mode (translator/glue/WiderSetApi.cs)
+
+[[interop]]
+consumer = "Teuria.WiderSet.IWiderSetModApi"         # Teams+'s copy (vendor/teamplus/src/WiderSetApi.cs)
+provider = "TfexGlue.WiderSetApi"
+
+[[interop]]
+consumer = "TF.EX.Domain.Interop.ITfReplayApi"
+absent = "TF.Replay isn't on the Switch (step 8, the user's decision): its API is null, as FortRise's GetApi without the mod"
+
+[[interop]]
+consumer = "TF.EX.Domain.Interop.IInputDisplayerApi"
+absent = "TF.InputDisplayer (a desktop overlay) isn't on the Switch: its API is null, as FortRise's GetApi without the mod"
+
+[[interop]]
+consumer = "TFModFortRiseProfiles.IProfilesModApi"   # LoaderAI's copy of the Archer mod's API (the player names)
+provider = "TfexGlue.ProfilesApi"                     # Archer isn't on the Switch (no profiles, no Forge): names kept, not drawn
+
+[[interop]]
+consumer = "TFModFortRiseLoaderAI.ILoaderAIModApi"   # AIJimmy's copy of LoaderAI's API
+provider = "TFModFortRiseLoaderAI.ApiImplementation"
+
+[[interop]]
+consumer = "TFModFortRiseGameModeSoccer.ISoccerApi"   # AIJimmy's copy of Soccer's API
+provider = "TFModFortRiseGameModeSoccer.ApiImplementation"
+
+[[interop]]
+consumer = "TFModFortRiseGameModePlaytag.IPlayTagApi"
+absent = "PlayTag isn't on the Switch: its API is null, as FortRise's GetApi without the mod"
+
+# ---- FortRise code mods translated onto the Switch: each its own compilation (Workspace.ForMod) of the folder `src` (from the repo's
+# root), for the units whose file starts with the key; `structs`: the prefix of its structs' names ----
+[code_mods]
+"teamplus/" = { src = "vendor/teamplus/src", structs = "Tp_", mod = "TeamsPlus", native = "tfex::teamplus::InstallNative" }   # native: its 3 IL edits (TeamPlusNative.cpp)
+"soccer/" = { src = "vendor/soccer/VSCode", structs = "So_", mod = "Soccer", auto = true }   # ebe1.kenobi's Soccer, the original (its main, 5f612de): its entry points read from its source
+"loaderai/" = { src = "vendor/loader-ai/VSCode", structs = "La_", mod = "LoaderAI", auto = true }   # ebe1.kenobi's LoaderAI (dev/fortrise5, 3643fdb): hands an archer's input to an AI mod
+"ainova/" = { src = "vendor/ai-nova/VSCode", structs = "An_", mod = "AINova", auto = true }   # ebe1.kenobi's AINova (main, 03a3847): a bot that simulates the archer's physics, through LoaderAI's API
+"aijimmy/" = { src = "vendor/ai-jimmy/VSCode", structs = "Aj_", mod = "AIJimmy", auto = true }   # ebe1.kenobi's AIJimmy (dev/fortrise5, 7292e15): the bot, through LoaderAI's API
+"moveordie/" = { src = "vendor/moveordie/VSCode", structs = "Md_", mod = "MoveOrDie", auto = true }   # ebe1.kenobi's Move or Die (our `online` branch at 94e5f8d: the mod-mode API the TF.EX we carry has): its entry points read from its source
+# (`mod`: its meta.json name: a generated boot, tfex::gen::codemods::Boot_<mod>, CodeGen.CodeModBoots; `native`: its IL edits' patches)
+
+# ---- game methods that run before the Switch constructs code mods (after GameData.Load; FortRise: in Main, before TFGame.Load): a mod's
+# postfix on one is called once at its boot (HookGen ReplayLoadTime). ArcherData.Initialize: Teams+'s team data (Blue, Red, Yellow) ----
+[hooks]
+load_time = ["TowerFall.ArcherData.Initialize"]
+
+# ---- MonoMod ModInterop between mods: a [ModImportName("N")] class's delegate fields are the [ModExportName("N")] class's static methods
+# of the same names; on the Switch a mod's call of an import is a call of the unit translating the export class (UnitEmitter
+# ModImportUnit), and typeof(X).ModInterop() is nothing ----
+[mod_exports]
+"TF.EX.API" = "Ex_ModExports"
+"TF.State.API" = "St_ModExports"
+
+[[unit]]
+name = "St_ModExports"               # TF.State's mod API (TF.State.Core/Api/ModExports.cs): a mod's own state in the rollback state (its
+file = "state/TF.State.Core/Api/ModExports.cs"   # bytes, its entities), the gameplay RNG bracket; called by translated mods
+type = "ModExports"
+members = ["RegisterVariantStateEvents", "UnregisterVariantStateEvents", "RegisterRng", "UnregisterRng", "ShouldFreezeCosmetics"]   # (v0.29.0; a mod's own state and entities, RegisterStateEvents / RegisterEntityStateEvents: our fork's, Fcornaire/TF.EX#314, not upstream: no forks in main)
+
+[[unit]]
+name = "Ex_ModExports"               # TF.EX's EX-API (TF.EX.API/ModExports.cs): IsPlayingOnline, the mod versus modes' registration and
+file = "network/TF.EX.API/ModExports.cs"   # round load (docs/PLAN-MOD-MODES-ONLINE-2026-10-31.md), called by translated mods
+type = "ModExports"
+
+# ---- Interfaces the Switch calls across compilations (CodeGen.Dispatch): generated tfexgen_dispatch_<file>.cpp, the hand header's
+# functions; `default`: the interface's default body (FortRise's IVersusGameMode: NameColor white, GetMinimumPlayers 2, ...) ----
+[dispatch."FortRise.IVersusGameMode"]   # the registered modes: TF.EX's Netplay, Teams+'s, every code mod's (FrVersusModes.hpp)
+file = "frvmodes"
+ns = "tfex::frvmodes"
+header = "../FrVersusModes.hpp"
+log = "[frvmodes]"
+members.Name = { sig = "void* Name(void* mode)", default = "nullptr" }
+members.NameColor = { sig = "gen::Color NameColor(void* mode)", default = "gen::Color{0xFFFFFFFFu}" }
+members.Icon = { sig = "void* Icon(void* mode)", default = "nullptr" }
+members.IsTeamMode = { sig = "bool IsTeamMode(void* mode)", default = "false" }
+members.OnStartGame = { sig = "void OnStartGame(void* mode, void* session)" }
+members.OnCreateRoundLogic = { sig = "void* OnCreateRoundLogic(void* mode, void* session)", default = "nullptr" }
+members.GetMinimumPlayers = { sig = "int32_t GetMinimumPlayers(void* mode, void* matchSettings)", default = "2" }
+members.GetMinimumTeamPlayers = { sig = "int32_t GetMinimumTeamPlayers(void* mode, void* matchSettings)", default = "3" }
+
+# ---- Teams+ (vendor/teamplus: our FortRise mod, ../three-team-mod/pc-fortrise; docs/PLAN-THREETEAM-FORTRISE-2026-10-31.md step 3) ----
+# Its own compilation (Workspace.ForMod, files "teamplus/<path under src/>"). Its harmony.Patch(...) registrations are read as hooks
+# (HookGen.ScanCalls); its three transpilers are native patches on the Switch (the plan's step 2 decision).
+
+[[unit]]
+name = "Tp_Module"                   # Teams+'s ThreeTeamModule: its constructor is the mod's boot (the mode, the art, the patches), run by the
+file = "teamplus/ThreeTeamModule.cs"   # Switch's FortRise layer when sd:/xplay/mods/TeamsPlus is there (FrModsBoot.cpp); no FortRise.Mod object
+type = "ThreeTeamModule"
+hosted = true
+members = [".ctor", "Log"]           # (the constructor: Ctor(self, content, context, logger), called by FrModsBoot.cpp)
+
+[[unit]]
+name = "Tp_Teams3"                   # Teams+: the groups (Blue, Red, Yellow, lone wolves), score slots, the live flag
+file = "teamplus/Teams3.cs"
+type = "Teams3"
+
+[[unit]]
+name = "Tp_GameMode"                 # Teams+: the versus mode (FortRise IVersusGameMode: name, icon, team mode, round logic)
+file = "teamplus/ThreeTeamGameMode.cs"
+type = "ThreeTeamGameMode"
+
+[[unit]]
+name = "Tp_RoundLogic"               # Teams+: its RoundLogic (spawning three groups and wolves, the round's end)
+file = "teamplus/ThreeTeamRoundLogic.cs"
+type = "ThreeTeamRoundLogic"
+
+[[unit]]
+name = "Tp_Assets3"                  # Teams+: its two images (mode icon, yellow banner), registered through FortRise's texture registry
+file = "teamplus/Assets3.cs"
+type = "Assets3"
+
+[[unit]]
+name = "Tp_Recolor"                  # Teams+: gold / white player sheets recoloured from the atlas at spawn
+file = "teamplus/Recolor.cs"
+type = "Recolor"
+
+[[unit]]
+name = "Tp_ColumnBanner"             # Teams+: the team select's column banner
+file = "teamplus/UI/ColumnBanner.cs"
+type = "ColumnBanner"
+
+[[unit]]
+name = "Tp_Selector"                 # Teams+: the four-column team select
+file = "teamplus/UI/ThreeTeamSelector.cs"
+type = "ThreeTeamSelector"
+
+[[unit]]
+name = "Tp_RulesHooks"               # Teams+: start gate, team sizes, friendly fire, score slots (prefixes)
+file = "teamplus/Hooks/RulesHooks.cs"
+type = "RulesHooks"
+hooks = true
+enable_all = false                   # (on with the mod: Teams+'s boot, not TF.EX's EnableAll)
+exclude = ["OnPlayerDeath_Transpiler"]   # an IL edit: a native patch on the Switch (TeamsPlusNative.cpp)
+
+[[unit]]
+name = "Tp_DataHooks"                # Teams+: team data for yellow and the wolves (ArcherData)
+file = "teamplus/Hooks/DataHooks.cs"
+type = "DataHooks"
+hooks = true
+enable_all = false
+
+[[unit]]
+name = "Tp_VisualHooks"              # Teams+: recolouring a player's sprites at spawn
+file = "teamplus/Hooks/VisualHooks.cs"
+type = "VisualHooks"
+hooks = true
+enable_all = false
+
+[[unit]]
+name = "Tp_MenuHooks"                # Teams+: the team select replaced by its four columns
+file = "teamplus/Hooks/MenuHooks.cs"
+type = "MenuHooks"
+hooks = true
+enable_all = false
+
+[[unit]]
+name = "Tp_LevelHooks"               # Teams+: team levels split per group
+file = "teamplus/Hooks/LevelHooks.cs"
+type = "LevelHooks"
+hooks = true
+enable_all = false
+
+[[unit]]
+name = "Tp_SafetyHooks"              # Teams+: the live flag at StartGame (its sensor-block transpiler: a native patch)
+file = "teamplus/Hooks/SafetyHooks.cs"
+type = "SafetyHooks"
+hooks = true
+enable_all = false
+exclude = ["TeamLookup_Transpiler", "Load"]   # (Load: registrations only, overrides.toml)
+
+[[unit]]
+name = "Tp_ReviveHooks"              # Teams+: TEAM REVIVE for every group
+file = "teamplus/Hooks/ReviveHooks.cs"
+type = "ReviveHooks"
+hooks = true
+enable_all = false
+
+[[unit]]
+name = "Tp_ResultsHooks"             # Teams+: the results board's label rows (its transpiler: a native patch; LabelRowCount translated)
+file = "teamplus/Hooks/ResultsHooks.cs"
+type = "ResultsHooks"
+exclude = ["LabelArray_Transpiler", "Load"]

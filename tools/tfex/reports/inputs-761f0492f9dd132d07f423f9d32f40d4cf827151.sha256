@@ -1,0 +1,51 @@
+# translator inputs from outside the repo at 761f0492f9dd132d07f423f9d32f40d4cf827151 (tools/tfex/inputs.py; translate.toml [refs])
+da6f9cc2f6084ea7710ca87744b0a692c58bcd68e611809c32ef6990804ab956  ~/Code/Towerfall Switch Mods/switch-online/.cache/fortrise-patched/TowerFall.Patch.dll
+62081be402cdd74b457ff2ca349f8b1ebadc426f4c2732815eb0b669465bb920  /Applications/TowerFall.app/Contents/MacOS/TowerFall.exe
+6ec8d2f64dd8318bf87ffdc1966e5ad9777f4703bcd74c4eddd03266a1648983  ~/Code/Towerfall Browser/web/bin/Release/net10.0/FNA.dll
+83822d447402fe585eab76157ae0d0e3ff393f0fa9b5a8536edac1f2e4045019  /Applications/TowerFall.app/Contents/MacOS/mscorlib.dll
+1bb4a52212f22bcb0362d56e91ec6c91385916c38544cde9be61170564402df0  /Applications/TowerFall.app/Contents/MacOS/System.dll
+c777dbc34919893810a1ac85b4111ca8075a3f765196ea208bf6b4e3aca30129  /Applications/TowerFall.app/Contents/MacOS/System.Core.dll
+b19d12034c5d0ba4a3e2d93432b1da560828db8cd9e0ce3d8889f81bbb46f182  /Applications/TowerFall.app/Contents/MacOS/System.Xml.dll
+2430bf069a15f1be773fca71621368618b866937dac939a5d7767744168327bf  /Applications/TowerFall.app/Contents/MacOS/FNA.dll
+10fab8a7a34522ae08e98d4a236462ffe15494ef919c5e96ab5b5d46806d1ffd  ~/Code/Towerfall Browser/vendor/fortrise/lib/0Harmony.dll
+2ec53d97826c87d0d182f5216a84535112ac89c527379db39da76544c0781605  ~/Code/Towerfall Browser/vendor/fortrise/lib/FortRise.dll
+a2f62a578fe431a26ba879bc8aa95d9ac209f4bdcbe62a8853ca379a47fc4347  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Configuration.Abstractions.dll
+403b794edf2db1faa5e0e4a0ed3906a4a1850a49e040a73ce54bd1b9268418e6  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Configuration.Binder.dll
+eaa34eb245ba2fb164929ac64f7a67133159b57539685a4a4fe78561e26253fe  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Configuration.dll
+ec49e5bf1f9ef1cc3a0ca30cb8a51bf5ab859dd05d4ec9e934ccb70738fe0991  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+30d716c71ba8160fcc3217643a8811f3eea89c1f796060ef772aff1d5a0c9a7d  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.DependencyInjection.dll
+e9f213375b148ed6c0b2b0ccd6731739109ddd1922e485c7da1e79b34d86ea24  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Logging.Abstractions.dll
+5892aa367e6c523807e5382ce7f86dc6a834edb494dbed15e0d2623bf52fca4d  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Logging.Configuration.dll
+73ee3f65cc1a9def7e84949e50657af73b5eebe0f96030e4c301dad64439d8c8  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Logging.Console.dll
+fcff06c22c16d7b9e9ed0a1215ba7f32884f02550782fa19908eeae975f83939  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Logging.dll
+c6b7f9b05684a77ccde1911d566b5f7e8c1327900a58bac87dc2d3279131bb1d  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Options.ConfigurationExtensions.dll
+07c090a314cc3ce28f14e0015bf8a7c92c9f3616ea3b25ce8f4a043a25d21234  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Options.dll
+43841392a8178e65dbee3af790d459fce2663cb85d9c9518591853a8ff0d9323  ~/Code/Towerfall Browser/vendor/fortrise/lib/Microsoft.Extensions.Primitives.dll
+28cb367972bdc1cd43e4006306af2fd96d37f4ed4b239ee90e1dc7237a93af7f  ~/Code/Towerfall Browser/vendor/fortrise/lib/Mono.Cecil.Mdb.dll
+a332332633fbcb20e8d50e49b4db7bd1557721417122cf0c5f4c42f2332391d0  ~/Code/Towerfall Browser/vendor/fortrise/lib/Mono.Cecil.Pdb.dll
+bf992f3dce364ebcc3200fa7832ef07e20b4e2dbc3a8a6213ce44e3d239db984  ~/Code/Towerfall Browser/vendor/fortrise/lib/Mono.Cecil.Rocks.dll
+831dca77470d85cb6ffbea3072daa7a3df5b7c9fcfd9c3f43674a9be99d4bfcf  ~/Code/Towerfall Browser/vendor/fortrise/lib/Mono.Cecil.dll
+ac3f32bfd44aab83abf71abdff6dde548d57b7c0f8a1fe6d8964e348b4eeafb1  ~/Code/Towerfall Browser/vendor/fortrise/lib/MonoMod.Backports.dll
+e1fe77e4b6eb973b7bc5bd56bfe989a387e54c9399ab6ce72453016e9d888853  ~/Code/Towerfall Browser/vendor/fortrise/lib/MonoMod.Core.dll
+fdd0e3538340fd78b8f521e62b8cac1ebb7683ac1f27f6aaedfc1044b14bf4bb  ~/Code/Towerfall Browser/vendor/fortrise/lib/MonoMod.ILHelpers.dll
+559827c7c379d0d1f84aa1a7b0ce41e7112e02407fab79fe46080d7a1fc446c9  ~/Code/Towerfall Browser/vendor/fortrise/lib/MonoMod.Iced.dll
+086efb1501a4ff5607a20e468ea87e7a0cda88448a2487125f9a00ea5e70885b  ~/Code/Towerfall Browser/vendor/fortrise/lib/MonoMod.Patcher.dll
+62273ef024afc995c36f00509efd20a519267e94d555ce354b175576afa93e0f  ~/Code/Towerfall Browser/vendor/fortrise/lib/MonoMod.Utils.dll
+b6725df32131071b645c52348168a18d16b1b8cc1124d95bc5e34558c81699fe  ~/Code/Towerfall Browser/vendor/fortrise/lib/Pintail.dll
+cdba1e94680a008fb13eccba780a7f5a0b2651451f8fab591c55f9e930c2bb7c  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/LazyCache.AspNetCore.dll
+cf651e1abcfc71695e54bc0b6a9293a377f34a409608a9559e6506f3928d5994  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/LazyCache.dll
+125b3cc757287e2b43a7fbf72bdf5eaa2dfa4af2fa6e6110a1ce745e1212a24d  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Markdig.dll
+54075b44e94ae4d0966585d03d769c9820f0a95afb09513384599804eafdf1ce  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/MessagePack.Annotations.dll
+31b252ac35fddf90ba0c161a516c2b0492b915609a40e09fbfed51a9a9b94086  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/MessagePack.dll
+c9193c06366fbf8bce3583832c768efbdabd6dd487895476815e2edcfe75ddd0  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.Extensions.Caching.Abstractions.dll
+5a1617df2bf42c1dd2d51f32e31843b468347f745d9723300ee72230be63e0ae  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.Extensions.Caching.Memory.dll
+ec49e5bf1f9ef1cc3a0ca30cb8a51bf5ab859dd05d4ec9e934ccb70738fe0991  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+30d716c71ba8160fcc3217643a8811f3eea89c1f796060ef772aff1d5a0c9a7d  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.Extensions.DependencyInjection.dll
+4e0b13152ac4e724b35e2dee57148bbeb19bbfdae5107aaee715812eb5f92f33  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.Extensions.Options.dll
+07ceca42e6c7739a280c0df47c71333a5966a3281c75c0987b6e14b7e6b27cf3  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.Extensions.Primitives.dll
+d4564c24c4d9e7d4d18e0939819613d3180d7a3b2953ddaa575430cd899c5404  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/Microsoft.NET.StringTools.dll
+713bc5b387759af6eb0b29dcc2e196591aa7fc8e3959c92804345248d495adb1  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/TF.EX.API.dll
+d17ca8fae9eb0c88a4805db6fb6e85934b89381b46332265b2249b265f117259  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/TF.EX.Common.dll
+23c4a8adf6d751b092abf69caa1148e721b26cfdcf7ff03f15d55acc2baed42d  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/TF.EX.Core.dll
+844fad5db7e9d6bc99cb2d32fbef104251db223db6db11ee4160e0b157903ebb  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/TF.EX.Domain.dll
+2ccce0d8193890f57415314f7da2bb9e37cd366a467a8138caf1eba56cdfea01  ~/Code/Towerfall Switch Mods/switch-online/.cache/tfex-0.19.2/zip/DShad.TF.EX/TF.EX.Patchs.dll

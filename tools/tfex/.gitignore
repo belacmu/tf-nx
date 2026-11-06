@@ -1,0 +1,7 @@
+splitter/bin/
+splitter/obj/
+translator/bin/
+translator/obj/
+translator/test/*/bin/
+translator/test/*/obj/
+translator/test/out/

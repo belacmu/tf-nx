@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Reference generator for hw-probe/tests/teamspawn-test.cpp: runs TF.EX's own DeterministicRandom (loaded from the
+       release's TF.State.Domain.dll) through verbatim copies of the TF.EX / Monocle code the Switch port mirrors.
+       dotnet run -c Release -/-project hw-probe/tests/refgen -/- <path to DShad.TF.State/TF.State.Domain.dll> > hw-probe/tests/teamspawn-ref.txt
+       dotnet run -c Release -/-project hw-probe/tests/refgen -/- sfx > hw-probe/tests/sfxsync-ref.txt
+       dotnet run -c Release -/-project hw-probe/tests/refgen -/- digest > hw-probe/tests/digest-ref.txt -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+</Project>

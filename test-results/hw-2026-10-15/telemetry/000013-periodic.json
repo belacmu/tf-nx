@@ -1,0 +1,52 @@
+{
+ "id": 13,
+ "at": 1792042406369,
+ "report": {
+  "kind": "switch",
+  "v": 1,
+  "session": "1f9e50d6-a5dd-4440-9565-f419ceb901d6",
+  "seq": 3,
+  "event": "periodic",
+  "uptimeMs": 113223,
+  "build": "Oct 15 2026 07:25:44",
+  "name": "SWITCH",
+  "server": "wss://<your-server>",
+  "stats": {
+   "vsOn": false,
+   "lvTick": 0,
+   "npOn": 0,
+   "npFrame": 0,
+   "stateFrame": -1,
+   "updMsP50x100": 0,
+   "updMsP90x100": 0,
+   "updMsMaxx100": 0,
+   "frameMsP50x100": 0,
+   "frameMsP90x100": 0,
+   "frameMsP99x100": 0,
+   "worstUpdMs": 0,
+   "npSent": 0,
+   "npRecvd": 128,
+   "npDropped": 323,
+   "npState": 2,
+   "npEvents": [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "rbLoads": 0,
+   "rbMaxDepth": 0,
+   "rbResimTicks": 0,
+   "rbLowered": 0,
+   "rbExtraFrames": 0,
+   "gcSafePoints": 0,
+   "heapKB": 62820,
+   "logLinesLost": 0
+  },
+  "log": "ws: name lookup for <your-server> failed (getaddrinfo 0, errno 0); using the configured address\nnp: sent 0 received 128 dropped 222\nnp: sent 0 received 128 dropped 271\nnp: sent 0 received 128 dropped 321\n"
+ }
+}

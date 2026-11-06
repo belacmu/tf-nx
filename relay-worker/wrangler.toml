@@ -1,0 +1,14 @@
+# The 7c relay (see worker.js and README.md). Temporary: delete it when the test is done
+# (npx wrangler delete --name tf-relay-probe).
+name = "tf-relay-probe"
+main = "worker.js"
+compatibility_date = "2025-06-01"
+
+[[durable_objects.bindings]]
+name = "RELAY"
+class_name = "RelayRoom"
+
+# SQLite-backed Durable Objects are the ones the Workers free plan includes.
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RelayRoom"]

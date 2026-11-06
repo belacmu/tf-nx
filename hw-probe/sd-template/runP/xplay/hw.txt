@@ -1,0 +1,10 @@
+vstart 1
+rngseed 42
+rngcapture 1
+np 1
+npseat 0
+npdelay 2
+nppred 8
+nppad 1
+rb 1
+rbprehot 1

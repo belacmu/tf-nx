@@ -1,0 +1,5 @@
+The Switch players (seats 0-1), with START WITH BOMB ARROWS on: once the round intro lets them move (frame ~1080, script tick ~810
+at 240 Hz), jump and shoot straight down (tick 900, again at 1200): the bomb goes off at their feet. smoke wide8end: Team Deathmatch,
+Instant, the Switch BLUE: RED wins the point a second into play, and the results screen comes up with all 8 seats. Seats 2-3 stand
+still. (Before: shooting straight up, the arrows never came back down; standing still, the round lasted until the miasma, ~11000
+ticks, at the 10-25 ticks a second an 8-player match runs here: most of an hour.)

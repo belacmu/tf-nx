@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- A test mod for TF.EX's mod versus modes online (docs/PLAN-MOD-MODES-ONLINE-2026-10-31.md): one versus mode,
+       Last Man Standing's rules in its own round logic, registered with TF.EX's RegisterNetplayVersusMode.
+       Build: dotnet build -c Release -p:ModLoaderPath=<a folder with TowerFall.Patch.dll, e.g. TF.EX's libs/> -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ModName>NetplayModeTest</ModName>
+    <ModVersion>0.1.0</ModVersion>
+    <ModEnablePublish>false</ModEnablePublish>
+    <ModEnableZip>false</ModEnableZip>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="meta.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/**/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FortRise.Configuration" Version="1.5.6" />
+  </ItemGroup>
+
+</Project>

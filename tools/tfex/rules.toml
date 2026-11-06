@@ -1,0 +1,182 @@
+# How update.py labels a TF.EX change (TFEX-BASE.md section 6):
+#   A lockstep  gameplay or match setup that must equal the opponents' TF.EX (desync / another tower otherwise)
+#   B protocol  the lobby server's messages and endpoints (TF.EX, tfex-server and the Switch)
+#   C UI        menus, banners, notifications, overlays: drawing game things with game functions
+#   D not ours  replay, MatchReport, scenarios, commands, pause menu, FortRise paths
+#   E noise     syntax-only changes (the splitter's normalized hash is unchanged) and interface declarations
+#
+# Rules are tried in order; a change collects the class of every rule that matches, until a rule with stop = true matches.
+#   file   fnmatch glob (or a list of them) on the path under vendor/tfex/src (* also crosses /)
+#   member fnmatch glob on "Type.Member(params)" (optional)
+#   diff   regex searched in the changed tokens with 3 tokens of context (whole body for an added or removed member) (optional)
+#   only   regex every changed token must match (a changed member only; e.g. a visibility change)
+#   hunks  regex every changed run (with 4 tokens of context before it) must contain (a changed member made only of that)
+#   status only for these change kinds: added, removed, changed, signature, moved (optional)
+#   kind   only for these member kinds, e.g. ["class"] for a new type's header record (optional)
+# A change no rule labels is listed as "?" for a human.
+
+# ---- E first: changes that can't matter ----
+[[rule]]
+class = "E"
+stop = true
+why = "visibility / modifiers only"
+file = "*"
+only = '(private|internal|public|protected|static|readonly|sealed|virtual|override|partial)'
+[[rule]]
+class = "E"
+stop = true
+why = "interface declaration (the implementation carries the class)"
+file = "network/TF.EX.Domain/Ports/*"
+
+# ---- D: not ours (stop: the rest doesn't matter) ----
+[[rule]]
+class = "D"
+stop = true
+why = "only adds MatchReport / instant-replay calls"
+file = "*"
+hunks = '\b(MatchReport|InstantReplay\w*|IsBaking|IsReportEnabled|replayService)\b'
+
+[[rule]]
+class = "D"
+stop = true
+why = "replay / instant replay"
+file = "*Replay*"
+[[rule]]
+class = "D"
+stop = true
+why = "replay project"
+file = "replay/*"
+[[rule]]
+class = "D"
+stop = true
+why = "MatchReport (crash/desync upload)"
+file = "network/TF.EX.Domain/MatchReport.cs"
+[[rule]]
+class = "D"
+stop = true
+why = "test scenarios / commands / sync-test tooling (S-tools)"
+file = "network/TF.EX.Domain/Scenario*"
+[[rule]]
+class = "D"
+stop = true
+why = "test scenarios / commands / sync-test tooling (S-tools)"
+file = "network/TF.EX.Core/TFCommands.cs"
+[[rule]]
+class = "D"
+stop = true
+why = "test tooling (S-tools)"
+file = ["network/TF.EX.Domain/FakeController.cs", "network/TF.EX.Domain/InputScripter.cs", "network/TF.EX.Domain/DebugLayer.cs", "network/TF.EX.Domain/SpectatorInputDisplay.cs"]
+[[rule]]
+class = "D"
+stop = true
+why = "pause menu (none in netplay on the Switch)"
+file = "*/LightPauseMenu.cs"
+[[rule]]
+class = "D"
+stop = true
+why = "mod.io / FortRise content path"
+file = "state/TF.State.Patchs/ModIO.cs"
+[[rule]]
+class = "D"
+stop = true
+why = "auto-updater (S-update)"
+file = "*Updater*"
+[[rule]]
+class = "D"
+stop = true
+why = "utilities / tests"
+file = "utilities/*"
+[[rule]]
+class = "D"
+stop = true
+why = "utilities / tests"
+file = "tests/*"
+[[rule]]
+class = "D"
+stop = true
+why = "TFGame finalizers feed MatchReport (crash report)"
+file = "network/TF.EX.Patchs/Engine/TFGame.cs"
+member = "*Finalizer*"
+[[rule]]
+class = "D"
+stop = true
+why = "new member about MatchReport / instant replay"
+status = ["added"]
+file = "network/*"
+diff = '\b(MatchReport|InstantReplay\w*|IsBaking|SkipWhileBaking)\b'
+[[rule]]
+class = "D"
+why = "calls MatchReport / replay"
+file = "network/*"
+diff = '\b(MatchReport|InstantReplay\w*|ReplayService|IReplayService|IsBaking|SkipWhileBaking|replayService|DarkWorldDLC)\b'
+
+# ---- A: lockstep ----
+[[rule]]
+class = "A"
+why = "TF.State gameplay patch (runs while capture is on: both sides must do it)"
+file = "state/TF.State.Patchs/*"
+[[rule]]
+class = "A"
+why = "TF.State snapshot (S-rollback: not ported, test only)"
+file = "state/TF.State.TowerFallExtensions/*"
+[[rule]]
+class = "A"
+why = "level generation / level order"
+file = "state/TF.State.Domain/Extensions/VersusLevelSystemExtensions.cs"
+[[rule]]
+class = "A"
+why = "gameplay RNG"
+file = "state/TF.State.Domain/Randomness/*"
+[[rule]]
+class = "A"
+why = "round logic"
+file = "network/TF.EX.Core/RoundLogic/*"
+[[rule]]
+class = "A"
+why = "towers, unlocks, levels, RNG, session players, teams, variants (match setup)"
+file = "network/*"
+diff = '\b(Unlock\w*|NoRandom|InitVersusButtons|\w*TowerData|GenLevel|LevelSystem|Rng\w*|Random\w*|SessionPlayers|MatchPlayers|MatchSettings|TeamColors|Teams|ApplyTeams\w*|ArcherIndex|AltSelect|ResolveArchers|DoWrapRender|RefreshSprites|ResetPolledInput|Variants|ApplyVariants\w*|StartSession\w*|RequestNetplayEntry)\b'
+[[rule]]
+class = "A"
+why = "netplay entry / reset: what both sides start a match with"
+file = "network/TF.EX.Domain/Services/NetplayManager.cs"
+member = "NetplayManager.Reset*"
+
+# ---- B: protocol ----
+[[rule]]
+class = "B"
+why = "lobby server models (JSON)"
+file = "network/TF.EX.Domain/Models/WebSocket/*"
+[[rule]]
+class = "B"
+why = "GGRS / relay configuration"
+file = "network/TF.EX.Domain/Models/GGRSConfig.cs"
+[[rule]]
+class = "B"
+why = "native GGRS entry points (ping measurement, relay)"
+file = "network/TF.EX.Domain/Externals/GGRSFFI.cs"
+[[rule]]
+class = "B"
+why = "server messages, relay, ping measurement"
+file = "network/*"
+diff = '\b(Send\w*|(?!\w*[Ff]ailedConnection)\w+Message|HandleMessage\w*|WebSocket\w*|\w*Relay(Url|Peers|edPairs|edPeers\w*)|ApplyRelay|relayPingMeasurementUrl|/relay/\w*|ping_measurement\w*|\w*PingMeasurement\w*|PeerMeasured\w*|KickedFromLobby\w*|IsCheckingConnections|IsReportEnabled|\w*[Mm]easured\w*)\b'
+
+# ---- C: UI ----
+[[rule]]
+class = "C"
+why = "custom component"
+file = "network/TF.EX.Domain/CustomComponent/*"
+[[rule]]
+class = "C"
+why = "drawn UI (icons, overlays, rollcall layout, input-delay advisor)"
+file = ["network/TF.EX.Patchs/ConnectionIcon.cs", "network/TF.EX.Patchs/InputDelayAdvisor.cs", "network/TF.EX.Patchs/Layer/*"]
+[[rule]]
+class = "C"
+why = "menu items"
+file = "network/TF.EX.Patchs/Entity/MenuItem/*"
+[[rule]]
+class = "C"
+why = "notifications / drawing / menus"
+file = "network/*"
+diff = '\b(Notification|Notify\w*|AbortToVersusOptions|\w*[Ff]ailedConnection\w*|Draw\.\w+|Render\w*|OutlineText|TFGame\.Font|Banner\w*|Dots|Color\.\w+|Alpha|MenuState|ShowMessage|ConnectionIcon)\b'
+

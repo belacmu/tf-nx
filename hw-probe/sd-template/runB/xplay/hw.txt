@@ -1,0 +1,2 @@
+drill 300 4 12
+hotset 30

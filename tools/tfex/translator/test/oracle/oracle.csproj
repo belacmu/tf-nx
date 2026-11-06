@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The translator's test oracle: TF.EX's own Models/WebSocket classes (from $(TfexSrc), a TF.EX src tree) and MessagePack, as
+       TF.EX uses them: JSON -> ConvertFromJson -> Deserialize<T> -> Serialize -> ConvertToJson. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <NoWarn>CS8981;MsgPack003;MsgPack004;MsgPack005;CS0618</NoWarn>
+    <TowerFallExe Condition="'$(TowerFallExe)' == ''">/Applications/TowerFall.app/Contents/MacOS/TowerFall.exe</TowerFallExe>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.5.302" />
+    <Reference Include="TowerFall"><HintPath>$(TowerFallExe)</HintPath><Private>false</Private></Reference>
+    <Compile Include="$(TfexSrc)/network/TF.EX.Domain/Models/WebSocket/**/*.cs" />
+  </ItemGroup>
+</Project>

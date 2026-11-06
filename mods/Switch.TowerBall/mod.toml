@@ -1,0 +1,26 @@
+# TowerBall (Switch.TowerBall), a TF.NX catalog mod: mods/README.md says what each key means.
+meta = "meta.json"
+logic = "native"                           # src/: our port of TowerBall 3.1's rules (C++), not translated
+needs = ["Content/Atlas/atlas.xml", "Content/Atlas/atlas.png", "Content/Atlas/menuAtlas.xml", "Content/Atlas/menuAtlas.png"]
+boot = "towerball::Boot"
+replaces = [{ id = "arrows/squeakyArrow", with = "ball", atlas = "Atlas" },          # the ball is a toy arrow in TowerBall's look
+            { id = "gameModes/warlord", with = "banner", atlas = "MenuAtlas" }]    # mode 6's icon (GetModeIcon(6), the Warlord slot)
+overlay = ["Content/Levels/Versus/*/tb.oel", "Content/Levels/6P-Versus/*/tb.oel"]
+
+[folder]
+build = "python3 build_folder.py"          # from the TowerBall mod's files (third-party: never in git)
+extras = true                              # the "TF.EX Switch + extras" build only
+
+[update]
+gamebanana = 461512                        # TowerBall For FortRise (the FortRise TowerBall that will replace our native port): no version on
+seen = "2023-08-09"                        # its page, so its last update's date (raise `seen` after looking at a newer one)
+
+[overview]
+source = "this repository, mods/Switch.TowerBall/src; its art and levels: the TowerBall mod (third-party)"
+download = "built by mods/Switch.TowerBall/build_folder.py from the TowerBall mod's files (not redistributable: never hosted)"
+permission = "art and levels: TowerBall's authors, not asked (not shipped); code: ours"
+works = "local (mode 6, 2-8 players); not online"
+
+[check]
+with = ["tools/megamod/localrun.sh 4 6"]
+expect = ["[megamod] TowerBall started", "[mods] TowerBall: 2 of 2 game textures replaced", "tb.oel from its folder"]

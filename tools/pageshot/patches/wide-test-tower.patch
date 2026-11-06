@@ -1,0 +1,29 @@
+diff --git a/src/network/TF.EX.Core/TFCommands.cs b/src/network/TF.EX.Core/TFCommands.cs
+index 20d4df9..c175c04 100644
+--- a/src/network/TF.EX.Core/TFCommands.cs
++++ b/src/network/TF.EX.Core/TFCommands.cs
+@@ -551,6 +551,24 @@ namespace TF.EX.Core
+             TF.EX.Domain.Interop.StateApi.Current.GenerateVersusLevels(matchSettings, map, startLevel);
+             TF.EX.Domain.Interop.StateApi.Current.SetVersusLevels(matchSettings, levelPaths);
+ 
++            // [pageshot] (tools/pageshot, never in a PR): the test command on WiderSet's wide tower of the same name, at the chosen level
++            if (playerCount > 0)
++            {
++                var name = GameData.VersusTowers[map].Theme.Name;
++                var keys = string.Join(", ", FortRise.TowerRegistry.VersusTowers.Keys);
++                var wide = FortRise.TowerRegistry.VersusTowers.FirstOrDefault(kv => kv.Key.Contains("WiderSet") && kv.Value.VersusTowerData?.Theme?.Name == name).Value?.VersusTowerData;
++                if (wide != null)
++                {
++                    matchSettings.LevelSystem = wide.GetLevelSystem();
++                    HarmonyLib.Traverse.Create(matchSettings.LevelSystem).Field("levels").SetValue(new List<string> { wide.Levels[startLevel].Path });
++                    System.Console.WriteLine($"[pageshot] wide tower {name}: level {wide.Levels[startLevel].Path}");
++                }
++                else
++                {
++                    System.Console.WriteLine($"[pageshot] no wide tower {name} among: {keys}");
++                }
++            }
++
+             var session = new Session(matchSettings);
+ 
+             if (netplayManager != null)

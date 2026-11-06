@@ -1,0 +1,25 @@
+# Probe rules used to compile the generated MatchmakingService (tools/tfex/translate.toml, the commented unit): the [service] entries
+# it needs, with placeholder C++ names. tfex-adopt maps them onto the real services; ISkinStreamService is a to-do no-op here.
+
+"TF.EX.Domain.Ports.IArcherService.AddArcher" = { cpp = "tfex::gen::svc::AddArcher($0, $1)" }
+"TF.EX.Domain.Ports.IArcherService.RemoveArcher" = { cpp = "tfex::gen::svc::RemoveArcher($0)" }
+"TF.EX.Domain.Ports.IArcherService.Reset" = { cpp = "tfex::gen::svc::ResetArchers()" }
+"TF.EX.Domain.Ports.TF.IInputService.EnsureLocalControllerSeat" = { cpp = "tfex::gen::svc::EnsureLocalControllerSeat()" }
+"TF.EX.Domain.Ports.TF.IInputService.EnsureRemoteControllers" = { cpp = "tfex::gen::svc::EnsureRemoteControllers($0)" }
+"TF.EX.Domain.Ports.INetplayManager.AddLateSpectator" = { cpp = "tfex::gen::svc::AddLateSpectator($0)" }
+"TF.EX.Domain.Ports.ISkinStreamService.*" = { noop = true, key = "todo" }
+"TF.EX.Domain.Services.MatchmakingService.Send" = { cpp = "tfex::gen::svc::SendJson($0)" }
+"TF.EX.Domain.Services.MatchmakingService.ConnectToServerAndListen" = { cpp = "tfex::gen::svc::ConnectToServerAndListen()" }
+"TF.EX.Domain.Services.MatchmakingService.SwitchPingMeasurement" = { cpp = "tfex::gen::svc::SwitchPingMeasurement($0, $1)" }
+"TF.EX.Domain.Services.MatchmakingService.GetRelayedPeersFrom" = { cpp = "tfex::gen::svc::GetRelayedPeersFrom($0)" }
+"TF.EX.Domain.Services.MatchmakingService._webSocket" = { cpp = "nullptr", set = "((void)0)" }
+"TF.EX.Domain.Services.MatchmakingService._sendGate" = { cpp = "nullptr", set = "((void)0)" }
+"TF.EX.Domain.Services.MatchmakingService.gameThreadActions" = { cpp = "nullptr", set = "((void)0)" }
+"TF.EX.Domain.Services.MatchmakingService.cancellationTokenSource" = { cpp = "nullptr", set = "((void)0)" }
+"TF.EX.Domain.Services.MatchmakingService.cancellationToken" = { cpp = "0", set = "((void)0)" }
+"TF.EX.Domain.Services.MatchmakingService.Close" = { cpp = "tfex::gen::svc::CloseSocket()" }
+"TF.EX.Domain.Services.MatchmakingService.EnsureConnection" = { cpp = "tfex::gen::svc::EnsureConnection()" }
+"TF.EX.Domain.Services.MatchmakingService.IsConnectedToServer" = { cpp = "tfex::gen::svc::IsConnectedToServer()" }
+"TF.EX.Domain.Services.MatchmakingService.RunOnGameThread" = { cpp = "tfex::gen::svc::RunOnGameThread($0)" }
+"TF.EX.Domain.Services.MatchmakingService.DrainGameThreadActions" = { cpp = "tfex::gen::svc::DrainGameThreadActions()" }
+"TF.EX.Domain.Services.MatchmakingService.LastStateChecksum" = { cpp = "tfex::gen::svc::LastStateChecksum()" }

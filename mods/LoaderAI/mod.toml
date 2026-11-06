@@ -1,0 +1,21 @@
+# LoaderAI (ebe1.kenobi's FortRise mod, dev/fortrise5 (3643fdb)), a TF.NX catalog mod: mods/README.md says what each key means. hands an archer's input to an AI mod; Archer's profile names API a stand-in (glue ProfilesApi).
+# Translated with no rule of its own: translate.toml [code_mods] "loaderai/" (auto: its Mod subclass and patch classes read from its source).
+meta = "meta.json"                         # its release's meta.json (vendor/loader-ai/ModFile/meta.json at the vendored commit)
+logic = "translated"
+vendored = "../../vendor/loader-ai/VSCode"
+needs = []
+boot = "tfex::gen::codemods::Boot_LoaderAI"  # generated (CodeGen.CodeModBoots)
+
+[folder]
+build = "./build_folder.sh"                # its ModFile folder from the vendored source (meta.json only)
+extras = false
+
+[overview]
+source = "vendor/loader-ai: ebe1kenobi/tf-mod-fortrise-loader-ai, dev/fortrise5 (3643fdb)"
+download = "the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)"
+permission = "not asked yet (no licence): not in TF.NX's release"
+works = "local: AI archers (LoaderAI + AIJimmy together; on the console a button on archer select adds one); online: not checked"
+
+[check]
+with = ["LOCALRUN_EXACTPADS=1 tools/megamod/localrun.sh 2 3 localnarrow localainext 'localai 1'"]   # two controllers only (as a console), the normal set: P1's right stick puts an AI in slot 3 (no controller) and changes its archer (tfex/AiSlotButton.cpp)
+expect = ["[mods] LoaderAI constructed", "[mods] AIJimmy constructed", "[aislot] an AI joins slot", "[aislot] slot 3's AI: the next archer", "[aislot] slot 3: the next AI type (2)", "[aislot] P3's marker: LoaderAI's AI name", "[mmtest] an AI player moved", "[mmtest] level ran 30 s"]
