@@ -15,6 +15,7 @@
 #include "rnd.hpp"
 #include "rumble.hpp"
 #include "devupdate.hpp"
+#include "tfnxupdate.hpp"
 namespace tfex {
                  void OnLobbyResultsFinished(int winnerSeat, const int* scores, int nScores);
                  namespace EndOfMatch { unsigned long TestButtons(); } }

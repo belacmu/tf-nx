@@ -537,6 +537,10 @@ public sealed partial class UnitEmitter
             case IDeclarationPatternOperation d when d.DeclaredSymbol is ILocalSymbol l && !l.Type.IsReferenceType:
                 // `x is int ms` on an int?: has a value, and it goes into ms
                 return $"([&]() {{ auto v_ = {value}; if (!v_.has) return false; {Id(l.Name)} = v_.value; return true; }}())";
+            case IDeclarationPatternOperation d when d.DeclaredSymbol is ILocalSymbol l && d.MatchedType?.ToDisplayString() == "System.Version":
+                // `UpdateRequest.RequiredVersion is Version required` (TFGamePatch.HandleAutoUpdate): a packed int64 (UnitEmitter.Cpp), 0 = null
+                R.Add("mechanical: System.Version's type pattern (is Version v) -> a packed int64 set (0 = null)", Where(p));
+                return $"(({Id(l.Name)} = {value}) != 0)";
             case IDeclarationPatternOperation d when d.DeclaredSymbol is ILocalSymbol l && gen.Models.IsModel(d.MatchedType) &&
                                                       SymbolEqualityComparer.Default.Equals(d.InputType, d.MatchedType):
                 // `OwnPlayer(...) is Player own` on a model of that same type (a plain struct pointer here, no runtime type): the null test

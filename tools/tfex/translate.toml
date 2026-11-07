@@ -135,11 +135,16 @@ file = "network/TF.EX.Domain/CustomComponent/SeriesScreen.cs"   # makes and remo
 type = "SeriesScreen"
 
 [[unit]]
+name = "UpdaterDialog"              # TF.EX's update dialog (NEW VERSION VX, the phase, a progress bar) over the main menu: TFGamePatch.StartUpdate
+file = "network/TF.EX.Domain/CustomComponent/UpdaterDialog.cs"   # makes it; on the Switch for TF.NX's releases (program/tfnxupdate.cpp)
+type = "UpdaterDialog"
+
+[[unit]]
 name = "NetplayEntry"               # TF.EX's TFGamePatch: the NETPLAY entry (DLC / version check, mod warnings) and the netplay frame loop: the
 file = "network/TF.EX.Patchs/Engine/TFGame.cs"   # TFGame.Update prefix (TFGameUpdate_Patch: Poll, the accumulator at the session's rate,
 type = "TFGamePatch"                # NetplayLogic, the frame's own advance, the original through the reverse patch), its ManageTimeStep
 hooks = true                        # (only TFGameUpdate_Patch is hooked: members; xplay.cpp's Switch steps wrap it, FrameShell)
-members = ["RequestNetplayEntry", "ResolveNetplayEntry", "NetplayLogic", "CanRunNetplayFrames", "TFGameUpdate_Patch", "ManageTimeStep", "RestoreTimeStep", "TFGame_OnSceneTransition", "TFGame_Load"]   # (TFGame_OnSceneTransition: TF.EX's cleanup from a Level back to the main menu, 2026-10-28)
+members = ["RequestNetplayEntry", "ResolveNetplayEntry", "StartUpdate", "NetplayLogic", "CanRunNetplayFrames", "TFGameUpdate_Patch", "ManageTimeStep", "RestoreTimeStep", "TFGame_OnSceneTransition", "TFGame_Load"]   # (TFGame_OnSceneTransition: TF.EX's cleanup from a Level back to the main menu, 2026-10-28)
 
 [[unit]]
 name = "NetplayMenus"               # TF.EX's netplay screens (CORE-FLOW rows 2-6): MainMenu_CallStateFunc dispatches NetplaySelect, PrivateSelect, the lobby
@@ -272,6 +277,11 @@ type = "WiderSetApi"
 name = "GlueProfilesApi"              # the Archer mod's profile names API, standing in for Archer (not on the Switch) ([[interop]]; translator/glue/ProfilesApi.cs)
 file = "glue/ProfilesApi.cs"
 type = "ProfilesApi"
+
+[[unit]]
+name = "GlueUpdates"                  # TF.EX's update flow on the Switch: its worker, the restart notice, TF.NX's OPTIONS entry (translator/glue/Updates.cs;
+file = "glue/Updates.cs"              # program/tfnxupdate.cpp underneath)
+type = "Updates"
 
 [[unit]]
 name = "GlueAiNames"                  # LoaderAI's AI names on the round results (Archer's MyVersusRoundResults, AIs only; tfex/AiSlotButton.cpp calls it)
@@ -646,6 +656,13 @@ in = "TF.EX.Domain.CustomComponent.LocalPlayersPanel"
 to = "TfexGlue.Rewrites.SceneAddUi"
 key = "S-wide"
 why = "LocalPlayersPanel (v0.28.0: local players and JOIN / SWAP / QUIT on the netplay menu) draws at a 320 screen's positions (P1 at 24, the hints right-aligned at 316) on layer 0; the Switch's main menu is the 420 screen there, its UI layer -1 the one whose camera (+50) is the PC's 320: on 0 the P1 column sat under the left frame and the hints mid-screen (2026-10-31 console). On -1, as TF.EX's menu buttons; then as SceneAdd"
+
+[[rewrite]]
+call = "Monocle.Scene.Add<T>(T)"
+in = "TF.EX.Patchs.Engine.TFGamePatch"
+to = "TfexGlue.Rewrites.SceneAddUi"
+key = "S-wide"
+why = "StartUpdate's UpdaterDialog (TF.NX's updates, program/tfnxupdate.cpp) draws a 320 x 240 screen on layer 0; on the Switch's 420 main menu that sat left with its dimming short of the right edge (2026-11-07 emulator): on the UI layer -1 (camera +50, the PC's 320), as LocalPlayersPanel"
 
 [[rewrite]]
 call = "Monocle.Scene.Add<T>(T)"
@@ -1333,11 +1350,40 @@ call = "Monocle.Calc.Shuffle<T>(System.Collections.Generic.List<T>, System.Rando
 to = "TfexGlue.Rewrites.Shuffle"
 why = "generic extension with no Switch instantiation for TF.EX's element types: Monocle's body as a generic glue, copied per type argument"
 
+# ---- TF.EX's update flow (TFGamePatch) on the Switch: TF.NX's updater underneath (program/tfnxupdate.cpp, glue Updates.cs) ----
+[[rewrite]]
+call = "System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>)"
+in = "TF.EX.Patchs.Engine.TFGamePatch"
+to = "TfexGlue.Updates.Run"
+key = "S-native"
+why = "the version check / the download on a game Thread (GC-registered), one at a time, off the game thread"
+
+[[rewrite]]
+call = "TF.EX.Domain.CustomComponent.UpdaterDialog.SetPhase(string)"
+in = "TF.EX.Patchs.Engine.TFGamePatch"
+to = "TfexGlue.Updates.RestartPhase"
+key = "S-update"
+why = "StartUpdate's \"RESTARTING\": the console can't relaunch the game for us, the dialog says to restart it (the user's choice, 2026-11-07)"
+
+[[rewrite]]
+call = "Microsoft.Xna.Framework.Game.Exit()"
+in = "TF.EX.Patchs.Engine.TFGamePatch"
+to = "TfexGlue.Updates.Restart"
+key = "S-update"
+why = "HandleAutoUpdate's restart after an update (FortRise.RiseCore.WillRestart + Exit): the player restarts the game, a notice says so"
+
+[[rewrite]]
+call = "TF.EX.Common.IAutoUpdater.GetCurrentVersion()"
+in = "TF.EX.Domain.Services.MatchmakingService"
+to = "TfexGlue.Updates.ServerVersion"
+key = "S-update"
+why = "the server's ?version= is TF.EX's version (its MIN_CLIENT_VERSION); the Switch's IAutoUpdater speaks TF.NX's 4-part version"
+
 # ---- FortRise's additions to the game (bound against the patched reference, absent from the Switch's 1.4.1.6): reads give the
 # default / an empty sequence, writes / calls on them / foreach over them do nothing: TF.EX with no FortRise mod loaded ----
 [fortrise]
+"FortRise.RiseCore.WillRestart" = { absent = true, key = "S-update", why = "FortRise's restart after a mod update (HandleAutoUpdate): no FortRise loader on the Switch; the player restarts the game (glue Updates.Restart)" }
 "FortRise.ModuleSettings" = { absent = true, key = "S-settings", why = "FortRise's settings base (its UI, its JSON file): TF.EX's NetplaySettings derives from object on the Switch; Integration A's store loads / saves it" }
-"TF.EX.Patchs.Engine.TFGamePatch.HandleAutoUpdate" = { absent = true, key = "S-update", why = "TF.EX's auto-updater flow (ledger [skip]): the Switch's mod is updated with the console build; HandleMenuAction's call is a no-op" }
 "FortRise.ModIO.OpenRead" = { absent = true, key = "S-native", why = "FortRise's file constructors of SFX / SFXVaried / SFXLooped (MonoModReplace of the game's own, which loads the game's sounds: not hooked here, so never called; units Fr_SFX ... translate the Stream ones)" }
 "FortRise.ModIO.IsDirectoryOrFileExists" = { absent = true, key = "S-native", why = "as ModIO.OpenRead" }
 "TowerFall.GamepadConfig" = { absent = true, key = "S-input", why = "the PC's XInput pad mapping type, not in the Switch's build (XGamepadInput.Config, below): no object of it exists, its members read as defaults" }
@@ -1372,7 +1418,6 @@ why = "generic extension with no Switch instantiation for TF.EX's element types:
 "TF.EX.Domain.Services.SteamIdentity.TryGet" = { absent = true, key = "S-platform", why = "Steamworks through reflection: no Steam on the Switch (null: no steam: id)" }
 "TF.EX.Domain.Utils.GameFilesIntegrity.IsModified" = { absent = true, key = "S-native", why = "hashes the PC game folder against TF.EX's list: the Switch's romfs is the console's own (false)" }
 "TF.EX.Domain.Utils.GameFilesIntegrity.Modified" = { absent = true, key = "S-native", why = "same (no modified files)" }
-"TF.EX.Patchs.Engine.TFGamePatch.StartUpdate" = { absent = true, key = "S-update", why = "TF.EX's self-updater: no updater on the Switch (NetplayPreferences.AutoUpdate is off there)" }
 "TowerFall.RollcallElement.controlIcon" = { absent = true, side = true, key = "S-input", why = "PC's per-player controller Image at ControlIconPos (0, 90); the Switch's RollcallElement has none (its own icon subtexture +0xa0, drawn at the same place). TF.EX reads it by DynamicData (RollCallElementPatch.UpdateOpenSeat: the open-seat orb goes at its Position, it hides while the orb shows): the side table, where tfex/MainMenuPatch.cpp ControlIconStandIns puts an undrawn Image at (0, 90) per element" }
 
 # ---- tfex-adopt's next units (docs/ws-tfex-adopt.md "Later"): generated beside the hand ports; tfex-adopt switches them over ----

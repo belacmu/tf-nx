@@ -35,13 +35,6 @@
 # ---- tfex-lockstep (2026-10-16), docs/ws-tfex-lockstep.md ----
 # ---- ui: TF.EX.Patchs and CustomComponent -> tfex/MainMenuPatch.cpp, tfex/NetplayScreens.cpp, xplay.cpp ----
 "network/TF.EX.Patchs/Scene/MainMenu.cs MainMenuPatch.MainMenu_ctor" = "S-tools: enables Monocle's debug console (PC keyboard); our tooling is hw.txt"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.ResolveRequiredUpdate" = "S-update: auto-updater flow (a server-required version: the Switch's build)"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.RequestRequiredUpdate" = "S-update: auto-updater flow (as ResolveRequiredUpdate)"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch._restartWhenReady" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch._updateFailed" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch._updaterDialog" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.HandleAutoUpdate" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
-"network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.StartUpdate" = "S-update: auto-updater flow (HandleMenuAction also clips the PC console)"
 "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_Update_Finalizer" = "S-native: a Harmony finalizer (a .NET exception out of TFGame.Update -> MatchReport.OnCrash); the Switch's build has no finalizer hooks, a fault there is a native crash, reported by devupdate.cpp's crash-report upload"
 "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.TFGame_Draw_Finalizer" = "S-native: as TFGame_Update_Finalizer, for TFGame.Draw"
 "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.ArtificialSlow" = "S-tools: PC debug keys (hurtboxes, frame by frame, artificial slow, console)"
@@ -65,7 +58,6 @@
 "network/TF.EX.Patchs/ReplayRecorder.cs *" = "D: instant replay / kill-cam; Level.ReplayRecorder is nulled by TF.EX's own LevelPatch.Level_ctor (generated hook)"
 "network/TF.EX.Patchs/Layer/ReplayViewer.cs *" = "D: kill-cam viewer; never runs since the recorder is nulled"
 "network/TF.EX.Patchs/PlayerInput/KeyboardInput.cs *" = "S-input: no PC keyboard input on the Switch"
-"network/TF.EX.Domain/CustomComponent/UpdaterDialog.cs *" = "S-update: no auto-updater"
 # ---- svc: TF.EX.Domain (not CustomComponent), TF.EX.Core, TF.EX.Common, TF.EX.API -> tfex/MatchmakingService, Models, NetplayManager, xplay.cpp ----
 "network/TF.EX.Domain/Services/ArcherService.cs ArcherService..ctor" = "S-native: DI constructor (the unit is hosted: functions)"
 "network/TF.EX.Domain/Services/NetplayManager.cs NetplayManager.IsReplayMode" = "D: replay (TF.Replay)"
@@ -86,7 +78,7 @@
 "network/TF.EX.Domain/Utils/AttributeManager.cs *" = "S-native: generic C# helper"
 "network/TF.EX.Domain/Interop/ITfReplayApi.cs *" = "D: TF.Replay interop"
 "network/TF.EX.Core/Api/TfExApi.cs *" = "D: replay skin seats"
-"network/TF.EX.Common/AutoUpdater.cs *" = "S-update: no auto-updater"
+"network/TF.EX.Common/AutoUpdater.cs *" = "S-update: TF.EX's desktop updater (FortRise's ModUpdater, the PC's files): its IAutoUpdater is the Switch's (program/tfnxupdate.cpp: TF.NX's GitHub releases unpacked onto the SD card)"
 "network/TF.EX.Common/SerializationOptions.cs *" = "S-rollback: MessagePack state serialization"
 "network/TF.EX.Common/Extensions/EnumerableExtensions.cs *" = "S-native: generic C# helper"
 "network/TF.EX.Common/Extensions/LoggingExtensions.cs *" = "S-native: ILogger helpers (netws::Log)"
@@ -327,10 +319,14 @@
 "System.IO.File.WriteAllText" = { cpp = "tfex::gen::scen::MemFileWrite($0, $1)", include = "tfexgen_scenario_rt.hpp", key = "S-native", why = "the Switch's game folder is read-only: a scenario map is kept in memory under its path, and Calc.LoadXML of that path (pcgameplay.cpp) gets it" }
 "TF.EX.Domain.Scenarios.ScenarioCatalog.LogCoverage" = { noop = true, key = "S-tools", why = "the sweep's closing coverage line (TrackedTypes against the scenarios' Covers, ToHashSet(StringComparer.OrdinalIgnoreCase)): docs/tfstate-rollback-measurement.md lists the coverage; each run's result line is TF.EX's" }
 "TF.EX.Domain.Services.UrlService.Open" = { cpp = "tfex::gen::Fault(\"UrlService.Open: no web browser for the game on the console\")", key = "S-native", throws = true, why = "the PC opens the page through SDL_OpenURL; the console has none, so it fails as SDL_OpenURL does on a PC without a browser and TF.EX's own catch runs (SUPPORT: the page's address as a notification)" }
-"TF.EX.Common.IAutoUpdater.GetCurrentVersion" = { cpp = "tfex::gen::svc::TfexVersion()", key = "S-update", why = "the version this port implements (MatchmakingService.hpp TFEX_VERSION): the server URL's ?version=" }
-"TF.EX.Common.IAutoUpdater.IsStatusFresh" = { value = "true", key = "S-update", why = "no updater on the Switch: the console build is the version, its status always known (else the official server's NETPLAY waited on CHECKING VERSION with the controllers taken away, HandleAutoUpdate absent, and crashed when the lock ran out); the server refuses an old version itself (MIN_CLIENT_VERSION)" }
-"TF.EX.Common.IAutoUpdater.GetStatus" = { value = "1", key = "S-update", why = "UpdateStatus.UpToDate: as IsStatusFresh (nothing to update to on the console)" }
-"TF.EX.Common.IAutoUpdater.*" = { noop = true, key = "S-update" }
+"TF.EX.Common.IAutoUpdater.CheckForUpdate" = { cpp = "(tfnxupdate::CheckForUpdate(), nullptr)", include = "../../tfnxupdate.hpp", key = "S-update", why = "TF.NX's releases (github.com/belacmu/tf-nx), blocking on TF.EX's worker (await is the call, S-async)" }
+"TF.EX.Common.IAutoUpdater.IsStatusFresh" = { cpp = "tfnxupdate::IsStatusFresh()", include = "../../tfnxupdate.hpp", key = "S-update" }
+"TF.EX.Common.IAutoUpdater.Invalidate" = { cpp = "tfnxupdate::Invalidate()", include = "../../tfnxupdate.hpp", key = "S-update" }
+"TF.EX.Common.IAutoUpdater.GetStatus" = { cpp = "tfnxupdate::TfexStatus()", include = "../../tfnxupdate.hpp", key = "S-update", why = "UpdateAvailable only when the new release carries a newer TF.EX (the official server refuses an old TF.EX): a TF.NX-only release never blocks online play (its own path: tfnxupdate.cpp)" }
+"TF.EX.Common.IAutoUpdater.GetLatestVersion" = { cpp = "tfnxupdate::Latest()", include = "../../tfnxupdate.hpp", key = "S-update" }
+"TF.EX.Common.IAutoUpdater.GetCurrentVersion" = { cpp = "tfnxupdate::Current()", include = "../../tfnxupdate.hpp", key = "S-update", why = "TF.NX's version (TF.EX's + its build); the server's ?version= keeps TF.EX's (MatchmakingService's rewrite)" }
+"TF.EX.Common.IAutoUpdater.GetFailureReason" = { cpp = "tfnxupdate::FailureReason()", include = "../../tfnxupdate.hpp", key = "S-update" }
+"TF.EX.Common.IAutoUpdater.DownloadAndApply" = { cpp = "tfnxupdate::DownloadAndApply($0, $1)", include = "../../tfnxupdate.hpp", key = "S-update", why = "the release zip unpacked onto the SD card, checked, swapped in from a journal (no FortRise ModUpdater on the Switch)" }
 # -- TF.EX features the ledger keeps off the Switch: their entry points as no-ops, so callers translate (keys as in [skip] above)
 "TF.EX.Domain.Services.ClipboardService.GetText" = { value = "nullptr", key = "S-keyboard", why = "no clipboard on the Switch (swkbd; the code is shown on screen)" }
 "TF.EX.Domain.Services.ClipboardService.*" = { noop = true, key = "S-keyboard", why = "no clipboard on the Switch" }
@@ -601,7 +597,7 @@ include = ["network/", "state/TF.State.Patchs/", "state/TF.State.Domain/", "stat
 "network/TF.EX.Domain/Services/SteamIdentity.cs" = "Steam identity: no Steam on the Switch"
 "network/TF.EX.Domain/Services/ClipboardService.cs" = "desktop clipboard (SDL): none on the Switch"
 "network/TF.EX.Domain/Services/UpnpService.cs" = "UPnP port mapping on the desktop's router: the Switch connects through the relay / WebRTC"
-"network/TF.EX.Common/AutoUpdater.cs" = "desktop auto-updater (downloads and replaces the mod's files): the Switch's mod is updated with the console build"
+"network/TF.EX.Common/AutoUpdater.cs" = "desktop auto-updater (FortRise's ModUpdater, the PC's files): the Switch's IAutoUpdater is program/tfnxupdate.cpp (TF.NX's releases)"
 "network/TF.EX.Domain/Utils/GameFilesIntegrity.cs" = "hashes the PC game's files (modified-files check): the Switch reports HaveModifiedGameFiles = false"
 "network/TF.EX.Domain/Utils/GameFilesManifest.cs" = "the PC game files' hash manifest (as GameFilesIntegrity)"
 "network/TF.EX.Core/TFCommands.cs" = "Monocle's debug console commands (PC keyboard): the Switch's tooling is hw.txt"

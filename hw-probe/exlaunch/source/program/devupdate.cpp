@@ -318,9 +318,38 @@ bool UploadFile(const char* name, const char* sdPath) {
 /* ---- the notice: an OutlineText at the bottom of the main menu ---- */
 static void* g_noticeScene = nullptr;
 static void* g_noticeText = nullptr;
-static int g_noticeShown = -1;
 static MString g_noticeStr[2];
 static int g_noticeCur = 0;
+
+/* a line of text at the bottom of the main menu (the dev updater's state, TF.NX's updater's "restart" notice); the same text again is
+ * nothing to do */
+void ShowNotice(void* scene, const char* text, float y) {
+    const void* live = tfex::MainMenuPatch::LiveString();
+    if (!scene || !live) return;
+    static char shown[48] = "";
+    if (scene == g_noticeScene && g_noticeText && !std::strcmp(shown, text)) return;
+    std::snprintf(shown, sizeof shown, "%s", text);
+    g_noticeCur ^= 1;   /* the text object may still hold the other string */
+    MakeString(&g_noticeStr[g_noticeCur], live, text);
+    if (scene != g_noticeScene || !g_noticeText) {
+        /* a new entity on the menu's layer -2 (screen-fixed), with the text */
+        g_noticeText = nullptr;
+        void* ent = Fn<void* (*)(void*, int, float, float)>(0x92d620)(nullptr, -2, 210.0f, y);   /* new Entity(Vector2 position, int layerIndex): layer -2, the screen-fixed one ScreenTitle uses */
+        if (!ent) return;
+        void* font = Fn<void* (*)()>(TFGame::get_Font)();
+        void* t = Fn<void* (*)(void*, void*, void*, float, float, int, int)>(OutlineText::ctor)(nullptr, font, &g_noticeStr[g_noticeCur], 0.0f, 0.0f, 1, 1);
+        if (!t) return;
+        Fn<void (*)(void*, void*)>(Entity::Add_Component)(ent, t);
+        void* layers = At<void*>(scene, 0x18);                                   /* Scene.Layers (Dictionary<int, Layer>) */
+        void* layer = layers ? Fn<void* (*)(void*, int)>(0x92d9f0)(layers, At<int32_t>(ent, 0x54)) : nullptr;   /* Layers[entity.LayerIndex] */
+        if (!layer) return;
+        Fn<void (*)(void*, void*, int)>(0x938e40)(layer, ent, 0);              /* Layer.Add (deferred, as Scene.Add) */
+        g_noticeText = t;
+        g_noticeScene = scene;
+    } else {
+        Fn<void (*)(void*, void*)>(OutlineText::set_DrawText)(g_noticeText, &g_noticeStr[g_noticeCur]);
+    }
+}
 
 void Frame() {
     if (!g_on) return;
@@ -328,33 +357,11 @@ void Frame() {
     if (st == Idle) return;
     void* scene = CurrentScene();
     if (!scene || !Is(scene, "MainMenu")) return;   /* never inside a Level (netplay state) */
-    const void* live = tfex::MainMenuPatch::LiveString();
-    if (!live) return;
     char text[44];
     if (st == Downloading) std::snprintf(text, sizeof text, "DEV UPDATE: DOWNLOADING %d/%d", g_done + 1 > g_total ? g_total : g_done + 1, g_total);
     else if (st == Ready) std::snprintf(text, sizeof text, "DEV UPDATE READY (%d) - RESTART THE GAME", g_updated);
     else std::snprintf(text, sizeof text, "DEV UPDATE FAILED: %.20s", g_failWhat);
-    int key = st * 1000 + g_done * 10 + g_updated;
-    if (scene == g_noticeScene && key == g_noticeShown) return;
-    g_noticeCur ^= 1;   /* the text object may still hold the other string */
-    MakeString(&g_noticeStr[g_noticeCur], live, text);
-    if (scene != g_noticeScene || !g_noticeText) {
-        /* a new entity on the menu's layer -2 (screen-fixed), with the text */
-        void* ent = Fn<void* (*)(void*, int, float, float)>(0x92d620)(nullptr, -2, 210.0f, 232.0f);   /* new Entity(Vector2 position, int layerIndex): layer -2, the screen-fixed one ScreenTitle uses */
-        if (!ent) return;
-        void* font = Fn<void* (*)()>(TFGame::get_Font)();
-        g_noticeText = Fn<void* (*)(void*, void*, void*, float, float, int, int)>(OutlineText::ctor)(nullptr, font, &g_noticeStr[g_noticeCur], 0.0f, 0.0f, 1, 1);
-        if (!g_noticeText) return;
-        Fn<void (*)(void*, void*)>(Entity::Add_Component)(ent, g_noticeText);
-        void* layers = At<void*>(scene, 0x18);                                   /* Scene.Layers (Dictionary<int, Layer>) */
-        void* layer = layers ? Fn<void* (*)(void*, int)>(0x92d9f0)(layers, At<int32_t>(ent, 0x54)) : nullptr;   /* Layers[entity.LayerIndex] */
-        if (!layer) return;
-        Fn<void (*)(void*, void*, int)>(0x938e40)(layer, ent, 0);              /* Layer.Add (deferred, as Scene.Add) */
-        g_noticeScene = scene;
-    } else {
-        Fn<void (*)(void*, void*)>(OutlineText::set_DrawText)(g_noticeText, &g_noticeStr[g_noticeCur]);
-    }
-    g_noticeShown = key;
+    ShowNotice(scene, text, 232.0f);
 }
 
 } // namespace devupdate

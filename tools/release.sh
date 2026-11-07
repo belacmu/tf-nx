@@ -1,10 +1,14 @@
 #!/bin/bash
-# release.sh: TF.NX's release zip, dist/TF.NX-<version>-<commit>.zip, from THIS checkout's build (hw-probe/exlaunch/deploy,
+# release.sh: TF.NX's release zip, dist/TF.NX-v<version>.zip, from THIS checkout's build (hw-probe/exlaunch/deploy,
 # the extras build; tools/build-probe.sh first). Extracted to an SD card's root it is the whole install (docs/PLAN-TFNX-2026-11-04.md):
 #   atmosphere/contents/0100A1C00359C000/exefs/   the module (subsdk9, main.npdm)
 #   xplay/tfex/                                   TF.EX's own files (tools/devserve.list's sd:/xplay/tfex/ lines)
 #   xplay/mods/<name>/                            the catalog mods we may ship (mods/<name>/mod.toml [release] ship = true)
+#   xplay/tfnx/meta.json                          the release's version, TF.EX's, the TowerFall update it needs, a one-line note
+#                                                 (RELEASE_NOTE="..."): the console's updater checks it (tfnxupdate.cpp)
 #   README.txt, NOTICE.txt, MODS.txt              for players (tools/release/), the catalog (docs/MODS-CATALOG.md)
+# The zip's name is the version alone (TF.NX-v0.29.0.1.zip): the console's updater downloads releases/download/v<version>/<that name>
+# (docs/PLAN-UPDATER-2026-11-07.md); upload it to the GitHub release of tag v<version> under that name.
 # Never: game files (the romfs layer: the PC levels, atlases made from the game's), third-party mod files, test files (hw.txt...).
 # Online play's PC levels are made on the console from the Switch's own and a delta compiled into the module (pclevels.cpp).
 set -eu
@@ -22,7 +26,7 @@ d=hw-probe/exlaunch/deploy
 [ "$d/subsdk9" -nt hw-probe/exlaunch/config.mk ] || { echo "release: the build is older than config.mk (rebuild)" >&2; exit 1; }
 strings hw-probe/exlaunch/tfx-hw-exlaunch.elf | grep -q "TF.NX $version, TF.EX $tfex" ||   # (subsdk9 is compressed: its ELF)
   { echo "release: the build isn't TF.NX $version with TF.EX $tfex (rebuild)" >&2; exit 1; }
-name="TF.NX-$version-$commit"
+name="TF.NX-v$version"
 stage="dist/$name"; rm -rf "$stage"; mkdir -p "$stage"
 ex="$stage/atmosphere/contents/0100A1C00359C000/exefs"; mkdir -p "$ex"
 cp "$d/subsdk9" "$d/main.npdm" "$ex/"
@@ -48,6 +52,13 @@ for f in ("README.txt", "NOTICE.txt"):
     open(os.path.join(sys.argv[1], f), "w").write(t)
 PY
 cp docs/MODS-CATALOG.md "$stage/MODS.txt"
+mkdir -p "$stage/xplay/tfnx"
+VERSION=$version TFEX=$tfex COMMIT=$commit NOTE="${RELEASE_NOTE:-}" python3 - "$stage/xplay/tfnx/meta.json" <<'PY'
+import json, os, sys
+game = "1.4.1.6"   # the TowerFall update the module's offsets are for (xplay.cpp; tfnxupdate.cpp's kGame)
+json.dump({"name": "TF.NX", "version": os.environ["VERSION"], "tfex": os.environ["TFEX"], "game": game, "commit": os.environ["COMMIT"],
+           "notes": os.environ["NOTE"][:90]}, open(sys.argv[1], "w"), indent=2)
+PY
 find "$stage" -name '._*' -delete
 rm -f "dist/$name.zip"; (cd "$stage" && COPYFILE_DISABLE=1 zip -qr -X "../$name.zip" .)   # (its contents at the root: extracted onto the SD card's)
 echo "release: dist/$name.zip ($(du -h "dist/$name.zip" | cut -f1); $(find "$stage" -type f | wc -l | tr -d ' ') files; TF.NX $version, TF.EX $tfex, commit $commit)"

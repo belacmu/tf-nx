@@ -2303,6 +2303,11 @@ constexpr uintptr_t t_Action_1_f1e2 = 0;   /* UNRESOLVED System.Action`1[System.
 #else
 /* UNRESOLVED t_Action_1_f1e2: System.Action`1[System.Boolean]: no type System.Action`1[System.Boolean] (a use is a compile error) */
 #endif
+#ifdef TFEXGEN_COVERAGE
+constexpr uintptr_t t_Action_2_8466 = 0;   /* UNRESOLVED System.Action`2[System.Int64, System.Int64]: no type System.Action`2[System.Int64, System.Int64] */
+#else
+/* UNRESOLVED t_Action_2_8466: System.Action`2[System.Int64, System.Int64]: no type System.Action`2[System.Int64, System.Int64] (a use is a compile error) */
+#endif
 constexpr uintptr_t t_Action_2_a6b6 = 0x6f9a70;   /* System.Action`2[System.Object, System.Object] */
 constexpr uintptr_t t_Alarm = 0x6efef0;   /* Monocle.Alarm */
 constexpr uintptr_t t_Allegiance_f1ba = 0x8a0630;   /* TowerFall.Allegiance[] */

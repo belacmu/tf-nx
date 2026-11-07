@@ -70,6 +70,33 @@ A run takes about 25 s cold (splitter build, `patch-targets.sh` on both tags) an
 `TFEX_NO_TARGETS=1` skips the patch-target check, `TFEX_NO_TRANSLATE=1` the translator diff, `TFEX_JSON=<file>` also writes the
 findings as JSON.
 
+## A new TF.EX release, end to end (what the update check runs)
+
+TF.EX's official server only lets its latest version play online, so a release locks Switch players out until TF.NX follows. The
+twice-daily check (tools/updates/check.py: the GitHub Action on belacmu/tf-nx and the local scheduled task tfnx-update-check) finds
+it; the local task then does the steps below. Only this Mac can: translating needs the FortRise-patched game DLL (inputs.py), the
+tests need Ryujinx. First done this way for v0.29.1 (2026-11-07, about an hour, the routine's own part ~10 min).
+
+1. A branch from master (`tfex-<ver>`) in a worktree; `tools/tfex/new-tag.sh v<new>`.
+2. The summary's flags (`reports/<old>-<new>-summary.md`). The usual ones:
+   - **a new Harmony patch with no unit** (step 5b): a `[[unit]] hooks = true` in translate.toml (v0.29.1: PlayerCorpsePatch), then
+     `translate.sh all v<new>` and `backlog.py`;
+   - **a `[replace]` whose upstream changed** (`[A]` in "Ledger replacements"): read the diff; when our replacement still fits,
+     `manifest.py fill v<new> "<key glob>"`;
+   - a new state `[Key]` (GameState's bytes are checksummed): state-msgpack already regenerated it; the test below proves it.
+   Anything needing a real port of simulation code (a new body under a hand replacement): stop and ask.
+3. The browser at the same version, in its own worktree (the shared harness one stays on master's version until master moves):
+   `git worktree add -b claude/tfex-<ver> .claude/worktrees/tfex-<ver>` in the browser repo from the current harness worktree's
+   commit, `cp -cR` its vendor/ (all but tfex) and gamefiles/, then pin it (`tools/update-tfex.py` writes fetch-tfex.sh's pin;
+   TFEX_PROTOCOL to the tag when no lobby file changed) and `tools/fetch-tfex.sh && tools/build.sh`.
+4. One emulator run of the flow the release touches, against that browser: `BROWSER_LOBBY_WT=<it> tools/smoke.sh <scenario>`, with
+   `SMOKE_HOOKS=<the new hooks>` and the hw.txt lines that make the event happen (v0.29.1: `team "lobbyvariants -NO AUTOBALANCE|-SYMMETRICAL
+   TREASURE|TEAM REVIVE" "vsstop 4000"`: a scripted kill, TEAM REVIVE on). `smoke lobby` when nothing more specific fits.
+5. README / STATUS versions, `tools/lobby-vs-browser.sh`'s default browser worktree to the new one; rebase on master, fast-forward
+   it, `../switch-online-hw/tools/publish-hw.sh` (the console channel).
+6. `tools/publish-github.sh` and `tools/release.sh` in ../switch-online-public: the snapshot and the zip, local. Pushing it, the
+   GitHub release and the browser's pull request wait for the user's OK.
+
 ## A fork, branch or commit instead of a tag
 
 Every script takes anything `git -C vendor/tfex rev-parse` resolves: a tag, a commit, or a remote branch (`origin/main`,

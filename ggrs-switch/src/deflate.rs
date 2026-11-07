@@ -54,3 +54,40 @@ pub unsafe extern "C" fn tfx_inflate(src: *const u8, len: usize, out: *mut u8, c
         Err(_) => -1,
     }
 }
+
+/// A streaming raw-DEFLATE decompressor (TF.NX's updater, tfnxupdate.cpp: a release zip's entries unpacked onto the SD card a buffer at
+/// a time; the module has no heap for a 4 MB file and its copy). Its state (with the 32 KB window) is allocated here, about 43 KB, freed by
+/// `tfx_inflate_end`; null if it couldn't be made.
+#[no_mangle]
+pub extern "C" fn tfx_inflate_begin() -> *mut miniz_oxide::inflate::stream::InflateState {
+    Box::into_raw(miniz_oxide::inflate::stream::InflateState::new_boxed(miniz_oxide::DataFormat::Raw))
+}
+
+/// Feeds `len` compressed bytes and writes inflated bytes to `out` (`cap` free). Sets `*used` (input consumed) and `*wrote` (output
+/// written); returns 1 when the stream is complete, 0 to call again (more input, or more room), -1 on invalid data.
+#[no_mangle]
+pub unsafe extern "C" fn tfx_inflate_feed(s: *mut miniz_oxide::inflate::stream::InflateState, src: *const u8, len: usize, out: *mut u8,
+                                          cap: usize, used: *mut usize, wrote: *mut usize) -> i32 {
+    let Some(s) = s.as_mut() else { return -1 };
+    if used.is_null() || wrote.is_null() || out.is_null() || (src.is_null() && len > 0) {
+        return -1;
+    }
+    let input = if len == 0 { &[][..] } else { std::slice::from_raw_parts(src, len) };
+    let output = std::slice::from_raw_parts_mut(out, cap);
+    let r = miniz_oxide::inflate::stream::inflate(s, input, output, miniz_oxide::MZFlush::None);
+    *used = r.bytes_consumed;
+    *wrote = r.bytes_written;
+    match r.status {
+        Ok(miniz_oxide::MZStatus::StreamEnd) => 1,
+        Ok(_) => 0,
+        Err(miniz_oxide::MZError::Buf) => 0,   // (no progress possible this call: more input or room needed)
+        Err(_) => -1,
+    }
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn tfx_inflate_end(s: *mut miniz_oxide::inflate::stream::InflateState) {
+    if !s.is_null() {
+        drop(Box::from_raw(s));
+    }
+}

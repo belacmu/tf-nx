@@ -9,6 +9,7 @@
 #include "MatchmakingService.hpp"
 #include "Game.hpp"
 #include "gen/tfexgen_NetplaySettings.hpp"
+#include "gen/tfexgen_GlueUpdates.hpp"
 #include "gen/tfexgen_GlueSettingsUi.hpp"
 #include "gen/tfexgen_Fr_MainMenuOptions.hpp"
 #include "runtime/tfexgen_code_rt.hpp"
@@ -59,6 +60,7 @@ void AddEntries(void* buttons) {   /* FortRise's InitModOptions for TF.EX (glue 
     g_first = ListCount(buttons);
     gen::RootStatic(g_buttonsRoot) = buttons;
     gen::NetplaySettings::Create(settings, buttons);   /* TF.EX's own entries (FortRise's ISettingsCreate: glue SettingsUi) */
+    gen::GlueUpdates::CreateEntry(buttons);   /* TF.NX's version and update (tfnxupdate.cpp; after TF.EX's AUTO UPDATE) */
     g_added = true;
     static int logged = 0;
     if (logged++ < 3) hw::Log("[tfex] OPTIONS: TF.EX's netplay settings added (NetplaySettings.Create) under FortRise's TF.EX header");

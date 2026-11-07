@@ -4,6 +4,7 @@
 #include "tfex/runtime/tfexgen_scenario_rt.hpp"
 #include "tfex/runtime/tfexgen_glue.hpp"
 #include "tfex/AiSlotButton.hpp"
+#include "tfnxupdate.hpp"
 
 void GfxSetFlushAt(int n);   /* gfxmem.cpp (tests) */
 namespace xplay {
@@ -42,6 +43,8 @@ void LoadHwConfig() {
         else if (!std::strncmp(line, "aiseat ", 7)) tfex::aislot::SetAiSeat(std::atoi(line + 7));   /* TEST ONLY: LoaderAI's AI plays the online seats (tfex/AiSlotButton.cpp) */
         else if (!std::strncmp(line, "localai ", 8)) megamod::SetLocalAi(std::atoi(line + 8));   /* L n times on archer select: AI players (tfex/AiSlotButton.cpp) */
         else if (!std::strncmp(line, "localroundend", 12)) megamod::SetLocalRoundEnd();
+        else if (!std::strncmp(line, "updatetest", 10)) tfnxupdate::SetTest();   /* TEST ONLY: the update flow's menus walked (tools/update-test.sh) */
+        else if (!std::strncmp(line, "updatesource ", 13)) tfnxupdate::SetSource(line + 13);   /* TEST ONLY: TF.NX's releases from the test server (tfnxupdate.cpp) */
         else if (!std::strncmp(line, "localkill", 9)) megamod::SetLocalKill();
         else if (!std::strncmp(line, "localvictory", 12)) megamod::SetLocalVictory();
         else if (std::sscanf(line, "gfxflushat %d", &a) == 1) ::GfxSetFlushAt(a);   /* tests: the mid-frame flush at N chunks (gfxmem.cpp) */

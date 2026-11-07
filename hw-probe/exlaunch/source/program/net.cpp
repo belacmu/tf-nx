@@ -34,6 +34,7 @@
 #include <cstdarg>
 #include <cstring>
 #include <cstdlib>
+#include <strings.h>
 #include <algorithm>
 
 /* The GGRS loopback test (VIABILITY-TESTS test 8), from ../ggrs-spike (Rust, built for the Switch
@@ -1215,6 +1216,107 @@ int HttpGet(const char* host, int port, const char* path, void (*sink)(void* ctx
     }
     Close(c);
     return status;
+}
+
+/* One HTTP(S) request for TF.NX's updater (tfnxupdate.cpp; one at a time, from its worker). `url`: "https://host/path" or
+ * "http://host[:port]/path". Redirects (301/302/303/307/308) followed up to 5 times when `follow`; else a redirect's Location is handed
+ * back in `location` (TF.EX's AutoUpdater reads the latest release from github.com's /releases/latest redirect). The body streamed to
+ * `sink` (GitHub's asset host sends a Content-Length; a chunked body is refused). A stall of 20 s with nothing received ends it. */
+static bool SplitUrl(const char* url, bool* tls, char* host, int hostCap, int* port, const char** path) {
+    const char* p;
+    if (!std::strncmp(url, "https://", 8)) { *tls = true; *port = 443; p = url + 8; }
+    else if (!std::strncmp(url, "http://", 7)) { *tls = false; *port = 80; p = url + 7; }
+    else return false;
+    const char* end = p;
+    while (*end && *end != '/' && *end != ':') end++;
+    int n = (int)(end - p);
+    if (n <= 0 || n >= hostCap) return false;
+    std::memcpy(host, p, (size_t)n); host[n] = 0;
+    if (*end == ':') { *port = std::atoi(end + 1); while (*end && *end != '/') end++; }
+    *path = *end ? end : "/";
+    return true;
+}
+static const char* HeaderValue(const char* head, const char* headerEnd, const char* name, char* out, int cap) {
+    size_t nl = std::strlen(name);
+    for (const char* l = std::strstr(head, "\r\n"); l && l < headerEnd; l = std::strstr(l + 2, "\r\n")) {
+        const char* k = l + 2;
+        if (strncasecmp(k, name, nl) != 0 || k[nl] != ':') continue;
+        const char* v = k + nl + 1;
+        while (*v == ' ') v++;
+        const char* e = std::strstr(v, "\r\n");
+        int n = e ? (int)(e - v) : (int)std::strlen(v);
+        if (n >= cap) n = cap - 1;
+        std::memcpy(out, v, (size_t)n); out[n] = 0;
+        return out;
+    }
+    return nullptr;
+}
+int HttpRequest(const char* method, const char* url, bool follow, void (*sink)(void* ctx, const uint8_t* p, int n), void* ctx,
+                int64_t* bodyLen, int64_t* contentLength, char* location, int locCap) {
+    if (bodyLen) *bodyLen = 0;
+    if (contentLength) *contentLength = -1;
+    if (location && locCap) location[0] = 0;
+    if (!EnsureNetwork()) return -1;
+    static char cur[2048], head[16384], value[2048];   /* (one request at a time: the updater's worker) */
+    std::snprintf(cur, sizeof cur, "%s", url);
+    for (int hop = 0; hop < 6; hop++) {
+        bool tls; char host[256]; int port; const char* path;
+        if (!SplitUrl(cur, &tls, host, sizeof host, &port, &path)) { net::Log("http: not a URL: %.80s", cur); return -1; }
+        Conn* c = Take(Rx::Small);
+        if (!c) { net::Log("http: no connection slot free (%s)", host); return -1; }
+        if (!Dial(c, host, port, tls, nullptr)) { Close(c); return -1; }
+        static char req[2600];
+        int reqLen = snprintf(req, sizeof req, "%s %s HTTP/1.1\r\nHost: %s\r\nUser-Agent: Towerfall\r\nAccept: */*\r\nConnection: close\r\n\r\n", method, path, host);
+        if (reqLen >= (int)sizeof req || !ws::Write(c, reinterpret_cast<uint8_t*>(req), reqLen)) { Close(c); net::Log("http: request to %s not sent", host); return -1; }
+        char* headerEnd = nullptr;
+        int have = ReadHead(c, head, sizeof head, &headerEnd);
+        if (!headerEnd || have < 12 || std::strncmp(head, "HTTP/1.", 7)) { Close(c); net::Log("http: no response head from %s (%d bytes)", host, have); return -1; }
+        int status = std::atoi(head + 9);
+        if (status == 301 || status == 302 || status == 303 || status == 307 || status == 308) {
+            const char* loc = HeaderValue(head, headerEnd, "Location", value, sizeof value);
+            Close(c);
+            if (!loc) { net::Log("http: %d from %s without a Location", status, host); return -1; }
+            char next[2048];
+            if (loc[0] == '/') {   /* a path on the same server */
+                char portText[8] = "";
+                if (port != (tls ? 443 : 80)) std::snprintf(portText, sizeof portText, ":%d", port);
+                std::snprintf(next, sizeof next, "%s://%s%s%s", tls ? "https" : "http", host, portText, loc);
+            } else std::snprintf(next, sizeof next, "%s", loc);
+            if (!follow) { if (location) std::snprintf(location, (size_t)locCap, "%s", next); return status; }
+            std::snprintf(cur, sizeof cur, "%s", next);
+            continue;
+        }
+        int64_t want = -1;
+        if (HeaderValue(head, headerEnd, "Content-Length", value, sizeof value)) want = std::atoll(value);
+        if (contentLength) *contentLength = want;
+        if (HeaderValue(head, headerEnd, "Transfer-Encoding", value, sizeof value) && strncasecmp(value, "identity", 8) != 0) {
+            Close(c); net::Log("http: %s sent a chunked body: not supported", host); return -1;
+        }
+        int64_t got = 0;
+        if (!std::strcmp(method, "HEAD")) want = 0;
+        int extra = have - (int)(headerEnd + 4 - head);
+        if (extra > 0 && want != 0) { if (sink) sink(ctx, reinterpret_cast<uint8_t*>(headerEnd + 4), extra); got += extra; }
+        static uint8_t buf[16384];
+        uint64_t last = net::Ticks();
+        while (want < 0 || got < want) {
+            int r = ws::ReadNow(c, buf, sizeof buf);
+            if (r < 0) break;
+            if (r == 0) {
+                if (net::Ms(net::Ticks() - last) > 20000) { net::Log("http: %s stalled 20 s at %lld of %lld bytes", host, (long long)got, (long long)want); break; }
+                svcSleepThread(2000000);
+                continue;
+            }
+            last = net::Ticks();
+            if (sink) sink(ctx, buf, r);
+            got += r;
+        }
+        Close(c);
+        if (bodyLen) *bodyLen = got;
+        if (want >= 0 && got != want) return -1;
+        return status;
+    }
+    net::Log("http: too many redirects from %.80s", url);
+    return -1;
 }
 
 static Conn* Take(Rx rx) {

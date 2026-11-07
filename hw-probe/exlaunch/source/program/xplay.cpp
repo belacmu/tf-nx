@@ -331,6 +331,7 @@ static void GetFullKeyHook(NpadFullKeyState* out, const uint32_t& id) {
     }
     if (id != 0) return; /* player 1 */
     if (unsigned long ui = tfex::MainMenuPatch::AutoUiButtons()) { out->buttons |= ui; out->attributes |= 1; }   /* hw.txt "lobbyui": the debug driver's presses */
+    if (unsigned long up = tfnxupdate::TestButtons()) { out->buttons |= up; out->attributes |= 1; }   /* hw.txt "updatetest": the update test's presses */
     if (unsigned long ev = tfex::EndOfMatch::TestButtons()) { out->buttons |= ev; out->attributes |= 1; }   /* hw.txt "lobbyvote": the end-of-match menu */
     if (!g_scriptLoaded) LoadScript();
     g_polls++;
@@ -1157,6 +1158,7 @@ static void FrameShell(tfex::gen::hooks::TFGame_Update& c) {
         { static int f = 0; if (++f % 60 == 0) hw::SetLive(g_lobbyStart || !tfex::gen::Auto_Lobby::get_IsEmpty(tfex::gen::svc::GetOwnLobby())); }   /* devupdate's periodic log upload (lobby / match) */
         tfex::MainMenuPatch::Update();             /* the lobby screen, the lobby's start and end of match */
         devupdate::Frame();                        /* the dev-update notice on the main menu */
+        tfnxupdate::Frame();                       /* TF.NX's updater: its notices, AUTO UPDATE's start, the OPTIONS entry's state */
         if (g_freezeLevel) {   /* frozen until the scene is no longer the finished match's Level */
             uintptr_t sc = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(game) + 0xe8);
             char tn[32] = ""; if (sc) rnd::TypeName(reinterpret_cast<void*>(sc), tn, sizeof tn);

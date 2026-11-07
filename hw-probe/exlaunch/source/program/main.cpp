@@ -10,6 +10,7 @@
 #include <common.hpp>
 #include "hwlog.hpp"
 #include "devupdate.hpp"
+#include "tfnxupdate.hpp"
 #include "tfex/gen/tfexgen_version.hpp"   /* TFEX_VERSION */
 #ifndef TFNX_BUILD
 #define TFNX_BUILD "0"   /* (hw-probe/exlaunch/config.mk sets it) */
@@ -56,6 +57,7 @@ extern "C" void exl_main(void* x0, void* x1) {
     tfex::frmods::EarlyMods();   /* the catalog mods' early parts, after every hook above (mods/<name>/mod.toml: WiderSet's 8 seats) */
     plugins::Install();   /* code plugins: sd:/xplay/mods/<Mod>/plugin.elf, after every built-in hook (plugins.cpp) */
     devupdate::Start();   /* dev updates over Wi-Fi, only with sd:/xplay/devserver.txt (devupdate.cpp) */
+    tfnxupdate::Start();   /* TF.NX's updates from its GitHub releases (off with devserver.txt; tfnxupdate.cpp) */
 }
 
 extern "C" NORETURN void exl_exception_entry() {

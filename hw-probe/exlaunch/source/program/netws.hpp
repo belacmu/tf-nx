@@ -19,6 +19,10 @@ int HttpPost(const char* host, int port, bool tls, const char* path, const char*
 void* SdkExport(const char* mangled);   /* an nnSdk function by its mangled name, or nullptr */
 /* One plain-HTTP GET, the body streamed to `sink`. Returns the status code, or -1 (failure or a short body). Blocking. */
 int HttpGet(const char* host, int port, const char* path, void (*sink)(void* ctx, const uint8_t* p, int n), void* ctx, int64_t* bodyLen);
+/* One HTTP(S) GET / HEAD of a URL (TF.NX's updater), redirects followed when `follow` (else the Location handed back), the body streamed
+ * to `sink`. Returns the final status code, or -1 (failure, a short body). Blocking; one at a time. */
+int HttpRequest(const char* method, const char* url, bool follow, void (*sink)(void* ctx, const uint8_t* p, int n), void* ctx,
+                int64_t* bodyLen, int64_t* contentLength, char* location, int locCap);
 bool SendText(Conn* c, const char* s, int n);
 bool SendBinary(Conn* c, const uint8_t* p, int n);
 /* The next whole message, if one has arrived: 1 = *op (1 text, 2 binary), *payload, *len valid until the next call; 0 = nothing yet;

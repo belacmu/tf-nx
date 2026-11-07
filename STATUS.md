@@ -240,6 +240,13 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- TF.NX's updater from its GitHub releases (2026-11-07, docs/PLAN-UPDATER-2026-11-07.md): TF.EX's update flow translated (its
+  NETPLAY check, StartUpdate, UpdaterDialog) over program/tfnxupdate.cpp (check, HTTPS download, zip unpack, journalled install).
+  Emulator: tools/update-test.sh PASS (a test server answering as GitHub). On a console WITHOUT sd:/xplay/devserver.txt (with it the
+  updater is off: `[update] dev server set ...: GitHub updates off`): `[update] TF.NX <v>, updates from https://github.com/belacmu/tf-nx/releases`
+  and `[update] check: TF.NX <v> runs, the latest release is <v> (up to date)` (a real TLS request to github.com: the first one from the
+  console). OPTIONS: `TF.NX <v>` under TF.EX's AUTO UPDATE, state UP TO DATE. A real update needs a release named TF.NX-v<version>.zip
+  with xplay/tfnx/meta.json (tools/release.sh makes both).
 - The archer-select crash's cause (2026-11-06, found in the emulator with the new throw log): switching a portrait to a mod archer
   with its own menu gem (@Gem..._MENU: CRIMSON CO-STAR after BLIND PRINCE on the console) threw KeyNotFoundException (FortRise's
   translated sprite registry wrote "System.String" as the texture). Fixed in the translator. Proof: an AI or a player scrolls through
