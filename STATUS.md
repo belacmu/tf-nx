@@ -54,6 +54,24 @@ loaded, the browser's 11, as on a modded PC). The browser runs the official rele
   history fetched into the outer repo when a worktree's vendor/tfex was uninitialized (2026-11-02: a stray branch, deleted).
   tools/re/rawdump.tgz (memory dumps for statepins.py) to look at before going public.
 
+## Fix queue (the user, 2026-11-07; the slowdown first)
+- **Slowdown in 8-player local Teams+ matches with 7 AIs (critical).** Being worked on. Local matches had no timing in the log (the
+  timing split counts only while player 1 is alive). Since 2026-11-07 a local match logs `[perf] local match, 8 players, window N`
+  every 600 drawn frames (fps, the game's speed against real time, ms by part: Level.Update, the AIs' decisions, team outlines, draw)
+  and `[perf]   N% of M samples in updates:` (the main thread's most sampled stacks; symbolize with the build's ELF). Emulator, 1
+  player + 7 AIs, Teams+: 60 fps, the game at 100% speed, no slowdown; the first 10 s of a round 15 ms a frame in Level.Update
+  (the AIs 0.3 ms), most samples in LightingLayer.RenderLightCanvas (the game's own, as on the PC; a GPU wait there), 3.4 ms after.
+  Waiting for the console's numbers. The Switch's team outlines (12 ms of a frame in the emulator, a GPU wait too) are off in Teams+.
+- Teams+ colours: 7 AIs Solo, the player on yellow: every archer had a blue outline (Solo and yellow), and the player's mod archer
+  (Kirby) was coloured yellow. The outlines: the Switch game's own two-team outline layer (PC: none; Teams+ dropped outlines by
+  request, vendor/teamplus STATUS.md), off in Teams+ matches since 2026-11-07 (`[np] a Teams+ match: the Switch's team outlines not
+  drawn`). The Kirby colour is still open.
+- The right stick changes an AI's Teams+ team (the AIs can't change team now).
+- The AI cursor's label ("R NEXT: JIMMY") under the portrait instead of above it.
+- Changing one AI's archer changed other AIs' archers (4 players): the game moves a slot that isn't joined off an archer someone joins
+  on (RollcallElement.EnforceCharacterLock), so those AIs had never joined. Fixed 2026-11-07 (an AI confirms again until joined);
+  console proof: no `[aislot] ... not joined after its confirm` past a few, no ERROR.
+
 ## Open bugs
 Switch:
 - **Team-mode tick cost: fixed 2026-11-02 (095c02a8: the Switch game's own TeamOutlinesLayer drawn once per frame, not in every tick), waits for a console run (the check below).** Was: the road to EIGHT players online: the Switch's per-tick cost with 3 players doesn't fit 240 Hz (console
@@ -215,7 +233,7 @@ Each line is the log line that proves it (published builds only; boot the build 
   with its own menu gem (@Gem..._MENU: CRIMSON CO-STAR after BLIND PRINCE on the console) threw KeyNotFoundException (FortRise's
   translated sprite registry wrote "System.String" as the texture). Fixed in the translator. Proof: an AI or a player scrolls through
   the SSB archers on archer select with no `[throw]` line; a round with one plays. WiderSet's 8-slot look (two rows of four, P1-P8,
-  60 x 60 portraits, icons above them) and the 8 labels: `[8player] label ... "SUPPORTS UP TO 8 ARCHERS"`, `[8player] roll call
+  60 x 60 portraits; since 2026-11-07 no P labels, each input's icon and name drawn in front of its portrait: `[8player] roll call: input icons drawn in front of the portraits`) and the 8 labels: `[8player] label ... "SUPPORTS UP TO 8 ARCHERS"`, `[8player] roll call
   portraits: WiderSet's 60 x 60 crop`.
 - Archer-select crash with the AI controls (console 2026-11-06 21:31, build 290915b9): a managed exception in the game's
   RollcallElement.EnterJoined (an AI slot confirming after a NOVA -> JIMMY swap on slot 6, WIDE, 29 archers), rethrown from its foreach

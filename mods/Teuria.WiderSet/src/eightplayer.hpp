@@ -1195,27 +1195,61 @@ static void SetControlIconPos(bool eight) {
     float* pos = *reinterpret_cast<float**>(base + 0x4795ec0);
     if (!pos) return;
     pos[0] = eight ? -15.0f : 0.0f;
-    pos[1] = eight ? -45.0f : 90.0f;   /* (WiderSet's -30 puts them on the portrait's top edge; the Switch draws them before the
-                                           portrait, which covered half of each: the user, 2026-11-06. -45: above it, beside the P label) */
+    pos[1] = eight ? -30.0f : 90.0f;   /* WiderSet's: on the portrait's top edge (RollcallIconsHook draws them in front of it) */
     /* the Switch's own costume prompt (R / ?: no PC counterpart), its static (22, 45) at GOT +0x4795ed0, read in Render: up 30 with the
      * arrows and the gem, inside the 60 x 60 portrait */
     float* alt = *reinterpret_cast<float**>(base + 0x4795ed0);
     if (alt) alt[1] = eight ? 15.0f : 45.0f;
 }
-/* WiderSet's RollcallElement.Render prefix: "P1".."P8" over each slot in the player's colour */
-HOOK_DEFINE_TRAMPOLINE(RollcallLabelHook) {
+/* The 8-slot roll call's input icon, its name and the GameCube badge in front of the portraits. The Switch's RollcallElement.Render draws
+ * them (at Position + ControlIconPos + the shake +0x108) before base.Render draws the portrait, which on the small grid covers them
+ * (the user, 2026-11-07). Here the game's draw goes off screen (ControlIconPos moved for the call) and the same three draws follow
+ * base.Render, as the game makes them. */
+HOOK_DEFINE_TRAMPOLINE(RollcallIconsHook) {
     static void Callback(void* self) {
-        if (self && EightRollcall()) {
-            using namespace tfex::gen;
-            int pi = Fld<int32_t>(self, bind::f_RollcallElement_playerIndex);
-            char t[4] = {'P', (char)('1' + pi), 0, 0};
-            Vector2 at = Fld<Vector2>(self, bind::f_Entity_Position);
-            at.X += 15.0f; at.Y -= 40.0f;
-            Color c = Fn<Color (*)(int32_t, int32_t)>(bind::m_ArcherData_GetColorA_bcbe)(pi, -1);
-            void* font = (Cctor(bind::c_TFGame), Fn<void* (*)()>(bind::m_TFGame_get_Font)());
-            Fn<void (*)(void*, void*, Vector2, Color, float)>(bind::m_Draw_OutlineTextCentered_c8ed)(font, FromAscii(t), at, c, 2.0f);
-        }
+        if (!self || !EightRollcall()) { Orig(self); return; }
+        using namespace tfex::gen;
+        uintptr_t base = exl::util::GetMainModuleInfo().m_Total.m_Start;
+        float* icon = *reinterpret_cast<float**>(base + 0x4795ec0);   /* RollcallElement.ControlIconPos (SetControlIconPos) */
+        if (!icon) { Orig(self); return; }
+        float ix = icon[0], iy = icon[1];
+        icon[0] = -100000.0f; icon[1] = -100000.0f;
         Orig(self);
+        icon[0] = ix; icon[1] = iy;
+        void* input = Fld<void*>(self, bind::f_RollcallElement_input);
+        if (!input) return;
+        int pi = Fld<int32_t>(self, bind::f_RollcallElement_playerIndex);
+        int state = Fn<int (*)(void*)>(bind::m_StateMachine_get_State)(Fld<void*>(self, bind::f_RollcallElement_state));
+        uint8_t* e = reinterpret_cast<uint8_t*>(self);
+        Vector2 pos = Fld<Vector2>(self, bind::f_Entity_Position);
+        pos.X += ix + *reinterpret_cast<float*>(e + 0x108);
+        pos.Y += iy + *reinterpret_cast<float*>(e + 0x10c);
+        /* the name, 15 under the icon, in the archer's ColorA (ColorB once joined), black outline */
+        Cctor(bind::c_TFGame);
+        void* chars = *reinterpret_cast<void**>(*reinterpret_cast<void**>(base + 0x4792458));   /* TFGame.Characters */
+        void* archers = Fn<void* (*)()>(bind::m_ArcherData_get_Archers)();
+        int32_t ch = (chars && pi >= 0 && pi < **reinterpret_cast<int32_t**>(reinterpret_cast<uint8_t*>(chars) + 0x20)) ? ArrData<int32_t>(chars)[pi] : -1;
+        void* ad = (archers && ch >= 0 && ch < **reinterpret_cast<int32_t**>(reinterpret_cast<uint8_t*>(archers) + 0x20)) ? ArrData<void*>(archers)[ch] : nullptr;
+        uint32_t black = **reinterpret_cast<uint32_t**>(base + 0x4724b18);   /* Color.Black (the game's get_Black) */
+        if (ad) {
+            uint32_t col = Fld<uint32_t>(ad, state == 1 ? bind::f_ArcherData_ColorB : bind::f_ArcherData_ColorA);
+            void* font = Fn<void* (*)()>(bind::m_TFGame_get_Font)();
+            void* name = Virt<void*>(input, bind::v_PlayerInput_get_Name);
+            Fn<void (*)(void*, void*, Vector2, uint32_t, uint32_t)>(bind::m_Draw_OutlineTextCentered_cf06)(font, name, Vector2{pos.X, pos.Y + 15.0f}, col, black);
+        }
+        Virt<void>(input, 0xd8, pos);   /* the input draws its icon there (Switch-only virtual, the game's call) */
+        /* joined with a GameCube controller: its badge 16 to the right */
+        void* inputs = *reinterpret_cast<void**>(*reinterpret_cast<void**>(base + 0x4791fa8));   /* TFGame.PlayerInputs */
+        if (state == 1 && inputs && pi >= 0 && pi < **reinterpret_cast<int32_t**>(reinterpret_cast<uint8_t*>(inputs) + 0x20)) {
+            void* pin = ArrData<void*>(inputs)[pi];
+            if (pin && reinterpret_cast<uint8_t*>(pin)[0x10]) {
+                void* tex = Fn<void* (*)(void*, void*)>(bind::m_Atlas_get_Item_6538)(Fn<void* (*)()>(bind::m_TFGame_get_MenuAtlas)(),
+                                                                                       **reinterpret_cast<void***>(base + 0x478deb0));   /* "controls/gamecube" */
+                Fn<void (*)(void*, Vector2)>(0x926ee0)(tex, Vector2{pos.X + 16.0f, pos.Y});   /* Draw.TextureCentered(Subtexture, Vector2) */
+            }
+        }
+        static bool said = false;
+        if (!said) { said = true; MMLOG("[8player] roll call: input icons drawn in front of the portraits"); }
     }
 };
 
@@ -1656,7 +1690,7 @@ inline void InstallAll() {
     RollcallSlotFactoryHook::InstallAtOffset(tf8::off::RollcallSlotNew);
     PortraitRenderHook::InstallAtOffset(0x96f350);
     PortraitInitGemHook::InstallAtOffset(tfex::gen::bind::m_ArcherPortrait_InitGem);   /* ArcherPortrait::Render (tools/re callmap) */
-    RollcallLabelHook::InstallAtOffset(tfex::gen::bind::m_RollcallElement_Render);
+    RollcallIconsHook::InstallAtOffset(tfex::gen::bind::m_RollcallElement_Render);
     AssignInputsHook::InstallAtOffset(tf8::off::PlayerInput_AssignInputs);
     TeamsGetItemHook::InstallAtOffset(tf8::off::MatchTeams_get_Item);
     TeamsSetItemHook::InstallAtOffset(tf8::off::MatchTeams_set_Item);

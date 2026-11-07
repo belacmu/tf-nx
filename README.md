@@ -7,6 +7,16 @@ Switch, so PC mod folders work on the console.
 TF.NX is not a rewrite. A translator (`tools/tfex`) turns TF.EX's and FortRise's C# into C++ that runs inside the Switch game, so TF.NX
 follows each TF.EX release.
 
+| | |
+|---|---|
+| ![The main menu with NETPLAY and MODS](docs/img/readme/main-menu.png) | ![Archer select in an online lobby](docs/img/readme/lobby.png) |
+| The main menu: **NETPLAY** for online play, **MODS** for mods | Archer select in an online lobby |
+
+![An online match: the Switch against a player in the browser port](docs/img/readme/match.png)
+
+*An online match between the Switch (right) and a player on the browser port (left). Screenshots are from the Ryujinx emulator,
+which is why the Switch player is named RYUJINX.*
+
 ## What you need
 
 - A Switch running [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere).

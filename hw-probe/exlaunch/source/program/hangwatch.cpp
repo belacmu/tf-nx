@@ -82,9 +82,39 @@ void Stack(const char* name, void* thread, Handle handle, uint32_t seconds) {
     }
 }
 
+/* [perf] profile: in a local match every watchdog tick (50 ms) inside a TFGame.Update samples the main thread's pc, lr and frame chain into
+ * a fixed table of stacks (kProf; the rest counted as "other"); ProfileReport logs the most sampled ones per [perf] window */
+constexpr int kProf = 64, kProfDepth = 20;
+struct ProfEntry { uint64_t a[kProfDepth]; int n, count; };
+ProfEntry g_prof[kProf]; int g_profN = 0, g_profTotal = 0, g_profOther = 0;
+volatile bool g_profOn = false;
+bool ReadMain() {
+    osSuspendThread(g_main);
+    std::memset(&g_ctx, 0, sizeof g_ctx);
+    Result rc = svcGetThreadContext3(&g_ctx, g_mainHandle);
+    osResumeThread(g_main);
+    return rc == 0;
+}
+void ProfSample() {
+    if (!ReadMain()) return;
+    ProfEntry e{}; e.a[e.n++] = g_ctx.pc.x; e.a[e.n++] = g_ctx.lr;
+    uint64_t fp = g_ctx.fp;
+    for (int i = 0; e.n < kProfDepth && fp && !(fp & 7) && fp - g_ctx.sp < 0x100000; i++) {
+        const uint64_t* rec = reinterpret_cast<const uint64_t*>(fp);
+        if (!rec[1]) break;
+        e.a[e.n++] = rec[1];
+        if (rec[0] <= fp) break;
+        fp = rec[0];
+    }
+    g_profTotal++;
+    for (int i = 0; i < g_profN; i++)
+        if (g_prof[i].n == e.n && !std::memcmp(g_prof[i].a + 1, e.a + 1, sizeof(uint64_t) * (e.n - 1))) { g_prof[i].count++; return; }   /* (by the calling chain: lr and the frames; the pc the first one's) */
+    if (g_profN < kProf) { e.count = 1; g_prof[g_profN++] = e; } else g_profOther++;
+}
 /* a TFGame.Update past 100 ms: the main thread's pc, lr and frame chain on one line, every 100 ms while it runs */
 void Sample() {
     const uint64_t at = g_updAt;
+    if (at && g_profOn && osSuspendThread && osResumeThread && g_main && g_mainHandle) ProfSample();
     if (!at || !osSuspendThread || !osResumeThread || !g_main || !g_mainHandle) return;
     const uint64_t now = svcGetSystemTick();
     if (now - at < kSlowTicks || now - g_lastSample < kSlowTicks) return;
@@ -169,6 +199,29 @@ void UpdateEnd() {
     if (slow <= 30 || slow % 50 == 0)
         hw::Log("[slow] TFGame.Update #%d over 100 ms: %.0f ms, the main thread ran %.0f ms of it%s (so far %d slow: %.0f ms, ran %.0f; samples logged %d, not logged %d)",
                 slow, (now - at) / 19200.0, cpu / 19200.0, g_cpuOk ? "" : " (unknown)", slow, wallSum, cpuSum, g_samples, g_unsampled);
+}
+
+void SetProfile(bool on) { g_profOn = on; }
+/* the most sampled stacks since the last report (at most 6 lines, each over 3% of the samples), then reset */
+void ProfileReport(bool log) {
+    const int total = g_profTotal;
+    if (!log || total < 10) { g_profN = g_profTotal = g_profOther = 0; return; }
+    for (int k = 0; k < 6; k++) {
+        int best = -1;
+        for (int i = 0; i < g_profN; i++) if (g_prof[i].count > 0 && (best < 0 || g_prof[i].count > g_prof[best].count)) best = i;
+        if (best < 0 || g_prof[best].count * 100 < total * 3) break;
+        char line[640]; int n = 0;
+        for (int j = 0; j < g_prof[best].n; j++) {
+            const uint64_t a = g_prof[best].a[j];
+            const auto* m = exl::util::TryGetModule(a);
+            const char* name = !m ? "?" : m == &exl::util::GetMainModuleInfo() ? "game" : m == &exl::util::GetSelfModuleInfo() ? "ours" : "sdk";
+            if (n < (int)sizeof line - 40) n += std::snprintf(line + n, sizeof line - n, " %s+%#lx", name, (unsigned long)(a - (m ? m->m_Total.m_Start : 0)));
+        }
+        hw::Log("[perf]   %d%% of %d samples in updates:%s", g_prof[best].count * 100 / total, total, line);
+        g_prof[best].count = -g_prof[best].count;   /* (taken) */
+    }
+    if (g_profOther) hw::Log("[perf]   (%d samples past the %d-stack table)", g_profOther, kProf);
+    g_profN = g_profTotal = g_profOther = 0;
 }
 
 /* the calling thread is reported with the main thread while watched (Unwatch ends it); one at a time */

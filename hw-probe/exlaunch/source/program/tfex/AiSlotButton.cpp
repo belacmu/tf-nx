@@ -13,6 +13,9 @@
  *    then the slot's own input again), right stick up / down changes that AI's archer (left / right on its slot, rejoined);
  *  - L / ZL (SL on a sideways Joy-Con: every controller) is a shortcut that fills, then empties: an AI into the next empty slot until
  *    none is left, then the last AI out each press until none is left, then filling again (the user, 2026-11-06);
+ *  - an AI stays joined: a confirm the game didn't take is made again (the game moves a slot that isn't joined off an archer someone
+ *    joins on, RollcallElement.EnforceCharacterLock: an AI left unjoined changed archer whenever another player's changed, the user
+ *    2026-11-07);
  *  - an AI never confirms an archer someone else has (the game's own CharacterTaken): it moves on first as a player's Right would
  *    (RollcallElement.ChangeSelectionRight: the next archer free and unlocked);
  *  - online none of this: no AI archers in online games (the user, 2026-11-06; TF.EX itself only warns about non-netplay-safe mods).
@@ -22,8 +25,10 @@
 #include "lib.hpp"
 #include "AiSlotButton.hpp"
 #include "../hwlog.hpp"
-/* the public tree has no LoaderAI (no licence to distribute its translation: translate.toml [code_mods] public = false): no AI controls */
-#if !__has_include("gen/tfexgen_La_TFModFortRiseLoaderAIModule.hpp")
+#include "gen/tfexgen_codemods.hpp"
+/* the public tree has no LoaderAI (no licence to distribute its translation: translate.toml [code_mods] public = false): no AI controls.
+ * (TFEX_CODEMOD_LoaderAI, not __has_include: a header the file includes, so make rebuilds this file when the mod list changes) */
+#ifndef TFEX_CODEMOD_LoaderAI
 namespace tfex::gen { template <int N> struct GameVal; }
 namespace tfex::aislot {
 void Install() { hw::Log("[aislot] LoaderAI isn't in this build: no AI players on archer select"); }
@@ -67,6 +72,7 @@ struct Slot {
     void* prev;                 /* the slot's own input before (null, or the controller object of an npad with nothing attached) */
     void* prevType;             /* LoaderAI's player type for the slot before */
     int swapTo;                 /* (Swap) the AI type index it changes to */
+    int retries;                /* confirms again since its last queued one (the AI stays joined: see RollcallUpdate) */
 };
 Slot g_slot[kSlots] = {};
 void* g_elems[kSlots] = {};
@@ -285,12 +291,24 @@ HOOK_DEFINE_TRAMPOLINE(RollcallUpdate) {
             if (s.now == Restore) {   /* the AI out: the slot's own input again (none, or an npad with nothing attached) */
                 SetInputAt(pi, s.prev);
                 la::currentPlayerType()->Set(pi, s.prevType ? s.prevType : kNone.P());
-                s.ai = nullptr; s.prev = nullptr; s.prevType = nullptr; s.n = 0;
+                s.ai = nullptr; s.prev = nullptr; s.prevType = nullptr; s.n = 0; s.retries = 0;
                 TakeInput(self);
             }
         }
         Orig(self);
         s.now = None;
+        /* the AI not joined with nothing queued (its confirm not taken): confirm again, a few times, logged */
+        if (s.ai && s.n == 0 && s.now == None && StateOf(self) == kNotJoined) {
+            if (s.retries < 20) {
+                s.retries++;
+                Queue(pi, {Wait, Confirm});
+                static int said = 0;
+                if (said < 8) { said++; hw::Log("[aislot] slot %d's AI not joined after its confirm: confirming again (%d)", pi + 1, s.retries); }
+            } else if (s.retries == 20) {
+                s.retries++;
+                hw::Log("[aislot] ERROR slot %d's AI: 20 confirms not taken, left unjoined", pi + 1);
+            }
+        } else if (StateOf(self) == kJoined) s.retries = 0;
     }
 };
 /* the cursor: over the highlighted slot what the click does, while a joined player is on a full controller */

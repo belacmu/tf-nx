@@ -11,7 +11,7 @@ static gen::LitN<1> L_0{u""};
 
 /*@M Ledger.NotificationCenterX*/
 float NotificationCenterX(int32_t layerIndex) {
-    return 160.0f + ((layerIndex == 4 ? 50.0f : 0.0f));
+    return 210.0f;
 }
 
 /*@M Ledger.NoCustomArcherId*/

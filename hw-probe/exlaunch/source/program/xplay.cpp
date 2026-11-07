@@ -16,6 +16,7 @@
  * Offsets: TowerFall v1.4.1.6 main, flat-image (module-base-relative).
  */
 
+#include "tfex/gen/tfexgen_Tp_Teams3.hpp"
 #include "xplay_internal.hpp"
 #include "megamod/megamod.hpp"
 #include "tfex/FrModes.hpp"   /* ScoreIndexScope: EndRound's inlined GetScoreIndex */
@@ -35,7 +36,7 @@
 extern "C" double xplay_musl_pow(double, double);
 
 namespace rightstick { void Install(uintptr_t (*findExport)(const char*)); void RecordFullKey(const void* state, uint32_t id); }
-namespace hangwatch { void Install(uintptr_t (*)(const char*)); void Beat(); void UpdateBegin(); void UpdateEnd(); }
+namespace hangwatch { void Install(uintptr_t (*)(const char*)); void Beat(); void UpdateBegin(); void UpdateEnd(); void SetProfile(bool on); void ProfileReport(bool log); }
 namespace gfxmem { void FlushIfLow(); }   /* gfxmem.cpp */
 namespace xplay {
 
@@ -616,6 +617,15 @@ static void SfxLogAfter(int frame) {
     if (++g_sfxSyncs % 1200 == 0) SfxLogStats("periodic");
 }
 
+/* [perf]'s counters (LpFrame, by the Draw hook, explains them) */
+struct LocalPerf { int frames = 0, updates = 0, owed = 0, dropped = 0, outlines = 0; double upd = 0, lv = 0, pre = 0, outline = 0, draw = 0, worst = 0; uint64_t t0 = 0, last = 0; };
+static LocalPerf g_lp;
+static void* g_lpLevel = nullptr;
+static int g_lpWindows = 0;
+static uint64_t g_lpPre0 = 0;
+static bool g_lpLocal = false;   /* this frame's scene is a Level outside a session (FrameShell) */
+static void LpBeforeOrig(tfex::gen::hooks::Level_Update&) { if (g_lpPre0) { g_lp.pre += Ms(svcGetSystemTick() - g_lpPre0); g_lpPre0 = 0; } }
+
 /* Level.Update: TF.EX's LevelPatch (generated hooks, on with every TF.EX patch: the prefix skips the update while awaiting
  * synchronization, sets Engine.TimeMult / DeltaTime / DeltaTicks from Game.TargetElapsedTime (xplay's SessionTimeStep: the session's
  * step), the occasional player indicator; the postfix: deferred notifications, the waiting notification and the match-start warnings,
@@ -680,7 +690,12 @@ static void LevelUpdateShell(tfex::gen::hooks::Level_Update& c) {
     {
         double ignored = 0;
         CostTimer ct(g_resim || nested ? &ignored : &g_fc.tick);   /* (resimulated ticks: in ResimEnd's total; the nested one: in this one) */
-        c();
+        if (!g_npSession && !nested) {   /* [perf]: a local match's Level.Update, its prefixes apart */
+            const uint64_t a = svcGetSystemTick();
+            g_lpPre0 = a; c.beforeOrig_ = &LpBeforeOrig;
+            c();
+            g_lpPre0 = 0; g_lp.lv += Ms(svcGetSystemTick() - a); g_lp.updates++;
+        } else c();
     }
     g_lvDepth--;
     if (!nested) ::gfxmem::FlushIfLow();   /* a long catch-up frame flushes before the extra command memory runs out (gfxmem.cpp) */
@@ -920,27 +935,71 @@ static void DrawnFrame(uint64_t t0, double drawMs) {
     g_lastFrameStart = t0;
     if (g_splitN >= kStatN) ReportStats();
 }
+/* [perf]: a local match's cost (a Level outside a netplay session; the user's 8-player Teams+ match with 7 AIs slowed down, 2026-11-07,
+ * and the timing split above counts only while player 1 is alive). Per window of 600 drawn frames: real time, the game updates run and
+ * owed (FixedStepUpdates: TF.EX's 240 Hz step, at most 8 a frame, the rest dropped: the game then runs slower than real time), and the
+ * frame's time by part: TFGame.Update, of it Level.Update, of that its prefixes (LoaderAI's and AIJimmy's AgentUpdate: every AI's
+ * decision each update) and the team outlines, then Draw. The first 6 windows of a level, then every 10th. */
+static int LpPlayers() {
+    uintptr_t f = *reinterpret_cast<uintptr_t*>(Base() + 0x4793890);   /* TFGame.Players */
+    uintptr_t a = f ? *reinterpret_cast<uintptr_t*>(f) : 0;
+    if (!a) return 0;
+    int n = **reinterpret_cast<int32_t**>(a + 0x20), c = 0;
+    uint8_t* pl = *reinterpret_cast<uint8_t**>(a + 0x10);
+    for (int i = 0; i < n && i < 8; i++) c += pl[i] ? 1 : 0;
+    return c;
+}
+static void LpFrame(void* level, double drawMs) {
+    const uint64_t now = svcGetSystemTick();
+    if (level != g_lpLevel) { g_lpLevel = level; g_lpWindows = 0; g_lp = LocalPerf{}; }
+    if (!g_lp.t0) { g_lp.t0 = now; g_lp.last = now; return; }
+    const double per = Ms(now - g_lp.last); g_lp.last = now;
+    if (per > g_lp.worst) g_lp.worst = per;
+    g_lp.draw += drawMs;
+    if (++g_lp.frames < 600) return;
+    const double wall = Ms(now - g_lp.t0) / 1000.0, f = g_lp.frames;
+    const int64_t step = g_game ? *reinterpret_cast<int64_t*>(reinterpret_cast<uintptr_t>(g_game) + 0x58) : 0;
+    const double gameSecs = step > 0 ? g_lp.updates * (double)step / 1e7 : 0;
+    g_lpWindows++;
+    if (g_lpWindows <= 6 || g_lpWindows % 10 == 0)
+        HWLOG("[perf] local match, %d players, window %d: %d drawn frames in %.1f s (%.1f fps); game updates %d (%.2f a frame; owed %d, dropped %d): the game ran at %.0f%% of real time | ms a frame: TFGame.Update %.2f, of it Level.Update %.2f (its prefixes, the AIs' decisions: %.2f; team outlines %.2f, %.2f draws a frame), draw %.2f; worst frame period %.1f ms",
+              LpPlayers(), g_lpWindows, g_lp.frames, wall, f / wall, g_lp.updates, g_lp.updates / f, g_lp.owed, g_lp.dropped, wall > 0 ? 100.0 * gameSecs / wall : 0.0,
+              g_lp.upd / f, g_lp.lv / f, g_lp.pre / f, g_lp.outline / f, g_lp.outlines / f, g_lp.draw / f, g_lp.worst);
+    hangwatch::ProfileReport(g_lpWindows <= 6 || g_lpWindows % 10 == 0);   /* the window's most sampled stacks (reset either way) */
+    g_lp = LocalPerf{}; g_lp.t0 = now; g_lp.last = now;
+}
 /* TFEX-DIFF S-native: the Switch game's own TeamOutlinesLayer (a team match's layer -1, made by the Switch's Level ctor when
  * MatchSettings.TeamMode; the PC has none) draws each team's players into its two outline render targets from the last call of the
  * Switch's Level.Update (+0xb68c40). Drawing only (render targets, no game state): once a frame at the game's own 60 Hz, but at TF.EX's
  * 240 Hz four times a frame plus once per resimulated tick, ~1.5 ms a tick of a 4-player team match, past 240 Hz's 4.17 ms budget (STATUS:
- * the road to eight players). In a session it runs once per drawn frame, just before Draw, as at 60 Hz. */
+ * the road to eight players). It runs once per drawn frame, just before Draw, as at 60 Hz: in a session, and since 2026-11-07 in a local
+ * match too (TF.EX's 240 Hz step there as well: 4 updates a frame, 8 players' outlines each time). */
 static bool g_outlinesFromDraw = false;
 static int g_outlinesSkipped = 0, g_outlinesDrawn = 0;
 HOOK_DEFINE_TRAMPOLINE(TeamOutlinesHook) {
     static void Callback(void* layer) {
-        if (g_npSession && !g_outlinesFromDraw) { g_outlinesSkipped++; return; }
+        if (!g_outlinesFromDraw) { g_outlinesSkipped++; return; }
+        const uint64_t t0 = svcGetSystemTick();
         Orig(layer);
+        if (!g_npSession) { g_lp.outline += Ms(svcGetSystemTick() - t0); g_lp.outlines++; }
     }
 };
 static void TeamOutlinesBeforeDraw(void* game) {
-    if (!g_npSession) return;
     uintptr_t sc = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(game) + 0xe8);   /* Engine.scene */
     if (!sc) return;
     char tn[32] = ""; rnd::TypeName(reinterpret_cast<void*>(sc), tn, sizeof tn);
     void* layer = std::strcmp(tn, "Level") ? nullptr : *reinterpret_cast<void**>(sc + 0xc8);   /* Level's TeamOutlinesLayer (team mode only) */
     if (!layer) return;
-    if (!g_outlinesDrawn++) HWLOG("[np] the team outlines (the Switch's TeamOutlinesLayer) drawn once per drawn frame, not in each tick's Level.Update");
+    /* TFEX-DIFF S-native: none in a Teams+ match. The PC has no outline layer, and Teams+ marks its groups with recoloured sheets only
+     * (vendor/teamplus STATUS.md "Marking a group": outlines dropped by request). The Switch's layer knows only its two native teams: in
+     * the user's 8-player Teams+ match (7 lone wolves, the user yellow) it drew every archer blue, and it cost the most of any part of a
+     * frame in the emulator (12 ms of ~16, 2026-11-07) */
+    if (tfex::gen::Tp_Teams3::get_Live()) {
+        static int said = 0;
+        if (!said++) HWLOG("[np] a Teams+ match: the Switch's team outlines not drawn (Teams+ marks groups by their colours, as on the PC)");
+        return;
+    }
+    if (!g_outlinesDrawn++) HWLOG("[np] the team outlines (the Switch's TeamOutlinesLayer) drawn once per drawn frame, not in each update's Level.Update (online and local)");
     g_outlinesFromDraw = true;
     TeamOutlinesHook::Callback(layer);
     g_outlinesFromDraw = false;
@@ -952,6 +1011,7 @@ HOOK_DEFINE_TRAMPOLINE(DrawSkipHook) {
         Orig(game, gameTime);
         g_lastDrawMs = Ms(svcGetSystemTick() - t0);
         DrawnFrame(t0, g_lastDrawMs);
+        if (g_lpLocal) LpFrame(*reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(game) + 0xe8), g_lastDrawMs);
     }
 };
 
@@ -1071,7 +1131,8 @@ static int FixedStepUpdates(void* game) {
     if (!owed || !prev) { acc = 0; return 1; }
     acc += (int64_t)((now - prev) * 10000000 / 19200000);   /* (19.2 MHz system ticks to TimeSpan ticks) */
     int n = (int)(acc / step);
-    if (n > 8) { n = 8; acc = 0; } else acc -= (int64_t)n * step;
+    g_lp.owed += n;
+    if (n > 8) { g_lp.dropped += n - 8; n = 8; acc = 0; } else acc -= (int64_t)n * step;
     if (logged < 3 && n != 1) { logged++; HWLOG("[np] a Level outside a session at TF.EX's step (%lld ticks): %d updates this frame (FNA's fixed time step)", (long long)step, n); }
     return n;
 }
@@ -1144,9 +1205,17 @@ static void FrameShell(tfex::gen::hooks::TFGame_Update& c) {
                                                                  * game-thread actions TF.EX's prefix drains next, as on the PC); it makes
                                                                  * TF.EX's MatchmakingService on the first menu frame */
         ScriptFeedFrame();   /* tests: the scripted seats' polled input for this update's first advance */
-        if (g_npSession) hangwatch::UpdateBegin();   /* a match's TFGame.Update past 100 ms: sampled and logged (hangwatch.cpp) */
+        {
+            uintptr_t sc = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(game) + 0xe8);
+            char tn[16] = ""; if (sc && !g_npSession) rnd::TypeName(reinterpret_cast<void*>(sc), tn, sizeof tn);
+            g_lpLocal = !g_npSession && !std::strcmp(tn, "Level");
+        }
+        hangwatch::SetProfile(g_lpLocal);   /* [perf]: a local match's updates sampled (hangwatch.cpp) */
+        if (g_npSession || g_lpLocal) hangwatch::UpdateBegin();   /* a match's TFGame.Update past 100 ms: sampled and logged (hangwatch.cpp) */
+        const uint64_t lpU0 = svcGetSystemTick();
         if (tfex::gen::svc::GenNM() && tfex::gen::svc::GenMM()) { for (int k = FixedStepUpdates(game); k > 0; k--) c(); }
         else c.Orig();
+        if (g_lpLocal) g_lp.upd += Ms(svcGetSystemTick() - lpU0);
         hangwatch::UpdateEnd();
         if (g_npSession) {   /* TF.EX's accumulator: the frame's own advances and resimulations this TFGame.Update ran, every 600th call */
             static int calls = 0; static int own = 0, resims = 0; static double ms = 0;
