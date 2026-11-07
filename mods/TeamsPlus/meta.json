@@ -6,6 +6,12 @@
 	"description": "A third team (Yellow) for team deathmatch, plus lone wolves: the neutral column is a real choice, and a solo archer fights every team at once.",
 	"dll": "TeamsPlus.dll",
 	"priority": "Lowest",
+	"update": {
+		"github": {
+			"repository": "belacmu/tf-teamsplus",
+			"tagRegex": "^v(\\d+\\.\\d+\\.\\d+)$"
+		}
+	},
 	"dependencies": [
 		{
 			"name": "FortRise",

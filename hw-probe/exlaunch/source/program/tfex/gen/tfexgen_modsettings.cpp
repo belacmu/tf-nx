@@ -3,83 +3,9 @@
 #include "tfexgen_code_rt.hpp"
 #include "../Json.hpp"
 #include <cstring>
-#include "tfexgen_Auto_TFModFortRiseAiNovaSettings.hpp"
-#include "tfexgen_Auto_TFModFortRiseGameModeSoccerSettings.hpp"
-#include "tfexgen_Auto_TFModFortRiseVariantMoveOrDieSettings.hpp"
 #include "tfexgen_NetplaySettings.hpp"
 
 namespace tfex::gen::modsettings {
-bool Load_Auto_TFModFortRiseAiNovaSettings(void* obj, const char* text, int len) {
-    if (!obj || !text || len <= 0) return false;
-    static tfex::json::Node nodes[16];
-    tfex::json::Doc d{nodes, (int)(sizeof nodes / sizeof *nodes), 0};
-    if (!d.Parse(text, len) || !d.Root()) return false;
-    const tfex::json::Node* r = d.Root();
-    if (d.Get(r, "candidates")) tfex::gen::Auto_TFModFortRiseAiNovaSettings::set_candidates(obj, (int32_t)d.Int(r, "candidates"));
-    if (d.Get(r, "horizon")) tfex::gen::Auto_TFModFortRiseAiNovaSettings::set_horizon(obj, (int32_t)d.Int(r, "horizon"));
-    if (d.Get(r, "commit")) tfex::gen::Auto_TFModFortRiseAiNovaSettings::set_commit(obj, (int32_t)d.Int(r, "commit"));
-    if (d.Get(r, "range")) tfex::gen::Auto_TFModFortRiseAiNovaSettings::set_range(obj, (int32_t)d.Int(r, "range"));
-    return true;
-}
-int Save_Auto_TFModFortRiseAiNovaSettings(void* obj, char* buf, int cap) {
-    if (!obj) return -1;
-    tfex::json::Writer w;
-    w.Init(buf, cap);
-    w.BeginObject();
-    w.Int("candidates", (int64_t)tfex::gen::Auto_TFModFortRiseAiNovaSettings::get_candidates(obj));
-    w.Int("horizon", (int64_t)tfex::gen::Auto_TFModFortRiseAiNovaSettings::get_horizon(obj));
-    w.Int("commit", (int64_t)tfex::gen::Auto_TFModFortRiseAiNovaSettings::get_commit(obj));
-    w.Int("range", (int64_t)tfex::gen::Auto_TFModFortRiseAiNovaSettings::get_range(obj));
-    w.EndObject();
-    return w.ok && w.len < cap ? w.len : -1;
-}
-
-bool Load_Auto_TFModFortRiseGameModeSoccerSettings(void* obj, const char* text, int len) {
-    if (!obj || !text || len <= 0) return false;
-    static tfex::json::Node nodes[16];
-    tfex::json::Doc d{nodes, (int)(sizeof nodes / sizeof *nodes), 0};
-    if (!d.Parse(text, len) || !d.Root()) return false;
-    const tfex::json::Node* r = d.Root();
-    if (d.Get(r, "field")) tfex::gen::Auto_TFModFortRiseGameModeSoccerSettings::set_field(obj, d.Bool(r, "field"));
-    if (d.Get(r, "flat")) tfex::gen::Auto_TFModFortRiseGameModeSoccerSettings::set_flat(obj, d.Bool(r, "flat"));
-    if (d.Get(r, "preciseAim")) tfex::gen::Auto_TFModFortRiseGameModeSoccerSettings::set_preciseAim(obj, d.Bool(r, "preciseAim"));
-    return true;
-}
-int Save_Auto_TFModFortRiseGameModeSoccerSettings(void* obj, char* buf, int cap) {
-    if (!obj) return -1;
-    tfex::json::Writer w;
-    w.Init(buf, cap);
-    w.BeginObject();
-    w.Bool("field", tfex::gen::Auto_TFModFortRiseGameModeSoccerSettings::get_field(obj));
-    w.Bool("flat", tfex::gen::Auto_TFModFortRiseGameModeSoccerSettings::get_flat(obj));
-    w.Bool("preciseAim", tfex::gen::Auto_TFModFortRiseGameModeSoccerSettings::get_preciseAim(obj));
-    w.EndObject();
-    return w.ok && w.len < cap ? w.len : -1;
-}
-
-bool Load_Auto_TFModFortRiseVariantMoveOrDieSettings(void* obj, const char* text, int len) {
-    if (!obj || !text || len <= 0) return false;
-    static tfex::json::Node nodes[16];
-    tfex::json::Doc d{nodes, (int)(sizeof nodes / sizeof *nodes), 0};
-    if (!d.Parse(text, len) || !d.Root()) return false;
-    const tfex::json::Node* r = d.Root();
-    if (d.Get(r, "activated")) tfex::gen::Auto_TFModFortRiseVariantMoveOrDieSettings::set_activated(obj, d.Bool(r, "activated"));
-    if (d.Get(r, "stationaryDeathTime")) tfex::gen::Auto_TFModFortRiseVariantMoveOrDieSettings::set_stationaryDeathTime(obj, (int32_t)d.Int(r, "stationaryDeathTime"));
-    if (d.Get(r, "minSpeed")) tfex::gen::Auto_TFModFortRiseVariantMoveOrDieSettings::set_minSpeed(obj, (int32_t)d.Int(r, "minSpeed"));
-    return true;
-}
-int Save_Auto_TFModFortRiseVariantMoveOrDieSettings(void* obj, char* buf, int cap) {
-    if (!obj) return -1;
-    tfex::json::Writer w;
-    w.Init(buf, cap);
-    w.BeginObject();
-    w.Bool("activated", tfex::gen::Auto_TFModFortRiseVariantMoveOrDieSettings::get_activated(obj));
-    w.Int("stationaryDeathTime", (int64_t)tfex::gen::Auto_TFModFortRiseVariantMoveOrDieSettings::get_stationaryDeathTime(obj));
-    w.Int("minSpeed", (int64_t)tfex::gen::Auto_TFModFortRiseVariantMoveOrDieSettings::get_minSpeed(obj));
-    w.EndObject();
-    return w.ok && w.len < cap ? w.len : -1;
-}
-
 bool Load_NetplaySettings(void* obj, const char* text, int len) {
     if (!obj || !text || len <= 0) return false;
     static tfex::json::Node nodes[28];

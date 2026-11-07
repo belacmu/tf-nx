@@ -509,23 +509,6 @@ struct ArrowCushion_AddArrow {
     static void Wrap(void (*shell)(ArrowCushion_AddArrow&));
 };
 void Orig_ArrowCushion_AddArrow(void* self, void* arrow, float moveIn, bool drawHead);   /* TowerFall.ArrowCushion.AddArrow(TowerFall.Arrow, float, bool): the original under the hook */
-/* TowerFall.ArrowHUD.Render(): MyArrowHUD.Render_patch (prefix) */
-struct ArrowHUD_Render {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(ArrowHUD_Render&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(ArrowHUD_Render&));
-};
-void Orig_ArrowHUD_Render(void* self);   /* TowerFall.ArrowHUD.Render(): the original under the hook */
 /* TowerFall.BGCrystal.Update(): BGCrystalPatch.BGCrystal_Update (prefix) */
 struct BGCrystal_Update {
     void* self;
@@ -1145,7 +1128,7 @@ struct LavaControl_Extend {
     static void Wrap(void (*shell)(LavaControl_Extend&));
 };
 void Orig_LavaControl_Extend(void* self, int32_t ownerIndex);   /* TowerFall.LavaControl.Extend(int): the original under the hook */
-/* TowerFall.Level.Level(TowerFall.Session, System.Xml.XmlElement): LevelPatch.Level_ctor (postfix), MyLevel.ctor_patch (prefix) */
+/* TowerFall.Level.Level(TowerFall.Session, System.Xml.XmlElement): LevelPatch.Level_ctor (postfix) */
 struct Level_ctor {
     void* self;
     void* session;
@@ -1196,7 +1179,7 @@ struct Level_ScreenShake {
     static void Wrap(void (*shell)(Level_ScreenShake&));
 };
 void Orig_Level_ScreenShake(void* self, int32_t frames);   /* TowerFall.Level.ScreenShake(int): the original under the hook */
-/* TowerFall.Level.Update(): LevelPatch.Level_Update__Prefix (prefix), LevelPatch.Level_Update__Postfix (postfix), MyLevel.Update_patch (prefix), MyLevel.Update_patch (prefix) */
+/* TowerFall.Level.Update(): LevelPatch.Level_Update__Prefix (prefix), LevelPatch.Level_Update__Postfix (postfix) */
 struct Level_Update {
     void* self;
     uint64_t x1_;
@@ -2111,7 +2094,7 @@ struct PirateBanner_Update {
     static void Wrap(void (*shell)(PirateBanner_Update&));
 };
 void Orig_PirateBanner_Update(void* self);   /* TowerFall.PirateBanner.Update(): the original under the hook */
-/* TowerFall.Player.Player(int, Microsoft.Xna.Framework.Vector2, TowerFall.Allegiance, TowerFall.Allegiance, TowerFall.PlayerInventory, TowerFall.Player.HatStates, bool, bool, bool): PlayerPatch.Player_Ctor_Prefix (prefix), PlayerPatch.Player_Ctor_Finalizer (finalizer), PlayerStatePatch.Player_ctor (postfix), VisualHooks.PlayerCtor_Postfix (postfix), MyPlayer.ctor_patch (postfix) */
+/* TowerFall.Player.Player(int, Microsoft.Xna.Framework.Vector2, TowerFall.Allegiance, TowerFall.Allegiance, TowerFall.PlayerInventory, TowerFall.Player.HatStates, bool, bool, bool): PlayerPatch.Player_Ctor_Prefix (prefix), PlayerPatch.Player_Ctor_Finalizer (finalizer), PlayerStatePatch.Player_ctor (postfix), VisualHooks.PlayerCtor_Postfix (postfix) */
 struct Player_ctor {
     void* self;
     int32_t playerIndex;
@@ -2147,57 +2130,6 @@ struct Player_Added {
     static void Wrap(void (*shell)(Player_Added&));
 };
 void Orig_Player_Added(void* self);   /* TowerFall.Player.Added(): the original under the hook */
-/* TowerFall.Player.Die(TowerFall.Arrow): MyPlayerDeath.Block_patch (prefix) */
-struct Player_Die_Arrow {
-    void* self;
-    void* arrow;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_Die_Arrow&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_Die_Arrow&));
-};
-/* TowerFall.Player.Die(TowerFall.DeathCause, int, bool, bool): MyPlayerDeath.Die_patch (prefix) */
-struct Player_Die_DeathCause_Int32_Boolean_Boolean {
-    void* self;
-    int32_t deathCause;
-    int32_t killerIndex;
-    bool brambled;
-    bool laser;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_Die_DeathCause_Int32_Boolean_Boolean&) = nullptr;
-    void* result_{};
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_Die_DeathCause_Int32_Boolean_Boolean&));
-};
-/* TowerFall.Player.DoSquish(TowerFall.Solid, Microsoft.Xna.Framework.Vector2): MyPlayerDeath.Block_patch (prefix) */
-struct Player_DoSquish {
-    void* self;
-    void* solid;
-    gen::Vector2 direction;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_DoSquish&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_DoSquish&));
-};
-void Orig_Player_DoSquish(void* self, void* solid, gen::Vector2 direction);   /* TowerFall.Player.DoSquish(TowerFall.Solid, Microsoft.Xna.Framework.Vector2): the original under the hook */
 /* TowerFall.Player.DoWrapRender(): PlayerPatch.Player_DoWrapRender_Prefix (prefix) */
 struct Player_DoWrapRender {
     void* self;
@@ -2249,90 +2181,6 @@ struct Player_HUDRender {
     static void Wrap(void (*shell)(Player_HUDRender&));
 };
 void Orig_Player_HUDRender(void* self, bool wrapped);   /* TowerFall.Player.HUDRender(bool): the original under the hook */
-/* TowerFall.Player.Hurt(TowerFall.DeathCause, Microsoft.Xna.Framework.Vector2, int, Monocle.SFX): MyPlayerDeath.Block_patch (prefix) */
-struct Player_Hurt_DeathCause_Vector2_Int32_SFX {
-    void* self;
-    int32_t cause;
-    gen::Vector2 bounceFrom;
-    int32_t attacker;
-    void* sfx;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_Hurt_DeathCause_Vector2_Int32_SFX&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_Hurt_DeathCause_Vector2_Int32_SFX&));
-};
-/* TowerFall.Player.Hurt(TowerFall.Explosion, Microsoft.Xna.Framework.Vector2): MyPlayerDeath.Block_patch (prefix) */
-struct Player_Hurt_Explosion_Vector2 {
-    void* self;
-    void* explosion;
-    gen::Vector2 normal;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_Hurt_Explosion_Vector2&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_Hurt_Explosion_Vector2&));
-};
-/* TowerFall.Player.Hurt(TowerFall.Lava): MyPlayerDeath.Block_patch (prefix) */
-struct Player_Hurt_Lava {
-    void* self;
-    void* lava;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_Hurt_Lava&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_Hurt_Lava&));
-};
-/* TowerFall.Player.HurtBouncedOn(int): MyPlayerDeath.Block_patch (prefix) */
-struct Player_HurtBouncedOn {
-    void* self;
-    int32_t bouncerIndex;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_HurtBouncedOn&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_HurtBouncedOn&));
-};
-void Orig_Player_HurtBouncedOn(void* self, int32_t bouncerIndex);   /* TowerFall.Player.HurtBouncedOn(int): the original under the hook */
-/* TowerFall.Player.HurtDelayed(TowerFall.Arrow): MyPlayerDeath.Block_patch (prefix) */
-struct Player_HurtDelayed {
-    void* self;
-    void* arrow;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_HurtDelayed&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_HurtDelayed&));
-};
-void Orig_Player_HurtDelayed(void* self, void* arrow);   /* TowerFall.Player.HurtDelayed(TowerFall.Arrow): the original under the hook */
 /* TowerFall.Player.InitHead(): PlayerPatch.Player_InitHead_Prefix (prefix), VisualHooks.InitHead_Postfix (postfix) */
 struct Player_InitHead {
     void* self;
@@ -2367,58 +2215,6 @@ struct Player_LoseHat {
     static void Wrap(void (*shell)(Player_LoseHat&));
 };
 void Orig_Player_LoseHat(void* self, void* arrow, bool updateHead);   /* TowerFall.Player.LoseHat(TowerFall.Arrow, bool): the original under the hook */
-/* TowerFall.Player.NormalUpdate(): FlatPlay.NormalUpdate_prefix (prefix), FlatPlay.NormalUpdate_postfix (postfix) */
-struct Player_NormalUpdate {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_NormalUpdate&) = nullptr;
-    int32_t result_{};
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_NormalUpdate&));
-};
-int32_t Orig_Player_NormalUpdate(void* self);   /* TowerFall.Player.NormalUpdate(): the original under the hook */
-/* TowerFall.Player.PlayerOnPlayer(TowerFall.Player, TowerFall.Player): MyPlayerOnPlayer.PlayerOnPlayer_patch (postfix) */
-struct Player_PlayerOnPlayer {
-    void* a;
-    void* b;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_PlayerOnPlayer&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_PlayerOnPlayer&));
-};
-void Orig_Player_PlayerOnPlayer(void* a, void* b);   /* TowerFall.Player.PlayerOnPlayer(TowerFall.Player, TowerFall.Player): the original under the hook */
-/* TowerFall.Player.ShootArrow(): MyPlayer.ShootArrow_patch (prefix) */
-struct Player_ShootArrow {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(Player_ShootArrow&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(Player_ShootArrow&));
-};
-void Orig_Player_ShootArrow(void* self);   /* TowerFall.Player.ShootArrow(): the original under the hook */
 /* TowerFall.Player.SpawnedInsideSolidCheck(): PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix (prefix) */
 struct Player_SpawnedInsideSolidCheck {
     void* self;
@@ -2436,7 +2232,7 @@ struct Player_SpawnedInsideSolidCheck {
     static void Wrap(void (*shell)(Player_SpawnedInsideSolidCheck&));
 };
 void Orig_Player_SpawnedInsideSolidCheck(void* self);   /* TowerFall.Player.SpawnedInsideSolidCheck(): the original under the hook */
-/* TowerFall.Player.Update(): PlayerPatch.Player_Update_Postfix (postfix), MyPlayer.Update_patch (postfix), MyPlayer.Update (postfix) */
+/* TowerFall.Player.Update(): PlayerPatch.Player_Update_Postfix (postfix) */
 struct Player_Update {
     void* self;
     uint64_t x1_;
@@ -2763,25 +2559,6 @@ struct PlayerInput_AssignInputs {
     static void Wrap(void (*shell)(PlayerInput_AssignInputs&));
 };
 void Orig_PlayerInput_AssignInputs();   /* TowerFall.PlayerInput.AssignInputs(): the original under the hook */
-/* TowerFall.PlayerInput.GetAimDirection(Microsoft.Xna.Framework.Vector2, bool): FlatPlay.GetAimDirection_prefix (prefix) */
-struct PlayerInput_GetAimDirection {
-    gen::Vector2 axis;
-    bool snap;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(PlayerInput_GetAimDirection&) = nullptr;
-    gen::Opt<float> result_{};
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(PlayerInput_GetAimDirection&));
-};
-gen::Opt<float> Orig_PlayerInput_GetAimDirection(gen::Vector2 axis, bool snap);   /* TowerFall.PlayerInput.GetAimDirection(Microsoft.Xna.Framework.Vector2, bool): the original under the hook */
 /* TowerFall.QuestSpawnPortal.QuestSpawnPortal(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2[]): QuestSpawnPortalPatch.QuestSpawnPortal_ctor (postfix) */
 struct QuestSpawnPortal_ctor {
     void* self;
@@ -2871,7 +2648,7 @@ struct ReadyBanner_GetReadyState {
     static void Wrap(void (*shell)(ReadyBanner_GetReadyState&));
 };
 bool Orig_ReadyBanner_GetReadyState(void* self);   /* TowerFall.ReadyBanner.GetReadyState(): the original under the hook */
-/* TowerFall.RollcallElement.RollcallElement(int): RollCallElementPatch.RollcallElement_Ctor_Prefix (prefix), RollCallElementPatch.RollcallElement_Ctor_Finalizer (finalizer), MyRollcallElement.ctor_patch (postfix) */
+/* TowerFall.RollcallElement.RollcallElement(int): RollCallElementPatch.RollcallElement_Ctor_Prefix (prefix), RollCallElementPatch.RollcallElement_Ctor_Finalizer (finalizer) */
 struct RollcallElement_ctor {
     void* self;
     int32_t playerIndex;
@@ -2905,7 +2682,7 @@ struct RollcallElement_EnterJoined {
     static void Wrap(void (*shell)(RollcallElement_EnterJoined&));
 };
 void Orig_RollcallElement_EnterJoined(void* self);   /* TowerFall.RollcallElement.EnterJoined(): the original under the hook */
-/* TowerFall.RollcallElement.ForceStart(): RollCallElementPatch.RollcallElement_ForceStart_Prefix (prefix), MyRollcallElement.ForceStart_patch (prefix) */
+/* TowerFall.RollcallElement.ForceStart(): RollCallElementPatch.RollcallElement_ForceStart_Prefix (prefix) */
 struct RollcallElement_ForceStart {
     void* self;
     uint64_t x1_;
@@ -2957,7 +2734,7 @@ struct RollcallElement_LeaveJoined {
     static void Wrap(void (*shell)(RollcallElement_LeaveJoined&));
 };
 void Orig_RollcallElement_LeaveJoined(void* self);   /* TowerFall.RollcallElement.LeaveJoined(): the original under the hook */
-/* TowerFall.RollcallElement.NotJoinedUpdate(): RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix (prefix), RollCallElementPatch.RollcallElement_NotJoinedUpdate (postfix), MyRollcallElement.NotJoinedUpdate_patch (prefix) */
+/* TowerFall.RollcallElement.NotJoinedUpdate(): RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix (prefix), RollCallElementPatch.RollcallElement_NotJoinedUpdate (postfix) */
 struct RollcallElement_NotJoinedUpdate {
     void* self;
     uint64_t x1_;
@@ -2975,7 +2752,7 @@ struct RollcallElement_NotJoinedUpdate {
     static void Wrap(void (*shell)(RollcallElement_NotJoinedUpdate&));
 };
 int32_t Orig_RollcallElement_NotJoinedUpdate(void* self);   /* TowerFall.RollcallElement.NotJoinedUpdate(): the original under the hook */
-/* TowerFall.RollcallElement.Render(): RollCallElementPatch.RollcallElement_Render (postfix), MyRollcallElement.Render_patch (prefix), MyRollcallElement.Keys_postfix (postfix) */
+/* TowerFall.RollcallElement.Render(): RollCallElementPatch.RollcallElement_Render (postfix) */
 struct RollcallElement_Render {
     void* self;
     uint64_t x1_;
@@ -2992,23 +2769,6 @@ struct RollcallElement_Render {
     static void Wrap(void (*shell)(RollcallElement_Render&));
 };
 void Orig_RollcallElement_Render(void* self);   /* TowerFall.RollcallElement.Render(): the original under the hook */
-/* TowerFall.RollcallElement.StartVersus(): MyRollcallElement.StartVersus_patch (prefix) */
-struct RollcallElement_StartVersus {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(RollcallElement_StartVersus&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(RollcallElement_StartVersus&));
-};
-void Orig_RollcallElement_StartVersus(void* self);   /* TowerFall.RollcallElement.StartVersus(): the original under the hook */
 /* TowerFall.RollcallElement.Update(): RollCallElementPatch.RollcallElement_Update (prefix) */
 struct RollcallElement_Update {
     void* self;
@@ -3441,7 +3201,7 @@ struct TFGame_OnSceneTransition {
     static void Wrap(void (*shell)(TFGame_OnSceneTransition&));
 };
 void Orig_TFGame_OnSceneTransition(void* self);   /* TowerFall.TFGame.OnSceneTransition(): the original under the hook */
-/* TowerFall.TFGame.Update(Microsoft.Xna.Framework.GameTime): TFGamePatch.TFGameUpdate_Patch (prefix), MyTFGame.Update_patch (prefix), MyTFGame.Update_prefix (prefix), MyTFGame.Update_patch_prefix (prefix) */
+/* TowerFall.TFGame.Update(Microsoft.Xna.Framework.GameTime): TFGamePatch.TFGameUpdate_Patch (prefix) */
 struct TFGame_Update {
     void* self;
     void* gameTime;
@@ -3930,23 +3690,6 @@ struct VariantToggle_OnConfirm {
     static void Wrap(void (*shell)(VariantToggle_OnConfirm&));
 };
 void Orig_VariantToggle_OnConfirm(void* self);   /* TowerFall.VariantToggle.OnConfirm(): the original under the hook */
-/* TowerFall.VariantToggle.OnSelect(): MyVariantToggle.OnSelect_patch (postfix) */
-struct VariantToggle_OnSelect {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(VariantToggle_OnSelect&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(VariantToggle_OnSelect&));
-};
-void Orig_VariantToggle_OnSelect(void* self);   /* TowerFall.VariantToggle.OnSelect(): the original under the hook */
 /* TowerFall.VariantToggle.Render(): VariantTogglePatch.VariantToggle_Render (postfix) */
 struct VariantToggle_Render {
     void* self;
@@ -3981,23 +3724,6 @@ struct VariantToggle_ShowPerPlayer {
     static void Wrap(void (*shell)(VariantToggle_ShowPerPlayer&));
 };
 void Orig_VariantToggle_ShowPerPlayer(void* self);   /* TowerFall.VariantToggle.ShowPerPlayer(): the original under the hook */
-/* TowerFall.VariantToggle.Update(): MyVariantToggle.Update_patch (postfix) */
-struct VariantToggle_Update {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(VariantToggle_Update&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(VariantToggle_Update&));
-};
-void Orig_VariantToggle_Update(void* self);   /* TowerFall.VariantToggle.Update(): the original under the hook */
 /* TowerFall.VariantTournament1v1.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
 struct VariantTournament1v1_OnConfirm {
     void* self;
@@ -4154,23 +3880,6 @@ struct VersusLevelSystem_GenLevels {
     static void Wrap(void (*shell)(VersusLevelSystem_GenLevels&));
 };
 void Orig_VersusLevelSystem_GenLevels(void* self, void* matchSettings);   /* TowerFall.VersusLevelSystem.GenLevels(TowerFall.MatchSettings): the original under the hook */
-/* TowerFall.VersusMapButton.OnConfirm(): MyVersusModeButton.MapConfirm_patch (prefix) */
-struct VersusMapButton_OnConfirm {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(VersusMapButton_OnConfirm&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(VersusMapButton_OnConfirm&));
-};
-void Orig_VersusMapButton_OnConfirm(void* self);   /* TowerFall.VersusMapButton.OnConfirm(): the original under the hook */
 /* TowerFall.VersusMatchResults.VersusMatchResults(TowerFall.Session, TowerFall.VersusRoundResults): VersusMatchResultsPatch.VersusMatchResults_ctor_Prefix (prefix), VersusMatchResultsPatch.VersusMatchResults_ctor (postfix) */
 struct VersusMatchResults_ctor {
     void* self;
@@ -4243,24 +3952,7 @@ struct VersusModeButton_GetModeName {
     static void Wrap(void (*shell)(VersusModeButton_GetModeName&));
 };
 void* Orig_VersusModeButton_GetModeName(int32_t mode);   /* TowerFall.VersusModeButton.GetModeName(TowerFall.Modes): the original under the hook */
-/* TowerFall.VersusModeButton.Render(): MyVersusModeButton.Render_patch (postfix) */
-struct VersusModeButton_Render {
-    void* self;
-    uint64_t x1_;
-    uint64_t x2_;
-    uint64_t x3_;
-    uint64_t x4_;
-    uint64_t x5_;
-    uint64_t x6_;
-    uint64_t x7_;
-    bool ran_ = false;
-    void (*beforeOrig_)(VersusModeButton_Render&) = nullptr;
-    void operator()();
-    void Orig();
-    static void Wrap(void (*shell)(VersusModeButton_Render&));
-};
-void Orig_VersusModeButton_Render(void* self);   /* TowerFall.VersusModeButton.Render(): the original under the hook */
-/* TowerFall.VersusModeButton.Update(): VersusModeButtonPatch.VersusModeButton_Update_Prefix (prefix), VersusModeButtonPatch.VersusModeButton_Update_Postfix (postfix), patch_VersusModeButton.Update (replace), MyVersusModeButton.Update_patch (prefix) */
+/* TowerFall.VersusModeButton.Update(): VersusModeButtonPatch.VersusModeButton_Update_Prefix (prefix), VersusModeButtonPatch.VersusModeButton_Update_Postfix (postfix), patch_VersusModeButton.Update (replace) */
 struct VersusModeButton_Update {
     void* self;
     uint64_t x1_;

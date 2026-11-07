@@ -2,15 +2,6 @@
 #pragma once
 
 namespace tfex::gen::modsettings {
-/* TFModFortRiseAiNova.TFModFortRiseAiNovaSettings (4 properties) */
-bool Load_Auto_TFModFortRiseAiNovaSettings(void* obj, const char* text, int len);
-int Save_Auto_TFModFortRiseAiNovaSettings(void* obj, char* buf, int cap);
-/* TFModFortRiseGameModeSoccer.TFModFortRiseGameModeSoccerSettings (3 properties) */
-bool Load_Auto_TFModFortRiseGameModeSoccerSettings(void* obj, const char* text, int len);
-int Save_Auto_TFModFortRiseGameModeSoccerSettings(void* obj, char* buf, int cap);
-/* TFModFortRiseVariantMoveOrDie.TFModFortRiseVariantMoveOrDieSettings (3 properties) */
-bool Load_Auto_TFModFortRiseVariantMoveOrDieSettings(void* obj, const char* text, int len);
-int Save_Auto_TFModFortRiseVariantMoveOrDieSettings(void* obj, char* buf, int cap);
 /* TF.EX.NetplaySettings (10 properties) */
 bool Load_NetplaySettings(void* obj, const char* text, int len);
 int Save_NetplaySettings(void* obj, char* buf, int cap);

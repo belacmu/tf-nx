@@ -50,16 +50,13 @@ constexpr uintptr_t c_TFGame = 0x2812bc4;   /* TowerFall.TFGame */
 constexpr uintptr_t c_Texture2D = 0x0;   /* Microsoft.Xna.Framework.Graphics.Texture2D */
 constexpr uintptr_t c_Tween = 0x26d7c84;   /* Monocle.Tween */
 constexpr uintptr_t c_Variant = 0x0;   /* TowerFall.Variant */
-constexpr uintptr_t c_VariantItem = 0x282d9b4;   /* TowerFall.VariantItem */
 constexpr uintptr_t c_VersusAwards = 0x0;   /* TowerFall.VersusAwards */
 constexpr uintptr_t c_VersusCoinButton = 0x283b508;   /* TowerFall.VersusCoinButton */
 constexpr uintptr_t c_VersusModeButton = 0x0;   /* TowerFall.VersusModeButton */
 constexpr uintptr_t c_Wiggler = 0x26da228;   /* Monocle.Wiggler */
 constexpr uintptr_t c_WrapMath = 0x285290c;   /* TowerFall.WrapMath */
-constexpr uintptr_t d_Actor = 0x46f8150;   /* TowerFall.Actor */
 constexpr uintptr_t d_BorderButton = 0x46fcfb8;   /* TowerFall.BorderButton */
 constexpr uintptr_t d_Entity = 0x46f6470;   /* Monocle.Entity */
-constexpr uintptr_t d_KeyboardInput = 0x470bfd0;   /* TowerFall.KeyboardInput */
 constexpr uintptr_t d_MainMenu = 0x470eaa8;   /* TowerFall.MainMenu */
 constexpr uintptr_t d_MainModeButton = 0x470f098;   /* TowerFall.MainModeButton */
 constexpr uintptr_t d_MenuItem = 0x4710490;   /* TowerFall.MenuItem */
@@ -373,12 +370,6 @@ constexpr uint32_t f_InputState_ShootPressed = 0x3;   /* TowerFall.InputState.Sh
 constexpr uint32_t f_JumpPad_images = 0xf8;   /* TowerFall.JumpPad.images */
 constexpr uint32_t f_JumpPad_on = 0x100;   /* TowerFall.JumpPad.on */
 constexpr uint32_t f_JumpThru_counter = 0xe0;   /* TowerFall.JumpThru.counter */
-constexpr uint32_t f_KeyboardConfig_Dodge = 0x48;   /* TowerFall.KeyboardConfig.Dodge */
-constexpr uint32_t f_KeyboardConfig_Down = 0x28;   /* TowerFall.KeyboardConfig.Down */
-constexpr uint32_t f_KeyboardConfig_Left = 0x10;   /* TowerFall.KeyboardConfig.Left */
-constexpr uint32_t f_KeyboardConfig_Right = 0x18;   /* TowerFall.KeyboardConfig.Right */
-constexpr uint32_t f_KeyboardConfig_Up = 0x20;   /* TowerFall.KeyboardConfig.Up */
-constexpr uint32_t f_KeyboardInput_Config = 0x18;   /* TowerFall.KeyboardInput.Config */
 constexpr uint32_t f_KillStats_ArrowKills = 0x70;   /* TowerFall.KillStats.ArrowKills */
 constexpr uint32_t f_KillStats_Blue = 0x28;   /* TowerFall.KillStats.Blue */
 constexpr uint32_t f_KillStats_BramblesKills = 0x88;   /* TowerFall.KillStats.BramblesKills */
@@ -431,7 +422,6 @@ constexpr uint32_t f_LevelEntity_Allegiance = 0x70;   /* TowerFall.LevelEntity.A
 constexpr uint32_t f_LevelEntity_LightAlpha = 0xa8;   /* TowerFall.LevelEntity.LightAlpha */
 constexpr uint32_t f_LevelEntity_LightColor = 0xac;   /* TowerFall.LevelEntity.LightColor */
 constexpr uint32_t f_LevelEntity_LightVisible = 0xa0;   /* TowerFall.LevelEntity.LightVisible */
-constexpr uint32_t f_LevelEntity_ScreenWrap = 0xb0;   /* TowerFall.LevelEntity.ScreenWrap */
 constexpr uint32_t f_LevelEntity_Seek = 0x88;   /* TowerFall.LevelEntity.Seek */
 constexpr uint32_t f_LevelEntity_TargetCollider = 0x98;   /* TowerFall.LevelEntity.TargetCollider */
 constexpr uint32_t f_LevelEntity_flashCounter = 0xc8;   /* TowerFall.LevelEntity.flashCounter */
@@ -742,7 +732,6 @@ constexpr uint32_t f_Player_HasSpeedBoots = 0x370;   /* TowerFall.Player.HasSpee
 constexpr uint32_t f_Player_InvisOpacity = 0x344;   /* TowerFall.Player.InvisOpacity */
 constexpr uint32_t f_Player_Invisible = 0x340;   /* TowerFall.Player.Invisible */
 constexpr uint32_t f_Player_Speed = 0x2c8;   /* TowerFall.Player.Speed */
-constexpr uint32_t f_Player_aimer = 0x230;   /* TowerFall.Player.aimer */
 constexpr uint32_t f_Player_aiming = 0x179;   /* TowerFall.Player.aiming */
 constexpr uint32_t f_Player_arrowRegenCounter = 0x1e8;   /* TowerFall.Player.arrowRegenCounter */
 constexpr uint32_t f_Player_autoBounce = 0x2ec;   /* TowerFall.Player.autoBounce */
@@ -768,13 +757,11 @@ constexpr uint32_t f_Player_flapGravity = 0x2e4;   /* TowerFall.Player.flapGravi
 constexpr uint32_t f_Player_graceLedgeDir = 0x2f0;   /* TowerFall.Player.graceLedgeDir */
 constexpr uint32_t f_Player_headBackSprite = 0x210;   /* TowerFall.Player.headBackSprite */
 constexpr uint32_t f_Player_headSprite = 0x208;   /* TowerFall.Player.headSprite */
-constexpr uint32_t f_Player_input = 0x148;   /* TowerFall.Player.input */
 constexpr uint32_t f_Player_jumpBufferCounter = 0x1a8;   /* TowerFall.Player.jumpBufferCounter */
 constexpr uint32_t f_Player_jumpGraceCounter = 0x1a0;   /* TowerFall.Player.jumpGraceCounter */
 constexpr uint32_t f_Player_lastAimDirection = 0x2e8;   /* TowerFall.Player.lastAimDirection */
 constexpr uint32_t f_Player_lastCaught = 0x318;   /* TowerFall.Player.lastCaught */
 constexpr uint32_t f_Player_lastPlatform = 0x2d0;   /* TowerFall.Player.lastPlatform */
-constexpr uint32_t f_Player_moveAxis = 0x170;   /* TowerFall.Player.moveAxis */
 constexpr uint32_t f_Player_normalHitbox = 0x280;   /* TowerFall.Player.normalHitbox */
 constexpr uint32_t f_Player_scheduler = 0x168;   /* TowerFall.Player.scheduler */
 constexpr uint32_t f_Player_shield = 0x220;   /* TowerFall.Player.shield */
@@ -874,7 +861,6 @@ constexpr uint32_t f_Solid_OnlyPlayerIndex = 0xec;   /* TowerFall.Solid.OnlyPlay
 constexpr uint32_t f_Solid_SquisherIndex = 0xe8;   /* TowerFall.Solid.SquisherIndex */
 constexpr uint32_t f_Solid_counter = 0xe0;   /* TowerFall.Solid.counter */
 constexpr uintptr_t f_Sounds_Characters = 0x488d738;   /* TowerFall.Sounds.Characters */
-constexpr uintptr_t f_Sounds_char_arrowCollide = 0x488d740;   /* TowerFall.Sounds.char_arrowCollide */
 constexpr uintptr_t f_Sounds_en_bombBatSwoop = 0x488dec8;   /* TowerFall.Sounds.en_bombBatSwoop */
 constexpr uint32_t f_Sounds_en_crowDive1 = 0x488df88;   /* TowerFall.Sounds.en_crowDive1 */
 constexpr uint32_t f_Sounds_en_crowDive2 = 0x488df90;   /* TowerFall.Sounds.en_crowDive2 */
@@ -884,19 +870,15 @@ constexpr uint32_t f_Sounds_en_redSlimePreJump = 0x488e030;   /* TowerFall.Sound
 constexpr uint32_t f_Sounds_en_slimeJump = 0x488df48;   /* TowerFall.Sounds.en_slimeJump */
 constexpr uint32_t f_Sounds_en_superBombBatSwoop = 0x488e0a0;   /* TowerFall.Sounds.en_superBombBatSwoop */
 constexpr uint32_t f_Sounds_en_technoMageFire = 0x488e0b8;   /* TowerFall.Sounds.en_technoMageFire */
-constexpr uintptr_t f_Sounds_env_ballTouchJump = 0x488d7e8;   /* TowerFall.Sounds.env_ballTouchJump */
 constexpr uintptr_t f_Sounds_env_crusherDetect = 0x488d8f0;   /* TowerFall.Sounds.env_crusherDetect */
 constexpr uintptr_t f_Sounds_env_crusherRise = 0x488d900;   /* TowerFall.Sounds.env_crusherRise */
 constexpr uintptr_t f_Sounds_env_crusherSlam = 0x488d8f8;   /* TowerFall.Sounds.env_crusherSlam */
-constexpr uintptr_t f_Sounds_env_gplatPlayerJump = 0x488d930;   /* TowerFall.Sounds.env_gplatPlayerJump */
 constexpr uintptr_t f_Sounds_pu_brambleGrow = 0x488d978;   /* TowerFall.Sounds.pu_brambleGrow */
-constexpr uintptr_t f_Sounds_pu_coin = 0x488d988;   /* TowerFall.Sounds.pu_coin */
 constexpr uintptr_t f_Sounds_pu_wing = 0x488d9e0;   /* TowerFall.Sounds.pu_wing */
 constexpr uintptr_t f_Sounds_pu_wingFly = 0x488d9e8;   /* TowerFall.Sounds.pu_wingFly */
 constexpr uintptr_t f_Sounds_sfx_bottomlessTreasure = 0x488dc58;   /* TowerFall.Sounds.sfx_bottomlessTreasure */
 constexpr uintptr_t f_Sounds_sfx_chestAppearBig = 0x488da68;   /* TowerFall.Sounds.sfx_chestAppearBig */
 constexpr uintptr_t f_Sounds_sfx_corpseVanish = 0x488dca0;   /* TowerFall.Sounds.sfx_corpseVanish */
-constexpr uintptr_t f_Sounds_sfx_gemCollect = 0x488dc10;   /* TowerFall.Sounds.sfx_gemCollect */
 constexpr uintptr_t f_Sounds_sfx_icicleTouch = 0x488dbf8;   /* TowerFall.Sounds.sfx_icicleTouch */
 constexpr uintptr_t f_Sounds_ui_altCostumeShift = 0x488dde0;   /* TowerFall.Sounds.ui_altCostumeShift */
 constexpr uintptr_t f_Sounds_ui_click = 0x488dcc8;   /* TowerFall.Sounds.ui_click */
@@ -1001,7 +983,6 @@ constexpr uint32_t f_UnlockData_Ascension = 0x13;   /* TowerFall.UnlockData.Asce
 constexpr uint32_t f_UnlockData_Moonstone = 0x10;   /* TowerFall.UnlockData.Moonstone */
 constexpr uint32_t f_UnlockData_SunkenCity = 0x11;   /* TowerFall.UnlockData.SunkenCity */
 constexpr uint32_t f_UnlockData_TowerForge = 0x12;   /* TowerFall.UnlockData.TowerForge */
-constexpr uintptr_t f_VariantItem_ActiveSelection = 0x488e814;   /* TowerFall.VariantItem.ActiveSelection */
 constexpr uint32_t f_VariantToggle_Variant = 0xf8;   /* TowerFall.VariantToggle.Variant */
 constexpr uint32_t f_Variant_Hidden = 0x41;   /* TowerFall.Variant.Hidden */
 constexpr uint32_t f_Variant_Icon = 0x10;   /* TowerFall.Variant.Icon */
@@ -1055,12 +1036,6 @@ constexpr uintptr_t m_Action_1_f1e2_Invoke_0b43 = 0;   /* UNRESOLVED System.Acti
 /* UNRESOLVED m_Action_1_f1e2_Invoke_0b43: System.Action`1[System.Boolean].Invoke(T): no type System.Action`1[System.Boolean] (a use is a compile error) */
 #endif
 constexpr uintptr_t m_Action_Invoke = 0x17a8a0;   /* System.Action.Invoke */
-constexpr uintptr_t m_Actor_MoveV_5f31 = 0x95be60;   /* TowerFall.Actor.MoveV(float32,System.Action`1<TowerFall.Platform>) */
-constexpr uintptr_t m_Actor_OnSquishDown_18a4 = 0x95ca80;   /* TowerFall.Actor.OnSquishDown(TowerFall.Platform) */
-constexpr uintptr_t m_Actor_OnSquishLeft_18a4 = 0x95ca70;   /* TowerFall.Actor.OnSquishLeft(TowerFall.Platform) */
-constexpr uintptr_t m_Actor_OnSquishRight_18a4 = 0x95ca60;   /* TowerFall.Actor.OnSquishRight(TowerFall.Platform) */
-constexpr uintptr_t m_Actor_OnSquishUp_18a4 = 0x95ca90;   /* TowerFall.Actor.OnSquishUp(TowerFall.Platform) */
-constexpr uintptr_t m_Actor__ctor_1483 = 0x95b3a0;   /* TowerFall.Actor..ctor(Microsoft.Xna.Framework.Vector2) */
 constexpr uintptr_t m_Alarm_Create_3d4b = 0x903620;   /* Monocle.Alarm.Create(Monocle.Alarm+AlarmMode,System.Action,int32,bool) */
 constexpr uintptr_t m_Alarm_Removed = 0x903a10;   /* Monocle.Alarm.Removed */
 constexpr uintptr_t m_Alarm_Set_9a47 = 0x903830;   /* Monocle.Alarm.Set(Monocle.Entity,int32,System.Action,Monocle.Alarm+AlarmMode) */
@@ -1099,7 +1074,6 @@ constexpr uintptr_t m_ArrowCushion_ReleaseArrows_1483 = 0x98a570;   /* TowerFall
 constexpr uintptr_t m_ArrowCushion_RemoveArrows = 0x98a670;   /* TowerFall.ArrowCushion.RemoveArrows */
 constexpr uintptr_t m_ArrowCushion_get_ArrowDatas = 0x989dd0;   /* TowerFall.ArrowCushion.get_ArrowDatas */
 constexpr uintptr_t m_ArrowCushion_get_Count = 0x98a1c0;   /* TowerFall.ArrowCushion.get_Count */
-constexpr uintptr_t m_ArrowHUD_Render = 0x98c1e0;   /* TowerFall.ArrowHUD.Render */
 constexpr uintptr_t m_ArrowList__ctor = 0x98c7c0;   /* TowerFall.ArrowList..ctor */
 constexpr uintptr_t m_ArrowList_get_Arrows = 0x98cb40;   /* TowerFall.ArrowList.get_Arrows */
 constexpr uintptr_t m_ArrowList_get_Count = 0x98d410;   /* TowerFall.ArrowList.get_Count */
@@ -1208,7 +1182,6 @@ constexpr uintptr_t m_Calc_SafeNormalize_1483 = 0x909d50;   /* Monocle.Calc.Safe
 constexpr uintptr_t m_Calc_SafeNormalize_5978 = 0x909e70;   /* Monocle.Calc.SafeNormalize(Microsoft.Xna.Framework.Vector2,float32) */
 constexpr uintptr_t m_Calc_Snap_a894 = 0x90a110;   /* Monocle.Calc.Snap(float32,float32,float32) */
 constexpr uintptr_t m_Camera_get_Matrix = 0x90f3b0;   /* Monocle.Camera.get_Matrix */
-constexpr uintptr_t m_Camera_get_Position = 0x90f450;   /* Monocle.Camera.get_Position */
 constexpr uintptr_t m_Camera_get_Y = 0x90f4d0;   /* Monocle.Camera.get_Y */
 constexpr uintptr_t m_CancellationTokenSource_Dispose = 0x3daa40;   /* System.Threading.CancellationTokenSource.Dispose */
 constexpr uintptr_t m_CancellationTokenSource__ctor = 0x3d9510;   /* System.Threading.CancellationTokenSource..ctor */
@@ -1286,12 +1259,8 @@ constexpr uintptr_t m_Dictionary_2_fbc4_ContainsKey_109a = 0x904ee0;   /* System
 constexpr uintptr_t m_Dictionary_2_fbc4_TryGetValue_b957 = 0x16b0d4c;   /* System.Collections.Generic.Dictionary`2[System.String, Monocle.Subtexture].TryGetValue(TKey,TValue&) */
 constexpr uintptr_t m_Dictionary_2_fbc4__ctor_0 = 0x16af134;   /* System.Collections.Generic.Dictionary`2[System.String, Monocle.Subtexture]..ctor */
 constexpr uintptr_t m_Dictionary_2_fbc4_set_Item_538b = 0x16afc68;   /* System.Collections.Generic.Dictionary`2[System.String, Monocle.Subtexture].set_Item(TKey,TValue) */
-constexpr uintptr_t m_Draw_HollowRect_36b9 = 0x923b00;   /* Monocle.Draw.HollowRect(Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color) */
 constexpr uintptr_t m_Draw_HollowRect_9c33 = 0x923920;   /* Monocle.Draw.HollowRect(float32,float32,float32,float32,Microsoft.Xna.Framework.Color) */
-constexpr uintptr_t m_Draw_Line_7a1b = 0x923210;   /* Monocle.Draw.Line(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color) */
-constexpr uintptr_t m_Draw_Line_e460 = 0x923420;   /* Monocle.Draw.Line(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,float32) */
 constexpr uintptr_t m_Draw_OutlineTextCentered_c8ed = 0x9245a0;   /* Monocle.Draw.OutlineTextCentered(Microsoft.Xna.Framework.Graphics.SpriteFont,string,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,float32) */
-constexpr uintptr_t m_Draw_OutlineTextCentered_cbf5 = 0x925280;   /* Monocle.Draw.OutlineTextCentered(Microsoft.Xna.Framework.Graphics.SpriteFont,string,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,float32) */
 constexpr uintptr_t m_Draw_OutlineTextCentered_cf06 = 0x924c60;   /* Monocle.Draw.OutlineTextCentered(Microsoft.Xna.Framework.Graphics.SpriteFont,string,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color) */
 constexpr uintptr_t m_Draw_OutlineTextJustify_13da = 0x925550;   /* Monocle.Draw.OutlineTextJustify(Microsoft.Xna.Framework.Graphics.SpriteFont,string,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Vector2) */
 constexpr uintptr_t m_Draw_OutlineTextJustify_9a41 = 0x925860;   /* Monocle.Draw.OutlineTextJustify(Microsoft.Xna.Framework.Graphics.SpriteFont,string,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Vector2,float32) */
@@ -1326,7 +1295,6 @@ constexpr uintptr_t m_Enemy_set_KillerIndex_e2bf = 0xa32720;   /* TowerFall.Enem
 constexpr uintptr_t m_Enemy_set_State_e2bf = 0xa32800;   /* TowerFall.Enemy.set_State(int32) */
 constexpr uintptr_t m_Engine_get_Commands = 0x92cc30;   /* Monocle.Engine.get_Commands */
 constexpr uintptr_t m_Engine_get_DeltaTicks = 0x92cbf0;   /* Monocle.Engine.get_DeltaTicks */
-constexpr uintptr_t m_Engine_get_DeltaTime = 0x92cbb0;   /* Monocle.Engine.get_DeltaTime */
 constexpr uintptr_t m_Engine_get_Instance = 0x92cb60;   /* Monocle.Engine.get_Instance */
 constexpr uintptr_t m_Engine_get_PreviousScene = 0x92cc90;   /* Monocle.Engine.get_PreviousScene */
 constexpr uintptr_t m_Engine_get_Scene = 0x92cc50;   /* Monocle.Engine.get_Scene */
@@ -1338,10 +1306,8 @@ constexpr uintptr_t m_Engine_set_Scene_ca3a = 0x92cc60;   /* Monocle.Engine.set_
 constexpr uintptr_t m_Engine_set_TimeMult_7410 = 0x92cb80;   /* Monocle.Engine.set_TimeMult(float32) */
 constexpr uintptr_t m_Entity_Add_0769 = 0x92f9d0;   /* Monocle.Entity.Add(Monocle.Component) */
 constexpr uintptr_t m_Entity_Added = 0x92f0a0;   /* Monocle.Entity.Added */
-constexpr uintptr_t m_Entity_CollideCheck_1483 = 0x930310;   /* Monocle.Entity.CollideCheck(Microsoft.Xna.Framework.Vector2) */
 constexpr uintptr_t m_Entity_CollideCheck_4261 = 0x930340;   /* Monocle.Entity.CollideCheck(Microsoft.Xna.Framework.Rectangle) */
 constexpr uintptr_t m_Entity_CollideCheck_a4ed = 0x9303f0;   /* Monocle.Entity.CollideCheck(Monocle.GameTags,Microsoft.Xna.Framework.Vector2) */
-constexpr uintptr_t m_Entity_CollideFirst_d271 = 0x930930;   /* Monocle.Entity.CollideFirst(Monocle.GameTags) */
 constexpr uintptr_t m_Entity_RemoveSelf = 0x92f960;   /* Monocle.Entity.RemoveSelf */
 constexpr uintptr_t m_Entity_Remove_0769 = 0x92fb70;   /* Monocle.Entity.Remove(Monocle.Component) */
 constexpr uintptr_t m_Entity_Remove_e2bf = 0x92fd20;   /* Monocle.Entity.Remove(int32) */
@@ -1371,7 +1337,6 @@ constexpr uintptr_t m_Entity_set_LayerIndex_e2bf = 0x92dd30;   /* Monocle.Entity
 constexpr uintptr_t m_Entity_set_MarkedForRemoval_953d = 0x92d930;   /* Monocle.Entity.set_MarkedForRemoval(bool) */
 constexpr uintptr_t m_Entity_set_Scene_ca3a = 0x92d8e0;   /* Monocle.Entity.set_Scene(Monocle.Scene) */
 constexpr uintptr_t m_Entity_set_X_7410 = 0x92ddd0;   /* Monocle.Entity.set_X(float32) */
-constexpr uintptr_t m_Entity_set_Y_7410 = 0x92ddf0;   /* Monocle.Entity.set_Y(float32) */
 constexpr uintptr_t m_Exception_ToString = 0x1fb6b0;   /* System.Exception.ToString */
 constexpr uintptr_t m_Explosion_GenSprite_6538 = 0xa3fc20;   /* TowerFall.Explosion.GenSprite(string) */
 constexpr uintptr_t m_Explosion_SpawnSuper_6ac1 = 0xa3e7a0;   /* TowerFall.Explosion.SpawnSuper(TowerFall.Level,Microsoft.Xna.Framework.Vector2,int32,bool) */
@@ -1386,7 +1351,6 @@ constexpr uintptr_t m_FileInfo_get_Name = 0x22ebf0;   /* System.IO.FileInfo.get_
 constexpr uintptr_t m_File_ReadAllText_0 = 0x22c500;   /* System.IO.File.ReadAllText(string) */
 constexpr uintptr_t m_FlashingImage_StartFlashing_ff33 = 0x932810;   /* Monocle.FlashingImage.StartFlashing(int32,Microsoft.Xna.Framework.Color[]) */
 constexpr uintptr_t m_FlashingImage__ctor_b568 = 0x932630;   /* Monocle.FlashingImage..ctor(Monocle.Subtexture,System.Nullable`1<Microsoft.Xna.Framework.Rectangle>) */
-constexpr uintptr_t m_Func_1_21a6_Invoke = 0x23c1d68;   /* System.Func`1[System.Int32].Invoke */
 constexpr uintptr_t m_Func_1_62a6_Invoke = 0x23c03e8;   /* System.Func`1[System.Boolean].Invoke */
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t m_Func_1_6a0a_Invoke = 0;   /* UNRESOLVED System.Func`1[System.Xml.XmlElement].Invoke: no type System.Func`1[System.Xml.XmlElement] */
@@ -1439,17 +1403,10 @@ constexpr uintptr_t m_GraphicsComponent_DrawOutline_e2bf = 0x932cd0;   /* Monocl
 constexpr uintptr_t m_GraphicsComponent_get_FlipX = 0x932a10;   /* Monocle.GraphicsComponent.get_FlipX */
 constexpr uintptr_t m_GraphicsComponent_get_Y = 0x9329f0;   /* Monocle.GraphicsComponent.get_Y */
 constexpr uintptr_t m_GraphicsComponent_set_FlipX_953d = 0x932a20;   /* Monocle.GraphicsComponent.set_FlipX(bool) */
-constexpr uintptr_t m_GraphicsComponent_set_FlipY_953d = 0x932a50;   /* Monocle.GraphicsComponent.set_FlipY(bool) */
 constexpr uintptr_t m_GraphicsComponent_set_X_7410 = 0x9329e0;   /* Monocle.GraphicsComponent.set_X(float32) */
 constexpr uintptr_t m_GraphicsComponent_set_Y_7410 = 0x932a00;   /* Monocle.GraphicsComponent.set_Y(float32) */
 constexpr uintptr_t m_GraphicsResource_get_IsDisposed = 0xba660;   /* Microsoft.Xna.Framework.Graphics.GraphicsResource.get_IsDisposed */
 constexpr uintptr_t m_Grid__ctor_dbb9 = 0x933610;   /* Monocle.Grid..ctor(float32,float32,bool[]) */
-constexpr uintptr_t m_Grid_get_CellHeight = 0x9337a0;   /* Monocle.Grid.get_CellHeight */
-constexpr uintptr_t m_Grid_get_CellWidth = 0x933790;   /* Monocle.Grid.get_CellWidth */
-constexpr uintptr_t m_Grid_get_CellsX = 0x933870;   /* Monocle.Grid.get_CellsX */
-constexpr uintptr_t m_Grid_get_CellsY = 0x933880;   /* Monocle.Grid.get_CellsY */
-constexpr uintptr_t m_Grid_get_Item_c11b = 0x9337b0;   /* Monocle.Grid.get_Item(int32,int32) */
-constexpr uintptr_t m_Grid_set_Item_a0cd = 0x933890;   /* Monocle.Grid.set_Item(int32,int32,bool) */
 constexpr uintptr_t m_HUDFade__ctor = 0xa58870;   /* TowerFall.HUDFade..ctor */
 constexpr uintptr_t m_HUD_Update = 0xa585d0;   /* TowerFall.HUD.Update */
 constexpr uintptr_t m_HUD_set_Level_429b = 0xa58460;   /* TowerFall.HUD.set_Level(TowerFall.Level) */
@@ -1461,7 +1418,6 @@ constexpr uintptr_t m_HashSet_1_0151__ctor_0 = 0x9362e0;   /* System.Collections
 constexpr uintptr_t m_Hat_CreateHat_5aff = 0xa56130;   /* TowerFall.Hat.CreateHat(TowerFall.ArcherData,TowerFall.Allegiance,TowerFall.Player+HatStates,Microsoft.Xna.Framework.Vector2,TowerFall.Arrow,bool,int32) */
 constexpr uintptr_t m_Hat_get_PlayerIndex = 0xa56120;   /* TowerFall.Hat.get_PlayerIndex */
 constexpr uintptr_t m_HeavyPhysicsObject_Update = 0xa57630;   /* TowerFall.HeavyPhysicsObject.Update */
-constexpr uintptr_t m_Hitbox__ctor_2c53 = 0x934aa0;   /* Monocle.Hitbox..ctor(float32,float32,float32,float32) */
 constexpr uintptr_t m_Ice_BuildTiles = 0xa5a1c0;   /* TowerFall.Ice.BuildTiles */
 constexpr uintptr_t m_Ice_Update = 0xa5a8f0;   /* TowerFall.Ice.Update */
 constexpr uintptr_t m_Icicle_Explode = 0xa5b820;   /* TowerFall.Icicle.Explode */
@@ -1474,16 +1430,12 @@ constexpr uintptr_t m_Icicle__ctor_1483 = 0xa5b100;   /* TowerFall.Icicle..ctor(
 constexpr uintptr_t m_Image_SwapSubtexture_b568 = 0x9360e0;   /* Monocle.Image.SwapSubtexture(Monocle.Subtexture,System.Nullable`1<Microsoft.Xna.Framework.Rectangle>) */
 constexpr uintptr_t m_Image__ctor_b568 = 0x935cc0;   /* Monocle.Image..ctor(Monocle.Subtexture,System.Nullable`1<Microsoft.Xna.Framework.Rectangle>) */
 constexpr uintptr_t m_Image_get_Texture = 0x935f90;   /* Monocle.Image.get_Texture */
-constexpr uintptr_t m_KeyboardInput_GetState = 0xa68320;   /* TowerFall.KeyboardInput.GetState */
-constexpr uintptr_t m_KeyboardInput__ctor = 0xa677f0;   /* TowerFall.KeyboardInput..ctor */
-constexpr uintptr_t m_KeyboardInput__ctor_11dc = 0xa67980;   /* TowerFall.KeyboardInput..ctor(TowerFall.KeyboardConfig,int32) */
 constexpr uintptr_t m_Lantern_SceneBegin = 0xa74af0;   /* TowerFall.Lantern.SceneBegin */
 constexpr uintptr_t m_Lantern_Update = 0xa74b20;   /* TowerFall.Lantern.Update */
 constexpr uintptr_t m_LaserArrow_get_Bounced = 0xa75140;   /* TowerFall.LaserArrow.get_Bounced */
 constexpr uintptr_t m_LaserArrow_set_Bounced_e2bf = 0xa75150;   /* TowerFall.LaserArrow.set_Bounced(int32) */
 constexpr uintptr_t m_LastManStandingRoundLogic_OnLevelLoadFinish = 0xa76050;   /* TowerFall.LastManStandingRoundLogic.OnLevelLoadFinish */
 constexpr uintptr_t m_LastManStandingRoundLogic_OnRoundStart = 0xa760e0;   /* TowerFall.LastManStandingRoundLogic.OnRoundStart */
-constexpr uintptr_t m_LastManStandingRoundLogic__ctor_9385 = 0xa75f90;   /* TowerFall.LastManStandingRoundLogic..ctor(TowerFall.Session) */
 constexpr uintptr_t m_LavaControl_Added = 0xa7a2d0;   /* TowerFall.LavaControl.Added */
 constexpr uintptr_t m_LavaControl_Extend_e2bf = 0xa7ae30;   /* TowerFall.LavaControl.Extend(int32) */
 constexpr uintptr_t m_LavaControl__ctor_7672 = 0xa7a170;   /* TowerFall.LavaControl..ctor(TowerFall.LavaControl+LavaMode,int32) */
@@ -1501,7 +1453,6 @@ constexpr uintptr_t m_Layer_UpdateEntityList = 0x9371e0;   /* Monocle.Layer.Upda
 constexpr uintptr_t m_Layer_get_Entities = 0x936b00;   /* Monocle.Layer.get_Entities */
 constexpr uintptr_t m_Layer_get_Index = 0x936ae0;   /* Monocle.Layer.get_Index */
 constexpr uintptr_t m_LevelEntity_CheckForChain = 0xa816b0;   /* TowerFall.LevelEntity.CheckForChain */
-constexpr uintptr_t m_LevelEntity_DoWrapRender = 0xa81690;   /* TowerFall.LevelEntity.DoWrapRender */
 constexpr uintptr_t m_LevelEntity_Flash_a6a0 = 0xa81cb0;   /* TowerFall.LevelEntity.Flash(int32,System.Action) */
 constexpr uintptr_t m_LevelEntity_Render = 0xa81400;   /* TowerFall.LevelEntity.Render */
 constexpr uintptr_t m_LevelEntity_StopFlashing = 0xa81dd0;   /* TowerFall.LevelEntity.StopFlashing */
@@ -1521,12 +1472,6 @@ constexpr uintptr_t m_LevelSystem_set_ShowControls_953d = 0xa97600;   /* TowerFa
 constexpr uintptr_t m_LevelSystem_set_ShowTriggerControls_953d = 0xa97620;   /* TowerFall.LevelSystem.set_ShowTriggerControls(bool) */
 constexpr uintptr_t m_LevelTestRoundLogic_OnLevelLoadFinish = 0xa97c80;   /* TowerFall.LevelTestRoundLogic.OnLevelLoadFinish */
 constexpr uintptr_t m_LevelTiles_LoadTiles_ade8 = 0xa98590;   /* TowerFall.LevelTiles.LoadTiles(Monocle.Tilemap) */
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t m_LevelTiles_ReloadTiles = 0;   /* UNRESOLVED TowerFall.LevelTiles.ReloadTiles: no body on the Switch (inlined or removed) */
-#else
-/* UNRESOLVED m_LevelTiles_ReloadTiles: TowerFall.LevelTiles.ReloadTiles: no body on the Switch (inlined or removed) (a use is a compile error) */
-#endif
-constexpr uintptr_t m_LevelTiles_get_Grid = 0xa98420;   /* TowerFall.LevelTiles.get_Grid */
 constexpr uintptr_t m_Level_EndScreenShake = 0xa7f7e0;   /* TowerFall.Level.EndScreenShake */
 constexpr uintptr_t m_Level_GetPlayerOrCorpse_e2bf = 0xa7fb00;   /* TowerFall.Level.GetPlayerOrCorpse(int32) */
 constexpr uintptr_t m_Level_GetPlayer_e2bf = 0xa7f980;   /* TowerFall.Level.GetPlayer(int32) */
@@ -1649,7 +1594,6 @@ constexpr uintptr_t m_List_1_bb49_get_Count = 0x1c62434;   /* System.Collections
 constexpr uintptr_t m_List_1_bb49_get_Item_e2bf = 0x972140;   /* System.Collections.Generic.List`1[Monocle.Image].get_Item(int32) */
 constexpr uintptr_t m_List_1_bdf1_AddRange_65e2 = 0xa96f50;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2].AddRange(System.Collections.Generic.IEnumerable`1<T>) */
 constexpr uintptr_t m_List_1_bdf1_Add_0b43 = 0x966680;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2].Add(T) */
-constexpr uintptr_t m_List_1_bdf1_Clear = 0x1bf0930;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2].Clear */
 constexpr uintptr_t m_List_1_bdf1_Contains_0b43 = 0x1bf0988;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2].Contains(T) */
 constexpr uintptr_t m_List_1_bdf1_Sort_2 = 0xa11020;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2].Sort(System.Comparison`1<T>) */
 constexpr uintptr_t m_List_1_bdf1__ctor_0 = 0x9665b0;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2]..ctor */
@@ -1667,12 +1611,6 @@ constexpr uintptr_t m_List_1_cabb_Add_0b43 = 0x9aec40;   /* System.Collections.G
 constexpr uintptr_t m_List_1_cabb__ctor_0 = 0x9ae9b0;   /* System.Collections.Generic.List`1[TowerFall.Brambles]..ctor */
 constexpr uintptr_t m_List_1_cabb_get_Count = 0x1f352e0;   /* System.Collections.Generic.List`1[TowerFall.Brambles].get_Count */
 constexpr uintptr_t m_List_1_cabb_get_Item_e2bf = 0x1f352e8;   /* System.Collections.Generic.List`1[TowerFall.Brambles].get_Item(int32) */
-constexpr uintptr_t m_List_1_e922_Add_0b43 = 0xa50260;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point].Add(T) */
-constexpr uintptr_t m_List_1_e922_Insert_b707 = 0x1beb1d8;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point].Insert(int32,T) */
-constexpr uintptr_t m_List_1_e922__ctor_0 = 0xa882f0;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]..ctor */
-constexpr uintptr_t m_List_1_e922__ctor_1 = 0x1bea878;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]..ctor(System.Collections.Generic.IEnumerable`1<T>) */
-constexpr uintptr_t m_List_1_e922_get_Count = 0x1beb11c;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point].get_Count */
-constexpr uintptr_t m_List_1_e922_get_Item_e2bf = 0xa884f0;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point].get_Item(int32) */
 constexpr uintptr_t m_List_1_eb65_Add_0b43 = 0x97a0;   /* System.Collections.Generic.List`1[System.String].Add(T) */
 constexpr uintptr_t m_List_1_eb65_Clear = 0x1e2b1f8;   /* System.Collections.Generic.List`1[System.String].Clear */
 constexpr uintptr_t m_List_1_eb65_Contains_0b43 = 0x1e2b250;   /* System.Collections.Generic.List`1[System.String].Contains(T) */
@@ -1680,7 +1618,6 @@ constexpr uintptr_t m_List_1_eb65_IndexOf_0 = 0x1e2b298;   /* System.Collections
 constexpr uintptr_t m_List_1_eb65_Insert_b707 = 0x1570f0;   /* System.Collections.Generic.List`1[System.String].Insert(int32,T) */
 constexpr uintptr_t m_List_1_eb65_RemoveAt_e2bf = 0x156ff0;   /* System.Collections.Generic.List`1[System.String].RemoveAt(int32) */
 constexpr uintptr_t m_List_1_eb65_Remove_0b43 = 0x1e2b2ac;   /* System.Collections.Generic.List`1[System.String].Remove(T) */
-constexpr uintptr_t m_List_1_eb65_Reverse_0 = 0x1e734e0;   /* System.Collections.Generic.List`1[System.String].Reverse */
 constexpr uintptr_t m_List_1_eb65_ToArray = 0x99e0;   /* System.Collections.Generic.List`1[System.String].ToArray */
 constexpr uintptr_t m_List_1_eb65__ctor_0 = 0x9510;   /* System.Collections.Generic.List`1[System.String]..ctor */
 constexpr uintptr_t m_List_1_eb65__ctor_1 = 0x223b80;   /* System.Collections.Generic.List`1[System.String]..ctor(System.Collections.Generic.IEnumerable`1<T>) */
@@ -1705,9 +1642,7 @@ constexpr uintptr_t m_List_1_f983_Add_0b43 = 0x25cca0;   /* System.Collections.G
 constexpr uintptr_t m_List_1_f983_Clear = 0x1db7f18;   /* System.Collections.Generic.List`1[System.Object].Clear */
 constexpr uintptr_t m_List_1_f983_Contains_0b43 = 0x1db7f70;   /* System.Collections.Generic.List`1[System.Object].Contains(T) */
 constexpr uintptr_t m_List_1_f983_ForEach_e82b = 0x1dfcb88;   /* System.Collections.Generic.List`1[System.Object].ForEach(System.Action`1<T>) */
-constexpr uintptr_t m_List_1_f983_RemoveAt_e2bf = 0x1db80fc;   /* System.Collections.Generic.List`1[System.Object].RemoveAt(int32) */
 constexpr uintptr_t m_List_1_f983_Remove_0b43 = 0x1db80b0;   /* System.Collections.Generic.List`1[System.Object].Remove(T) */
-constexpr uintptr_t m_List_1_f983_Sort_2 = 0x1dfeed8;   /* System.Collections.Generic.List`1[System.Object].Sort(System.Comparison`1<T>) */
 constexpr uintptr_t m_List_1_f983_ToArray = 0x2a5730;   /* System.Collections.Generic.List`1[System.Object].ToArray */
 constexpr uintptr_t m_List_1_f983__ctor_0 = 0x2a5660;   /* System.Collections.Generic.List`1[System.Object]..ctor */
 constexpr uintptr_t m_List_1_f983_get_Count = 0x1db7d9c;   /* System.Collections.Generic.List`1[System.Object].get_Count */
@@ -1787,14 +1722,10 @@ constexpr uintptr_t m_MatchVariants_DisableAll = 0xabec40;   /* TowerFall.MatchV
 constexpr uintptr_t m_MatchVariants_Randomize = 0xabf9c0;   /* TowerFall.MatchVariants.Randomize */
 constexpr uintptr_t m_MatchVariants_TournamentRules = 0xac0960;   /* TowerFall.MatchVariants.TournamentRules */
 constexpr uintptr_t m_MatchVariants__ctor_953d = 0xabcec0;   /* TowerFall.MatchVariants..ctor(bool) */
-constexpr uintptr_t m_Math_Cos_0e47 = 0xad60;   /* System.Math.Cos(float64) */
-constexpr uintptr_t m_Math_Sin_0e47 = 0xad50;   /* System.Math.Sin(float64) */
 constexpr uintptr_t m_MemoryStream__ctor_08e7 = 0x236d10;   /* System.IO.MemoryStream..ctor(uint8[]) */
 constexpr uintptr_t m_MenuButtonGuide_Clear = 0xac6540;   /* TowerFall.MenuButtonGuide.Clear */
 constexpr uintptr_t m_MenuButtonGuide_SetDetails_7aa0 = 0xac6260;   /* TowerFall.MenuButtonGuide.SetDetails(TowerFall.MenuButtonGuide+ButtonModes,string) */
 constexpr uintptr_t m_MenuButtonGuide__ctor_e2bf = 0xac5d40;   /* TowerFall.MenuButtonGuide..ctor(int32) */
-constexpr uintptr_t m_MenuInput_Clear = 0xac8600;   /* TowerFall.MenuInput.Clear */
-constexpr uintptr_t m_MenuInput_Update = 0xac7ff0;   /* TowerFall.MenuInput.Update */
 constexpr uintptr_t m_MenuInput_UpdateInputs = 0xac8df0;   /* TowerFall.MenuInput.UpdateInputs */
 constexpr uintptr_t m_MenuInput_get_Alt = 0xac7060;   /* TowerFall.MenuInput.get_Alt */
 constexpr uintptr_t m_MenuInput_get_Alt2 = 0xac7280;   /* TowerFall.MenuInput.get_Alt2 */
@@ -1808,7 +1739,6 @@ constexpr uintptr_t m_MenuInput_get_Right = 0xac7a70;   /* TowerFall.MenuInput.g
 constexpr uintptr_t m_MenuInput_get_RightCheck = 0xac7ee0;   /* TowerFall.MenuInput.get_RightCheck */
 constexpr uintptr_t m_MenuInput_get_Start = 0xac6e40;   /* TowerFall.MenuInput.get_Start */
 constexpr uintptr_t m_MenuInput_get_Up = 0xac76b0;   /* TowerFall.MenuInput.get_Up */
-constexpr uintptr_t m_MenuItem_Added = 0xac9230;   /* TowerFall.MenuItem.Added */
 constexpr uintptr_t m_MenuItem_Removed = 0xac9360;   /* TowerFall.MenuItem.Removed */
 constexpr uintptr_t m_MenuItem_Update = 0xac9390;   /* TowerFall.MenuItem.Update */
 constexpr uintptr_t m_MenuItem__ctor_1483 = 0xac9080;   /* TowerFall.MenuItem..ctor(Microsoft.Xna.Framework.Vector2) */
@@ -1828,10 +1758,8 @@ constexpr uintptr_t m_Music_PlayImmediate_6538 = 0x941180;   /* Monocle.Music.Pl
 constexpr uintptr_t m_Music_Stop = 0x941240;   /* Monocle.Music.Stop */
 constexpr uintptr_t m_Music_get_MasterVolume = 0x940ca0;   /* Monocle.Music.get_MasterVolume */
 constexpr uintptr_t m_Music_set_MasterVolume_7410 = 0x940cb0;   /* Monocle.Music.set_MasterVolume(float32) */
-constexpr uintptr_t m_Object_GetType = 0xe620;   /* System.Object.GetType */
 constexpr uintptr_t m_Object_MemberwiseClone = 0xe630;   /* System.Object.MemberwiseClone */
 constexpr uintptr_t m_Object_ReferenceEquals_c479 = 0x270130;   /* System.Object.ReferenceEquals(object,object) */
-constexpr uintptr_t m_Object_ToString = 0x270100;   /* System.Object.ToString */
 constexpr uintptr_t m_Object__ctor = 0x26fff0;   /* System.Object..ctor */
 constexpr uintptr_t m_OptionsButton_OnSelect = 0xad8780;   /* TowerFall.OptionsButton.OnSelect */
 constexpr uintptr_t m_OptionsButton_Render = 0xad8010;   /* TowerFall.OptionsButton.Render */
@@ -1917,39 +1845,27 @@ constexpr uintptr_t m_PlayerIndicator_Render = 0xb04f90;   /* TowerFall.PlayerIn
 constexpr uintptr_t m_PlayerIndicator_Update = 0xb04dd0;   /* TowerFall.PlayerIndicator.Update */
 constexpr uintptr_t m_PlayerIndicator__ctor_4031 = 0xb04bf0;   /* TowerFall.PlayerIndicator..ctor(Microsoft.Xna.Framework.Vector2,int32,bool) */
 constexpr uintptr_t m_PlayerInput_AssignInputs = 0xb054b0;   /* TowerFall.PlayerInput.AssignInputs */
-constexpr uintptr_t m_PlayerInput_GetAimDirection_2265 = 0xb053c0;   /* TowerFall.PlayerInput.GetAimDirection(Microsoft.Xna.Framework.Vector2,bool) */
 constexpr uintptr_t m_PlayerInput__ctor = 0xb05240;   /* TowerFall.PlayerInput..ctor */
 constexpr uintptr_t m_PlayerInput_get_MenuConfirmOrStart = 0xb052e0;   /* TowerFall.PlayerInput.get_MenuConfirmOrStart */
 constexpr uintptr_t m_PlayerInput_get_MoveIcon = 0xb05350;   /* TowerFall.PlayerInput.get_MoveIcon */
 constexpr uintptr_t m_PlayerWings_Gain = 0xb06fc0;   /* TowerFall.PlayerWings.Gain */
 constexpr uintptr_t m_Player_Added = 0xaed9d0;   /* TowerFall.Player.Added */
-constexpr uintptr_t m_Player_CanWallJump_d455 = 0xaf1630;   /* TowerFall.Player.CanWallJump(TowerFall.Facing) */
 constexpr uintptr_t m_Player_Die_1d72 = 0xaee3d0;   /* TowerFall.Player.Die(TowerFall.DeathCause,int32,bool,bool) */
-constexpr uintptr_t m_Player_Die_3b10 = 0xaf3450;   /* TowerFall.Player.Die(TowerFall.Arrow) */
-constexpr uintptr_t m_Player_DoSquish_62aa = 0xaf3950;   /* TowerFall.Player.DoSquish(TowerFall.Solid,Microsoft.Xna.Framework.Vector2) */
 constexpr uintptr_t m_Player_DoWrapRender = 0xaf0b50;   /* TowerFall.Player.DoWrapRender */
 constexpr uintptr_t m_Player_DodgeCooldown = 0xaf2760;   /* TowerFall.Player.DodgeCooldown */
 constexpr uintptr_t m_Player_DropArrow = 0xaf2540;   /* TowerFall.Player.DropArrow */
 constexpr uintptr_t m_Player_FinishAutoMove = 0xaf3380;   /* TowerFall.Player.FinishAutoMove */
 constexpr uintptr_t m_Player_HUDRender_953d = 0xaf0ee0;   /* TowerFall.Player.HUDRender(bool) */
-constexpr uintptr_t m_Player_HurtBouncedOn_e2bf = 0xaf6bc0;   /* TowerFall.Player.HurtBouncedOn(int32) */
-constexpr uintptr_t m_Player_HurtDelayed_3b10 = 0xaf5390;   /* TowerFall.Player.HurtDelayed(TowerFall.Arrow) */
 constexpr uintptr_t m_Player_Hurt_a0dc = 0xaf6860;   /* TowerFall.Player.Hurt(TowerFall.DeathCause,Microsoft.Xna.Framework.Vector2,int32,Monocle.SFX) */
-constexpr uintptr_t m_Player_Hurt_a7cd = 0xaf6620;   /* TowerFall.Player.Hurt(TowerFall.Lava) */
-constexpr uintptr_t m_Player_Hurt_e39e = 0xaf46f0;   /* TowerFall.Player.Hurt(TowerFall.Explosion,Microsoft.Xna.Framework.Vector2) */
 constexpr uintptr_t m_Player_InitHead = 0xaeb590;   /* TowerFall.Player.InitHead */
 constexpr uintptr_t m_Player_LoseHat_106c = 0xaf0620;   /* TowerFall.Player.LoseHat(TowerFall.Arrow,bool) */
-constexpr uintptr_t m_Player_NormalUpdate = 0xae81d0;   /* TowerFall.Player.NormalUpdate */
-constexpr uintptr_t m_Player_PlayerOnPlayer_200d = 0xaf7820;   /* TowerFall.Player.PlayerOnPlayer(TowerFall.Player,TowerFall.Player) */
 constexpr uintptr_t m_Player_RemoveIndicator = 0xaef240;   /* TowerFall.Player.RemoveIndicator */
-constexpr uintptr_t m_Player_ShootArrow = 0xaf1c50;   /* TowerFall.Player.ShootArrow */
 constexpr uintptr_t m_Player_SpawnedInsideSolidCheck = 0xaee2c0;   /* TowerFall.Player.SpawnedInsideSolidCheck */
 constexpr uintptr_t m_Player_Unfreeze = 0xaef200;   /* TowerFall.Player.Unfreeze */
 constexpr uintptr_t m_Player_Update = 0xaef280;   /* TowerFall.Player.Update */
 constexpr uintptr_t m_Player_UseDuckingHitbox = 0xaf24d0;   /* TowerFall.Player.UseDuckingHitbox */
 constexpr uintptr_t m_Player_UseNormalHitbox = 0xaf26f0;   /* TowerFall.Player.UseNormalHitbox */
 constexpr uintptr_t m_Player__ctor_0ed9 = 0xae6870;   /* TowerFall.Player..ctor(int32,Microsoft.Xna.Framework.Vector2,TowerFall.Allegiance,TowerFall.Allegiance,TowerFall.PlayerInventory,TowerFall.Player+HatStates,bool,bool,bool) */
-constexpr uintptr_t m_Player_get_AimDirection = 0xaec3f0;   /* TowerFall.Player.get_AimDirection */
 constexpr uintptr_t m_Player_get_Aiming = 0xaec700;   /* TowerFall.Player.get_Aiming */
 constexpr uintptr_t m_Player_get_ArcherData = 0xaeb570;   /* TowerFall.Player.get_ArcherData */
 constexpr uintptr_t m_Player_get_ArrowHUD = 0xaec370;   /* TowerFall.Player.get_ArrowHUD */
@@ -1970,7 +1886,6 @@ constexpr uintptr_t m_Player_get_OnGround = 0xaec350;   /* TowerFall.Player.get_
 constexpr uintptr_t m_Player_get_PlayerIndex = 0xaec100;   /* TowerFall.Player.get_PlayerIndex */
 constexpr uintptr_t m_Player_get_State = 0xaec480;   /* TowerFall.Player.get_State */
 constexpr uintptr_t m_Player_get_TeamColor = 0xaec3c0;   /* TowerFall.Player.get_TeamColor */
-constexpr uintptr_t m_Player_set_Aiming_953d = 0xaec710;   /* TowerFall.Player.set_Aiming(bool) */
 constexpr uintptr_t m_Player_set_Cling_e2bf = 0xaec450;   /* TowerFall.Player.set_Cling(int32) */
 constexpr uintptr_t m_Player_set_Dead_953d = 0xaec3b0;   /* TowerFall.Player.set_Dead(bool) */
 constexpr uintptr_t m_Player_set_DodgeSliding_953d = 0xaec470;   /* TowerFall.Player.set_DodgeSliding(bool) */
@@ -2006,14 +1921,11 @@ constexpr uintptr_t m_Random_NextBytes_08e7 = 0x272230;   /* System.Random.NextB
 constexpr uintptr_t m_Random_NextDouble = 0x272560;   /* System.Random.NextDouble */
 constexpr uintptr_t m_Random_Next_0 = 0x272130;   /* System.Random.Next */
 constexpr uintptr_t m_Random_Next_1 = 0x272040;   /* System.Random.Next(int32) */
-constexpr uintptr_t m_Random_Next_2 = 0x271f40;   /* System.Random.Next(int32,int32) */
 constexpr uintptr_t m_Random_Next_c11b = 0x271f40;   /* System.Random.Next(int32,int32) */
 constexpr uintptr_t m_Random_Next_e2bf = 0x272040;   /* System.Random.Next(int32) */
 constexpr uintptr_t m_Random_Sample = 0x272580;   /* System.Random.Sample */
 constexpr uintptr_t m_Random__ctor_0 = 0x271d00;   /* System.Random..ctor */
 constexpr uintptr_t m_Random__ctor_1 = 0x271e30;   /* System.Random..ctor(int32) */
-constexpr uintptr_t m_ReadOnlyCollection_1_f8a9_get_Count = 0x21ed0a8;   /* System.Collections.ObjectModel.ReadOnlyCollection`1[System.Char].get_Count */
-constexpr uintptr_t m_ReadOnlyCollection_1_f8a9_get_Item_e2bf = 0x21ed144;   /* System.Collections.ObjectModel.ReadOnlyCollection`1[System.Char].get_Item(int32) */
 constexpr uintptr_t m_ReadyBanner_GetReadyState = 0xb2c520;   /* TowerFall.ReadyBanner.GetReadyState */
 constexpr uintptr_t m_ReadyBanner__ctor = 0xb2c120;   /* TowerFall.ReadyBanner..ctor */
 constexpr uintptr_t m_ReplayRecorder_End = 0xb2e7f0;   /* TowerFall.ReplayRecorder.End */
@@ -2024,7 +1936,6 @@ constexpr uintptr_t m_RollcallElement_JoinedUpdate = 0xb335c0;   /* TowerFall.Ro
 constexpr uintptr_t m_RollcallElement_LeaveJoined = 0xb33af0;   /* TowerFall.RollcallElement.LeaveJoined */
 constexpr uintptr_t m_RollcallElement_NotJoinedUpdate = 0xb32a20;   /* TowerFall.RollcallElement.NotJoinedUpdate */
 constexpr uintptr_t m_RollcallElement_Render = 0xb351a0;   /* TowerFall.RollcallElement.Render */
-constexpr uintptr_t m_RollcallElement_StartVersus = 0xb35c90;   /* TowerFall.RollcallElement.StartVersus */
 constexpr uintptr_t m_RollcallElement_Update = 0xb34bd0;   /* TowerFall.RollcallElement.Update */
 constexpr uintptr_t m_RollcallElement__ctor_e2bf = 0xb31f10;   /* TowerFall.RollcallElement..ctor(int32) */
 constexpr uintptr_t m_RollcallElement_get_CharacterIndex = 0xb33c80;   /* TowerFall.RollcallElement.get_CharacterIndex */
@@ -2068,7 +1979,6 @@ constexpr uintptr_t m_SFX_get_Data = 0x94a110;   /* Monocle.SFX.get_Data */
 constexpr uintptr_t m_SFX_get_ObeysMasterPitch = 0x94a120;   /* Monocle.SFX.get_ObeysMasterPitch */
 constexpr uintptr_t m_SaveData_Save = 0xb3c100;   /* TowerFall.SaveData.Save */
 constexpr uintptr_t m_Saver__ctor_83fe = 0xb3c4f0;   /* TowerFall.Saver..ctor(bool,System.Action) */
-constexpr uintptr_t m_Scene_CollideCheck_59d9 = 0x945630;   /* Monocle.Scene.CollideCheck(Microsoft.Xna.Framework.Vector2,Monocle.GameTags) */
 constexpr uintptr_t m_Scene_OnInterval_e2bf = 0x944910;   /* Monocle.Scene.OnInterval(int32) */
 constexpr uintptr_t m_Scene_TagEntityInstant_a88b = 0x945020;   /* Monocle.Scene.TagEntityInstant(Monocle.Entity,Monocle.GameTags) */
 constexpr uintptr_t m_Scene_get_Camera = 0x943c50;   /* Monocle.Scene.get_Camera */
@@ -2137,7 +2047,6 @@ constexpr uintptr_t m_SpriteData_GetSpriteString_6538 = 0x94dd30;   /* Monocle.S
 constexpr uintptr_t m_SpriteData_GetXML_6538 = 0x94d9b0;   /* Monocle.SpriteData.GetXML(string) */
 constexpr uintptr_t m_SpriteData__ctor_b276 = 0x94cb40;   /* Monocle.SpriteData..ctor(string,Monocle.Atlas) */
 constexpr uintptr_t m_SpriteFont_MeasureString_0 = 0xd9590;   /* Microsoft.Xna.Framework.Graphics.SpriteFont.MeasureString(string) */
-constexpr uintptr_t m_SpriteFont_get_Characters = 0xd9040;   /* Microsoft.Xna.Framework.Graphics.SpriteFont.get_Characters */
 constexpr uintptr_t m_Sprite_1_a67a_Add_db10 = 0x1727a10;   /* Monocle.Sprite`1[System.String].Add(T,float32,bool,int32[]) */
 constexpr uintptr_t m_Sprite_1_a67a_Play_19a5 = 0x95d2b0;   /* Monocle.Sprite`1[System.String].Play(T,bool) */
 constexpr uintptr_t m_Sprite_1_a67a_SwapSubtexture_b568 = 0xa59310;   /* Monocle.Sprite`1[System.String].SwapSubtexture(Monocle.Subtexture,System.Nullable`1<Microsoft.Xna.Framework.Rectangle>) */
@@ -2186,11 +2095,6 @@ constexpr uintptr_t m_StringBuilder_Append_1 = 0x3cb690;   /* System.Text.String
 constexpr uintptr_t m_StringBuilder_Append_15 = 0x3cbaf0;   /* System.Text.StringBuilder.Append(char) */
 constexpr uintptr_t m_StringBuilder_ToString_0 = 0x3caec0;   /* System.Text.StringBuilder.ToString */
 constexpr uintptr_t m_StringBuilder__ctor_2 = 0x3ca380;   /* System.Text.StringBuilder..ctor */
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t m_StringBuilder__ctor_e2bf = 0;   /* UNRESOLVED System.Text.StringBuilder..ctor(int32): 58 bodies named System.Text.StringBuilder..ctor, overload -1 of 0: can't pick */
-#else
-/* UNRESOLVED m_StringBuilder__ctor_e2bf: System.Text.StringBuilder..ctor(int32): 58 bodies named System.Text.StringBuilder..ctor, overload -1 of 0: can't pick (a use is a compile error) */
-#endif
 constexpr uintptr_t m_StringBuilder_get_Length = 0x3cac00;   /* System.Text.StringBuilder.get_Length */
 constexpr uintptr_t m_String_Contains_6538 = 0x3b6f80;   /* System.String.Contains(string) */
 constexpr uintptr_t m_String_EndsWith_2 = 0x3b7fd0;   /* System.String.EndsWith(string,System.StringComparison) */
@@ -2203,7 +2107,6 @@ constexpr uintptr_t m_String_StartsWith_1 = 0x3b7b00;   /* System.String.StartsW
 constexpr uintptr_t m_String_Substring_0 = 0x3b27f0;   /* System.String.Substring(int32) */
 constexpr uintptr_t m_String_Substring_1 = 0x3b2660;   /* System.String.Substring(int32,int32) */
 constexpr uintptr_t m_String_ToCharArray_0 = 0x3b0d60;   /* System.String.ToCharArray */
-constexpr uintptr_t m_String_ToString_0 = 0x3b92a0;   /* System.String.ToString */
 constexpr uintptr_t m_Subtexture_GetAbsoluteClipRect_4261 = 0x955810;   /* Monocle.Subtexture.GetAbsoluteClipRect(Microsoft.Xna.Framework.Rectangle) */
 constexpr uintptr_t m_Subtexture__ctor_84c3 = 0x9553b0;   /* Monocle.Subtexture..ctor(Monocle.Texture,Microsoft.Xna.Framework.Rectangle) */
 constexpr uintptr_t m_Subtexture__ctor_ce93 = 0x955560;   /* Monocle.Subtexture..ctor(Monocle.Subtexture,int32,int32,int32,int32) */
@@ -2297,7 +2200,6 @@ constexpr uintptr_t m_Tween_get_Percent = 0x959760;   /* Monocle.Tween.get_Perce
 constexpr uintptr_t m_Tween_set_Duration_e2bf = 0x959730;   /* Monocle.Tween.set_Duration(int32) */
 constexpr uintptr_t m_Tween_set_FramesLeft_7410 = 0x959750;   /* Monocle.Tween.set_FramesLeft(float32) */
 constexpr uintptr_t m_Type_GetField_0 = 0x286880;   /* System.Type.GetField(string) */
-constexpr uintptr_t m_Type_ToString = 0x407110;   /* System.Type.ToString */
 constexpr uintptr_t m_UnlockData_GetArcherUnlocked_e2bf = 0xb9a620;   /* TowerFall.UnlockData.GetArcherUnlocked(int32) */
 constexpr uintptr_t m_UnlockData_get_ShouldOpenPurpleArcherPortal = 0xb99e40;   /* TowerFall.UnlockData.get_ShouldOpenPurpleArcherPortal */
 constexpr uintptr_t m_UnlockData_get_ShouldSelectSunkenCity = 0xb99c50;   /* TowerFall.UnlockData.get_ShouldSelectSunkenCity */
@@ -2311,10 +2213,8 @@ constexpr uintptr_t m_VariantPreset_Render = 0xba2050;   /* TowerFall.VariantPre
 constexpr uintptr_t m_VariantRandomize_OnConfirm = 0xba2370;   /* TowerFall.VariantRandomize.OnConfirm */
 constexpr uintptr_t m_VariantRandomize_Render = 0xba2430;   /* TowerFall.VariantRandomize.Render */
 constexpr uintptr_t m_VariantToggle_OnConfirm = 0xba30e0;   /* TowerFall.VariantToggle.OnConfirm */
-constexpr uintptr_t m_VariantToggle_OnSelect = 0xba3250;   /* TowerFall.VariantToggle.OnSelect */
 constexpr uintptr_t m_VariantToggle_Render = 0xba29b0;   /* TowerFall.VariantToggle.Render */
 constexpr uintptr_t m_VariantToggle_ShowPerPlayer = 0xba2870;   /* TowerFall.VariantToggle.ShowPerPlayer */
-constexpr uintptr_t m_VariantToggle_Update = 0xba26d0;   /* TowerFall.VariantToggle.Update */
 constexpr uintptr_t m_VariantTournament1v1_OnConfirm = 0xba35c0;   /* TowerFall.VariantTournament1v1.OnConfirm */
 constexpr uintptr_t m_VariantTournament1v1_Render = 0xba3680;   /* TowerFall.VariantTournament1v1.Render */
 constexpr uintptr_t m_VariantTournament2v2_OnConfirm = 0xba37c0;   /* TowerFall.VariantTournament2v2.OnConfirm */
@@ -2335,12 +2235,10 @@ constexpr uintptr_t m_VersusCoinButton_Render = 0xbae090;   /* TowerFall.VersusC
 constexpr uintptr_t m_VersusLevelSystem_GenLevels_3ca1 = 0xbae7a0;   /* TowerFall.VersusLevelSystem.GenLevels(TowerFall.MatchSettings) */
 constexpr uintptr_t m_VersusLevelSystem_StartOnLevel_e2bf = 0xbaea20;   /* TowerFall.VersusLevelSystem.StartOnLevel(int32) */
 constexpr uintptr_t m_VersusLevelSystem_get_VersusTowerData = 0xbae780;   /* TowerFall.VersusLevelSystem.get_VersusTowerData */
-constexpr uintptr_t m_VersusMapButton_OnConfirm = 0xbaf0c0;   /* TowerFall.VersusMapButton.OnConfirm */
 constexpr uintptr_t m_VersusMatchResults_TweenIn = 0xbb07f0;   /* TowerFall.VersusMatchResults.TweenIn */
 constexpr uintptr_t m_VersusMatchResults__ctor_7521 = 0xbaf700;   /* TowerFall.VersusMatchResults..ctor(TowerFall.Session,TowerFall.VersusRoundResults) */
 constexpr uintptr_t m_VersusModeButton_GetModeIcon_1c75 = 0xbb1c80;   /* TowerFall.VersusModeButton.GetModeIcon(TowerFall.Modes) */
 constexpr uintptr_t m_VersusModeButton_GetModeName_1c75 = 0xbb1c00;   /* TowerFall.VersusModeButton.GetModeName(TowerFall.Modes) */
-constexpr uintptr_t m_VersusModeButton_Render = 0xbb1f90;   /* TowerFall.VersusModeButton.Render */
 constexpr uintptr_t m_VersusModeButton_Update = 0xbb1df0;   /* TowerFall.VersusModeButton.Update */
 constexpr uintptr_t m_VersusModeButton_UpdateSides = 0xbb1b90;   /* TowerFall.VersusModeButton.UpdateSides */
 constexpr uintptr_t m_VersusModeButton__ctor_f3db = 0xbb1a00;   /* TowerFall.VersusModeButton..ctor(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2) */
@@ -2410,7 +2308,6 @@ constexpr uintptr_t t_Action_1_f1e2 = 0;   /* UNRESOLVED System.Action`1[System.
 /* UNRESOLVED t_Action_1_f1e2: System.Action`1[System.Boolean]: no type System.Action`1[System.Boolean] (a use is a compile error) */
 #endif
 constexpr uintptr_t t_Action_2_a6b6 = 0x6f9a70;   /* System.Action`2[System.Object, System.Object] */
-constexpr uintptr_t t_Actor = 0x8a04b0;   /* TowerFall.Actor */
 constexpr uintptr_t t_Alarm = 0x6efef0;   /* Monocle.Alarm */
 constexpr uintptr_t t_Allegiance_f1ba = 0x8a0630;   /* TowerFall.Allegiance[] */
 constexpr uintptr_t t_ArcherData = 0x8a0f30;   /* TowerFall.ArcherData */
@@ -2449,7 +2346,6 @@ constexpr uintptr_t t_Char_70ca = 0x718170;   /* System.Char[] */
 constexpr uintptr_t t_CharacterSounds = 0x8a6a30;   /* TowerFall.CharacterSounds */
 constexpr uintptr_t t_CharacterSounds_38ce = 0x8a6ab0;   /* TowerFall.CharacterSounds[] */
 constexpr uintptr_t t_CoOpButton = 0x8a6d30;   /* TowerFall.CoOpButton */
-constexpr uintptr_t t_Cobwebs = 0x8a6fb0;   /* TowerFall.Cobwebs */
 constexpr uintptr_t t_Color_1d77 = 0x6d7d70;   /* Microsoft.Xna.Framework.Color[] */
 constexpr uintptr_t t_Comparison_1_1e6c = 0x834330;   /* System.Comparison`1[Monocle.Entity] */
 #ifdef TFEXGEN_COVERAGE
@@ -2457,7 +2353,6 @@ constexpr uintptr_t t_Comparison_1_7066 = 0;   /* UNRESOLVED System.Comparison`1
 #else
 /* UNRESOLVED t_Comparison_1_7066: System.Comparison`1[System.ValueTuple`2[System.Double, System.Object]]: no type System.Comparison`1[System.ValueTuple`2[System.Double, System.Object]] (a use is a compile error) */
 #endif
-constexpr uintptr_t t_Comparison_1_a6d8 = 0x8355b0;   /* System.Comparison`1[System.Object] */
 constexpr uintptr_t t_Comparison_1_e51a = 0x833fb0;   /* System.Comparison`1[Microsoft.Xna.Framework.Vector2] */
 constexpr uintptr_t t_Coroutine = 0x6f0bf0;   /* Monocle.Coroutine */
 constexpr uintptr_t t_Counter = 0x6f0f70;   /* Monocle.Counter */
@@ -2488,7 +2383,6 @@ constexpr uintptr_t t_CustomLevelSystem = 0;   /* UNRESOLVED TowerFall.CustomLev
 /* UNRESOLVED t_CustomLevelSystem: TowerFall.CustomLevelSystem: no type TowerFall.CustomLevelSystem (a use is a compile error) */
 #endif
 constexpr uintptr_t t_DarkPortalsVariantSequence = 0x8ad470;   /* TowerFall.DarkPortalsVariantSequence */
-constexpr uintptr_t t_DarkWorldPortal = 0x8af570;   /* TowerFall.DarkWorldPortal */
 constexpr uintptr_t t_DefaultArrow = 0x8b0670;   /* TowerFall.DefaultArrow */
 constexpr uintptr_t t_DefaultHat = 0x8b06f0;   /* TowerFall.DefaultHat */
 constexpr uintptr_t t_Dictionary_2_01e1 = 0x7350f0;   /* System.Collections.Generic.Dictionary`2[System.Int32, System.Double] */
@@ -2496,11 +2390,6 @@ constexpr uintptr_t t_Dictionary_2_01e1 = 0x7350f0;   /* System.Collections.Gene
 constexpr uintptr_t t_Dictionary_2_0f0b = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.String, Microsoft.Xna.Framework.Audio.SoundEffect]: no type System.Collections.Generic.Dictionary`2[System.String, Microsoft.Xna.Framework.Audio.SoundEffect] */
 #else
 /* UNRESOLVED t_Dictionary_2_0f0b: System.Collections.Generic.Dictionary`2[System.String, Microsoft.Xna.Framework.Audio.SoundEffect]: no type System.Collections.Generic.Dictionary`2[System.String, Microsoft.Xna.Framework.Audio.SoundEffect] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Dictionary_2_159e = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.String, System.Object[]]: no type System.Collections.Generic.Dictionary`2[System.String, System.Object[]] */
-#else
-/* UNRESOLVED t_Dictionary_2_159e: System.Collections.Generic.Dictionary`2[System.String, System.Object[]]: no type System.Collections.Generic.Dictionary`2[System.String, System.Object[]] (a use is a compile error) */
 #endif
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Dictionary_2_170f = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.String, System.Boolean]: no type System.Collections.Generic.Dictionary`2[System.String, System.Boolean] */
@@ -2511,11 +2400,6 @@ constexpr uintptr_t t_Dictionary_2_170f = 0;   /* UNRESOLVED System.Collections.
 constexpr uintptr_t t_Dictionary_2_1bd9 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime] */
 #else
 /* UNRESOLVED t_Dictionary_2_1bd9: System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Dictionary_2_28da = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, System.Single]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Single] */
-#else
-/* UNRESOLVED t_Dictionary_2_28da: System.Collections.Generic.Dictionary`2[System.Int32, System.Single]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Single] (a use is a compile error) */
 #endif
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Dictionary_2_35f7 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, System.Object]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Object] */
@@ -2530,11 +2414,6 @@ constexpr uintptr_t t_Dictionary_2_552e = 0;   /* UNRESOLVED System.Collections.
 /* UNRESOLVED t_Dictionary_2_552e: System.Collections.Generic.Dictionary`2[TowerFall.Variant, System.Boolean]: no type System.Collections.Generic.Dictionary`2[TowerFall.Variant, System.Boolean] (a use is a compile error) */
 #endif
 #ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Dictionary_2_56be = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, TowerFall.PlayerInput]: no type System.Collections.Generic.Dictionary`2[System.Int32, TowerFall.PlayerInput] */
-#else
-/* UNRESOLVED t_Dictionary_2_56be: System.Collections.Generic.Dictionary`2[System.Int32, TowerFall.PlayerInput]: no type System.Collections.Generic.Dictionary`2[System.Int32, TowerFall.PlayerInput] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Dictionary_2_5e24 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[TowerFall.Modes, System.Object]: no type System.Collections.Generic.Dictionary`2[TowerFall.Modes, System.Object] */
 #else
 /* UNRESOLVED t_Dictionary_2_5e24: System.Collections.Generic.Dictionary`2[TowerFall.Modes, System.Object]: no type System.Collections.Generic.Dictionary`2[TowerFall.Modes, System.Object] (a use is a compile error) */
@@ -2543,11 +2422,6 @@ constexpr uintptr_t t_Dictionary_2_5e24 = 0;   /* UNRESOLVED System.Collections.
 constexpr uintptr_t t_Dictionary_2_70f2 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.String, Monocle.SFX]: no type System.Collections.Generic.Dictionary`2[System.String, Monocle.SFX] */
 #else
 /* UNRESOLVED t_Dictionary_2_70f2: System.Collections.Generic.Dictionary`2[System.String, Monocle.SFX]: no type System.Collections.Generic.Dictionary`2[System.String, Monocle.SFX] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Dictionary_2_7ab5 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, Monocle.Image]: no type System.Collections.Generic.Dictionary`2[System.Int32, Monocle.Image] */
-#else
-/* UNRESOLVED t_Dictionary_2_7ab5: System.Collections.Generic.Dictionary`2[System.Int32, Monocle.Image]: no type System.Collections.Generic.Dictionary`2[System.Int32, Monocle.Image] (a use is a compile error) */
 #endif
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Dictionary_2_7e19 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.String, TowerFall.Variant]: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.Variant] */
@@ -2640,7 +2514,6 @@ constexpr uintptr_t t_Func_1_1620 = 0;   /* UNRESOLVED System.Func`1[Monocle.SFX
 #else
 /* UNRESOLVED t_Func_1_1620: System.Func`1[Monocle.SFXLooped]: no type System.Func`1[Monocle.SFXLooped] (a use is a compile error) */
 #endif
-constexpr uintptr_t t_Func_1_21a6 = 0x8448b0;   /* System.Func`1[System.Int32] */
 constexpr uintptr_t t_Func_1_62a6 = 0x844630;   /* System.Func`1[System.Boolean] */
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Func_1_6a0a = 0;   /* UNRESOLVED System.Func`1[System.Xml.XmlElement]: no type System.Func`1[System.Xml.XmlElement] */
@@ -2691,26 +2564,6 @@ constexpr uintptr_t t_Func_2_f2e1 = 0;   /* UNRESOLVED System.Func`2[TowerFall.L
 #else
 /* UNRESOLVED t_Func_2_f2e1: System.Func`2[TowerFall.Level, System.Boolean]: no type System.Func`2[TowerFall.Level, System.Boolean] (a use is a compile error) */
 #endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Func_3_b63b = 0;   /* UNRESOLVED System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Boolean]: no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Boolean] */
-#else
-/* UNRESOLVED t_Func_3_b63b: System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Boolean]: no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Boolean] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Func_3_b9b3 = 0;   /* UNRESOLVED System.Func`3[System.Object, System.Object, System.Object]: no type System.Func`3[System.Object, System.Object, System.Object] */
-#else
-/* UNRESOLVED t_Func_3_b9b3: System.Func`3[System.Object, System.Object, System.Object]: no type System.Func`3[System.Object, System.Object, System.Object] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Func_3_d86f = 0;   /* UNRESOLVED System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]]: no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]] */
-#else
-/* UNRESOLVED t_Func_3_d86f: System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]]: no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Func_4_e660 = 0;   /* UNRESOLVED System.Func`4[System.Object, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, System.Boolean]: no type System.Func`4[System.Object, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, System.Boolean] */
-#else
-/* UNRESOLVED t_Func_4_e660: System.Func`4[System.Object, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, System.Boolean]: no type System.Func`4[System.Object, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, System.Boolean] (a use is a compile error) */
-#endif
 constexpr uintptr_t t_GainPointEvent = 0x8b2870;   /* TowerFall.GainPointEvent */
 constexpr uintptr_t t_GameTags_7179 = 0x6f16f0;   /* Monocle.GameTags[] */
 constexpr uintptr_t t_GemPickup = 0x8b2af0;   /* TowerFall.GemPickup */
@@ -2738,16 +2591,6 @@ constexpr uintptr_t t_HashSet_1_2eb5 = 0;   /* UNRESOLVED System.Collections.Gen
 /* UNRESOLVED t_HashSet_1_2eb5: System.Collections.Generic.HashSet`1[System.Double]: no type System.Collections.Generic.HashSet`1[System.Double] (a use is a compile error) */
 #endif
 #ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_HashSet_1_9cea = 0;   /* UNRESOLVED System.Collections.Generic.HashSet`1[Microsoft.Xna.Framework.Point]: no type System.Collections.Generic.HashSet`1[Microsoft.Xna.Framework.Point] */
-#else
-/* UNRESOLVED t_HashSet_1_9cea: System.Collections.Generic.HashSet`1[Microsoft.Xna.Framework.Point]: no type System.Collections.Generic.HashSet`1[Microsoft.Xna.Framework.Point] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_HashSet_1_cc16 = 0;   /* UNRESOLVED System.Collections.Generic.HashSet`1[System.Char]: no type System.Collections.Generic.HashSet`1[System.Char] */
-#else
-/* UNRESOLVED t_HashSet_1_cc16: System.Collections.Generic.HashSet`1[System.Char]: no type System.Collections.Generic.HashSet`1[System.Char] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_HashSet_1_cd19 = 0;   /* UNRESOLVED System.Collections.Generic.HashSet`1[System.Enum]: no type System.Collections.Generic.HashSet`1[System.Enum] */
 #else
 /* UNRESOLVED t_HashSet_1_cd19: System.Collections.Generic.HashSet`1[System.Enum]: no type System.Collections.Generic.HashSet`1[System.Enum] (a use is a compile error) */
@@ -2771,7 +2614,6 @@ constexpr uintptr_t t_Image_4dc3 = 0x6f1b70;   /* Monocle.Image[] */
 constexpr uintptr_t t_Int32 = 0xbd74c0;   /* System.Int32 */
 constexpr uintptr_t t_Int32_90aa = 0x857ab0;   /* System.Int32[] */
 constexpr uintptr_t t_JumpPad = 0x8b4170;   /* TowerFall.JumpPad */
-constexpr uintptr_t t_KeyboardConfig_b418 = 0x8b4370;   /* TowerFall.KeyboardConfig[] */
 constexpr uintptr_t t_KeyboardInput = 0x8b43f0;   /* TowerFall.KeyboardInput */
 constexpr uintptr_t t_Lantern = 0x8b5070;   /* TowerFall.Lantern */
 #ifdef TFEXGEN_COVERAGE
@@ -2788,14 +2630,8 @@ constexpr uintptr_t t_Level = 0x8b5570;   /* TowerFall.Level */
 constexpr uintptr_t t_LevelEntity = 0x8b56f0;   /* TowerFall.LevelEntity */
 constexpr uintptr_t t_LevelLoaderXML = 0x8b57f0;   /* TowerFall.LevelLoaderXML */
 constexpr uintptr_t t_LevelTestRoundLogic = 0x8b5cf0;   /* TowerFall.LevelTestRoundLogic */
-constexpr uintptr_t t_LevelTiles = 0x8b5d70;   /* TowerFall.LevelTiles */
 constexpr uintptr_t t_List_1_0499 = 0x829e30;   /* System.Collections.Generic.List`1[TowerFall.ArrowTypes] */
 constexpr uintptr_t t_List_1_0d81 = 0x82acb0;   /* System.Collections.Generic.List`1[TowerFall.OptionsButton] */
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_List_1_0e04 = 0;   /* UNRESOLVED System.Collections.Generic.List`1[TowerFall.InputState]: no type System.Collections.Generic.List`1[TowerFall.InputState] */
-#else
-/* UNRESOLVED t_List_1_0e04: System.Collections.Generic.List`1[TowerFall.InputState]: no type System.Collections.Generic.List`1[TowerFall.InputState] (a use is a compile error) */
-#endif
 constexpr uintptr_t t_List_1_23f0 = 0x82aab0;   /* System.Collections.Generic.List`1[TowerFall.LevelEntity] */
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_List_1_240e = 0;   /* UNRESOLVED System.Collections.Generic.List`1[TowerFall.CharacterSounds]: no type System.Collections.Generic.List`1[TowerFall.CharacterSounds] */
@@ -2841,7 +2677,6 @@ constexpr uintptr_t t_List_1_bb49 = 0x828130;   /* System.Collections.Generic.Li
 constexpr uintptr_t t_List_1_bdf1 = 0x827bb0;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Vector2] */
 constexpr uintptr_t t_List_1_be51 = 0x828330;   /* System.Collections.Generic.List`1[Monocle.Sprite`1[System.Int32]] */
 constexpr uintptr_t t_List_1_cabb = 0x82a1b0;   /* System.Collections.Generic.List`1[TowerFall.Brambles] */
-constexpr uintptr_t t_List_1_e922 = 0x827a30;   /* System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point] */
 constexpr uintptr_t t_List_1_eb65 = 0x829630;   /* System.Collections.Generic.List`1[System.String] */
 constexpr uintptr_t t_List_1_ee14 = 0x828eb0;   /* System.Collections.Generic.List`1[System.Int32] */
 constexpr uintptr_t t_List_1_ef6c = 0x82b5b0;   /* System.Collections.Generic.List`1[TowerFall.Variant] */
@@ -2899,17 +2734,7 @@ constexpr uintptr_t t_Predicate_1_d730 = 0x862c30;   /* System.Predicate`1[Monoc
 constexpr uintptr_t t_Prism = 0x8baef0;   /* TowerFall.Prism */
 constexpr uintptr_t t_ProximityBlock = 0x8bb2f0;   /* TowerFall.ProximityBlock */
 constexpr uintptr_t t_QuestSpawnPortal = 0x8bcd70;   /* TowerFall.QuestSpawnPortal */
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Queue_1_1987 = 0;   /* UNRESOLVED System.Collections.Generic.Queue`1[Microsoft.Xna.Framework.Point]: no type System.Collections.Generic.Queue`1[Microsoft.Xna.Framework.Point] */
-#else
-/* UNRESOLVED t_Queue_1_1987: System.Collections.Generic.Queue`1[Microsoft.Xna.Framework.Point]: no type System.Collections.Generic.Queue`1[Microsoft.Xna.Framework.Point] (a use is a compile error) */
-#endif
 constexpr uintptr_t t_Queue_1_371c = 0x82beb0;   /* System.Collections.Generic.Queue`1[System.String] */
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Queue_1_47de = 0;   /* UNRESOLVED System.Collections.Generic.Queue`1[System.Object]: no type System.Collections.Generic.Queue`1[System.Object] */
-#else
-/* UNRESOLVED t_Queue_1_47de: System.Collections.Generic.Queue`1[System.Object]: no type System.Collections.Generic.Queue`1[System.Object] (a use is a compile error) */
-#endif
 constexpr uintptr_t t_Random = 0x866430;   /* System.Random */
 constexpr uintptr_t t_RollcallElement = 0x8bd8f0;   /* TowerFall.RollcallElement */
 constexpr uintptr_t t_RollcallElement_10f8 = 0x8bd9f0;   /* TowerFall.RollcallElement[] */
@@ -2962,7 +2787,6 @@ constexpr uintptr_t t_TrialsControl = 0x8c1b70;   /* TowerFall.TrialsControl */
 constexpr uintptr_t t_TriggerArrow = 0x8c2d70;   /* TowerFall.TriggerArrow */
 constexpr uintptr_t t_Tween = 0x6f3ff0;   /* Monocle.Tween */
 constexpr uintptr_t t_Tween_eae5 = 0x6f4270;   /* Monocle.Tween[] */
-constexpr uintptr_t t_Type_104e = 0x88e3b0;   /* System.Type[] */
 constexpr uintptr_t t_UInt64_9e74 = 0x88e830;   /* System.UInt64[] */
 constexpr uintptr_t t_Variant = 0x8c36f0;   /* TowerFall.Variant */
 constexpr uintptr_t t_VariantToggle = 0x8c3e70;   /* TowerFall.VariantToggle */
@@ -2986,24 +2810,13 @@ constexpr uintptr_t t_WorkshopButton = 0;   /* UNRESOLVED TowerFall.WorkshopButt
 #else
 /* UNRESOLVED t_WorkshopButton: TowerFall.WorkshopButton: no type TowerFall.WorkshopButton (a use is a compile error) */
 #endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_XGamepadInput = 0;   /* UNRESOLVED TowerFall.XGamepadInput: no type TowerFall.XGamepadInput */
-#else
-/* UNRESOLVED t_XGamepadInput: TowerFall.XGamepadInput: no type TowerFall.XGamepadInput (a use is a compile error) */
-#endif
 constexpr uintptr_t t_XmlElement = 0x89cc30;   /* System.Xml.XmlElement */
 constexpr uintptr_t t_XmlText = 0x89edb0;   /* System.Xml.XmlText */
-constexpr uint32_t v_Actor_OnSquishDown_18a4 = 0x150;   /* TowerFall.Actor.OnSquishDown(TowerFall.Platform) */
-constexpr uint32_t v_Actor_OnSquishLeft_18a4 = 0x148;   /* TowerFall.Actor.OnSquishLeft(TowerFall.Platform) */
-constexpr uint32_t v_Actor_OnSquishRight_18a4 = 0x140;   /* TowerFall.Actor.OnSquishRight(TowerFall.Platform) */
-constexpr uint32_t v_Actor_OnSquishUp_18a4 = 0x158;   /* TowerFall.Actor.OnSquishUp(TowerFall.Platform) */
 constexpr uint32_t v_ArrowHUD_Render = 0x48;   /* TowerFall.ArrowHUD.Render */
 constexpr uint32_t v_Arrow_Added = 0x30;   /* TowerFall.Arrow.Added */
 constexpr uint32_t v_Arrow_EnterFallMode_06a1 = 0x200;   /* TowerFall.Arrow.EnterFallMode(bool,bool,bool) */
 constexpr uint32_t v_Arrow_get_ArrowType = 0x238;   /* TowerFall.Arrow.get_ArrowType */
-constexpr uint32_t v_Arrow_get_IsCollectible = 0x228;   /* TowerFall.Arrow.get_IsCollectible */
 constexpr uintptr_t v_ChaliceGhost_Added = 0x103c;   /* UNRESOLVED TowerFall.ChaliceGhost.Added: no type TowerFall.ChaliceGhost; a TF.State measurement gap (the game's `return 0`) */
-constexpr uint32_t v_Collider_Collide_1483 = 0x30;   /* Monocle.Collider.Collide(Microsoft.Xna.Framework.Vector2) */
 constexpr uint32_t v_Collider_set_Width_7410 = 0x80;   /* Monocle.Collider.set_Width(float32) */
 constexpr uint32_t v_Component_Render = 0x48;   /* Monocle.Component.Render */
 constexpr uint32_t v_CrackedWall_Added = 0x30;   /* TowerFall.CrackedWall.Added */
@@ -3028,7 +2841,6 @@ constexpr uint32_t v_Image_get_Width = 0x60;   /* Monocle.Image.get_Width */
 constexpr uint32_t v_JumpPad_SceneBegin = 0x20;   /* TowerFall.JumpPad.SceneBegin */
 constexpr uint32_t v_LavaControl_Removed = 0x38;   /* TowerFall.LavaControl.Removed */
 constexpr uint32_t v_LevelEntity_Added = 0x30;   /* TowerFall.LevelEntity.Added */
-constexpr uint32_t v_LevelEntity_DoWrapRender = 0x80;   /* TowerFall.LevelEntity.DoWrapRender */
 constexpr uint32_t v_LevelEntity_Removed = 0x38;   /* TowerFall.LevelEntity.Removed */
 constexpr uint32_t v_LevelLoaderXML_Update = 0x30;   /* TowerFall.LevelLoaderXML.Update */
 constexpr uint32_t v_LevelSystem_Dispose = 0x38;   /* TowerFall.LevelSystem.Dispose */
@@ -3168,10 +2980,8 @@ constexpr uint32_t v_XmlNode_AppendChild_0 = 0x120;   /* System.Xml.XmlNode.Appe
 constexpr uint32_t v_XmlNode_get_ChildNodes = 0x38;   /* System.Xml.XmlNode.get_ChildNodes */
 constexpr uint32_t v_XmlNode_get_FirstChild = 0x40;   /* System.Xml.XmlNode.get_FirstChild */
 constexpr uint32_t v_XmlNode_get_Item_0 = 0x78;   /* System.Xml.XmlNode.get_Item(string) */
-constexpr uint32_t vb_Actor = 0x170;   /* TowerFall.Actor */
 constexpr uint32_t vb_BorderButton = 0xb8;   /* TowerFall.BorderButton */
 constexpr uint32_t vb_Entity = 0x90;   /* Monocle.Entity */
-constexpr uint32_t vb_KeyboardInput = 0x178;   /* TowerFall.KeyboardInput */
 constexpr uint32_t vb_MainMenu = 0x70;   /* TowerFall.MainMenu */
 constexpr uint32_t vb_MainModeButton = 0x118;   /* TowerFall.MainModeButton */
 constexpr uint32_t vb_MenuItem = 0xb8;   /* TowerFall.MenuItem */
@@ -3181,10 +2991,8 @@ constexpr uint32_t vb_PlayerInput = 0x178;   /* TowerFall.PlayerInput */
 constexpr uint32_t vb_Random = 0x50;   /* System.Random */
 constexpr uint32_t vb_RoundLogic = 0x48;   /* TowerFall.RoundLogic */
 constexpr uint32_t vb_Variant = 0x20;   /* TowerFall.Variant */
-constexpr uint32_t z_Actor = 0xe8;   /* TowerFall.Actor */
 constexpr uint32_t z_BorderButton = 0xc0;   /* TowerFall.BorderButton */
 constexpr uint32_t z_Entity = 0x68;   /* Monocle.Entity */
-constexpr uint32_t z_KeyboardInput = 0x78;   /* TowerFall.KeyboardInput */
 constexpr uint32_t z_MainMenu = 0x100;   /* TowerFall.MainMenu */
 constexpr uint32_t z_MainModeButton = 0xf0;   /* TowerFall.MainModeButton */
 constexpr uint32_t z_MenuItem = 0x98;   /* TowerFall.MenuItem */

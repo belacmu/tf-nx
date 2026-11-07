@@ -34,6 +34,8 @@ public sealed class RuleCheck
             if (t.ContainsKey("absent")) continue;   // the provider mod isn't on the Switch: nothing to check against
             var cn = (string)t["consumer"]; var pn = (string)t["provider"];
             var ct = Find(cn); var pt = Find(pn);
+            // TFEX_PUBLIC=1 (Config.Load): the consumer's code mod is left out of the public tree, so it has no call to check
+            if (ct == null && Environment.GetEnvironmentVariable("TFEX_PUBLIC") == "1") continue;
             if (ct == null || pt == null) { report.Add("interop: PROBLEM", $"{cn} / {pn}: type not found"); problems++; continue; }
             var allowed = Config.Strings(t, "wildcard").ToHashSet(StringComparer.Ordinal);
             var provided = pt.GetMembers().OfType<IMethodSymbol>().Where(m => m.DeclaredAccessibility == Accessibility.Public && !m.IsStatic)

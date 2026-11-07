@@ -22,6 +22,18 @@
 #include "lib.hpp"
 #include "AiSlotButton.hpp"
 #include "../hwlog.hpp"
+/* the public tree has no LoaderAI (no licence to distribute its translation: translate.toml [code_mods] public = false): no AI controls */
+#if !__has_include("gen/tfexgen_La_TFModFortRiseLoaderAIModule.hpp")
+namespace tfex::gen { template <int N> struct GameVal; }
+namespace tfex::aislot {
+void Install() { hw::Log("[aislot] LoaderAI isn't in this build: no AI players on archer select"); }
+void* AiNameOf(int32_t) { return nullptr; }
+void DropAll() {}
+void SetAiSeat(int) {}
+bool AiSeatOn() { return false; }
+bool AiSeatState(int32_t, int, tfex::gen::GameVal<28>*) { return false; }
+}
+#else
 #include "../rnd.hpp"
 #include "gen/tfexgen_binding.hpp"
 #include "gen/tfexgen_Auto_Input.hpp"
@@ -288,7 +300,7 @@ HOOK_DEFINE_TRAMPOLINE(RollcallRender) {
         int pi = gen::Fld<int32_t>(self, bind::f_RollcallElement_playerIndex);
         if (!g_anyFull || pi != g_cursor || pi < 0 || pi >= kSlots) return;
         gen::Vector2 at = gen::Fld<gen::Vector2>(self, bind::f_Entity_Position);
-        at.Y -= 70.0f;   /* above the portrait's frame */
+        at.Y -= g_elems[6] ? 52.0f : 70.0f;   /* above the portrait's frame (the 8-slot roll call's 60 x 60 portraits: above its P label) */
         void* font = (gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_Font)());
         /* what the click does: add the first AI type, the next type, or (after the last) take the AI out */
         int k = g_slot[pi].ai ? TypeOf(pi) : -1;
@@ -414,3 +426,4 @@ void Install() {
     hw::Log("[aislot] archer select: a full controller's right stick puts LoaderAI's AI players in the empty slots");
 }
 }  // namespace tfex::aislot
+#endif

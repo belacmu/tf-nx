@@ -75,9 +75,11 @@
   console boot). A bad build: put the last good one back from its kept ELF (`elf2nso .devserve/elf/<id>.elf subsdk9`) into
   `.devserve/channel/`. Merges touching ggrs-switch need a fresh Rust library first (ggrs-switch/build.sh).
 - **Crash reports:** symbolize with the ELF of that build: `.devserve/elf/<Module Id, lowercase>-<commit>.elf`.
-- **GitHub (belacmu/tf-nx, private):** `tools/publish-github.sh` commits master's current tree as one snapshot on top of GitHub's
-  history (this repo's own history keeps private details in old commits and never goes there). It refuses a tree with a home path, a
-  server host, a work address or a game copy's file name. Running it pushes: the user's OK first.
+- **GitHub (belacmu/tf-nx):** `tools/publish-github.sh` makes master's public snapshot in `../switch-online-public` (gen/ without
+  the code mods marked `public = false`, which have no licence; build-checked) and commits it to the local branch `public`, one commit
+  on top of GitHub's history (this repo's own history keeps private details in old commits and never goes there). It refuses a tree
+  with a home path, a server host, a work address or a game copy's file name. `tools/publish-github.sh push` pushes it: the user's OK
+  first. A release: `tools/release.sh` in `../switch-online-public`, then a GitHub release of that commit.
 - Pushing, deploying (Cloudflare, the site) and publishing to the console need the user's OK. The SD card and `hw-probe/make-sd.sh`
   only when the user asks.
 

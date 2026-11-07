@@ -211,6 +211,12 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- The archer-select crash's cause (2026-11-06, found in the emulator with the new throw log): switching a portrait to a mod archer
+  with its own menu gem (@Gem..._MENU: CRIMSON CO-STAR after BLIND PRINCE on the console) threw KeyNotFoundException (FortRise's
+  translated sprite registry wrote "System.String" as the texture). Fixed in the translator. Proof: an AI or a player scrolls through
+  the SSB archers on archer select with no `[throw]` line; a round with one plays. WiderSet's 8-slot look (two rows of four, P1-P8,
+  60 x 60 portraits, icons above them) and the 8 labels: `[8player] label ... "SUPPORTS UP TO 8 ARCHERS"`, `[8player] roll call
+  portraits: WiderSet's 60 x 60 crop`.
 - Archer-select crash with the AI controls (console 2026-11-06 21:31, build 290915b9): a managed exception in the game's
   RollcallElement.EnterJoined (an AI slot confirming after a NOVA -> JIMMY swap on slot 6, WIDE, 29 archers), rethrown from its foreach
   cleanup, so the report loses the throw site; three emulator replays of the same steps (localaisteps) didn't crash. Every managed

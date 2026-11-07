@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["staticlib", "rlib"]
 
 [dependencies]
-ggrs = { path = "../../../Towerfall Browser/vendor/netplay-src/ggrs" }
+ggrs = { path = "../ggrs-switch/vendor/ggrs" }
 
 [profile.release]
 panic = "abort"

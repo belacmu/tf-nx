@@ -1097,7 +1097,7 @@ void HandleMessageContents(void* self, void* message) {
             {
                 tfex::gen::svc::Log(L_42.P());
                 (S(self)->ownLobby = gen::KeepModel(S(self)->ownLobby_box_, S(self)->ownLobby_next_, gen::RefOf((gen::RefOf((response)->CreateLobbyResponse))->Lobby)));
-                tfex::gen::svc::SetRoomPeerId(gen::Fn<void* (*)(void*)>(bind::m_String_ToString_0)(gen::Managed((gen::FirstOrDefault<tfex::gen::ws::Player*>(gen::FromModelList(&(tfex::gen::svc::GetOwnLobby())->Players), [&](tfex::gen::ws::Player* pl) -> bool { return (pl)->IsHost; }, nullptr))->RoomPeerId)));
+                tfex::gen::svc::SetRoomPeerId(gen::Managed((gen::FirstOrDefault<tfex::gen::ws::Player*>(gen::FromModelList(&(tfex::gen::svc::GetOwnLobby())->Players), [&](tfex::gen::ws::Player* pl) -> bool { return (pl)->IsHost; }, nullptr))->RoomPeerId));
                 ([&]() { auto ca_50 = (S(self)->onResult)->Get(L_43.P()); return ca_50 ? gen::Fn<void (*)(void*)>(bind::m_Action_Invoke)(ca_50) : void{}; }());
             }
             else
@@ -1115,7 +1115,7 @@ void HandleMessageContents(void* self, void* message) {
         if ((gen::RefOf((response)->JoinLobbyResponse))->Success)
         {
             tfex::gen::svc::Log(L_47.P());
-            tfex::gen::svc::SetRoomPeerId(gen::Fn<void* (*)(void*)>(bind::m_String_ToString_0)(gen::Managed((gen::RefOf((response)->JoinLobbyResponse))->RoomPeerId)));
+            tfex::gen::svc::SetRoomPeerId(gen::Managed((gen::RefOf((response)->JoinLobbyResponse))->RoomPeerId));
             if (gen::RefOf((gen::RefOf((response)->JoinLobbyResponse))->Lobby) != nullptr)
             {
                 UpdateOwnLobby(self, gen::RefOf((gen::RefOf((response)->JoinLobbyResponse))->Lobby));
@@ -1148,7 +1148,7 @@ void HandleMessageContents(void* self, void* message) {
         gen::Arr<uint8_t> bytes = gen::JsonUtf8(message, bind::t_Byte_ef68);
         tfex::gen::ws::QuickPlayMatchFoundMessage* response = gen::FromJsonBytes<tfex::gen::ws::QuickPlayMatchFoundMessage>(bytes);
         tfex::gen::svc::Log(L_54.P());
-        tfex::gen::svc::SetRoomPeerId(gen::Fn<void* (*)(void*)>(bind::m_String_ToString_0)(gen::Managed((gen::RefOf((response)->QuickPlayMatchFound))->RoomPeerId)));
+        tfex::gen::svc::SetRoomPeerId(gen::Managed((gen::RefOf((response)->QuickPlayMatchFound))->RoomPeerId));
         S(self)->isQuickPlayQueued = false;
         tfex::gen::ws::Lobby* lobby = gen::RefOf((gen::RefOf((response)->QuickPlayMatchFound))->Lobby);
         UpdateOwnLobby(self, lobby);
@@ -1189,7 +1189,7 @@ void HandleMessageContents(void* self, void* message) {
             return;
         }
         tfex::gen::svc::Log(L_58.P());
-        tfex::gen::svc::SetRoomPeerId(gen::Fn<void* (*)(void*)>(bind::m_String_ToString_0)(gen::Managed((gen::RefOf((response)->RankedMatchFound))->RoomPeerId)));
+        tfex::gen::svc::SetRoomPeerId(gen::Managed((gen::RefOf((response)->RankedMatchFound))->RoomPeerId));
         UpdateOwnLobby(self, gen::RefOf((gen::RefOf((response)->RankedMatchFound))->Lobby));
         ([&]() { auto ca_59 = S(self)->onRankedMatched; return ca_59 ? gen::Virt<void>(ca_59, 0x58, GetOwnLobby(self)) : void{}; }());
         return;
@@ -1227,7 +1227,7 @@ void HandleMessageContents(void* self, void* message) {
         if ((gen::RefOf((response)->PrivateJoinResult))->Success)
         {
             tfex::gen::svc::Log(L_63.P());
-            tfex::gen::svc::SetRoomPeerId(gen::Fn<void* (*)(void*)>(bind::m_String_ToString_0)(gen::Managed((gen::RefOf((response)->PrivateJoinResult))->RoomPeerId)));
+            tfex::gen::svc::SetRoomPeerId(gen::Managed((gen::RefOf((response)->PrivateJoinResult))->RoomPeerId));
             (S(self)->privateJoinLobby = gen::KeepModel(S(self)->privateJoinLobby_box_, S(self)->privateJoinLobby_next_, gen::RefOf((gen::RefOf((response)->PrivateJoinResult))->Lobby)));
             ([&]() { auto ca_63 = (S(self)->onResult)->Get(L_64.P()); return ca_63 ? gen::Fn<void (*)(void*)>(bind::m_Action_Invoke)(ca_63) : void{}; }());
         }

@@ -2774,12 +2774,12 @@ absent = "PlayTag isn't on the Switch: its API is null, as FortRise's GetApi wit
 # root), for the units whose file starts with the key; `structs`: the prefix of its structs' names ----
 [code_mods]
 "teamplus/" = { src = "vendor/teamplus/src", structs = "Tp_", mod = "TeamsPlus", native = "tfex::teamplus::InstallNative" }   # native: its 3 IL edits (TeamPlusNative.cpp)
-"soccer/" = { src = "vendor/soccer/VSCode", structs = "So_", mod = "Soccer", auto = true }   # ebe1.kenobi's Soccer, the original (its main, 5f612de): its entry points read from its source
-"loaderai/" = { src = "vendor/loader-ai/VSCode", structs = "La_", mod = "LoaderAI", auto = true }   # ebe1.kenobi's LoaderAI (dev/fortrise5, 3643fdb): hands an archer's input to an AI mod
-"ainova/" = { src = "vendor/ai-nova/VSCode", structs = "An_", mod = "AINova", auto = true }   # ebe1.kenobi's AINova (main, 03a3847): a bot that simulates the archer's physics, through LoaderAI's API
-"aijimmy/" = { src = "vendor/ai-jimmy/VSCode", structs = "Aj_", mod = "AIJimmy", auto = true }   # ebe1.kenobi's AIJimmy (dev/fortrise5, 7292e15): the bot, through LoaderAI's API
-"moveordie/" = { src = "vendor/moveordie/VSCode", structs = "Md_", mod = "MoveOrDie", auto = true }   # ebe1.kenobi's Move or Die (our `online` branch at 94e5f8d: the mod-mode API the TF.EX we carry has): its entry points read from its source
-# (`mod`: its meta.json name: a generated boot, tfex::gen::codemods::Boot_<mod>, CodeGen.CodeModBoots; `native`: its IL edits' patches)
+"soccer/" = { src = "vendor/soccer/VSCode", structs = "So_", mod = "Soccer", auto = true, public = false }   # ebe1.kenobi's Soccer, the original (its main, 5f612de): its entry points read from its source
+"loaderai/" = { src = "vendor/loader-ai/VSCode", structs = "La_", mod = "LoaderAI", auto = true, public = false }   # ebe1.kenobi's LoaderAI (dev/fortrise5, 3643fdb): hands an archer's input to an AI mod
+"ainova/" = { src = "vendor/ai-nova/VSCode", structs = "An_", mod = "AINova", auto = true, public = false }   # ebe1.kenobi's AINova (main, 03a3847): a bot that simulates the archer's physics, through LoaderAI's API
+"aijimmy/" = { src = "vendor/ai-jimmy/VSCode", structs = "Aj_", mod = "AIJimmy", auto = true, public = false }   # ebe1.kenobi's AIJimmy (dev/fortrise5, 7292e15): the bot, through LoaderAI's API
+"moveordie/" = { src = "vendor/moveordie/VSCode", structs = "Md_", mod = "MoveOrDie", auto = true, public = false }   # ebe1.kenobi's Move or Die (our `online` branch at 94e5f8d: the mod-mode API the TF.EX we carry has): its entry points read from its source
+# (`public = false`: no licence to distribute its translation: left out of the public tree's gen/, TFEX_PUBLIC=1; `mod`: its meta.json name: a generated boot, tfex::gen::codemods::Boot_<mod>, CodeGen.CodeModBoots; `native`: its IL edits' patches)
 
 # ---- game methods that run before the Switch constructs code mods (after GameData.Load; FortRise: in Main, before TFGame.Load): a mod's
 # postfix on one is called once at its boot (HookGen ReplayLoadTime). ArcherData.Initialize: Teams+'s team data (Blue, Red, Yellow) ----

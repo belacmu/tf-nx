@@ -8,7 +8,7 @@ crate-type = ["staticlib", "rlib"]
 
 [dependencies]
 ggrs-spike = { path = "../ggrs-spike" }
-ggrs = { path = "../../../Towerfall Browser/vendor/netplay-src/ggrs" }
+ggrs = { path = "vendor/ggrs" }
 serde = { version = "1", features = ["derive"] }
 bincode = "1.3"
 tfx-rtc = { path = "../tfx-rtc" }
@@ -32,4 +32,4 @@ matchbox_socket = { path = "../ggrs-ffi-switch/matchbox-switch" }
 
 # ggrs-ffi's GGRS fork = the one this crate uses (the browser's vendored, patched copy)
 [patch."https://github.com/Fcornaire/ggrs"]
-ggrs = { path = "../../../Towerfall Browser/vendor/netplay-src/ggrs" }
+ggrs = { path = "vendor/ggrs" }

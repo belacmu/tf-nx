@@ -2689,6 +2689,15 @@ public sealed partial class UnitEmitter
             SpecialType.System_Int32 or SpecialType.System_Int64 or SpecialType.System_Int16 or SpecialType.System_Byte or SpecialType.System_UInt32 or
             SpecialType.System_UInt16 or SpecialType.System_SByte or SpecialType.System_Single or SpecialType.System_Double or SpecialType.System_Char or SpecialType.System_Boolean)
             return StringOf(Strip(inv.Instance));
+        // s.ToString() on a string (also a T bound to string in a generic method's copy: FortRise's SpriteEntry.CreateProperty<T>): s itself.
+        // The game's Object.ToString called directly returns the type's name ("System.String": every translated mod sprite's Texture)
+        if (m.Name == "ToString" && inv.Arguments.Length == 0 && inv.Instance != null && Sub(Strip(inv.Instance).Type)?.SpecialType == SpecialType.System_String)
+            return Expr(Strip(inv.Instance));
+        // o.ToString() through object (or a T bound to object): the virtual call, as C#'s (a boxed number's digits, not "System.Int32":
+        // FortRise's SpriteEntry.CreateProperty<object> over a sprite's AdditionalData)
+        if (m.Name == "ToString" && inv.Arguments.Length == 0 && inv.Instance != null && m.ContainingType.SpecialType == SpecialType.System_Object &&
+            Sub(Strip(inv.Instance).Type)?.SpecialType == SpecialType.System_Object)
+            return $"gen::ObjToString({Expr(Strip(inv.Instance))})";
         if (m.Name == "ToString" && inv.Arguments.Length == 0 && inv.Instance != null && Strip(inv.Instance).Type is INamedTypeSymbol { TypeKind: TypeKind.Enum } ets)
             return EnumName(ets, Expr(Strip(inv.Instance)));
         if (full == "char.IsUpper" && inv.Arguments.Length == 1) { var cu = Expr(inv.Arguments[0].Value); return $"([&]() {{ char16_t c_ = {cu}; return c_ >= u'A' && c_ <= u'Z'; }}())"; }   // ASCII (TF.EX's uses: changelog text)

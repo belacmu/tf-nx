@@ -308,6 +308,9 @@ void* FromIntPad(int64_t v, int width);
 /* {v:X2} / {v:x}: hexadecimal with at least `width` digits (C#'s X / x format) */
 void* FromIntHex(uint64_t v, int width, bool upper);
 void* TypeNameStr(void* obj);                             /* obj.GetType().Name: its runtime type record's short name (+0x20), null for null */                   /* v.ToString("00..."): at least width digits, zeros in front */
+/* obj.ToString() through object (C#'s virtual call): the object's own ToString, Object.ToString's vtable slot (+0x18: tools/re vtable.py,
+ * every class's); a boxed number gives its digits, a string itself (a direct call of Object.ToString gives the type's name) */
+inline void* ObjToString(void* obj) { return obj ? game::Virt<void*>(obj, 0x18) : nullptr; }
 void* FromDouble(double v);                               /* double / float .ToString() (invariant, round-trip) */
 void* FromAscii(const char* s);
 bool IsNullOrEmpty(const void* s);

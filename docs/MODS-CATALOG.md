@@ -7,44 +7,9 @@ entry: they load from their folder as on the PC. How to add a mod: mods/README.m
 
 | mod | name | TF.NX runs | logic | author | permission | works |
 |---|---|---|---|---|---|---|
-| AIJimmy | `AIJimmy` | 1.1.0 | translated | ebe1.kenobi | not asked yet (no licence): not in TF.NX's release | local: AI archers (LoaderAI + AIJimmy together; on the console a button on archer select adds one); online: not checked |
-| AINova | `AINova` | 1.1.0 | translated | ebe1.kenobi | not asked yet (no licence): not in TF.NX's release | local: AI archers (LoaderAI + AINova together; on the console a button on archer select adds one); online: not checked |
-| LoaderAI | `LoaderAI` | 1.1.0 | translated | ebe1.kenobi | not asked yet (no licence): not in TF.NX's release | local: AI archers (LoaderAI + AIJimmy together; on the console a button on archer select adds one); online: not checked |
-| MoveOrDie | `MoveOrDie` | 1.1.0 | translated | ebe1.kenobi | not asked yet (no licence): not in TF.NX's release | local: the MoveOrDie variant; its mode in GAME MODE's list before TF.EX's Netplay mode (FortRise's load order: FrModsBoot); online: no (mod modes online wait for TF.EX) |
-| Soccer | `Soccer` | 1.1.0 | translated | ebe1.kenobi | not asked yet (no licence): not in TF.NX's release | local: the SOCCER mode (2-8 players); online: not this version (our online fork adds it) |
 | TowerBall | `Switch.TowerBall` | 1.0.0 | native | crab (the Switch port of TowerBall 3.1's rules) | art and levels: TowerBall's authors, not asked (not shipped); code: ours | local (mode 6, 2-8 players); not online |
 | Teams+ | `TeamsPlus` | 0.1.2 | translated | crab | ours | local; online in TF.EX lobbies (mode 12 with Teams+ installed) |
 | Wider Set | `Teuria.WiderSet` | 0.9.0 | native | Terria | levels and art: the player's own download; WiderSet's gameplay tables ported into pcgameplay.cpp: Teuria not asked | local: the 2-8 lobby on its levels; online: wide lobbies (2-4 players; 5-8 waits for TF.EX PRs A-B) |
-
-## AIJimmy 1.1.0
-
-- Source: vendor/ai-jimmy: ebe1kenobi/tf-mod-fortrise-ai-jimmy, dev/fortrise5 (7292e15)
-- Download: the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)
-- Files its folder must have: none
-
-## AINova 1.1.0
-
-- Source: vendor/ai-nova: ebe1kenobi/tf-mod-fortrise-ai-nova, main (03a3847)
-- Download: the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)
-- Files its folder must have: none
-
-## LoaderAI 1.1.0
-
-- Source: vendor/loader-ai: ebe1kenobi/tf-mod-fortrise-loader-ai, dev/fortrise5 (3643fdb)
-- Download: the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)
-- Files its folder must have: none
-
-## MoveOrDie 1.1.0
-
-- Source: vendor/moveordie: ebe1kenobi/tf-mod-fortrise-variant-moveordie, its dev/fortrise5 (b497071; our `online` branch needs TF.EX's mod modes online, not upstream)
-- Download: the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)
-- Files its folder must have: `Content/Atlas/gamemode.png`, `Content/Atlas/moveordie.png`
-
-## Soccer 1.1.0
-
-- Source: vendor/soccer: ebe1kenobi/tf-mod-fortrise-gamemode-soccer main (5f612de) + our cobweb fix (8b1aa18 on belacmu/tf-mod-fortrise-gamemode-soccer fix-cobwebs-crash: the walls' cobwebs removed with the pitch; offered upstream as ebe1kenobi/tf-mod-fortrise-gamemode-soccer#1, 2026-11-06: back to its main once merged)
-- Download: the mod's GitHub release (its ModFile folder); not hosted by TF.NX (no licence yet)
-- Files its folder must have: `Content/Atlas/ball.png`, `Content/Atlas/gamemode.png`
 
 ## TowerBall 1.0.0
 

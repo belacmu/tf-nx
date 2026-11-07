@@ -1,58 +1,66 @@
-# TowerFall Switch — online play with the browser port (native mod)
+# TF.NX
 
-An online mode in which the eShop Switch build (v1.4.1.6, Atmosphère + exlaunch) plays the
-browser port (towerfall-browser, PC 1.3.3.3 in .NET WebAssembly) with **rollback** netcode,
-limited to what both have in common. Up to now this is a feasibility probe, not a playable mod.
+[TF.EX](https://github.com/Fcornaire/TF.EX) for TowerFall on Nintendo Switch: online play with rollback netcode, in the same lobbies
+as TF.EX on PC and the TowerFall browser port. It also brings [FortRise](https://github.com/FortRise/FortRise)'s mod loading to the
+Switch, so PC mod folders work on the console.
 
-- **▶ RESUME HERE:** [`STATUS.md`](STATUS.md): where it stands and what's next.
-- **The plan and every result so far:** [`PLAN.md`](PLAN.md), steps 1–6.
-- **What TF.EX does** and what that changes for us: [`TFEX-LESSONS.md`](TFEX-LESSONS.md).
+TF.NX is not a rewrite. A translator (`tools/tfex`) turns TF.EX's and FortRise's C# into C++ that runs inside the Switch game, so TF.NX
+follows each TF.EX release.
 
-## Layout
+## What you need
 
+- A Switch running [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere).
+- Your own copy of TowerFall for Switch, version **1.4.1.6**.
+
+TF.NX contains no game files.
+
+## Install
+
+1. Download the zip from [Releases](https://github.com/belacmu/tf-nx/releases).
+2. Extract it onto the root of your SD card. It adds `atmosphere/contents/0100A1C00359C000/exefs/` and `xplay/`.
+3. Start TowerFall. **NETPLAY** is on the main menu, and mods are on the **MODS** screen.
+
+TF.EX's server only lets its latest version play online, so install each new TF.NX release the same way.
+
+## Mods
+
+Put mod folders in `sd:/xplay/mods/<mod>/`, exactly as the PC release ships them.
+
+- **Content mods** (archers, skins): drop them in.
+- **Code mods** work when TF.NX carries their logic. The PC's DLL is never run on the Switch. The list is in
+  [docs/MODS-CATALOG.md](docs/MODS-CATALOG.md).
+  - [Teams+](https://github.com/belacmu/tf-teamsplus) (three teams) is included in the release.
+  - **WiderSet** (8 players): download WiderSet from GameBanana and add its folder.
+
+Online play uses TF.EX's own rules: mod game modes stay offline until TF.EX supports them online.
+
+## Status
+
+Early. Online lobbies, with one or two players per Switch, play in sync with TF.EX v0.29.0 in our tests. Spectating and replays
+aren't supported yet. Known problems are in [STATUS.md](STATUS.md). If something breaks, open an issue and attach `sd:/xplay/hw-log.txt`.
+
+## Building
+
+You need devkitPro (devkitA64, libnx), the .NET 10 SDK, and a nightly Rust toolchain.
+
+```bash
+git submodule update --init
+ggrs-switch/build.sh                    # the netplay library (Rust)
+tools/tfex/translate.sh all v0.29.0     # TF.EX + FortRise -> C++ (optional: gen/ is committed)
+tools/build-probe.sh                    # the module -> hw-probe/exlaunch/deploy/
+tools/release.sh                        # the release zip -> dist/
 ```
-exlaunch-overlay/          The probe: drop into its own exlaunch checkout (~/Code/tfx-crossplay-exlaunch)
-  config.mk                -ffp-contract=off (no fused multiply-add), -Wno-error
-  source/program/main.cpp  Math checks + fixes, scripted input, the rollback self-test
-  source/program/mathlib/  musl's pow (the browser's), built without the FMA path
-net-probe/                 VIABILITY-TESTS 7a/7b/8: TCP, TLS WebSocket and GGRS from inside the game (own overlay)
-relay-worker/              The 7c relay as a Cloudflare Worker (deployed as tf-relay-probe; temporary)
-hw-probe/                  The one module for the console visit (hooks, network, drill, changed pages) + installer, SD templates, README
-ggrs-spike/                The Rust GGRS loopback test (Mac binary and Switch staticlib) and build script
-test-scripts/              sdmc:/xplay/script.txt = menu-to-trials.txt + trial-script.txt
-  results/                 Per-frame position/speed bits, Switch and browser, 700 frames, identical
-tools/
-  run-probe.sh             One safe test run (save check, deploy, run, restore)
-  echo-server.py           The 7a echo server
-  hw-check.py              Summarizes a console visit's logs (hw-log.txt, trial-log.txt)
-  relay-server.mjs         The 7c WebSocket relay (stall injection), relay-peer.mjs / relay-probe.mjs: its echo peer and Node twin of the test
-  keephidden.swift         Keeps Ryujinx's window hidden (XPLAY_VISIBLE=0 only; it has no headless mode)
-  crossplay-analyze.py     Scans the decompiled PC game for the math and ordering constructs (PLAN 1b/1c)
-vendor/tfex/               TF.EX's source (submodule): translated to the Switch by tools/tfex
-vendor/fortrise/           FortRise's source (submodule, tag 5.5.0-beta.3; MIT, Copyright (c) 2023 Terria Katsura, its LICENSE):
-                           its content-mod loader is translated for FortRise mods on the SD card (docs/research-fortrise-mods-on-switch.md)
-```
 
-The browser half of the tests stays in the towerfall-browser repo, because it builds into the
-browser host. There are three host commands, `floattest`, `mathtest` and `xplay`, in
-`web/Determinism.cs` and `web/CrossplayTest.cs`, plus `tools/floattest-reference.mjs`.
+Translating needs TF.EX's build inputs (`tools/tfex/inputs.py` says which).
 
-## Build and run
+The published `gen/` leaves out code mods whose authors haven't given a licence. Those mods' units are marked `public = false` in
+`tools/tfex/translate.toml`.
 
-1. Copy `exlaunch-overlay/` over `~/Code/tfx-crossplay-exlaunch` (its own checkout, as with the
-   other native mods here).
-2. Build: `DEVKITPRO=/opt/devkitpro ./exlaunch.sh build`.
-3. Run `tools/run-probe.sh <seconds>`. It:
-   - refuses to start if Ryujinx is running or the save data has changed;
-   - backs up the save data on first use, into `.save-backup/`, which git doesn't track;
-   - deploys the build into the `crossplay-probe` mod and activates it;
-   - runs TowerFall hidden at a timer-paced 60 fps (Custom vsync 60; App Nap off for Ryujinx), no audio (`XPLAY_VISIBLE=1`: a visible background window);
-   - re-activates `combined-mod` and re-checks the save data.
+Where to read further: [docs/CORE-FLOW.md](docs/CORE-FLOW.md) (how a match runs), [ROLLBACK.md](ROLLBACK.md), and
+[tools/tfex/README.md](tools/tfex/README.md) (the translator).
 
-**Rules for test runs:** the window stays hidden (Custom vsync 60, not Unbounded: Unbounded vsync coincided with the MoltenVK/AGX
-crashes of 2026-10-15; App Nap disabled for Ryujinx so hidden runs keep 60 fps). One Ryujinx run at a time, each to confirm or find out something. Leave the
-save data unchanged (the script checks). Only one native mod is active at a time, and it goes
-back to `combined-mod` afterwards. Don't touch the Steam game files.
+## Licence
 
-The isolation rules in [`../eight-player-mod/README.md`](../eight-player-mod/README.md) apply here
-too: own tree, own exlaunch checkout, one native mod enabled at a time.
+GPL-3.0, as TF.EX is. [NOTICE.md](NOTICE.md) lists every component and its licence.
+
+TF.NX is a fan project, not affiliated with Matt Makes Games. TF.EX is by Fcornaire, and FortRise by Terria and the FortRise team.

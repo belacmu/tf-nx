@@ -16,33 +16,6 @@ struct ActionResult {   /* TF.EX.Domain.ActionResult (network/TF.EX.Domain/Actio
     ::tfex::gen::st::SafeBytesFFI Data;
     ::tfex::gen::st::Status Status;
 };
-struct An_ArcherInput {   /* TFModFortRiseAiNova.ArcherInput (ainova/AI/ArcherPhysics.cs) */
-    int32_t MoveX;
-    int32_t MoveY;
-    bool Jump;
-    bool Dodge;
-};
-struct An_ArcherState {   /* TFModFortRiseAiNova.ArcherState (ainova/AI/ArcherPhysics.cs) */
-    float X;
-    float Y;
-    float SpeedX;
-    float SpeedY;
-    int32_t VarJump;
-    int32_t Cling;
-    int32_t Dodge;
-    int32_t DodgeCooldown;
-    bool OnGround;
-    bool Dead;
-};
-struct An_ThreatArrow {   /* TFModFortRiseAiNova.ThreatArrow (ainova/AI/World.cs) */
-    gen::Vector2 Position;
-    gen::Vector2 Speed;
-    float Radius;
-    float Weight;
-    bool Erratic;
-    float Hit;
-    bool Blast;
-};
 struct EX_RightStick {   /* TF.EX.Domain.Models.RightStick (network/TF.EX.Domain/Models/Vector2f.cs) */
     int32_t MoveX;
     int32_t MoveY;

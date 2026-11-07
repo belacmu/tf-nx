@@ -8,11 +8,6 @@
 #include "tfexgen_frmods.hpp"
 #include "../../hwlog.hpp"
 #include "tfexgen_Tp_Module.hpp"
-#include "tfexgen_So_TFModFortRiseGameModeSoccerModule.hpp"
-#include "tfexgen_La_TFModFortRiseLoaderAIModule.hpp"
-#include "tfexgen_An_TFModFortRiseAiNovaModule.hpp"
-#include "tfexgen_Aj_TFModFortRiseAiSimpleModule.hpp"
-#include "tfexgen_Md_TFModFortRiseVariantMoveOrDieModule.hpp"
 namespace tfex::teamplus { void InstallNative(); }
 
 namespace tfex::gen::codemods {
@@ -27,69 +22,6 @@ void Boot_TeamsPlus() {
     for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
     tfex::teamplus::InstallNative();   /* its IL edits as native patches */
     hw::Log("[mods] TeamsPlus constructed: %d of 7 patch classes hooked, %d load-time postfixes replayed", on, replayed);
-}
-
-void Boot_Soccer() {
-    static gen::LitN<7> name{u"Soccer"};
-    void* reg = tfex::gen::GlueFrMods::ModRegistry(name.P());
-    if (!reg) { hw::Log("[mods] Soccer: no registry (its folder isn't loaded): not constructed"); return; }
-    void* content = tfex::gen::GlueFrMods::RegistryMod(reg);
-    tfex::gen::So_TFModFortRiseGameModeSoccerModule::Ctor(content, content, reg, tfex::gen::svc::Service());   /* FortRise: Activator.CreateInstance(t, [content, context, logger]); its ILogger is the console's log (LoggerExtensions.Log* -> svc::Log) */
-    tfex::gen::frmods::AddModSettings(content, tfex::gen::So_TFModFortRiseGameModeSoccerModule::CreateSettings(content), "Soccer", &tfex::gen::modsettings::Load_Auto_TFModFortRiseGameModeSoccerSettings, &tfex::gen::modsettings::Save_Auto_TFModFortRiseGameModeSoccerSettings);   /* FortRise: its ModuleSettings, read from its file */
-    static const char* const kClasses[] = { "TFModFortRiseGameModeSoccer.FlatPlay", "TFModFortRiseGameModeSoccer.MyArrowHUD", "TFModFortRiseGameModeSoccer.MyPlayer", "TFModFortRiseGameModeSoccer.MyPlayerDeath", "TFModFortRiseGameModeSoccer.MyPlayerOnPlayer", "TFModFortRiseGameModeSoccer.MyVersusModeButton" };
-    int on = 0, replayed = 0;
-    for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
-    hw::Log("[mods] Soccer constructed: %d of 6 patch classes hooked, %d load-time postfixes replayed", on, replayed);
-}
-
-void Boot_LoaderAI() {
-    static gen::LitN<9> name{u"LoaderAI"};
-    void* reg = tfex::gen::GlueFrMods::ModRegistry(name.P());
-    if (!reg) { hw::Log("[mods] LoaderAI: no registry (its folder isn't loaded): not constructed"); return; }
-    void* content = tfex::gen::GlueFrMods::RegistryMod(reg);
-    tfex::gen::La_TFModFortRiseLoaderAIModule::Ctor(content, content, reg, tfex::gen::svc::Service());   /* FortRise: Activator.CreateInstance(t, [content, context, logger]); its ILogger is the console's log (LoggerExtensions.Log* -> svc::Log) */
-    static const char* const kClasses[] = { "TFModFortRiseLoaderAI.MyLevel", "TFModFortRiseLoaderAI.MyRollcallElement", "TFModFortRiseLoaderAI.MyTFGame" };
-    int on = 0, replayed = 0;
-    for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
-    hw::Log("[mods] LoaderAI constructed: %d of 3 patch classes hooked, %d load-time postfixes replayed", on, replayed);
-}
-
-void Boot_AINova() {
-    static gen::LitN<7> name{u"AINova"};
-    void* reg = tfex::gen::GlueFrMods::ModRegistry(name.P());
-    if (!reg) { hw::Log("[mods] AINova: no registry (its folder isn't loaded): not constructed"); return; }
-    void* content = tfex::gen::GlueFrMods::RegistryMod(reg);
-    tfex::gen::An_TFModFortRiseAiNovaModule::Ctor(content, content, reg, tfex::gen::svc::Service());   /* FortRise: Activator.CreateInstance(t, [content, context, logger]); its ILogger is the console's log (LoggerExtensions.Log* -> svc::Log) */
-    tfex::gen::frmods::AddModSettings(content, tfex::gen::An_TFModFortRiseAiNovaModule::CreateSettings(content), "AINova", &tfex::gen::modsettings::Load_Auto_TFModFortRiseAiNovaSettings, &tfex::gen::modsettings::Save_Auto_TFModFortRiseAiNovaSettings);   /* FortRise: its ModuleSettings, read from its file */
-    static const char* const kClasses[] = { "TFModFortRiseAiNova.MyTFGame" };
-    int on = 0, replayed = 0;
-    for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
-    hw::Log("[mods] AINova constructed: %d of 1 patch classes hooked, %d load-time postfixes replayed", on, replayed);
-}
-
-void Boot_AIJimmy() {
-    static gen::LitN<8> name{u"AIJimmy"};
-    void* reg = tfex::gen::GlueFrMods::ModRegistry(name.P());
-    if (!reg) { hw::Log("[mods] AIJimmy: no registry (its folder isn't loaded): not constructed"); return; }
-    void* content = tfex::gen::GlueFrMods::RegistryMod(reg);
-    tfex::gen::Aj_TFModFortRiseAiSimpleModule::Ctor(content, content, reg, tfex::gen::svc::Service());   /* FortRise: Activator.CreateInstance(t, [content, context, logger]); its ILogger is the console's log (LoggerExtensions.Log* -> svc::Log) */
-    static const char* const kClasses[] = { "TFModFortRiseAiGraph.MyLevel", "TFModFortRiseAiGraph.MyTFGame" };
-    int on = 0, replayed = 0;
-    for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
-    hw::Log("[mods] AIJimmy constructed: %d of 2 patch classes hooked, %d load-time postfixes replayed", on, replayed);
-}
-
-void Boot_MoveOrDie() {
-    static gen::LitN<10> name{u"MoveOrDie"};
-    void* reg = tfex::gen::GlueFrMods::ModRegistry(name.P());
-    if (!reg) { hw::Log("[mods] MoveOrDie: no registry (its folder isn't loaded): not constructed"); return; }
-    void* content = tfex::gen::GlueFrMods::RegistryMod(reg);
-    tfex::gen::Md_TFModFortRiseVariantMoveOrDieModule::Ctor(content, content, reg, tfex::gen::svc::Service());   /* FortRise: Activator.CreateInstance(t, [content, context, logger]); its ILogger is the console's log (LoggerExtensions.Log* -> svc::Log) */
-    tfex::gen::frmods::AddModSettings(content, tfex::gen::Md_TFModFortRiseVariantMoveOrDieModule::CreateSettings(content), "MoveOrDie", &tfex::gen::modsettings::Load_Auto_TFModFortRiseVariantMoveOrDieSettings, &tfex::gen::modsettings::Save_Auto_TFModFortRiseVariantMoveOrDieSettings);   /* FortRise: its ModuleSettings, read from its file */
-    static const char* const kClasses[] = { "TFModFortRiseVariantMoveOrDie.MyPlayer", "TFModFortRiseVariantMoveOrDie.MyVariantToggle" };
-    int on = 0, replayed = 0;
-    for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
-    hw::Log("[mods] MoveOrDie constructed: %d of 2 patch classes hooked, %d load-time postfixes replayed", on, replayed);
 }
 
 }

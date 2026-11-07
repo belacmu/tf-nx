@@ -17,6 +17,11 @@ public sealed class Config
         if (path == null || !File.Exists(path)) return c;
         c.Dir = Path.GetDirectoryName(Path.GetFullPath(path));
         c.Root = Toml.ToModel(File.ReadAllText(path));
+        // TFEX_PUBLIC=1: the public tree's gen/ (tools/publish-github.sh), without the code mods marked `public = false` in [code_mods]
+        // (no licence that lets us distribute their translated code; a player's own translate.sh run still makes them)
+        if (Environment.GetEnvironmentVariable("TFEX_PUBLIC") == "1" && c.Root.TryGetValue("code_mods", out var cm) && cm is TomlTable cmt)
+            foreach (var k in cmt.Where(kv => kv.Value is TomlTable mt && mt.TryGetValue("public", out var pv) && pv is false).Select(kv => kv.Key).ToList())
+                cmt.Remove(k);
         if (c.Root.TryGetValue("refs", out var r) && r is TomlTable rt)
         {
             foreach (var d in Strings(rt, "dirs")) c.RefDirs.Add(Expand(d));

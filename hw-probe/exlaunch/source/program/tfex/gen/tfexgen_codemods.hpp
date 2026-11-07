@@ -3,9 +3,4 @@
 
 namespace tfex::gen::codemods {
 void Boot_TeamsPlus();   /* TeamsPlus (teamplus/: Tp_Module, 7 patch classes) */
-void Boot_Soccer();   /* Soccer (soccer/: So_TFModFortRiseGameModeSoccerModule, 6 patch classes) */
-void Boot_LoaderAI();   /* LoaderAI (loaderai/: La_TFModFortRiseLoaderAIModule, 3 patch classes) */
-void Boot_AINova();   /* AINova (ainova/: An_TFModFortRiseAiNovaModule, 1 patch classes) */
-void Boot_AIJimmy();   /* AIJimmy (aijimmy/: Aj_TFModFortRiseAiSimpleModule, 2 patch classes) */
-void Boot_MoveOrDie();   /* MoveOrDie (moveordie/: Md_TFModFortRiseVariantMoveOrDieModule, 2 patch classes) */
 }

@@ -22,8 +22,7 @@ PC -> Switch: game enum conversion maps the PC's numbers (6)
     MenuState -> MenuState
     Modes -> Int32
     Modes -> Modes
-PC -> Switch: game enum literal by name (3)
-    MenuState.Variants: 8 -> 9
+PC -> Switch: game enum literal by name (2)
     MenuState.VersusOptions: 7 -> 8
     Modes.LevelTest: 9 -> 7
 PC -> Switch: game enum literal missing on the Switch (value kept) (10)
@@ -43,19 +42,12 @@ TFEX-DIFF S-input: the PC keyboard / mouse -> nothing pressed (5)
     Auto_JoinCodeEntry: Update: Keyboard.GetState()
     Auto_JoinCodeEntry: Update: keyboard.GetPressedKeys()
     Auto_JoinCodeEntry: Update: previousKeyboard.IsKeyDown(key)
-auto unit (a TF.EX type the code calls) (363)
-    Auto_AILogic: aijimmy/AI/AILogic.cs
-    Auto_AIMovementLibrary: aijimmy/AI/AIMovementLibrary.cs
+auto unit (a TF.EX type the code calls) (310)
     Auto_APIManager: state/TF.State.Domain/Services/APIManager.cs
     Auto_ActionExtensions: state/TF.State.Domain/Extensions/ActionExtensions.cs
-    Auto_Agent: loaderai/Core/Agent.cs
-    Auto_AgentAdapter: loaderai/AI/AgentAdapter.cs
     Auto_Alarm: state/TF.State.Domain/Models/Component/Alarm.cs
     Auto_AlarmExtensions: state/TF.State.TowerFallExtensions/Component/Alarm.cs
-    Auto_ApiImplementation: soccer/API/ApiImplementation.cs
-    Auto_ApiImplementation_: loaderai/API/ApiImplementation.cs
     Auto_ArcherDataExtensions: network/TF.EX.Domain/Extensions/ArcherData.cs
-    Auto_ArcherPhysics: ainova/AI/ArcherPhysics.cs
     Auto_ArcherRegistry: fortrise/TowerFall.FortRise.mm/Core/Registry/Archers/ArcherRegistry.cs
     Auto_ArcherRegistryApi: network/TF.EX.Domain/Interop/ArcherRegistryApi.cs
     Auto_ArcherSeatInfo: network/TF.EX.Domain/Models/InputCodec.cs
@@ -66,7 +58,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_ArrowCushionData: state/TF.State.Domain/Models/Entity/LevelEntity/Player/PlayerCorpse.cs
     Auto_ArrowCushionExtensions: state/TF.State.TowerFallExtensions/Component/ArrowCushion.cs
     Auto_ArrowExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Arrow.cs
-    Auto_ArrowInfo: aijimmy/AI/ArrowInfo.cs
     Auto_ArrowStatesExtensions: state/TF.State.Domain/Models/Entity/LevelEntity/Arrows/ArrowStates.cs
     Auto_ArrowTypesExtensions: state/TF.State.Domain/Models/Entity/LevelEntity/Arrows/ArrowTypes.cs
     Auto_ArtifactSkinBundle: network/TF.EX.Domain/Models/Skin/ArtifactSkinBundle.cs
@@ -76,7 +67,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_BGMushroomExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/BGMushroom.cs
     Auto_BGTorch: state/TF.State.Domain/Models/Entity/LevelEntity/Background/BGTorch.cs
     Auto_BGTorchExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/BGTorch.cs
-    Auto_Ball: soccer/Core/Ball.cs
     Auto_Bat: state/TF.State.Domain/Models/Entity/LevelEntity/Bat.cs
     Auto_BatExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Bat.cs
     Auto_BoltArrow: state/TF.State.Domain/Models/Entity/LevelEntity/Arrows/BoltArrow.cs
@@ -104,7 +94,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_ConnectionQualities: network/TF.EX.Domain/Models/ConnectionQuality.cs
     Auto_Constants: network/TF.EX.Domain/Models/Constants.cs
     Auto_Constants_: state/TF.State.Domain/Models/Constants.cs
-    Auto_ControlNames: loaderai/Core/ControlNames.cs
     Auto_CornerButton: network/TF.EX.Domain/CustomComponent/CornerButton.cs
     Auto_Counter: state/TF.State.Domain/Models/Component/Counter.cs
     Auto_CounterExtensions: state/TF.State.TowerFallExtensions/Component/Counter.cs
@@ -120,10 +109,8 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_CrumbleWallExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/CrumbleWall.cs
     Auto_Dark: state/TF.State.Domain/Models/OrbLogic/Dark.cs
     Auto_DarkPortalsSequence: state/TF.State.Domain/Models/Entity/LevelEntity/DarkPortalsSequence.cs
-    Auto_DebugPathRenderer: aijimmy/AI/DebugPathRenderer.cs
     Auto_DefaultArrow: state/TF.State.Domain/Models/Entity/LevelEntity/Arrows/DefaultArrow.cs
     Auto_DeterministicRandom: state/TF.State.Domain/Randomness/DeterministicRandom.cs
-    Auto_Difficulty: ainova/AI/Difficulty.cs
     Auto_DodgeSlide: state/TF.State.Domain/Models/Entity/LevelEntity/Player/DodgeSlide.cs
     Auto_DrillArrow: state/TF.State.Domain/Models/Entity/LevelEntity/Arrows/DrillArrow.cs
     Auto_Dummy: state/TF.State.Domain/Models/Entity/LevelEntity/Dummy.cs
@@ -147,7 +134,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_Fader: network/TF.EX.Domain/CustomComponent/Fader.cs
     Auto_FakeController: network/TF.EX.Domain/FakeController.cs
     Auto_FeatherArrow: state/TF.State.Domain/Models/Entity/LevelEntity/Arrows/FeatherArrow.cs
-    Auto_Field: moveordie/Core/VariantPopup.cs
     Auto_FireControl: state/TF.State.Domain/Models/Component/FireControl.cs
     Auto_FireControlExtensions: state/TF.State.TowerFallExtensions/Component/FireControl.cs
     Auto_Flash: state/TF.State.Domain/Models/Entity/LevelEntity/Flash.cs
@@ -157,9 +143,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_GameState: state/TF.State.Domain/Models/GameState.cs
     Auto_GhostPlatform: state/TF.State.Domain/Models/Entity/LevelEntity/Platform/GhostPlatform.cs
     Auto_GhostPlatformExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/GhostPlatform.cs
-    Auto_Goal: soccer/Core/Goal.cs
-    Auto_GoalPlacement: soccer/Core/GoalPlacement.cs
-    Auto_Guide: ainova/AI/Guide.cs
     Auto_HUD: state/TF.State.Domain/Models/Entity/HUD/HUD.cs
     Auto_HUDService: state/TF.State.Domain/Services/HUDService.cs
     Auto_Hat: state/TF.State.Domain/Models/Entity/LevelEntity/Hat.cs
@@ -169,7 +152,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_Icicle: state/TF.State.Domain/Models/Entity/LevelEntity/Icicle.cs
     Auto_IcicleExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Icicle.cs
     Auto_IcicleOwnedState: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Icicle.cs
-    Auto_Input: loaderai/Core/Input.cs
     Auto_InputCodec: network/TF.EX.Domain/Models/InputCodec.cs
     Auto_InputCodecExtensions: network/TF.EX.Domain/Extensions/InputCodecExtensions.cs
     Auto_InputDelayAdvisor: network/TF.EX.Patchs/InputDelayAdvisor.cs
@@ -179,7 +161,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_JoinCodeEntry: network/TF.EX.Domain/CustomComponent/JoinCodeEntry.cs
     Auto_JumpPad: state/TF.State.Domain/Models/Entity/LevelEntity/JumpPad.cs
     Auto_JumpPadExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/JumpPad.cs
-    Auto_KeyboardConfigs: loaderai/Core/KeyboardConfigs.cs
     Auto_KillStats: state/TF.State.Domain/Models/KillStats.cs
     Auto_KillStatsExtensions: state/TF.State.Domain/Extensions/KillStats.cs
     Auto_Lantern: state/TF.State.Domain/Models/Entity/LevelEntity/Lantern.cs
@@ -198,11 +179,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_Lobby: network/TF.EX.Domain/Models/WebSocket/Lobby.cs
     Auto_LobbyBuilderContext: network/TF.EX.Domain/Context/LobbyBuilderContext.cs
     Auto_LocalPlayersPanel: network/TF.EX.Domain/CustomComponent/LocalPlayersPanel.cs
-    Auto_Logger: soccer/Core/Logger.cs
-    Auto_Logger_: loaderai/Common/Logger.cs
-    Auto_Logger__: ainova/Core/Logger.cs
-    Auto_Logger___: aijimmy/Core/Logger.cs
-    Auto_Logger____: moveordie/Core/Logger.cs
     Auto_LoopPlatform: state/TF.State.Domain/Models/Entity/LevelEntity/Platform/LoopPlatform.cs
     Auto_LoopPlatformExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/LoopPlatform.cs
     Auto_LosePoint: state/TF.State.Domain/Models/EventLog/LosePoint.cs
@@ -217,7 +193,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_MiasmaSequenceController: state/TF.State.TowerFallExtensions/Entity/LevelEntity/MiasmaSequenceController.cs
     Auto_ModIO: fortrise/TowerFall.FortRise.mm/Core/Utils/ModIO.cs
     Auto_ModRegistryApi: network/TF.EX.Domain/Interop/ModRegistryApi.cs
-    Auto_ModeImports: ainova/AI/ModeImports.cs
     Auto_ModeSelection: network/TF.EX.Patchs/Entity/MenuItem/VersusModeButton.cs
     Auto_ModesExtensions: state/TF.State.Domain/Extensions/ModesExtensions.cs
     Auto_MoonGlassBlock: state/TF.State.Domain/Models/Entity/LevelEntity/Platform/MoonGlassBlock.cs
@@ -225,9 +200,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_MoonGlassBlockExplodeState: state/TF.State.TowerFallExtensions/Entity/LevelEntity/MoonGlassBlock.cs
     Auto_MoonGlassBlockExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/MoonGlassBlock.cs
     Auto_MoonGlassBlockOwnedState: state/TF.State.TowerFallExtensions/Entity/LevelEntity/MoonGlassBlock.cs
-    Auto_MoveOrDieGameMode: moveordie/Core/MoveOrDieGameMode.cs
-    Auto_MovementAction: aijimmy/AI/MovementAction.cs
-    Auto_MovementPhase: aijimmy/AI/MovementPhase.cs
     Auto_MovingPlatform: state/TF.State.Domain/Models/Entity/LevelEntity/Platform/MovingPlatform.cs
     Auto_MovingPlatformExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/MovingPlatform.cs
     Auto_NetplayConfig: network/TF.EX.Domain/Models/GGRSConfig.cs
@@ -236,8 +208,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_NetplayPreferences: network/TF.EX.Domain/Models/NetplayPreferences.cs
     Auto_NetplayServerConfig: network/TF.EX.Domain/Models/GGRSConfig.cs
     Auto_NetplaySpectatorConfig: network/TF.EX.Domain/Models/GGRSConfig.cs
-    Auto_Node: aijimmy/AI/AILogic.cs
-    Auto_NovaLogic: ainova/AI/NovaLogic.cs
     Auto_OptionDescriptionBox: fortrise/TowerFall.FortRise.mm/Core/UI/OptionDescriptionBox.cs
     Auto_Orb: state/TF.State.Domain/Models/Entity/LevelEntity/Orb.cs
     Auto_OrbExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Orb.cs
@@ -247,9 +217,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_Pickup: state/TF.State.Domain/Models/Entity/LevelEntity/Chest/Pickup.cs
     Auto_PickupExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Pickup.cs
     Auto_PickupsExtensions: state/TF.State.Domain/Models/Entity/LevelEntity/Chest/PickupState.cs
-    Auto_PitchBackground: soccer/Core/PitchBackground.cs
-    Auto_Plan: ainova/AI/Rollout.cs
-    Auto_PlayTagImport: aijimmy/PlayTagImport.cs
     Auto_Player: network/TF.EX.Domain/Models/WebSocket/Lobby.cs
     Auto_PlayerAnimations: state/TF.State.Domain/Models/Entity/LevelEntity/Player/PlayerAnimations.cs
     Auto_PlayerArrowsInventory: state/TF.State.Domain/Models/Entity/LevelEntity/Player/PlayerArrowsInventory.cs
@@ -259,7 +226,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_PlayerExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Player.cs
     Auto_PlayerGhost: state/TF.State.Domain/Models/Entity/LevelEntity/Player/PlayerGhost.cs
     Auto_PlayerGhostExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/PlayerGhostExtensions.cs
-    Auto_PlayerInfo: aijimmy/AI/PlayerInfo.cs
     Auto_PlayerShield: state/TF.State.Domain/Models/Entity/LevelEntity/Player/PlayerShield.cs
     Auto_PlayerShieldExtensions: state/TF.State.TowerFallExtensions/CompositeComponent/PlayerShield.cs
     Auto_PlayerState: state/TF.State.Domain/Models/Entity/LevelEntity/Player/PlayerState.cs
@@ -281,13 +247,11 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_RightStickShot: network/TF.EX.Patchs/PlayerInput/RightStickShot.cs
     Auto_Rng: state/TF.State.Domain/Models/Rng.cs
     Auto_RngService: state/TF.State.Domain/Services/RngService.cs
-    Auto_Rollout: ainova/AI/Rollout.cs
     Auto_RotatePlatform: state/TF.State.Domain/Models/Entity/LevelEntity/Platform/RotatePlatform.cs
     Auto_RotatePlatformExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/RotatePlatform.cs
     Auto_RoundData: state/TF.State.Domain/Models/Entity/RoundData.cs
     Auto_RoundLevels: state/TF.State.Domain/Models/RoundLevels.cs
     Auto_RoundLogic: state/TF.State.Domain/Models/RoundLogic.cs
-    Auto_Row: soccer/Core/UIVersusSoccerPopup.cs
     Auto_SFX: state/TF.State.Domain/Models/SFX.cs
     Auto_SFXExtensions: state/TF.State.Domain/Extensions/SFX.cs
     Auto_SFXRegistry: fortrise/TowerFall.FortRise.mm/Core/Registry/SFXs/SFXRegistry.cs
@@ -323,14 +287,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_SlimeExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Slime.cs
     Auto_SnowClump: state/TF.State.Domain/Models/Entity/LevelEntity/SnowClump.cs
     Auto_SnowClumpExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/SnowClump.cs
-    Auto_SoccerAimer: soccer/Core/SoccerAimer.cs
-    Auto_SoccerGameMode: soccer/Core/SoccerGameMode.cs
-    Auto_SoccerHUD: soccer/Core/SoccerHUD.cs
-    Auto_SoccerImport: aijimmy/SoccerImport.cs
-    Auto_SoccerMatch: soccer/Core/SoccerMatch.cs
-    Auto_SoccerPitch: soccer/Core/SoccerPitch.cs
-    Auto_SoccerRoundLogic: soccer/Core/SoccerRoundLogic.cs
-    Auto_SoccerSpawns: soccer/Core/SoccerSpawns.cs
     Auto_SoundEffectPlaying: state/TF.State.Domain/Context/SoundEffectPlaying.cs
     Auto_Space: state/TF.State.Domain/Models/OrbLogic/Space.cs
     Auto_SpawnHatRules: state/TF.State.Domain/Context/SpawnHatRules.cs
@@ -359,9 +315,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_SwitchQueue: fortrise/glue/SwitchMods.cs
     Auto_SwitchVariantEntry: fortrise/glue/SwitchMods.cs
     Auto_TFGameExtensions: network/TF.EX.Domain/Extensions/TowerFallScene.cs
-    Auto_TFModFortRiseAiNovaSettings: ainova/TFModFortRiseAiNovaSettings.cs
-    Auto_TFModFortRiseGameModeSoccerSettings: soccer/TFModFortRiseGameModeSoccerSettings.cs
-    Auto_TFModFortRiseVariantMoveOrDieSettings: moveordie/TFModFortRiseVariantMoveOrDieSettings.cs
     Auto_TeamReviver: state/TF.State.Domain/Models/Entity/LevelEntity/TeamReviver.cs
     Auto_TeamReviverExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/TeamReviver.cs
     Auto_TechnoMage: state/TF.State.Domain/Models/Entity/LevelEntity/TechnoMage.cs
@@ -370,8 +323,6 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_TechnoMissileExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/TechnoMissile.cs
     Auto_TestConfig: network/TF.EX.Domain/Models/GGRSConfig.cs
     Auto_Text: network/TF.EX.Domain/CustomComponent/Text.cs
-    Auto_TextureRegistry: soccer/Core/TextureRegistry.cs
-    Auto_TextureRegistry_: moveordie/Core/TextureRegistry.cs
     Auto_TextureUtilities: fortrise/InternalMods/FortRise.Content/Core/Utilities/TextureUtilities.cs
     Auto_Time: state/TF.State.Domain/Models/OrbLogic/Time.cs
     Auto_TowerFallSceneExtensions: network/TF.EX.Domain/Extensions/TowerFallScene.cs
@@ -385,11 +336,8 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_TutorialSlide: network/TF.EX.Domain/Utils/Tutorial.cs
     Auto_Tween: state/TF.State.Domain/Models/Component/Tween.cs
     Auto_TweenExtensions: state/TF.State.TowerFallExtensions/Component/Tween.cs
-    Auto_UIVersusSoccerPopup: soccer/Core/UIVersusSoccerPopup.cs
     Auto_UpdateRequest: network/TF.EX.Domain/Context/UpdateRequest.cs
     Auto_Variant: fortrise/TowerFall.FortRise.mm/Patches/Variant.cs
-    Auto_VariantPopup: moveordie/Core/VariantPopup.cs
-    Auto_Variants: moveordie/Core/Variants.cs
     Auto_Vector2Extensions: state/TF.State.Domain/Extensions/Vector2Extensions.cs
     Auto_Vector2fExtensions: network/TF.EX.Domain/Extensions/Vector2f.cs
     Auto_VersusGraphics: network/TF.EX.Domain/Utils/VersusGraphics.cs
@@ -399,32 +347,19 @@ auto unit (a TF.EX type the code calls) (363)
     Auto_VersusRoundResults: state/TF.State.Domain/Models/Entity/HUD/VersusRoundResults.cs
     Auto_VersusStart: state/TF.State.Domain/Models/Entity/HUD/VersusStart.cs
     Auto_Wide: teamplus/Wide.cs
-    Auto_WiderSetHelper: aijimmy/WiderSetHelper.cs
     Auto_WiderSetMenu: network/TF.EX.Patchs/Scene/WiderSetMenu.cs
     Auto_WiderSetModApiData: network/TF.EX.Common/Interop/IWiderSetModApi.cs
     Auto_Wiggler: state/TF.State.Domain/Models/Component/Wiggler.cs
     Auto_WigglerExtensions: state/TF.State.TowerFallExtensions/Component/Wiggler.cs
-    Auto_WorldSnapshot: ainova/AI/World.cs
     Auto_XGamePadInputExtensions: network/TF.EX.Domain/Extensions/TowerFallScene.cs
     Auto_patch_SpriteData: fortrise/TowerFall.FortRise.mm/Patches/Monocle/SpriteData.cs
-code mod: a generated boot (FortRise's ModuleManager.LoadAssembly) (6)
-    AIJimmy: Aj_TFModFortRiseAiSimpleModule, 2 patch classes
-    AINova: An_TFModFortRiseAiNovaModule, 1 patch classes
-    LoaderAI: La_TFModFortRiseLoaderAIModule, 3 patch classes
-    MoveOrDie: Md_TFModFortRiseVariantMoveOrDieModule, 2 patch classes
-    Soccer: So_TFModFortRiseGameModeSoccerModule, 6 patch classes
+code mod: a generated boot (FortRise's ModuleManager.LoadAssembly) (1)
     TeamsPlus: Tp_Module, 7 patch classes, native tfex::teamplus::InstallNative
 dispatch: an interface across compilations, generated (1)
-    FortRise.IVersusGameMode: Auto_MoveOrDieGameMode, Auto_SoccerGameMode, NetplayVersusMode, Tp_GameMode
-hand rule: FortRise member absent on the Switch ([fortrise], S-input) (8)
-    GamepadConfig.Dodge
-    GamepadConfig.Down
-    GamepadConfig.Left
-    GamepadConfig.Right
-    GamepadConfig.Up
+    FortRise.IVersusGameMode: NetplayVersusMode, Tp_GameMode
+hand rule: FortRise member absent on the Switch ([fortrise], S-input) (2)
     InputDelayAdvisor.UpdateMouse
     RollCallElementPatch.UpdateControllerIcon
-    XGamepadInput.Config
 hand rule: FortRise member absent on the Switch ([fortrise], S-native) (7)
     GameFilesIntegrity.IsModified
     GameFilesIntegrity.Modified
@@ -459,13 +394,11 @@ hand rule: a PC member the Switch lacks, kept in the side table ([fortrise] side
     patch_PlayerHair.OutlineColor
 hand rule: a member read by name (DynamicData) -> its [service] rule (1)
     VersusModeButton.currentIndex
-hand rule: call rewritten to glue (translate.toml [[rewrite]]) (44)
+hand rule: call rewritten to glue (translate.toml [[rewrite]]) (42)
     FortRise.EnumPool.Obtain<T>() -> TfexGlue.FortRiseSwitch.SwitchMods.ObtainMode: FortRise's EnumPool (generic math, CollectionsMarshal: not translatable) gives the enum's highest value + 1 and counts on; with FortRise's patch_Modes.Custom = 10 that is 11 on the Switch too (the PC's number: TF.EX's Netplay mode in the browser is 11)
     FortRise.ISettingsCreate.CreateCustomOptions(System.Func<TowerFall.OptionsButton>) -> TfexGlue.SettingsUi.CreateCustomOptions: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
     FortRise.ISettingsCreate.CreateInput(string, string, System.Action<string>, string, FortRise.InputBehavior) -> TfexGlue.SettingsUi.CreateInput: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
-    FortRise.ISettingsCreate.CreateNumber(string, int, System.Action<int>, int, int, int) -> TfexGlue.SettingsUi.CreateNumberPlain: FortRise's shorter overload (its defaults) -> the game's OPTIONS screen entry (glue SettingsUi.cs)
     FortRise.ISettingsCreate.CreateNumber(string, int, System.Action<int>, string, int, int, int) -> TfexGlue.SettingsUi.CreateNumber: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
-    FortRise.ISettingsCreate.CreateOnOff(string, bool, System.Action<bool>) -> TfexGlue.SettingsUi.CreateOnOffPlain: FortRise's shorter overload (its defaults) -> the game's OPTIONS screen entry (glue SettingsUi.cs)
     FortRise.ISettingsCreate.CreateOnOff(string, bool, System.Action<bool>, string) -> TfexGlue.SettingsUi.CreateOnOff: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
     FortRise.ISettingsCreate.CreateOptions(string, string, string[], System.Action<(string, int)>, string) -> TfexGlue.SettingsUi.CreateOptions: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
     MessagePack.MessagePackSerializer.Deserialize<TF.EX.Domain.Models.Skin.ArcherSkinBundle>(System.ReadOnlyMemory<byte>, MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken) -> TfexGlue.Skins.Deserialize: as Serialize: null for bytes that aren't a bundle (TF.EX catches MessagePack's exception and drops the bundle)
@@ -504,8 +437,6 @@ hand rule: call rewritten to glue (translate.toml [[rewrite]]) (44)
     TF.EX.Domain.Services.MatchmakingService.HandleMessageContents(string) -> TfexGlue.Ffi.HandleOnGameThread: the listen loop's message to the game thread, where TF.EX's handler runs (PumpTransport): the runtime's object pools aren't thread-safe
     TF.EX.Patchs.InputDelayAdvisor.Render() -> TfexGlue.Rewrites.InputDelayAdvisorRender: the Switch's wide roll call spans the 420 screen (its six seats, its guides at the right edge); TF.EX's advisor is anchored to a 320 screen's right edge: drawn UIXOffset right there, on the guides' edge (2026-10-29: it sat mid-screen). Standard and the series lobby as TF.EX (glue Rewrites.InputDelayAdvisorRender, tfex/MainMenuPatch.cpp AdvisorShiftBegin)
     TowerFall.MenuButtonGuide.SetDetails(TowerFall.MenuButtonGuide.ButtonModes, string) -> TfexGlue.Rewrites.SpectateGuide: the lobby list's SPECTATE guide hidden while spectators aren't on the Switch (step 4); every other guide unchanged. Remove with spectators
-hand rule: call skipped (translate.toml [[rewrite]] skip) (1)
-    TowerFall.KeyboardInput.InitIcons(): LoaderAI's AI input re-makes its key pictures for its per-slot keys (Q, A, F1, F13...): the Switch's build has no keyboard art for them (KeyboardInput.GetIcon faults). On the console the keys are the AI-slot button (tfex/AiSlotButton.cpp); the input keeps the icons its base constructor made
 hand rule: creation rewritten to glue (translate.toml [[rewrite]] new) (13)
     FortRise.UIInputText.UIInputText(TowerFall.MenuItem, System.Action<string>, Microsoft.Xna.Framework.Vector2, int, string) in TF.EX.ServerOptionsButton -> TfexGlue.SettingsUi.KeyboardText (S-native): FortRise's typed-text entity -> the Switch's software keyboard (swkbd), its text handed back the next frame (glue SettingsUi.cs)
     FortRise.UIInputText.UIInputText(TowerFall.MenuItem, System.Action<string>, Microsoft.Xna.Framework.Vector2, string) in FortRise.UISearchPanel -> TfexGlue.SettingsUi.KeyboardTextAny (S-native): as the one above, for the constructor without a player (FortRise's UISearchPanel); FortRise's compilation (glue/fortrise/Rewrites.cs)
@@ -688,7 +619,7 @@ hand rule: ledger replacement (gap) (2)
 hand rule: member missing from the reference game ([invalid], S-native) (2)
     registry.SFXs.RegisterSFXLooped(id+"_"+type+"_SFX",f)
     registry.SFXs.RegisterSFXVaried(id+"_"+type+"_SFX",fallback)
-hand rule: pinned game member (translate.toml [pin]) (378)
+hand rule: pinned game member (translate.toml [pin]) (375)
     Microsoft.Xna.Framework.Audio.SoundEffectInstance.Stop: classmeta: SoundEffectInstance's first Stop (+0x47970; Stop(bool) +0x47aa0 is the same body): native stop +0x18ef0 of [this + 0x30], then the pool's Remove (+0x47f30)
     Microsoft.Xna.Framework.Audio.SoundEffectInstance.get_State: classmeta: SoundEffectInstance's get_State (native state +0x19310 of [this + 0x30], 2 = Stopped without a voice); the name's second body (+0x4d3d0) is a neighbouring XACT class's, whose `ldr [x0, #0x40]` the binder took as a field past the 0x38-byte object (TF.State's SFXService.RemoveFinishedSfx)
     Microsoft.Xna.Framework.Graphics.Texture2D..ctor: Monocle's Texture(int, int, Color) (+0x956180) and Canvas(int, int) call it with (null: allocates, the device, width, height)
@@ -882,7 +813,6 @@ hand rule: pinned game member (translate.toml [pin]) (378)
     TowerFall.PauseMenu.optionNames: private; PauseMenu.AddItem (+0xae2550): [+0xa0].Add(name)
     TowerFall.PauseMenu.selectedOptionNames: private; PauseMenu.AddItem: [+0xa8].Add("> " + name)
     TowerFall.Pickup.timeoutCounter: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
-    TowerFall.Player.aimer: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.Player.aiming: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
     TowerFall.Player.arrowRegenCounter: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.Player.autoBounce: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
@@ -908,13 +838,11 @@ hand rule: pinned game member (translate.toml [pin]) (378)
     TowerFall.Player.graceLedgeDir: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
     TowerFall.Player.headBackSprite: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
     TowerFall.Player.headSprite: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
-    TowerFall.Player.input: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: unchecked
     TowerFall.Player.jumpBufferCounter: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.Player.jumpGraceCounter: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.Player.lastAimDirection: private; Player.set_Aiming (+0xaec75c) stores -1f at +0x2e8; Player.Update (+0xaefd88) compares it with -1 and AimDirection
     TowerFall.Player.lastCaught: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
     TowerFall.Player.lastPlatform: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
-    TowerFall.Player.moveAxis: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: ok
     TowerFall.Player.normalHitbox: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.Player.scheduler: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.Player.shield: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
@@ -1081,12 +1009,9 @@ hook: not generated (13)
     patch_PlayerHair.get_Links: no PlayerHair.get_Links with these parameters (MonoMod adds it: no hook)
     patch_PlayerHair.set_LinkDistance: no PlayerHair.set_LinkDistance with these parameters (MonoMod adds it: no hook)
     patch_PlayerHair.set_Links: no PlayerHair.set_Links with these parameters (MonoMod adds it: no hook)
-interop: checked (consumer -> provider, TF.EX's ApiSurfaceTests) (6)
+interop: checked (consumer -> provider, TF.EX's ApiSurfaceTests) (3)
     TF.EX.Common.Interop.IWiderSetModApi -> TfexGlue.WiderSetApi: 0 methods
     TF.EX.Domain.Interop.ITfStateApi -> TF.State.Core.Api.TfStateApi: 45 methods
-    TFModFortRiseGameModeSoccer.ISoccerApi -> TFModFortRiseGameModeSoccer.ApiImplementation: 4 methods
-    TFModFortRiseLoaderAI.ILoaderAIModApi -> TFModFortRiseLoaderAI.ApiImplementation: 2 methods
-    TFModFortRiseProfiles.IProfilesModApi -> TfexGlue.ProfilesApi: 2 methods
     Teuria.WiderSet.IWiderSetModApi -> TfexGlue.WiderSetApi: 0 methods
 mechanical: ++/-- on a property with accessors -> get, then set (3)
     Auto_BrambleSpreadController: Step: state.Waited++
@@ -1124,7 +1049,7 @@ mechanical: Delegate.CreateDelegate over a static method closed over its first a
     Auto_PlayerExtensions: ToActions: Delegate.CreateDelegate(typeof(Action), self, invisible)
     Auto_PlayerExtensions: ToActions: Delegate.CreateDelegate(typeof(Action), self, shield)
     Auto_PlayerExtensions: ToActions: Delegate.CreateDelegate(typeof(Action), self, wingsGain)
-mechanical: DynamicData member by name (630)
+mechanical: DynamicData member by name (626)
     Actor.counter (Get)
     Actor.counter (Set)
     Alarm.Duration (Set)
@@ -1365,7 +1290,6 @@ mechanical: DynamicData member by name (630)
     LevelEntity.flashInterval (Get)
     LevelEntity.flashInterval (Set)
     LevelEntity.onFinish (Set)
-    LevelTiles.bitData (Get)
     LightingLayer.spotlight (Get)
     LightingLayer.spotlight (Set)
     LoopPlatform.moveAdd (Get)
@@ -1442,11 +1366,8 @@ mechanical: DynamicData member by name (630)
     Player.Indicator (Set)
     Player.InvisOpacity (Get)
     Player.InvisOpacity (Set)
-    Player.OnGround (Get)
     Player.OnGround (Set)
     Player.Prism (Set)
-    Player.State (Get)
-    Player.aimer (Get)
     Player.aiming (Set)
     Player.arrowRegenCounter (Get)
     Player.autoBounce (Get)
@@ -1768,7 +1689,7 @@ mechanical: DynamicData member of a subclass, by the object's type (12)
     RoundLogic.done: HeadhuntersRoundLogic, LastManStandingRoundLogic, TeamDeathmatchRoundLogic, NetplayRoundLogic, ThreeTeamRoundLogic
     RoundLogic.roundEndCounter: WarlordRoundLogic, HeadhuntersRoundLogic, LastManStandingRoundLogic, TeamDeathmatchRoundLogic, NetplayRoundLogic, ThreeTeamRoundLogic
     RoundLogic.wasFinalKill: HeadhuntersRoundLogic, LastManStandingRoundLogic, TeamDeathmatchRoundLogic, NetplayRoundLogic, ThreeTeamRoundLogic
-mechanical: DynamicData method by name (23)
+mechanical: DynamicData method by name (22)
     ArcherPortrait.InitGem/0
     Bat.Explode/0
     BombPickup.Explode/1
@@ -1781,7 +1702,6 @@ mechanical: DynamicData method by name (23)
     Layer.UpdateEntityList/0
     LevelEntity.CheckForChain/0
     MainMenu.TweenBGCameraToY/1
-    Player.CanWallJump/1
     Player.InitHead/0
     Player.UseDuckingHitbox/0
     Player.UseNormalHitbox/0
@@ -1858,7 +1778,7 @@ mechanical: Harmony Traverse member of a subclass, by the object's type (1)
     VersusMatchResults.finished
 mechanical: Harmony Traverse member that exists nowhere -> default / no-op (Traverse's own result) (1)
     HUD.HasReset
-mechanical: Harmony patch -> exlaunch hook (252)
+mechanical: Harmony patch -> exlaunch hook (236)
     Alarm.Removed: AlarmPatch.Alarm_Removed
     ArcherData.Get: ArcherDataPatch.ArcherData_Get_Postfix
     ArcherData.Get: DataHooks.GetTeamData_Prefix
@@ -1872,7 +1792,6 @@ mechanical: Harmony patch -> exlaunch hook (252)
     Arrow.Init: ArrowPatch.Arrow_Init_Postfix
     Arrow.Removed: ArrowPatch.Arrow_Removed
     ArrowCushion.AddArrow: ArrowCushionPatch.AddArrow_Patch_Prefix, ArrowCushionPatch.AddArrow_Patch_Postfix
-    ArrowHUD.Render: MyArrowHUD.Render_patch
     Audio.Stop: MonoclePatch.Audio_Stop
     BGCrystal.Update: BGCrystalPatch.BGCrystal_Update
     Background.Update: BackgroundPatch.Background_Update
@@ -1913,10 +1832,10 @@ mechanical: Harmony patch -> exlaunch hook (252)
     LavaControl.Added: LavaControlPatch.LavaControl_Added_Prefix, LavaControlPatch.LavaControl_Added_Postfix
     LavaControl.Extend: LavaControlPatch.LavaControl_Extend_Prefix, LavaControlPatch.LavaControl_Extend_Postfix
     Layer.Remove: LayerPatch.Layer_Remove_Entity
-    Level..ctor: LevelPatch.Level_ctor, MyLevel.ctor_patch
+    Level..ctor: LevelPatch.Level_ctor
     Level.HandlePausing: LevelPatch.Level_HandlePausing, LevelPatch.Level_HandlePausing
     Level.ScreenShake: LevelScreenShakePatch.Level_ScreenShake
-    Level.Update: LevelPatch.Level_Update__Prefix, LevelPatch.Level_Update__Postfix, MyLevel.Update_patch, MyLevel.Update_patch
+    Level.Update: LevelPatch.Level_Update__Prefix, LevelPatch.Level_Update__Postfix
     LevelEntity.Render: LevelEntityPatch.LevelEntity_Render_Prefix, LevelEntityPatch.LevelEntity_Render_Postfix
     LevelEntity.Update: ShockCirclePatch.LevelEntity_Update
     LevelLoaderXML..ctor: LevelLoaderXMLStatePatch.LevelLoaderXML_ctor
@@ -1975,24 +1894,15 @@ mechanical: Harmony patch -> exlaunch hook (252)
     Pickup..ctor: PickupPatch.Pickup_ctor
     Pickup.FinishUnpack: PickupPatch.Pickup_FinishUnpack
     PirateBanner.Update: PirateBannerPatch.PirateBanner_Update
-    Player..ctor: PlayerPatch.Player_Ctor_Prefix, PlayerPatch.Player_Ctor_Finalizer, PlayerStatePatch.Player_ctor, VisualHooks.PlayerCtor_Postfix, MyPlayer.ctor_patch
+    Player..ctor: PlayerPatch.Player_Ctor_Prefix, PlayerPatch.Player_Ctor_Finalizer, PlayerStatePatch.Player_ctor, VisualHooks.PlayerCtor_Postfix
     Player.Added: patch_Player.Added_Postfix
-    Player.Die: MyPlayerDeath.Block_patch
-    Player.Die: MyPlayerDeath.Die_patch
-    Player.DoSquish: MyPlayerDeath.Block_patch
     Player.DoWrapRender: PlayerPatch.Player_DoWrapRender_Prefix
     Player.DropArrow: PlayerStatePatch.Player_DropArrow_Prefix, PlayerStatePatch.Player_DropArrow_Postfix
     Player.HUDRender: PlayerPatch.Player_HUDRender_Prefix
-    Player.Hurt: MyPlayerDeath.Block_patch
-    Player.HurtBouncedOn: MyPlayerDeath.Block_patch
-    Player.HurtDelayed: MyPlayerDeath.Block_patch
     Player.InitHead: PlayerPatch.Player_InitHead_Prefix, VisualHooks.InitHead_Postfix
     Player.LoseHat: PlayerStatePatch.Player_LoseHat_Prefix, PlayerStatePatch.Player_LoseHat_Postfix
-    Player.NormalUpdate: FlatPlay.NormalUpdate_prefix, FlatPlay.NormalUpdate_postfix
-    Player.PlayerOnPlayer: MyPlayerOnPlayer.PlayerOnPlayer_patch
-    Player.ShootArrow: MyPlayer.ShootArrow_patch
     Player.SpawnedInsideSolidCheck: PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix
-    Player.Update: PlayerPatch.Player_Update_Postfix, MyPlayer.Update_patch, MyPlayer.Update
+    Player.Update: PlayerPatch.Player_Update_Postfix
     PlayerCorpse..ctor: PlayerCorpsePatch.PlayerCorpse_ctor_Postfix
     PlayerCorpse.Added: PlayerCorpsePatch.PlayerCorpse_Added_Postfix, ReviveHooks.Added_Postfix
     PlayerCorpse.DieByArrow: PlayerCorpsePatch.PlayerCorpse_DieByArrow_Postfix
@@ -2011,20 +1921,18 @@ mechanical: Harmony patch -> exlaunch hook (252)
     PlayerIndicator.Render: PlayerIndicatorStatePatch.PlayerIndicator_Render
     PlayerIndicator.Update: PlayerIndicatorStatePatch.PlayerIndicator_Update_Prefix
     PlayerInput.AssignInputs: PlayerInputPatch.PlayerInput_AssignInputs
-    PlayerInput.GetAimDirection: FlatPlay.GetAimDirection_prefix
     QuestSpawnPortal..ctor: QuestSpawnPortalPatch.QuestSpawnPortal_ctor
     QuestSpawnPortal.Appear: QuestSpawnPortalPatch.QuestSpawnPortal_Appear_Postfix
     QuestSpawnPortal.Disappear: QuestSpawnPortalPatch.QuestSpawnPortal_Disappear_Postfix
     QuestSpawnPortal.Update: QuestSpawnPortalPatch.QuestSpawnPortal_Update_Postfix
     ReadyBanner.GetReadyState: ReadyBannerPatch.ReadyBanner_GetReadyState
-    RollcallElement..ctor: RollCallElementPatch.RollcallElement_Ctor_Prefix, RollCallElementPatch.RollcallElement_Ctor_Finalizer, MyRollcallElement.ctor_patch
+    RollcallElement..ctor: RollCallElementPatch.RollcallElement_Ctor_Prefix, RollCallElementPatch.RollcallElement_Ctor_Finalizer
     RollcallElement.EnterJoined: RollCallElementPatch.RollcallElement_EnterJoined
-    RollcallElement.ForceStart: RollCallElementPatch.RollcallElement_ForceStart_Prefix, MyRollcallElement.ForceStart_patch
+    RollcallElement.ForceStart: RollCallElementPatch.RollcallElement_ForceStart_Prefix
     RollcallElement.JoinedUpdate: RollCallElementPatch.RollcallElement_JoinedUpdate_Prefix, RollCallElementPatch.RollcallElement_JoinedUpdate
     RollcallElement.LeaveJoined: RollCallElementPatch.RollcallElement_LeaveJoined
-    RollcallElement.NotJoinedUpdate: RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix, RollCallElementPatch.RollcallElement_NotJoinedUpdate, MyRollcallElement.NotJoinedUpdate_patch
-    RollcallElement.Render: RollCallElementPatch.RollcallElement_Render, MyRollcallElement.Render_patch, MyRollcallElement.Keys_postfix
-    RollcallElement.StartVersus: MyRollcallElement.StartVersus_patch
+    RollcallElement.NotJoinedUpdate: RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix, RollCallElementPatch.RollcallElement_NotJoinedUpdate
+    RollcallElement.Render: RollCallElementPatch.RollcallElement_Render
     RollcallElement.Update: RollCallElementPatch.RollcallElement_Update
     RotatePlatform.Update: RotatePlatformPatch.RotatePlatform_Update
     RoundLogic.GetRoundLogic: patch_RoundLogic.GetRoundLogic
@@ -2054,7 +1962,7 @@ mechanical: Harmony patch -> exlaunch hook (252)
     SteelHat.Update: SteelHatRngPatch.SteelHat_Update_Prefix, SteelHatRngPatch.SteelHat_Update_Postfix
     TFGame.Load: TFGamePatch.TFGame_Load
     TFGame.OnSceneTransition: TFGamePatch.TFGame_OnSceneTransition
-    TFGame.Update: TFGamePatch.TFGameUpdate_Patch, MyTFGame.Update_patch, MyTFGame.Update_prefix, MyTFGame.Update_patch_prefix
+    TFGame.Update: TFGamePatch.TFGameUpdate_Patch
     TeamReviver..ctor: TeamReviverPatch.TeamReviver_ctor
     TeamReviver.FinishReviving: ReviveHooks.FinishReviving_Postfix
     TeamReviver.ReviveUpdate: TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix
@@ -2083,10 +1991,8 @@ mechanical: Harmony patch -> exlaunch hook (252)
     VariantRandomize.OnConfirm: VariantButtonConfirmPatch.VariantButton_OnConfirm
     VariantRandomize.Render: VariantButtonRenderPatch.VariantButton_Render
     VariantToggle.OnConfirm: VariantTogglePatch.VariantToggle_OnConfirm
-    VariantToggle.OnSelect: MyVariantToggle.OnSelect_patch
     VariantToggle.Render: VariantTogglePatch.VariantToggle_Render
     VariantToggle.ShowPerPlayer: VariantTogglePatch.VariantToggle_ShowPerPlayer
-    VariantToggle.Update: MyVariantToggle.Update_patch
     VariantTournament1v1.OnConfirm: VariantButtonConfirmPatch.VariantButton_OnConfirm
     VariantTournament1v1.Render: VariantButtonRenderPatch.VariantButton_Render
     VariantTournament2v2.OnConfirm: VariantButtonConfirmPatch.VariantButton_OnConfirm
@@ -2096,13 +2002,11 @@ mechanical: Harmony patch -> exlaunch hook (252)
     VersusBeginButton.OnConfirm: VersusBeginButtonPatch.VersusBeginButton_OnConfirm
     VersusCoinButton.Render: VersusCoinButtonPatch.VersusCoinButton_Render
     VersusLevelSystem.GenLevels: VersusLevelSystemPatch.VersusLevelSystem_GenLevels
-    VersusMapButton.OnConfirm: MyVersusModeButton.MapConfirm_patch
     VersusMatchResults..ctor: VersusMatchResultsPatch.VersusMatchResults_ctor_Prefix, VersusMatchResultsPatch.VersusMatchResults_ctor
     VersusModeButton..ctor: patch_VersusModeButton.Create
     VersusModeButton.GetModeIcon: patch_VersusModeButton.GetModeIcon
     VersusModeButton.GetModeName: patch_VersusModeButton.GetModeName
-    VersusModeButton.Render: MyVersusModeButton.Render_patch
-    VersusModeButton.Update: VersusModeButtonPatch.VersusModeButton_Update_Prefix, VersusModeButtonPatch.VersusModeButton_Update_Postfix, patch_VersusModeButton.Update, MyVersusModeButton.Update_patch
+    VersusModeButton.Update: VersusModeButtonPatch.VersusModeButton_Update_Prefix, VersusModeButtonPatch.VersusModeButton_Update_Postfix, patch_VersusModeButton.Update
     VersusModeButton.UpdateSides: patch_VersusModeButton.UpdateSides
     VersusPlayerMatchResults..ctor: VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Prefix, VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Finalizer, VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_ctor
     VersusTowerData.GetLevels: LevelHooks.GetLevels_Prefix
@@ -2180,8 +2084,7 @@ mechanical: LINQ All -> internal iteration (7)
     NetplayMenus: EvaluateLobbyCompatibility: newLobby.GameData.Variants.All(availableVariants.Contains)
     PlayerInputPatch: PlayerInput_AssignInputs: TFGame.PlayerInputs.All(input => input == null)
     SessionPatch: Session_StartGame: lobby.Players.All(player => player.UseInstantReplay)
-mechanical: LINQ Any -> internal iteration (121)
-    Auto_AILogic: FindActionLeadingTo: possible.Any(p => p == to)
+mechanical: LINQ Any -> internal iteration (120)
     Auto_APIManager: HasStateEvents: stateEvents.Keys.Any(key => key.StartsWith(id + "-", StringComparison.Ordinal))
     Auto_ConfirmDialog: IsPressed: _originalInputs.Any(input => input != null && IsPressed(input, button))
     Auto_ExplosionExtensions: GetSharedCounters: shared.Any(index => index >= 0)
@@ -2347,8 +2250,7 @@ mechanical: LINQ ElementAtOrDefault -> internal iteration (3)
 mechanical: LINQ Empty -> internal iteration (2)
     Auto_Layer: .ctor: Enumerable.Empty<BGElement>()
     Auto_RoundLevels: .ctor: Enumerable.Empty<string>()
-mechanical: LINQ First -> internal iteration (8)
-    Auto_DebugPathRenderer: Render: ai.debugPath.First()
+mechanical: LINQ First -> internal iteration (7)
     MatchmakingService: HandleLobbyUpdate: lobby.Players.First(pl => pl.IsHost)
     MatchmakingService: HandleMessageContents: ownLobby.Players.First(pl => pl.IsHost)
     NetplayManager: ConsumeNetplayRequest: _netplayRequests.First()
@@ -2356,14 +2258,7 @@ mechanical: LINQ First -> internal iteration (8)
     NetplayMenus: OnJoinSuccess: newLobby.Players.First(pl => pl.IsHost)
     XGamePadInputPatch: InterceptConfirm: (TFGame.Instance.Scene as MainMenu).GetAll<RollcallElement>().First(rc =>
     XGamePadInputPatch: InterceptStart: (TFGame.Instance.Scene as MainMenu).GetAll<RollcallElement>().First(rc =>
-mechanical: LINQ FirstOrDefault -> internal iteration (114)
-    Auto_AILogic: ChooseGoal: arrows
-    Auto_AILogic: ChooseGoal: candidates
-    Auto_AILogic: ChooseGoal: safeCandidates
-    Auto_AILogic: ComputeNewActionSequence: movementLibrary.FirstOrDefault(a => a.Name == moveName)
-    Auto_AILogic: Reachable: around
-    Auto_AILogic: TestMovementAction: movementLibrary.FirstOrDefault(a => a.Name == actionName)
-    Auto_AILogic: TryAddNode: open.FirstOrDefault(n => n.Position.Equals(d))
+mechanical: LINQ FirstOrDefault -> internal iteration (107)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex && (int)e.Type == altIndex)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex && e.Type == FortRise.ArcherEntryType.Normal)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex)
@@ -2474,8 +2369,6 @@ mechanical: LINQ FirstOrDefault -> internal iteration (114)
 mechanical: LINQ GroupBy(key) -> gen::GroupBy (the groups made at once, in order of their first element) (2)
     ScenarioSweeper: Finish: _lastLevel.Layers
     ScenarioSweeper: SamplePeak: level.Layers.SelectMany(layer => layer.Value.Entities).GroupBy(e => e.GetType().Name)
-mechanical: LINQ Last -> internal iteration (1)
-    Auto_DebugPathRenderer: Render: ai.debugPath.Last()
 mechanical: LINQ LastOrDefault -> internal iteration (4)
     Auto_CornerButton: LinkItems: items.LastOrDefault()
     ChangelogPanel: Update: releaseStarts.LastOrDefault(start => start < scroll)
@@ -2682,31 +2575,11 @@ mechanical: List<T>.FindIndex(predicate) on a value list -> the first index it a
     Tp_RoundLogic: SpawnGroups: groups.FindIndex(g => g.Team == Allegiance.Red)
 mechanical: List<T>.Sort(comparison) on a value list -> its Sort with the comparison inline (1)
     Fr_UIModMenu: GetMods: sorted.Sort((x, y) =>
-mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (31)
-    Auto_AILogic: HandleShooting: Math.Abs(deltaX)
-    Auto_AILogic: HandleShooting: Math.Abs(deltaXDirect)
-    Auto_AILogic: HandleShooting: Math.Abs(deltaY)
-    Auto_AILogic: HandleShooting: Math.Abs(deltaYDirect)
-    Auto_ArcherPhysics: MoveX: Math.Abs(amount)
-    Auto_ArcherPhysics: MoveY: Math.Abs(amount)
-    Auto_ArcherPhysics: Step: Math.Abs(s.SpeedX)
-    Auto_Ball: OnHitH: Math.Abs(Speed.X)
-    Auto_Ball: OnHitV: Math.Abs(Speed.Y)
-    Auto_Ball: Update: Math.Abs(Carrier.Speed.X)
-    Auto_NovaLogic: Aim: Math.Abs(dx)
-    Auto_NovaLogic: Aim: Math.Abs(dy)
-    Auto_NovaLogic: AimAt: Math.Abs(dx)
-    Auto_NovaLogic: AimAt: Math.Abs(dy)
+mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (11)
     Auto_PlayerGhostExtensions: GetState: Math.Abs(sprite.Scale.X)
-    Auto_Rollout: DodgeCandidate: Math.Abs(toward.X)
-    Auto_Rollout: DodgeCandidate: Math.Abs(toward.Y)
-    Auto_Rollout: Simulate: Math.Abs(state.SpeedX)
-    Auto_Rollout: Standing: Math.Abs(dx)
-    Auto_Rollout: Standing: Math.Abs(dy)
     Auto_XGamePadInputExtensions: GetRightStick: Math.Abs(vector.X)
     Auto_XGamePadInputExtensions: GetRightStick: Math.Abs(vector.Y)
     MainMenuCreate: AddNetplayButtonToMenu: Math.Abs(button.Position.Y - VANILLA_BOTTOM_ROW_Y)
-    So_MyPlayerOnPlayer: PlayerOnPlayer_patch: Math.Abs(carrierTop - otherTop)
     State_DeterministicMath: Atan2: Math.Abs(y / x)
     State_DeterministicMath: Atan: Math.Abs(x)
     State_DeterministicMath: Cos: Math.Abs(x)
@@ -2726,10 +2599,6 @@ mechanical: Monocle Calc.Choose<T> (its body: choices[random.Next(n)]) (4)
     System.Collections.Generic.List<TowerFall.ArrowTypes>
     int[]
     string[]
-mechanical: Monocle's GetFirst<T> (its body: the first element that is a T) (3)
-    Layer.GetFirst<Lava>
-    Layer.GetFirst<Miasma>
-    Layer.GetFirst<Spikeball>
 mechanical: Path.Combine(a, b, c, ...) -> Combine(Combine(a, b), c) ... (1)
     ScenarioMapWriter: : Path.Combine("Content", "Levels", "Versus", "00 - Sacred Ground", "08.oel")
 mechanical: StringBuilder.Append($"...") (an interpolated-string handler) -> the string, then Append(string) (6)
@@ -2834,8 +2703,6 @@ mechanical: a P/Invoke extern -> a direct C call into the native library (22)
     GGRSFFI.netplay_save_game_state
     GGRSFFI.netplay_set_local_inputs
     GGRSFFI.netplay_set_test_inputs
-mechanical: a ReadOnlyCollection<T> -> its Count and indexer (1)
-    Auto_ControlNames: Safe: characters
 mechanical: a TF.State generic method -> a copy per instantiation (175)
     Auto_CalcExtensions: OwnShuffle__Int32
     Auto_CalcExtensions: OwnShuffle__Vector2
@@ -3075,7 +2942,7 @@ mechanical: a break nested in a switch section -> a goto past the switch (3)
     Auto_ArrowExtensions: LoadState: switch (toLoad.ArrowType)
     GlueSkins: ReadSprite: switch (k)
     State_DarkPortalsVariantSequence: Step: switch (phase)
-mechanical: a call through a TF.EX interface -> its single TF.EX implementation (no [service] rule) (240)
+mechanical: a call through a TF.EX interface -> its single TF.EX implementation (no [service] rule) (230)
     IAPIManager.GetStates -> APIManager
     IAPIManager.HasStateEvents -> APIManager
     IAPIManager.LoadStates -> APIManager
@@ -3138,8 +3005,6 @@ mechanical: a call through a TF.EX interface -> its single TF.EX implementation 
     IInputService.TryAddGuestInput -> InputService
     IInputService.UpdateCurrent -> InputService
     IInputService.UpdatePolledInput -> InputService
-    ILoaderAIModApi.CanAddAgent -> ApiImplementation
-    ILoaderAIModApi.RegisterAgent -> ApiImplementation
     IMatchmakingService.ApplyTeamsToMatchSettings -> MatchmakingService
     IMatchmakingService.ArcherSelectChoice -> MatchmakingService
     IMatchmakingService.CanEditLobbySettings -> MatchmakingService
@@ -3278,10 +3143,6 @@ mechanical: a call through a TF.EX interface -> its single TF.EX implementation 
     ISessionService.UpdateRoundChests -> SessionService
     ISessionService.UpdateRoundLavaControl -> SessionService
     ISessionService.UpdateRoundOrbs -> SessionService
-    ISoccerApi.BallCarrier -> ApiImplementation
-    ISoccerApi.BallPosition -> ApiImplementation
-    ISoccerApi.IsSoccerMatch -> ApiImplementation
-    ISoccerApi.TargetGoal -> ApiImplementation
     IStateContext.AddSoundEffect -> StateContext
     IStateContext.AddesiredSfx -> StateContext
     IStateContext.ClearDesiredSfx -> StateContext
@@ -3312,13 +3173,7 @@ mechanical: a call through a TF.EX interface -> its single TF.EX implementation 
     IStateEvents.GetVariantId -> ByteStateEvents
     IStateEvents.OnLoadState -> ByteStateEvents
     IStateEvents.OnSaveState -> ByteStateEvents
-    IWorld.IsDeadly -> WorldSnapshot
-    IWorld.IsSolid -> WorldSnapshot
-    IWorld.WrapX -> WorldSnapshot
-    IWorld.WrapY -> WorldSnapshot
-mechanical: a call through a mod's interop interface -> the provider mod's class ([[interop]]) (24)
-    IProfilesModApi.GetPlayerName -> ProfilesApi
-    IProfilesModApi.SetPlayerName -> ProfilesApi
+mechanical: a call through a mod's interop interface -> the provider mod's class ([[interop]]) (22)
     ITfStateApi.ClearSfx -> TfStateApi
     ITfStateApi.GenerateVersusLevels -> TfStateApi
     ITfStateApi.GetFrameDriver -> TfStateApi
@@ -3341,19 +3196,13 @@ mechanical: a call through a mod's interop interface -> the provider mod's class
     ITfStateApi.SetVersusLevels -> TfStateApi
     ITfStateApi.StepOwnedControllers -> TfStateApi
     ITfStateApi.SynchronizeSfx -> TfStateApi
-mechanical: a call through an interface several classes of ours implement -> dispatch on the object's class (6)
-    IAgentLogic.Initialize: NovaLogic, AILogic
-    IAgentLogic.SetLevel: NovaLogic, AILogic
-    IAgentLogic.Type: NovaLogic, AILogic
-    IAgentLogic.Update: NovaLogic, AILogic
+mechanical: a call through an interface several classes of ours implement -> dispatch on the object's class (2)
     ISpriteEntry.ID: SpriteEntry, SpriteEntry
     ISpriteEntry.Xml: SpriteEntry, SpriteEntry
 mechanical: a delegate made by reflection over a static property setter (AccessTools.PropertySetter + CreateDelegate), invoked -> the setter's call (3)
     LevelPatch.SetEngineDeltaTicks: Engine.DeltaTicks
     LevelPatch.SetEngineDeltaTime: Engine.DeltaTime
     LevelPatch.SetEngineTimeMult: Engine.TimeMult
-mechanical: a delegate made by reflection over an instance property setter, invoked -> the setter's call (1)
-    FlatPlay.setGround: Player.OnGround
 mechanical: a delegate type the game never compiled -> one of the same register shape (12)
     System.Action<(string, int)> -> System.Action<object, object>
     System.Action<TowerFall.ShieldPickup> -> System.Action<object>
@@ -3367,18 +3216,13 @@ mechanical: a delegate type the game never compiled -> one of the same register 
     System.Func<TowerFall.Level, bool> -> System.Func<object, object>
     System.Func<TowerFall.OptionsButton> -> System.Func<object>
     System.Func<string, string> -> System.Func<object, object>
-mechanical: a delegate type the game never compiled, of no shape it has -> a stand-in type, invoked directly (6)
+mechanical: a delegate type the game never compiled, of no shape it has -> a stand-in type, invoked directly (3)
     System.Comparison<(double, FortRise.ModuleMetadata)>
-    System.Func<Microsoft.Xna.Framework.Point, TFModFortRiseAiGraph.AILogic, System.Collections.Generic.List<Microsoft.Xna.Framework.Point>>
-    System.Func<Microsoft.Xna.Framework.Point, TFModFortRiseAiGraph.AILogic, bool>
     System.Func<TF.EX.Domain.Models.Input>
-    System.Func<TFModFortRiseAiGraph.AILogic, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, bool>
     System.Predicate<TeamsPlus.ThreeTeamRoundLogic.Group>
 mechanical: a game Stack<T> / Queue<T> as a sequence -> its ToArray (its enumeration order) (2)
     Auto_QuestSpawnPortalExtensions: GetState: dynPortal.Get<Queue<string>>("toSpawn")
     State_Level: DropLiveFromEntityPool: pool
-mechanical: a game method FortRise's patch class adds -> its translated body (the patch's unit) (1)
-    LevelTiles.ReloadTiles -> Fr_LevelTiles
 mechanical: a game struct's field through a game object's field -> one load at the summed offset (76)
     GlueFrMods: CheckArcher: a.Gems.Gameplay
     GlueFrMods: CheckArcher: a.Gems.Menu
@@ -3456,11 +3300,10 @@ mechanical: a game struct's field through a game object's field -> one load at t
     SkinStreamService: Build: data.Sprites.HeadNormal
     Tp_VisualHooks: PlayerCtor_Postfix: __instance.ArcherData.Sprites.Body
     Tp_VisualHooks: PlayerCtor_Postfix: __instance.ArcherData.Sprites.Bow
-mechanical: a game type missing on the Switch -> null (nothing is one) (4)
+mechanical: a game type missing on the Switch -> null (nothing is one) (3)
     TowerFall.ChaliceGhost
     TowerFall.CustomLevelSystem
     TowerFall.WorkshopButton
-    TowerFall.XGamepadInput
 mechanical: a game type's conversion operator -> its body (op_Implicit / op_Explicit) (10)
     Auto_LavaControlExtensions: GetState: targetCounter
     Auto_OrbLogicExtenions: GetSpaceTweenDuration: self.Level.Session.MatchSettings.Variants.OffsetWorld
@@ -3475,17 +3318,6 @@ mechanical: a game type's conversion operator -> its body (op_Implicit / op_Expl
 mechanical: a generic local function -> a copy per instantiation (2)
     Fr_SpriteDataLoader: LoadSpriteData: void Register<T>() <int>
     Fr_SpriteDataLoader: LoadSpriteData: void Register<T>() <string>
-mechanical: a hosted unit's instance auto-property -> its static storage (one object per mod) (4)
-    TFModFortRiseAiNovaModule.LoaderAI
-    TFModFortRiseAiSimpleModule.LoaderAIModApi
-    TFModFortRiseLoaderAIModule.LoaderAIModApi
-    TFModFortRiseLoaderAIModule.ProfilesModApi
-mechanical: a hosted unit's instance field -> its static storage (one object per mod) (5)
-    TFModFortRiseAiNovaModule.Hookables
-    TFModFortRiseAiSimpleModule.Hookables
-    TFModFortRiseGameModeSoccerModule.Hookables
-    TFModFortRiseLoaderAIModule.Hookables
-    TFModFortRiseVariantMoveOrDieModule.Hookables
 mechanical: a lazy sequence into a TF.State model property -> a List of it (2)
     Auto_PlayerArrowsInventoryExtensions: ToModel: arrowList.Arrows.Select(arrow => arrow.ToModel())
     Auto_PlayerArrowsInventoryExtensions: ToModel: sortSet.Select(arrow => arrow.ToModel())
@@ -3498,12 +3330,7 @@ mechanical: a local lambdas capture and the code changes -> a one-element manage
     OrbLogic_DoOffsetWorldVariant: spaceTween
     OrbLogic_DoSpaceOrb: end
     OrbLogic_DoSpaceOrb: spaceTween
-mechanical: a logger's message template -> its placeholders filled in order (12)
-    Auto_Logger: Error: .LogError("{message}", message)
-    Auto_Logger: Info: .LogInformation("{message}", message)
-    Auto_Logger_: Info: .LogInformation("{message}", message)
-    Auto_Logger___: Info: .LogInformation("{message}", message)
-    Auto_Logger____: Info: .LogInformation("{message}", message)
+mechanical: a logger's message template -> its placeholders filled in order (7)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: ContentModule.Instance.Logger.LogWarning("Archer: '{id}' is missing Aimer field. Falling back to Green's Aimer", id)
     Fr_ModSubtextures: RegisterTexture: logger.LogWarning("The subtexture ID: {id} but with a different path has already been registered, overriding!", id)
     Fr_ModSubtextures: RegisterTexture: logger.LogWarning("The subtexture ID: {id} has already been registered, overriding", id)
@@ -3537,8 +3364,7 @@ mechanical: a model map member = a value map of ours -> gen::SetKeyMapFrom (entr
     Auto_MatchStatsReport: Save: RawStats = BuildRawStats(matchStats[archer.Seat])
 mechanical: a model's own-type pattern (is T x on a T) -> a null test (1)
     Auto_InputDelayAdvisor: Update: Domain.Models.WebSocket.Player own
-mechanical: a new container assigned to a field -> copied into the field's own storage (gen::KeepVal) (13)
-    Auto_ControlNames: Safe: known
+mechanical: a new container assigned to a field -> copied into the field's own storage (gen::KeepVal) (12)
     Auto_StateContext: LoadRoundData: roundDataPerRound
     GameContext: SetGuestInputs: _guestInputs
     GlueFrMods: LoadedModSet: loadedSet
@@ -3574,10 +3400,7 @@ mechanical: a property through a TF.EX interface -> its single TF.EX implementat
 mechanical: a property through a mod's interop interface -> the provider mod's class ([[interop]]) (2)
     IWiderSetModApi.IsWide -> WiderSetApi
     IWiderSetModApi.UIXOffset -> WiderSetApi
-mechanical: a rectangular array of numbers -> gen::Grid (a local owning its cells) (4)
-    Auto_AILogic: UpdateLevelGrid: new int[levelHeight, levelWidth]
-    Auto_Guide: Build: new int[columns, rows]
-    Auto_WorldSnapshot: Capture: new bool[columns, rows]
+mechanical: a rectangular array of numbers -> gen::Grid (a local owning its cells) (1)
     Fr_UIModMenu: LevenshteinDistance: new int[target.Length + 1, search.Length + 1]
 mechanical: a ref local over CollectionsMarshal.GetValueRefOrAddDefault -> the dictionary's slot (5)
     Fr_ModSubtextures: RegisterTexture: CollectionsMarshal.GetValueRefOrAddDefault(subtextureEntries, id, out bool exists)
@@ -3587,49 +3410,22 @@ mechanical: a ref local over CollectionsMarshal.GetValueRefOrAddDefault -> the d
     Fr_SubtextureRegistry: GetVanillaSubtextureEntry: CollectionsMarshal.GetValueRefOrAddDefault(cachedVanillaSubtextureEntries, id, out bool exists)
 mechanical: a ref local over CollectionsMarshal.GetValueRefOrNullRef -> the dictionary's slot and a found flag (1)
     Fr_SubtextureRegistry: GetSubtexture: CollectionsMarshal.GetValueRefOrNullRef(entries, id)
-mechanical: a reflected game method (AccessTools.Method / typeof(T).GetMethod) -> resolved where it's used (a direct call or delegate) (13)
-    An_TFModFortRiseAiNovaModule: SaveSettingsNow: typeof(Mod).GetMethod("SaveSettings",
+mechanical: a reflected game method (AccessTools.Method / typeof(T).GetMethod) -> resolved where it's used (a direct call or delegate) (7)
     Auto_CrumbleWallExtensions: : typeof(TowerFall.CrumbleWall)
     Auto_PlayerExtensions: ToActions: typeof(PlayerExtensions).GetMethod("Gain", BindingFlags.NonPublic | BindingFlags.Static)
     Auto_PlayerExtensions: ToActions: typeof(PlayerExtensions).GetMethod("InvisibleDelegate", BindingFlags.NonPublic | BindingFlags.Static)
     Auto_PlayerExtensions: ToActions: typeof(PlayerExtensions).GetMethod("ShieldDelegate", BindingFlags.NonPublic | BindingFlags.Static)
     Auto_PlayerExtensions: ToActions: typeof(TowerFall.Player).GetMethod("DodgeCooldown", BindingFlags.NonPublic | BindingFlags.Instance)
     Auto_PlayerExtensions: ToActions: typeof(TowerFall.Player).GetMethod("FinishAutoMove", BindingFlags.NonPublic | BindingFlags.Instance)
-    Md_TFModFortRiseVariantMoveOrDieModule: SaveSettingsNow: typeof(Mod).GetMethod("SaveSettings",
     NetplayEntry: : AccessTools.Method(typeof(MInput), "Update")
-    So_FlatPlay: Load: AccessTools.DeclaredMethod(typeof(Player), "NormalUpdate")
-    So_FlatPlay: Load: AccessTools.DeclaredMethod(typeof(PlayerInput),
-    So_FlatPlay: Load: AccessTools.PropertySetter(typeof(Player), "OnGround")
-    So_TFModFortRiseGameModeSoccerModule: SaveSettingsNow: typeof(Mod).GetMethod("SaveSettings",
-mechanical: a reflected method's Invoke -> a direct call (13)
-    Aj_TFModFortRiseAiSimpleModule: .ctor: hookable.GetMethod(nameof(IHookable.Load))!.Invoke(null, [context.Harmony])
-    An_TFModFortRiseAiNovaModule: .ctor: hookable.GetMethod(nameof(IHookable.Load))!.Invoke(null, [context.Harmony])
-    An_TFModFortRiseAiNovaModule: SaveSettingsNow: .Invoke(Instance, null)
-    La_TFModFortRiseLoaderAIModule: .ctor: hookable.GetMethod(nameof(IHookable.Load))!.Invoke(null, [context.Harmony])
-    Md_TFModFortRiseVariantMoveOrDieModule: .ctor: hookable.GetMethod(nameof(IHookable.Load))!.Invoke(null, [context.Harmony])
-    Md_TFModFortRiseVariantMoveOrDieModule: .ctor: registerable.GetMethod(nameof(IRegisterable.Register))!.Invoke(null, [content, context.Registry])
-    Md_TFModFortRiseVariantMoveOrDieModule: SaveSettingsNow: .Invoke(Instance, null)
+mechanical: a reflected method's Invoke -> a direct call (3)
     NetplayEntry: NetplayLogic: _mInputUpdate.Invoke(null, null)
     NetplayEntry: handleFrameByFrame: _mInputUpdate.Invoke(null, null)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: hookable.GetMethod(nameof(IHookable.Load))!.Invoke(null, [context.Harmony])
-    So_TFModFortRiseGameModeSoccerModule: .ctor: registerable.GetMethod(nameof(IRegisterable.Register))!
-    So_TFModFortRiseGameModeSoccerModule: SaveSettingsNow: .Invoke(Instance, null)
     Tp_DataHooks: Initialize_Postfix: AccessTools.PropertySetter(typeof(ArcherData), nameof(ArcherData.Teams))
-mechanical: a reflected property-setter delegate field -> unused (its invokes call the setter) (4)
-    FlatPlay.setGround: Player.OnGround
+mechanical: a reflected property-setter delegate field -> unused (its invokes call the setter) (3)
     LevelPatch.SetEngineDeltaTicks: Engine.DeltaTicks
     LevelPatch.SetEngineDeltaTime: Engine.DeltaTime
     LevelPatch.SetEngineTimeMult: Engine.TimeMult
-mechanical: a reflection field resolved at translate time -> no storage (its uses are direct code) (2)
-    FlatPlay.inputState
-    FlatPlay.moveAxis
-mechanical: a resolved reflection value compared with null -> a constant (it exists) (6)
-    So_FlatPlay: Hop: inputState == null
-    So_FlatPlay: Load: aim != null
-    So_FlatPlay: Load: moveAxis == null
-    So_FlatPlay: Load: normal == null
-    So_FlatPlay: Load: setGround == null
-    So_FlatPlay: Load: setter != null
 mechanical: a sequence for a value-list parameter -> a new VList of it (3)
     Auto_LocalPlayersPanel: Render: inputService.GetJoinableDevices().ToList()
     InputService: ResetCurrentInput: Enumerable.Range(0, TFGame.Players.Length).Select(_ => new Input())
@@ -3640,18 +3436,6 @@ mechanical: a sequence for an IEnumerable<primitive> parameter -> a new VList of
     InputService: EnsureRemoteController: Enumerable.Range(0, playerCount)
     MatchmakingService: ReconcileRollcall: lobby.Players.Select(pl => pl.Seat)
     RollcallReconcile: ReconcileRollcall: lobby.Players.Select(pl => pl.Seat)
-mechanical: a static field of another unit's hosted Mod subclass -> that unit's static (11)
-    TFModFortRiseAiNovaModule.Instance
-    TFModFortRiseAiSimpleModule.Instance
-    TFModFortRiseAiSimpleModule.WiderSet
-    TFModFortRiseLoaderAIModule.Instance
-    TFModFortRiseLoaderAIModule.canAddAgent
-    TFModFortRiseLoaderAIModule.currentPlayerType
-    TFModFortRiseLoaderAIModule.isHumanPlayerTypeSaved
-    TFModFortRiseLoaderAIModule.listAgentByType
-    TFModFortRiseLoaderAIModule.listAgentType
-    TFModFortRiseLoaderAIModule.nbPlayerType
-    TFModFortRiseLoaderAIModule.savedHumanPlayerInput
 mechanical: a struct's explicit () constructor -> its property initializers (4)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: new HairInfo()
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: new()
@@ -3682,8 +3466,6 @@ mechanical: an IEnumerable<T> parameter every caller passes a List<T> -> that Li
     MatchStatsReport.RecordAwards(awards)
     ScenarioCatalog.Resolve(names)
     TFCommands.WarnOnUnknownVariants(variants)
-mechanical: an abstract method -> an empty slot filler (its overrides run) (1)
-    Agent.Move
 mechanical: an array as an interface (IReadOnlyList<T>) -> the array object (1)
     GameContext: GetSessionSeats: SessionSeats
 mechanical: an array's property pattern ({ Length: ... }) -> a null test and the length's patterns (1)
@@ -3749,13 +3531,9 @@ mechanical: array.Clone() -> a new array, the elements copied (gen::ResizeArr) (
     Auto_ResultsSaveStats: OnlyCountOnce: .Clone()
 mechanical: char.IsAscii* -> its ASCII ranges (not in the Switch's binary) (1)
     MatchReport: Sanitize: char.IsAsciiLetterOrDigit(c)
-mechanical: class of ours (MakeClass, vtable overrides) (255)
-    AILogic : Object
+mechanical: class of ours (MakeClass, vtable overrides) (224)
     APIManager : Object
-    Agent : Object
-    AgentAdapter : Agent
     Alarm : Object
-    ApiImplementation : Object
     ArcherEntry : Object
     ArcherSeatInfo : Object
     ArcherSkinBundle : Object
@@ -3763,12 +3541,10 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     ArrowBuilder : Object
     ArrowCushion : Object
     ArrowCushionData : Object
-    ArrowInfo : Object
     ArtifactSkinBundle : Object
     BGElement : Object
     BGMushroom : Object
     BGTorch : Object
-    Ball : Actor
     Bat : Object
     BoltArrow : Arrow
     BombArrow : Arrow
@@ -3798,7 +3574,6 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     CustomMenuState : Object
     Dark : Object
     DarkPortalsSequence : Object
-    DebugPathRenderer : Entity
     DefaultArrow : Arrow
     DeterministicRandom : Random
     DodgeSlide : Object
@@ -3815,7 +3590,6 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     Fader : Entity
     FakeController : PlayerInput
     FeatherArrow : Arrow
-    Field : Object
     FireControl : Object
     Flash : Object
     GGRSConfig : Object
@@ -3823,14 +3597,11 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     GameContext : Object
     GameState : Object
     GhostPlatform : Object
-    Goal : Entity
-    Guide : Object
     HUD : Object
     HUDService : Object
     Hat : Object
     Ice : Object
     Icicle : Object
-    Input : KeyboardInput
     IntermediateArrow : Arrow
     JoinCodeEntry : MenuItem
     JumpPad : Object
@@ -3872,9 +3643,6 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     ModSubtextures : Object
     MoonGlassBlock : Object
     MoonGlassBlockExplodeState : Object
-    MoveOrDieGameMode : Object
-    MovementAction : Object
-    MovementPhase : Object
     MovingPlatform : Object
     MusicEntry : Object
     NetplayButton : RefusableModeButton
@@ -3887,23 +3655,18 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     NetplaySettings : ModuleSettings
     NetplaySpectatorConfig : Object
     NetplayVersusMode : Object
-    Node : Object
     Notification : Entity
-    NovaLogic : Object
     OptionDescriptionBox : MenuItem
     OptionsButtonHeader : OptionsButton
     Orb : Object
     OrbLogic : Object
     PendingAssembly : Object
     Pickup : Object
-    PitchBackground : Entity
-    Plan : Object
     Player : Object
     PlayerAnimations : Object
     PlayerArrowsInventory : Object
     PlayerCorpse : Object
     PlayerGhost : Object
-    PlayerInfo : Object
     PlayerProfilePanel : MenuItem
     PlayerShield : Object
     PlayerState : Object
@@ -3916,12 +3679,10 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     RefusableModeButton : MainModeButton
     Rng : Object
     RngService : Object
-    Rollout : Object
     RotatePlatform : Object
     RoundData : Object
     RoundLevels : Object
     RoundLogic : Object
-    Row : Object
     SFX : Object
     SFXEntry : Object
     SFXLoopedEntry : Object
@@ -3947,10 +3708,6 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     SkinStreamService : Object
     Slime : Object
     SnowClump : Object
-    SoccerAimer : Entity
-    SoccerGameMode : Object
-    SoccerHUD : Entity
-    SoccerRoundLogic : RoundLogic
     SoundEffectPlaying : Object
     Space : Object
     SpectatorSeriesTally : Entity
@@ -3971,9 +3728,6 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     SwitchQueue : Object
     SwitchVariantEntry : Object
     TFCommands : Object
-    TFModFortRiseAiNovaSettings : ModuleSettings
-    TFModFortRiseGameModeSoccerSettings : ModuleSettings
-    TFModFortRiseVariantMoveOrDieSettings : ModuleSettings
     TeamReviver : Object
     TechnoMage : Object
     TechnoMissile : Object
@@ -3994,19 +3748,15 @@ mechanical: class of ours (MakeClass, vtable overrides) (255)
     UIModMenu : CustomMenuState
     UIModPanel : MenuItem
     UISearchPanel : MenuItem
-    UIVersusSoccerPopup : Entity
     Variant : Variant
-    VariantPopup : MenuItem
     VersusGameModeEntry : Object
     VersusRoundResults : Object
     VersusSelectBanner : MenuItem
     VersusStart : Object
     WiderSetApi : Object
     Wiggler : Object
-    WorldSnapshot : Object
     patch_MainMenu : MainMenu
-mechanical: collection expression -> new List<T> + Add (11)
-    Aj_MyTFGame: Update_patch_prefix: [
+mechanical: collection expression -> new List<T> + Add (10)
     Auto_Changelog: : []
     Auto_Changelog: MarkSeen: []
     Auto_Constants: : [
@@ -4049,54 +3799,16 @@ mechanical: collection expression with a spread -> new List<T> + Add (13)
     ScenarioLaunch: ParseScenarioNames: [.. raw.Trim('#')
     ScenarioLaunch: ParseVariants: [.. args[index].Trim().Trim('#')
     SkinStreamService: GetPublished: [.. _published.Values.Distinct()]
-mechanical: collection initializer -> Add per item (39)
-    Auto_AILogic: .ctor: new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-    Auto_AILogic: ChooseGoal: new List<Point>
-    Auto_AILogic: FindPathUsingMovementLibrary: new List<Point> { new Point(0, 0) }
-    Auto_AILogic: Reachable: new List<Point>
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> {
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 1) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 3) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 4) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 6) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y - 7) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 1, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 2, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 2, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 3, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 3, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 9, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X + 9, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 1) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 3) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 4) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 6) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 7) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y - 8) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 1, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 2, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 2, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 3, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 3, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 9, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X - 9, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: new List<Point> { new Point(pos.X, pos.Y - 3) }
-    Auto_UIVersusSoccerPopup: Rows: new List<Row>
-    Md_MyVariantToggle: Fields: new List<VariantPopup.Field>
+mechanical: collection initializer -> Add per item (2)
     NetplayMenus: GetMissingVariantsMessage: new List<string>(shown) { name }
     State_TreasureSpawner: TreasureSpawner_GetRandomArrowType_Prefix: new List<ArrowTypes> { __instance.orig_GetRandomArrowType(includeDefaultArrows) }
-mechanical: delegate Invoke -> vtable slot 0x58 (29)
+mechanical: delegate Invoke -> vtable slot 0x58 (28)
     Auto_ArcherDataExtensions: GetInstalledArcherMods: .Invoke(mod)
     Auto_ByteStateEvents: OnLoadState: onLoad(string.IsNullOrEmpty(toLoad) ? Array.Empty<byte>() : Convert.FromBase64String(toLoad))
     Auto_ByteStateEvents: OnSaveState: .Invoke()
     Auto_PickupExtensions: RestoreColorCycle: ChangeColor(shield)
     Auto_ReplayApi: get_Current: .Invoke()
     Auto_StateApi: get_Current: .Invoke()
-    Auto_VariantPopup: Bool: set(!get())
     Fr_SFXEntry: GetActualSFX: sfxCallback()
     Fr_SFXLoopedEntry: GetActualSFXLooped: sfxLoopCallback()
     Fr_SFXVariedEntry: GetActualSFXVaried: sfxVariedCallback()
@@ -4135,9 +3847,7 @@ mechanical: double/float.IsNaN / IsInfinity -> compiler builtins (13)
     State_DeterministicMath: Pow: double.IsNaN(y)
     State_DeterministicMath: Sin: double.IsInfinity(x)
     State_DeterministicMath: Sin: double.IsNaN(x)
-mechanical: enum to string -> its names (12)
-    Microsoft.Xna.Framework.Input.Buttons
-    Microsoft.Xna.Framework.Input.Keys
+mechanical: enum to string -> its names (10)
     System.Net.WebSockets.WebSocketCloseStatus
     TF.EX.Domain.Models.AutoAdjustInputDelayMode
     TF.EX.Domain.Models.CustomSkinMode
@@ -4148,9 +3858,8 @@ mechanical: enum to string -> its names (12)
     TowerFall.Allegiance
     TowerFall.MatchSettings.MatchLengths
     TowerFall.Modes
-mechanical: finally -> a scope guard (gen::MakeDefer) around the try body (11)
+mechanical: finally -> a scope guard (gen::MakeDefer) around the try body (10)
     Fr_SFXVariedEntry: GetActualSFXVaried: try
-    La_MyRollcallElement: Keys_postfix: try
     MatchmakingService: Send: try
     NetplayEntry: NetplayLogic: try
     NetplayEntry: TFGameUpdate_Patch: try
@@ -4177,11 +3886,10 @@ mechanical: foreach over XML nodes -> index loop over XmlNodeList.Count / Item (
     Fr_SpriteEntry_String: GetActualSprite: foreach (XmlElement animXml in animationXml.GetElementsByTagName("Anim"))
     Fr_SubtextureLoader: LoadAll: foreach (XmlElement subtexture in textureAtlas.GetElementsByTagName("SubTexture"))
     SkinStreamService: ReadAnimations: foreach (System.Xml.XmlElement anim in animations.GetElementsByTagName("Anim"))
-mechanical: foreach over a constant string array -> unrolled, the element a known constant (DynamicData member names) (3)
-    Auto_SoccerSpawns: Gather: foreach (string name in new[] { "PlayerSpawn", "TeamSpawn", "TeamSpawnA", "TeamSpawnB" })
+mechanical: foreach over a constant string array -> unrolled, the element a known constant (DynamicData member names) (2)
     PlayerPatch: EnsureTeamHeadTextures: foreach (var tag in new[] { "RedTexture", "BlueTexture" })
     State_Level: RestoreEnemyTags: foreach (var pending in new[] { "tagsToAdd", "tagsToRemove" })
-mechanical: foreach over a lazy sequence -> its visitor (203)
+mechanical: foreach over a lazy sequence -> its visitor (202)
     Auto_APIManager: GetStates: foreach (var pair in stateEvents.OrderBy(pair => pair.Key, StringComparer.Ordinal))
     Auto_APIManager: LoadStates: foreach (var pair in stateEvents)
     Auto_EventLogExtensions: ToTFModel: foreach (var evt in eventLog.CrownChanges)
@@ -4194,7 +3902,6 @@ mechanical: foreach over a lazy sequence -> its visitor (203)
     Auto_SFXService: PairDesiredWithCurrent: foreach (var candidate in candidates.OrderBy(candidate => candidate.Distance))
     Auto_SFXService: RemoveFinishedSfx: foreach (var sfx in currentSfxs)
     Auto_SFXService: Synchronize: foreach (var sfx in unmatchedDesired.OrderBy(sfx => sfx.Frame))
-    Auto_SoccerPitch: Clear: foreach (Layer layer in level.Layers.Values)
     Auto_StateContext: GetGamePlayerLayerActualDepthLookup: foreach (var kvp in _gamePlayerLayerActualDepthLookup)
     Auto_StateContext: GetRoundData: foreach (var kvp in roundDataPerRound.OrderBy(entry => entry.Key))
     Auto_StateContext: LoadRoundData: foreach (var kvp in toLoad)
@@ -4385,24 +4092,13 @@ mechanical: foreach over a lazy sequence -> its visitor (203)
     State_TreasureChest: TreasureChest_Added_Postfix: foreach (var layer in __instance.Level.Layers.Values)
     State_TreasureChest: TreasureChest_OpenChest_Postfix: foreach (var layer in __instance.Level.Layers.Values)
     Tp_Selector: Update: foreach (ThreeTeamSelector selector in base.MainMenu.Layers[-1].GetList<ThreeTeamSelector>())
-mechanical: foreach over a list of typeof(T) -> unrolled per type (its reflection resolved at translate time) (7)
-    Aj_TFModFortRiseAiSimpleModule: .ctor: foreach (var hookable in Hookables)
-    An_TFModFortRiseAiNovaModule: .ctor: foreach (var hookable in Hookables)
-    La_TFModFortRiseLoaderAIModule: .ctor: foreach (var hookable in Hookables)
-    Md_TFModFortRiseVariantMoveOrDieModule: .ctor: foreach (var hookable in Hookables)
-    Md_TFModFortRiseVariantMoveOrDieModule: .ctor: foreach (var registerable in Registerables)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: foreach (var hookable in Hookables)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: foreach (var registerable in Registerables)
-mechanical: foreach over a string -> a loop over its characters (1)
-    Auto_ControlNames: Safe: foreach (char c in text)
 mechanical: foreach over x ?? Enumerable.Empty<T>() -> over x when it isn't null (1)
     SkinStreamService: IsValidBundle: foreach (var animation in sprite.Animations ?? Enumerable.Empty<SkinAnimation>())
-mechanical: game Dictionary iterated through Mono's slots (50)
+mechanical: game Dictionary iterated through Mono's slots (49)
     Auto_PlayerCorpseExtensions: RemoveRevivers: corpse.Level.Layers
     Auto_SceneExtensions: DeleteAllByDepth: scene.Layers
     Auto_SceneExtensions: GetAll: scene.Layers
     Auto_SceneExtensions: GetAllToBeSpawned: self.Layers
-    Auto_SoccerPitch: Clear: level.Layers
     Auto_StateContext: GetGamePlayerLayerActualDepthLookup: _gamePlayerLayerActualDepthLookup
     Auto_StateContext: SaveGamePlayerLayerActualDepthLookup: toSave
     Auto_TowerFallSceneExtensions: DeleteAll: scene.Layers
@@ -4495,68 +4191,11 @@ mechanical: int.TryParse(string, out int) -> gen::TryParseInt (6)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: int.TryParse(sfx, out int s)
     ScenarioLaunch: LaunchScenario: int.TryParse(args[0], out var parsedIndex)
     SkinOverlayService: RegisterGameplaySprite: int.TryParse(animation.Id, out _)
-mechanical: invoking a delegate of a type the game never compiled -> its function directly (5)
-    Auto_AILogic: ExecuteActionPhases: phase.Condition(this, action.StartPoint, action.StartPosition)
-    Auto_AILogic: FindActionLeadingTo: move.ResultPositions(from, this)
-    Auto_AILogic: FindPathUsingMovementLibrary: move.Condition(current.Position, this)
-    Auto_AILogic: FindPathUsingMovementLibrary: move.ResultPositions(current.Position, this)
-    Auto_MovementPhase: IsFinished: EndCondition(ai, startPoint, startPosition)
-mechanical: lambda -> delegate (function of target, args) (176)
-    Auto_AILogic: FindPathUsingMovementLibrary: (a, b) => a.F.CompareTo(b.F)
-    Auto_AIMovementLibrary: BuildLibrary: (ai, startPoint, startPosition) => ai.playerInfo.X == startPoint.X + 1
-    Auto_AIMovementLibrary: BuildLibrary: (ai, startPoint, startPosition) => ai.playerInfo.X == startPoint.X - 1
-    Auto_AIMovementLibrary: BuildLibrary: (ai, startPoint, startPosition) => ai.playerInfo.onGround
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> {
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 1) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 3) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 4) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 6) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y - 7) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 1, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 2, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 2, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 3, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 3, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 9, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X + 9, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 1) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 3) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 4) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 6) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 7) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y - 8) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 1, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 2, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 2, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 3, pos.Y - 2) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 3, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 9, pos.Y - 5) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X - 9, pos.Y) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => new List<Point> { new Point(pos.X, pos.Y - 3) }
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => true
+mechanical: lambda -> delegate (function of target, args) (125)
     Auto_CornerButton: TweenIn: t => Position = Vector2.Lerp(tweenFrom, tweenTo, t.Eased)
     Auto_Fader: .ctor: delegate (Tween t)
-    Auto_SoccerSpawns: Spawn: (a, b) => a.X.CompareTo(b.X)
     Auto_SpectatorRollcallGate: HandleBack: () => { }
     Auto_StateContext: LoadDesiredSfx: sfx =>
-    Auto_TFModFortRiseAiNovaSettings: Create: (x) => { candidates = x; Push(); }
-    Auto_TFModFortRiseAiNovaSettings: Create: (x) => { commit = x; Push(); }
-    Auto_TFModFortRiseAiNovaSettings: Create: (x) => { horizon = x; Push(); }
-    Auto_TFModFortRiseAiNovaSettings: Create: (x) => { range = x; Push(); }
-    Auto_TFModFortRiseGameModeSoccerSettings: Create: (x) => { field = x; Save(); }
-    Auto_TFModFortRiseGameModeSoccerSettings: Create: (x) => { flat = x; Save(); }
-    Auto_TFModFortRiseGameModeSoccerSettings: Create: (x) => { preciseAim = x; Save(); }
-    Auto_TFModFortRiseVariantMoveOrDieSettings: Create: (x) => activated = x
-    Auto_TFModFortRiseVariantMoveOrDieSettings: Create: (x) => minSpeed = x
-    Auto_TFModFortRiseVariantMoveOrDieSettings: Create: (x) => stationaryDeathTime = x
-    Auto_VariantPopup: TweenIn: t => Selected = true
-    Auto_VariantPopup: TweenIn: t => slide = MathHelper.Lerp(320f, 0f, t.Eased)
-    Auto_VariantPopup: TweenOut: t =>
-    Auto_VariantPopup: TweenOut: t => slide = MathHelper.Lerp(0f, 320f, t.Eased)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: () => TFGame.Atlas["aimers/green"]
     Fr_UIModListPanel: TweenIn: t =>
     Fr_UIModMenu: Create: () =>
@@ -4678,12 +4317,7 @@ mechanical: lambda -> delegate (function of target, args) (176)
     Tp_RoundLogic: SpawnByPartition: (a, b) => a.X.CompareTo(b.X)
     Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Blue
     Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Red
-mechanical: lambda capturing unchanged locals -> closure (object[] target) (200)
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => !agent.IsSolid(pos.X, pos.Y + 1)//pas sur sol: agent
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => agent.IsSolid(pos.X + 1, pos.Y): agent
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => agent.IsSolid(pos.X - 1, pos.Y): agent
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) => agent.IsSolid(pos.X, pos.Y + 1) // ne peut sauter que si au sol: agent
-    Auto_AIMovementLibrary: BuildLibrary: (pos, ai) =>: agent
+mechanical: lambda capturing unchanged locals -> closure (object[] target) (178)
     Auto_ArrowExtensions: LoadState: () => { entity.RemoveSelf(); }: entity
     Auto_CornerButton: TweenOut: t => Position = Vector2.Lerp(start, tweenFrom, t.Eased): start
     Auto_EnemyAttackExtensions: LoadState: () => DynamicData.For(bat).Invoke("Explode"): bat
@@ -4710,17 +4344,6 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (200)
     Auto_TreasureChestExtensions: LoadState: delegate: entity
     Auto_TreasureChestExtensions: LoadState: delegate: light, entity
     Auto_TutorialPanel: SwitchTo: () => ShowSlide(slideIndex): slideIndex
-    Auto_UIVersusSoccerPopup: Rows: () => s.field = !s.field: s
-    Auto_UIVersusSoccerPopup: Rows: () => s.field ? "ON" : "OFF": s
-    Auto_UIVersusSoccerPopup: Rows: () => s.flat = !s.flat: s
-    Auto_UIVersusSoccerPopup: Rows: () => s.flat ? "ON" : "OFF": s
-    Auto_UIVersusSoccerPopup: Rows: () => s.preciseAim = !s.preciseAim: s
-    Auto_UIVersusSoccerPopup: Rows: () => s.preciseAim ? "ON" : "OFF": s
-    Auto_VariantPopup: Bool: () => get() ? "ON" : "OFF": get
-    Auto_VariantPopup: Bool: _ => set(!get()): set, get
-    Auto_VariantPopup: Choice: delta =>: values, get, set
-    Auto_VariantPopup: Int: () => get().ToString(): get
-    Auto_VariantPopup: Int: delta => set(Math.Clamp(get() + delta, min, max)): set, get, min, max
     CompactCoOpButton: ConfirmSequence: t =>: startPosAngle, skull, startRotation
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: () => Sounds.Characters[sfxIDFallback].Aim: sfxIDFallback
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: () => Sounds.Characters[sfxIDFallback].AimCancel: sfxIDFallback
@@ -4804,12 +4427,6 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (200)
     MatchmakingService: RequestPlayerProfile: profile => RunOnGameThread(() => onResult(profile)): onResult
     MatchmakingService: Update: () => RunOnGameThread(onFail): onFail
     MatchmakingService: Update: () => RunOnGameThread(onSuccess): onSuccess
-    Md_MyVariantToggle: Fields: () => s.activated: s
-    Md_MyVariantToggle: Fields: () => s.minSpeed: s
-    Md_MyVariantToggle: Fields: () => s.stationaryDeathTime: s
-    Md_MyVariantToggle: Fields: v => s.activated = v: s
-    Md_MyVariantToggle: Fields: v => s.minSpeed = v: s
-    Md_MyVariantToggle: Fields: v => s.stationaryDeathTime = v: s
     NetplayManager: LoadGameState: () => { GGRSFFI.netplay_free_game_state(result.Data); }: result
     NetplayMenus: CreateChangelogHistory: () => self.State = netplaySelect: self, netplaySelect
     NetplayMenus: CreateLeaderboard: () => OnLeaderboardFailed(self): self
@@ -4921,8 +4538,7 @@ mechanical: method group -> delegate (41)
     Tp_RoundLogic: SpawnGroups: SortRight
     Tp_Selector: Update: TowerFall.MainMenu.GotoVersusLevelSelect
     VersusBeginButtonPatch: VersusBeginButton_ctor: matchmakingService.ResetLobby
-mechanical: method group as a LINQ argument -> a lambda calling it (6)
-    Auto_AILogic: ChooseGoal: IsArrowPickupCandidate
+mechanical: method group as a LINQ argument -> a lambda calling it (5)
     Auto_JoinCodeEntry: Paste: IsCodeChar
     MatchVariantsPatchs: MatchVariants_ctor: GetVariantTitle
     NetplayManager: GetLocalHandles: GGRSFFI.netplay_local_player_handle_at
@@ -4930,23 +4546,16 @@ mechanical: method group as a LINQ argument -> a lambda calling it (6)
     PlayerProfilePanel: AddAwardIcons: LeaderboardPanel.DisplayName
 mechanical: new AttributeManager<T>(factory, n) -> gen::AttrMgr<T> with n default items (1)
     GameContext: .ctor: new AttributeManager<Input>(EmptyInput, MAX_PLAYERS)
-mechanical: new List<T>(source) of a C++ container -> the source's items added (3)
+mechanical: new List<T>(source) of a C++ container -> the source's items added (2)
     Auto_BrambleSpreadState: Clone: new List<Vector2f>(Made)
     Auto_BrambleSpreadState: Clone: new List<Vector2f>(ToCheck)
-    Auto_ControlNames: Safe: new HashSet<char>(characters)
-mechanical: new StringBuilder(capacity) the Switch lacks -> new StringBuilder() (the capacity a size hint) (1)
-    Auto_ControlNames: Safe: new StringBuilder(text.Length)
 mechanical: new StrongBox<T>(v) -> gen::NewBox (a ConditionalWeakTable's value) (3)
     Auto_IcicleOwnedState: SetFallCounter: new StrongBox<float>(value)
     Auto_SensorBlockOwnedState: SetSequenceCounter: new StrongBox<float>(value)
     Auto_SpikeballOwnedState: SetSpinTimer: new StrongBox<float>(value)
-mechanical: new of a game struct held by value -> its bytes, field by field (18)
-    Auto_AILogic: Move: new InputState()
-    Auto_AILogic: setCopy: new InputState
-    Auto_AgentAdapter: Move: new InputState
+mechanical: new of a game struct held by value -> its bytes, field by field (14)
     Auto_BatExtensions: LoadArrowCushionDatas: new TowerFall.ArrowCushion.ArrowData
     Auto_FakeController: GetState: new InputState()
-    Auto_Input: GetCopy: new InputState
     Auto_InputExtensions: ToTFInput: new InputState
     Auto_KillStatsExtensions: ToTF: new TowerFall.KillStats
     Auto_MatchStatsExtensions: ToTF: new TowerFall.MatchStats
@@ -4983,15 +4592,10 @@ mechanical: new struct(...) whose constructor assigns its fields -> each field i
     Fr_ModMusics: Invoke: new TrackInfo(entry.Name, entry.MusicPath)
     Tp_RoundLogic: SpawnGroups: new Group((Allegiance)t)
     Tp_RoundLogic: SpawnGroups: new Group(Allegiance.Neutral)
-mechanical: number.CompareTo(number) -> -1 / 0 / 1 (3)
-    Auto_AILogic: FindPathUsingMovementLibrary: a.F.CompareTo(b.F)
-    Auto_SoccerSpawns: Spawn: a.X.CompareTo(b.X)
+mechanical: number.CompareTo(number) -> -1 / 0 / 1 (1)
     Tp_RoundLogic: SpawnByPartition: a.X.CompareTo(b.X)
-mechanical: override of a FortRise virtual -> no slot (no FortRise on the Switch) (6)
+mechanical: override of a FortRise virtual -> no slot (no FortRise on the Switch) (3)
     NetplaySettings.Create
-    TFModFortRiseAiNovaSettings.Create
-    TFModFortRiseGameModeSoccerSettings.Create
-    TFModFortRiseVariantMoveOrDieSettings.Create
     UIModMenu.Create
     UIModMenu.Destroy
 mechanical: override of a virtual the Switch's game lacks -> no slot (never called by the game) (6)
@@ -5011,11 +4615,8 @@ mechanical: record primary constructor -> positional properties set (9)
     Auto_ScriptedAct: .ctor: public record ScriptedAct(
     SkinOverlayService: .ctor: internal class SkinOverlayService(IGameContext gameContext, ISkinStreamService skinStream, IMatchmakingService matchmaking, ILogger logger) : ISkinOverlayService
     SkinStreamService: .ctor: internal class SkinStreamService(ILogger logger) : ISkinStreamService
-mechanical: reflection FieldInfo.GetValue / SetValue of typeof(T).GetField("n") -> the field (as Traverse) (4)
+mechanical: reflection FieldInfo.GetValue / SetValue of typeof(T).GetField("n") -> the field (as Traverse) (1)
     Audio.pitchList
-    Player.dodgeEndCounter
-    Player.input
-    Player.moveAxis
 mechanical: return of a value inside a foreach over a sequence -> kept, the visit stopped, returned after it (3)
     GlueFrMods: ContextRegistry: return r;
     GlueFrMods: ModContext: return AsContext(r);
@@ -5067,15 +4668,10 @@ mechanical: switch expression -> arms tested in order (22)
     State_DeterministicMath: Cos: n switch
     State_DeterministicMath: Sin: n switch
     Tp_Recolor: Apply: tint switch
-mechanical: the assignment of a reflection lookup resolved at translate time -> nothing (its uses are direct code) (3)
-    FlatPlay.inputState
-    FlatPlay.moveAxis
-    FlatPlay.setGround
 mechanical: try/catch around a throwing stand-in -> the body with a fault check after each call, the catch on a fault (gen::Faulted) (2)
     MatchmakingService: ConnectToServerAndListen: try
     NetplayMenus: OpenSupportPage: try
-mechanical: type pattern with a variable (is T x / case T x) (112)
-    Auto_ApiImplementation: TeamOf: Player player
+mechanical: type pattern with a variable (is T x / case T x) (106)
     Auto_ArrowBuilder: Build: BoltArrow boltArrow
     Auto_ArrowBuilder: Build: BombArrow bombArrow
     Auto_ArrowBuilder: Build: BrambleArrow brambleArrow
@@ -5087,8 +4683,6 @@ mechanical: type pattern with a variable (is T x / case T x) (112)
     Auto_ArrowBuilder: Build: TriggerArrow triggerArrow
     Auto_ArrowExtensions: LoadState: TowerFall.Bat bat
     Auto_ArrowExtensions: LoadState: TowerFall.PlayerCorpse corpse
-    Auto_ControlNames: Of: KeyboardInput keyboard
-    Auto_ControlNames: Of: XGamepadInput pad
     Auto_EnemyAttackExtensions: LoadState: TowerFall.Bat bat
     Auto_EventLogExtensions: ToModel: TowerFall.CrownChangeEvent crown
     Auto_EventLogExtensions: ToModel: TowerFall.GainPointEvent gain
@@ -5096,7 +4690,6 @@ mechanical: type pattern with a variable (is T x / case T x) (112)
     Auto_IcicleExtensions: GetState: TowerFall.Player player
     Auto_IcicleExtensions: GetState: TowerFall.PlayerGhost ghost
     Auto_LanternExtensions: LoadState: TowerFall.Chain homeChain
-    Auto_NovaLogic: DodgeLeft: Counter counter
     Auto_OrbExtensions: GetState: TowerFall.Player player
     Auto_OrbExtensions: GetState: TowerFall.PlayerGhost ghost
     Auto_PickupExtensions: GetState: Counter timeout
@@ -5106,8 +4699,6 @@ mechanical: type pattern with a variable (is T x / case T x) (112)
     Auto_SpectatorRollcallGate: IsInert: MainMenu mainMenu
     Auto_TextureUtilities: LoadTexture: XmlElement elm
     Auto_TextureUtilities: LoadTexture: XmlText text
-    Auto_UIVersusSoccerPopup: Added: MainMenu menu
-    Auto_UIVersusSoccerPopup: Removed: MainMenu menu
     Fr_ArcherLoader: LoadAll: XmlElement element
     Fr_PlayerHair: Render: Player player
     Fr_PlayerHair: RenderBlack: Player player
@@ -5202,25 +4793,6 @@ mechanical: typeof(a primitive / string) -> its runtime type object (6)
     Fr_SpriteEntry_String: GetActualXml: typeof(T)
     Fr_SpriteEntry_String: GetActualXml: typeof(int)
     Fr_SpriteEntry_String: GetActualXml: typeof(string)
-mechanical: typeof(a translated type) -> null (no Type object; its reflection resolved at translate time) (18)
-    Aj_TFModFortRiseAiSimpleModule: .ctor: typeof(MyTFGame)
-    An_TFModFortRiseAiNovaModule: .ctor: typeof(MyTFGame)
-    La_TFModFortRiseLoaderAIModule: .ctor: typeof(MyLevel)
-    La_TFModFortRiseLoaderAIModule: .ctor: typeof(MyRollcallElement)
-    La_TFModFortRiseLoaderAIModule: .ctor: typeof(MyTFGame)
-    Md_TFModFortRiseVariantMoveOrDieModule: .ctor: typeof(MyPlayer)
-    Md_TFModFortRiseVariantMoveOrDieModule: .ctor: typeof(MyVariantToggle)
-    Md_TFModFortRiseVariantMoveOrDieModule: : typeof(MoveOrDieGameMode)
-    Md_TFModFortRiseVariantMoveOrDieModule: : typeof(TextureRegistry)
-    Md_TFModFortRiseVariantMoveOrDieModule: : typeof(Variants)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: typeof(FlatPlay)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: typeof(MyArrowHUD)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: typeof(MyPlayer)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: typeof(MyPlayerDeath)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: typeof(MyPlayerOnPlayer)
-    So_TFModFortRiseGameModeSoccerModule: .ctor: typeof(MyVersusModeButton)
-    So_TFModFortRiseGameModeSoccerModule: : typeof(SoccerGameMode)
-    So_TFModFortRiseGameModeSoccerModule: : typeof(TextureRegistry)
 mechanical: using -> its Dispose at the end of the scope (gen::MakeDefer) (20)
     Fr_SFX: ctor: using Stream stream = ModIO.OpenRead(path);
     Fr_SFXEntry: GetActualSFX: using var stream = Path!.Stream;
@@ -5242,15 +4814,14 @@ mechanical: using -> its Dispose at the end of the scope (gen::MakeDefer) (20)
     NetplayManager: Reset: using var status = GGRSFFI.netplay_reset().ToModelGGrsFFI();
     NetplayManager: SaveGameState: using (var handle = new SafeRawBytes(state))
     NetplayManager: UpdateNetplayRequests: using (var handle = netplayReq.ToModel())
-mechanical: x.GetType().Name -> the runtime type record's name (gen::TypeNameStr) (7)
-    Auto_WorldSnapshot: IsBoss: entity.GetType().Name
+mechanical: x.GetType().Name -> the runtime type record's name (gen::TypeNameStr) (6)
     NetplayManager: GetArchersInfo: TFGame.Instance.Scene.GetType().Name
     ScenarioSweeper: Finish: e.GetType().Name
     ScenarioSweeper: SamplePeak: e.GetType().Name
     SeriesScreen: LogInputs: .GetType().Name
     SeriesScreen: LogInputs: input.GetType().Name
     State_Coroutine: Coroutine_ctor_IEnumerator: functionCall.GetType().Name
-rule: DynamicData state TF.EX adds to a game object -> the side table (gen::SideGet/SideSet) (57)
+rule: DynamicData state TF.EX adds to a game object -> the side table (gen::SideGet/SideSet) (49)
     Bat.enemyStateCounter
     Bat.enemyStatePhase
     Bat.enemySwoopIndex
@@ -5270,16 +4841,8 @@ rule: DynamicData state TF.EX adds to a game object -> the side table (gen::Side
     Entity.Level
     Lantern.homeChain
     LavaControl.Level
-    Level.arrowSine
-    Level.arrowWiggle
-    Level.input
-    Level.playerIndex
-    Level.rightArrowWiggle
     MatchVariants.fortrise_variants
     MatchVariants.fortrise_variants (TryGet)
-    Object.MenuDown
-    Object.MenuUp
-    Object.Value
     OptionsButton.fortrise_description
     OptionsButton.fortrise_description (TryGet)
     OutlineText.IsPlayerName
@@ -5369,12 +4932,8 @@ rule: ToHashSet(StringComparer) over strings -> a gen::ValSet comparing that way
 rule: a collection passed for a model-list parameter -> a temporary model list of it (2)
     MatchmakingService: PublishSettingsChanges: [title]
     ScenarioLaunch: StartGame: variants
-rule: a collection the game has no code for -> a C++ container in scanned GC memory (gen::ValMap/ValSet/VList) (100)
-    Auto_AILogic: .ctor: new List<InputState>()
-    Auto_AILogic: .ctor: new Queue<MovementAction>()
-    Auto_AILogic: FindPathUsingMovementLibrary: new HashSet<Point>()
+rule: a collection the game has no code for -> a C++ container in scanned GC memory (gen::ValMap/ValSet/VList) (84)
     Auto_APIManager: .ctor: new()
-    Auto_Agent: .ctor: new List<InputState>()
     Auto_ArcherDataExtensions: ResolveArchers: new Dictionary<int, (int, int)>()
     Auto_ArcherDataExtensions: ResolveArchers: new HashSet<int>()
     Auto_ArcherRegistry: : []
@@ -5382,12 +4941,9 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     Auto_BrambleSpreadState: Clone: new List<Vector2f>(Made)
     Auto_BrambleSpreadState: Clone: new List<Vector2f>(ToCheck)
     Auto_Chest: Empty: new List<PickupState>()
-    Auto_ControlNames: Safe: new HashSet<char>(characters)
     Auto_Entities: .ctor: new Dictionary<int, RoundData>()
     Auto_EventLogExtensions: ToTFModel: new List<(int Order, TowerFall.EventLog Event)>()
     Auto_GameState: .ctor: new List<MatchStats>()
-    Auto_GoalPlacement: Carve: new HashSet<Point>()
-    Auto_Guide: : new Queue<Point>()
     Auto_IcicleOwnedState: : new()
     Auto_InputCodecExtensions: ToInputs: new List<Input>(seats)
     Auto_MatchStatsReport: : []
@@ -5407,7 +4963,6 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     Auto_SwitchMatchVariantsExt: .ctor: new HashSet<Variant>()
     Auto_SwitchMatchVariantsExt: .ctor: new List<(Variant, ArrowTypes)>()
     Auto_VersusModeExtensions: : []
-    Auto_WorldSnapshot: .ctor: new List<ThreatArrow>()
     Fr_CharacterSoundsRegistry: : new List<CharacterSounds>()
     Fr_GameModeRegistry: : new()
     Fr_MatchVariants: ctor: new()
@@ -5438,12 +4993,6 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     InputService: RebindGuestInputs: [.. context.GetGuestInputs().Select(guest => TFGame.PlayerInputs.FirstOrDefault(input => IsSameDevice(input, guest)) ?? guest)]
     InputService: RemoveGuestInput: [.. context.GetGuestInputs().Where(guest => !IsSameDevice(guest, input))]
     InputService: TryAddGuestInput: [.. guests, input]
-    La_MyRollcallElement: : new Dictionary<int, Image>(8)
-    La_MyRollcallElement: : new Dictionary<int, String>(8)
-    La_TFModFortRiseLoaderAIModule: : new Dictionary<String, Agent[]>()
-    La_TFModFortRiseLoaderAIModule: : new Dictionary<int, PlayerInput>(8)
-    La_TFModFortRiseLoaderAIModule: : new Dictionary<int, String>(8)
-    La_TFModFortRiseLoaderAIModule: : new Dictionary<int,String>()
     MatchVariantsPatchs: : new Dictionary<Variant, bool>()
     MatchVariantsPatchs: : new HashSet<Variant>()
     MatchmakingService: .ctor: []
@@ -5451,8 +5000,6 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     MatchmakingService: GetRelayedPeersFrom: [.. lobby.RelayedPairs
     MatchmakingService: ResendSkinToNewMembers: lobby.Players.Concat(lobby.Spectators)
     MatchmakingService: ResetPeer: new HashSet<string>()
-    Md_MyPlayer: : new Dictionary<int, float>()
-    Md_MyVariantToggle: : new System.Collections.Generic.HashSet<string>()
     NetplayManager: .ctor: new Dictionary<int, NetworkStats>()
     NetplayManager: .ctor: new List<NetplayRequest>()
     NetplayManager: GetArchersInfo: _gameContext.GetPlayers().ToDictionary(p => p.Item1, p => p.Item2)
@@ -5698,48 +5245,22 @@ rule: throw -> gen::Throw (fatal, as the game's own exceptions) (71)
     Tp_Selector: OnConfirm: throw new NotImplementedException()
     Tp_Selector: OnDeselect: throw new NotImplementedException()
     Tp_Selector: OnSelect: throw new NotImplementedException()
-rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (84)
-    An_TFModFortRiseAiNovaModule: SaveSettingsNow: try
+rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (48)
     Auto_ArcherDataExtensions: Exists: try
     Auto_ArcherDataExtensions: GetCustomArcherId: try
     Auto_ArcherDataExtensions: GetInstalledArcherMods: try
     Auto_ArcherDataExtensions: ResolveCustomArcher: try
     Auto_EntryExtensions: AttrOrError: try
-    Auto_GoalPlacement: Carve: try
     Auto_MenuIcons: Online: try
-    Auto_ModeImports: Ball: try
-    Auto_ModeImports: BallCarrier: try
-    Auto_ModeImports: Goal: try
-    Auto_ModeImports: IsPlayTag: try
-    Auto_ModeImports: IsSoccer: try
-    Auto_ModeImports: Tagged: try
-    Auto_ModeImports: get_PlayTag: try
-    Auto_ModeImports: get_Soccer: try
-    Auto_NovaLogic: DodgeBlocked: try
-    Auto_NovaLogic: DodgeLeft: try
-    Auto_PlayTagImport: get_Api: try
-    Auto_PlayTagImport: get_IsPlayTagMatch: try
-    Auto_PlayTagImport: get_TaggedPlayer: try
-    Auto_SoccerAimer: Render: try
-    Auto_SoccerImport: TargetGoal: try { return Api?.TargetGoal(playerIndex) ?? Microsoft.Xna.Framework.Vector2.Zero; }
-    Auto_SoccerImport: get_Api: try
-    Auto_SoccerImport: get_BallCarrier: try { return Api?.BallCarrier() ?? -1; }
-    Auto_SoccerImport: get_BallPosition: try { return Api?.BallPosition() ?? Microsoft.Xna.Framework.Vector2.Zero; }
-    Auto_SoccerImport: get_IsSoccerMatch: try { return Api?.IsSoccerMatch() ?? false; }
-    Auto_SoccerPitch: Build: try
-    Auto_SoccerSpawns: Gather: try
-    Auto_SoccerSpawns: Place: try
     Auto_TreasureChestExtensions: LoadState: try
     Auto_Wide: Api: try
     Auto_Wide: get_IsWide: try
-    Auto_WorldSnapshot: IsCoop: try
     Fr_ArcherEntry: get_ArcherData: try
     Fr_SFX: ctor: try
     Fr_SFXVaried: ctor: try
     Fr_SFXVariedEntry: GetActualSFXVaried: try
     InputService: PushExtraLocalInputs: try
     InputService: PushTestInputs: try
-    La_MyRollcallElement: Keys_postfix: try
     MainMenuCreate: AddNetplayButtonToMenu: try
     MatchReport: OnCrash: try
     MatchReport: Upload: try
@@ -5748,9 +5269,6 @@ rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (84)
     MatchmakingService: HandleMessageContents: try
     MatchmakingService: Send: try
     MatchmakingService: SendSkinBundle: try
-    Md_MyVariantToggle: OnSelect_patch: try
-    Md_MyVariantToggle: Update_patch: try
-    Md_TFModFortRiseVariantMoveOrDieModule: SaveSettingsNow: try
     ModCollections: Resolve: try
     NetplayEntry: NetplayLogic: try
     NetplayEntry: TFGameUpdate_Patch: try
@@ -5770,13 +5288,6 @@ rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (84)
     SkinStreamService: FromGemSpriteId: try
     SkinStreamService: GetOrBuildArcherBundle: try
     SkinStreamService: ReceiveChunk: try
-    So_FlatPlay: Load: try
-    So_FlatPlay: NormalUpdate_prefix: try
-    So_MyPlayer: ShootArrow_patch: try
-    So_MyPlayer: Update_patch: try
-    So_MyPlayerOnPlayer: PlayerOnPlayer_patch: try
-    So_TFModFortRiseGameModeSoccerModule: .ctor: try
-    So_TFModFortRiseGameModeSoccerModule: SaveSettingsNow: try
     State_Api: LoadGameStateBytes: try
     State_Api: RestoreGameStateBytes: try
     State_Level: LoadHats: try
@@ -5787,7 +5298,7 @@ rule: x == the local seat/index -> svc::IsLocalSeat(x) (several local players pe
     NetplayMenus: TryOpenLobbyEditor: seat != matchmakingService.GetLocalSeat()
     RollCallElementPatch: IsOwnOrGuestSeat: seat == matchmakingService.GetLocalSeat()
     RollCallElementPatch: RollcallElement_NotJoinedUpdate: playerIndex == matchmakingService.GetLocalSeat()
-service map: Switch code (246)
+service map: Switch code (244)
     FortRise.Content.ContentModule.CurrentModMetadata
     FortRise.Content.VanillaXmlCacher.GetAllAvailableSubtexturesID
     FortRise.GameModeRegistry.ModesToVersusGameMode
@@ -5849,7 +5360,6 @@ service map: Switch code (246)
     FortRise.ISFXLoopedEntry.SFXLooped
     FortRise.ISFXVariedEntry.SFXVaried
     FortRise.IVariantEntry.Configuration
-    FortRise.IVariantEntry.IsActive
     FortRise.IVariantEntry.Name
     FortRise.IVersusGameMode.GetMinimumPlayers
     FortRise.IVersusGameMode.GetMinimumTeamPlayers
@@ -5890,7 +5400,6 @@ service map: Switch code (246)
     FortRise.TextUtils.DrawOutlinedIconText
     FortRise.VariantRegistry.Variants
     Microsoft.Extensions.Logging.LoggerExtensions.LogDebug
-    Microsoft.Extensions.Logging.LoggerExtensions.LogError
     Microsoft.Extensions.Logging.LoggerExtensions.LogInformation
     Microsoft.Extensions.Logging.LoggerExtensions.LogWarning
     Monocle.Atlas.this[]
@@ -6071,8 +5580,7 @@ service map: fixed value (S-native) (7)
 service map: fixed value (S-net) (2)
     System.Net.WebSockets.ClientWebSocket.CloseStatusDescription
     System.Threading.SemaphoreSlim..ctor
-service map: fixed value (S-platform) (2)
-    System.Diagnostics.Debugger.IsAttached
+service map: fixed value (S-platform) (1)
     System.Environment.GetEnvironmentVariable
 service map: fixed value (S-tools) (3)
     System.Text.RegularExpressions.MatchCollection.Count
@@ -6101,7 +5609,7 @@ service map: no-op (D) (17)
     TF.EX.Domain.Ports.IReplayService.RemovePredictedRecords
     TF.EX.Domain.Ports.IReplayService.Reset
     TF.EX.Domain.Ports.IReplayService.RunFrame
-service map: no-op (S-absent) (12)
+service map: no-op (S-absent) (10)
     TF.EX.Domain.Interop.ITfReplayApi.GetLoadedArcherNames
     TF.EX.Domain.Interop.ITfReplayApi.GetTakeoverInputFlat
     TF.EX.Domain.Interop.ITfReplayApi.GetTakeoverSeat
@@ -6112,8 +5620,6 @@ service map: no-op (S-absent) (12)
     TF.EX.Domain.Interop.ITfReplayApi.SetRecordDriver
     TF.EX.Domain.Interop.ITfReplayApi.StopPlayback
     TF.EX.Domain.Interop.ITfReplayApi.UpdatePlaybackControls
-    TFModFortRiseGameModePlaytag.IPlayTagApi.IsPlayTagMatch
-    TFModFortRiseGameModePlaytag.IPlayTagApi.TaggedPlayer
 service map: no-op (S-hooks) (3)
     FortRise.IHarmony.Patch
     FortRise.IHarmony.PatchAll
@@ -6180,14 +5686,11 @@ service map: the member's own body is its rule (delegates to it run the Switch's
     TFEXModModule.IsReturningPlayer
     patch_SFX.ctor
     patch_SFXVaried.thisctor
-settings: FortRise's ModuleSettings as JSON (CodeGen.ModSettings) (4)
+settings: FortRise's ModuleSettings as JSON (CodeGen.ModSettings) (1)
     TF.EX.NetplaySettings: 10 properties
-    TFModFortRiseAiNova.TFModFortRiseAiNovaSettings: 4 properties
-    TFModFortRiseGameModeSoccer.TFModFortRiseGameModeSoccerSettings: 3 properties
-    TFModFortRiseVariantMoveOrDie.TFModFortRiseVariantMoveOrDieSettings: 3 properties
 unit's file not in this TF.EX tree (skipped) (1)
     ConnectionIcon: network/TF.EX.Patchs/ConnectionIcon.cs
-unresolved game member (117)
+unresolved game member (101)
     e_ArcherEntryType: no type FortRise.ArcherEntryType
     e_CustomVariantFlags: no type FortRise.CustomVariantFlags
     e_InputBehavior: no type FortRise.InputBehavior
@@ -6217,8 +5720,6 @@ unresolved game member (117)
     m_Func_1_f591_Invoke: no type System.Func`1[Monocle.SFX]
     m_Func_2_3bce_Invoke_0b43: no type System.Func`2[System.String, System.String]
     m_Func_2_f2e1_Invoke_0b43: no type System.Func`2[TowerFall.Level, System.Boolean]
-    m_LevelTiles_ReloadTiles: no body on the Switch (inlined or removed)
-    m_StringBuilder__ctor_e2bf: 58 bodies named System.Text.StringBuilder..ctor, overload -1 of 0: can't pick
     m_Texture2D_get_Height: 3 bodies named Microsoft.Xna.Framework.Graphics.Texture2D.get_Height, overload -1 of 0: can't pick
     m_Texture2D_get_Width: 3 bodies named Microsoft.Xna.Framework.Graphics.Texture2D.get_Width, overload -1 of 0: can't pick
     t_Action_1_1820: no type System.Action`1[System.ValueTuple`2[System.String, System.Int32]]
@@ -6235,16 +5736,12 @@ unresolved game member (117)
     t_CrumbleBlock_cf5a: no type TowerFall.CrumbleBlock[]
     t_CustomLevelSystem: no type TowerFall.CustomLevelSystem
     t_Dictionary_2_0f0b: no type System.Collections.Generic.Dictionary`2[System.String, Microsoft.Xna.Framework.Audio.SoundEffect]
-    t_Dictionary_2_159e: no type System.Collections.Generic.Dictionary`2[System.String, System.Object[]]
     t_Dictionary_2_170f: no type System.Collections.Generic.Dictionary`2[System.String, System.Boolean]
     t_Dictionary_2_1bd9: no type System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime]
-    t_Dictionary_2_28da: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Single]
     t_Dictionary_2_35f7: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Object]
     t_Dictionary_2_552e: no type System.Collections.Generic.Dictionary`2[TowerFall.Variant, System.Boolean]
-    t_Dictionary_2_56be: no type System.Collections.Generic.Dictionary`2[System.Int32, TowerFall.PlayerInput]
     t_Dictionary_2_5e24: no type System.Collections.Generic.Dictionary`2[TowerFall.Modes, System.Object]
     t_Dictionary_2_70f2: no type System.Collections.Generic.Dictionary`2[System.String, Monocle.SFX]
-    t_Dictionary_2_7ab5: no type System.Collections.Generic.Dictionary`2[System.Int32, Monocle.Image]
     t_Dictionary_2_7e19: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.Variant]
     t_Dictionary_2_9339: no type System.Collections.Generic.Dictionary`2[System.Int32, System.String]
     t_Dictionary_2_97a9: no type System.Collections.Generic.Dictionary`2[System.ValueTuple`4[Microsoft.Xna.Framework.Graphics.Texture2D, Microsoft.Xna.Framework.Rectangle, Microsoft.Xna.Framework.Rectangle, System.Enum], Monocle.Subtexture]
@@ -6269,21 +5766,14 @@ unresolved game member (117)
     t_Func_1_f591: no type System.Func`1[Monocle.SFX]
     t_Func_2_3bce: no type System.Func`2[System.String, System.String]
     t_Func_2_f2e1: no type System.Func`2[TowerFall.Level, System.Boolean]
-    t_Func_3_b63b: no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Boolean]
-    t_Func_3_b9b3: no type System.Func`3[System.Object, System.Object, System.Object]
-    t_Func_3_d86f: no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]]
-    t_Func_4_e660: no type System.Func`4[System.Object, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, System.Boolean]
     t_HashSet_1_076d: no type System.Collections.Generic.HashSet`1[System.String]
     t_HashSet_1_0ecb: no type System.Collections.Generic.HashSet`1[System.Object]
     t_HashSet_1_2624: no type System.Collections.Generic.HashSet`1[TowerFall.Variant]
     t_HashSet_1_2eb5: no type System.Collections.Generic.HashSet`1[System.Double]
-    t_HashSet_1_9cea: no type System.Collections.Generic.HashSet`1[Microsoft.Xna.Framework.Point]
-    t_HashSet_1_cc16: no type System.Collections.Generic.HashSet`1[System.Char]
     t_HashSet_1_cd19: no type System.Collections.Generic.HashSet`1[System.Enum]
     t_HashSet_1_e76c: no type System.Collections.Generic.HashSet`1[System.Int32]
     t_Icicle_53dc: no type TowerFall.Icicle[]
     t_Lantern_72ed: no type TowerFall.Lantern[]
-    t_List_1_0e04: no type System.Collections.Generic.List`1[TowerFall.InputState]
     t_List_1_240e: no type System.Collections.Generic.List`1[TowerFall.CharacterSounds]
     t_List_1_25f1: no type System.Collections.Generic.List`1[System.Enum]
     t_List_1_270f: no type System.Collections.Generic.List`1[TowerFall.Modes]
@@ -6292,11 +5782,8 @@ unresolved game member (117)
     t_List_1_f4ca: no type System.Collections.Generic.List`1[TowerFall.PlayerInput]
     t_MovingPlatform_a102: no type TowerFall.MovingPlatform[]
     t_Predicate_1_0f12: no type System.Predicate`1[System.ValueType]
-    t_Queue_1_1987: no type System.Collections.Generic.Queue`1[Microsoft.Xna.Framework.Point]
-    t_Queue_1_47de: no type System.Collections.Generic.Queue`1[System.Object]
     t_SnowClump_bc77: no type TowerFall.SnowClump[]
     t_WorkshopButton: no type TowerFall.WorkshopButton
-    t_XGamepadInput: no type TowerFall.XGamepadInput
     v_ChaliceGhost_Added: no type TowerFall.ChaliceGhost
     v_Object_get_Name: 2 bodies named System.Object.get_Name, overload -1 of 0: can't pick
     v_PlayerInput_get_ArrowsIcon: abstract: no subclass overrides it

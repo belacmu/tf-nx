@@ -1,5 +1,5 @@
-TF.NX @VERSION@ is built from the switch-online repository, commit @COMMIT@ (its full source, translator and generated code
-included, is to be published with the first public release, as GPL-3.0 requires).
+TF.NX @VERSION@ is built from https://github.com/belacmu/tf-nx, commit @COMMIT@. That repository is its full source
+(translator and generated code included), under GPL-3.0.
 
 Components:
 - TF.EX (Fcornaire and contributors), GPL-3.0: translated into the module; its files in xplay/tfex/.
@@ -8,7 +8,7 @@ Components:
 - exlaunch (shadowninja108), GPL-2.0: the module's loader layer. It states no GPL version for itself (only the
   licence text), which GPL-2.0 section 9 reads as any version, so it is used here under GPL-3.0 with the rest.
 - And64InlineHook (Rprop), MIT; libnx (switchbrew), ISC; oss-rtld (Thog), ISC.
-- ggrs and the Rust crates in ggrs-switch: MIT / Apache-2.0.
+- GGRS (Fcornaire's fork), matchbox and the Rust crates in ggrs-switch and tfx-rtc: MIT / Apache-2.0.
 - Teams+ (ours), in xplay/mods/TeamsPlus.
 
 TowerFall is Matt Makes Games'. No game files are in this release.

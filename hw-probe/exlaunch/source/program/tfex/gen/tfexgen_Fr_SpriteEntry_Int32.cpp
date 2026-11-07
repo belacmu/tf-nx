@@ -50,7 +50,7 @@ void set_Configuration(void* self, tfex::gen::st::Fr_SpriteConfiguration_int32 v
 /*@M SpriteEntry.CreateProperty__String*/
 void* CreateProperty__String(void* self, void* document, void* parent, void* propertyName, void* value) {
     void* element = gen::Fn<void* (*)(void*, void*)>(bind::m_XmlDocument_CreateElement_0)(document, propertyName);
-    gen::Virt<void>(element, bind::v_XmlElement_set_InnerText_6538, gen::Fn<void* (*)(void*)>(bind::m_Object_ToString)(value));
+    gen::Virt<void>(element, bind::v_XmlElement_set_InnerText_6538, value);
     gen::Virt<void*>(parent, bind::v_XmlNode_AppendChild_0, element);
     return element;
 }
@@ -66,7 +66,7 @@ void* CreateProperty__Int32(void* self, void* document, void* parent, void* prop
 /*@M SpriteEntry.CreateProperty__Object*/
 void* CreateProperty__Object(void* self, void* document, void* parent, void* propertyName, void* value) {
     void* element = gen::Fn<void* (*)(void*, void*)>(bind::m_XmlDocument_CreateElement_0)(document, propertyName);
-    gen::Virt<void>(element, bind::v_XmlElement_set_InnerText_6538, gen::Fn<void* (*)(void*)>(bind::m_Object_ToString)(value));
+    gen::Virt<void>(element, bind::v_XmlElement_set_InnerText_6538, gen::ObjToString(value));
     gen::Virt<void*>(parent, bind::v_XmlNode_AppendChild_0, element);
     return element;
 }

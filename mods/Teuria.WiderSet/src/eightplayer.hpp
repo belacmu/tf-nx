@@ -31,6 +31,7 @@
 #include "tfex/gen/tfexgen_hooks.hpp"
 #include "tfex/gen/tfexgen_GlueFrMods.hpp"   /* AliasMissingSubtexture: the controller icons for players 7-8 */
 #include "tfex/runtime/tfexgen_code_rt.hpp"
+#include "tfex/gen/tfexgen_binding.hpp"   /* the game members WiderSet's roll call look uses */
 #include <cstdio>   /* the generated hooks this shares a method with (Teams+'s) */
 #include "tfex/runtime/tfexgen_services.hpp"   /* the own TF.EX lobby (its MaxPlayers: roll call slots past 6 online) */
 #include "patch/code_patcher.hpp"   /* exl::patch::CodePatcher — in-place patching */
@@ -1089,7 +1090,8 @@ HOOK_DEFINE_TRAMPOLINE(AssignInputsHook) {
     }
 };
 
-/* ---- Rollcall 4+4 staggered layout ---------------------------------------
+/* ---- Rollcall: WiderSet's two rows of four ----------------------------------
+ * (was a 4+4 staggered layout of full-height portraits: they overlapped; the user asked for WiderSet's, 2026-11-06)
  * Hook the slot factory so ALL slots (retail's 0-5 and our 6-7) are
  * repositioned by index: two rows of four, bottom row offset half a slot so
  * it sits under the gaps of the top row. Row geometry derived from retail's
@@ -1116,28 +1118,21 @@ HOOK_DEFINE_TRAMPOLINE(RollcallSlotFactoryHook) {
         if (!el || !sixVariant) return el;
         uint32_t* mode = tf8::RollcallModeStorage();
         if (!mode || *mode != 1) return el;
-        /* Layout tuning (dev iteration w/ user, 2026-07-07): user anchored on
-         * bottom-right at x=326 looking right; mirroring about the menu
-         * center (158, from retail's own -12..328 row) puts top-left at -10
-         * -> spacing 96, half-stagger 48. Top row raised to just under the
-         * screen top (element centers; portraits ~60 tall). */
-        constexpr float kSpacing = 96.0f;
-        constexpr float kTopMidX = 134.0f;   /* top row center: -10..278 */
-        /* Two rows near the top of the screen. kTopY is as high as it can go
-         * without clipping the portrait tops (52 clipped; 72 was fully visible
-         * but a touch low — 64 splits it). kBotY sits below it. Both tunable
-         * if a row clips or crowds. */
-        constexpr float kTopY    = 64.0f;
-        constexpr float kBotY    = 170.0f;
+        /* WiderSet's grid (its RollcallElement.GetPosition / GetTweenSource prefixes, WiderSet 0.9.0): two rows of four, x 55 + 70 * col,
+         * y 75 / 165; the top row slides in from the left, the bottom row from the right. Fits with WiderSet's 60 x 60 portraits
+         * (PortraitRenderHook below). */
         int row = index / 4, col = index % 4;
-        float x = kTopMidX + (col - 1.5f) * kSpacing + (row ? kSpacing * 0.5f : 0.0f);
-        float y = row ? kBotY : kTopY;
+        float x = 55.0f + 70.0f * col;
+        float y = row ? 165.0f : 75.0f;
         uint8_t* f = reinterpret_cast<uint8_t*>(el);
+        /* WiderSet's ctor transpiler: the archer arrows (+0xa8 / +0xb0, Y 60 in the constructor) at 30, the small portrait's bottom */
+        for (uint32_t a : {0xa8u, 0xb0u})
+            if (void* arrow = *reinterpret_cast<void**>(f + a)) *reinterpret_cast<float*>(reinterpret_cast<uint8_t*>(arrow) + 0x28) = 30.0f;
         *reinterpret_cast<float*>(f + 0x14) = x;
         *reinterpret_cast<float*>(f + 0x18) = y;
         *reinterpret_cast<float*>(f + 0xd8) = x;
         *reinterpret_cast<float*>(f + 0xdc) = y;
-        *reinterpret_cast<float*>(f + 0xe0) = x + (col < 2 ? -420.0f : 420.0f);
+        *reinterpret_cast<float*>(f + 0xe0) = x + (row ? 420.0f : -420.0f);
         *reinterpret_cast<float*>(f + 0xe4) = y;
         /* Z-order so each slot's bottom-right stays visible: top-left frontmost,
          * bottom-right backmost (front->back = index 0..7). With LOWER depth =
@@ -1147,6 +1142,80 @@ HOOK_DEFINE_TRAMPOLINE(RollcallSlotFactoryHook) {
          * and within a row the left slot draws over the one to its right. */
         tf8::Call<void (*)(void*, int)>(tf8::off::Entity_set_Depth)(el, index - 8);
         return el;
+    }
+};
+
+/* The 8-slot roll call (local WIDE with WiderSet's folder, or an online wide lobby past 6 seats): WiderSet's look on it */
+static bool EightRollcall() {
+    uint32_t* mode = tf8::RollcallModeStorage();
+    if (!mode || *mode != 1) return false;
+    return !::megamod::Online() || OnlineSeatsPastSix() > 0;
+}
+/* WiderSet's ArcherPortrait transpilers (ctor, SetCharacter, StartJoined, Leave): on the 8-slot roll call a portrait is the top 60 x 60
+ * of its 60 x 120 art, from y 10 (a not-joined archer 6 from y 60: WiderSet's NotJoinedCharacterOffset[6] = (0, 50)). The game sets
+ * an image's ClipRect (+0x58: X Y W H in the atlas) to the whole art whenever it changes it; this crops it again before drawing. The
+ * portrait (+0x68) and its flip side (+0x70). */
+static void CropPortraitImage(void* image, int yFrom) {
+    if (!image) return;
+    int32_t* r = reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(image) + 0x58);
+    if (r[3] <= 60) return;   /* cropped already */
+    r[1] += yFrom; r[2] = 60; r[3] = 60;
+    tf8::Call<void (*)(void*)>(tfex::gen::bind::m_GraphicsComponent_CenterOrigin)(image);
+}
+HOOK_DEFINE_TRAMPOLINE(PortraitRenderHook) {
+    static void Callback(void* self) {
+        if (self && EightRollcall()) {
+            uint8_t* p = reinterpret_cast<uint8_t*>(self);
+            bool joined = p[0x64] != 0;   /* ArcherPortrait.joined */
+            p[0x58] = 0;   /* ShowTitle: no archer name over the small portrait (WiderSet's Render prefix) */
+            int ch = tf8::Call<int (*)(void*)>(0x96eed0)(self);   /* get_CharacterIndex */
+            int alt = tf8::Call<int (*)(void*)>(0x96eee0)(self);  /* get_AltSelect: 0 normal */
+            CropPortraitImage(*reinterpret_cast<void**>(p + 0x68), (!joined && alt == 0 && ch == 6) ? 60 : 10);
+            CropPortraitImage(*reinterpret_cast<void**>(p + 0x70), 10);
+            CropPortraitImage(*reinterpret_cast<void**>(p + 0x78), 10);   /* the join flash (a 60 x 120 Sprite: WiderSet's ctor 120 -> 60) */
+            static bool said = false;
+            if (!said) { said = true; MMLOG("[8player] roll call portraits: WiderSet's 60 x 60 crop"); }
+        }
+        Orig(self);
+    }
+};
+/* WiderSet's ArcherPortrait.InitGem transpiler: the gem at the 60 x 60 portrait's bottom edge (the game's +60 -> +30) */
+HOOK_DEFINE_TRAMPOLINE(PortraitInitGemHook) {
+    static void Callback(void* self) {
+        Orig(self);
+        if (!self || !EightRollcall()) return;
+        void* gem = *reinterpret_cast<void**>(reinterpret_cast<uint8_t*>(self) + 0x80);   /* ArcherPortrait's gem sprite */
+        if (gem) *reinterpret_cast<float*>(reinterpret_cast<uint8_t*>(gem) + 0x28) -= 30.0f;   /* its Position.Y */
+    }
+};
+/* WiderSet's HandleControlIcons / Update transpilers: RollcallElement.ControlIconPos - (15, 120) on the 8-slot roll call (the Switch
+ * reads it only in RollcallElement.Render; its static (0, 90), GOT slot +0x4795ec0, made by the class constructor) */
+static void SetControlIconPos(bool eight) {
+    uintptr_t base = exl::util::GetMainModuleInfo().m_Total.m_Start;
+    float* pos = *reinterpret_cast<float**>(base + 0x4795ec0);
+    if (!pos) return;
+    pos[0] = eight ? -15.0f : 0.0f;
+    pos[1] = eight ? -45.0f : 90.0f;   /* (WiderSet's -30 puts them on the portrait's top edge; the Switch draws them before the
+                                           portrait, which covered half of each: the user, 2026-11-06. -45: above it, beside the P label) */
+    /* the Switch's own costume prompt (R / ?: no PC counterpart), its static (22, 45) at GOT +0x4795ed0, read in Render: up 30 with the
+     * arrows and the gem, inside the 60 x 60 portrait */
+    float* alt = *reinterpret_cast<float**>(base + 0x4795ed0);
+    if (alt) alt[1] = eight ? 15.0f : 45.0f;
+}
+/* WiderSet's RollcallElement.Render prefix: "P1".."P8" over each slot in the player's colour */
+HOOK_DEFINE_TRAMPOLINE(RollcallLabelHook) {
+    static void Callback(void* self) {
+        if (self && EightRollcall()) {
+            using namespace tfex::gen;
+            int pi = Fld<int32_t>(self, bind::f_RollcallElement_playerIndex);
+            char t[4] = {'P', (char)('1' + pi), 0, 0};
+            Vector2 at = Fld<Vector2>(self, bind::f_Entity_Position);
+            at.X += 15.0f; at.Y -= 40.0f;
+            Color c = Fn<Color (*)(int32_t, int32_t)>(bind::m_ArcherData_GetColorA_bcbe)(pi, -1);
+            void* font = (Cctor(bind::c_TFGame), Fn<void* (*)()>(bind::m_TFGame_get_Font)());
+            Fn<void (*)(void*, void*, Vector2, Color, float)>(bind::m_Draw_OutlineTextCentered_c8ed)(font, FromAscii(t), at, c, 2.0f);
+        }
+        Orig(self);
     }
 };
 
@@ -1188,6 +1257,7 @@ HOOK_DEFINE_TRAMPOLINE(CreateRollcallHook) {
              * on the PC, while this lobby has seats past 6; the game's 6 otherwise */
             ::megamod::SetOnlineWord(tf8::off::VersusCapTable, seats > 0);
             if (seats) SeedArchersPastSix();
+            SetControlIconPos(seats > 0);
             for (int idx = 6; idx < seats; idx++) AddRollcallSlot(self, idx);
             if (seats) MMLOG("[8player] online: roll call slots 7-%d added (a %d-seat wide lobby)", seats, seats);
             return;
@@ -1217,6 +1287,7 @@ HOOK_DEFINE_TRAMPOLINE(CreateRollcallHook) {
             }
         }
         uint32_t* mode = tf8::RollcallModeStorage();
+        SetControlIconPos(mode && *mode == 1);
         if (!mode || *mode != 1) return;   /* dev: 8-cap rides mode 1 */
         SeedArchersPastSix();
         /* DIAGNOSTIC: prove whether the array widening actually took at
@@ -1225,7 +1296,7 @@ HOOK_DEFINE_TRAMPOLINE(CreateRollcallHook) {
                     tf8::ArrayLen(0x4793890), tf8::ArrayLen(0x4792458),
                     tf8::ArrayLen(0x4792460), tf8::ArrayLen(0x4791fa8));
         for (int idx = 6; idx < 8; idx++) AddRollcallSlot(self, idx);
-        MMLOG("[8player] DEV: rollcall slots 7+8 added (4+4 staggered)");
+        MMLOG("[8player] rollcall slots 7+8 added (WiderSet's two rows of four)");
     }
 };
 
@@ -1583,6 +1654,9 @@ inline void InstallAll() {
     MaxPlayersHook::InstallAtOffset(tf8::off::RollcallElement_get_MaxPlayers);
     CreateRollcallHook::InstallAtOffset(tf8::off::MainMenu_CreateRollcall);
     RollcallSlotFactoryHook::InstallAtOffset(tf8::off::RollcallSlotNew);
+    PortraitRenderHook::InstallAtOffset(0x96f350);
+    PortraitInitGemHook::InstallAtOffset(tfex::gen::bind::m_ArcherPortrait_InitGem);   /* ArcherPortrait::Render (tools/re callmap) */
+    RollcallLabelHook::InstallAtOffset(tfex::gen::bind::m_RollcallElement_Render);
     AssignInputsHook::InstallAtOffset(tf8::off::PlayerInput_AssignInputs);
     TeamsGetItemHook::InstallAtOffset(tf8::off::MatchTeams_get_Item);
     TeamsSetItemHook::InstallAtOffset(tf8::off::MatchTeams_set_Item);
@@ -1621,29 +1695,22 @@ inline void OfferEight() {
     /* entry[0] = mode 1 (Versus 2-6) cap: 6 -> 8. Quest/DarkWorld/Trials
      * entries untouched. */
     megamod::Patch(tf8::off::VersusCapTable, 6, 8, "cap table: VERSUS 2-6 caps at 8");
+    /* The menu labels: "2-6 ARCHERS" (FIGHT's WIDE subtitle), "6-PLAYER" (SELECT LEVEL SET's set), "SUPPORTS UP TO 6 ARCHERS" (its
+     * subtitle) say 8. The game copies every string literal into a managed string at startup (0x12670(text, length), kept in a slot)
+     * before any mod boots, so the '6' is changed in that copy (patching the literal's text in main.flat changed nothing on screen:
+     * the console and an emulator shot, 2026-11-06). Slots and the '6''s index from tools/re (xref of each text). */
     {
-        /* FightButton subtitle string "2-6 ARCHERS" -> "2-8 ARCHERS" to match the
-         * lifted cap. UTF-16-LE literal @0x3574cd0; the '6' char (0x0036) sits at
-         * +4. Write a word covering '6'+' ' (36 00 20 00 -> 38 00 20 00), i.e.
-         * flip 0x36->0x38. Same length, no relocation. (Retail=PC 8p build says
-         * "2-8 ARCHERS" already — this restores that.) */
-        megamod::Patch(0x3574cd4, 0x00200036, 0x00200038, "FightButton label \"2-8 ARCHERS\"");
-    }
-    {
-        /* "Select level set" screen: the tower-set category "6-PLAYER" (the set
-         * that holds the 6P-Versus towers, now playable by up to 8) -> "8-PLAYER".
-         * UTF-16-LE literal @0x325ee68 = "6-PLAYER\0"; the '6' (0x0036) is at +0.
-         * Write a word covering '6'+'-' (36 00 2d 00 -> 38 00 2d 00), flipping
-         * 0x36->0x38. Same length, no relocation. The sibling set name "STANDARD"
-         * is a real set name (default towers), so it's left untouched. */
-        megamod::Patch(0x325ee68, 0x002d0036, 0x002d0038, "level-set label \"8-PLAYER\"");
-    }
-    {
-        /* Mode-select subtitle "SUPPORTS UP TO 6 ARCHERS" -> "...8 ARCHERS".
-         * UTF-16-LE literal @0x37659d6; the '6' (0x0036) is at +30 (0x37659f4),
-         * followed by a space. Write a word covering '6'+' ' (36 00 20 00 ->
-         * 38 00 20 00), flip 0x36->0x38. Same length, no relocation. */
-        megamod::Patch(0x37659f4, 0x00200036, 0x00200038, "mode-select label \"SUPPORTS UP TO 8 ARCHERS\"");
+        struct Label { uintptr_t got; int at; const char* what; };
+        static const Label kLabels[] = { {0x478d0b8, 2, "FIGHT's \"2-8 ARCHERS\""}, {0x478d150, 0, "SELECT LEVEL SET's \"8-PLAYER\""},
+                                         {0x4790e98, 15, "\"SUPPORTS UP TO 8 ARCHERS\""} };
+        uintptr_t base = exl::util::GetMainModuleInfo().m_Total.m_Start;
+        for (const Label& l : kLabels) {
+            void** slot = *reinterpret_cast<void***>(base + l.got);
+            void* str = slot ? *slot : nullptr;
+            char16_t* c = str ? const_cast<char16_t*>(tfex::gen::Chars(str)) + l.at : nullptr;
+            if (c && (*c == u'6' || *c == u'8')) { *c = u'8'; MMLOG("[8player] label %s", l.what); }
+            else MMLOG("[8player] ERROR label %s: its string isn't the expected one (slot +%#lx)", l.what, (unsigned long)l.got);
+        }
     }
 #endif
     MMLOG("[8player] the 2-8 lobby offered (WiderSet's folder loaded)");

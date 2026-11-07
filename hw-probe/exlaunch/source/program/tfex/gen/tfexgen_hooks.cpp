@@ -6,9 +6,6 @@
 #include "../../hwlog.hpp"
 #include "lib.hpp"
 #include <cstring>
-#include "tfexgen_Aj_MyLevel.hpp"
-#include "tfexgen_Aj_MyTFGame.hpp"
-#include "tfexgen_An_MyTFGame.hpp"
 #include "tfexgen_ArcherDataPatch.hpp"
 #include "tfexgen_FightButtonPatch.hpp"
 #include "tfexgen_Fr_ArcherDataMusic.hpp"
@@ -20,9 +17,6 @@
 #include "tfexgen_Fr_VersusModeButton.hpp"
 #include "tfexgen_GameplayLayerPatch.hpp"
 #include "tfexgen_HUDPatch.hpp"
-#include "tfexgen_La_MyLevel.hpp"
-#include "tfexgen_La_MyRollcallElement.hpp"
-#include "tfexgen_La_MyTFGame.hpp"
 #include "tfexgen_LevelLoaderXMLPatch.hpp"
 #include "tfexgen_LevelPatch.hpp"
 #include "tfexgen_LoaderPatch.hpp"
@@ -31,8 +25,6 @@
 #include "tfexgen_MapScenePatch.hpp"
 #include "tfexgen_MatchSettingsPatch.hpp"
 #include "tfexgen_MatchVariantsPatchs.hpp"
-#include "tfexgen_Md_MyPlayer.hpp"
-#include "tfexgen_Md_MyVariantToggle.hpp"
 #include "tfexgen_MenuItemPatch.hpp"
 #include "tfexgen_NetplayEntry.hpp"
 #include "tfexgen_PauseMenuPatch.hpp"
@@ -44,12 +36,6 @@
 #include "tfexgen_SaveDataPatch.hpp"
 #include "tfexgen_ScreenTitlePatch.hpp"
 #include "tfexgen_SessionPatch.hpp"
-#include "tfexgen_So_FlatPlay.hpp"
-#include "tfexgen_So_MyArrowHUD.hpp"
-#include "tfexgen_So_MyPlayer.hpp"
-#include "tfexgen_So_MyPlayerDeath.hpp"
-#include "tfexgen_So_MyPlayerOnPlayer.hpp"
-#include "tfexgen_So_MyVersusModeButton.hpp"
 #include "tfexgen_State_Alarm.hpp"
 #include "tfexgen_State_Arrow.hpp"
 #include "tfexgen_State_ArrowCushion.hpp"
@@ -488,2785 +474,2566 @@ HOOK_DEFINE_TRAMPOLINE(Hook_27) {
 };
 bool g_installed_Hook_27 = false;
 
-/* TowerFall.ArrowHUD.Render(): MyArrowHUD.Render_patch (prefix) */
+/* TowerFall.BGCrystal.Update(): BGCrystalPatch.BGCrystal_Update (prefix) */
 bool g_on_Hook_28[1];
 int g_calls_Hook_28 = 0;
-void (*g_shell_Hook_28)(ArrowHUD_Render&) = nullptr;
+void (*g_shell_Hook_28)(BGCrystal_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_28) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        ArrowHUD_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        BGCrystal_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_28) g_shell_Hook_28(c); else c();
     }
 };
 bool g_installed_Hook_28 = false;
 
-/* TowerFall.BGCrystal.Update(): BGCrystalPatch.BGCrystal_Update (prefix) */
+/* TowerFall.Background.LightningFlashLayer.SequenceB(): LightningFlashLayerPatch.LightningFlashLayer_SequenceB (postfix) */
 bool g_on_Hook_29[1];
 int g_calls_Hook_29 = 0;
-void (*g_shell_Hook_29)(BGCrystal_Update&) = nullptr;
+void (*g_shell_Hook_29)(LightningFlashLayer_SequenceB&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_29) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        BGCrystal_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LightningFlashLayer_SequenceB c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_29) g_shell_Hook_29(c); else c();
     }
 };
 bool g_installed_Hook_29 = false;
 
-/* TowerFall.Background.LightningFlashLayer.SequenceB(): LightningFlashLayerPatch.LightningFlashLayer_SequenceB (postfix) */
+/* TowerFall.Background.LightningFlashLayer.SequenceC(): LightningFlashLayerPatch.LightningFlashLayer_SequenceC (postfix) */
 bool g_on_Hook_30[1];
 int g_calls_Hook_30 = 0;
-void (*g_shell_Hook_30)(LightningFlashLayer_SequenceB&) = nullptr;
+void (*g_shell_Hook_30)(LightningFlashLayer_SequenceC&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_30) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LightningFlashLayer_SequenceB c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LightningFlashLayer_SequenceC c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_30) g_shell_Hook_30(c); else c();
     }
 };
 bool g_installed_Hook_30 = false;
 
-/* TowerFall.Background.LightningFlashLayer.SequenceC(): LightningFlashLayerPatch.LightningFlashLayer_SequenceC (postfix) */
+/* TowerFall.Background.LightningFlashLayer.SequenceD(): LightningFlashLayerPatch.LightningFlashLayer_SequenceD (postfix) */
 bool g_on_Hook_31[1];
 int g_calls_Hook_31 = 0;
-void (*g_shell_Hook_31)(LightningFlashLayer_SequenceC&) = nullptr;
+void (*g_shell_Hook_31)(LightningFlashLayer_SequenceD&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_31) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LightningFlashLayer_SequenceC c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LightningFlashLayer_SequenceD c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_31) g_shell_Hook_31(c); else c();
     }
 };
 bool g_installed_Hook_31 = false;
 
-/* TowerFall.Background.LightningFlashLayer.SequenceD(): LightningFlashLayerPatch.LightningFlashLayer_SequenceD (postfix) */
+/* TowerFall.Background.Update(): BackgroundPatch.Background_Update (prefix) */
 bool g_on_Hook_32[1];
 int g_calls_Hook_32 = 0;
-void (*g_shell_Hook_32)(LightningFlashLayer_SequenceD&) = nullptr;
+void (*g_shell_Hook_32)(Background_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_32) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LightningFlashLayer_SequenceD c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Background_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_32) g_shell_Hook_32(c); else c();
     }
 };
 bool g_installed_Hook_32 = false;
 
-/* TowerFall.Background.Update(): BackgroundPatch.Background_Update (prefix) */
+/* TowerFall.Bat.Bat(Microsoft.Xna.Framework.Vector2, TowerFall.Facing, TowerFall.Bat.BatType): BatPatch.Bat_ctor (postfix) */
 bool g_on_Hook_33[1];
 int g_calls_Hook_33 = 0;
-void (*g_shell_Hook_33)(Background_Update&) = nullptr;
+void (*g_shell_Hook_33)(Bat_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_33) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Background_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, int32_t facing, int32_t batType, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Bat_ctor c{self, position, facing, batType, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_33) g_shell_Hook_33(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_33 = false;
 
-/* TowerFall.Bat.Bat(Microsoft.Xna.Framework.Vector2, TowerFall.Facing, TowerFall.Bat.BatType): BatPatch.Bat_ctor (postfix) */
+/* TowerFall.Bat.Update(): BatPatch.Bat_Update_Postfix (postfix) */
 bool g_on_Hook_34[1];
 int g_calls_Hook_34 = 0;
-void (*g_shell_Hook_34)(Bat_ctor&) = nullptr;
+void (*g_shell_Hook_34)(Bat_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_34) {
-    static void* Callback(void* self, gen::Vector2 position, int32_t facing, int32_t batType, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Bat_ctor c{self, position, facing, batType, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Bat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_34) g_shell_Hook_34(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_34 = false;
 
-/* TowerFall.Bat.Update(): BatPatch.Bat_Update_Postfix (postfix) */
+/* TowerFall.BombParticle.Update(): BombParticlePatch.BombParticle_Update (prefix) */
 bool g_on_Hook_35[1];
 int g_calls_Hook_35 = 0;
-void (*g_shell_Hook_35)(Bat_Update&) = nullptr;
+void (*g_shell_Hook_35)(BombParticle_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_35) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Bat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        BombParticle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_35) g_shell_Hook_35(c); else c();
     }
 };
 bool g_installed_Hook_35 = false;
 
-/* TowerFall.BombParticle.Update(): BombParticlePatch.BombParticle_Update (prefix) */
+/* TowerFall.BrambleArrow.HitWall(TowerFall.Platform): BrambleArrowPatch.HitWall_Prefix (prefix) */
 bool g_on_Hook_36[1];
 int g_calls_Hook_36 = 0;
-void (*g_shell_Hook_36)(BombParticle_Update&) = nullptr;
+void (*g_shell_Hook_36)(BrambleArrow_HitWall&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_36) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        BombParticle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* platform, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        BrambleArrow_HitWall c{self, platform, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_36) g_shell_Hook_36(c); else c();
     }
 };
 bool g_installed_Hook_36 = false;
 
-/* TowerFall.BrambleArrow.HitWall(TowerFall.Platform): BrambleArrowPatch.HitWall_Prefix (prefix) */
+/* TowerFall.BrambleArrow.Update(): BrambleArrowPatch.Update_Postfix (postfix) */
 bool g_on_Hook_37[1];
 int g_calls_Hook_37 = 0;
-void (*g_shell_Hook_37)(BrambleArrow_HitWall&) = nullptr;
+void (*g_shell_Hook_37)(BrambleArrow_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_37) {
-    static void Callback(void* self, void* platform, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        BrambleArrow_HitWall c{self, platform, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        BrambleArrow_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_37) g_shell_Hook_37(c); else c();
     }
 };
 bool g_installed_Hook_37 = false;
 
-/* TowerFall.BrambleArrow.Update(): BrambleArrowPatch.Update_Postfix (postfix) */
+/* TowerFall.Brambles.Create(int, Microsoft.Xna.Framework.Vector2, int, int, bool): BramblesPatch.Create_Prefix (prefix) */
 bool g_on_Hook_38[1];
 int g_calls_Hook_38 = 0;
-void (*g_shell_Hook_38)(BrambleArrow_Update&) = nullptr;
+void (*g_shell_Hook_38)(Brambles_Create&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_38) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        BrambleArrow_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(int32_t id, gen::Vector2 position, int32_t ownerIndex, int32_t delay, bool shortTime, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Brambles_Create c{id, position, ownerIndex, delay, shortTime, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_38) g_shell_Hook_38(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_38 = false;
 
-/* TowerFall.Brambles.Create(int, Microsoft.Xna.Framework.Vector2, int, int, bool): BramblesPatch.Create_Prefix (prefix) */
+/* TowerFall.CataclysmMeat.Update(): CataclysmMeatPatch.CataclysmMeat_Update (prefix) */
 bool g_on_Hook_39[1];
 int g_calls_Hook_39 = 0;
-void (*g_shell_Hook_39)(Brambles_Create&) = nullptr;
+void (*g_shell_Hook_39)(CataclysmMeat_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_39) {
-    static void* Callback(int32_t id, gen::Vector2 position, int32_t ownerIndex, int32_t delay, bool shortTime, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Brambles_Create c{id, position, ownerIndex, delay, shortTime, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        CataclysmMeat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_39) g_shell_Hook_39(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_39 = false;
 
-/* TowerFall.CataclysmMeat.Update(): CataclysmMeatPatch.CataclysmMeat_Update (prefix) */
-bool g_on_Hook_40[1];
+/* TowerFall.Chain.Chain(Microsoft.Xna.Framework.Vector2, int): ChainPatch.Chain_ctor_Vector2_int_Prefix (prefix), ChainPatch.Chain_ctor_Vector2_int_Postfix (postfix) */
+bool g_on_Hook_40[2];
 int g_calls_Hook_40 = 0;
-void (*g_shell_Hook_40)(CataclysmMeat_Update&) = nullptr;
+void (*g_shell_Hook_40)(Chain_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_40) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        CataclysmMeat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, int32_t height, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Chain_ctor c{self, position, height, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_40) g_shell_Hook_40(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_40 = false;
 
-/* TowerFall.Chain.Chain(Microsoft.Xna.Framework.Vector2, int): ChainPatch.Chain_ctor_Vector2_int_Prefix (prefix), ChainPatch.Chain_ctor_Vector2_int_Postfix (postfix) */
+/* TowerFall.Crown.Update(): CrownRngPatch.Crown_Update_Prefix (prefix), CrownRngPatch.Crown_Update_Postfix (postfix) */
 bool g_on_Hook_41[2];
 int g_calls_Hook_41 = 0;
-void (*g_shell_Hook_41)(Chain_ctor&) = nullptr;
+void (*g_shell_Hook_41)(Crown_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_41) {
-    static void* Callback(void* self, gen::Vector2 position, int32_t height, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Chain_ctor c{self, position, height, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Crown_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_41) g_shell_Hook_41(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_41 = false;
 
-/* TowerFall.Crown.Update(): CrownRngPatch.Crown_Update_Prefix (prefix), CrownRngPatch.Crown_Update_Postfix (postfix) */
-bool g_on_Hook_42[2];
+/* TowerFall.DarkPortalsVariantSequence.DarkPortalsVariantSequence(): DarkPortalsVariantSequencePatch.DarkPortalsVariantSequence_ctor (postfix) */
+bool g_on_Hook_42[1];
 int g_calls_Hook_42 = 0;
-void (*g_shell_Hook_42)(Crown_Update&) = nullptr;
+void (*g_shell_Hook_42)(DarkPortalsVariantSequence_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_42) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Crown_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        DarkPortalsVariantSequence_ctor c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_42) g_shell_Hook_42(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_42 = false;
 
-/* TowerFall.DarkPortalsVariantSequence.DarkPortalsVariantSequence(): DarkPortalsVariantSequencePatch.DarkPortalsVariantSequence_ctor (postfix) */
+/* TowerFall.DreadBGTentacle.Update(): DreadBGTentaclePatch.DreadBGTentacle_Update (prefix) */
 bool g_on_Hook_43[1];
 int g_calls_Hook_43 = 0;
-void (*g_shell_Hook_43)(DarkPortalsVariantSequence_ctor&) = nullptr;
+void (*g_shell_Hook_43)(DreadBGTentacle_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_43) {
-    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        DarkPortalsVariantSequence_ctor c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        DreadBGTentacle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_43) g_shell_Hook_43(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_43 = false;
 
-/* TowerFall.DreadBGTentacle.Update(): DreadBGTentaclePatch.DreadBGTentacle_Update (prefix) */
-bool g_on_Hook_44[1];
+/* TowerFall.DummyHead.DummyHead(Microsoft.Xna.Framework.Vector2, TowerFall.Arrow, int): DummyHeadPatch.DummyHead_ctor_Prefix (prefix), DummyHeadPatch.DummyHead_ctor_Postfix (postfix) */
+bool g_on_Hook_44[2];
 int g_calls_Hook_44 = 0;
-void (*g_shell_Hook_44)(DreadBGTentacle_Update&) = nullptr;
+void (*g_shell_Hook_44)(DummyHead_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_44) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        DreadBGTentacle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, void* arrow, int32_t xScale, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        DummyHead_ctor c{self, position, arrow, xScale, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_44) g_shell_Hook_44(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_44 = false;
 
-/* TowerFall.DummyHead.DummyHead(Microsoft.Xna.Framework.Vector2, TowerFall.Arrow, int): DummyHeadPatch.DummyHead_ctor_Prefix (prefix), DummyHeadPatch.DummyHead_ctor_Postfix (postfix) */
-bool g_on_Hook_45[2];
+/* TowerFall.Enemy.SetState(int): PlayerGhostPatch.Enemy_SetState_Postfix (postfix) */
+bool g_on_Hook_45[1];
 int g_calls_Hook_45 = 0;
-void (*g_shell_Hook_45)(DummyHead_ctor&) = nullptr;
+void (*g_shell_Hook_45)(Enemy_SetState&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_45) {
-    static void* Callback(void* self, gen::Vector2 position, void* arrow, int32_t xScale, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        DummyHead_ctor c{self, position, arrow, xScale, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, int32_t newState, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Enemy_SetState c{self, newState, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_45) g_shell_Hook_45(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_45 = false;
 
-/* TowerFall.Enemy.SetState(int): PlayerGhostPatch.Enemy_SetState_Postfix (postfix) */
+/* TowerFall.FightButton.MenuAction(): FightButtonPatch.FightButton_MenuAction (postfix) */
 bool g_on_Hook_46[1];
 int g_calls_Hook_46 = 0;
-void (*g_shell_Hook_46)(Enemy_SetState&) = nullptr;
+void (*g_shell_Hook_46)(FightButton_MenuAction&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_46) {
-    static void Callback(void* self, int32_t newState, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Enemy_SetState c{self, newState, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        FightButton_MenuAction c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_46) g_shell_Hook_46(c); else c();
     }
 };
 bool g_installed_Hook_46 = false;
 
-/* TowerFall.FightButton.MenuAction(): FightButtonPatch.FightButton_MenuAction (postfix) */
+/* TowerFall.GameplayLayer.BatchedRender(): GameplayLayerPatch.GameplayLayer_BatchedRender (postfix) */
 bool g_on_Hook_47[1];
 int g_calls_Hook_47 = 0;
-void (*g_shell_Hook_47)(FightButton_MenuAction&) = nullptr;
+void (*g_shell_Hook_47)(GameplayLayer_BatchedRender&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_47) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        FightButton_MenuAction c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        GameplayLayer_BatchedRender c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_47) g_shell_Hook_47(c); else c();
     }
 };
 bool g_installed_Hook_47 = false;
 
-/* TowerFall.GameplayLayer.BatchedRender(): GameplayLayerPatch.GameplayLayer_BatchedRender (postfix) */
+/* TowerFall.HUD.Update(): HUDPatch.HUD_Update (postfix) */
 bool g_on_Hook_48[1];
 int g_calls_Hook_48 = 0;
-void (*g_shell_Hook_48)(GameplayLayer_BatchedRender&) = nullptr;
+void (*g_shell_Hook_48)(HUD_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_48) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        GameplayLayer_BatchedRender c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        HUD_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_48) g_shell_Hook_48(c); else c();
     }
 };
 bool g_installed_Hook_48 = false;
 
-/* TowerFall.HUD.Update(): HUDPatch.HUD_Update (postfix) */
+/* TowerFall.HeavyPhysicsObject.Update(): HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update (prefix) */
 bool g_on_Hook_49[1];
 int g_calls_Hook_49 = 0;
-void (*g_shell_Hook_49)(HUD_Update&) = nullptr;
+void (*g_shell_Hook_49)(HeavyPhysicsObject_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_49) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        HUD_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        HeavyPhysicsObject_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_49) g_shell_Hook_49(c); else c();
     }
 };
 bool g_installed_Hook_49 = false;
 
-/* TowerFall.HeavyPhysicsObject.Update(): HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update (prefix) */
+/* TowerFall.Ice.Update(): IcePatch.Ice_Update (prefix) */
 bool g_on_Hook_50[1];
 int g_calls_Hook_50 = 0;
-void (*g_shell_Hook_50)(HeavyPhysicsObject_Update&) = nullptr;
+void (*g_shell_Hook_50)(Ice_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_50) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        HeavyPhysicsObject_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Ice_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_50) g_shell_Hook_50(c); else c();
     }
 };
 bool g_installed_Hook_50 = false;
 
-/* TowerFall.Ice.Update(): IcePatch.Ice_Update (prefix) */
+/* TowerFall.Icicle.OnArrowHit(TowerFall.Arrow): IciclePatch.Icicle_OnArrowHit (prefix) */
 bool g_on_Hook_51[1];
 int g_calls_Hook_51 = 0;
-void (*g_shell_Hook_51)(Ice_Update&) = nullptr;
+void (*g_shell_Hook_51)(Icicle_OnArrowHit&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_51) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Ice_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, void* arrow, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Icicle_OnArrowHit c{self, arrow, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_51) g_shell_Hook_51(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_51 = false;
 
-/* TowerFall.Icicle.OnArrowHit(TowerFall.Arrow): IciclePatch.Icicle_OnArrowHit (prefix) */
+/* TowerFall.Icicle.OnExplodePush(TowerFall.Explosion, Microsoft.Xna.Framework.Vector2): IciclePatch.Icicle_OnExplodePush (prefix) */
 bool g_on_Hook_52[1];
 int g_calls_Hook_52 = 0;
-void (*g_shell_Hook_52)(Icicle_OnArrowHit&) = nullptr;
+void (*g_shell_Hook_52)(Icicle_OnExplodePush&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_52) {
-    static bool Callback(void* self, void* arrow, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Icicle_OnArrowHit c{self, arrow, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* explosion, gen::Vector2 normal, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Icicle_OnExplodePush c{self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_52) g_shell_Hook_52(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_52 = false;
 
-/* TowerFall.Icicle.OnExplodePush(TowerFall.Explosion, Microsoft.Xna.Framework.Vector2): IciclePatch.Icicle_OnExplodePush (prefix) */
+/* TowerFall.Icicle.OnPlayerCollide(TowerFall.Player): IciclePatch.Icicle_OnPlayerCollide (prefix) */
 bool g_on_Hook_53[1];
 int g_calls_Hook_53 = 0;
-void (*g_shell_Hook_53)(Icicle_OnExplodePush&) = nullptr;
+void (*g_shell_Hook_53)(Icicle_OnPlayerCollide&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_53) {
-    static void Callback(void* self, void* explosion, gen::Vector2 normal, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Icicle_OnExplodePush c{self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* player, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Icicle_OnPlayerCollide c{self, player, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_53) g_shell_Hook_53(c); else c();
     }
 };
 bool g_installed_Hook_53 = false;
 
-/* TowerFall.Icicle.OnPlayerCollide(TowerFall.Player): IciclePatch.Icicle_OnPlayerCollide (prefix) */
+/* TowerFall.Icicle.OnPlayerGhostCollide(TowerFall.PlayerGhost): IciclePatch.Icicle_OnPlayerGhostCollide (prefix) */
 bool g_on_Hook_54[1];
 int g_calls_Hook_54 = 0;
-void (*g_shell_Hook_54)(Icicle_OnPlayerCollide&) = nullptr;
+void (*g_shell_Hook_54)(Icicle_OnPlayerGhostCollide&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_54) {
-    static void Callback(void* self, void* player, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Icicle_OnPlayerCollide c{self, player, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* ghost, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Icicle_OnPlayerGhostCollide c{self, ghost, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_54) g_shell_Hook_54(c); else c();
     }
 };
 bool g_installed_Hook_54 = false;
 
-/* TowerFall.Icicle.OnPlayerGhostCollide(TowerFall.PlayerGhost): IciclePatch.Icicle_OnPlayerGhostCollide (prefix) */
+/* TowerFall.Icicle.Update(): IciclePatch.Icicle_Update (prefix) */
 bool g_on_Hook_55[1];
 int g_calls_Hook_55 = 0;
-void (*g_shell_Hook_55)(Icicle_OnPlayerGhostCollide&) = nullptr;
+void (*g_shell_Hook_55)(Icicle_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_55) {
-    static void Callback(void* self, void* ghost, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Icicle_OnPlayerGhostCollide c{self, ghost, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Icicle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_55) g_shell_Hook_55(c); else c();
     }
 };
 bool g_installed_Hook_55 = false;
 
-/* TowerFall.Icicle.Update(): IciclePatch.Icicle_Update (prefix) */
+/* TowerFall.Lantern.SceneBegin(): LanternPatch.Lantern_SceneBegin_Postfix (postfix) */
 bool g_on_Hook_56[1];
 int g_calls_Hook_56 = 0;
-void (*g_shell_Hook_56)(Icicle_Update&) = nullptr;
+void (*g_shell_Hook_56)(Lantern_SceneBegin&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_56) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Icicle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Lantern_SceneBegin c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_56) g_shell_Hook_56(c); else c();
     }
 };
 bool g_installed_Hook_56 = false;
 
-/* TowerFall.Lantern.SceneBegin(): LanternPatch.Lantern_SceneBegin_Postfix (postfix) */
-bool g_on_Hook_57[1];
+/* TowerFall.Lantern.Update(): LanternCosmeticPatch.Lantern_Update_Prefix (prefix), LanternCosmeticPatch.Lantern_Update_Postfix (postfix) */
+bool g_on_Hook_57[2];
 int g_calls_Hook_57 = 0;
-void (*g_shell_Hook_57)(Lantern_SceneBegin&) = nullptr;
+void (*g_shell_Hook_57)(Lantern_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_57) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Lantern_SceneBegin c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Lantern_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_57) g_shell_Hook_57(c); else c();
     }
 };
 bool g_installed_Hook_57 = false;
 
-/* TowerFall.Lantern.Update(): LanternCosmeticPatch.Lantern_Update_Prefix (prefix), LanternCosmeticPatch.Lantern_Update_Postfix (postfix) */
-bool g_on_Hook_58[2];
+/* TowerFall.LastManStandingRoundLogic.OnLevelLoadFinish(): LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnLevelLoadFinish (prefix) */
+bool g_on_Hook_58[1];
 int g_calls_Hook_58 = 0;
-void (*g_shell_Hook_58)(Lantern_Update&) = nullptr;
+void (*g_shell_Hook_58)(LastManStandingRoundLogic_OnLevelLoadFinish&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_58) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Lantern_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LastManStandingRoundLogic_OnLevelLoadFinish c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_58) g_shell_Hook_58(c); else c();
     }
 };
 bool g_installed_Hook_58 = false;
 
-/* TowerFall.LastManStandingRoundLogic.OnLevelLoadFinish(): LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnLevelLoadFinish (prefix) */
+/* TowerFall.LastManStandingRoundLogic.OnRoundStart(): LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart (prefix) */
 bool g_on_Hook_59[1];
 int g_calls_Hook_59 = 0;
-void (*g_shell_Hook_59)(LastManStandingRoundLogic_OnLevelLoadFinish&) = nullptr;
+void (*g_shell_Hook_59)(LastManStandingRoundLogic_OnRoundStart&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_59) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LastManStandingRoundLogic_OnLevelLoadFinish c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LastManStandingRoundLogic_OnRoundStart c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_59) g_shell_Hook_59(c); else c();
     }
 };
 bool g_installed_Hook_59 = false;
 
-/* TowerFall.LastManStandingRoundLogic.OnRoundStart(): LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart (prefix) */
-bool g_on_Hook_60[1];
+/* TowerFall.Lava.BubbleComplete(Monocle.Sprite<int>): LavaPatch.Lava_BubbleComplete_Prefix (prefix), LavaPatch.Lava_BubbleComplete_Postfix (postfix) */
+bool g_on_Hook_60[2];
 int g_calls_Hook_60 = 0;
-void (*g_shell_Hook_60)(LastManStandingRoundLogic_OnRoundStart&) = nullptr;
+void (*g_shell_Hook_60)(Lava_BubbleComplete&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_60) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LastManStandingRoundLogic_OnRoundStart c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* bubble, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Lava_BubbleComplete c{self, bubble, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_60) g_shell_Hook_60(c); else c();
     }
 };
 bool g_installed_Hook_60 = false;
 
-/* TowerFall.Lava.BubbleComplete(Monocle.Sprite<int>): LavaPatch.Lava_BubbleComplete_Prefix (prefix), LavaPatch.Lava_BubbleComplete_Postfix (postfix) */
+/* TowerFall.LavaControl.LavaControl(TowerFall.LavaControl.LavaMode, int): LavaControlPatch.LavaControl_ctor_Prefix (prefix), LavaControlPatch.LavaControl_ctor_Postfix (postfix) */
 bool g_on_Hook_61[2];
 int g_calls_Hook_61 = 0;
-void (*g_shell_Hook_61)(Lava_BubbleComplete&) = nullptr;
+void (*g_shell_Hook_61)(LavaControl_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_61) {
-    static void Callback(void* self, void* bubble, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Lava_BubbleComplete c{self, bubble, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, int32_t mode, int32_t ownerIndex, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        LavaControl_ctor c{self, mode, ownerIndex, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_61) g_shell_Hook_61(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_61 = false;
 
-/* TowerFall.LavaControl.LavaControl(TowerFall.LavaControl.LavaMode, int): LavaControlPatch.LavaControl_ctor_Prefix (prefix), LavaControlPatch.LavaControl_ctor_Postfix (postfix) */
+/* TowerFall.LavaControl.Added(): LavaControlPatch.LavaControl_Added_Prefix (prefix), LavaControlPatch.LavaControl_Added_Postfix (postfix) */
 bool g_on_Hook_62[2];
 int g_calls_Hook_62 = 0;
-void (*g_shell_Hook_62)(LavaControl_ctor&) = nullptr;
+void (*g_shell_Hook_62)(LavaControl_Added&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_62) {
-    static void* Callback(void* self, int32_t mode, int32_t ownerIndex, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LavaControl_ctor c{self, mode, ownerIndex, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        LavaControl_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_62) g_shell_Hook_62(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_62 = false;
 
-/* TowerFall.LavaControl.Added(): LavaControlPatch.LavaControl_Added_Prefix (prefix), LavaControlPatch.LavaControl_Added_Postfix (postfix) */
+/* TowerFall.LavaControl.Extend(int): LavaControlPatch.LavaControl_Extend_Prefix (prefix), LavaControlPatch.LavaControl_Extend_Postfix (postfix) */
 bool g_on_Hook_63[2];
 int g_calls_Hook_63 = 0;
-void (*g_shell_Hook_63)(LavaControl_Added&) = nullptr;
+void (*g_shell_Hook_63)(LavaControl_Extend&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_63) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LavaControl_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, int32_t ownerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        LavaControl_Extend c{self, ownerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_63) g_shell_Hook_63(c); else c();
     }
 };
 bool g_installed_Hook_63 = false;
 
-/* TowerFall.LavaControl.Extend(int): LavaControlPatch.LavaControl_Extend_Prefix (prefix), LavaControlPatch.LavaControl_Extend_Postfix (postfix) */
-bool g_on_Hook_64[2];
+/* TowerFall.Level.Level(TowerFall.Session, System.Xml.XmlElement): LevelPatch.Level_ctor (postfix) */
+bool g_on_Hook_64[1];
 int g_calls_Hook_64 = 0;
-void (*g_shell_Hook_64)(LavaControl_Extend&) = nullptr;
+void (*g_shell_Hook_64)(Level_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_64) {
-    static void Callback(void* self, int32_t ownerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LavaControl_Extend c{self, ownerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* session, void* xml, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Level_ctor c{self, session, xml, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_64) g_shell_Hook_64(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_64 = false;
 
-/* TowerFall.Level.Level(TowerFall.Session, System.Xml.XmlElement): LevelPatch.Level_ctor (postfix), MyLevel.ctor_patch (prefix) */
+/* TowerFall.Level.HandlePausing(): LevelPatch.Level_HandlePausing (prefix), LevelPatch.Level_HandlePausing (prefix) */
 bool g_on_Hook_65[2];
 int g_calls_Hook_65 = 0;
-void (*g_shell_Hook_65)(Level_ctor&) = nullptr;
+void (*g_shell_Hook_65)(Level_HandlePausing&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_65) {
-    static void* Callback(void* self, void* session, void* xml, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Level_ctor c{self, session, xml, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Level_HandlePausing c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_65) g_shell_Hook_65(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_65 = false;
 
-/* TowerFall.Level.HandlePausing(): LevelPatch.Level_HandlePausing (prefix), LevelPatch.Level_HandlePausing (prefix) */
-bool g_on_Hook_66[2];
+/* TowerFall.Level.ScreenShake(int): LevelScreenShakePatch.Level_ScreenShake (prefix) */
+bool g_on_Hook_66[1];
 int g_calls_Hook_66 = 0;
-void (*g_shell_Hook_66)(Level_HandlePausing&) = nullptr;
+void (*g_shell_Hook_66)(Level_ScreenShake&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_66) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Level_HandlePausing c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, int32_t frames, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Level_ScreenShake c{self, frames, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_66) g_shell_Hook_66(c); else c();
     }
 };
 bool g_installed_Hook_66 = false;
 
-/* TowerFall.Level.ScreenShake(int): LevelScreenShakePatch.Level_ScreenShake (prefix) */
-bool g_on_Hook_67[1];
+/* TowerFall.Level.Update(): LevelPatch.Level_Update__Prefix (prefix), LevelPatch.Level_Update__Postfix (postfix) */
+bool g_on_Hook_67[2];
 int g_calls_Hook_67 = 0;
-void (*g_shell_Hook_67)(Level_ScreenShake&) = nullptr;
+void (*g_shell_Hook_67)(Level_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_67) {
-    static void Callback(void* self, int32_t frames, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Level_ScreenShake c{self, frames, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Level_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_67) g_shell_Hook_67(c); else c();
     }
 };
 bool g_installed_Hook_67 = false;
 
-/* TowerFall.Level.Update(): LevelPatch.Level_Update__Prefix (prefix), LevelPatch.Level_Update__Postfix (postfix), MyLevel.Update_patch (prefix), MyLevel.Update_patch (prefix) */
-bool g_on_Hook_68[4];
+/* TowerFall.LevelEntity.Render(): LevelEntityPatch.LevelEntity_Render_Prefix (prefix), LevelEntityPatch.LevelEntity_Render_Postfix (postfix) */
+bool g_on_Hook_68[2];
 int g_calls_Hook_68 = 0;
-void (*g_shell_Hook_68)(Level_Update&) = nullptr;
+void (*g_shell_Hook_68)(LevelEntity_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_68) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Level_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LevelEntity_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_68) g_shell_Hook_68(c); else c();
     }
 };
 bool g_installed_Hook_68 = false;
 
-/* TowerFall.LevelEntity.Render(): LevelEntityPatch.LevelEntity_Render_Prefix (prefix), LevelEntityPatch.LevelEntity_Render_Postfix (postfix) */
-bool g_on_Hook_69[2];
+/* TowerFall.LevelEntity.Update(): ShockCirclePatch.LevelEntity_Update (prefix) */
+bool g_on_Hook_69[1];
 int g_calls_Hook_69 = 0;
-void (*g_shell_Hook_69)(LevelEntity_Render&) = nullptr;
+void (*g_shell_Hook_69)(LevelEntity_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_69) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LevelEntity_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LevelEntity_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_69) g_shell_Hook_69(c); else c();
     }
 };
 bool g_installed_Hook_69 = false;
 
-/* TowerFall.LevelEntity.Update(): ShockCirclePatch.LevelEntity_Update (prefix) */
+/* TowerFall.LevelLoaderXML.LevelLoaderXML(TowerFall.Session): LevelLoaderXMLStatePatch.LevelLoaderXML_ctor (postfix) */
 bool g_on_Hook_70[1];
 int g_calls_Hook_70 = 0;
-void (*g_shell_Hook_70)(LevelEntity_Update&) = nullptr;
+void (*g_shell_Hook_70)(LevelLoaderXML_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_70) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LevelEntity_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* session, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        LevelLoaderXML_ctor c{self, session, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_70) g_shell_Hook_70(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_70 = false;
 
-/* TowerFall.LevelLoaderXML.LevelLoaderXML(TowerFall.Session): LevelLoaderXMLStatePatch.LevelLoaderXML_ctor (postfix) */
+/* TowerFall.LevelLoaderXML.Update(): LevelLoaderXMLPatch.LevelLoaderXML_Update (postfix) */
 bool g_on_Hook_71[1];
 int g_calls_Hook_71 = 0;
-void (*g_shell_Hook_71)(LevelLoaderXML_ctor&) = nullptr;
+void (*g_shell_Hook_71)(LevelLoaderXML_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_71) {
-    static void* Callback(void* self, void* session, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LevelLoaderXML_ctor c{self, session, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        LevelLoaderXML_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_71) g_shell_Hook_71(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_71 = false;
 
-/* TowerFall.LevelLoaderXML.Update(): LevelLoaderXMLPatch.LevelLoaderXML_Update (postfix) */
+/* TowerFall.LevelTestRoundLogic.OnLevelLoadFinish(): LevelTestRoundLogicPatch.RoundLogic_OnLevelLoadFinish (prefix) */
 bool g_on_Hook_72[1];
 int g_calls_Hook_72 = 0;
-void (*g_shell_Hook_72)(LevelLoaderXML_Update&) = nullptr;
+void (*g_shell_Hook_72)(LevelTestRoundLogic_OnLevelLoadFinish&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_72) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LevelLoaderXML_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LevelTestRoundLogic_OnLevelLoadFinish c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_72) g_shell_Hook_72(c); else c();
     }
 };
 bool g_installed_Hook_72 = false;
 
-/* TowerFall.LevelTestRoundLogic.OnLevelLoadFinish(): LevelTestRoundLogicPatch.RoundLogic_OnLevelLoadFinish (prefix) */
+/* TowerFall.LightingLayer.Update(): LightingLayerPatch.LightingLayer_Update (prefix) */
 bool g_on_Hook_73[1];
 int g_calls_Hook_73 = 0;
-void (*g_shell_Hook_73)(LevelTestRoundLogic_OnLevelLoadFinish&) = nullptr;
+void (*g_shell_Hook_73)(LightingLayer_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_73) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LevelTestRoundLogic_OnLevelLoadFinish c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LightingLayer_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_73) g_shell_Hook_73(c); else c();
     }
 };
 bool g_installed_Hook_73 = false;
 
-/* TowerFall.LightingLayer.Update(): LightingLayerPatch.LightingLayer_Update (prefix) */
+/* TowerFall.Loader.TweenIn(): LoaderPatch.Loader_TweenIn (prefix) */
 bool g_on_Hook_74[1];
 int g_calls_Hook_74 = 0;
-void (*g_shell_Hook_74)(LightingLayer_Update&) = nullptr;
+void (*g_shell_Hook_74)(Loader_TweenIn&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_74) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LightingLayer_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Loader_TweenIn c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_74) g_shell_Hook_74(c); else c();
     }
 };
 bool g_installed_Hook_74 = false;
 
-/* TowerFall.Loader.TweenIn(): LoaderPatch.Loader_TweenIn (prefix) */
+/* TowerFall.LoopPlatform.Update(): LoopPlatformPatch.LoopPlatform_Update (prefix) */
 bool g_on_Hook_75[1];
 int g_calls_Hook_75 = 0;
-void (*g_shell_Hook_75)(Loader_TweenIn&) = nullptr;
+void (*g_shell_Hook_75)(LoopPlatform_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_75) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Loader_TweenIn c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        LoopPlatform_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_75) g_shell_Hook_75(c); else c();
     }
 };
 bool g_installed_Hook_75 = false;
 
-/* TowerFall.LoopPlatform.Update(): LoopPlatformPatch.LoopPlatform_Update (prefix) */
+/* TowerFall.MainMenu.CreateTeamSelect(): MenuHooks.CreateTeamSelect_Prefix (prefix) */
 bool g_on_Hook_76[1];
 int g_calls_Hook_76 = 0;
-void (*g_shell_Hook_76)(LoopPlatform_Update&) = nullptr;
+void (*g_shell_Hook_76)(MainMenu_CreateTeamSelect&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_76) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        LoopPlatform_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MainMenu_CreateTeamSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_76) g_shell_Hook_76(c); else c();
     }
 };
 bool g_installed_Hook_76 = false;
 
-/* TowerFall.MainMenu.CreateTeamSelect(): MenuHooks.CreateTeamSelect_Prefix (prefix) */
+/* TowerFall.MainMenu.CreateVersusOptions(): MainMenuPatch.MainMenu_CreateVersusOptions (postfix) */
 bool g_on_Hook_77[1];
 int g_calls_Hook_77 = 0;
-void (*g_shell_Hook_77)(MainMenu_CreateTeamSelect&) = nullptr;
+void (*g_shell_Hook_77)(MainMenu_CreateVersusOptions&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_77) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MainMenu_CreateTeamSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MainMenu_CreateVersusOptions c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_77) g_shell_Hook_77(c); else c();
     }
 };
 bool g_installed_Hook_77 = false;
 
-/* TowerFall.MainMenu.CreateVersusOptions(): MainMenuPatch.MainMenu_CreateVersusOptions (postfix) */
+/* TowerFall.MainMenu.State.set: MainMenuPatch.MainMenu_set_State (prefix) */
 bool g_on_Hook_78[1];
 int g_calls_Hook_78 = 0;
-void (*g_shell_Hook_78)(MainMenu_CreateVersusOptions&) = nullptr;
+void (*g_shell_Hook_78)(MainMenu_set_State&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_78) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MainMenu_CreateVersusOptions c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, int32_t value, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MainMenu_set_State c{self, value, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_78) g_shell_Hook_78(c); else c();
     }
 };
 bool g_installed_Hook_78 = false;
 
-/* TowerFall.MainMenu.State.set: MainMenuPatch.MainMenu_set_State (prefix) */
+/* TowerFall.MapScene.Begin(): MapScenePatch.Begin_Postfix (postfix) */
 bool g_on_Hook_79[1];
 int g_calls_Hook_79 = 0;
-void (*g_shell_Hook_79)(MainMenu_set_State&) = nullptr;
+void (*g_shell_Hook_79)(MapScene_Begin&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_79) {
-    static void Callback(void* self, int32_t value, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MainMenu_set_State c{self, value, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MapScene_Begin c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_79) g_shell_Hook_79(c); else c();
     }
 };
 bool g_installed_Hook_79 = false;
 
-/* TowerFall.MapScene.Begin(): MapScenePatch.Begin_Postfix (postfix) */
+/* TowerFall.MapScene.GetRandomVersusTower(): MapScenePatch.MapScene_GetRandomVersusTower (postfix) */
 bool g_on_Hook_80[1];
 int g_calls_Hook_80 = 0;
-void (*g_shell_Hook_80)(MapScene_Begin&) = nullptr;
+void (*g_shell_Hook_80)(MapScene_GetRandomVersusTower&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_80) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MapScene_Begin c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MapScene_GetRandomVersusTower c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_80) g_shell_Hook_80(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_80 = false;
 
-/* TowerFall.MapScene.GetRandomVersusTower(): MapScenePatch.MapScene_GetRandomVersusTower (postfix) */
-bool g_on_Hook_81[1];
+/* TowerFall.MapScene.InitVersusButtons(): MapScenePatch.InitVersusButtons_Prefix (prefix), MapScenePatch.InitVersusButtons_Postfix (postfix) */
+bool g_on_Hook_81[2];
 int g_calls_Hook_81 = 0;
-void (*g_shell_Hook_81)(MapScene_GetRandomVersusTower&) = nullptr;
+void (*g_shell_Hook_81)(MapScene_InitVersusButtons&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_81) {
-    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MapScene_GetRandomVersusTower c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MapScene_InitVersusButtons c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_81) g_shell_Hook_81(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_81 = false;
 
-/* TowerFall.MapScene.InitVersusButtons(): MapScenePatch.InitVersusButtons_Prefix (prefix), MapScenePatch.InitVersusButtons_Postfix (postfix) */
+/* TowerFall.MapScene.StartSession(): MapScenePatch.StartSession_Prefix (prefix), MapScenePatch.StartSession_Postfix (postfix) */
 bool g_on_Hook_82[2];
 int g_calls_Hook_82 = 0;
-void (*g_shell_Hook_82)(MapScene_InitVersusButtons&) = nullptr;
+void (*g_shell_Hook_82)(MapScene_StartSession&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_82) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MapScene_InitVersusButtons c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MapScene_StartSession c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_82) g_shell_Hook_82(c); else c();
     }
 };
 bool g_installed_Hook_82 = false;
 
-/* TowerFall.MapScene.StartSession(): MapScenePatch.StartSession_Prefix (prefix), MapScenePatch.StartSession_Postfix (postfix) */
-bool g_on_Hook_83[2];
+/* TowerFall.MatchSettings.CleanSettingsVersus(): MatchSettingsPatch.MatchSettings_CleanSettingsVersus (postfix) */
+bool g_on_Hook_83[1];
 int g_calls_Hook_83 = 0;
-void (*g_shell_Hook_83)(MapScene_StartSession&) = nullptr;
+void (*g_shell_Hook_83)(MatchSettings_CleanSettingsVersus&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_83) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MapScene_StartSession c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MatchSettings_CleanSettingsVersus c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_83) g_shell_Hook_83(c); else c();
     }
 };
 bool g_installed_Hook_83 = false;
 
-/* TowerFall.MatchSettings.CleanSettingsVersus(): MatchSettingsPatch.MatchSettings_CleanSettingsVersus (postfix) */
+/* TowerFall.MatchSettings.GetMaxTeamSize(): RulesHooks.GetMaxTeamSize_Prefix (prefix) */
 bool g_on_Hook_84[1];
 int g_calls_Hook_84 = 0;
-void (*g_shell_Hook_84)(MatchSettings_CleanSettingsVersus&) = nullptr;
+void (*g_shell_Hook_84)(MatchSettings_GetMaxTeamSize&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_84) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_CleanSettingsVersus c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_GetMaxTeamSize c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_84) g_shell_Hook_84(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_84 = false;
 
-/* TowerFall.MatchSettings.GetMaxTeamSize(): RulesHooks.GetMaxTeamSize_Prefix (prefix) */
+/* TowerFall.MatchSettings.GetPlayerTeamSize(int): RulesHooks.GetPlayerTeamSize_Prefix (prefix) */
 bool g_on_Hook_85[1];
 int g_calls_Hook_85 = 0;
-void (*g_shell_Hook_85)(MatchSettings_GetMaxTeamSize&) = nullptr;
+void (*g_shell_Hook_85)(MatchSettings_GetPlayerTeamSize&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_85) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_GetMaxTeamSize c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_GetPlayerTeamSize c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_85) g_shell_Hook_85(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_85 = false;
 
-/* TowerFall.MatchSettings.GetPlayerTeamSize(int): RulesHooks.GetPlayerTeamSize_Prefix (prefix) */
+/* TowerFall.MatchSettings.IsFriendly(int, int): RulesHooks.IsFriendly_Prefix (prefix) */
 bool g_on_Hook_86[1];
 int g_calls_Hook_86 = 0;
-void (*g_shell_Hook_86)(MatchSettings_GetPlayerTeamSize&) = nullptr;
+void (*g_shell_Hook_86)(MatchSettings_IsFriendly&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_86) {
-    static int32_t Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_GetPlayerTeamSize c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, int32_t playerA, int32_t playerB, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_IsFriendly c{self, playerA, playerB, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_86) g_shell_Hook_86(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_86 = false;
 
-/* TowerFall.MatchSettings.IsFriendly(int, int): RulesHooks.IsFriendly_Prefix (prefix) */
+/* TowerFall.MatchSettings.PlayerGoals(int, int, int): MatchSettingsPatch.MatchSettings_PlayerGoals (postfix) */
 bool g_on_Hook_87[1];
 int g_calls_Hook_87 = 0;
-void (*g_shell_Hook_87)(MatchSettings_IsFriendly&) = nullptr;
+void (*g_shell_Hook_87)(MatchSettings_PlayerGoals&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_87) {
-    static bool Callback(void* self, int32_t playerA, int32_t playerB, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_IsFriendly c{self, playerA, playerB, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, int32_t p2goal, int32_t p3goal, int32_t p4goal, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_PlayerGoals c{self, p2goal, p3goal, p4goal, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_87) g_shell_Hook_87(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_87 = false;
 
-/* TowerFall.MatchSettings.PlayerGoals(int, int, int): MatchSettingsPatch.MatchSettings_PlayerGoals (postfix) */
+/* TowerFall.MatchSettings.CanPlayThisMode.get: patch_MatchSettings.get_CanPlayThisMode (replace) */
 bool g_on_Hook_88[1];
 int g_calls_Hook_88 = 0;
-void (*g_shell_Hook_88)(MatchSettings_PlayerGoals&) = nullptr;
+void (*g_shell_Hook_88)(MatchSettings_get_CanPlayThisMode&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_88) {
-    static int32_t Callback(void* self, int32_t p2goal, int32_t p3goal, int32_t p4goal, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_PlayerGoals c{self, p2goal, p3goal, p4goal, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_get_CanPlayThisMode c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_88) g_shell_Hook_88(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_88 = false;
 
-/* TowerFall.MatchSettings.CanPlayThisMode.get: patch_MatchSettings.get_CanPlayThisMode (replace) */
+/* TowerFall.MatchSettings.CanStartWithTeams.get: RulesHooks.CanStartWithTeams_Prefix (prefix) */
 bool g_on_Hook_89[1];
 int g_calls_Hook_89 = 0;
-void (*g_shell_Hook_89)(MatchSettings_get_CanPlayThisMode&) = nullptr;
+void (*g_shell_Hook_89)(MatchSettings_get_CanStartWithTeams&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_89) {
     static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_get_CanPlayThisMode c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MatchSettings_get_CanStartWithTeams c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_89) g_shell_Hook_89(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_89 = false;
 
-/* TowerFall.MatchSettings.CanStartWithTeams.get: RulesHooks.CanStartWithTeams_Prefix (prefix) */
+/* TowerFall.MatchSettings.GoalScore.get: patch_MatchSettings.get_GoalScore (replace) */
 bool g_on_Hook_90[1];
 int g_calls_Hook_90 = 0;
-void (*g_shell_Hook_90)(MatchSettings_get_CanStartWithTeams&) = nullptr;
+void (*g_shell_Hook_90)(MatchSettings_get_GoalScore&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_90) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_get_CanStartWithTeams c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_get_GoalScore c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_90) g_shell_Hook_90(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_90 = false;
 
-/* TowerFall.MatchSettings.GoalScore.get: patch_MatchSettings.get_GoalScore (replace) */
+/* TowerFall.MatchSettings.TeamMode.get: patch_MatchSettings.get_TeamMode (replace) */
 bool g_on_Hook_91[1];
 int g_calls_Hook_91 = 0;
-void (*g_shell_Hook_91)(MatchSettings_get_GoalScore&) = nullptr;
+void (*g_shell_Hook_91)(MatchSettings_get_TeamMode&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_91) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_get_GoalScore c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchSettings_get_TeamMode c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_91) g_shell_Hook_91(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_91 = false;
 
-/* TowerFall.MatchSettings.TeamMode.get: patch_MatchSettings.get_TeamMode (replace) */
+/* TowerFall.MatchTeams.ProperlyAssigned.get: RulesHooks.ProperlyAssigned_Prefix (prefix) */
 bool g_on_Hook_92[1];
 int g_calls_Hook_92 = 0;
-void (*g_shell_Hook_92)(MatchSettings_get_TeamMode&) = nullptr;
+void (*g_shell_Hook_92)(MatchTeams_get_ProperlyAssigned&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_92) {
     static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchSettings_get_TeamMode c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MatchTeams_get_ProperlyAssigned c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_92) g_shell_Hook_92(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_92 = false;
 
-/* TowerFall.MatchTeams.ProperlyAssigned.get: RulesHooks.ProperlyAssigned_Prefix (prefix) */
+/* TowerFall.MatchVariants.MatchVariants(bool): MatchVariantsPatchs.MatchVariants_ctor (postfix) */
 bool g_on_Hook_93[1];
 int g_calls_Hook_93 = 0;
-void (*g_shell_Hook_93)(MatchTeams_get_ProperlyAssigned&) = nullptr;
+void (*g_shell_Hook_93)(MatchVariants_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_93) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchTeams_get_ProperlyAssigned c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, bool noPerPlayer, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchVariants_ctor c{self, noPerPlayer, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_93) g_shell_Hook_93(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_93 = false;
 
-/* TowerFall.MatchVariants.MatchVariants(bool): MatchVariantsPatchs.MatchVariants_ctor (postfix) */
+/* TowerFall.MatchVariants.BuildMenu(TowerFall.MainMenu, out TowerFall.MenuItem, out float): MatchVariantsPatchs.MatchVariants_BuildMenu_Prefix (prefix) */
 bool g_on_Hook_94[1];
 int g_calls_Hook_94 = 0;
-void (*g_shell_Hook_94)(MatchVariants_ctor&) = nullptr;
+void (*g_shell_Hook_94)(MatchVariants_BuildMenu&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_94) {
-    static void* Callback(void* self, bool noPerPlayer, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchVariants_ctor c{self, noPerPlayer, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* menu, void** startSelected, float* maxUICameraY, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchVariants_BuildMenu c{self, menu, startSelected, maxUICameraY, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_94) g_shell_Hook_94(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_94 = false;
 
-/* TowerFall.MatchVariants.BuildMenu(TowerFall.MainMenu, out TowerFall.MenuItem, out float): MatchVariantsPatchs.MatchVariants_BuildMenu_Prefix (prefix) */
-bool g_on_Hook_95[1];
+/* TowerFall.MatchVariants.Randomize(): MatchVariantsPatch.MatchVariants_Randomize_Prefix (prefix), MatchVariantsPatch.MatchVariants_Randomize_Postfix (postfix) */
+bool g_on_Hook_95[2];
 int g_calls_Hook_95 = 0;
-void (*g_shell_Hook_95)(MatchVariants_BuildMenu&) = nullptr;
+void (*g_shell_Hook_95)(MatchVariants_Randomize&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_95) {
-    static void* Callback(void* self, void* menu, void** startSelected, float* maxUICameraY, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchVariants_BuildMenu c{self, menu, startSelected, maxUICameraY, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        MatchVariants_Randomize c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_95) g_shell_Hook_95(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_95 = false;
 
-/* TowerFall.MatchVariants.Randomize(): MatchVariantsPatch.MatchVariants_Randomize_Prefix (prefix), MatchVariantsPatch.MatchVariants_Randomize_Postfix (postfix) */
-bool g_on_Hook_96[2];
+/* TowerFall.MenuItem.Update(): MenuItemPatch.MenuItem_Update (postfix) */
+bool g_on_Hook_96[1];
 int g_calls_Hook_96 = 0;
-void (*g_shell_Hook_96)(MatchVariants_Randomize&) = nullptr;
+void (*g_shell_Hook_96)(MenuItem_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_96) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MatchVariants_Randomize c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MenuItem_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_96) g_shell_Hook_96(c); else c();
     }
 };
 bool g_installed_Hook_96 = false;
 
-/* TowerFall.MenuItem.Update(): MenuItemPatch.MenuItem_Update (postfix) */
+/* TowerFall.Miasma.Dissipate(): MiasmaPatch.Miasma_Dissipate (prefix) */
 bool g_on_Hook_97[1];
 int g_calls_Hook_97 = 0;
-void (*g_shell_Hook_97)(MenuItem_Update&) = nullptr;
+void (*g_shell_Hook_97)(Miasma_Dissipate&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_97) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MenuItem_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Miasma_Dissipate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_97) g_shell_Hook_97(c); else c();
     }
 };
 bool g_installed_Hook_97 = false;
 
-/* TowerFall.Miasma.Dissipate(): MiasmaPatch.Miasma_Dissipate (prefix) */
-bool g_on_Hook_98[1];
+/* TowerFall.Miasma.Update(): MiasmaPatch.Miasma_Update (prefix), MiasmaPatch.Miasma_Update_FreezeCosmetics (prefix), MiasmaPatch.Miasma_Update_UnfreezeCosmetics (postfix) */
+bool g_on_Hook_98[3];
 int g_calls_Hook_98 = 0;
-void (*g_shell_Hook_98)(Miasma_Dissipate&) = nullptr;
+void (*g_shell_Hook_98)(Miasma_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_98) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Miasma_Dissipate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Miasma_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_98) g_shell_Hook_98(c); else c();
     }
 };
 bool g_installed_Hook_98 = false;
 
-/* TowerFall.Miasma.Update(): MiasmaPatch.Miasma_Update (prefix), MiasmaPatch.Miasma_Update_FreezeCosmetics (prefix), MiasmaPatch.Miasma_Update_UnfreezeCosmetics (postfix) */
-bool g_on_Hook_99[3];
+/* TowerFall.MoonGlassBlock.InsideExplode(): MoonGlassBlockPatch.MoonGlassBlock_InsideExplode (postfix) */
+bool g_on_Hook_99[1];
 int g_calls_Hook_99 = 0;
-void (*g_shell_Hook_99)(Miasma_Update&) = nullptr;
+void (*g_shell_Hook_99)(MoonGlassBlock_InsideExplode&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_99) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Miasma_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MoonGlassBlock_InsideExplode c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_99) g_shell_Hook_99(c); else c();
     }
 };
 bool g_installed_Hook_99 = false;
 
-/* TowerFall.MoonGlassBlock.InsideExplode(): MoonGlassBlockPatch.MoonGlassBlock_InsideExplode (postfix) */
+/* TowerFall.MovingPlatform.Update(): MovingPlatformPatch.MovingPlatform_Update (prefix) */
 bool g_on_Hook_100[1];
 int g_calls_Hook_100 = 0;
-void (*g_shell_Hook_100)(MoonGlassBlock_InsideExplode&) = nullptr;
+void (*g_shell_Hook_100)(MovingPlatform_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_100) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MoonGlassBlock_InsideExplode c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        MovingPlatform_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_100) g_shell_Hook_100(c); else c();
     }
 };
 bool g_installed_Hook_100 = false;
 
-/* TowerFall.MovingPlatform.Update(): MovingPlatformPatch.MovingPlatform_Update (prefix) */
+/* TowerFall.OptionsButton.OnSelect(): OptionsButton.OnSelect (replace) */
 bool g_on_Hook_101[1];
 int g_calls_Hook_101 = 0;
-void (*g_shell_Hook_101)(MovingPlatform_Update&) = nullptr;
+void (*g_shell_Hook_101)(OptionsButton_OnSelect&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_101) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        MovingPlatform_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        OptionsButton_OnSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_101) g_shell_Hook_101(c); else c();
     }
 };
 bool g_installed_Hook_101 = false;
 
-/* TowerFall.OptionsButton.OnSelect(): OptionsButton.OnSelect (replace) */
-bool g_on_Hook_102[1];
+/* TowerFall.Orb.Orb(Microsoft.Xna.Framework.Vector2, bool): OrbPatch.Orb_ctor_Vector2_bool_Prefix (prefix), OrbPatch.Orb_ctor_Vector2_bool_PostFix (postfix) */
+bool g_on_Hook_102[2];
 int g_calls_Hook_102 = 0;
-void (*g_shell_Hook_102)(OptionsButton_OnSelect&) = nullptr;
+void (*g_shell_Hook_102)(Orb_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_102) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OptionsButton_OnSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, bool explodes, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Orb_ctor c{self, position, explodes, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_102) g_shell_Hook_102(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_102 = false;
 
-/* TowerFall.Orb.Orb(Microsoft.Xna.Framework.Vector2, bool): OrbPatch.Orb_ctor_Vector2_bool_Prefix (prefix), OrbPatch.Orb_ctor_Vector2_bool_PostFix (postfix) */
+/* TowerFall.Orb.Update(): OrbPatch.Orb_Update_Prefix (prefix), OrbPatch.Orb_Update_Postfix (postfix) */
 bool g_on_Hook_103[2];
 int g_calls_Hook_103 = 0;
-void (*g_shell_Hook_103)(Orb_ctor&) = nullptr;
+void (*g_shell_Hook_103)(Orb_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_103) {
-    static void* Callback(void* self, gen::Vector2 position, bool explodes, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Orb_ctor c{self, position, explodes, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Orb_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_103) g_shell_Hook_103(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_103 = false;
 
-/* TowerFall.Orb.Update(): OrbPatch.Orb_Update_Prefix (prefix), OrbPatch.Orb_Update_Postfix (postfix) */
+/* TowerFall.OrbLogic.DoDarkOrb(): OrbLogicPatch.OrbLogic_DoDarkOrb_Prefix (prefix), OrbLogicPatch.OrbLogic_DoDarkOrb_Postfix (postfix) */
 bool g_on_Hook_104[2];
 int g_calls_Hook_104 = 0;
-void (*g_shell_Hook_104)(Orb_Update&) = nullptr;
+void (*g_shell_Hook_104)(OrbLogic_DoDarkOrb&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_104) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Orb_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        OrbLogic_DoDarkOrb c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_104) g_shell_Hook_104(c); else c();
     }
 };
 bool g_installed_Hook_104 = false;
 
-/* TowerFall.OrbLogic.DoDarkOrb(): OrbLogicPatch.OrbLogic_DoDarkOrb_Prefix (prefix), OrbLogicPatch.OrbLogic_DoDarkOrb_Postfix (postfix) */
-bool g_on_Hook_105[2];
+/* TowerFall.OrbLogic.DoOffsetWorldVariant(): OrbLogicPatch.OrbLogic_DoOffsetWorldVariant (prefix) */
+bool g_on_Hook_105[1];
 int g_calls_Hook_105 = 0;
-void (*g_shell_Hook_105)(OrbLogic_DoDarkOrb&) = nullptr;
+void (*g_shell_Hook_105)(OrbLogic_DoOffsetWorldVariant&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_105) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbLogic_DoDarkOrb c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        OrbLogic_DoOffsetWorldVariant c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_105) g_shell_Hook_105(c); else c();
     }
 };
 bool g_installed_Hook_105 = false;
 
-/* TowerFall.OrbLogic.DoOffsetWorldVariant(): OrbLogicPatch.OrbLogic_DoOffsetWorldVariant (prefix) */
+/* TowerFall.OrbLogic.DoSpaceOrb(): OrbLogicPatch.OrbLogic_DoSpaceOrb (prefix) */
 bool g_on_Hook_106[1];
 int g_calls_Hook_106 = 0;
-void (*g_shell_Hook_106)(OrbLogic_DoOffsetWorldVariant&) = nullptr;
+void (*g_shell_Hook_106)(OrbLogic_DoSpaceOrb&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_106) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbLogic_DoOffsetWorldVariant c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        OrbLogic_DoSpaceOrb c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_106) g_shell_Hook_106(c); else c();
     }
 };
 bool g_installed_Hook_106 = false;
 
-/* TowerFall.OrbLogic.DoSpaceOrb(): OrbLogicPatch.OrbLogic_DoSpaceOrb (prefix) */
-bool g_on_Hook_107[1];
+/* TowerFall.OrbLogic.DoTimeOrb(bool): OrbLogicPatch.OrbLogic_DoTimeOrb_Prefix (prefix), OrbLogicPatch.OrbLogic_DoTimeOrb_Postfix (postfix) */
+bool g_on_Hook_107[2];
 int g_calls_Hook_107 = 0;
-void (*g_shell_Hook_107)(OrbLogic_DoSpaceOrb&) = nullptr;
+void (*g_shell_Hook_107)(OrbLogic_DoTimeOrb&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_107) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbLogic_DoSpaceOrb c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, bool delay, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        OrbLogic_DoTimeOrb c{self, delay, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_107) g_shell_Hook_107(c); else c();
     }
 };
 bool g_installed_Hook_107 = false;
 
-/* TowerFall.OrbLogic.DoTimeOrb(bool): OrbLogicPatch.OrbLogic_DoTimeOrb_Prefix (prefix), OrbLogicPatch.OrbLogic_DoTimeOrb_Postfix (postfix) */
+/* TowerFall.OrbLogic.StartScroll(): OrbLogicPatch.OrbLogic_StartScroll_Prefix (prefix), OrbLogicPatch.OrbLogic_StartScroll_Postfix (postfix) */
 bool g_on_Hook_108[2];
 int g_calls_Hook_108 = 0;
-void (*g_shell_Hook_108)(OrbLogic_DoTimeOrb&) = nullptr;
+void (*g_shell_Hook_108)(OrbLogic_StartScroll&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_108) {
-    static void Callback(void* self, bool delay, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbLogic_DoTimeOrb c{self, delay, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        OrbLogic_StartScroll c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_108) g_shell_Hook_108(c); else c();
     }
 };
 bool g_installed_Hook_108 = false;
 
-/* TowerFall.OrbLogic.StartScroll(): OrbLogicPatch.OrbLogic_StartScroll_Prefix (prefix), OrbLogicPatch.OrbLogic_StartScroll_Postfix (postfix) */
+/* TowerFall.OrbLogic.Update(): OrbLogicPatch.OrbLogic_Update_Prefix (prefix), OrbLogicPatch.OrbLogic_Update_Postfix (postfix) */
 bool g_on_Hook_109[2];
 int g_calls_Hook_109 = 0;
-void (*g_shell_Hook_109)(OrbLogic_StartScroll&) = nullptr;
+void (*g_shell_Hook_109)(OrbLogic_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_109) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbLogic_StartScroll c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        OrbLogic_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_109) g_shell_Hook_109(c); else c();
     }
 };
 bool g_installed_Hook_109 = false;
 
-/* TowerFall.OrbLogic.Update(): OrbLogicPatch.OrbLogic_Update_Prefix (prefix), OrbLogicPatch.OrbLogic_Update_Postfix (postfix) */
+/* TowerFall.OrbPickup.OnPlayerCollide(TowerFall.Player): OrbPickupPatch.OrbPickup_OnPlayerCollide_Prefix (prefix), OrbPickupPatch.OrbPickup_OnPlayerCollide_Finalizer (finalizer) */
 bool g_on_Hook_110[2];
 int g_calls_Hook_110 = 0;
-void (*g_shell_Hook_110)(OrbLogic_Update&) = nullptr;
+void (*g_shell_Hook_110)(OrbPickup_OnPlayerCollide&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_110) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbLogic_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* player, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        OrbPickup_OnPlayerCollide c{self, player, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_110) g_shell_Hook_110(c); else c();
     }
 };
 bool g_installed_Hook_110 = false;
 
-/* TowerFall.OrbPickup.OnPlayerCollide(TowerFall.Player): OrbPickupPatch.OrbPickup_OnPlayerCollide_Prefix (prefix), OrbPickupPatch.OrbPickup_OnPlayerCollide_Finalizer (finalizer) */
-bool g_on_Hook_111[2];
+/* TowerFall.PauseMenu.AddItem(string, System.Action): PauseMenuPatch.PauseMenu_AddItem (prefix) */
+bool g_on_Hook_111[1];
 int g_calls_Hook_111 = 0;
-void (*g_shell_Hook_111)(OrbPickup_OnPlayerCollide&) = nullptr;
+void (*g_shell_Hook_111)(PauseMenu_AddItem&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_111) {
-    static void Callback(void* self, void* player, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        OrbPickup_OnPlayerCollide c{self, player, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* name, void* action, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PauseMenu_AddItem c{self, name, action, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_111) g_shell_Hook_111(c); else c();
     }
 };
 bool g_installed_Hook_111 = false;
 
-/* TowerFall.PauseMenu.AddItem(string, System.Action): PauseMenuPatch.PauseMenu_AddItem (prefix) */
+/* TowerFall.PauseMenu.Quit(): PauseMenuPatch.PauseMenu_Quit (prefix) */
 bool g_on_Hook_112[1];
 int g_calls_Hook_112 = 0;
-void (*g_shell_Hook_112)(PauseMenu_AddItem&) = nullptr;
+void (*g_shell_Hook_112)(PauseMenu_Quit&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_112) {
-    static void Callback(void* self, void* name, void* action, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PauseMenu_AddItem c{self, name, action, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PauseMenu_Quit c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_112) g_shell_Hook_112(c); else c();
     }
 };
 bool g_installed_Hook_112 = false;
 
-/* TowerFall.PauseMenu.Quit(): PauseMenuPatch.PauseMenu_Quit (prefix) */
+/* TowerFall.PauseMenu.Update(): PauseMenuPatch.PauseMenu_Update (postfix) */
 bool g_on_Hook_113[1];
 int g_calls_Hook_113 = 0;
-void (*g_shell_Hook_113)(PauseMenu_Quit&) = nullptr;
+void (*g_shell_Hook_113)(PauseMenu_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_113) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PauseMenu_Quit c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PauseMenu_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_113) g_shell_Hook_113(c); else c();
     }
 };
 bool g_installed_Hook_113 = false;
 
-/* TowerFall.PauseMenu.Update(): PauseMenuPatch.PauseMenu_Update (postfix) */
+/* TowerFall.PauseMenu.VersusArcherSelect(): PauseMenuPatch.PauseMenu_VersusArcherSelect (prefix) */
 bool g_on_Hook_114[1];
 int g_calls_Hook_114 = 0;
-void (*g_shell_Hook_114)(PauseMenu_Update&) = nullptr;
+void (*g_shell_Hook_114)(PauseMenu_VersusArcherSelect&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_114) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PauseMenu_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PauseMenu_VersusArcherSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_114) g_shell_Hook_114(c); else c();
     }
 };
 bool g_installed_Hook_114 = false;
 
-/* TowerFall.PauseMenu.VersusArcherSelect(): PauseMenuPatch.PauseMenu_VersusArcherSelect (prefix) */
+/* TowerFall.PauseMenu.VersusMatchSettingsAndSave(): PauseMenuPatch.PauseMenu_VersusMatchSettingsAndSave (prefix) */
 bool g_on_Hook_115[1];
 int g_calls_Hook_115 = 0;
-void (*g_shell_Hook_115)(PauseMenu_VersusArcherSelect&) = nullptr;
+void (*g_shell_Hook_115)(PauseMenu_VersusMatchSettingsAndSave&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_115) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PauseMenu_VersusArcherSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PauseMenu_VersusMatchSettingsAndSave c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_115) g_shell_Hook_115(c); else c();
     }
 };
 bool g_installed_Hook_115 = false;
 
-/* TowerFall.PauseMenu.VersusMatchSettingsAndSave(): PauseMenuPatch.PauseMenu_VersusMatchSettingsAndSave (prefix) */
+/* TowerFall.PauseMenu.VersusRematch(): PauseMenuPatch.PauseMenu_VersusRematch (prefix) */
 bool g_on_Hook_116[1];
 int g_calls_Hook_116 = 0;
-void (*g_shell_Hook_116)(PauseMenu_VersusMatchSettingsAndSave&) = nullptr;
+void (*g_shell_Hook_116)(PauseMenu_VersusRematch&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_116) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PauseMenu_VersusMatchSettingsAndSave c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PauseMenu_VersusRematch c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_116) g_shell_Hook_116(c); else c();
     }
 };
 bool g_installed_Hook_116 = false;
 
-/* TowerFall.PauseMenu.VersusRematch(): PauseMenuPatch.PauseMenu_VersusRematch (prefix) */
+/* TowerFall.Pickup.Pickup(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2): PickupPatch.Pickup_ctor (postfix) */
 bool g_on_Hook_117[1];
 int g_calls_Hook_117 = 0;
-void (*g_shell_Hook_117)(PauseMenu_VersusRematch&) = nullptr;
+void (*g_shell_Hook_117)(Pickup_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_117) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PauseMenu_VersusRematch c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 targetPosition, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Pickup_ctor c{self, position, targetPosition, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_117) g_shell_Hook_117(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_117 = false;
 
-/* TowerFall.Pickup.Pickup(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2): PickupPatch.Pickup_ctor (postfix) */
+/* TowerFall.Pickup.FinishUnpack(Monocle.Tween): PickupPatch.Pickup_FinishUnpack (postfix) */
 bool g_on_Hook_118[1];
 int g_calls_Hook_118 = 0;
-void (*g_shell_Hook_118)(Pickup_ctor&) = nullptr;
+void (*g_shell_Hook_118)(Pickup_FinishUnpack&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_118) {
-    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 targetPosition, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Pickup_ctor c{self, position, targetPosition, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* t, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Pickup_FinishUnpack c{self, t, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_118) g_shell_Hook_118(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_118 = false;
 
-/* TowerFall.Pickup.FinishUnpack(Monocle.Tween): PickupPatch.Pickup_FinishUnpack (postfix) */
+/* TowerFall.PirateBanner.Update(): PirateBannerPatch.PirateBanner_Update (prefix) */
 bool g_on_Hook_119[1];
 int g_calls_Hook_119 = 0;
-void (*g_shell_Hook_119)(Pickup_FinishUnpack&) = nullptr;
+void (*g_shell_Hook_119)(PirateBanner_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_119) {
-    static void Callback(void* self, void* t, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Pickup_FinishUnpack c{self, t, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PirateBanner_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_119) g_shell_Hook_119(c); else c();
     }
 };
 bool g_installed_Hook_119 = false;
 
-/* TowerFall.PirateBanner.Update(): PirateBannerPatch.PirateBanner_Update (prefix) */
-bool g_on_Hook_120[1];
+/* TowerFall.Player.Player(int, Microsoft.Xna.Framework.Vector2, TowerFall.Allegiance, TowerFall.Allegiance, TowerFall.PlayerInventory, TowerFall.Player.HatStates, bool, bool, bool): PlayerPatch.Player_Ctor_Prefix (prefix), PlayerPatch.Player_Ctor_Finalizer (finalizer), PlayerStatePatch.Player_ctor (postfix), VisualHooks.PlayerCtor_Postfix (postfix) */
+bool g_on_Hook_120[4];
 int g_calls_Hook_120 = 0;
-void (*g_shell_Hook_120)(PirateBanner_Update&) = nullptr;
+void (*g_shell_Hook_120)(Player_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_120) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PirateBanner_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, int32_t playerIndex, gen::Vector2 position, int32_t allegiance, int32_t teamColor, gen::PlayerInventory inventory, int32_t hatState, bool frozen, bool flash, bool indicator) {
+        Player_ctor c{self, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator};
         if (g_shell_Hook_120) g_shell_Hook_120(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_120 = false;
 
-/* TowerFall.Player.Player(int, Microsoft.Xna.Framework.Vector2, TowerFall.Allegiance, TowerFall.Allegiance, TowerFall.PlayerInventory, TowerFall.Player.HatStates, bool, bool, bool): PlayerPatch.Player_Ctor_Prefix (prefix), PlayerPatch.Player_Ctor_Finalizer (finalizer), PlayerStatePatch.Player_ctor (postfix), VisualHooks.PlayerCtor_Postfix (postfix), MyPlayer.ctor_patch (postfix) */
-bool g_on_Hook_121[5];
+/* TowerFall.Player.Added(): patch_Player.Added_Postfix (postfix) */
+bool g_on_Hook_121[1];
 int g_calls_Hook_121 = 0;
-void (*g_shell_Hook_121)(Player_ctor&) = nullptr;
+void (*g_shell_Hook_121)(Player_Added&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_121) {
-    static void* Callback(void* self, int32_t playerIndex, gen::Vector2 position, int32_t allegiance, int32_t teamColor, gen::PlayerInventory inventory, int32_t hatState, bool frozen, bool flash, bool indicator) {
-        Player_ctor c{self, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Player_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_121) g_shell_Hook_121(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_121 = false;
 
-/* TowerFall.Player.Added(): patch_Player.Added_Postfix (postfix) */
+/* TowerFall.Player.DoWrapRender(): PlayerPatch.Player_DoWrapRender_Prefix (prefix) */
 bool g_on_Hook_122[1];
 int g_calls_Hook_122 = 0;
-void (*g_shell_Hook_122)(Player_Added&) = nullptr;
+void (*g_shell_Hook_122)(Player_DoWrapRender&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_122) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Player_DoWrapRender c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_122) g_shell_Hook_122(c); else c();
     }
 };
 bool g_installed_Hook_122 = false;
 
-/* TowerFall.Player.Die(TowerFall.Arrow): MyPlayerDeath.Block_patch (prefix) */
-bool g_on_Hook_123[1];
+/* TowerFall.Player.DropArrow(): PlayerStatePatch.Player_DropArrow_Prefix (prefix), PlayerStatePatch.Player_DropArrow_Postfix (postfix) */
+bool g_on_Hook_123[2];
 int g_calls_Hook_123 = 0;
-void (*g_shell_Hook_123)(Player_Die_Arrow&) = nullptr;
+void (*g_shell_Hook_123)(Player_DropArrow&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_123) {
-    static void Callback(void* self, void* arrow, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Die_Arrow c{self, arrow, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Player_DropArrow c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_123) g_shell_Hook_123(c); else c();
     }
 };
 bool g_installed_Hook_123 = false;
 
-/* TowerFall.Player.Die(TowerFall.DeathCause, int, bool, bool): MyPlayerDeath.Die_patch (prefix) */
+/* TowerFall.Player.HUDRender(bool): PlayerPatch.Player_HUDRender_Prefix (prefix) */
 bool g_on_Hook_124[1];
 int g_calls_Hook_124 = 0;
-void (*g_shell_Hook_124)(Player_Die_DeathCause_Int32_Boolean_Boolean&) = nullptr;
+void (*g_shell_Hook_124)(Player_HUDRender&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_124) {
-    static void* Callback(void* self, int32_t deathCause, int32_t killerIndex, bool brambled, bool laser, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Die_DeathCause_Int32_Boolean_Boolean c{self, deathCause, killerIndex, brambled, laser, x5_, x6_, x7_};
+    static void Callback(void* self, bool wrapped, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Player_HUDRender c{self, wrapped, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_124) g_shell_Hook_124(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_124 = false;
 
-/* TowerFall.Player.DoSquish(TowerFall.Solid, Microsoft.Xna.Framework.Vector2): MyPlayerDeath.Block_patch (prefix) */
-bool g_on_Hook_125[1];
+/* TowerFall.Player.InitHead(): PlayerPatch.Player_InitHead_Prefix (prefix), VisualHooks.InitHead_Postfix (postfix) */
+bool g_on_Hook_125[2];
 int g_calls_Hook_125 = 0;
-void (*g_shell_Hook_125)(Player_DoSquish&) = nullptr;
+void (*g_shell_Hook_125)(Player_InitHead&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_125) {
-    static void Callback(void* self, void* solid, gen::Vector2 direction, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_DoSquish c{self, solid, direction, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Player_InitHead c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_125) g_shell_Hook_125(c); else c();
     }
 };
 bool g_installed_Hook_125 = false;
 
-/* TowerFall.Player.DoWrapRender(): PlayerPatch.Player_DoWrapRender_Prefix (prefix) */
-bool g_on_Hook_126[1];
+/* TowerFall.Player.LoseHat(TowerFall.Arrow, bool): PlayerStatePatch.Player_LoseHat_Prefix (prefix), PlayerStatePatch.Player_LoseHat_Postfix (postfix) */
+bool g_on_Hook_126[2];
 int g_calls_Hook_126 = 0;
-void (*g_shell_Hook_126)(Player_DoWrapRender&) = nullptr;
+void (*g_shell_Hook_126)(Player_LoseHat&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_126) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_DoWrapRender c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* arrow, bool updateHead, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Player_LoseHat c{self, arrow, updateHead, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_126) g_shell_Hook_126(c); else c();
     }
 };
 bool g_installed_Hook_126 = false;
 
-/* TowerFall.Player.DropArrow(): PlayerStatePatch.Player_DropArrow_Prefix (prefix), PlayerStatePatch.Player_DropArrow_Postfix (postfix) */
-bool g_on_Hook_127[2];
+/* TowerFall.Player.SpawnedInsideSolidCheck(): PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix (prefix) */
+bool g_on_Hook_127[1];
 int g_calls_Hook_127 = 0;
-void (*g_shell_Hook_127)(Player_DropArrow&) = nullptr;
+void (*g_shell_Hook_127)(Player_SpawnedInsideSolidCheck&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_127) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_DropArrow c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Player_SpawnedInsideSolidCheck c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_127) g_shell_Hook_127(c); else c();
     }
 };
 bool g_installed_Hook_127 = false;
 
-/* TowerFall.Player.HUDRender(bool): PlayerPatch.Player_HUDRender_Prefix (prefix) */
+/* TowerFall.Player.Update(): PlayerPatch.Player_Update_Postfix (postfix) */
 bool g_on_Hook_128[1];
 int g_calls_Hook_128 = 0;
-void (*g_shell_Hook_128)(Player_HUDRender&) = nullptr;
+void (*g_shell_Hook_128)(Player_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_128) {
-    static void Callback(void* self, bool wrapped, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_HUDRender c{self, wrapped, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Player_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_128) g_shell_Hook_128(c); else c();
     }
 };
 bool g_installed_Hook_128 = false;
 
-/* TowerFall.Player.Hurt(TowerFall.DeathCause, Microsoft.Xna.Framework.Vector2, int, Monocle.SFX): MyPlayerDeath.Block_patch (prefix) */
+/* TowerFall.PlayerCorpse.PlayerCorpse(string, TowerFall.Allegiance, Microsoft.Xna.Framework.Vector2, TowerFall.Facing, int, int): PlayerCorpsePatch.PlayerCorpse_ctor_Postfix (postfix) */
 bool g_on_Hook_129[1];
 int g_calls_Hook_129 = 0;
-void (*g_shell_Hook_129)(Player_Hurt_DeathCause_Vector2_Int32_SFX&) = nullptr;
+void (*g_shell_Hook_129)(PlayerCorpse_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_129) {
-    static void Callback(void* self, int32_t cause, gen::Vector2 bounceFrom, int32_t attacker, void* sfx, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Hurt_DeathCause_Vector2_Int32_SFX c{self, cause, bounceFrom, attacker, sfx, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* corpseSpriteID, int32_t teamColor, gen::Vector2 position, int32_t facing, int32_t playerIndex, int32_t killerIndex, uint64_t x6_, uint64_t x7_) {
+        PlayerCorpse_ctor c{self, corpseSpriteID, teamColor, position, facing, playerIndex, killerIndex, x6_, x7_};
         if (g_shell_Hook_129) g_shell_Hook_129(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_129 = false;
 
-/* TowerFall.Player.Hurt(TowerFall.Explosion, Microsoft.Xna.Framework.Vector2): MyPlayerDeath.Block_patch (prefix) */
-bool g_on_Hook_130[1];
+/* TowerFall.PlayerCorpse.Added(): PlayerCorpsePatch.PlayerCorpse_Added_Postfix (postfix), ReviveHooks.Added_Postfix (postfix) */
+bool g_on_Hook_130[2];
 int g_calls_Hook_130 = 0;
-void (*g_shell_Hook_130)(Player_Hurt_Explosion_Vector2&) = nullptr;
+void (*g_shell_Hook_130)(PlayerCorpse_Added&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_130) {
-    static void Callback(void* self, void* explosion, gen::Vector2 normal, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Hurt_Explosion_Vector2 c{self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerCorpse_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_130) g_shell_Hook_130(c); else c();
     }
 };
 bool g_installed_Hook_130 = false;
 
-/* TowerFall.Player.Hurt(TowerFall.Lava): MyPlayerDeath.Block_patch (prefix) */
+/* TowerFall.PlayerCorpse.DieByArrow(TowerFall.Arrow, int): PlayerCorpsePatch.PlayerCorpse_DieByArrow_Postfix (postfix) */
 bool g_on_Hook_131[1];
 int g_calls_Hook_131 = 0;
-void (*g_shell_Hook_131)(Player_Hurt_Lava&) = nullptr;
+void (*g_shell_Hook_131)(PlayerCorpse_DieByArrow&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_131) {
-    static void Callback(void* self, void* lava, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Hurt_Lava c{self, lava, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* arrow, int32_t ledge, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerCorpse_DieByArrow c{self, arrow, ledge, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_131) g_shell_Hook_131(c); else c();
     }
 };
 bool g_installed_Hook_131 = false;
 
-/* TowerFall.Player.HurtBouncedOn(int): MyPlayerDeath.Block_patch (prefix) */
-bool g_on_Hook_132[1];
+/* TowerFall.PlayerCorpse.DropNextArrow(): PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Prefix (prefix), PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Postfix (postfix) */
+bool g_on_Hook_132[2];
 int g_calls_Hook_132 = 0;
-void (*g_shell_Hook_132)(Player_HurtBouncedOn&) = nullptr;
+void (*g_shell_Hook_132)(PlayerCorpse_DropNextArrow&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_132) {
-    static void Callback(void* self, int32_t bouncerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_HurtBouncedOn c{self, bouncerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerCorpse_DropNextArrow c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_132) g_shell_Hook_132(c); else c();
     }
 };
 bool g_installed_Hook_132 = false;
 
-/* TowerFall.Player.HurtDelayed(TowerFall.Arrow): MyPlayerDeath.Block_patch (prefix) */
+/* TowerFall.PlayerCorpse.StartDroppingArrows(): PlayerCorpsePatch.PlayerCorpse_StartDroppingArrows_Prefix (prefix) */
 bool g_on_Hook_133[1];
 int g_calls_Hook_133 = 0;
-void (*g_shell_Hook_133)(Player_HurtDelayed&) = nullptr;
+void (*g_shell_Hook_133)(PlayerCorpse_StartDroppingArrows&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_133) {
-    static void Callback(void* self, void* arrow, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_HurtDelayed c{self, arrow, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerCorpse_StartDroppingArrows c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_133) g_shell_Hook_133(c); else c();
     }
 };
 bool g_installed_Hook_133 = false;
 
-/* TowerFall.Player.InitHead(): PlayerPatch.Player_InitHead_Prefix (prefix), VisualHooks.InitHead_Postfix (postfix) */
-bool g_on_Hook_134[2];
+/* TowerFall.PlayerCorpse.Update(): PlayerCorpsePatch.PlayerCorpse_Update_Postfix (postfix) */
+bool g_on_Hook_134[1];
 int g_calls_Hook_134 = 0;
-void (*g_shell_Hook_134)(Player_InitHead&) = nullptr;
+void (*g_shell_Hook_134)(PlayerCorpse_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_134) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_InitHead c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PlayerCorpse_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_134) g_shell_Hook_134(c); else c();
     }
 };
 bool g_installed_Hook_134 = false;
 
-/* TowerFall.Player.LoseHat(TowerFall.Arrow, bool): PlayerStatePatch.Player_LoseHat_Prefix (prefix), PlayerStatePatch.Player_LoseHat_Postfix (postfix) */
-bool g_on_Hook_135[2];
+/* TowerFall.PlayerGhost.PlayerGhost(TowerFall.PlayerCorpse): PlayerGhostPatch.PlayerGhost_ctor (postfix) */
+bool g_on_Hook_135[1];
 int g_calls_Hook_135 = 0;
-void (*g_shell_Hook_135)(Player_LoseHat&) = nullptr;
+void (*g_shell_Hook_135)(PlayerGhost_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_135) {
-    static void Callback(void* self, void* arrow, bool updateHead, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_LoseHat c{self, arrow, updateHead, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* corpse, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerGhost_ctor c{self, corpse, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_135) g_shell_Hook_135(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_135 = false;
 
-/* TowerFall.Player.NormalUpdate(): FlatPlay.NormalUpdate_prefix (prefix), FlatPlay.NormalUpdate_postfix (postfix) */
-bool g_on_Hook_136[2];
+/* TowerFall.PlayerGhost.DespawnEnter(): PlayerGhostPatch.PlayerGhost_DespawnEnter_Postfix (postfix) */
+bool g_on_Hook_136[1];
 int g_calls_Hook_136 = 0;
-void (*g_shell_Hook_136)(Player_NormalUpdate&) = nullptr;
+void (*g_shell_Hook_136)(PlayerGhost_DespawnEnter&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_136) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_NormalUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerGhost_DespawnEnter c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_136) g_shell_Hook_136(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_136 = false;
 
-/* TowerFall.Player.PlayerOnPlayer(TowerFall.Player, TowerFall.Player): MyPlayerOnPlayer.PlayerOnPlayer_patch (postfix) */
-bool g_on_Hook_137[1];
+/* TowerFall.PlayerGhost.Update(): PlayerGhostPatch.PlayerGhost_Update_Prefix (prefix), PlayerGhostPatch.PlayerGhost_Update_Postfix (postfix) */
+bool g_on_Hook_137[2];
 int g_calls_Hook_137 = 0;
-void (*g_shell_Hook_137)(Player_PlayerOnPlayer&) = nullptr;
+void (*g_shell_Hook_137)(PlayerGhost_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_137) {
-    static void Callback(void* a, void* b, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_PlayerOnPlayer c{a, b, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerGhost_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_137) g_shell_Hook_137(c); else c();
     }
 };
 bool g_installed_Hook_137 = false;
 
-/* TowerFall.Player.ShootArrow(): MyPlayer.ShootArrow_patch (prefix) */
+/* TowerFall.PlayerHair.PlayerHair(Monocle.Entity, Microsoft.Xna.Framework.Vector2, float): patch_PlayerHair.ctor_Prefix (postfix) */
 bool g_on_Hook_138[1];
 int g_calls_Hook_138 = 0;
-void (*g_shell_Hook_138)(Player_ShootArrow&) = nullptr;
+void (*g_shell_Hook_138)(PlayerHair_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_138) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_ShootArrow c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* follow, gen::Vector2 position, float scale, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerHair_ctor c{self, follow, position, scale, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_138) g_shell_Hook_138(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_138 = false;
 
-/* TowerFall.Player.SpawnedInsideSolidCheck(): PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix (prefix) */
+/* TowerFall.PlayerHair.Render(): patch_PlayerHair.Render (replace) */
 bool g_on_Hook_139[1];
 int g_calls_Hook_139 = 0;
-void (*g_shell_Hook_139)(Player_SpawnedInsideSolidCheck&) = nullptr;
+void (*g_shell_Hook_139)(PlayerHair_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_139) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_SpawnedInsideSolidCheck c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PlayerHair_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_139) g_shell_Hook_139(c); else c();
     }
 };
 bool g_installed_Hook_139 = false;
 
-/* TowerFall.Player.Update(): PlayerPatch.Player_Update_Postfix (postfix), MyPlayer.Update_patch (postfix), MyPlayer.Update (postfix) */
-bool g_on_Hook_140[3];
+/* TowerFall.PlayerHair.RenderBlack(): patch_PlayerHair.RenderBlack (replace) */
+bool g_on_Hook_140[1];
 int g_calls_Hook_140 = 0;
-void (*g_shell_Hook_140)(Player_Update&) = nullptr;
+void (*g_shell_Hook_140)(PlayerHair_RenderBlack&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_140) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Player_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PlayerHair_RenderBlack c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_140) g_shell_Hook_140(c); else c();
     }
 };
 bool g_installed_Hook_140 = false;
 
-/* TowerFall.PlayerCorpse.PlayerCorpse(string, TowerFall.Allegiance, Microsoft.Xna.Framework.Vector2, TowerFall.Facing, int, int): PlayerCorpsePatch.PlayerCorpse_ctor_Postfix (postfix) */
+/* TowerFall.PlayerHair.RenderOutline(): patch_PlayerHair.RenderOutline (replace) */
 bool g_on_Hook_141[1];
 int g_calls_Hook_141 = 0;
-void (*g_shell_Hook_141)(PlayerCorpse_ctor&) = nullptr;
+void (*g_shell_Hook_141)(PlayerHair_RenderOutline&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_141) {
-    static void* Callback(void* self, void* corpseSpriteID, int32_t teamColor, gen::Vector2 position, int32_t facing, int32_t playerIndex, int32_t killerIndex, uint64_t x6_, uint64_t x7_) {
-        PlayerCorpse_ctor c{self, corpseSpriteID, teamColor, position, facing, playerIndex, killerIndex, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerHair_RenderOutline c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_141) g_shell_Hook_141(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_141 = false;
 
-/* TowerFall.PlayerCorpse.Added(): PlayerCorpsePatch.PlayerCorpse_Added_Postfix (postfix), ReviveHooks.Added_Postfix (postfix) */
-bool g_on_Hook_142[2];
+/* TowerFall.PlayerHair.Update(): PlayerHairPatch.PlayerHair_Update (prefix) */
+bool g_on_Hook_142[1];
 int g_calls_Hook_142 = 0;
-void (*g_shell_Hook_142)(PlayerCorpse_Added&) = nullptr;
+void (*g_shell_Hook_142)(PlayerHair_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_142) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerCorpse_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PlayerHair_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_142) g_shell_Hook_142(c); else c();
     }
 };
 bool g_installed_Hook_142 = false;
 
-/* TowerFall.PlayerCorpse.DieByArrow(TowerFall.Arrow, int): PlayerCorpsePatch.PlayerCorpse_DieByArrow_Postfix (postfix) */
+/* TowerFall.PlayerIndicator.PlayerIndicator(Microsoft.Xna.Framework.Vector2, int, bool): PlayerIndicatorPatch.PlayerIndicator_ctor (postfix) */
 bool g_on_Hook_143[1];
 int g_calls_Hook_143 = 0;
-void (*g_shell_Hook_143)(PlayerCorpse_DieByArrow&) = nullptr;
+void (*g_shell_Hook_143)(PlayerIndicator_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_143) {
-    static void Callback(void* self, void* arrow, int32_t ledge, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerCorpse_DieByArrow c{self, arrow, ledge, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 offset, int32_t playerIndex, bool crown, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerIndicator_ctor c{self, offset, playerIndex, crown, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_143) g_shell_Hook_143(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_143 = false;
 
-/* TowerFall.PlayerCorpse.DropNextArrow(): PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Prefix (prefix), PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Postfix (postfix) */
-bool g_on_Hook_144[2];
+/* TowerFall.PlayerIndicator.Render(): PlayerIndicatorStatePatch.PlayerIndicator_Render (prefix) */
+bool g_on_Hook_144[1];
 int g_calls_Hook_144 = 0;
-void (*g_shell_Hook_144)(PlayerCorpse_DropNextArrow&) = nullptr;
+void (*g_shell_Hook_144)(PlayerIndicator_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_144) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerCorpse_DropNextArrow c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PlayerIndicator_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_144) g_shell_Hook_144(c); else c();
     }
 };
 bool g_installed_Hook_144 = false;
 
-/* TowerFall.PlayerCorpse.StartDroppingArrows(): PlayerCorpsePatch.PlayerCorpse_StartDroppingArrows_Prefix (prefix) */
+/* TowerFall.PlayerIndicator.Update(): PlayerIndicatorStatePatch.PlayerIndicator_Update_Prefix (prefix) */
 bool g_on_Hook_145[1];
 int g_calls_Hook_145 = 0;
-void (*g_shell_Hook_145)(PlayerCorpse_StartDroppingArrows&) = nullptr;
+void (*g_shell_Hook_145)(PlayerIndicator_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_145) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerCorpse_StartDroppingArrows c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        PlayerIndicator_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_145) g_shell_Hook_145(c); else c();
     }
 };
 bool g_installed_Hook_145 = false;
 
-/* TowerFall.PlayerCorpse.Update(): PlayerCorpsePatch.PlayerCorpse_Update_Postfix (postfix) */
+/* TowerFall.PlayerInput.AssignInputs(): PlayerInputPatch.PlayerInput_AssignInputs (prefix) */
 bool g_on_Hook_146[1];
 int g_calls_Hook_146 = 0;
-void (*g_shell_Hook_146)(PlayerCorpse_Update&) = nullptr;
+void (*g_shell_Hook_146)(PlayerInput_AssignInputs&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_146) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerCorpse_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(uint64_t x0_, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        PlayerInput_AssignInputs c{x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_146) g_shell_Hook_146(c); else c();
     }
 };
 bool g_installed_Hook_146 = false;
 
-/* TowerFall.PlayerGhost.PlayerGhost(TowerFall.PlayerCorpse): PlayerGhostPatch.PlayerGhost_ctor (postfix) */
+/* TowerFall.QuestSpawnPortal.QuestSpawnPortal(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2[]): QuestSpawnPortalPatch.QuestSpawnPortal_ctor (postfix) */
 bool g_on_Hook_147[1];
 int g_calls_Hook_147 = 0;
-void (*g_shell_Hook_147)(PlayerGhost_ctor&) = nullptr;
+void (*g_shell_Hook_147)(QuestSpawnPortal_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_147) {
-    static void* Callback(void* self, void* corpse, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerGhost_ctor c{self, corpse, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, void* nodes, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        QuestSpawnPortal_ctor c{self, position, nodes, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_147) g_shell_Hook_147(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_147 = false;
 
-/* TowerFall.PlayerGhost.DespawnEnter(): PlayerGhostPatch.PlayerGhost_DespawnEnter_Postfix (postfix) */
+/* TowerFall.QuestSpawnPortal.Appear(): QuestSpawnPortalPatch.QuestSpawnPortal_Appear_Postfix (postfix) */
 bool g_on_Hook_148[1];
 int g_calls_Hook_148 = 0;
-void (*g_shell_Hook_148)(PlayerGhost_DespawnEnter&) = nullptr;
+void (*g_shell_Hook_148)(QuestSpawnPortal_Appear&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_148) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerGhost_DespawnEnter c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        QuestSpawnPortal_Appear c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_148) g_shell_Hook_148(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_148 = false;
 
-/* TowerFall.PlayerGhost.Update(): PlayerGhostPatch.PlayerGhost_Update_Prefix (prefix), PlayerGhostPatch.PlayerGhost_Update_Postfix (postfix) */
-bool g_on_Hook_149[2];
+/* TowerFall.QuestSpawnPortal.Disappear(): QuestSpawnPortalPatch.QuestSpawnPortal_Disappear_Postfix (postfix) */
+bool g_on_Hook_149[1];
 int g_calls_Hook_149 = 0;
-void (*g_shell_Hook_149)(PlayerGhost_Update&) = nullptr;
+void (*g_shell_Hook_149)(QuestSpawnPortal_Disappear&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_149) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerGhost_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        QuestSpawnPortal_Disappear c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_149) g_shell_Hook_149(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_149 = false;
 
-/* TowerFall.PlayerHair.PlayerHair(Monocle.Entity, Microsoft.Xna.Framework.Vector2, float): patch_PlayerHair.ctor_Prefix (postfix) */
+/* TowerFall.QuestSpawnPortal.Update(): QuestSpawnPortalPatch.QuestSpawnPortal_Update_Postfix (postfix) */
 bool g_on_Hook_150[1];
 int g_calls_Hook_150 = 0;
-void (*g_shell_Hook_150)(PlayerHair_ctor&) = nullptr;
+void (*g_shell_Hook_150)(QuestSpawnPortal_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_150) {
-    static void* Callback(void* self, void* follow, gen::Vector2 position, float scale, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerHair_ctor c{self, follow, position, scale, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        QuestSpawnPortal_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_150) g_shell_Hook_150(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_150 = false;
 
-/* TowerFall.PlayerHair.Render(): patch_PlayerHair.Render (replace) */
+/* TowerFall.ReadyBanner.GetReadyState(): ReadyBannerPatch.ReadyBanner_GetReadyState (postfix) */
 bool g_on_Hook_151[1];
 int g_calls_Hook_151 = 0;
-void (*g_shell_Hook_151)(PlayerHair_Render&) = nullptr;
+void (*g_shell_Hook_151)(ReadyBanner_GetReadyState&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_151) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerHair_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        ReadyBanner_GetReadyState c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_151) g_shell_Hook_151(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_151 = false;
 
-/* TowerFall.PlayerHair.RenderBlack(): patch_PlayerHair.RenderBlack (replace) */
-bool g_on_Hook_152[1];
+/* TowerFall.RollcallElement.RollcallElement(int): RollCallElementPatch.RollcallElement_Ctor_Prefix (prefix), RollCallElementPatch.RollcallElement_Ctor_Finalizer (finalizer) */
+bool g_on_Hook_152[2];
 int g_calls_Hook_152 = 0;
-void (*g_shell_Hook_152)(PlayerHair_RenderBlack&) = nullptr;
+void (*g_shell_Hook_152)(RollcallElement_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_152) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerHair_RenderBlack c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RollcallElement_ctor c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_152) g_shell_Hook_152(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_152 = false;
 
-/* TowerFall.PlayerHair.RenderOutline(): patch_PlayerHair.RenderOutline (replace) */
+/* TowerFall.RollcallElement.EnterJoined(): RollCallElementPatch.RollcallElement_EnterJoined (postfix) */
 bool g_on_Hook_153[1];
 int g_calls_Hook_153 = 0;
-void (*g_shell_Hook_153)(PlayerHair_RenderOutline&) = nullptr;
+void (*g_shell_Hook_153)(RollcallElement_EnterJoined&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_153) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerHair_RenderOutline c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        RollcallElement_EnterJoined c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_153) g_shell_Hook_153(c); else c();
     }
 };
 bool g_installed_Hook_153 = false;
 
-/* TowerFall.PlayerHair.Update(): PlayerHairPatch.PlayerHair_Update (prefix) */
+/* TowerFall.RollcallElement.ForceStart(): RollCallElementPatch.RollcallElement_ForceStart_Prefix (prefix) */
 bool g_on_Hook_154[1];
 int g_calls_Hook_154 = 0;
-void (*g_shell_Hook_154)(PlayerHair_Update&) = nullptr;
+void (*g_shell_Hook_154)(RollcallElement_ForceStart&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_154) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerHair_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        RollcallElement_ForceStart c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_154) g_shell_Hook_154(c); else c();
     }
 };
 bool g_installed_Hook_154 = false;
 
-/* TowerFall.PlayerIndicator.PlayerIndicator(Microsoft.Xna.Framework.Vector2, int, bool): PlayerIndicatorPatch.PlayerIndicator_ctor (postfix) */
-bool g_on_Hook_155[1];
+/* TowerFall.RollcallElement.JoinedUpdate(): RollCallElementPatch.RollcallElement_JoinedUpdate_Prefix (prefix), RollCallElementPatch.RollcallElement_JoinedUpdate (postfix) */
+bool g_on_Hook_155[2];
 int g_calls_Hook_155 = 0;
-void (*g_shell_Hook_155)(PlayerIndicator_ctor&) = nullptr;
+void (*g_shell_Hook_155)(RollcallElement_JoinedUpdate&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_155) {
-    static void* Callback(void* self, gen::Vector2 offset, int32_t playerIndex, bool crown, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerIndicator_ctor c{self, offset, playerIndex, crown, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RollcallElement_JoinedUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_155) g_shell_Hook_155(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_155 = false;
 
-/* TowerFall.PlayerIndicator.Render(): PlayerIndicatorStatePatch.PlayerIndicator_Render (prefix) */
+/* TowerFall.RollcallElement.LeaveJoined(): RollCallElementPatch.RollcallElement_LeaveJoined (postfix) */
 bool g_on_Hook_156[1];
 int g_calls_Hook_156 = 0;
-void (*g_shell_Hook_156)(PlayerIndicator_Render&) = nullptr;
+void (*g_shell_Hook_156)(RollcallElement_LeaveJoined&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_156) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerIndicator_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        RollcallElement_LeaveJoined c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_156) g_shell_Hook_156(c); else c();
     }
 };
 bool g_installed_Hook_156 = false;
 
-/* TowerFall.PlayerIndicator.Update(): PlayerIndicatorStatePatch.PlayerIndicator_Update_Prefix (prefix) */
-bool g_on_Hook_157[1];
+/* TowerFall.RollcallElement.NotJoinedUpdate(): RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix (prefix), RollCallElementPatch.RollcallElement_NotJoinedUpdate (postfix) */
+bool g_on_Hook_157[2];
 int g_calls_Hook_157 = 0;
-void (*g_shell_Hook_157)(PlayerIndicator_Update&) = nullptr;
+void (*g_shell_Hook_157)(RollcallElement_NotJoinedUpdate&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_157) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerIndicator_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RollcallElement_NotJoinedUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_157) g_shell_Hook_157(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_157 = false;
 
-/* TowerFall.PlayerInput.AssignInputs(): PlayerInputPatch.PlayerInput_AssignInputs (prefix) */
+/* TowerFall.RollcallElement.Render(): RollCallElementPatch.RollcallElement_Render (postfix) */
 bool g_on_Hook_158[1];
 int g_calls_Hook_158 = 0;
-void (*g_shell_Hook_158)(PlayerInput_AssignInputs&) = nullptr;
+void (*g_shell_Hook_158)(RollcallElement_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_158) {
-    static void Callback(uint64_t x0_, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerInput_AssignInputs c{x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RollcallElement_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_158) g_shell_Hook_158(c); else c();
     }
 };
 bool g_installed_Hook_158 = false;
 
-/* TowerFall.PlayerInput.GetAimDirection(Microsoft.Xna.Framework.Vector2, bool): FlatPlay.GetAimDirection_prefix (prefix) */
+/* TowerFall.RollcallElement.Update(): RollCallElementPatch.RollcallElement_Update (prefix) */
 bool g_on_Hook_159[1];
 int g_calls_Hook_159 = 0;
-void (*g_shell_Hook_159)(PlayerInput_GetAimDirection&) = nullptr;
+void (*g_shell_Hook_159)(RollcallElement_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_159) {
-    static gen::Opt<float> Callback(gen::Vector2 axis, bool snap, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        PlayerInput_GetAimDirection c{axis, snap, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RollcallElement_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_159) g_shell_Hook_159(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_159 = false;
 
-/* TowerFall.QuestSpawnPortal.QuestSpawnPortal(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2[]): QuestSpawnPortalPatch.QuestSpawnPortal_ctor (postfix) */
+/* TowerFall.RotatePlatform.Update(): RotatePlatformPatch.RotatePlatform_Update (prefix) */
 bool g_on_Hook_160[1];
 int g_calls_Hook_160 = 0;
-void (*g_shell_Hook_160)(QuestSpawnPortal_ctor&) = nullptr;
+void (*g_shell_Hook_160)(RotatePlatform_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_160) {
-    static void* Callback(void* self, gen::Vector2 position, void* nodes, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        QuestSpawnPortal_ctor c{self, position, nodes, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RotatePlatform_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_160) g_shell_Hook_160(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_160 = false;
 
-/* TowerFall.QuestSpawnPortal.Appear(): QuestSpawnPortalPatch.QuestSpawnPortal_Appear_Postfix (postfix) */
+/* TowerFall.RoundLogic.GetRoundLogic(TowerFall.Session): patch_RoundLogic.GetRoundLogic (replace) */
 bool g_on_Hook_161[1];
 int g_calls_Hook_161 = 0;
-void (*g_shell_Hook_161)(QuestSpawnPortal_Appear&) = nullptr;
+void (*g_shell_Hook_161)(RoundLogic_GetRoundLogic&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_161) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        QuestSpawnPortal_Appear c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* session, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RoundLogic_GetRoundLogic c{session, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_161) g_shell_Hook_161(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_161 = false;
 
-/* TowerFall.QuestSpawnPortal.Disappear(): QuestSpawnPortalPatch.QuestSpawnPortal_Disappear_Postfix (postfix) */
+/* TowerFall.RoundLogic.OnUpdate(): RoundLogicPatch.RoundLogic_OnUpdate_Prefix (prefix) */
 bool g_on_Hook_162[1];
 int g_calls_Hook_162 = 0;
-void (*g_shell_Hook_162)(QuestSpawnPortal_Disappear&) = nullptr;
+void (*g_shell_Hook_162)(RoundLogic_OnUpdate&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_162) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        QuestSpawnPortal_Disappear c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RoundLogic_OnUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_162) g_shell_Hook_162(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_162 = false;
 
-/* TowerFall.QuestSpawnPortal.Update(): QuestSpawnPortalPatch.QuestSpawnPortal_Update_Postfix (postfix) */
+/* TowerFall.RoundLogic.SpawnPlayersFFA(): RoundLogicPatch.RoundLogic_SpawnPlayersFFA (prefix) */
 bool g_on_Hook_163[1];
 int g_calls_Hook_163 = 0;
-void (*g_shell_Hook_163)(QuestSpawnPortal_Update&) = nullptr;
+void (*g_shell_Hook_163)(RoundLogic_SpawnPlayersFFA&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_163) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        QuestSpawnPortal_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RoundLogic_SpawnPlayersFFA c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_163) g_shell_Hook_163(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_163 = false;
 
-/* TowerFall.ReadyBanner.GetReadyState(): ReadyBannerPatch.ReadyBanner_GetReadyState (postfix) */
+/* TowerFall.RoundLogic.SpawnPlayersTeams(): RoundLogicPatch.RoundLogic_SpawnPlayersTeams (prefix) */
 bool g_on_Hook_164[1];
 int g_calls_Hook_164 = 0;
-void (*g_shell_Hook_164)(ReadyBanner_GetReadyState&) = nullptr;
+void (*g_shell_Hook_164)(RoundLogic_SpawnPlayersTeams&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_164) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        ReadyBanner_GetReadyState c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        RoundLogic_SpawnPlayersTeams c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_164) g_shell_Hook_164(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_164 = false;
 
-/* TowerFall.RollcallElement.RollcallElement(int): RollCallElementPatch.RollcallElement_Ctor_Prefix (prefix), RollCallElementPatch.RollcallElement_Ctor_Finalizer (finalizer), MyRollcallElement.ctor_patch (postfix) */
-bool g_on_Hook_165[3];
+/* TowerFall.SaveData.Save(): SaveDataPatch.Save_Prefix (prefix), SaveDataPatch.Save_Postfix (postfix) */
+bool g_on_Hook_165[2];
 int g_calls_Hook_165 = 0;
-void (*g_shell_Hook_165)(RollcallElement_ctor&) = nullptr;
+void (*g_shell_Hook_165)(SaveData_Save&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_165) {
-    static void* Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_ctor c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        SaveData_Save c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_165) g_shell_Hook_165(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_165 = false;
 
-/* TowerFall.RollcallElement.EnterJoined(): RollCallElementPatch.RollcallElement_EnterJoined (postfix) */
+/* TowerFall.ScreenTitle.ScreenTitle(TowerFall.MainMenu.MenuState): ScreenTitlePatch.ScreenTitle_ctor (prefix) */
 bool g_on_Hook_166[1];
 int g_calls_Hook_166 = 0;
-void (*g_shell_Hook_166)(RollcallElement_EnterJoined&) = nullptr;
+void (*g_shell_Hook_166)(ScreenTitle_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_166) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_EnterJoined c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, int32_t state, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        ScreenTitle_ctor c{self, state, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_166) g_shell_Hook_166(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_166 = false;
 
-/* TowerFall.RollcallElement.ForceStart(): RollCallElementPatch.RollcallElement_ForceStart_Prefix (prefix), MyRollcallElement.ForceStart_patch (prefix) */
-bool g_on_Hook_167[2];
+/* TowerFall.ScreenTitle.ChangeState(TowerFall.MainMenu.MenuState): ScreenTitlePatch.ScreenTitle_ChangeState (prefix) */
+bool g_on_Hook_167[1];
 int g_calls_Hook_167 = 0;
-void (*g_shell_Hook_167)(RollcallElement_ForceStart&) = nullptr;
+void (*g_shell_Hook_167)(ScreenTitle_ChangeState&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_167) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_ForceStart c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, int32_t state, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        ScreenTitle_ChangeState c{self, state, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_167) g_shell_Hook_167(c); else c();
     }
 };
 bool g_installed_Hook_167 = false;
 
-/* TowerFall.RollcallElement.JoinedUpdate(): RollCallElementPatch.RollcallElement_JoinedUpdate_Prefix (prefix), RollCallElementPatch.RollcallElement_JoinedUpdate (postfix) */
-bool g_on_Hook_168[2];
+/* TowerFall.SensorBlock.Update(): SensorBlockPatch.SensorBlock_Update (prefix) */
+bool g_on_Hook_168[1];
 int g_calls_Hook_168 = 0;
-void (*g_shell_Hook_168)(RollcallElement_JoinedUpdate&) = nullptr;
+void (*g_shell_Hook_168)(SensorBlock_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_168) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_JoinedUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        SensorBlock_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_168) g_shell_Hook_168(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_168 = false;
 
-/* TowerFall.RollcallElement.LeaveJoined(): RollCallElementPatch.RollcallElement_LeaveJoined (postfix) */
+/* TowerFall.Session.CreateResults(): SessionPatch.Session_CreateResults (prefix) */
 bool g_on_Hook_169[1];
 int g_calls_Hook_169 = 0;
-void (*g_shell_Hook_169)(RollcallElement_LeaveJoined&) = nullptr;
+void (*g_shell_Hook_169)(Session_CreateResults&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_169) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_LeaveJoined c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Session_CreateResults c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_169) g_shell_Hook_169(c); else c();
     }
 };
 bool g_installed_Hook_169 = false;
 
-/* TowerFall.RollcallElement.NotJoinedUpdate(): RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix (prefix), RollCallElementPatch.RollcallElement_NotJoinedUpdate (postfix), MyRollcallElement.NotJoinedUpdate_patch (prefix) */
+/* TowerFall.Session.EndRound(): SessionPatch.Session_EndRound_SkipWhileBaking (prefix), SessionPatch.Session_EndRound_Prefix (prefix), SessionPatch.Session_EndRound_Postfix (postfix) */
 bool g_on_Hook_170[3];
 int g_calls_Hook_170 = 0;
-void (*g_shell_Hook_170)(RollcallElement_NotJoinedUpdate&) = nullptr;
+void (*g_shell_Hook_170)(Session_EndRound&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_170) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_NotJoinedUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Session_EndRound c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_170) g_shell_Hook_170(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_170 = false;
 
-/* TowerFall.RollcallElement.Render(): RollCallElementPatch.RollcallElement_Render (postfix), MyRollcallElement.Render_patch (prefix), MyRollcallElement.Keys_postfix (postfix) */
-bool g_on_Hook_171[3];
+/* TowerFall.Session.GetScoreIndex(int): RulesHooks.GetScoreIndex_Prefix (prefix) */
+bool g_on_Hook_171[1];
 int g_calls_Hook_171 = 0;
-void (*g_shell_Hook_171)(RollcallElement_Render&) = nullptr;
+void (*g_shell_Hook_171)(Session_GetScoreIndex&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_171) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Session_GetScoreIndex c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_171) g_shell_Hook_171(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_171 = false;
 
-/* TowerFall.RollcallElement.StartVersus(): MyRollcallElement.StartVersus_patch (prefix) */
+/* TowerFall.Session.GotoNextRound(): SessionPatch.Session_GotoNextRound (prefix) */
 bool g_on_Hook_172[1];
 int g_calls_Hook_172 = 0;
-void (*g_shell_Hook_172)(RollcallElement_StartVersus&) = nullptr;
+void (*g_shell_Hook_172)(Session_GotoNextRound&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_172) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_StartVersus c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Session_GotoNextRound c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_172) g_shell_Hook_172(c); else c();
     }
 };
 bool g_installed_Hook_172 = false;
 
-/* TowerFall.RollcallElement.Update(): RollCallElementPatch.RollcallElement_Update (prefix) */
+/* TowerFall.Session.LevelLoadStart(TowerFall.Level): SessionStatePatch.Session_LevelLoadStart (postfix) */
 bool g_on_Hook_173[1];
 int g_calls_Hook_173 = 0;
-void (*g_shell_Hook_173)(RollcallElement_Update&) = nullptr;
+void (*g_shell_Hook_173)(Session_LevelLoadStart&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_173) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RollcallElement_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* level, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Session_LevelLoadStart c{self, level, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_173) g_shell_Hook_173(c); else c();
     }
 };
 bool g_installed_Hook_173 = false;
 
-/* TowerFall.RotatePlatform.Update(): RotatePlatformPatch.RotatePlatform_Update (prefix) */
-bool g_on_Hook_174[1];
+/* TowerFall.Session.StartGame(): SessionPatch.Session_StartGame (prefix), SessionStatePatch.Session_StartGame (prefix), SafetyHooks.StartGame_Postfix (postfix) */
+bool g_on_Hook_174[3];
 int g_calls_Hook_174 = 0;
-void (*g_shell_Hook_174)(RotatePlatform_Update&) = nullptr;
+void (*g_shell_Hook_174)(Session_StartGame&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_174) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RotatePlatform_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Session_StartGame c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_174) g_shell_Hook_174(c); else c();
     }
 };
 bool g_installed_Hook_174 = false;
 
-/* TowerFall.RoundLogic.GetRoundLogic(TowerFall.Session): patch_RoundLogic.GetRoundLogic (replace) */
+/* TowerFall.Session.StartRound(): SessionPatch.Session_StartRound (postfix) */
 bool g_on_Hook_175[1];
 int g_calls_Hook_175 = 0;
-void (*g_shell_Hook_175)(RoundLogic_GetRoundLogic&) = nullptr;
+void (*g_shell_Hook_175)(Session_StartRound&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_175) {
-    static void* Callback(void* session, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RoundLogic_GetRoundLogic c{session, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Session_StartRound c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_175) g_shell_Hook_175(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_175 = false;
 
-/* TowerFall.RoundLogic.OnUpdate(): RoundLogicPatch.RoundLogic_OnUpdate_Prefix (prefix) */
+/* TowerFall.ShiftBlock.Update(): ShiftBlockHoldPatch.ShiftBlock_Update (prefix) */
 bool g_on_Hook_176[1];
 int g_calls_Hook_176 = 0;
-void (*g_shell_Hook_176)(RoundLogic_OnUpdate&) = nullptr;
+void (*g_shell_Hook_176)(ShiftBlock_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_176) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RoundLogic_OnUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        ShiftBlock_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_176) g_shell_Hook_176(c); else c();
     }
 };
 bool g_installed_Hook_176 = false;
 
-/* TowerFall.RoundLogic.SpawnPlayersFFA(): RoundLogicPatch.RoundLogic_SpawnPlayersFFA (prefix) */
+/* TowerFall.Slime.Slime(Microsoft.Xna.Framework.Vector2, TowerFall.Facing, TowerFall.Slime.SlimeColors): SlimePatch.Slime_ctor (postfix) */
 bool g_on_Hook_177[1];
 int g_calls_Hook_177 = 0;
-void (*g_shell_Hook_177)(RoundLogic_SpawnPlayersFFA&) = nullptr;
+void (*g_shell_Hook_177)(Slime_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_177) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RoundLogic_SpawnPlayersFFA c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, int32_t facing, int32_t slimeColor, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Slime_ctor c{self, position, facing, slimeColor, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_177) g_shell_Hook_177(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_177 = false;
 
-/* TowerFall.RoundLogic.SpawnPlayersTeams(): RoundLogicPatch.RoundLogic_SpawnPlayersTeams (prefix) */
+/* TowerFall.Slime.Update(): SlimePatch.Slime_Update_Postfix (postfix) */
 bool g_on_Hook_178[1];
 int g_calls_Hook_178 = 0;
-void (*g_shell_Hook_178)(RoundLogic_SpawnPlayersTeams&) = nullptr;
+void (*g_shell_Hook_178)(Slime_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_178) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        RoundLogic_SpawnPlayersTeams c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        Slime_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_178) g_shell_Hook_178(c); else c();
     }
 };
 bool g_installed_Hook_178 = false;
 
-/* TowerFall.SaveData.Save(): SaveDataPatch.Save_Prefix (prefix), SaveDataPatch.Save_Postfix (postfix) */
-bool g_on_Hook_179[2];
+/* TowerFall.Spikeball.Spikeball(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2, bool): SpikeballPatch.Spikeball_ctor_Vector2_Vector2_bool (postfix) */
+bool g_on_Hook_179[1];
 int g_calls_Hook_179 = 0;
-void (*g_shell_Hook_179)(SaveData_Save&) = nullptr;
+void (*g_shell_Hook_179)(Spikeball_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_179) {
-    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        SaveData_Save c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 pivot, bool exploding, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Spikeball_ctor c{self, position, pivot, exploding, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_179) g_shell_Hook_179(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_179 = false;
 
-/* TowerFall.ScreenTitle.ScreenTitle(TowerFall.MainMenu.MenuState): ScreenTitlePatch.ScreenTitle_ctor (prefix) */
+/* TowerFall.Spikeball.Update(): SpikeballPatch.Spikeball_Update (prefix) */
 bool g_on_Hook_180[1];
 int g_calls_Hook_180 = 0;
-void (*g_shell_Hook_180)(ScreenTitle_ctor&) = nullptr;
+void (*g_shell_Hook_180)(Spikeball_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_180) {
-    static void* Callback(void* self, int32_t state, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        ScreenTitle_ctor c{self, state, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        Spikeball_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_180) g_shell_Hook_180(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_180 = false;
 
-/* TowerFall.ScreenTitle.ChangeState(TowerFall.MainMenu.MenuState): ScreenTitlePatch.ScreenTitle_ChangeState (prefix) */
-bool g_on_Hook_181[1];
+/* TowerFall.SteelHat.Update(): SteelHatRngPatch.SteelHat_Update_Prefix (prefix), SteelHatRngPatch.SteelHat_Update_Postfix (postfix) */
+bool g_on_Hook_181[2];
 int g_calls_Hook_181 = 0;
-void (*g_shell_Hook_181)(ScreenTitle_ChangeState&) = nullptr;
+void (*g_shell_Hook_181)(SteelHat_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_181) {
-    static void Callback(void* self, int32_t state, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        ScreenTitle_ChangeState c{self, state, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        SteelHat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_181) g_shell_Hook_181(c); else c();
     }
 };
 bool g_installed_Hook_181 = false;
 
-/* TowerFall.SensorBlock.Update(): SensorBlockPatch.SensorBlock_Update (prefix) */
+/* TowerFall.TFGame.Load(): TFGamePatch.TFGame_Load (postfix) */
 bool g_on_Hook_182[1];
 int g_calls_Hook_182 = 0;
-void (*g_shell_Hook_182)(SensorBlock_Update&) = nullptr;
+void (*g_shell_Hook_182)(TFGame_Load&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_182) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        SensorBlock_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(uint64_t x0_, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TFGame_Load c{x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_182) g_shell_Hook_182(c); else c();
     }
 };
 bool g_installed_Hook_182 = false;
 
-/* TowerFall.Session.CreateResults(): SessionPatch.Session_CreateResults (prefix) */
+/* TowerFall.TFGame.OnSceneTransition(): TFGamePatch.TFGame_OnSceneTransition (postfix) */
 bool g_on_Hook_183[1];
 int g_calls_Hook_183 = 0;
-void (*g_shell_Hook_183)(Session_CreateResults&) = nullptr;
+void (*g_shell_Hook_183)(TFGame_OnSceneTransition&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_183) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_CreateResults c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        TFGame_OnSceneTransition c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_183) g_shell_Hook_183(c); else c();
     }
 };
 bool g_installed_Hook_183 = false;
 
-/* TowerFall.Session.EndRound(): SessionPatch.Session_EndRound_SkipWhileBaking (prefix), SessionPatch.Session_EndRound_Prefix (prefix), SessionPatch.Session_EndRound_Postfix (postfix) */
-bool g_on_Hook_184[3];
+/* TowerFall.TFGame.Update(Microsoft.Xna.Framework.GameTime): TFGamePatch.TFGameUpdate_Patch (prefix) */
+bool g_on_Hook_184[1];
 int g_calls_Hook_184 = 0;
-void (*g_shell_Hook_184)(Session_EndRound&) = nullptr;
+void (*g_shell_Hook_184)(TFGame_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_184) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_EndRound c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* gameTime, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TFGame_Update c{self, gameTime, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_184) g_shell_Hook_184(c); else c();
     }
 };
 bool g_installed_Hook_184 = false;
 
-/* TowerFall.Session.GetScoreIndex(int): RulesHooks.GetScoreIndex_Prefix (prefix) */
+/* TowerFall.TeamReviver.TeamReviver(TowerFall.PlayerCorpse, TowerFall.TeamReviver.Modes): TeamReviverPatch.TeamReviver_ctor (postfix) */
 bool g_on_Hook_185[1];
 int g_calls_Hook_185 = 0;
-void (*g_shell_Hook_185)(Session_GetScoreIndex&) = nullptr;
+void (*g_shell_Hook_185)(TeamReviver_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_185) {
-    static int32_t Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_GetScoreIndex c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* corpse, int32_t mode, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TeamReviver_ctor c{self, corpse, mode, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_185) g_shell_Hook_185(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_185 = false;
 
-/* TowerFall.Session.GotoNextRound(): SessionPatch.Session_GotoNextRound (prefix) */
+/* TowerFall.TeamReviver.FinishReviving(): ReviveHooks.FinishReviving_Postfix (postfix) */
 bool g_on_Hook_186[1];
 int g_calls_Hook_186 = 0;
-void (*g_shell_Hook_186)(Session_GotoNextRound&) = nullptr;
+void (*g_shell_Hook_186)(TeamReviver_FinishReviving&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_186) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_GotoNextRound c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TeamReviver_FinishReviving c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_186) g_shell_Hook_186(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_186 = false;
 
-/* TowerFall.Session.LevelLoadStart(TowerFall.Level): SessionStatePatch.Session_LevelLoadStart (postfix) */
+/* TowerFall.TeamReviver.ReviveUpdate(): TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix (postfix) */
 bool g_on_Hook_187[1];
 int g_calls_Hook_187 = 0;
-void (*g_shell_Hook_187)(Session_LevelLoadStart&) = nullptr;
+void (*g_shell_Hook_187)(TeamReviver_ReviveUpdate&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_187) {
-    static void Callback(void* self, void* level, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_LevelLoadStart c{self, level, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TeamReviver_ReviveUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_187) g_shell_Hook_187(c); else c();
     }
 };
 bool g_installed_Hook_187 = false;
 
-/* TowerFall.Session.StartGame(): SessionPatch.Session_StartGame (prefix), SessionStatePatch.Session_StartGame (prefix), SafetyHooks.StartGame_Postfix (postfix) */
-bool g_on_Hook_188[3];
+/* TowerFall.TechnoMage.TechnoMage(Microsoft.Xna.Framework.Vector2, TowerFall.Facing): TechnoMagePatch.TechnoMage_ctor (postfix) */
+bool g_on_Hook_188[1];
 int g_calls_Hook_188 = 0;
-void (*g_shell_Hook_188)(Session_StartGame&) = nullptr;
+void (*g_shell_Hook_188)(TechnoMage_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_188) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_StartGame c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, int32_t facing, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TechnoMage_ctor c{self, position, facing, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_188) g_shell_Hook_188(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_188 = false;
 
-/* TowerFall.Session.StartRound(): SessionPatch.Session_StartRound (postfix) */
+/* TowerFall.TechnoMage.AlertUpdate(): TechnoMagePatch.TechnoMage_AlertUpdate (prefix) */
 bool g_on_Hook_189[1];
 int g_calls_Hook_189 = 0;
-void (*g_shell_Hook_189)(Session_StartRound&) = nullptr;
+void (*g_shell_Hook_189)(TechnoMage_AlertUpdate&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_189) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Session_StartRound c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TechnoMage_AlertUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_189) g_shell_Hook_189(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_189 = false;
 
-/* TowerFall.ShiftBlock.Update(): ShiftBlockHoldPatch.ShiftBlock_Update (prefix) */
+/* TowerFall.TechnoMage.Update(): TechnoMagePatch.TechnoMage_Update_Postfix (postfix) */
 bool g_on_Hook_190[1];
 int g_calls_Hook_190 = 0;
-void (*g_shell_Hook_190)(ShiftBlock_Update&) = nullptr;
+void (*g_shell_Hook_190)(TechnoMage_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_190) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        ShiftBlock_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        TechnoMage_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_190) g_shell_Hook_190(c); else c();
     }
 };
 bool g_installed_Hook_190 = false;
 
-/* TowerFall.Slime.Slime(Microsoft.Xna.Framework.Vector2, TowerFall.Facing, TowerFall.Slime.SlimeColors): SlimePatch.Slime_ctor (postfix) */
+/* TowerFall.TreasureChest.TreasureChest(Microsoft.Xna.Framework.Vector2, TowerFall.TreasureChest.Types, TowerFall.TreasureChest.AppearModes, TowerFall.Pickups[], int): TreasureChestPatch.TreasureChest_ctor (postfix) */
 bool g_on_Hook_191[1];
 int g_calls_Hook_191 = 0;
-void (*g_shell_Hook_191)(Slime_ctor&) = nullptr;
+void (*g_shell_Hook_191)(TreasureChest_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_191) {
-    static void* Callback(void* self, gen::Vector2 position, int32_t facing, int32_t slimeColor, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Slime_ctor c{self, position, facing, slimeColor, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, int32_t graphic, int32_t mode, void* pickups, int32_t timer, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasureChest_ctor c{self, position, graphic, mode, pickups, timer, x5_, x6_, x7_};
         if (g_shell_Hook_191) g_shell_Hook_191(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_191 = false;
 
-/* TowerFall.Slime.Update(): SlimePatch.Slime_Update_Postfix (postfix) */
+/* TowerFall.TreasureChest.Added(): TreasureChestPatch.TreasureChest_Added_Postfix (postfix) */
 bool g_on_Hook_192[1];
 int g_calls_Hook_192 = 0;
-void (*g_shell_Hook_192)(Slime_Update&) = nullptr;
+void (*g_shell_Hook_192)(TreasureChest_Added&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_192) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Slime_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        TreasureChest_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_192) g_shell_Hook_192(c); else c();
     }
 };
 bool g_installed_Hook_192 = false;
 
-/* TowerFall.Spikeball.Spikeball(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2, bool): SpikeballPatch.Spikeball_ctor_Vector2_Vector2_bool (postfix) */
+/* TowerFall.TreasureChest.OpenChest(int): TreasureChestPatch.TreasureChest_OpenChest_Postfix (postfix) */
 bool g_on_Hook_193[1];
 int g_calls_Hook_193 = 0;
-void (*g_shell_Hook_193)(Spikeball_ctor&) = nullptr;
+void (*g_shell_Hook_193)(TreasureChest_OpenChest&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_193) {
-    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 pivot, bool exploding, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Spikeball_ctor c{self, position, pivot, exploding, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasureChest_OpenChest c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_193) g_shell_Hook_193(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_193 = false;
 
-/* TowerFall.Spikeball.Update(): SpikeballPatch.Spikeball_Update (prefix) */
+/* TowerFall.TreasureChest.Update(): TreasureChestPatch.TreasureChest_Update_Postfix (postfix) */
 bool g_on_Hook_194[1];
 int g_calls_Hook_194 = 0;
-void (*g_shell_Hook_194)(Spikeball_Update&) = nullptr;
+void (*g_shell_Hook_194)(TreasureChest_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_194) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        Spikeball_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        TreasureChest_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_194) g_shell_Hook_194(c); else c();
     }
 };
 bool g_installed_Hook_194 = false;
 
-/* TowerFall.SteelHat.Update(): SteelHatRngPatch.SteelHat_Update_Prefix (prefix), SteelHatRngPatch.SteelHat_Update_Postfix (postfix) */
-bool g_on_Hook_195[2];
+/* TowerFall.TreasurePreview.TreasurePreview(Microsoft.Xna.Framework.Vector2, bool): TreasurePreviewPatch.TreasurePreview_ctor (postfix) */
+bool g_on_Hook_195[1];
 int g_calls_Hook_195 = 0;
-void (*g_shell_Hook_195)(SteelHat_Update&) = nullptr;
+void (*g_shell_Hook_195)(TreasurePreview_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_195) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        SteelHat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, bool isBig, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasurePreview_ctor c{self, position, isBig, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_195) g_shell_Hook_195(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_195 = false;
 
-/* TowerFall.TFGame.Load(): TFGamePatch.TFGame_Load (postfix) */
-bool g_on_Hook_196[1];
+/* TowerFall.TreasureSpawner.TreasureSpawner(TowerFall.Session, int[], float, bool): TreasureSpawnerPatch.TreasureSpawner_ctor_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_ctor_Finalizer (finalizer) */
+bool g_on_Hook_196[2];
 int g_calls_Hook_196 = 0;
-void (*g_shell_Hook_196)(TFGame_Load&) = nullptr;
+void (*g_shell_Hook_196)(TreasureSpawner_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_196) {
-    static void Callback(uint64_t x0_, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TFGame_Load c{x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* session, void* mask, float arrowChance, bool arrowShuffle, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasureSpawner_ctor c{self, session, mask, arrowChance, arrowShuffle, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_196) g_shell_Hook_196(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_196 = false;
 
-/* TowerFall.TFGame.OnSceneTransition(): TFGamePatch.TFGame_OnSceneTransition (postfix) */
-bool g_on_Hook_197[1];
+/* TowerFall.TreasureSpawner.GetArrowShufflePickups(): TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Postfix (postfix), TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Finalizer (finalizer) */
+bool g_on_Hook_197[3];
 int g_calls_Hook_197 = 0;
-void (*g_shell_Hook_197)(TFGame_OnSceneTransition&) = nullptr;
+void (*g_shell_Hook_197)(TreasureSpawner_GetArrowShufflePickups&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_197) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TFGame_OnSceneTransition c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasureSpawner_GetArrowShufflePickups c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_197) g_shell_Hook_197(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_197 = false;
 
-/* TowerFall.TFGame.Update(Microsoft.Xna.Framework.GameTime): TFGamePatch.TFGameUpdate_Patch (prefix), MyTFGame.Update_patch (prefix), MyTFGame.Update_prefix (prefix), MyTFGame.Update_patch_prefix (prefix) */
-bool g_on_Hook_198[4];
+/* TowerFall.TreasureSpawner.GetChestSpawnsForLevel(System.Collections.Generic.List<Microsoft.Xna.Framework.Vector2>, System.Collections.Generic.List<Microsoft.Xna.Framework.Vector2>): TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Finalizer (finalizer) */
+bool g_on_Hook_198[2];
 int g_calls_Hook_198 = 0;
-void (*g_shell_Hook_198)(TFGame_Update&) = nullptr;
+void (*g_shell_Hook_198)(TreasureSpawner_GetChestSpawnsForLevel&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_198) {
-    static void Callback(void* self, void* gameTime, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TFGame_Update c{self, gameTime, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* chestPositions, void* bigChestPositions, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasureSpawner_GetChestSpawnsForLevel c{self, chestPositions, bigChestPositions, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_198) g_shell_Hook_198(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_198 = false;
 
-/* TowerFall.TeamReviver.TeamReviver(TowerFall.PlayerCorpse, TowerFall.TeamReviver.Modes): TeamReviverPatch.TeamReviver_ctor (postfix) */
-bool g_on_Hook_199[1];
+/* TowerFall.TreasureSpawner.GetRandomArrowType(bool): TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Finalizer (finalizer) */
+bool g_on_Hook_199[2];
 int g_calls_Hook_199 = 0;
-void (*g_shell_Hook_199)(TeamReviver_ctor&) = nullptr;
+void (*g_shell_Hook_199)(TreasureSpawner_GetRandomArrowType&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_199) {
-    static void* Callback(void* self, void* corpse, int32_t mode, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TeamReviver_ctor c{self, corpse, mode, x3_, x4_, x5_, x6_, x7_};
+    static int32_t Callback(void* self, bool includeDefaultArrows, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TreasureSpawner_GetRandomArrowType c{self, includeDefaultArrows, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_199) g_shell_Hook_199(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_199 = false;
 
-/* TowerFall.TeamReviver.FinishReviving(): ReviveHooks.FinishReviving_Postfix (postfix) */
-bool g_on_Hook_200[1];
+/* TowerFall.TriggerArrow.PlayEyeAnim(): TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Prefix (prefix), TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Postfix (postfix) */
+bool g_on_Hook_200[2];
 int g_calls_Hook_200 = 0;
-void (*g_shell_Hook_200)(TeamReviver_FinishReviving&) = nullptr;
+void (*g_shell_Hook_200)(TriggerArrow_PlayEyeAnim&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_200) {
-    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TeamReviver_FinishReviving c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        TriggerArrow_PlayEyeAnim c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_200) g_shell_Hook_200(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_200 = false;
 
-/* TowerFall.TeamReviver.ReviveUpdate(): TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix (postfix) */
+/* TowerFall.UnlockData.ShouldOpenPurpleArcherPortal.get: UnlockDataPatch.UnlockData_ShouldOpenPurpleArcherPortal_Prefix (prefix) */
 bool g_on_Hook_201[1];
 int g_calls_Hook_201 = 0;
-void (*g_shell_Hook_201)(TeamReviver_ReviveUpdate&) = nullptr;
+void (*g_shell_Hook_201)(UnlockData_get_ShouldOpenPurpleArcherPortal&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_201) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TeamReviver_ReviveUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        UnlockData_get_ShouldOpenPurpleArcherPortal c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_201) g_shell_Hook_201(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_201 = false;
 
-/* TowerFall.TechnoMage.TechnoMage(Microsoft.Xna.Framework.Vector2, TowerFall.Facing): TechnoMagePatch.TechnoMage_ctor (postfix) */
+/* TowerFall.UnlockData.ShouldSelectSunkenCity.get: UnlockDataPatch.UnlockData_ShouldSelectSunkenCity_Prefix (prefix) */
 bool g_on_Hook_202[1];
 int g_calls_Hook_202 = 0;
-void (*g_shell_Hook_202)(TechnoMage_ctor&) = nullptr;
+void (*g_shell_Hook_202)(UnlockData_get_ShouldSelectSunkenCity&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_202) {
-    static void* Callback(void* self, gen::Vector2 position, int32_t facing, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TechnoMage_ctor c{self, position, facing, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        UnlockData_get_ShouldSelectSunkenCity c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_202) g_shell_Hook_202(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_202 = false;
 
-/* TowerFall.TechnoMage.AlertUpdate(): TechnoMagePatch.TechnoMage_AlertUpdate (prefix) */
+/* TowerFall.UnlockData.ShouldSelectTowerForgeInVersus.get: UnlockDataPatch.UnlockData_ShouldSelectTowerForgeInVersus_Prefix (prefix) */
 bool g_on_Hook_203[1];
 int g_calls_Hook_203 = 0;
-void (*g_shell_Hook_203)(TechnoMage_AlertUpdate&) = nullptr;
+void (*g_shell_Hook_203)(UnlockData_get_ShouldSelectTowerForgeInVersus&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_203) {
-    static int32_t Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TechnoMage_AlertUpdate c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        UnlockData_get_ShouldSelectTowerForgeInVersus c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_203) g_shell_Hook_203(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_203 = false;
 
-/* TowerFall.TechnoMage.Update(): TechnoMagePatch.TechnoMage_Update_Postfix (postfix) */
+/* TowerFall.UnlockData.ShouldShowMoonBreakSequence.get: UnlockDataPatch.UnlockData_ShouldShowMoonBreakSequence_Prefix (prefix) */
 bool g_on_Hook_204[1];
 int g_calls_Hook_204 = 0;
-void (*g_shell_Hook_204)(TechnoMage_Update&) = nullptr;
+void (*g_shell_Hook_204)(UnlockData_get_ShouldShowMoonBreakSequence&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_204) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TechnoMage_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        UnlockData_get_ShouldShowMoonBreakSequence c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_204) g_shell_Hook_204(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_204 = false;
 
-/* TowerFall.TreasureChest.TreasureChest(Microsoft.Xna.Framework.Vector2, TowerFall.TreasureChest.Types, TowerFall.TreasureChest.AppearModes, TowerFall.Pickups[], int): TreasureChestPatch.TreasureChest_ctor (postfix) */
+/* TowerFall.VariantDisableAll.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
 bool g_on_Hook_205[1];
 int g_calls_Hook_205 = 0;
-void (*g_shell_Hook_205)(TreasureChest_ctor&) = nullptr;
+void (*g_shell_Hook_205)(VariantDisableAll_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_205) {
-    static void* Callback(void* self, gen::Vector2 position, int32_t graphic, int32_t mode, void* pickups, int32_t timer, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureChest_ctor c{self, position, graphic, mode, pickups, timer, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantDisableAll_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_205) g_shell_Hook_205(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_205 = false;
 
-/* TowerFall.TreasureChest.Added(): TreasureChestPatch.TreasureChest_Added_Postfix (postfix) */
+/* TowerFall.VariantDisableAll.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
 bool g_on_Hook_206[1];
 int g_calls_Hook_206 = 0;
-void (*g_shell_Hook_206)(TreasureChest_Added&) = nullptr;
+void (*g_shell_Hook_206)(VariantDisableAll_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_206) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureChest_Added c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VariantDisableAll_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_206) g_shell_Hook_206(c); else c();
     }
 };
 bool g_installed_Hook_206 = false;
 
-/* TowerFall.TreasureChest.OpenChest(int): TreasureChestPatch.TreasureChest_OpenChest_Postfix (postfix) */
+/* TowerFall.VariantPreset.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
 bool g_on_Hook_207[1];
 int g_calls_Hook_207 = 0;
-void (*g_shell_Hook_207)(TreasureChest_OpenChest&) = nullptr;
+void (*g_shell_Hook_207)(VariantPreset_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_207) {
-    static void Callback(void* self, int32_t playerIndex, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureChest_OpenChest c{self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantPreset_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_207) g_shell_Hook_207(c); else c();
     }
 };
 bool g_installed_Hook_207 = false;
 
-/* TowerFall.TreasureChest.Update(): TreasureChestPatch.TreasureChest_Update_Postfix (postfix) */
+/* TowerFall.VariantPreset.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
 bool g_on_Hook_208[1];
 int g_calls_Hook_208 = 0;
-void (*g_shell_Hook_208)(TreasureChest_Update&) = nullptr;
+void (*g_shell_Hook_208)(VariantPreset_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_208) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureChest_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VariantPreset_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_208) g_shell_Hook_208(c); else c();
     }
 };
 bool g_installed_Hook_208 = false;
 
-/* TowerFall.TreasurePreview.TreasurePreview(Microsoft.Xna.Framework.Vector2, bool): TreasurePreviewPatch.TreasurePreview_ctor (postfix) */
+/* TowerFall.VariantRandomize.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
 bool g_on_Hook_209[1];
 int g_calls_Hook_209 = 0;
-void (*g_shell_Hook_209)(TreasurePreview_ctor&) = nullptr;
+void (*g_shell_Hook_209)(VariantRandomize_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_209) {
-    static void* Callback(void* self, gen::Vector2 position, bool isBig, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasurePreview_ctor c{self, position, isBig, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantRandomize_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_209) g_shell_Hook_209(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_209 = false;
 
-/* TowerFall.TreasureSpawner.TreasureSpawner(TowerFall.Session, int[], float, bool): TreasureSpawnerPatch.TreasureSpawner_ctor_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_ctor_Finalizer (finalizer) */
-bool g_on_Hook_210[2];
+/* TowerFall.VariantRandomize.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
+bool g_on_Hook_210[1];
 int g_calls_Hook_210 = 0;
-void (*g_shell_Hook_210)(TreasureSpawner_ctor&) = nullptr;
+void (*g_shell_Hook_210)(VariantRandomize_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_210) {
-    static void* Callback(void* self, void* session, void* mask, float arrowChance, bool arrowShuffle, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureSpawner_ctor c{self, session, mask, arrowChance, arrowShuffle, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantRandomize_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_210) g_shell_Hook_210(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_210 = false;
 
-/* TowerFall.TreasureSpawner.GetArrowShufflePickups(): TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Postfix (postfix), TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Finalizer (finalizer) */
-bool g_on_Hook_211[3];
+/* TowerFall.VariantToggle.OnConfirm(): VariantTogglePatch.VariantToggle_OnConfirm (prefix) */
+bool g_on_Hook_211[1];
 int g_calls_Hook_211 = 0;
-void (*g_shell_Hook_211)(TreasureSpawner_GetArrowShufflePickups&) = nullptr;
+void (*g_shell_Hook_211)(VariantToggle_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_211) {
-    static void* Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureSpawner_GetArrowShufflePickups c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantToggle_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_211) g_shell_Hook_211(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_211 = false;
 
-/* TowerFall.TreasureSpawner.GetChestSpawnsForLevel(System.Collections.Generic.List<Microsoft.Xna.Framework.Vector2>, System.Collections.Generic.List<Microsoft.Xna.Framework.Vector2>): TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Finalizer (finalizer) */
-bool g_on_Hook_212[2];
+/* TowerFall.VariantToggle.Render(): VariantTogglePatch.VariantToggle_Render (postfix) */
+bool g_on_Hook_212[1];
 int g_calls_Hook_212 = 0;
-void (*g_shell_Hook_212)(TreasureSpawner_GetChestSpawnsForLevel&) = nullptr;
+void (*g_shell_Hook_212)(VariantToggle_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_212) {
-    static void* Callback(void* self, void* chestPositions, void* bigChestPositions, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureSpawner_GetChestSpawnsForLevel c{self, chestPositions, bigChestPositions, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantToggle_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_212) g_shell_Hook_212(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_212 = false;
 
-/* TowerFall.TreasureSpawner.GetRandomArrowType(bool): TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Prefix (prefix), TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Finalizer (finalizer) */
-bool g_on_Hook_213[2];
+/* TowerFall.VariantToggle.ShowPerPlayer(): VariantTogglePatch.VariantToggle_ShowPerPlayer (prefix) */
+bool g_on_Hook_213[1];
 int g_calls_Hook_213 = 0;
-void (*g_shell_Hook_213)(TreasureSpawner_GetRandomArrowType&) = nullptr;
+void (*g_shell_Hook_213)(VariantToggle_ShowPerPlayer&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_213) {
-    static int32_t Callback(void* self, bool includeDefaultArrows, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TreasureSpawner_GetRandomArrowType c{self, includeDefaultArrows, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantToggle_ShowPerPlayer c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_213) g_shell_Hook_213(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_213 = false;
 
-/* TowerFall.TriggerArrow.PlayEyeAnim(): TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Prefix (prefix), TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Postfix (postfix) */
-bool g_on_Hook_214[2];
+/* TowerFall.VariantTournament1v1.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
+bool g_on_Hook_214[1];
 int g_calls_Hook_214 = 0;
-void (*g_shell_Hook_214)(TriggerArrow_PlayEyeAnim&) = nullptr;
+void (*g_shell_Hook_214)(VariantTournament1v1_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_214) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        TriggerArrow_PlayEyeAnim c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VariantTournament1v1_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_214) g_shell_Hook_214(c); else c();
     }
 };
 bool g_installed_Hook_214 = false;
 
-/* TowerFall.UnlockData.ShouldOpenPurpleArcherPortal.get: UnlockDataPatch.UnlockData_ShouldOpenPurpleArcherPortal_Prefix (prefix) */
+/* TowerFall.VariantTournament1v1.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
 bool g_on_Hook_215[1];
 int g_calls_Hook_215 = 0;
-void (*g_shell_Hook_215)(UnlockData_get_ShouldOpenPurpleArcherPortal&) = nullptr;
+void (*g_shell_Hook_215)(VariantTournament1v1_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_215) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        UnlockData_get_ShouldOpenPurpleArcherPortal c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantTournament1v1_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_215) g_shell_Hook_215(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_215 = false;
 
-/* TowerFall.UnlockData.ShouldSelectSunkenCity.get: UnlockDataPatch.UnlockData_ShouldSelectSunkenCity_Prefix (prefix) */
+/* TowerFall.VariantTournament2v2.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
 bool g_on_Hook_216[1];
 int g_calls_Hook_216 = 0;
-void (*g_shell_Hook_216)(UnlockData_get_ShouldSelectSunkenCity&) = nullptr;
+void (*g_shell_Hook_216)(VariantTournament2v2_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_216) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        UnlockData_get_ShouldSelectSunkenCity c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantTournament2v2_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_216) g_shell_Hook_216(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_216 = false;
 
-/* TowerFall.UnlockData.ShouldSelectTowerForgeInVersus.get: UnlockDataPatch.UnlockData_ShouldSelectTowerForgeInVersus_Prefix (prefix) */
+/* TowerFall.VariantTournament2v2.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
 bool g_on_Hook_217[1];
 int g_calls_Hook_217 = 0;
-void (*g_shell_Hook_217)(UnlockData_get_ShouldSelectTowerForgeInVersus&) = nullptr;
+void (*g_shell_Hook_217)(VariantTournament2v2_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_217) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        UnlockData_get_ShouldSelectTowerForgeInVersus c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VariantTournament2v2_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_217) g_shell_Hook_217(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_217 = false;
 
-/* TowerFall.UnlockData.ShouldShowMoonBreakSequence.get: UnlockDataPatch.UnlockData_ShouldShowMoonBreakSequence_Prefix (prefix) */
-bool g_on_Hook_218[1];
+/* TowerFall.VersusAwards.GetAwards(TowerFall.MatchSettings, TowerFall.MatchStats[]): VersusAwardsPatch.VersusAwards_GetAwards_Prefix (prefix), VersusAwardsPatch.VersusAwards_GetAwards_Finalizer (finalizer) */
+bool g_on_Hook_218[2];
 int g_calls_Hook_218 = 0;
-void (*g_shell_Hook_218)(UnlockData_get_ShouldShowMoonBreakSequence&) = nullptr;
+void (*g_shell_Hook_218)(VersusAwards_GetAwards&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_218) {
-    static bool Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        UnlockData_get_ShouldShowMoonBreakSequence c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* settings, void* stats, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusAwards_GetAwards c{settings, stats, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_218) g_shell_Hook_218(c); else c();
         return c.result_;
     }
 };
 bool g_installed_Hook_218 = false;
 
-/* TowerFall.VariantDisableAll.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
+/* TowerFall.VersusBeginButton.VersusBeginButton(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2): VersusBeginButtonPatch.VersusBeginButton_ctor (postfix) */
 bool g_on_Hook_219[1];
 int g_calls_Hook_219 = 0;
-void (*g_shell_Hook_219)(VariantDisableAll_OnConfirm&) = nullptr;
+void (*g_shell_Hook_219)(VersusBeginButton_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_219) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantDisableAll_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 tweenFrom, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusBeginButton_ctor c{self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_219) g_shell_Hook_219(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_219 = false;
 
-/* TowerFall.VariantDisableAll.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
+/* TowerFall.VersusBeginButton.OnConfirm(): VersusBeginButtonPatch.VersusBeginButton_OnConfirm (prefix) */
 bool g_on_Hook_220[1];
 int g_calls_Hook_220 = 0;
-void (*g_shell_Hook_220)(VariantDisableAll_Render&) = nullptr;
+void (*g_shell_Hook_220)(VersusBeginButton_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_220) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantDisableAll_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VersusBeginButton_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_220) g_shell_Hook_220(c); else c();
     }
 };
 bool g_installed_Hook_220 = false;
 
-/* TowerFall.VariantPreset.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
+/* TowerFall.VersusCoinButton.Render(): VersusCoinButtonPatch.VersusCoinButton_Render (prefix) */
 bool g_on_Hook_221[1];
 int g_calls_Hook_221 = 0;
-void (*g_shell_Hook_221)(VariantPreset_OnConfirm&) = nullptr;
+void (*g_shell_Hook_221)(VersusCoinButton_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_221) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantPreset_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VersusCoinButton_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_221) g_shell_Hook_221(c); else c();
     }
 };
 bool g_installed_Hook_221 = false;
 
-/* TowerFall.VariantPreset.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
+/* TowerFall.VersusLevelSystem.GenLevels(TowerFall.MatchSettings): VersusLevelSystemPatch.VersusLevelSystem_GenLevels (prefix) */
 bool g_on_Hook_222[1];
 int g_calls_Hook_222 = 0;
-void (*g_shell_Hook_222)(VariantPreset_Render&) = nullptr;
+void (*g_shell_Hook_222)(VersusLevelSystem_GenLevels&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_222) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantPreset_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, void* matchSettings, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusLevelSystem_GenLevels c{self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_222) g_shell_Hook_222(c); else c();
     }
 };
 bool g_installed_Hook_222 = false;
 
-/* TowerFall.VariantRandomize.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
-bool g_on_Hook_223[1];
+/* TowerFall.VersusMatchResults.VersusMatchResults(TowerFall.Session, TowerFall.VersusRoundResults): VersusMatchResultsPatch.VersusMatchResults_ctor_Prefix (prefix), VersusMatchResultsPatch.VersusMatchResults_ctor (postfix) */
+bool g_on_Hook_223[2];
 int g_calls_Hook_223 = 0;
-void (*g_shell_Hook_223)(VariantRandomize_OnConfirm&) = nullptr;
+void (*g_shell_Hook_223)(VersusMatchResults_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_223) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantRandomize_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* session, void* roundResults, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusMatchResults_ctor c{self, session, roundResults, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_223) g_shell_Hook_223(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_223 = false;
 
-/* TowerFall.VariantRandomize.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
+/* TowerFall.VersusModeButton.VersusModeButton(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2): patch_VersusModeButton.Create (postfix) */
 bool g_on_Hook_224[1];
 int g_calls_Hook_224 = 0;
-void (*g_shell_Hook_224)(VariantRandomize_Render&) = nullptr;
+void (*g_shell_Hook_224)(VersusModeButton_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_224) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantRandomize_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 tweenFrom, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusModeButton_ctor c{self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_224) g_shell_Hook_224(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_224 = false;
 
-/* TowerFall.VariantToggle.OnConfirm(): VariantTogglePatch.VariantToggle_OnConfirm (prefix) */
+/* TowerFall.VersusModeButton.GetModeIcon(TowerFall.Modes): patch_VersusModeButton.GetModeIcon (replace) */
 bool g_on_Hook_225[1];
 int g_calls_Hook_225 = 0;
-void (*g_shell_Hook_225)(VariantToggle_OnConfirm&) = nullptr;
+void (*g_shell_Hook_225)(VersusModeButton_GetModeIcon&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_225) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantToggle_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(int32_t mode, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusModeButton_GetModeIcon c{mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_225) g_shell_Hook_225(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_225 = false;
 
-/* TowerFall.VariantToggle.OnSelect(): MyVariantToggle.OnSelect_patch (postfix) */
+/* TowerFall.VersusModeButton.GetModeName(TowerFall.Modes): patch_VersusModeButton.GetModeName (replace) */
 bool g_on_Hook_226[1];
 int g_calls_Hook_226 = 0;
-void (*g_shell_Hook_226)(VariantToggle_OnSelect&) = nullptr;
+void (*g_shell_Hook_226)(VersusModeButton_GetModeName&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_226) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantToggle_OnSelect c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(int32_t mode, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusModeButton_GetModeName c{mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_226) g_shell_Hook_226(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_226 = false;
 
-/* TowerFall.VariantToggle.Render(): VariantTogglePatch.VariantToggle_Render (postfix) */
-bool g_on_Hook_227[1];
+/* TowerFall.VersusModeButton.Update(): VersusModeButtonPatch.VersusModeButton_Update_Prefix (prefix), VersusModeButtonPatch.VersusModeButton_Update_Postfix (postfix), patch_VersusModeButton.Update (replace) */
+bool g_on_Hook_227[3];
 int g_calls_Hook_227 = 0;
-void (*g_shell_Hook_227)(VariantToggle_Render&) = nullptr;
+void (*g_shell_Hook_227)(VersusModeButton_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_227) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantToggle_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VersusModeButton_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_227) g_shell_Hook_227(c); else c();
     }
 };
 bool g_installed_Hook_227 = false;
 
-/* TowerFall.VariantToggle.ShowPerPlayer(): VariantTogglePatch.VariantToggle_ShowPerPlayer (prefix) */
+/* TowerFall.VersusModeButton.UpdateSides(): patch_VersusModeButton.UpdateSides (replace) */
 bool g_on_Hook_228[1];
 int g_calls_Hook_228 = 0;
-void (*g_shell_Hook_228)(VariantToggle_ShowPerPlayer&) = nullptr;
+void (*g_shell_Hook_228)(VersusModeButton_UpdateSides&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_228) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantToggle_ShowPerPlayer c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VersusModeButton_UpdateSides c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_228) g_shell_Hook_228(c); else c();
     }
 };
 bool g_installed_Hook_228 = false;
 
-/* TowerFall.VariantToggle.Update(): MyVariantToggle.Update_patch (postfix) */
-bool g_on_Hook_229[1];
+/* TowerFall.VersusPlayerMatchResults.VersusPlayerMatchResults(TowerFall.Session, TowerFall.VersusMatchResults, int, Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2, System.Collections.Generic.List<TowerFall.AwardInfo>): VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Prefix (prefix), VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Finalizer (finalizer), VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_ctor (postfix) */
+bool g_on_Hook_229[3];
 int g_calls_Hook_229 = 0;
-void (*g_shell_Hook_229)(VariantToggle_Update&) = nullptr;
+void (*g_shell_Hook_229)(VersusPlayerMatchResults_ctor&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_229) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantToggle_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* session, void* matchResults, int32_t playerIndex, gen::Vector2 tweenFrom, gen::Vector2 tweenTo, void* awards, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusPlayerMatchResults_ctor c{self, session, matchResults, playerIndex, tweenFrom, tweenTo, awards, x5_, x6_, x7_};
         if (g_shell_Hook_229) g_shell_Hook_229(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_229 = false;
 
-/* TowerFall.VariantTournament1v1.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
+/* TowerFall.VersusTowerData.GetLevels(TowerFall.MatchSettings): LevelHooks.GetLevels_Prefix (prefix) */
 bool g_on_Hook_230[1];
 int g_calls_Hook_230 = 0;
-void (*g_shell_Hook_230)(VariantTournament1v1_OnConfirm&) = nullptr;
+void (*g_shell_Hook_230)(VersusTowerData_GetLevels&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_230) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantTournament1v1_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* self, void* matchSettings, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        VersusTowerData_GetLevels c{self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_230) g_shell_Hook_230(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_230 = false;
 
-/* TowerFall.VariantTournament1v1.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
+/* TowerFall.VersusVariantsButton.OnConfirm(): VersusVariantButtonPatch.VersusVariantsButton_OnConfirm (prefix) */
 bool g_on_Hook_231[1];
 int g_calls_Hook_231 = 0;
-void (*g_shell_Hook_231)(VariantTournament1v1_Render&) = nullptr;
+void (*g_shell_Hook_231)(VersusVariantsButton_OnConfirm&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_231) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantTournament1v1_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VersusVariantsButton_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_231) g_shell_Hook_231(c); else c();
     }
 };
 bool g_installed_Hook_231 = false;
 
-/* TowerFall.VariantTournament2v2.OnConfirm(): VariantButtonConfirmPatch.VariantButton_OnConfirm (prefix) */
+/* TowerFall.VersusVariantsButton.Render(): VersusVariantButtonPatch.VersusVariantsButton_Render (prefix) */
 bool g_on_Hook_232[1];
 int g_calls_Hook_232 = 0;
-void (*g_shell_Hook_232)(VariantTournament2v2_OnConfirm&) = nullptr;
+void (*g_shell_Hook_232)(VersusVariantsButton_Render&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_232) {
     static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantTournament2v2_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+        VersusVariantsButton_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_232) g_shell_Hook_232(c); else c();
     }
 };
 bool g_installed_Hook_232 = false;
 
-/* TowerFall.VariantTournament2v2.Render(): VariantButtonRenderPatch.VariantButton_Render (postfix) */
+/* TowerFall.WhiteArcherPrison.Spawn(System.Xml.XmlElement): WhiteArcherPrisonPatch.WhiteArcherPrison_Spawn (prefix) */
 bool g_on_Hook_233[1];
 int g_calls_Hook_233 = 0;
-void (*g_shell_Hook_233)(VariantTournament2v2_Render&) = nullptr;
+void (*g_shell_Hook_233)(WhiteArcherPrison_Spawn&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_233) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VariantTournament2v2_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void* Callback(void* xml, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        WhiteArcherPrison_Spawn c{xml, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_233) g_shell_Hook_233(c); else c();
+        return c.result_;
     }
 };
 bool g_installed_Hook_233 = false;
 
-/* TowerFall.VersusAwards.GetAwards(TowerFall.MatchSettings, TowerFall.MatchStats[]): VersusAwardsPatch.VersusAwards_GetAwards_Prefix (prefix), VersusAwardsPatch.VersusAwards_GetAwards_Finalizer (finalizer) */
+/* TowerFall.WoodenHat.Update(): WoodenHatRngPatch.WoodenHat_Update_Prefix (prefix), WoodenHatRngPatch.WoodenHat_Update_Postfix (postfix) */
 bool g_on_Hook_234[2];
 int g_calls_Hook_234 = 0;
-void (*g_shell_Hook_234)(VersusAwards_GetAwards&) = nullptr;
+void (*g_shell_Hook_234)(WoodenHat_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_234) {
-    static void* Callback(void* settings, void* stats, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusAwards_GetAwards c{settings, stats, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        WoodenHat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_234) g_shell_Hook_234(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_234 = false;
 
-/* TowerFall.VersusBeginButton.VersusBeginButton(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2): VersusBeginButtonPatch.VersusBeginButton_ctor (postfix) */
+/* TowerFall.YellowArcherStatue.Update(): YellowArcherStatuePatch.YellowArcherStatue_Update (prefix) */
 bool g_on_Hook_235[1];
 int g_calls_Hook_235 = 0;
-void (*g_shell_Hook_235)(VersusBeginButton_ctor&) = nullptr;
+void (*g_shell_Hook_235)(YellowArcherStatue_Update&) = nullptr;
 HOOK_DEFINE_TRAMPOLINE(Hook_235) {
-    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 tweenFrom, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusBeginButton_ctor c{self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
+    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
+        YellowArcherStatue_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
         if (g_shell_Hook_235) g_shell_Hook_235(c); else c();
-        return c.result_;
     }
 };
 bool g_installed_Hook_235 = false;
-
-/* TowerFall.VersusBeginButton.OnConfirm(): VersusBeginButtonPatch.VersusBeginButton_OnConfirm (prefix) */
-bool g_on_Hook_236[1];
-int g_calls_Hook_236 = 0;
-void (*g_shell_Hook_236)(VersusBeginButton_OnConfirm&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_236) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusBeginButton_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_236) g_shell_Hook_236(c); else c();
-    }
-};
-bool g_installed_Hook_236 = false;
-
-/* TowerFall.VersusCoinButton.Render(): VersusCoinButtonPatch.VersusCoinButton_Render (prefix) */
-bool g_on_Hook_237[1];
-int g_calls_Hook_237 = 0;
-void (*g_shell_Hook_237)(VersusCoinButton_Render&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_237) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusCoinButton_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_237) g_shell_Hook_237(c); else c();
-    }
-};
-bool g_installed_Hook_237 = false;
-
-/* TowerFall.VersusLevelSystem.GenLevels(TowerFall.MatchSettings): VersusLevelSystemPatch.VersusLevelSystem_GenLevels (prefix) */
-bool g_on_Hook_238[1];
-int g_calls_Hook_238 = 0;
-void (*g_shell_Hook_238)(VersusLevelSystem_GenLevels&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_238) {
-    static void Callback(void* self, void* matchSettings, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusLevelSystem_GenLevels c{self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_238) g_shell_Hook_238(c); else c();
-    }
-};
-bool g_installed_Hook_238 = false;
-
-/* TowerFall.VersusMapButton.OnConfirm(): MyVersusModeButton.MapConfirm_patch (prefix) */
-bool g_on_Hook_239[1];
-int g_calls_Hook_239 = 0;
-void (*g_shell_Hook_239)(VersusMapButton_OnConfirm&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_239) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusMapButton_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_239) g_shell_Hook_239(c); else c();
-    }
-};
-bool g_installed_Hook_239 = false;
-
-/* TowerFall.VersusMatchResults.VersusMatchResults(TowerFall.Session, TowerFall.VersusRoundResults): VersusMatchResultsPatch.VersusMatchResults_ctor_Prefix (prefix), VersusMatchResultsPatch.VersusMatchResults_ctor (postfix) */
-bool g_on_Hook_240[2];
-int g_calls_Hook_240 = 0;
-void (*g_shell_Hook_240)(VersusMatchResults_ctor&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_240) {
-    static void* Callback(void* self, void* session, void* roundResults, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusMatchResults_ctor c{self, session, roundResults, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_240) g_shell_Hook_240(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_240 = false;
-
-/* TowerFall.VersusModeButton.VersusModeButton(Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2): patch_VersusModeButton.Create (postfix) */
-bool g_on_Hook_241[1];
-int g_calls_Hook_241 = 0;
-void (*g_shell_Hook_241)(VersusModeButton_ctor&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_241) {
-    static void* Callback(void* self, gen::Vector2 position, gen::Vector2 tweenFrom, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusModeButton_ctor c{self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_241) g_shell_Hook_241(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_241 = false;
-
-/* TowerFall.VersusModeButton.GetModeIcon(TowerFall.Modes): patch_VersusModeButton.GetModeIcon (replace) */
-bool g_on_Hook_242[1];
-int g_calls_Hook_242 = 0;
-void (*g_shell_Hook_242)(VersusModeButton_GetModeIcon&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_242) {
-    static void* Callback(int32_t mode, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusModeButton_GetModeIcon c{mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_242) g_shell_Hook_242(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_242 = false;
-
-/* TowerFall.VersusModeButton.GetModeName(TowerFall.Modes): patch_VersusModeButton.GetModeName (replace) */
-bool g_on_Hook_243[1];
-int g_calls_Hook_243 = 0;
-void (*g_shell_Hook_243)(VersusModeButton_GetModeName&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_243) {
-    static void* Callback(int32_t mode, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusModeButton_GetModeName c{mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_243) g_shell_Hook_243(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_243 = false;
-
-/* TowerFall.VersusModeButton.Render(): MyVersusModeButton.Render_patch (postfix) */
-bool g_on_Hook_244[1];
-int g_calls_Hook_244 = 0;
-void (*g_shell_Hook_244)(VersusModeButton_Render&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_244) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusModeButton_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_244) g_shell_Hook_244(c); else c();
-    }
-};
-bool g_installed_Hook_244 = false;
-
-/* TowerFall.VersusModeButton.Update(): VersusModeButtonPatch.VersusModeButton_Update_Prefix (prefix), VersusModeButtonPatch.VersusModeButton_Update_Postfix (postfix), patch_VersusModeButton.Update (replace), MyVersusModeButton.Update_patch (prefix) */
-bool g_on_Hook_245[4];
-int g_calls_Hook_245 = 0;
-void (*g_shell_Hook_245)(VersusModeButton_Update&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_245) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusModeButton_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_245) g_shell_Hook_245(c); else c();
-    }
-};
-bool g_installed_Hook_245 = false;
-
-/* TowerFall.VersusModeButton.UpdateSides(): patch_VersusModeButton.UpdateSides (replace) */
-bool g_on_Hook_246[1];
-int g_calls_Hook_246 = 0;
-void (*g_shell_Hook_246)(VersusModeButton_UpdateSides&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_246) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusModeButton_UpdateSides c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_246) g_shell_Hook_246(c); else c();
-    }
-};
-bool g_installed_Hook_246 = false;
-
-/* TowerFall.VersusPlayerMatchResults.VersusPlayerMatchResults(TowerFall.Session, TowerFall.VersusMatchResults, int, Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Vector2, System.Collections.Generic.List<TowerFall.AwardInfo>): VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Prefix (prefix), VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Finalizer (finalizer), VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_ctor (postfix) */
-bool g_on_Hook_247[3];
-int g_calls_Hook_247 = 0;
-void (*g_shell_Hook_247)(VersusPlayerMatchResults_ctor&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_247) {
-    static void* Callback(void* self, void* session, void* matchResults, int32_t playerIndex, gen::Vector2 tweenFrom, gen::Vector2 tweenTo, void* awards, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusPlayerMatchResults_ctor c{self, session, matchResults, playerIndex, tweenFrom, tweenTo, awards, x5_, x6_, x7_};
-        if (g_shell_Hook_247) g_shell_Hook_247(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_247 = false;
-
-/* TowerFall.VersusTowerData.GetLevels(TowerFall.MatchSettings): LevelHooks.GetLevels_Prefix (prefix) */
-bool g_on_Hook_248[1];
-int g_calls_Hook_248 = 0;
-void (*g_shell_Hook_248)(VersusTowerData_GetLevels&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_248) {
-    static void* Callback(void* self, void* matchSettings, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusTowerData_GetLevels c{self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_248) g_shell_Hook_248(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_248 = false;
-
-/* TowerFall.VersusVariantsButton.OnConfirm(): VersusVariantButtonPatch.VersusVariantsButton_OnConfirm (prefix) */
-bool g_on_Hook_249[1];
-int g_calls_Hook_249 = 0;
-void (*g_shell_Hook_249)(VersusVariantsButton_OnConfirm&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_249) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusVariantsButton_OnConfirm c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_249) g_shell_Hook_249(c); else c();
-    }
-};
-bool g_installed_Hook_249 = false;
-
-/* TowerFall.VersusVariantsButton.Render(): VersusVariantButtonPatch.VersusVariantsButton_Render (prefix) */
-bool g_on_Hook_250[1];
-int g_calls_Hook_250 = 0;
-void (*g_shell_Hook_250)(VersusVariantsButton_Render&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_250) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        VersusVariantsButton_Render c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_250) g_shell_Hook_250(c); else c();
-    }
-};
-bool g_installed_Hook_250 = false;
-
-/* TowerFall.WhiteArcherPrison.Spawn(System.Xml.XmlElement): WhiteArcherPrisonPatch.WhiteArcherPrison_Spawn (prefix) */
-bool g_on_Hook_251[1];
-int g_calls_Hook_251 = 0;
-void (*g_shell_Hook_251)(WhiteArcherPrison_Spawn&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_251) {
-    static void* Callback(void* xml, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        WhiteArcherPrison_Spawn c{xml, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_251) g_shell_Hook_251(c); else c();
-        return c.result_;
-    }
-};
-bool g_installed_Hook_251 = false;
-
-/* TowerFall.WoodenHat.Update(): WoodenHatRngPatch.WoodenHat_Update_Prefix (prefix), WoodenHatRngPatch.WoodenHat_Update_Postfix (postfix) */
-bool g_on_Hook_252[2];
-int g_calls_Hook_252 = 0;
-void (*g_shell_Hook_252)(WoodenHat_Update&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_252) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        WoodenHat_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_252) g_shell_Hook_252(c); else c();
-    }
-};
-bool g_installed_Hook_252 = false;
-
-/* TowerFall.YellowArcherStatue.Update(): YellowArcherStatuePatch.YellowArcherStatue_Update (prefix) */
-bool g_on_Hook_253[1];
-int g_calls_Hook_253 = 0;
-void (*g_shell_Hook_253)(YellowArcherStatue_Update&) = nullptr;
-HOOK_DEFINE_TRAMPOLINE(Hook_253) {
-    static void Callback(void* self, uint64_t x1_, uint64_t x2_, uint64_t x3_, uint64_t x4_, uint64_t x5_, uint64_t x6_, uint64_t x7_) {
-        YellowArcherStatue_Update c{self, x1_, x2_, x3_, x4_, x5_, x6_, x7_};
-        if (g_shell_Hook_253) g_shell_Hook_253(c); else c();
-    }
-};
-bool g_installed_Hook_253 = false;
 
 /* `cls` names the patch class `full`: its full name, or a bare name for any namespace (hw.txt genpatch) */
 bool Is(const char* cls, const char* full) {
@@ -3616,2724 +3383,2504 @@ void ArrowCushion_AddArrow::operator()() {
 void ArrowCushion_AddArrow::Orig() { ran_ = true; Hook_27::Orig(self, arrow, moveIn, drawHead, x3_, x4_, x5_, x6_, x7_); }
 void ArrowCushion_AddArrow::Wrap(void (*shell)(ArrowCushion_AddArrow&)) { g_shell_Hook_27 = shell; if (!g_installed_Hook_27 && bind::m_ArrowCushion_AddArrow_a4b1) { Hook_27::InstallAtOffset(bind::m_ArrowCushion_AddArrow_a4b1); g_installed_Hook_27 = true; } }
 
-void ArrowHUD_Render::operator()() {
+void BGCrystal_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_28[0] && !tfex::gen::So_MyArrowHUD::Render_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_28 < 8) hw::Log("[tfexgen] hook ArrowHUD.Render call %d: MyArrowHUD.Render_patch=%d, original %s", ++g_calls_Hook_28, (int)g_on_Hook_28[0], run ? "runs" : "skipped");
+        if (g_on_Hook_28[0] && !tfex::gen::State_BGCrystal::BGCrystal_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_28 < 8) hw::Log("[tfexgen] hook BGCrystal.Update call %d: BGCrystalPatch.BGCrystal_Update=%d, original %s", ++g_calls_Hook_28, (int)g_on_Hook_28[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_28::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void ArrowHUD_Render::Orig() { ran_ = true; Hook_28::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void ArrowHUD_Render::Wrap(void (*shell)(ArrowHUD_Render&)) { g_shell_Hook_28 = shell; if (!g_installed_Hook_28 && bind::m_ArrowHUD_Render) { Hook_28::InstallAtOffset(bind::m_ArrowHUD_Render); g_installed_Hook_28 = true; } }
-
-void BGCrystal_Update::operator()() {
-        bool run = true;
-        if (g_on_Hook_29[0] && !tfex::gen::State_BGCrystal::BGCrystal_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_29 < 8) hw::Log("[tfexgen] hook BGCrystal.Update call %d: BGCrystalPatch.BGCrystal_Update=%d, original %s", ++g_calls_Hook_29, (int)g_on_Hook_29[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_29::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void BGCrystal_Update::Orig() { ran_ = true; Hook_29::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void BGCrystal_Update::Wrap(void (*shell)(BGCrystal_Update&)) { g_shell_Hook_29 = shell; if (!g_installed_Hook_29 && bind::m_BGCrystal_Update) { Hook_29::InstallAtOffset(bind::m_BGCrystal_Update); g_installed_Hook_29 = true; } }
+void BGCrystal_Update::Orig() { ran_ = true; Hook_28::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void BGCrystal_Update::Wrap(void (*shell)(BGCrystal_Update&)) { g_shell_Hook_28 = shell; if (!g_installed_Hook_28 && bind::m_BGCrystal_Update) { Hook_28::InstallAtOffset(bind::m_BGCrystal_Update); g_installed_Hook_28 = true; } }
 
 void LightningFlashLayer_SequenceB::operator()() {
         bool run = true;
-        if (g_calls_Hook_30 < 8) hw::Log("[tfexgen] hook LightningFlashLayer.SequenceB call %d: LightningFlashLayerPatch.LightningFlashLayer_SequenceB=%d, original %s", ++g_calls_Hook_30, (int)g_on_Hook_30[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_29 < 8) hw::Log("[tfexgen] hook LightningFlashLayer.SequenceB call %d: LightningFlashLayerPatch.LightningFlashLayer_SequenceB=%d, original %s", ++g_calls_Hook_29, (int)g_on_Hook_29[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_30::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_30[0]) tfex::gen::State_LightningFlashLayer::LightningFlashLayer_SequenceB(self);
+        if (run) Hook_29::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_29[0]) tfex::gen::State_LightningFlashLayer::LightningFlashLayer_SequenceB(self);
         ran_ = run;
 }
-void LightningFlashLayer_SequenceB::Orig() { ran_ = true; Hook_30::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LightningFlashLayer_SequenceB::Wrap(void (*shell)(LightningFlashLayer_SequenceB&)) { g_shell_Hook_30 = shell; if (!g_installed_Hook_30 && bind::m_Background_LightningFlashLayer_SequenceB) { Hook_30::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceB); g_installed_Hook_30 = true; } }
+void LightningFlashLayer_SequenceB::Orig() { ran_ = true; Hook_29::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LightningFlashLayer_SequenceB::Wrap(void (*shell)(LightningFlashLayer_SequenceB&)) { g_shell_Hook_29 = shell; if (!g_installed_Hook_29 && bind::m_Background_LightningFlashLayer_SequenceB) { Hook_29::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceB); g_installed_Hook_29 = true; } }
 
 void LightningFlashLayer_SequenceC::operator()() {
         bool run = true;
-        if (g_calls_Hook_31 < 8) hw::Log("[tfexgen] hook LightningFlashLayer.SequenceC call %d: LightningFlashLayerPatch.LightningFlashLayer_SequenceC=%d, original %s", ++g_calls_Hook_31, (int)g_on_Hook_31[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_30 < 8) hw::Log("[tfexgen] hook LightningFlashLayer.SequenceC call %d: LightningFlashLayerPatch.LightningFlashLayer_SequenceC=%d, original %s", ++g_calls_Hook_30, (int)g_on_Hook_30[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_31::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_31[0]) tfex::gen::State_LightningFlashLayer::LightningFlashLayer_SequenceC(self);
+        if (run) Hook_30::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_30[0]) tfex::gen::State_LightningFlashLayer::LightningFlashLayer_SequenceC(self);
         ran_ = run;
 }
-void LightningFlashLayer_SequenceC::Orig() { ran_ = true; Hook_31::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LightningFlashLayer_SequenceC::Wrap(void (*shell)(LightningFlashLayer_SequenceC&)) { g_shell_Hook_31 = shell; if (!g_installed_Hook_31 && bind::m_Background_LightningFlashLayer_SequenceC) { Hook_31::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceC); g_installed_Hook_31 = true; } }
+void LightningFlashLayer_SequenceC::Orig() { ran_ = true; Hook_30::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LightningFlashLayer_SequenceC::Wrap(void (*shell)(LightningFlashLayer_SequenceC&)) { g_shell_Hook_30 = shell; if (!g_installed_Hook_30 && bind::m_Background_LightningFlashLayer_SequenceC) { Hook_30::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceC); g_installed_Hook_30 = true; } }
 
 void LightningFlashLayer_SequenceD::operator()() {
         bool run = true;
-        if (g_calls_Hook_32 < 8) hw::Log("[tfexgen] hook LightningFlashLayer.SequenceD call %d: LightningFlashLayerPatch.LightningFlashLayer_SequenceD=%d, original %s", ++g_calls_Hook_32, (int)g_on_Hook_32[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_31 < 8) hw::Log("[tfexgen] hook LightningFlashLayer.SequenceD call %d: LightningFlashLayerPatch.LightningFlashLayer_SequenceD=%d, original %s", ++g_calls_Hook_31, (int)g_on_Hook_31[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_32::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_32[0]) tfex::gen::State_LightningFlashLayer::LightningFlashLayer_SequenceD(self);
+        if (run) Hook_31::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_31[0]) tfex::gen::State_LightningFlashLayer::LightningFlashLayer_SequenceD(self);
         ran_ = run;
 }
-void LightningFlashLayer_SequenceD::Orig() { ran_ = true; Hook_32::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LightningFlashLayer_SequenceD::Wrap(void (*shell)(LightningFlashLayer_SequenceD&)) { g_shell_Hook_32 = shell; if (!g_installed_Hook_32 && bind::m_Background_LightningFlashLayer_SequenceD) { Hook_32::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceD); g_installed_Hook_32 = true; } }
+void LightningFlashLayer_SequenceD::Orig() { ran_ = true; Hook_31::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LightningFlashLayer_SequenceD::Wrap(void (*shell)(LightningFlashLayer_SequenceD&)) { g_shell_Hook_31 = shell; if (!g_installed_Hook_31 && bind::m_Background_LightningFlashLayer_SequenceD) { Hook_31::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceD); g_installed_Hook_31 = true; } }
 
 void Background_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_33[0] && !tfex::gen::State_Background::Background_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_33 < 8) hw::Log("[tfexgen] hook Background.Update call %d: BackgroundPatch.Background_Update=%d, original %s", ++g_calls_Hook_33, (int)g_on_Hook_33[0], run ? "runs" : "skipped");
+        if (g_on_Hook_32[0] && !tfex::gen::State_Background::Background_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_32 < 8) hw::Log("[tfexgen] hook Background.Update call %d: BackgroundPatch.Background_Update=%d, original %s", ++g_calls_Hook_32, (int)g_on_Hook_32[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_33::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_32::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Background_Update::Orig() { ran_ = true; Hook_33::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Background_Update::Wrap(void (*shell)(Background_Update&)) { g_shell_Hook_33 = shell; if (!g_installed_Hook_33 && bind::m_Background_Update) { Hook_33::InstallAtOffset(bind::m_Background_Update); g_installed_Hook_33 = true; } }
+void Background_Update::Orig() { ran_ = true; Hook_32::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Background_Update::Wrap(void (*shell)(Background_Update&)) { g_shell_Hook_32 = shell; if (!g_installed_Hook_32 && bind::m_Background_Update) { Hook_32::InstallAtOffset(bind::m_Background_Update); g_installed_Hook_32 = true; } }
 
 void Bat_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_34 < 8) hw::Log("[tfexgen] hook Bat.ctor call %d (facing %d, batType %d): BatPatch.Bat_ctor=%d, original %s", ++g_calls_Hook_34, (int)facing, (int)batType, (int)g_on_Hook_34[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_33 < 8) hw::Log("[tfexgen] hook Bat.ctor call %d (facing %d, batType %d): BatPatch.Bat_ctor=%d, original %s", ++g_calls_Hook_33, (int)facing, (int)batType, (int)g_on_Hook_33[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_34::Orig(self, position, facing, batType, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_34[0]) tfex::gen::State_Bat::Bat_ctor(obj);
+        if (run) { void* r_ = Hook_33::Orig(self, position, facing, batType, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_33[0]) tfex::gen::State_Bat::Bat_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void Bat_ctor::Orig() { ran_ = true; void* r_ = Hook_34::Orig(self, position, facing, batType, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Bat_ctor::Wrap(void (*shell)(Bat_ctor&)) { g_shell_Hook_34 = shell; if (!g_installed_Hook_34 && bind::m_Bat__ctor_81ac) { Hook_34::InstallAtOffset(bind::m_Bat__ctor_81ac); g_installed_Hook_34 = true; } }
+void Bat_ctor::Orig() { ran_ = true; void* r_ = Hook_33::Orig(self, position, facing, batType, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Bat_ctor::Wrap(void (*shell)(Bat_ctor&)) { g_shell_Hook_33 = shell; if (!g_installed_Hook_33 && bind::m_Bat__ctor_81ac) { Hook_33::InstallAtOffset(bind::m_Bat__ctor_81ac); g_installed_Hook_33 = true; } }
 
 void Bat_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_35 < 8) hw::Log("[tfexgen] hook Bat.Update call %d: BatPatch.Bat_Update_Postfix=%d, original %s", ++g_calls_Hook_35, (int)g_on_Hook_35[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_34 < 8) hw::Log("[tfexgen] hook Bat.Update call %d: BatPatch.Bat_Update_Postfix=%d, original %s", ++g_calls_Hook_34, (int)g_on_Hook_34[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_35::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_35[0]) tfex::gen::State_Bat::Bat_Update_Postfix(self);
+        if (run) Hook_34::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_34[0]) tfex::gen::State_Bat::Bat_Update_Postfix(self);
         ran_ = run;
 }
-void Bat_Update::Orig() { ran_ = true; Hook_35::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Bat_Update::Wrap(void (*shell)(Bat_Update&)) { g_shell_Hook_35 = shell; if (!g_installed_Hook_35 && bind::m_Bat_Update) { Hook_35::InstallAtOffset(bind::m_Bat_Update); g_installed_Hook_35 = true; } }
+void Bat_Update::Orig() { ran_ = true; Hook_34::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Bat_Update::Wrap(void (*shell)(Bat_Update&)) { g_shell_Hook_34 = shell; if (!g_installed_Hook_34 && bind::m_Bat_Update) { Hook_34::InstallAtOffset(bind::m_Bat_Update); g_installed_Hook_34 = true; } }
 
 void BombParticle_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_36[0] && !tfex::gen::State_BombParticle::BombParticle_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_36 < 8) hw::Log("[tfexgen] hook BombParticle.Update call %d: BombParticlePatch.BombParticle_Update=%d, original %s", ++g_calls_Hook_36, (int)g_on_Hook_36[0], run ? "runs" : "skipped");
+        if (g_on_Hook_35[0] && !tfex::gen::State_BombParticle::BombParticle_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_35 < 8) hw::Log("[tfexgen] hook BombParticle.Update call %d: BombParticlePatch.BombParticle_Update=%d, original %s", ++g_calls_Hook_35, (int)g_on_Hook_35[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_36::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_35::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void BombParticle_Update::Orig() { ran_ = true; Hook_36::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void BombParticle_Update::Wrap(void (*shell)(BombParticle_Update&)) { g_shell_Hook_36 = shell; if (!g_installed_Hook_36 && bind::m_BombParticle_Update) { Hook_36::InstallAtOffset(bind::m_BombParticle_Update); g_installed_Hook_36 = true; } }
+void BombParticle_Update::Orig() { ran_ = true; Hook_35::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void BombParticle_Update::Wrap(void (*shell)(BombParticle_Update&)) { g_shell_Hook_35 = shell; if (!g_installed_Hook_35 && bind::m_BombParticle_Update) { Hook_35::InstallAtOffset(bind::m_BombParticle_Update); g_installed_Hook_35 = true; } }
 
 void BrambleArrow_HitWall::operator()() {
         bool run = true;
-        if (g_on_Hook_37[0]) tfex::gen::State_BrambleArrow::HitWall_Prefix(self);
-        if (g_calls_Hook_37 < 8) hw::Log("[tfexgen] hook BrambleArrow.HitWall call %d: BrambleArrowPatch.HitWall_Prefix=%d, original %s", ++g_calls_Hook_37, (int)g_on_Hook_37[0], run ? "runs" : "skipped");
+        if (g_on_Hook_36[0]) tfex::gen::State_BrambleArrow::HitWall_Prefix(self);
+        if (g_calls_Hook_36 < 8) hw::Log("[tfexgen] hook BrambleArrow.HitWall call %d: BrambleArrowPatch.HitWall_Prefix=%d, original %s", ++g_calls_Hook_36, (int)g_on_Hook_36[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_37::Orig(self, platform, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_36::Orig(self, platform, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void BrambleArrow_HitWall::Orig() { ran_ = true; Hook_37::Orig(self, platform, x2_, x3_, x4_, x5_, x6_, x7_); }
-void BrambleArrow_HitWall::Wrap(void (*shell)(BrambleArrow_HitWall&)) { g_shell_Hook_37 = shell; if (!g_installed_Hook_37 && bind::m_BrambleArrow_HitWall_18a4) { Hook_37::InstallAtOffset(bind::m_BrambleArrow_HitWall_18a4); g_installed_Hook_37 = true; } }
+void BrambleArrow_HitWall::Orig() { ran_ = true; Hook_36::Orig(self, platform, x2_, x3_, x4_, x5_, x6_, x7_); }
+void BrambleArrow_HitWall::Wrap(void (*shell)(BrambleArrow_HitWall&)) { g_shell_Hook_36 = shell; if (!g_installed_Hook_36 && bind::m_BrambleArrow_HitWall_18a4) { Hook_36::InstallAtOffset(bind::m_BrambleArrow_HitWall_18a4); g_installed_Hook_36 = true; } }
 
 void BrambleArrow_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_38 < 8) hw::Log("[tfexgen] hook BrambleArrow.Update call %d: BrambleArrowPatch.Update_Postfix=%d, original %s", ++g_calls_Hook_38, (int)g_on_Hook_38[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_37 < 8) hw::Log("[tfexgen] hook BrambleArrow.Update call %d: BrambleArrowPatch.Update_Postfix=%d, original %s", ++g_calls_Hook_37, (int)g_on_Hook_37[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_38::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_38[0]) tfex::gen::State_BrambleArrow::Update_Postfix(self);
+        if (run) Hook_37::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_37[0]) tfex::gen::State_BrambleArrow::Update_Postfix(self);
         ran_ = run;
 }
-void BrambleArrow_Update::Orig() { ran_ = true; Hook_38::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void BrambleArrow_Update::Wrap(void (*shell)(BrambleArrow_Update&)) { g_shell_Hook_38 = shell; if (!g_installed_Hook_38 && bind::m_BrambleArrow_Update) { Hook_38::InstallAtOffset(bind::m_BrambleArrow_Update); g_installed_Hook_38 = true; } }
+void BrambleArrow_Update::Orig() { ran_ = true; Hook_37::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void BrambleArrow_Update::Wrap(void (*shell)(BrambleArrow_Update&)) { g_shell_Hook_37 = shell; if (!g_installed_Hook_37 && bind::m_BrambleArrow_Update) { Hook_37::InstallAtOffset(bind::m_BrambleArrow_Update); g_installed_Hook_37 = true; } }
 
 void Brambles_Create::operator()() {
         void* __result{};
         bool run = true;
-        if (g_on_Hook_39[0]) tfex::gen::State_Brambles::Create_Prefix();
-        if (g_calls_Hook_39 < 8) hw::Log("[tfexgen] hook Brambles.Create call %d (id %d, ownerIndex %d, delay %d, shortTime %d): BramblesPatch.Create_Prefix=%d, original %s", ++g_calls_Hook_39, (int)id, (int)ownerIndex, (int)delay, (int)shortTime, (int)g_on_Hook_39[0], run ? "runs" : "skipped");
+        if (g_on_Hook_38[0]) tfex::gen::State_Brambles::Create_Prefix();
+        if (g_calls_Hook_38 < 8) hw::Log("[tfexgen] hook Brambles.Create call %d (id %d, ownerIndex %d, delay %d, shortTime %d): BramblesPatch.Create_Prefix=%d, original %s", ++g_calls_Hook_38, (int)id, (int)ownerIndex, (int)delay, (int)shortTime, (int)g_on_Hook_38[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_39::Orig(id, position, ownerIndex, delay, shortTime, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_38::Orig(id, position, ownerIndex, delay, shortTime, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void Brambles_Create::Orig() { ran_ = true; result_ = Hook_39::Orig(id, position, ownerIndex, delay, shortTime, x4_, x5_, x6_, x7_); }
-void Brambles_Create::Wrap(void (*shell)(Brambles_Create&)) { g_shell_Hook_39 = shell; if (!g_installed_Hook_39 && bind::m_Brambles_Create_4889) { Hook_39::InstallAtOffset(bind::m_Brambles_Create_4889); g_installed_Hook_39 = true; } }
+void Brambles_Create::Orig() { ran_ = true; result_ = Hook_38::Orig(id, position, ownerIndex, delay, shortTime, x4_, x5_, x6_, x7_); }
+void Brambles_Create::Wrap(void (*shell)(Brambles_Create&)) { g_shell_Hook_38 = shell; if (!g_installed_Hook_38 && bind::m_Brambles_Create_4889) { Hook_38::InstallAtOffset(bind::m_Brambles_Create_4889); g_installed_Hook_38 = true; } }
 
 void CataclysmMeat_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_40[0] && !tfex::gen::State_CataclysmMeat::CataclysmMeat_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_40 < 8) hw::Log("[tfexgen] hook CataclysmMeat.Update call %d: CataclysmMeatPatch.CataclysmMeat_Update=%d, original %s", ++g_calls_Hook_40, (int)g_on_Hook_40[0], run ? "runs" : "skipped");
+        if (g_on_Hook_39[0] && !tfex::gen::State_CataclysmMeat::CataclysmMeat_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_39 < 8) hw::Log("[tfexgen] hook CataclysmMeat.Update call %d: CataclysmMeatPatch.CataclysmMeat_Update=%d, original %s", ++g_calls_Hook_39, (int)g_on_Hook_39[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_40::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_39::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void CataclysmMeat_Update::Orig() { ran_ = true; Hook_40::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void CataclysmMeat_Update::Wrap(void (*shell)(CataclysmMeat_Update&)) { g_shell_Hook_40 = shell; if (!g_installed_Hook_40 && bind::m_CataclysmMeat_Update) { Hook_40::InstallAtOffset(bind::m_CataclysmMeat_Update); g_installed_Hook_40 = true; } }
+void CataclysmMeat_Update::Orig() { ran_ = true; Hook_39::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void CataclysmMeat_Update::Wrap(void (*shell)(CataclysmMeat_Update&)) { g_shell_Hook_39 = shell; if (!g_installed_Hook_39 && bind::m_CataclysmMeat_Update) { Hook_39::InstallAtOffset(bind::m_CataclysmMeat_Update); g_installed_Hook_39 = true; } }
 
 void Chain_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_41[0]) tfex::gen::State_Chain::Chain_ctor_Vector2_int_Prefix();
-        if (g_calls_Hook_41 < 8) hw::Log("[tfexgen] hook Chain.ctor call %d (height %d): ChainPatch.Chain_ctor_Vector2_int_Prefix=%d ChainPatch.Chain_ctor_Vector2_int_Postfix=%d, original %s", ++g_calls_Hook_41, (int)height, (int)g_on_Hook_41[0], (int)g_on_Hook_41[1], run ? "runs" : "skipped");
+        if (g_on_Hook_40[0]) tfex::gen::State_Chain::Chain_ctor_Vector2_int_Prefix();
+        if (g_calls_Hook_40 < 8) hw::Log("[tfexgen] hook Chain.ctor call %d (height %d): ChainPatch.Chain_ctor_Vector2_int_Prefix=%d ChainPatch.Chain_ctor_Vector2_int_Postfix=%d, original %s", ++g_calls_Hook_40, (int)height, (int)g_on_Hook_40[0], (int)g_on_Hook_40[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_41::Orig(self, position, height, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_41[1]) tfex::gen::State_Chain::Chain_ctor_Vector2_int_Postfix();
+        if (run) { void* r_ = Hook_40::Orig(self, position, height, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_40[1]) tfex::gen::State_Chain::Chain_ctor_Vector2_int_Postfix();
         ran_ = run;
         result_ = obj;
 }
-void Chain_ctor::Orig() { ran_ = true; void* r_ = Hook_41::Orig(self, position, height, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Chain_ctor::Wrap(void (*shell)(Chain_ctor&)) { g_shell_Hook_41 = shell; if (!g_installed_Hook_41 && bind::m_Chain__ctor_5ce7) { Hook_41::InstallAtOffset(bind::m_Chain__ctor_5ce7); g_installed_Hook_41 = true; } }
+void Chain_ctor::Orig() { ran_ = true; void* r_ = Hook_40::Orig(self, position, height, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Chain_ctor::Wrap(void (*shell)(Chain_ctor&)) { g_shell_Hook_40 = shell; if (!g_installed_Hook_40 && bind::m_Chain__ctor_5ce7) { Hook_40::InstallAtOffset(bind::m_Chain__ctor_5ce7); g_installed_Hook_40 = true; } }
 
 void Crown_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_42[0]) tfex::gen::State_CrownRng::Crown_Update_Prefix();
-        if (g_calls_Hook_42 < 8) hw::Log("[tfexgen] hook Crown.Update call %d: CrownRngPatch.Crown_Update_Prefix=%d CrownRngPatch.Crown_Update_Postfix=%d, original %s", ++g_calls_Hook_42, (int)g_on_Hook_42[0], (int)g_on_Hook_42[1], run ? "runs" : "skipped");
+        if (g_on_Hook_41[0]) tfex::gen::State_CrownRng::Crown_Update_Prefix();
+        if (g_calls_Hook_41 < 8) hw::Log("[tfexgen] hook Crown.Update call %d: CrownRngPatch.Crown_Update_Prefix=%d CrownRngPatch.Crown_Update_Postfix=%d, original %s", ++g_calls_Hook_41, (int)g_on_Hook_41[0], (int)g_on_Hook_41[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_42::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_42[1]) tfex::gen::State_CrownRng::Crown_Update_Postfix();
+        if (run) Hook_41::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_41[1]) tfex::gen::State_CrownRng::Crown_Update_Postfix();
         ran_ = run;
 }
-void Crown_Update::Orig() { ran_ = true; Hook_42::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Crown_Update::Wrap(void (*shell)(Crown_Update&)) { g_shell_Hook_42 = shell; if (!g_installed_Hook_42 && bind::m_Crown_Update) { Hook_42::InstallAtOffset(bind::m_Crown_Update); g_installed_Hook_42 = true; } }
+void Crown_Update::Orig() { ran_ = true; Hook_41::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Crown_Update::Wrap(void (*shell)(Crown_Update&)) { g_shell_Hook_41 = shell; if (!g_installed_Hook_41 && bind::m_Crown_Update) { Hook_41::InstallAtOffset(bind::m_Crown_Update); g_installed_Hook_41 = true; } }
 
 void DarkPortalsVariantSequence_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_43 < 8) hw::Log("[tfexgen] hook DarkPortalsVariantSequence.ctor call %d: DarkPortalsVariantSequencePatch.DarkPortalsVariantSequence_ctor=%d, original %s", ++g_calls_Hook_43, (int)g_on_Hook_43[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_42 < 8) hw::Log("[tfexgen] hook DarkPortalsVariantSequence.ctor call %d: DarkPortalsVariantSequencePatch.DarkPortalsVariantSequence_ctor=%d, original %s", ++g_calls_Hook_42, (int)g_on_Hook_42[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_43::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_43[0]) tfex::gen::State_DarkPortalsVariantSequence::DarkPortalsVariantSequence_ctor(obj);
+        if (run) { void* r_ = Hook_42::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_42[0]) tfex::gen::State_DarkPortalsVariantSequence::DarkPortalsVariantSequence_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void DarkPortalsVariantSequence_ctor::Orig() { ran_ = true; void* r_ = Hook_43::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void DarkPortalsVariantSequence_ctor::Wrap(void (*shell)(DarkPortalsVariantSequence_ctor&)) { g_shell_Hook_43 = shell; if (!g_installed_Hook_43 && bind::m_DarkPortalsVariantSequence__ctor) { Hook_43::InstallAtOffset(bind::m_DarkPortalsVariantSequence__ctor); g_installed_Hook_43 = true; } }
+void DarkPortalsVariantSequence_ctor::Orig() { ran_ = true; void* r_ = Hook_42::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void DarkPortalsVariantSequence_ctor::Wrap(void (*shell)(DarkPortalsVariantSequence_ctor&)) { g_shell_Hook_42 = shell; if (!g_installed_Hook_42 && bind::m_DarkPortalsVariantSequence__ctor) { Hook_42::InstallAtOffset(bind::m_DarkPortalsVariantSequence__ctor); g_installed_Hook_42 = true; } }
 
 void DreadBGTentacle_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_44[0] && !tfex::gen::State_DreadBGTentacle::DreadBGTentacle_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_44 < 8) hw::Log("[tfexgen] hook DreadBGTentacle.Update call %d: DreadBGTentaclePatch.DreadBGTentacle_Update=%d, original %s", ++g_calls_Hook_44, (int)g_on_Hook_44[0], run ? "runs" : "skipped");
+        if (g_on_Hook_43[0] && !tfex::gen::State_DreadBGTentacle::DreadBGTentacle_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_43 < 8) hw::Log("[tfexgen] hook DreadBGTentacle.Update call %d: DreadBGTentaclePatch.DreadBGTentacle_Update=%d, original %s", ++g_calls_Hook_43, (int)g_on_Hook_43[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_44::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_43::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void DreadBGTentacle_Update::Orig() { ran_ = true; Hook_44::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void DreadBGTentacle_Update::Wrap(void (*shell)(DreadBGTentacle_Update&)) { g_shell_Hook_44 = shell; if (!g_installed_Hook_44 && bind::m_DreadBGTentacle_Update) { Hook_44::InstallAtOffset(bind::m_DreadBGTentacle_Update); g_installed_Hook_44 = true; } }
+void DreadBGTentacle_Update::Orig() { ran_ = true; Hook_43::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void DreadBGTentacle_Update::Wrap(void (*shell)(DreadBGTentacle_Update&)) { g_shell_Hook_43 = shell; if (!g_installed_Hook_43 && bind::m_DreadBGTentacle_Update) { Hook_43::InstallAtOffset(bind::m_DreadBGTentacle_Update); g_installed_Hook_43 = true; } }
 
 void DummyHead_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_45[0]) tfex::gen::State_DummyHead::DummyHead_ctor_Prefix();
-        if (g_calls_Hook_45 < 8) hw::Log("[tfexgen] hook DummyHead.ctor call %d (xScale %d): DummyHeadPatch.DummyHead_ctor_Prefix=%d DummyHeadPatch.DummyHead_ctor_Postfix=%d, original %s", ++g_calls_Hook_45, (int)xScale, (int)g_on_Hook_45[0], (int)g_on_Hook_45[1], run ? "runs" : "skipped");
+        if (g_on_Hook_44[0]) tfex::gen::State_DummyHead::DummyHead_ctor_Prefix();
+        if (g_calls_Hook_44 < 8) hw::Log("[tfexgen] hook DummyHead.ctor call %d (xScale %d): DummyHeadPatch.DummyHead_ctor_Prefix=%d DummyHeadPatch.DummyHead_ctor_Postfix=%d, original %s", ++g_calls_Hook_44, (int)xScale, (int)g_on_Hook_44[0], (int)g_on_Hook_44[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_45::Orig(self, position, arrow, xScale, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_45[1]) tfex::gen::State_DummyHead::DummyHead_ctor_Postfix();
+        if (run) { void* r_ = Hook_44::Orig(self, position, arrow, xScale, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_44[1]) tfex::gen::State_DummyHead::DummyHead_ctor_Postfix();
         ran_ = run;
         result_ = obj;
 }
-void DummyHead_ctor::Orig() { ran_ = true; void* r_ = Hook_45::Orig(self, position, arrow, xScale, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void DummyHead_ctor::Wrap(void (*shell)(DummyHead_ctor&)) { g_shell_Hook_45 = shell; if (!g_installed_Hook_45 && bind::m_DummyHead__ctor_c1e0) { Hook_45::InstallAtOffset(bind::m_DummyHead__ctor_c1e0); g_installed_Hook_45 = true; } }
+void DummyHead_ctor::Orig() { ran_ = true; void* r_ = Hook_44::Orig(self, position, arrow, xScale, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void DummyHead_ctor::Wrap(void (*shell)(DummyHead_ctor&)) { g_shell_Hook_44 = shell; if (!g_installed_Hook_44 && bind::m_DummyHead__ctor_c1e0) { Hook_44::InstallAtOffset(bind::m_DummyHead__ctor_c1e0); g_installed_Hook_44 = true; } }
 
 void Enemy_SetState::operator()() {
         bool run = true;
-        if (g_calls_Hook_46 < 8) hw::Log("[tfexgen] hook Enemy.SetState call %d (newState %d): PlayerGhostPatch.Enemy_SetState_Postfix=%d, original %s", ++g_calls_Hook_46, (int)newState, (int)g_on_Hook_46[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_45 < 8) hw::Log("[tfexgen] hook Enemy.SetState call %d (newState %d): PlayerGhostPatch.Enemy_SetState_Postfix=%d, original %s", ++g_calls_Hook_45, (int)newState, (int)g_on_Hook_45[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_46::Orig(self, newState, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_46[0]) tfex::gen::State_PlayerGhost::Enemy_SetState_Postfix(self);
+        if (run) Hook_45::Orig(self, newState, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_45[0]) tfex::gen::State_PlayerGhost::Enemy_SetState_Postfix(self);
         ran_ = run;
 }
-void Enemy_SetState::Orig() { ran_ = true; Hook_46::Orig(self, newState, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Enemy_SetState::Wrap(void (*shell)(Enemy_SetState&)) { g_shell_Hook_46 = shell; if (!g_installed_Hook_46 && bind::m_Enemy_SetState_e2bf) { Hook_46::InstallAtOffset(bind::m_Enemy_SetState_e2bf); g_installed_Hook_46 = true; } }
+void Enemy_SetState::Orig() { ran_ = true; Hook_45::Orig(self, newState, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Enemy_SetState::Wrap(void (*shell)(Enemy_SetState&)) { g_shell_Hook_45 = shell; if (!g_installed_Hook_45 && bind::m_Enemy_SetState_e2bf) { Hook_45::InstallAtOffset(bind::m_Enemy_SetState_e2bf); g_installed_Hook_45 = true; } }
 
 void FightButton_MenuAction::operator()() {
         bool run = true;
-        if (g_calls_Hook_47 < 8) hw::Log("[tfexgen] hook FightButton.MenuAction call %d: FightButtonPatch.FightButton_MenuAction=%d, original %s", ++g_calls_Hook_47, (int)g_on_Hook_47[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_46 < 8) hw::Log("[tfexgen] hook FightButton.MenuAction call %d: FightButtonPatch.FightButton_MenuAction=%d, original %s", ++g_calls_Hook_46, (int)g_on_Hook_46[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_47::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_47[0]) tfex::gen::FightButtonPatch::FightButton_MenuAction(self);
+        if (run) Hook_46::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_46[0]) tfex::gen::FightButtonPatch::FightButton_MenuAction(self);
         ran_ = run;
 }
-void FightButton_MenuAction::Orig() { ran_ = true; Hook_47::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void FightButton_MenuAction::Wrap(void (*shell)(FightButton_MenuAction&)) { g_shell_Hook_47 = shell; if (!g_installed_Hook_47 && bind::m_FightButton_MenuAction) { Hook_47::InstallAtOffset(bind::m_FightButton_MenuAction); g_installed_Hook_47 = true; } }
+void FightButton_MenuAction::Orig() { ran_ = true; Hook_46::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void FightButton_MenuAction::Wrap(void (*shell)(FightButton_MenuAction&)) { g_shell_Hook_46 = shell; if (!g_installed_Hook_46 && bind::m_FightButton_MenuAction) { Hook_46::InstallAtOffset(bind::m_FightButton_MenuAction); g_installed_Hook_46 = true; } }
 
 void GameplayLayer_BatchedRender::operator()() {
         bool run = true;
-        if (g_calls_Hook_48 < 8) hw::Log("[tfexgen] hook GameplayLayer.BatchedRender call %d: GameplayLayerPatch.GameplayLayer_BatchedRender=%d, original %s", ++g_calls_Hook_48, (int)g_on_Hook_48[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_47 < 8) hw::Log("[tfexgen] hook GameplayLayer.BatchedRender call %d: GameplayLayerPatch.GameplayLayer_BatchedRender=%d, original %s", ++g_calls_Hook_47, (int)g_on_Hook_47[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_48::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_48[0]) tfex::gen::GameplayLayerPatch::GameplayLayer_BatchedRender(self);
+        if (run) Hook_47::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_47[0]) tfex::gen::GameplayLayerPatch::GameplayLayer_BatchedRender(self);
         ran_ = run;
 }
-void GameplayLayer_BatchedRender::Orig() { ran_ = true; Hook_48::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void GameplayLayer_BatchedRender::Wrap(void (*shell)(GameplayLayer_BatchedRender&)) { g_shell_Hook_48 = shell; if (!g_installed_Hook_48 && bind::m_GameplayLayer_BatchedRender) { Hook_48::InstallAtOffset(bind::m_GameplayLayer_BatchedRender); g_installed_Hook_48 = true; } }
+void GameplayLayer_BatchedRender::Orig() { ran_ = true; Hook_47::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void GameplayLayer_BatchedRender::Wrap(void (*shell)(GameplayLayer_BatchedRender&)) { g_shell_Hook_47 = shell; if (!g_installed_Hook_47 && bind::m_GameplayLayer_BatchedRender) { Hook_47::InstallAtOffset(bind::m_GameplayLayer_BatchedRender); g_installed_Hook_47 = true; } }
 
 void HUD_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_49 < 8) hw::Log("[tfexgen] hook HUD.Update call %d: HUDPatch.HUD_Update=%d, original %s", ++g_calls_Hook_49, (int)g_on_Hook_49[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_48 < 8) hw::Log("[tfexgen] hook HUD.Update call %d: HUDPatch.HUD_Update=%d, original %s", ++g_calls_Hook_48, (int)g_on_Hook_48[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_49::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_49[0]) tfex::gen::HUDPatch::HUD_Update(self);
+        if (run) Hook_48::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_48[0]) tfex::gen::HUDPatch::HUD_Update(self);
         ran_ = run;
 }
-void HUD_Update::Orig() { ran_ = true; Hook_49::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void HUD_Update::Wrap(void (*shell)(HUD_Update&)) { g_shell_Hook_49 = shell; if (!g_installed_Hook_49 && bind::m_HUD_Update) { Hook_49::InstallAtOffset(bind::m_HUD_Update); g_installed_Hook_49 = true; } }
+void HUD_Update::Orig() { ran_ = true; Hook_48::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void HUD_Update::Wrap(void (*shell)(HUD_Update&)) { g_shell_Hook_48 = shell; if (!g_installed_Hook_48 && bind::m_HUD_Update) { Hook_48::InstallAtOffset(bind::m_HUD_Update); g_installed_Hook_48 = true; } }
 
 void HeavyPhysicsObject_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_50[0] && !tfex::gen::State_HeavyPhysicsObject::HeavyPhysicsObject_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_50 < 8) hw::Log("[tfexgen] hook HeavyPhysicsObject.Update call %d: HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update=%d, original %s", ++g_calls_Hook_50, (int)g_on_Hook_50[0], run ? "runs" : "skipped");
+        if (g_on_Hook_49[0] && !tfex::gen::State_HeavyPhysicsObject::HeavyPhysicsObject_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_49 < 8) hw::Log("[tfexgen] hook HeavyPhysicsObject.Update call %d: HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update=%d, original %s", ++g_calls_Hook_49, (int)g_on_Hook_49[0], run ? "runs" : "skipped");
+        if (run && beforeOrig_) beforeOrig_(*this);
+        if (run) Hook_49::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        ran_ = run;
+}
+void HeavyPhysicsObject_Update::Orig() { ran_ = true; Hook_49::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void HeavyPhysicsObject_Update::Wrap(void (*shell)(HeavyPhysicsObject_Update&)) { g_shell_Hook_49 = shell; if (!g_installed_Hook_49 && bind::m_HeavyPhysicsObject_Update) { Hook_49::InstallAtOffset(bind::m_HeavyPhysicsObject_Update); g_installed_Hook_49 = true; } }
+
+void Ice_Update::operator()() {
+        bool run = true;
+        if (g_on_Hook_50[0] && !tfex::gen::State_Ice::Ice_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_50 < 8) hw::Log("[tfexgen] hook Ice.Update call %d: IcePatch.Ice_Update=%d, original %s", ++g_calls_Hook_50, (int)g_on_Hook_50[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_50::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void HeavyPhysicsObject_Update::Orig() { ran_ = true; Hook_50::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void HeavyPhysicsObject_Update::Wrap(void (*shell)(HeavyPhysicsObject_Update&)) { g_shell_Hook_50 = shell; if (!g_installed_Hook_50 && bind::m_HeavyPhysicsObject_Update) { Hook_50::InstallAtOffset(bind::m_HeavyPhysicsObject_Update); g_installed_Hook_50 = true; } }
-
-void Ice_Update::operator()() {
-        bool run = true;
-        if (g_on_Hook_51[0] && !tfex::gen::State_Ice::Ice_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_51 < 8) hw::Log("[tfexgen] hook Ice.Update call %d: IcePatch.Ice_Update=%d, original %s", ++g_calls_Hook_51, (int)g_on_Hook_51[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_51::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Ice_Update::Orig() { ran_ = true; Hook_51::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Ice_Update::Wrap(void (*shell)(Ice_Update&)) { g_shell_Hook_51 = shell; if (!g_installed_Hook_51 && bind::m_Ice_Update) { Hook_51::InstallAtOffset(bind::m_Ice_Update); g_installed_Hook_51 = true; } }
+void Ice_Update::Orig() { ran_ = true; Hook_50::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Ice_Update::Wrap(void (*shell)(Ice_Update&)) { g_shell_Hook_50 = shell; if (!g_installed_Hook_50 && bind::m_Ice_Update) { Hook_50::InstallAtOffset(bind::m_Ice_Update); g_installed_Hook_50 = true; } }
 
 void Icicle_OnArrowHit::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_52[0] && !tfex::gen::State_Icicle::Icicle_OnArrowHit(self, arrow, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_52 < 8) hw::Log("[tfexgen] hook Icicle.OnArrowHit call %d: IciclePatch.Icicle_OnArrowHit=%d, original %s", ++g_calls_Hook_52, (int)g_on_Hook_52[0], run ? "runs" : "skipped");
+        if (g_on_Hook_51[0] && !tfex::gen::State_Icicle::Icicle_OnArrowHit(self, arrow, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_51 < 8) hw::Log("[tfexgen] hook Icicle.OnArrowHit call %d: IciclePatch.Icicle_OnArrowHit=%d, original %s", ++g_calls_Hook_51, (int)g_on_Hook_51[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_52::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_51::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void Icicle_OnArrowHit::Orig() { ran_ = true; result_ = Hook_52::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Icicle_OnArrowHit::Wrap(void (*shell)(Icicle_OnArrowHit&)) { g_shell_Hook_52 = shell; if (!g_installed_Hook_52 && bind::m_Icicle_OnArrowHit_3b10) { Hook_52::InstallAtOffset(bind::m_Icicle_OnArrowHit_3b10); g_installed_Hook_52 = true; } }
+void Icicle_OnArrowHit::Orig() { ran_ = true; result_ = Hook_51::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Icicle_OnArrowHit::Wrap(void (*shell)(Icicle_OnArrowHit&)) { g_shell_Hook_51 = shell; if (!g_installed_Hook_51 && bind::m_Icicle_OnArrowHit_3b10) { Hook_51::InstallAtOffset(bind::m_Icicle_OnArrowHit_3b10); g_installed_Hook_51 = true; } }
 
 void Icicle_OnExplodePush::operator()() {
         bool run = true;
-        if (g_on_Hook_53[0] && !tfex::gen::State_Icicle::Icicle_OnExplodePush(self, explosion, normal)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_53 < 8) hw::Log("[tfexgen] hook Icicle.OnExplodePush call %d: IciclePatch.Icicle_OnExplodePush=%d, original %s", ++g_calls_Hook_53, (int)g_on_Hook_53[0], run ? "runs" : "skipped");
+        if (g_on_Hook_52[0] && !tfex::gen::State_Icicle::Icicle_OnExplodePush(self, explosion, normal)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_52 < 8) hw::Log("[tfexgen] hook Icicle.OnExplodePush call %d: IciclePatch.Icicle_OnExplodePush=%d, original %s", ++g_calls_Hook_52, (int)g_on_Hook_52[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_53::Orig(self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_52::Orig(self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Icicle_OnExplodePush::Orig() { ran_ = true; Hook_53::Orig(self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Icicle_OnExplodePush::Wrap(void (*shell)(Icicle_OnExplodePush&)) { g_shell_Hook_53 = shell; if (!g_installed_Hook_53 && bind::m_Icicle_OnExplodePush_e39e) { Hook_53::InstallAtOffset(bind::m_Icicle_OnExplodePush_e39e); g_installed_Hook_53 = true; } }
+void Icicle_OnExplodePush::Orig() { ran_ = true; Hook_52::Orig(self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Icicle_OnExplodePush::Wrap(void (*shell)(Icicle_OnExplodePush&)) { g_shell_Hook_52 = shell; if (!g_installed_Hook_52 && bind::m_Icicle_OnExplodePush_e39e) { Hook_52::InstallAtOffset(bind::m_Icicle_OnExplodePush_e39e); g_installed_Hook_52 = true; } }
 
 void Icicle_OnPlayerCollide::operator()() {
         bool run = true;
-        if (g_on_Hook_54[0] && !tfex::gen::State_Icicle::Icicle_OnPlayerCollide(self, player)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_54 < 8) hw::Log("[tfexgen] hook Icicle.OnPlayerCollide call %d: IciclePatch.Icicle_OnPlayerCollide=%d, original %s", ++g_calls_Hook_54, (int)g_on_Hook_54[0], run ? "runs" : "skipped");
+        if (g_on_Hook_53[0] && !tfex::gen::State_Icicle::Icicle_OnPlayerCollide(self, player)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_53 < 8) hw::Log("[tfexgen] hook Icicle.OnPlayerCollide call %d: IciclePatch.Icicle_OnPlayerCollide=%d, original %s", ++g_calls_Hook_53, (int)g_on_Hook_53[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_54::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_53::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Icicle_OnPlayerCollide::Orig() { ran_ = true; Hook_54::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Icicle_OnPlayerCollide::Wrap(void (*shell)(Icicle_OnPlayerCollide&)) { g_shell_Hook_54 = shell; if (!g_installed_Hook_54 && bind::m_Icicle_OnPlayerCollide_468a) { Hook_54::InstallAtOffset(bind::m_Icicle_OnPlayerCollide_468a); g_installed_Hook_54 = true; } }
+void Icicle_OnPlayerCollide::Orig() { ran_ = true; Hook_53::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Icicle_OnPlayerCollide::Wrap(void (*shell)(Icicle_OnPlayerCollide&)) { g_shell_Hook_53 = shell; if (!g_installed_Hook_53 && bind::m_Icicle_OnPlayerCollide_468a) { Hook_53::InstallAtOffset(bind::m_Icicle_OnPlayerCollide_468a); g_installed_Hook_53 = true; } }
 
 void Icicle_OnPlayerGhostCollide::operator()() {
         bool run = true;
-        if (g_on_Hook_55[0] && !tfex::gen::State_Icicle::Icicle_OnPlayerGhostCollide(self, ghost)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_55 < 8) hw::Log("[tfexgen] hook Icicle.OnPlayerGhostCollide call %d: IciclePatch.Icicle_OnPlayerGhostCollide=%d, original %s", ++g_calls_Hook_55, (int)g_on_Hook_55[0], run ? "runs" : "skipped");
+        if (g_on_Hook_54[0] && !tfex::gen::State_Icicle::Icicle_OnPlayerGhostCollide(self, ghost)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_54 < 8) hw::Log("[tfexgen] hook Icicle.OnPlayerGhostCollide call %d: IciclePatch.Icicle_OnPlayerGhostCollide=%d, original %s", ++g_calls_Hook_54, (int)g_on_Hook_54[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_55::Orig(self, ghost, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_54::Orig(self, ghost, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Icicle_OnPlayerGhostCollide::Orig() { ran_ = true; Hook_55::Orig(self, ghost, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Icicle_OnPlayerGhostCollide::Wrap(void (*shell)(Icicle_OnPlayerGhostCollide&)) { g_shell_Hook_55 = shell; if (!g_installed_Hook_55 && bind::m_Icicle_OnPlayerGhostCollide_8681) { Hook_55::InstallAtOffset(bind::m_Icicle_OnPlayerGhostCollide_8681); g_installed_Hook_55 = true; } }
+void Icicle_OnPlayerGhostCollide::Orig() { ran_ = true; Hook_54::Orig(self, ghost, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Icicle_OnPlayerGhostCollide::Wrap(void (*shell)(Icicle_OnPlayerGhostCollide&)) { g_shell_Hook_54 = shell; if (!g_installed_Hook_54 && bind::m_Icicle_OnPlayerGhostCollide_8681) { Hook_54::InstallAtOffset(bind::m_Icicle_OnPlayerGhostCollide_8681); g_installed_Hook_54 = true; } }
 
 void Icicle_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_56[0]) tfex::gen::State_Icicle::Icicle_Update(self);
-        if (g_calls_Hook_56 < 8) hw::Log("[tfexgen] hook Icicle.Update call %d: IciclePatch.Icicle_Update=%d, original %s", ++g_calls_Hook_56, (int)g_on_Hook_56[0], run ? "runs" : "skipped");
+        if (g_on_Hook_55[0]) tfex::gen::State_Icicle::Icicle_Update(self);
+        if (g_calls_Hook_55 < 8) hw::Log("[tfexgen] hook Icicle.Update call %d: IciclePatch.Icicle_Update=%d, original %s", ++g_calls_Hook_55, (int)g_on_Hook_55[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_56::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_55::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Icicle_Update::Orig() { ran_ = true; Hook_56::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Icicle_Update::Wrap(void (*shell)(Icicle_Update&)) { g_shell_Hook_56 = shell; if (!g_installed_Hook_56 && bind::m_Icicle_Update) { Hook_56::InstallAtOffset(bind::m_Icicle_Update); g_installed_Hook_56 = true; } }
+void Icicle_Update::Orig() { ran_ = true; Hook_55::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Icicle_Update::Wrap(void (*shell)(Icicle_Update&)) { g_shell_Hook_55 = shell; if (!g_installed_Hook_55 && bind::m_Icicle_Update) { Hook_55::InstallAtOffset(bind::m_Icicle_Update); g_installed_Hook_55 = true; } }
 
 void Lantern_SceneBegin::operator()() {
         bool run = true;
-        if (g_calls_Hook_57 < 8) hw::Log("[tfexgen] hook Lantern.SceneBegin call %d: LanternPatch.Lantern_SceneBegin_Postfix=%d, original %s", ++g_calls_Hook_57, (int)g_on_Hook_57[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_56 < 8) hw::Log("[tfexgen] hook Lantern.SceneBegin call %d: LanternPatch.Lantern_SceneBegin_Postfix=%d, original %s", ++g_calls_Hook_56, (int)g_on_Hook_56[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_57::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_57[0]) tfex::gen::State_Lantern::Lantern_SceneBegin_Postfix(self);
+        if (run) Hook_56::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_56[0]) tfex::gen::State_Lantern::Lantern_SceneBegin_Postfix(self);
         ran_ = run;
 }
-void Lantern_SceneBegin::Orig() { ran_ = true; Hook_57::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Lantern_SceneBegin::Wrap(void (*shell)(Lantern_SceneBegin&)) { g_shell_Hook_57 = shell; if (!g_installed_Hook_57 && bind::m_Lantern_SceneBegin) { Hook_57::InstallAtOffset(bind::m_Lantern_SceneBegin); g_installed_Hook_57 = true; } }
+void Lantern_SceneBegin::Orig() { ran_ = true; Hook_56::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Lantern_SceneBegin::Wrap(void (*shell)(Lantern_SceneBegin&)) { g_shell_Hook_56 = shell; if (!g_installed_Hook_56 && bind::m_Lantern_SceneBegin) { Hook_56::InstallAtOffset(bind::m_Lantern_SceneBegin); g_installed_Hook_56 = true; } }
 
 void Lantern_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_58[0]) tfex::gen::State_LanternCosmetic::Lantern_Update_Prefix(self);
-        if (g_calls_Hook_58 < 8) hw::Log("[tfexgen] hook Lantern.Update call %d: LanternCosmeticPatch.Lantern_Update_Prefix=%d LanternCosmeticPatch.Lantern_Update_Postfix=%d, original %s", ++g_calls_Hook_58, (int)g_on_Hook_58[0], (int)g_on_Hook_58[1], run ? "runs" : "skipped");
+        if (g_on_Hook_57[0]) tfex::gen::State_LanternCosmetic::Lantern_Update_Prefix(self);
+        if (g_calls_Hook_57 < 8) hw::Log("[tfexgen] hook Lantern.Update call %d: LanternCosmeticPatch.Lantern_Update_Prefix=%d LanternCosmeticPatch.Lantern_Update_Postfix=%d, original %s", ++g_calls_Hook_57, (int)g_on_Hook_57[0], (int)g_on_Hook_57[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_58::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_58[1]) tfex::gen::State_LanternCosmetic::Lantern_Update_Postfix();
+        if (run) Hook_57::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_57[1]) tfex::gen::State_LanternCosmetic::Lantern_Update_Postfix();
         ran_ = run;
 }
-void Lantern_Update::Orig() { ran_ = true; Hook_58::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Lantern_Update::Wrap(void (*shell)(Lantern_Update&)) { g_shell_Hook_58 = shell; if (!g_installed_Hook_58 && bind::m_Lantern_Update) { Hook_58::InstallAtOffset(bind::m_Lantern_Update); g_installed_Hook_58 = true; } }
+void Lantern_Update::Orig() { ran_ = true; Hook_57::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Lantern_Update::Wrap(void (*shell)(Lantern_Update&)) { g_shell_Hook_57 = shell; if (!g_installed_Hook_57 && bind::m_Lantern_Update) { Hook_57::InstallAtOffset(bind::m_Lantern_Update); g_installed_Hook_57 = true; } }
 
 void LastManStandingRoundLogic_OnLevelLoadFinish::operator()() {
         bool run = true;
-        if (g_on_Hook_59[0] && !tfex::gen::State_LastManStandingRoundLogic::LastManStandingRoundLogic_OnLevelLoadFinish()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_59 < 8) hw::Log("[tfexgen] hook LastManStandingRoundLogic.OnLevelLoadFinish call %d: LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnLevelLoadFinish=%d, original %s", ++g_calls_Hook_59, (int)g_on_Hook_59[0], run ? "runs" : "skipped");
+        if (g_on_Hook_58[0] && !tfex::gen::State_LastManStandingRoundLogic::LastManStandingRoundLogic_OnLevelLoadFinish()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_58 < 8) hw::Log("[tfexgen] hook LastManStandingRoundLogic.OnLevelLoadFinish call %d: LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnLevelLoadFinish=%d, original %s", ++g_calls_Hook_58, (int)g_on_Hook_58[0], run ? "runs" : "skipped");
+        if (run && beforeOrig_) beforeOrig_(*this);
+        if (run) Hook_58::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        ran_ = run;
+}
+void LastManStandingRoundLogic_OnLevelLoadFinish::Orig() { ran_ = true; Hook_58::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LastManStandingRoundLogic_OnLevelLoadFinish::Wrap(void (*shell)(LastManStandingRoundLogic_OnLevelLoadFinish&)) { g_shell_Hook_58 = shell; if (!g_installed_Hook_58 && bind::m_LastManStandingRoundLogic_OnLevelLoadFinish) { Hook_58::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnLevelLoadFinish); g_installed_Hook_58 = true; } }
+
+void LastManStandingRoundLogic_OnRoundStart::operator()() {
+        bool run = true;
+        if (g_on_Hook_59[0]) tfex::gen::State_LastManStandingRoundLogic::LastManStandingRoundLogic_OnRoundStart(self);
+        if (g_calls_Hook_59 < 8) hw::Log("[tfexgen] hook LastManStandingRoundLogic.OnRoundStart call %d: LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart=%d, original %s", ++g_calls_Hook_59, (int)g_on_Hook_59[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_59::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void LastManStandingRoundLogic_OnLevelLoadFinish::Orig() { ran_ = true; Hook_59::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LastManStandingRoundLogic_OnLevelLoadFinish::Wrap(void (*shell)(LastManStandingRoundLogic_OnLevelLoadFinish&)) { g_shell_Hook_59 = shell; if (!g_installed_Hook_59 && bind::m_LastManStandingRoundLogic_OnLevelLoadFinish) { Hook_59::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnLevelLoadFinish); g_installed_Hook_59 = true; } }
-
-void LastManStandingRoundLogic_OnRoundStart::operator()() {
-        bool run = true;
-        if (g_on_Hook_60[0]) tfex::gen::State_LastManStandingRoundLogic::LastManStandingRoundLogic_OnRoundStart(self);
-        if (g_calls_Hook_60 < 8) hw::Log("[tfexgen] hook LastManStandingRoundLogic.OnRoundStart call %d: LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart=%d, original %s", ++g_calls_Hook_60, (int)g_on_Hook_60[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_60::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void LastManStandingRoundLogic_OnRoundStart::Orig() { ran_ = true; Hook_60::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LastManStandingRoundLogic_OnRoundStart::Wrap(void (*shell)(LastManStandingRoundLogic_OnRoundStart&)) { g_shell_Hook_60 = shell; if (!g_installed_Hook_60 && bind::m_LastManStandingRoundLogic_OnRoundStart) { Hook_60::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnRoundStart); g_installed_Hook_60 = true; } }
+void LastManStandingRoundLogic_OnRoundStart::Orig() { ran_ = true; Hook_59::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LastManStandingRoundLogic_OnRoundStart::Wrap(void (*shell)(LastManStandingRoundLogic_OnRoundStart&)) { g_shell_Hook_59 = shell; if (!g_installed_Hook_59 && bind::m_LastManStandingRoundLogic_OnRoundStart) { Hook_59::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnRoundStart); g_installed_Hook_59 = true; } }
 
 void Lava_BubbleComplete::operator()() {
         bool run = true;
-        if (g_on_Hook_61[0]) tfex::gen::State_Lava::Lava_BubbleComplete_Prefix();
-        if (g_calls_Hook_61 < 8) hw::Log("[tfexgen] hook Lava.BubbleComplete call %d: LavaPatch.Lava_BubbleComplete_Prefix=%d LavaPatch.Lava_BubbleComplete_Postfix=%d, original %s", ++g_calls_Hook_61, (int)g_on_Hook_61[0], (int)g_on_Hook_61[1], run ? "runs" : "skipped");
+        if (g_on_Hook_60[0]) tfex::gen::State_Lava::Lava_BubbleComplete_Prefix();
+        if (g_calls_Hook_60 < 8) hw::Log("[tfexgen] hook Lava.BubbleComplete call %d: LavaPatch.Lava_BubbleComplete_Prefix=%d LavaPatch.Lava_BubbleComplete_Postfix=%d, original %s", ++g_calls_Hook_60, (int)g_on_Hook_60[0], (int)g_on_Hook_60[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_61::Orig(self, bubble, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_61[1]) tfex::gen::State_Lava::Lava_BubbleComplete_Postfix();
+        if (run) Hook_60::Orig(self, bubble, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_60[1]) tfex::gen::State_Lava::Lava_BubbleComplete_Postfix();
         ran_ = run;
 }
-void Lava_BubbleComplete::Orig() { ran_ = true; Hook_61::Orig(self, bubble, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Lava_BubbleComplete::Wrap(void (*shell)(Lava_BubbleComplete&)) { g_shell_Hook_61 = shell; if (!g_installed_Hook_61 && bind::m_Lava_BubbleComplete_77d2) { Hook_61::InstallAtOffset(bind::m_Lava_BubbleComplete_77d2); g_installed_Hook_61 = true; } }
+void Lava_BubbleComplete::Orig() { ran_ = true; Hook_60::Orig(self, bubble, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Lava_BubbleComplete::Wrap(void (*shell)(Lava_BubbleComplete&)) { g_shell_Hook_60 = shell; if (!g_installed_Hook_60 && bind::m_Lava_BubbleComplete_77d2) { Hook_60::InstallAtOffset(bind::m_Lava_BubbleComplete_77d2); g_installed_Hook_60 = true; } }
 
 void LavaControl_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_62[0]) tfex::gen::State_LavaControl::LavaControl_ctor_Prefix();
-        if (g_calls_Hook_62 < 8) hw::Log("[tfexgen] hook LavaControl.ctor call %d (mode %d, ownerIndex %d): LavaControlPatch.LavaControl_ctor_Prefix=%d LavaControlPatch.LavaControl_ctor_Postfix=%d, original %s", ++g_calls_Hook_62, (int)mode, (int)ownerIndex, (int)g_on_Hook_62[0], (int)g_on_Hook_62[1], run ? "runs" : "skipped");
+        if (g_on_Hook_61[0]) tfex::gen::State_LavaControl::LavaControl_ctor_Prefix();
+        if (g_calls_Hook_61 < 8) hw::Log("[tfexgen] hook LavaControl.ctor call %d (mode %d, ownerIndex %d): LavaControlPatch.LavaControl_ctor_Prefix=%d LavaControlPatch.LavaControl_ctor_Postfix=%d, original %s", ++g_calls_Hook_61, (int)mode, (int)ownerIndex, (int)g_on_Hook_61[0], (int)g_on_Hook_61[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_62::Orig(self, mode, ownerIndex, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_62[1]) tfex::gen::State_LavaControl::LavaControl_ctor_Postfix();
+        if (run) { void* r_ = Hook_61::Orig(self, mode, ownerIndex, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_61[1]) tfex::gen::State_LavaControl::LavaControl_ctor_Postfix();
         ran_ = run;
         result_ = obj;
 }
-void LavaControl_ctor::Orig() { ran_ = true; void* r_ = Hook_62::Orig(self, mode, ownerIndex, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void LavaControl_ctor::Wrap(void (*shell)(LavaControl_ctor&)) { g_shell_Hook_62 = shell; if (!g_installed_Hook_62 && bind::m_LavaControl__ctor_7672) { Hook_62::InstallAtOffset(bind::m_LavaControl__ctor_7672); g_installed_Hook_62 = true; } }
+void LavaControl_ctor::Orig() { ran_ = true; void* r_ = Hook_61::Orig(self, mode, ownerIndex, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void LavaControl_ctor::Wrap(void (*shell)(LavaControl_ctor&)) { g_shell_Hook_61 = shell; if (!g_installed_Hook_61 && bind::m_LavaControl__ctor_7672) { Hook_61::InstallAtOffset(bind::m_LavaControl__ctor_7672); g_installed_Hook_61 = true; } }
 
 void LavaControl_Added::operator()() {
         bool run = true;
-        if (g_on_Hook_63[0]) tfex::gen::State_LavaControl::LavaControl_Added_Prefix();
-        if (g_calls_Hook_63 < 8) hw::Log("[tfexgen] hook LavaControl.Added call %d: LavaControlPatch.LavaControl_Added_Prefix=%d LavaControlPatch.LavaControl_Added_Postfix=%d, original %s", ++g_calls_Hook_63, (int)g_on_Hook_63[0], (int)g_on_Hook_63[1], run ? "runs" : "skipped");
+        if (g_on_Hook_62[0]) tfex::gen::State_LavaControl::LavaControl_Added_Prefix();
+        if (g_calls_Hook_62 < 8) hw::Log("[tfexgen] hook LavaControl.Added call %d: LavaControlPatch.LavaControl_Added_Prefix=%d LavaControlPatch.LavaControl_Added_Postfix=%d, original %s", ++g_calls_Hook_62, (int)g_on_Hook_62[0], (int)g_on_Hook_62[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_63::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_63[1]) tfex::gen::State_LavaControl::LavaControl_Added_Postfix();
+        if (run) Hook_62::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_62[1]) tfex::gen::State_LavaControl::LavaControl_Added_Postfix();
         ran_ = run;
 }
-void LavaControl_Added::Orig() { ran_ = true; Hook_63::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LavaControl_Added::Wrap(void (*shell)(LavaControl_Added&)) { g_shell_Hook_63 = shell; if (!g_installed_Hook_63 && bind::m_LavaControl_Added) { Hook_63::InstallAtOffset(bind::m_LavaControl_Added); g_installed_Hook_63 = true; } }
+void LavaControl_Added::Orig() { ran_ = true; Hook_62::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LavaControl_Added::Wrap(void (*shell)(LavaControl_Added&)) { g_shell_Hook_62 = shell; if (!g_installed_Hook_62 && bind::m_LavaControl_Added) { Hook_62::InstallAtOffset(bind::m_LavaControl_Added); g_installed_Hook_62 = true; } }
 
 void LavaControl_Extend::operator()() {
         bool run = true;
-        if (g_on_Hook_64[0]) tfex::gen::State_LavaControl::LavaControl_Extend_Prefix();
-        if (g_calls_Hook_64 < 8) hw::Log("[tfexgen] hook LavaControl.Extend call %d (ownerIndex %d): LavaControlPatch.LavaControl_Extend_Prefix=%d LavaControlPatch.LavaControl_Extend_Postfix=%d, original %s", ++g_calls_Hook_64, (int)ownerIndex, (int)g_on_Hook_64[0], (int)g_on_Hook_64[1], run ? "runs" : "skipped");
+        if (g_on_Hook_63[0]) tfex::gen::State_LavaControl::LavaControl_Extend_Prefix();
+        if (g_calls_Hook_63 < 8) hw::Log("[tfexgen] hook LavaControl.Extend call %d (ownerIndex %d): LavaControlPatch.LavaControl_Extend_Prefix=%d LavaControlPatch.LavaControl_Extend_Postfix=%d, original %s", ++g_calls_Hook_63, (int)ownerIndex, (int)g_on_Hook_63[0], (int)g_on_Hook_63[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_64::Orig(self, ownerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_64[1]) tfex::gen::State_LavaControl::LavaControl_Extend_Postfix();
+        if (run) Hook_63::Orig(self, ownerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_63[1]) tfex::gen::State_LavaControl::LavaControl_Extend_Postfix();
         ran_ = run;
 }
-void LavaControl_Extend::Orig() { ran_ = true; Hook_64::Orig(self, ownerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LavaControl_Extend::Wrap(void (*shell)(LavaControl_Extend&)) { g_shell_Hook_64 = shell; if (!g_installed_Hook_64 && bind::m_LavaControl_Extend_e2bf) { Hook_64::InstallAtOffset(bind::m_LavaControl_Extend_e2bf); g_installed_Hook_64 = true; } }
+void LavaControl_Extend::Orig() { ran_ = true; Hook_63::Orig(self, ownerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LavaControl_Extend::Wrap(void (*shell)(LavaControl_Extend&)) { g_shell_Hook_63 = shell; if (!g_installed_Hook_63 && bind::m_LavaControl_Extend_e2bf) { Hook_63::InstallAtOffset(bind::m_LavaControl_Extend_e2bf); g_installed_Hook_63 = true; } }
 
 void Level_ctor::operator()() {
         void* obj = self;
-        if (!self && (g_on_Hook_65[1])) { self = gen::Fn<void* (*)(void*)>(game::brute::NewObject)(gen::TypeOf(bind::t_Level)); obj = self; }   /* newobj before the prefix's __instance */
+        void* __result{};
         bool run = true;
-        if (g_on_Hook_65[1]) tfex::gen::La_MyLevel::ctor_patch(obj, session, xml);
-        if (g_calls_Hook_65 < 8) hw::Log("[tfexgen] hook Level.ctor call %d: LevelPatch.Level_ctor=%d MyLevel.ctor_patch=%d, original %s", ++g_calls_Hook_65, (int)g_on_Hook_65[0], (int)g_on_Hook_65[1], run ? "runs" : "skipped");
+        if (g_calls_Hook_64 < 8) hw::Log("[tfexgen] hook Level.ctor call %d: LevelPatch.Level_ctor=%d, original %s", ++g_calls_Hook_64, (int)g_on_Hook_64[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_65::Orig(self, session, xml, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_65[0]) tfex::gen::LevelPatch::Level_ctor(obj);
+        if (run) { void* r_ = Hook_64::Orig(self, session, xml, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_64[0]) tfex::gen::LevelPatch::Level_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void Level_ctor::Orig() { ran_ = true; void* r_ = Hook_65::Orig(self, session, xml, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Level_ctor::Wrap(void (*shell)(Level_ctor&)) { g_shell_Hook_65 = shell; if (!g_installed_Hook_65 && bind::m_Level__ctor_8bd2) { Hook_65::InstallAtOffset(bind::m_Level__ctor_8bd2); g_installed_Hook_65 = true; } }
+void Level_ctor::Orig() { ran_ = true; void* r_ = Hook_64::Orig(self, session, xml, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Level_ctor::Wrap(void (*shell)(Level_ctor&)) { g_shell_Hook_64 = shell; if (!g_installed_Hook_64 && bind::m_Level__ctor_8bd2) { Hook_64::InstallAtOffset(bind::m_Level__ctor_8bd2); g_installed_Hook_64 = true; } }
 
 void Level_HandlePausing::operator()() {
         bool run = true;
-        if (g_on_Hook_66[0]) tfex::gen::LevelPatch::Level_HandlePausing();
-        if (g_on_Hook_66[1] && !tfex::gen::LevelPatch::Level_HandlePausing(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_66 < 8) hw::Log("[tfexgen] hook Level.HandlePausing call %d: LevelPatch.Level_HandlePausing=%d LevelPatch.Level_HandlePausing=%d, original %s", ++g_calls_Hook_66, (int)g_on_Hook_66[0], (int)g_on_Hook_66[1], run ? "runs" : "skipped");
+        if (g_on_Hook_65[0]) tfex::gen::LevelPatch::Level_HandlePausing();
+        if (g_on_Hook_65[1] && !tfex::gen::LevelPatch::Level_HandlePausing(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_65 < 8) hw::Log("[tfexgen] hook Level.HandlePausing call %d: LevelPatch.Level_HandlePausing=%d LevelPatch.Level_HandlePausing=%d, original %s", ++g_calls_Hook_65, (int)g_on_Hook_65[0], (int)g_on_Hook_65[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_66::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_65::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Level_HandlePausing::Orig() { ran_ = true; Hook_66::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Level_HandlePausing::Wrap(void (*shell)(Level_HandlePausing&)) { g_shell_Hook_66 = shell; if (!g_installed_Hook_66 && bind::m_Level_HandlePausing) { Hook_66::InstallAtOffset(bind::m_Level_HandlePausing); g_installed_Hook_66 = true; } }
+void Level_HandlePausing::Orig() { ran_ = true; Hook_65::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Level_HandlePausing::Wrap(void (*shell)(Level_HandlePausing&)) { g_shell_Hook_65 = shell; if (!g_installed_Hook_65 && bind::m_Level_HandlePausing) { Hook_65::InstallAtOffset(bind::m_Level_HandlePausing); g_installed_Hook_65 = true; } }
 
 void Level_ScreenShake::operator()() {
         bool run = true;
-        if (g_on_Hook_67[0] && !tfex::gen::State_LevelScreenShake::Level_ScreenShake()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_67 < 8) hw::Log("[tfexgen] hook Level.ScreenShake call %d (frames %d): LevelScreenShakePatch.Level_ScreenShake=%d, original %s", ++g_calls_Hook_67, (int)frames, (int)g_on_Hook_67[0], run ? "runs" : "skipped");
+        if (g_on_Hook_66[0] && !tfex::gen::State_LevelScreenShake::Level_ScreenShake()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_66 < 8) hw::Log("[tfexgen] hook Level.ScreenShake call %d (frames %d): LevelScreenShakePatch.Level_ScreenShake=%d, original %s", ++g_calls_Hook_66, (int)frames, (int)g_on_Hook_66[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_67::Orig(self, frames, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_66::Orig(self, frames, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Level_ScreenShake::Orig() { ran_ = true; Hook_67::Orig(self, frames, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Level_ScreenShake::Wrap(void (*shell)(Level_ScreenShake&)) { g_shell_Hook_67 = shell; if (!g_installed_Hook_67 && bind::m_Level_ScreenShake_e2bf) { Hook_67::InstallAtOffset(bind::m_Level_ScreenShake_e2bf); g_installed_Hook_67 = true; } }
+void Level_ScreenShake::Orig() { ran_ = true; Hook_66::Orig(self, frames, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Level_ScreenShake::Wrap(void (*shell)(Level_ScreenShake&)) { g_shell_Hook_66 = shell; if (!g_installed_Hook_66 && bind::m_Level_ScreenShake_e2bf) { Hook_66::InstallAtOffset(bind::m_Level_ScreenShake_e2bf); g_installed_Hook_66 = true; } }
 
 void Level_Update::operator()() {
         bool run = true;
         bool state_LevelPatch{};
-        if (g_on_Hook_68[0] && !tfex::gen::LevelPatch::Level_Update__Prefix(self, state_LevelPatch)) run = false;   /* a bool prefix: false skips the original */
-        if (g_on_Hook_68[2]) tfex::gen::La_MyLevel::Update_patch(self);
-        if (g_on_Hook_68[3]) tfex::gen::Aj_MyLevel::Update_patch(self);
-        if (g_calls_Hook_68 < 8) hw::Log("[tfexgen] hook Level.Update call %d: LevelPatch.Level_Update__Prefix=%d LevelPatch.Level_Update__Postfix=%d MyLevel.Update_patch=%d MyLevel.Update_patch=%d, original %s", ++g_calls_Hook_68, (int)g_on_Hook_68[0], (int)g_on_Hook_68[1], (int)g_on_Hook_68[2], (int)g_on_Hook_68[3], run ? "runs" : "skipped");
+        if (g_on_Hook_67[0] && !tfex::gen::LevelPatch::Level_Update__Prefix(self, state_LevelPatch)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_67 < 8) hw::Log("[tfexgen] hook Level.Update call %d: LevelPatch.Level_Update__Prefix=%d LevelPatch.Level_Update__Postfix=%d, original %s", ++g_calls_Hook_67, (int)g_on_Hook_67[0], (int)g_on_Hook_67[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_68::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_68[1]) tfex::gen::LevelPatch::Level_Update__Postfix(self, state_LevelPatch);
+        if (run) Hook_67::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_67[1]) tfex::gen::LevelPatch::Level_Update__Postfix(self, state_LevelPatch);
         ran_ = run;
 }
-void Level_Update::Orig() { ran_ = true; Hook_68::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Level_Update::Wrap(void (*shell)(Level_Update&)) { g_shell_Hook_68 = shell; if (!g_installed_Hook_68 && bind::m_Level_Update) { Hook_68::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_68 = true; } }
+void Level_Update::Orig() { ran_ = true; Hook_67::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Level_Update::Wrap(void (*shell)(Level_Update&)) { g_shell_Hook_67 = shell; if (!g_installed_Hook_67 && bind::m_Level_Update) { Hook_67::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_67 = true; } }
 
 void LevelEntity_Render::operator()() {
         bool run = true;
         gen::Vector2 state_LevelEntityPatch{};
-        if (g_on_Hook_69[0]) tfex::gen::State_LevelEntity::LevelEntity_Render_Prefix(self, state_LevelEntityPatch);
-        if (g_calls_Hook_69 < 8) hw::Log("[tfexgen] hook LevelEntity.Render call %d: LevelEntityPatch.LevelEntity_Render_Prefix=%d LevelEntityPatch.LevelEntity_Render_Postfix=%d, original %s", ++g_calls_Hook_69, (int)g_on_Hook_69[0], (int)g_on_Hook_69[1], run ? "runs" : "skipped");
+        if (g_on_Hook_68[0]) tfex::gen::State_LevelEntity::LevelEntity_Render_Prefix(self, state_LevelEntityPatch);
+        if (g_calls_Hook_68 < 8) hw::Log("[tfexgen] hook LevelEntity.Render call %d: LevelEntityPatch.LevelEntity_Render_Prefix=%d LevelEntityPatch.LevelEntity_Render_Postfix=%d, original %s", ++g_calls_Hook_68, (int)g_on_Hook_68[0], (int)g_on_Hook_68[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_69::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_69[1]) tfex::gen::State_LevelEntity::LevelEntity_Render_Postfix(self, state_LevelEntityPatch);
+        if (run) Hook_68::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_68[1]) tfex::gen::State_LevelEntity::LevelEntity_Render_Postfix(self, state_LevelEntityPatch);
         ran_ = run;
 }
-void LevelEntity_Render::Orig() { ran_ = true; Hook_69::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LevelEntity_Render::Wrap(void (*shell)(LevelEntity_Render&)) { g_shell_Hook_69 = shell; if (!g_installed_Hook_69 && bind::m_LevelEntity_Render) { Hook_69::InstallAtOffset(bind::m_LevelEntity_Render); g_installed_Hook_69 = true; } }
+void LevelEntity_Render::Orig() { ran_ = true; Hook_68::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LevelEntity_Render::Wrap(void (*shell)(LevelEntity_Render&)) { g_shell_Hook_68 = shell; if (!g_installed_Hook_68 && bind::m_LevelEntity_Render) { Hook_68::InstallAtOffset(bind::m_LevelEntity_Render); g_installed_Hook_68 = true; } }
 
 void LevelEntity_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_70[0] && !tfex::gen::State_ShockCircle::LevelEntity_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_70 < 8) hw::Log("[tfexgen] hook LevelEntity.Update call %d: ShockCirclePatch.LevelEntity_Update=%d, original %s", ++g_calls_Hook_70, (int)g_on_Hook_70[0], run ? "runs" : "skipped");
+        if (g_on_Hook_69[0] && !tfex::gen::State_ShockCircle::LevelEntity_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_69 < 8) hw::Log("[tfexgen] hook LevelEntity.Update call %d: ShockCirclePatch.LevelEntity_Update=%d, original %s", ++g_calls_Hook_69, (int)g_on_Hook_69[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_70::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_69::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void LevelEntity_Update::Orig() { ran_ = true; Hook_70::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LevelEntity_Update::Wrap(void (*shell)(LevelEntity_Update&)) { g_shell_Hook_70 = shell; if (!g_installed_Hook_70 && bind::m_LevelEntity_Update) { Hook_70::InstallAtOffset(bind::m_LevelEntity_Update); g_installed_Hook_70 = true; } }
+void LevelEntity_Update::Orig() { ran_ = true; Hook_69::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LevelEntity_Update::Wrap(void (*shell)(LevelEntity_Update&)) { g_shell_Hook_69 = shell; if (!g_installed_Hook_69 && bind::m_LevelEntity_Update) { Hook_69::InstallAtOffset(bind::m_LevelEntity_Update); g_installed_Hook_69 = true; } }
 
 void LevelLoaderXML_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_71 < 8) hw::Log("[tfexgen] hook LevelLoaderXML.ctor call %d: LevelLoaderXMLStatePatch.LevelLoaderXML_ctor=%d, original %s", ++g_calls_Hook_71, (int)g_on_Hook_71[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_70 < 8) hw::Log("[tfexgen] hook LevelLoaderXML.ctor call %d: LevelLoaderXMLStatePatch.LevelLoaderXML_ctor=%d, original %s", ++g_calls_Hook_70, (int)g_on_Hook_70[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_71::Orig(self, session, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_71[0]) tfex::gen::State_LevelLoaderXMLState::LevelLoaderXML_ctor(session);
+        if (run) { void* r_ = Hook_70::Orig(self, session, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_70[0]) tfex::gen::State_LevelLoaderXMLState::LevelLoaderXML_ctor(session);
         ran_ = run;
         result_ = obj;
 }
-void LevelLoaderXML_ctor::Orig() { ran_ = true; void* r_ = Hook_71::Orig(self, session, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void LevelLoaderXML_ctor::Wrap(void (*shell)(LevelLoaderXML_ctor&)) { g_shell_Hook_71 = shell; if (!g_installed_Hook_71 && bind::m_LevelLoaderXML__ctor_9385) { Hook_71::InstallAtOffset(bind::m_LevelLoaderXML__ctor_9385); g_installed_Hook_71 = true; } }
+void LevelLoaderXML_ctor::Orig() { ran_ = true; void* r_ = Hook_70::Orig(self, session, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void LevelLoaderXML_ctor::Wrap(void (*shell)(LevelLoaderXML_ctor&)) { g_shell_Hook_70 = shell; if (!g_installed_Hook_70 && bind::m_LevelLoaderXML__ctor_9385) { Hook_70::InstallAtOffset(bind::m_LevelLoaderXML__ctor_9385); g_installed_Hook_70 = true; } }
 
 void LevelLoaderXML_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_72 < 8) hw::Log("[tfexgen] hook LevelLoaderXML.Update call %d: LevelLoaderXMLPatch.LevelLoaderXML_Update=%d, original %s", ++g_calls_Hook_72, (int)g_on_Hook_72[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_71 < 8) hw::Log("[tfexgen] hook LevelLoaderXML.Update call %d: LevelLoaderXMLPatch.LevelLoaderXML_Update=%d, original %s", ++g_calls_Hook_71, (int)g_on_Hook_71[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_72::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_72[0]) tfex::gen::LevelLoaderXMLPatch::LevelLoaderXML_Update(self);
+        if (run) Hook_71::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_71[0]) tfex::gen::LevelLoaderXMLPatch::LevelLoaderXML_Update(self);
         ran_ = run;
 }
-void LevelLoaderXML_Update::Orig() { ran_ = true; Hook_72::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LevelLoaderXML_Update::Wrap(void (*shell)(LevelLoaderXML_Update&)) { g_shell_Hook_72 = shell; if (!g_installed_Hook_72 && bind::m_LevelLoaderXML_Update) { Hook_72::InstallAtOffset(bind::m_LevelLoaderXML_Update); g_installed_Hook_72 = true; } }
+void LevelLoaderXML_Update::Orig() { ran_ = true; Hook_71::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LevelLoaderXML_Update::Wrap(void (*shell)(LevelLoaderXML_Update&)) { g_shell_Hook_71 = shell; if (!g_installed_Hook_71 && bind::m_LevelLoaderXML_Update) { Hook_71::InstallAtOffset(bind::m_LevelLoaderXML_Update); g_installed_Hook_71 = true; } }
 
 void LevelTestRoundLogic_OnLevelLoadFinish::operator()() {
         bool run = true;
-        if (g_on_Hook_73[0] && !tfex::gen::State_LevelTestRoundLogic::RoundLogic_OnLevelLoadFinish(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_73 < 8) hw::Log("[tfexgen] hook LevelTestRoundLogic.OnLevelLoadFinish call %d: LevelTestRoundLogicPatch.RoundLogic_OnLevelLoadFinish=%d, original %s", ++g_calls_Hook_73, (int)g_on_Hook_73[0], run ? "runs" : "skipped");
+        if (g_on_Hook_72[0] && !tfex::gen::State_LevelTestRoundLogic::RoundLogic_OnLevelLoadFinish(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_72 < 8) hw::Log("[tfexgen] hook LevelTestRoundLogic.OnLevelLoadFinish call %d: LevelTestRoundLogicPatch.RoundLogic_OnLevelLoadFinish=%d, original %s", ++g_calls_Hook_72, (int)g_on_Hook_72[0], run ? "runs" : "skipped");
+        if (run && beforeOrig_) beforeOrig_(*this);
+        if (run) Hook_72::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        ran_ = run;
+}
+void LevelTestRoundLogic_OnLevelLoadFinish::Orig() { ran_ = true; Hook_72::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LevelTestRoundLogic_OnLevelLoadFinish::Wrap(void (*shell)(LevelTestRoundLogic_OnLevelLoadFinish&)) { g_shell_Hook_72 = shell; if (!g_installed_Hook_72 && bind::m_LevelTestRoundLogic_OnLevelLoadFinish) { Hook_72::InstallAtOffset(bind::m_LevelTestRoundLogic_OnLevelLoadFinish); g_installed_Hook_72 = true; } }
+
+void LightingLayer_Update::operator()() {
+        bool run = true;
+        if (g_on_Hook_73[0] && !tfex::gen::State_LightingLayer::LightingLayer_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_73 < 8) hw::Log("[tfexgen] hook LightingLayer.Update call %d: LightingLayerPatch.LightingLayer_Update=%d, original %s", ++g_calls_Hook_73, (int)g_on_Hook_73[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_73::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void LevelTestRoundLogic_OnLevelLoadFinish::Orig() { ran_ = true; Hook_73::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LevelTestRoundLogic_OnLevelLoadFinish::Wrap(void (*shell)(LevelTestRoundLogic_OnLevelLoadFinish&)) { g_shell_Hook_73 = shell; if (!g_installed_Hook_73 && bind::m_LevelTestRoundLogic_OnLevelLoadFinish) { Hook_73::InstallAtOffset(bind::m_LevelTestRoundLogic_OnLevelLoadFinish); g_installed_Hook_73 = true; } }
+void LightingLayer_Update::Orig() { ran_ = true; Hook_73::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LightingLayer_Update::Wrap(void (*shell)(LightingLayer_Update&)) { g_shell_Hook_73 = shell; if (!g_installed_Hook_73 && bind::m_LightingLayer_Update) { Hook_73::InstallAtOffset(bind::m_LightingLayer_Update); g_installed_Hook_73 = true; } }
 
-void LightingLayer_Update::operator()() {
+void Loader_TweenIn::operator()() {
         bool run = true;
-        if (g_on_Hook_74[0] && !tfex::gen::State_LightingLayer::LightingLayer_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_74 < 8) hw::Log("[tfexgen] hook LightingLayer.Update call %d: LightingLayerPatch.LightingLayer_Update=%d, original %s", ++g_calls_Hook_74, (int)g_on_Hook_74[0], run ? "runs" : "skipped");
+        if (g_on_Hook_74[0] && !tfex::gen::LoaderPatch::Loader_TweenIn(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_74 < 8) hw::Log("[tfexgen] hook Loader.TweenIn call %d: LoaderPatch.Loader_TweenIn=%d, original %s", ++g_calls_Hook_74, (int)g_on_Hook_74[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_74::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void LightingLayer_Update::Orig() { ran_ = true; Hook_74::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LightingLayer_Update::Wrap(void (*shell)(LightingLayer_Update&)) { g_shell_Hook_74 = shell; if (!g_installed_Hook_74 && bind::m_LightingLayer_Update) { Hook_74::InstallAtOffset(bind::m_LightingLayer_Update); g_installed_Hook_74 = true; } }
+void Loader_TweenIn::Orig() { ran_ = true; Hook_74::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Loader_TweenIn::Wrap(void (*shell)(Loader_TweenIn&)) { g_shell_Hook_74 = shell; if (!g_installed_Hook_74 && bind::m_Loader_TweenIn) { Hook_74::InstallAtOffset(bind::m_Loader_TweenIn); g_installed_Hook_74 = true; } }
 
-void Loader_TweenIn::operator()() {
+void LoopPlatform_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_75[0] && !tfex::gen::LoaderPatch::Loader_TweenIn(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_75 < 8) hw::Log("[tfexgen] hook Loader.TweenIn call %d: LoaderPatch.Loader_TweenIn=%d, original %s", ++g_calls_Hook_75, (int)g_on_Hook_75[0], run ? "runs" : "skipped");
+        if (g_on_Hook_75[0] && !tfex::gen::State_LoopPlatform::LoopPlatform_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_75 < 8) hw::Log("[tfexgen] hook LoopPlatform.Update call %d: LoopPlatformPatch.LoopPlatform_Update=%d, original %s", ++g_calls_Hook_75, (int)g_on_Hook_75[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_75::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Loader_TweenIn::Orig() { ran_ = true; Hook_75::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Loader_TweenIn::Wrap(void (*shell)(Loader_TweenIn&)) { g_shell_Hook_75 = shell; if (!g_installed_Hook_75 && bind::m_Loader_TweenIn) { Hook_75::InstallAtOffset(bind::m_Loader_TweenIn); g_installed_Hook_75 = true; } }
+void LoopPlatform_Update::Orig() { ran_ = true; Hook_75::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void LoopPlatform_Update::Wrap(void (*shell)(LoopPlatform_Update&)) { g_shell_Hook_75 = shell; if (!g_installed_Hook_75 && bind::m_LoopPlatform_Update) { Hook_75::InstallAtOffset(bind::m_LoopPlatform_Update); g_installed_Hook_75 = true; } }
 
-void LoopPlatform_Update::operator()() {
+void MainMenu_CreateTeamSelect::operator()() {
         bool run = true;
-        if (g_on_Hook_76[0] && !tfex::gen::State_LoopPlatform::LoopPlatform_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_76 < 8) hw::Log("[tfexgen] hook LoopPlatform.Update call %d: LoopPlatformPatch.LoopPlatform_Update=%d, original %s", ++g_calls_Hook_76, (int)g_on_Hook_76[0], run ? "runs" : "skipped");
+        if (g_on_Hook_76[0] && !tfex::gen::Tp_MenuHooks::CreateTeamSelect_Prefix(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_76 < 8) hw::Log("[tfexgen] hook MainMenu.CreateTeamSelect call %d: MenuHooks.CreateTeamSelect_Prefix=%d, original %s", ++g_calls_Hook_76, (int)g_on_Hook_76[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_76::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void LoopPlatform_Update::Orig() { ran_ = true; Hook_76::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void LoopPlatform_Update::Wrap(void (*shell)(LoopPlatform_Update&)) { g_shell_Hook_76 = shell; if (!g_installed_Hook_76 && bind::m_LoopPlatform_Update) { Hook_76::InstallAtOffset(bind::m_LoopPlatform_Update); g_installed_Hook_76 = true; } }
-
-void MainMenu_CreateTeamSelect::operator()() {
-        bool run = true;
-        if (g_on_Hook_77[0] && !tfex::gen::Tp_MenuHooks::CreateTeamSelect_Prefix(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_77 < 8) hw::Log("[tfexgen] hook MainMenu.CreateTeamSelect call %d: MenuHooks.CreateTeamSelect_Prefix=%d, original %s", ++g_calls_Hook_77, (int)g_on_Hook_77[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_77::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void MainMenu_CreateTeamSelect::Orig() { ran_ = true; Hook_77::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MainMenu_CreateTeamSelect::Wrap(void (*shell)(MainMenu_CreateTeamSelect&)) { g_shell_Hook_77 = shell; if (!g_installed_Hook_77 && bind::m_MainMenu_CreateTeamSelect) { Hook_77::InstallAtOffset(bind::m_MainMenu_CreateTeamSelect); g_installed_Hook_77 = true; } }
+void MainMenu_CreateTeamSelect::Orig() { ran_ = true; Hook_76::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MainMenu_CreateTeamSelect::Wrap(void (*shell)(MainMenu_CreateTeamSelect&)) { g_shell_Hook_76 = shell; if (!g_installed_Hook_76 && bind::m_MainMenu_CreateTeamSelect) { Hook_76::InstallAtOffset(bind::m_MainMenu_CreateTeamSelect); g_installed_Hook_76 = true; } }
 
 void MainMenu_CreateVersusOptions::operator()() {
         bool run = true;
-        if (g_calls_Hook_78 < 8) hw::Log("[tfexgen] hook MainMenu.CreateVersusOptions call %d: MainMenuPatch.MainMenu_CreateVersusOptions=%d, original %s", ++g_calls_Hook_78, (int)g_on_Hook_78[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_77 < 8) hw::Log("[tfexgen] hook MainMenu.CreateVersusOptions call %d: MainMenuPatch.MainMenu_CreateVersusOptions=%d, original %s", ++g_calls_Hook_77, (int)g_on_Hook_77[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_78::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_78[0]) tfex::gen::MainMenuVersusOptions::MainMenu_CreateVersusOptions(self);
+        if (run) Hook_77::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_77[0]) tfex::gen::MainMenuVersusOptions::MainMenu_CreateVersusOptions(self);
         ran_ = run;
 }
-void MainMenu_CreateVersusOptions::Orig() { ran_ = true; Hook_78::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MainMenu_CreateVersusOptions::Wrap(void (*shell)(MainMenu_CreateVersusOptions&)) { g_shell_Hook_78 = shell; if (!g_installed_Hook_78 && bind::m_MainMenu_CreateVersusOptions) { Hook_78::InstallAtOffset(bind::m_MainMenu_CreateVersusOptions); g_installed_Hook_78 = true; } }
+void MainMenu_CreateVersusOptions::Orig() { ran_ = true; Hook_77::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MainMenu_CreateVersusOptions::Wrap(void (*shell)(MainMenu_CreateVersusOptions&)) { g_shell_Hook_77 = shell; if (!g_installed_Hook_77 && bind::m_MainMenu_CreateVersusOptions) { Hook_77::InstallAtOffset(bind::m_MainMenu_CreateVersusOptions); g_installed_Hook_77 = true; } }
 
 void MainMenu_set_State::operator()() {
         bool run = true;
-        if (g_on_Hook_79[0]) tfex::gen::MainMenuSetState::MainMenu_set_State(self, value);
-        if (g_calls_Hook_79 < 8) hw::Log("[tfexgen] hook MainMenu.set_State call %d (value %d): MainMenuPatch.MainMenu_set_State=%d, original %s", ++g_calls_Hook_79, (int)value, (int)g_on_Hook_79[0], run ? "runs" : "skipped");
+        if (g_on_Hook_78[0]) tfex::gen::MainMenuSetState::MainMenu_set_State(self, value);
+        if (g_calls_Hook_78 < 8) hw::Log("[tfexgen] hook MainMenu.set_State call %d (value %d): MainMenuPatch.MainMenu_set_State=%d, original %s", ++g_calls_Hook_78, (int)value, (int)g_on_Hook_78[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_79::Orig(self, value, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_78::Orig(self, value, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void MainMenu_set_State::Orig() { ran_ = true; Hook_79::Orig(self, value, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MainMenu_set_State::Wrap(void (*shell)(MainMenu_set_State&)) { g_shell_Hook_79 = shell; if (!g_installed_Hook_79 && bind::m_MainMenu_set_State_b2b6) { Hook_79::InstallAtOffset(bind::m_MainMenu_set_State_b2b6); g_installed_Hook_79 = true; } }
+void MainMenu_set_State::Orig() { ran_ = true; Hook_78::Orig(self, value, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MainMenu_set_State::Wrap(void (*shell)(MainMenu_set_State&)) { g_shell_Hook_78 = shell; if (!g_installed_Hook_78 && bind::m_MainMenu_set_State_b2b6) { Hook_78::InstallAtOffset(bind::m_MainMenu_set_State_b2b6); g_installed_Hook_78 = true; } }
 
 void MapScene_Begin::operator()() {
         bool run = true;
-        if (g_calls_Hook_80 < 8) hw::Log("[tfexgen] hook MapScene.Begin call %d: MapScenePatch.Begin_Postfix=%d, original %s", ++g_calls_Hook_80, (int)g_on_Hook_80[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_79 < 8) hw::Log("[tfexgen] hook MapScene.Begin call %d: MapScenePatch.Begin_Postfix=%d, original %s", ++g_calls_Hook_79, (int)g_on_Hook_79[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_80::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_80[0]) tfex::gen::MapScenePatch::Begin_Postfix(self);
+        if (run) Hook_79::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_79[0]) tfex::gen::MapScenePatch::Begin_Postfix(self);
         ran_ = run;
 }
-void MapScene_Begin::Orig() { ran_ = true; Hook_80::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MapScene_Begin::Wrap(void (*shell)(MapScene_Begin&)) { g_shell_Hook_80 = shell; if (!g_installed_Hook_80 && bind::m_MapScene_Begin) { Hook_80::InstallAtOffset(bind::m_MapScene_Begin); g_installed_Hook_80 = true; } }
+void MapScene_Begin::Orig() { ran_ = true; Hook_79::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MapScene_Begin::Wrap(void (*shell)(MapScene_Begin&)) { g_shell_Hook_79 = shell; if (!g_installed_Hook_79 && bind::m_MapScene_Begin) { Hook_79::InstallAtOffset(bind::m_MapScene_Begin); g_installed_Hook_79 = true; } }
 
 void MapScene_GetRandomVersusTower::operator()() {
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_81 < 8) hw::Log("[tfexgen] hook MapScene.GetRandomVersusTower call %d: MapScenePatch.MapScene_GetRandomVersusTower=%d, original %s", ++g_calls_Hook_81, (int)g_on_Hook_81[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_80 < 8) hw::Log("[tfexgen] hook MapScene.GetRandomVersusTower call %d: MapScenePatch.MapScene_GetRandomVersusTower=%d, original %s", ++g_calls_Hook_80, (int)g_on_Hook_80[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_81::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_81[0]) tfex::gen::MapScenePatch::MapScene_GetRandomVersusTower(self, __result);
+        if (run) __result = Hook_80::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_80[0]) tfex::gen::MapScenePatch::MapScene_GetRandomVersusTower(self, __result);
         ran_ = run;
         result_ = __result;
 }
-void MapScene_GetRandomVersusTower::Orig() { ran_ = true; result_ = Hook_81::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MapScene_GetRandomVersusTower::Wrap(void (*shell)(MapScene_GetRandomVersusTower&)) { g_shell_Hook_81 = shell; if (!g_installed_Hook_81 && bind::m_MapScene_GetRandomVersusTower) { Hook_81::InstallAtOffset(bind::m_MapScene_GetRandomVersusTower); g_installed_Hook_81 = true; } }
+void MapScene_GetRandomVersusTower::Orig() { ran_ = true; result_ = Hook_80::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MapScene_GetRandomVersusTower::Wrap(void (*shell)(MapScene_GetRandomVersusTower&)) { g_shell_Hook_80 = shell; if (!g_installed_Hook_80 && bind::m_MapScene_GetRandomVersusTower) { Hook_80::InstallAtOffset(bind::m_MapScene_GetRandomVersusTower); g_installed_Hook_80 = true; } }
 
 void MapScene_InitVersusButtons::operator()() {
         bool run = true;
         gen::Arr<bool> state_MapScenePatch{};
-        if (g_on_Hook_82[0]) tfex::gen::MapScenePatch::InitVersusButtons_Prefix(state_MapScenePatch);
-        if (g_calls_Hook_82 < 8) hw::Log("[tfexgen] hook MapScene.InitVersusButtons call %d: MapScenePatch.InitVersusButtons_Prefix=%d MapScenePatch.InitVersusButtons_Postfix=%d, original %s", ++g_calls_Hook_82, (int)g_on_Hook_82[0], (int)g_on_Hook_82[1], run ? "runs" : "skipped");
+        if (g_on_Hook_81[0]) tfex::gen::MapScenePatch::InitVersusButtons_Prefix(state_MapScenePatch);
+        if (g_calls_Hook_81 < 8) hw::Log("[tfexgen] hook MapScene.InitVersusButtons call %d: MapScenePatch.InitVersusButtons_Prefix=%d MapScenePatch.InitVersusButtons_Postfix=%d, original %s", ++g_calls_Hook_81, (int)g_on_Hook_81[0], (int)g_on_Hook_81[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_82::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_82[1]) tfex::gen::MapScenePatch::InitVersusButtons_Postfix(state_MapScenePatch);
+        if (run) Hook_81::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_81[1]) tfex::gen::MapScenePatch::InitVersusButtons_Postfix(state_MapScenePatch);
         ran_ = run;
 }
-void MapScene_InitVersusButtons::Orig() { ran_ = true; Hook_82::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MapScene_InitVersusButtons::Wrap(void (*shell)(MapScene_InitVersusButtons&)) { g_shell_Hook_82 = shell; if (!g_installed_Hook_82 && bind::m_MapScene_InitVersusButtons) { Hook_82::InstallAtOffset(bind::m_MapScene_InitVersusButtons); g_installed_Hook_82 = true; } }
+void MapScene_InitVersusButtons::Orig() { ran_ = true; Hook_81::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MapScene_InitVersusButtons::Wrap(void (*shell)(MapScene_InitVersusButtons&)) { g_shell_Hook_81 = shell; if (!g_installed_Hook_81 && bind::m_MapScene_InitVersusButtons) { Hook_81::InstallAtOffset(bind::m_MapScene_InitVersusButtons); g_installed_Hook_81 = true; } }
 
 void MapScene_StartSession::operator()() {
         bool run = true;
-        if (g_on_Hook_83[0]) tfex::gen::MapScenePatch::StartSession_Prefix();
-        if (g_calls_Hook_83 < 8) hw::Log("[tfexgen] hook MapScene.StartSession call %d: MapScenePatch.StartSession_Prefix=%d MapScenePatch.StartSession_Postfix=%d, original %s", ++g_calls_Hook_83, (int)g_on_Hook_83[0], (int)g_on_Hook_83[1], run ? "runs" : "skipped");
+        if (g_on_Hook_82[0]) tfex::gen::MapScenePatch::StartSession_Prefix();
+        if (g_calls_Hook_82 < 8) hw::Log("[tfexgen] hook MapScene.StartSession call %d: MapScenePatch.StartSession_Prefix=%d MapScenePatch.StartSession_Postfix=%d, original %s", ++g_calls_Hook_82, (int)g_on_Hook_82[0], (int)g_on_Hook_82[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_83::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_83[1]) tfex::gen::MapScenePatch::StartSession_Postfix();
+        if (run) Hook_82::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_82[1]) tfex::gen::MapScenePatch::StartSession_Postfix();
         ran_ = run;
 }
-void MapScene_StartSession::Orig() { ran_ = true; Hook_83::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MapScene_StartSession::Wrap(void (*shell)(MapScene_StartSession&)) { g_shell_Hook_83 = shell; if (!g_installed_Hook_83 && bind::m_MapScene_StartSession) { Hook_83::InstallAtOffset(bind::m_MapScene_StartSession); g_installed_Hook_83 = true; } }
+void MapScene_StartSession::Orig() { ran_ = true; Hook_82::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MapScene_StartSession::Wrap(void (*shell)(MapScene_StartSession&)) { g_shell_Hook_82 = shell; if (!g_installed_Hook_82 && bind::m_MapScene_StartSession) { Hook_82::InstallAtOffset(bind::m_MapScene_StartSession); g_installed_Hook_82 = true; } }
 
 void MatchSettings_CleanSettingsVersus::operator()() {
         bool run = true;
-        if (g_calls_Hook_84 < 8) hw::Log("[tfexgen] hook MatchSettings.CleanSettingsVersus call %d: MatchSettingsPatch.MatchSettings_CleanSettingsVersus=%d, original %s", ++g_calls_Hook_84, (int)g_on_Hook_84[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_83 < 8) hw::Log("[tfexgen] hook MatchSettings.CleanSettingsVersus call %d: MatchSettingsPatch.MatchSettings_CleanSettingsVersus=%d, original %s", ++g_calls_Hook_83, (int)g_on_Hook_83[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_84::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_84[0]) tfex::gen::MatchSettingsPatch::MatchSettings_CleanSettingsVersus(self);
+        if (run) Hook_83::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_83[0]) tfex::gen::MatchSettingsPatch::MatchSettings_CleanSettingsVersus(self);
         ran_ = run;
 }
-void MatchSettings_CleanSettingsVersus::Orig() { ran_ = true; Hook_84::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_CleanSettingsVersus::Wrap(void (*shell)(MatchSettings_CleanSettingsVersus&)) { g_shell_Hook_84 = shell; if (!g_installed_Hook_84 && bind::m_MatchSettings_CleanSettingsVersus) { Hook_84::InstallAtOffset(bind::m_MatchSettings_CleanSettingsVersus); g_installed_Hook_84 = true; } }
+void MatchSettings_CleanSettingsVersus::Orig() { ran_ = true; Hook_83::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_CleanSettingsVersus::Wrap(void (*shell)(MatchSettings_CleanSettingsVersus&)) { g_shell_Hook_83 = shell; if (!g_installed_Hook_83 && bind::m_MatchSettings_CleanSettingsVersus) { Hook_83::InstallAtOffset(bind::m_MatchSettings_CleanSettingsVersus); g_installed_Hook_83 = true; } }
 
 void MatchSettings_GetMaxTeamSize::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_85[0] && !tfex::gen::Tp_RulesHooks::GetMaxTeamSize_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_85 < 8) hw::Log("[tfexgen] hook MatchSettings.GetMaxTeamSize call %d: RulesHooks.GetMaxTeamSize_Prefix=%d, original %s", ++g_calls_Hook_85, (int)g_on_Hook_85[0], run ? "runs" : "skipped");
+        if (g_on_Hook_84[0] && !tfex::gen::Tp_RulesHooks::GetMaxTeamSize_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_84 < 8) hw::Log("[tfexgen] hook MatchSettings.GetMaxTeamSize call %d: RulesHooks.GetMaxTeamSize_Prefix=%d, original %s", ++g_calls_Hook_84, (int)g_on_Hook_84[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_85::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_84::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_GetMaxTeamSize::Orig() { ran_ = true; result_ = Hook_85::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_GetMaxTeamSize::Wrap(void (*shell)(MatchSettings_GetMaxTeamSize&)) { g_shell_Hook_85 = shell; if (!g_installed_Hook_85 && bind::m_MatchSettings_GetMaxTeamSize) { Hook_85::InstallAtOffset(bind::m_MatchSettings_GetMaxTeamSize); g_installed_Hook_85 = true; } }
+void MatchSettings_GetMaxTeamSize::Orig() { ran_ = true; result_ = Hook_84::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_GetMaxTeamSize::Wrap(void (*shell)(MatchSettings_GetMaxTeamSize&)) { g_shell_Hook_84 = shell; if (!g_installed_Hook_84 && bind::m_MatchSettings_GetMaxTeamSize) { Hook_84::InstallAtOffset(bind::m_MatchSettings_GetMaxTeamSize); g_installed_Hook_84 = true; } }
 
 void MatchSettings_GetPlayerTeamSize::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_86[0] && !tfex::gen::Tp_RulesHooks::GetPlayerTeamSize_Prefix(self, playerIndex, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_86 < 8) hw::Log("[tfexgen] hook MatchSettings.GetPlayerTeamSize call %d (playerIndex %d): RulesHooks.GetPlayerTeamSize_Prefix=%d, original %s", ++g_calls_Hook_86, (int)playerIndex, (int)g_on_Hook_86[0], run ? "runs" : "skipped");
+        if (g_on_Hook_85[0] && !tfex::gen::Tp_RulesHooks::GetPlayerTeamSize_Prefix(self, playerIndex, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_85 < 8) hw::Log("[tfexgen] hook MatchSettings.GetPlayerTeamSize call %d (playerIndex %d): RulesHooks.GetPlayerTeamSize_Prefix=%d, original %s", ++g_calls_Hook_85, (int)playerIndex, (int)g_on_Hook_85[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_86::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_85::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_GetPlayerTeamSize::Orig() { ran_ = true; result_ = Hook_86::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_GetPlayerTeamSize::Wrap(void (*shell)(MatchSettings_GetPlayerTeamSize&)) { g_shell_Hook_86 = shell; if (!g_installed_Hook_86 && bind::m_MatchSettings_GetPlayerTeamSize_e2bf) { Hook_86::InstallAtOffset(bind::m_MatchSettings_GetPlayerTeamSize_e2bf); g_installed_Hook_86 = true; } }
+void MatchSettings_GetPlayerTeamSize::Orig() { ran_ = true; result_ = Hook_85::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_GetPlayerTeamSize::Wrap(void (*shell)(MatchSettings_GetPlayerTeamSize&)) { g_shell_Hook_85 = shell; if (!g_installed_Hook_85 && bind::m_MatchSettings_GetPlayerTeamSize_e2bf) { Hook_85::InstallAtOffset(bind::m_MatchSettings_GetPlayerTeamSize_e2bf); g_installed_Hook_85 = true; } }
 
 void MatchSettings_IsFriendly::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_87[0] && !tfex::gen::Tp_RulesHooks::IsFriendly_Prefix(self, playerA, playerB, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_87 < 8) hw::Log("[tfexgen] hook MatchSettings.IsFriendly call %d (playerA %d, playerB %d): RulesHooks.IsFriendly_Prefix=%d, original %s", ++g_calls_Hook_87, (int)playerA, (int)playerB, (int)g_on_Hook_87[0], run ? "runs" : "skipped");
+        if (g_on_Hook_86[0] && !tfex::gen::Tp_RulesHooks::IsFriendly_Prefix(self, playerA, playerB, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_86 < 8) hw::Log("[tfexgen] hook MatchSettings.IsFriendly call %d (playerA %d, playerB %d): RulesHooks.IsFriendly_Prefix=%d, original %s", ++g_calls_Hook_86, (int)playerA, (int)playerB, (int)g_on_Hook_86[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_87::Orig(self, playerA, playerB, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_86::Orig(self, playerA, playerB, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_IsFriendly::Orig() { ran_ = true; result_ = Hook_87::Orig(self, playerA, playerB, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_IsFriendly::Wrap(void (*shell)(MatchSettings_IsFriendly&)) { g_shell_Hook_87 = shell; if (!g_installed_Hook_87 && bind::m_MatchSettings_IsFriendly_c11b) { Hook_87::InstallAtOffset(bind::m_MatchSettings_IsFriendly_c11b); g_installed_Hook_87 = true; } }
+void MatchSettings_IsFriendly::Orig() { ran_ = true; result_ = Hook_86::Orig(self, playerA, playerB, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_IsFriendly::Wrap(void (*shell)(MatchSettings_IsFriendly&)) { g_shell_Hook_86 = shell; if (!g_installed_Hook_86 && bind::m_MatchSettings_IsFriendly_c11b) { Hook_86::InstallAtOffset(bind::m_MatchSettings_IsFriendly_c11b); g_installed_Hook_86 = true; } }
 
 void MatchSettings_PlayerGoals::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_calls_Hook_88 < 8) hw::Log("[tfexgen] hook MatchSettings.PlayerGoals call %d (p2goal %d, p3goal %d, p4goal %d): MatchSettingsPatch.MatchSettings_PlayerGoals=%d, original %s", ++g_calls_Hook_88, (int)p2goal, (int)p3goal, (int)p4goal, (int)g_on_Hook_88[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_87 < 8) hw::Log("[tfexgen] hook MatchSettings.PlayerGoals call %d (p2goal %d, p3goal %d, p4goal %d): MatchSettingsPatch.MatchSettings_PlayerGoals=%d, original %s", ++g_calls_Hook_87, (int)p2goal, (int)p3goal, (int)p4goal, (int)g_on_Hook_87[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_88::Orig(self, p2goal, p3goal, p4goal, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_88[0]) tfex::gen::MatchSettingsPatch::MatchSettings_PlayerGoals(__result);
+        if (run) __result = Hook_87::Orig(self, p2goal, p3goal, p4goal, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_87[0]) tfex::gen::MatchSettingsPatch::MatchSettings_PlayerGoals(__result);
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_PlayerGoals::Orig() { ran_ = true; result_ = Hook_88::Orig(self, p2goal, p3goal, p4goal, x4_, x5_, x6_, x7_); }
-void MatchSettings_PlayerGoals::Wrap(void (*shell)(MatchSettings_PlayerGoals&)) { g_shell_Hook_88 = shell; if (!g_installed_Hook_88 && bind::m_MatchSettings_PlayerGoals_cf0f) { Hook_88::InstallAtOffset(bind::m_MatchSettings_PlayerGoals_cf0f); g_installed_Hook_88 = true; } }
+void MatchSettings_PlayerGoals::Orig() { ran_ = true; result_ = Hook_87::Orig(self, p2goal, p3goal, p4goal, x4_, x5_, x6_, x7_); }
+void MatchSettings_PlayerGoals::Wrap(void (*shell)(MatchSettings_PlayerGoals&)) { g_shell_Hook_87 = shell; if (!g_installed_Hook_87 && bind::m_MatchSettings_PlayerGoals_cf0f) { Hook_87::InstallAtOffset(bind::m_MatchSettings_PlayerGoals_cf0f); g_installed_Hook_87 = true; } }
 
 void MatchSettings_get_CanPlayThisMode::operator()() {
         bool __result{};
         bool run = true;
-        if (g_calls_Hook_89 < 8) hw::Log("[tfexgen] hook MatchSettings.get_CanPlayThisMode call %d: patch_MatchSettings.get_CanPlayThisMode=%d, original %s", ++g_calls_Hook_89, (int)g_on_Hook_89[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_88 < 8) hw::Log("[tfexgen] hook MatchSettings.get_CanPlayThisMode call %d: patch_MatchSettings.get_CanPlayThisMode=%d, original %s", ++g_calls_Hook_88, (int)g_on_Hook_88[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = g_on_Hook_89[0] ? tfex::gen::Fr_MatchSettings::get_CanPlayThisMode(self) : Hook_89::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
+        if (run) __result = g_on_Hook_88[0] ? tfex::gen::Fr_MatchSettings::get_CanPlayThisMode(self) : Hook_88::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_get_CanPlayThisMode::Orig() { ran_ = true; result_ = Hook_89::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_get_CanPlayThisMode::Wrap(void (*shell)(MatchSettings_get_CanPlayThisMode&)) { g_shell_Hook_89 = shell; if (!g_installed_Hook_89 && bind::m_MatchSettings_get_CanPlayThisMode) { Hook_89::InstallAtOffset(bind::m_MatchSettings_get_CanPlayThisMode); g_installed_Hook_89 = true; } }
+void MatchSettings_get_CanPlayThisMode::Orig() { ran_ = true; result_ = Hook_88::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_get_CanPlayThisMode::Wrap(void (*shell)(MatchSettings_get_CanPlayThisMode&)) { g_shell_Hook_88 = shell; if (!g_installed_Hook_88 && bind::m_MatchSettings_get_CanPlayThisMode) { Hook_88::InstallAtOffset(bind::m_MatchSettings_get_CanPlayThisMode); g_installed_Hook_88 = true; } }
 
 void MatchSettings_get_CanStartWithTeams::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_90[0] && !tfex::gen::Tp_RulesHooks::CanStartWithTeams_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_90 < 8) hw::Log("[tfexgen] hook MatchSettings.get_CanStartWithTeams call %d: RulesHooks.CanStartWithTeams_Prefix=%d, original %s", ++g_calls_Hook_90, (int)g_on_Hook_90[0], run ? "runs" : "skipped");
+        if (g_on_Hook_89[0] && !tfex::gen::Tp_RulesHooks::CanStartWithTeams_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_89 < 8) hw::Log("[tfexgen] hook MatchSettings.get_CanStartWithTeams call %d: RulesHooks.CanStartWithTeams_Prefix=%d, original %s", ++g_calls_Hook_89, (int)g_on_Hook_89[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_90::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_89::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_get_CanStartWithTeams::Orig() { ran_ = true; result_ = Hook_90::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_get_CanStartWithTeams::Wrap(void (*shell)(MatchSettings_get_CanStartWithTeams&)) { g_shell_Hook_90 = shell; if (!g_installed_Hook_90 && bind::m_MatchSettings_get_CanStartWithTeams) { Hook_90::InstallAtOffset(bind::m_MatchSettings_get_CanStartWithTeams); g_installed_Hook_90 = true; } }
+void MatchSettings_get_CanStartWithTeams::Orig() { ran_ = true; result_ = Hook_89::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_get_CanStartWithTeams::Wrap(void (*shell)(MatchSettings_get_CanStartWithTeams&)) { g_shell_Hook_89 = shell; if (!g_installed_Hook_89 && bind::m_MatchSettings_get_CanStartWithTeams) { Hook_89::InstallAtOffset(bind::m_MatchSettings_get_CanStartWithTeams); g_installed_Hook_89 = true; } }
 
 void MatchSettings_get_GoalScore::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_calls_Hook_91 < 8) hw::Log("[tfexgen] hook MatchSettings.get_GoalScore call %d: patch_MatchSettings.get_GoalScore=%d, original %s", ++g_calls_Hook_91, (int)g_on_Hook_91[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_90 < 8) hw::Log("[tfexgen] hook MatchSettings.get_GoalScore call %d: patch_MatchSettings.get_GoalScore=%d, original %s", ++g_calls_Hook_90, (int)g_on_Hook_90[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = g_on_Hook_91[0] ? tfex::gen::Fr_MatchSettings::get_GoalScore(self) : Hook_91::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
+        if (run) __result = g_on_Hook_90[0] ? tfex::gen::Fr_MatchSettings::get_GoalScore(self) : Hook_90::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_get_GoalScore::Orig() { ran_ = true; result_ = Hook_91::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_get_GoalScore::Wrap(void (*shell)(MatchSettings_get_GoalScore&)) { g_shell_Hook_91 = shell; if (!g_installed_Hook_91 && bind::m_MatchSettings_get_GoalScore) { Hook_91::InstallAtOffset(bind::m_MatchSettings_get_GoalScore); g_installed_Hook_91 = true; } }
+void MatchSettings_get_GoalScore::Orig() { ran_ = true; result_ = Hook_90::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_get_GoalScore::Wrap(void (*shell)(MatchSettings_get_GoalScore&)) { g_shell_Hook_90 = shell; if (!g_installed_Hook_90 && bind::m_MatchSettings_get_GoalScore) { Hook_90::InstallAtOffset(bind::m_MatchSettings_get_GoalScore); g_installed_Hook_90 = true; } }
 
 void MatchSettings_get_TeamMode::operator()() {
         bool __result{};
         bool run = true;
-        if (g_calls_Hook_92 < 8) hw::Log("[tfexgen] hook MatchSettings.get_TeamMode call %d: patch_MatchSettings.get_TeamMode=%d, original %s", ++g_calls_Hook_92, (int)g_on_Hook_92[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_91 < 8) hw::Log("[tfexgen] hook MatchSettings.get_TeamMode call %d: patch_MatchSettings.get_TeamMode=%d, original %s", ++g_calls_Hook_91, (int)g_on_Hook_91[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = g_on_Hook_92[0] ? tfex::gen::Fr_MatchSettings::get_TeamMode(self) : Hook_92::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
+        if (run) __result = g_on_Hook_91[0] ? tfex::gen::Fr_MatchSettings::get_TeamMode(self) : Hook_91::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
         ran_ = run;
         result_ = __result;
 }
-void MatchSettings_get_TeamMode::Orig() { ran_ = true; result_ = Hook_92::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchSettings_get_TeamMode::Wrap(void (*shell)(MatchSettings_get_TeamMode&)) { g_shell_Hook_92 = shell; if (!g_installed_Hook_92 && bind::m_MatchSettings_get_TeamMode) { Hook_92::InstallAtOffset(bind::m_MatchSettings_get_TeamMode); g_installed_Hook_92 = true; } }
+void MatchSettings_get_TeamMode::Orig() { ran_ = true; result_ = Hook_91::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchSettings_get_TeamMode::Wrap(void (*shell)(MatchSettings_get_TeamMode&)) { g_shell_Hook_91 = shell; if (!g_installed_Hook_91 && bind::m_MatchSettings_get_TeamMode) { Hook_91::InstallAtOffset(bind::m_MatchSettings_get_TeamMode); g_installed_Hook_91 = true; } }
 
 void MatchTeams_get_ProperlyAssigned::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_93[0] && !tfex::gen::Tp_RulesHooks::ProperlyAssigned_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_93 < 8) hw::Log("[tfexgen] hook MatchTeams.get_ProperlyAssigned call %d: RulesHooks.ProperlyAssigned_Prefix=%d, original %s", ++g_calls_Hook_93, (int)g_on_Hook_93[0], run ? "runs" : "skipped");
+        if (g_on_Hook_92[0] && !tfex::gen::Tp_RulesHooks::ProperlyAssigned_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_92 < 8) hw::Log("[tfexgen] hook MatchTeams.get_ProperlyAssigned call %d: RulesHooks.ProperlyAssigned_Prefix=%d, original %s", ++g_calls_Hook_92, (int)g_on_Hook_92[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_93::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_92::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void MatchTeams_get_ProperlyAssigned::Orig() { ran_ = true; result_ = Hook_93::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchTeams_get_ProperlyAssigned::Wrap(void (*shell)(MatchTeams_get_ProperlyAssigned&)) { g_shell_Hook_93 = shell; if (!g_installed_Hook_93 && bind::m_MatchTeams_get_ProperlyAssigned) { Hook_93::InstallAtOffset(bind::m_MatchTeams_get_ProperlyAssigned); g_installed_Hook_93 = true; } }
+void MatchTeams_get_ProperlyAssigned::Orig() { ran_ = true; result_ = Hook_92::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchTeams_get_ProperlyAssigned::Wrap(void (*shell)(MatchTeams_get_ProperlyAssigned&)) { g_shell_Hook_92 = shell; if (!g_installed_Hook_92 && bind::m_MatchTeams_get_ProperlyAssigned) { Hook_92::InstallAtOffset(bind::m_MatchTeams_get_ProperlyAssigned); g_installed_Hook_92 = true; } }
 
 void MatchVariants_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_94 < 8) hw::Log("[tfexgen] hook MatchVariants.ctor call %d (noPerPlayer %d): MatchVariantsPatchs.MatchVariants_ctor=%d, original %s", ++g_calls_Hook_94, (int)noPerPlayer, (int)g_on_Hook_94[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_93 < 8) hw::Log("[tfexgen] hook MatchVariants.ctor call %d (noPerPlayer %d): MatchVariantsPatchs.MatchVariants_ctor=%d, original %s", ++g_calls_Hook_93, (int)noPerPlayer, (int)g_on_Hook_93[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_94::Orig(self, noPerPlayer, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_94[0]) tfex::gen::MatchVariantsPatchs::MatchVariants_ctor(obj);
+        if (run) { void* r_ = Hook_93::Orig(self, noPerPlayer, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_93[0]) tfex::gen::MatchVariantsPatchs::MatchVariants_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void MatchVariants_ctor::Orig() { ran_ = true; void* r_ = Hook_94::Orig(self, noPerPlayer, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void MatchVariants_ctor::Wrap(void (*shell)(MatchVariants_ctor&)) { g_shell_Hook_94 = shell; if (!g_installed_Hook_94 && bind::m_MatchVariants__ctor_953d) { Hook_94::InstallAtOffset(bind::m_MatchVariants__ctor_953d); g_installed_Hook_94 = true; } }
+void MatchVariants_ctor::Orig() { ran_ = true; void* r_ = Hook_93::Orig(self, noPerPlayer, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void MatchVariants_ctor::Wrap(void (*shell)(MatchVariants_ctor&)) { g_shell_Hook_93 = shell; if (!g_installed_Hook_93 && bind::m_MatchVariants__ctor_953d) { Hook_93::InstallAtOffset(bind::m_MatchVariants__ctor_953d); g_installed_Hook_93 = true; } }
 
 void MatchVariants_BuildMenu::operator()() {
         void* __result{};
         bool run = true;
-        if (g_on_Hook_95[0]) tfex::gen::MatchVariantsPatchs::MatchVariants_BuildMenu_Prefix(self);
-        if (g_calls_Hook_95 < 8) hw::Log("[tfexgen] hook MatchVariants.BuildMenu call %d: MatchVariantsPatchs.MatchVariants_BuildMenu_Prefix=%d, original %s", ++g_calls_Hook_95, (int)g_on_Hook_95[0], run ? "runs" : "skipped");
+        if (g_on_Hook_94[0]) tfex::gen::MatchVariantsPatchs::MatchVariants_BuildMenu_Prefix(self);
+        if (g_calls_Hook_94 < 8) hw::Log("[tfexgen] hook MatchVariants.BuildMenu call %d: MatchVariantsPatchs.MatchVariants_BuildMenu_Prefix=%d, original %s", ++g_calls_Hook_94, (int)g_on_Hook_94[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_95::Orig(self, menu, startSelected, maxUICameraY, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_94::Orig(self, menu, startSelected, maxUICameraY, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void MatchVariants_BuildMenu::Orig() { ran_ = true; result_ = Hook_95::Orig(self, menu, startSelected, maxUICameraY, x4_, x5_, x6_, x7_); }
-void MatchVariants_BuildMenu::Wrap(void (*shell)(MatchVariants_BuildMenu&)) { g_shell_Hook_95 = shell; if (!g_installed_Hook_95 && bind::m_MatchVariants_BuildMenu_62a4) { Hook_95::InstallAtOffset(bind::m_MatchVariants_BuildMenu_62a4); g_installed_Hook_95 = true; } }
+void MatchVariants_BuildMenu::Orig() { ran_ = true; result_ = Hook_94::Orig(self, menu, startSelected, maxUICameraY, x4_, x5_, x6_, x7_); }
+void MatchVariants_BuildMenu::Wrap(void (*shell)(MatchVariants_BuildMenu&)) { g_shell_Hook_94 = shell; if (!g_installed_Hook_94 && bind::m_MatchVariants_BuildMenu_62a4) { Hook_94::InstallAtOffset(bind::m_MatchVariants_BuildMenu_62a4); g_installed_Hook_94 = true; } }
 
 void MatchVariants_Randomize::operator()() {
         bool run = true;
         bool state_MatchVariantsPatch{};
-        if (g_on_Hook_96[0] && !tfex::gen::State_MatchVariants::MatchVariants_Randomize_Prefix(state_MatchVariantsPatch)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_96 < 8) hw::Log("[tfexgen] hook MatchVariants.Randomize call %d: MatchVariantsPatch.MatchVariants_Randomize_Prefix=%d MatchVariantsPatch.MatchVariants_Randomize_Postfix=%d, original %s", ++g_calls_Hook_96, (int)g_on_Hook_96[0], (int)g_on_Hook_96[1], run ? "runs" : "skipped");
+        if (g_on_Hook_95[0] && !tfex::gen::State_MatchVariants::MatchVariants_Randomize_Prefix(state_MatchVariantsPatch)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_95 < 8) hw::Log("[tfexgen] hook MatchVariants.Randomize call %d: MatchVariantsPatch.MatchVariants_Randomize_Prefix=%d MatchVariantsPatch.MatchVariants_Randomize_Postfix=%d, original %s", ++g_calls_Hook_95, (int)g_on_Hook_95[0], (int)g_on_Hook_95[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_96::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_96[1]) tfex::gen::State_MatchVariants::MatchVariants_Randomize_Postfix(state_MatchVariantsPatch);
+        if (run) Hook_95::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_95[1]) tfex::gen::State_MatchVariants::MatchVariants_Randomize_Postfix(state_MatchVariantsPatch);
         ran_ = run;
 }
-void MatchVariants_Randomize::Orig() { ran_ = true; Hook_96::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MatchVariants_Randomize::Wrap(void (*shell)(MatchVariants_Randomize&)) { g_shell_Hook_96 = shell; if (!g_installed_Hook_96 && bind::m_MatchVariants_Randomize) { Hook_96::InstallAtOffset(bind::m_MatchVariants_Randomize); g_installed_Hook_96 = true; } }
+void MatchVariants_Randomize::Orig() { ran_ = true; Hook_95::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MatchVariants_Randomize::Wrap(void (*shell)(MatchVariants_Randomize&)) { g_shell_Hook_95 = shell; if (!g_installed_Hook_95 && bind::m_MatchVariants_Randomize) { Hook_95::InstallAtOffset(bind::m_MatchVariants_Randomize); g_installed_Hook_95 = true; } }
 
 void MenuItem_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_97 < 8) hw::Log("[tfexgen] hook MenuItem.Update call %d: MenuItemPatch.MenuItem_Update=%d, original %s", ++g_calls_Hook_97, (int)g_on_Hook_97[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_96 < 8) hw::Log("[tfexgen] hook MenuItem.Update call %d: MenuItemPatch.MenuItem_Update=%d, original %s", ++g_calls_Hook_96, (int)g_on_Hook_96[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_97::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_97[0]) tfex::gen::MenuItemPatch::MenuItem_Update(self);
+        if (run) Hook_96::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_96[0]) tfex::gen::MenuItemPatch::MenuItem_Update(self);
         ran_ = run;
 }
-void MenuItem_Update::Orig() { ran_ = true; Hook_97::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MenuItem_Update::Wrap(void (*shell)(MenuItem_Update&)) { g_shell_Hook_97 = shell; if (!g_installed_Hook_97 && bind::m_MenuItem_Update) { Hook_97::InstallAtOffset(bind::m_MenuItem_Update); g_installed_Hook_97 = true; } }
+void MenuItem_Update::Orig() { ran_ = true; Hook_96::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MenuItem_Update::Wrap(void (*shell)(MenuItem_Update&)) { g_shell_Hook_96 = shell; if (!g_installed_Hook_96 && bind::m_MenuItem_Update) { Hook_96::InstallAtOffset(bind::m_MenuItem_Update); g_installed_Hook_96 = true; } }
 
 void Miasma_Dissipate::operator()() {
         bool run = true;
-        if (g_on_Hook_98[0]) tfex::gen::State_Miasma::Miasma_Dissipate(self);
-        if (g_calls_Hook_98 < 8) hw::Log("[tfexgen] hook Miasma.Dissipate call %d: MiasmaPatch.Miasma_Dissipate=%d, original %s", ++g_calls_Hook_98, (int)g_on_Hook_98[0], run ? "runs" : "skipped");
+        if (g_on_Hook_97[0]) tfex::gen::State_Miasma::Miasma_Dissipate(self);
+        if (g_calls_Hook_97 < 8) hw::Log("[tfexgen] hook Miasma.Dissipate call %d: MiasmaPatch.Miasma_Dissipate=%d, original %s", ++g_calls_Hook_97, (int)g_on_Hook_97[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_98::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_97::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Miasma_Dissipate::Orig() { ran_ = true; Hook_98::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Miasma_Dissipate::Wrap(void (*shell)(Miasma_Dissipate&)) { g_shell_Hook_98 = shell; if (!g_installed_Hook_98 && bind::m_Miasma_Dissipate) { Hook_98::InstallAtOffset(bind::m_Miasma_Dissipate); g_installed_Hook_98 = true; } }
+void Miasma_Dissipate::Orig() { ran_ = true; Hook_97::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Miasma_Dissipate::Wrap(void (*shell)(Miasma_Dissipate&)) { g_shell_Hook_97 = shell; if (!g_installed_Hook_97 && bind::m_Miasma_Dissipate) { Hook_97::InstallAtOffset(bind::m_Miasma_Dissipate); g_installed_Hook_97 = true; } }
 
 void Miasma_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_99[0]) tfex::gen::State_Miasma::Miasma_Update(self);
-        if (g_on_Hook_99[1]) tfex::gen::State_Miasma::Miasma_Update_FreezeCosmetics(self);
-        if (g_calls_Hook_99 < 8) hw::Log("[tfexgen] hook Miasma.Update call %d: MiasmaPatch.Miasma_Update=%d MiasmaPatch.Miasma_Update_FreezeCosmetics=%d MiasmaPatch.Miasma_Update_UnfreezeCosmetics=%d, original %s", ++g_calls_Hook_99, (int)g_on_Hook_99[0], (int)g_on_Hook_99[1], (int)g_on_Hook_99[2], run ? "runs" : "skipped");
+        if (g_on_Hook_98[0]) tfex::gen::State_Miasma::Miasma_Update(self);
+        if (g_on_Hook_98[1]) tfex::gen::State_Miasma::Miasma_Update_FreezeCosmetics(self);
+        if (g_calls_Hook_98 < 8) hw::Log("[tfexgen] hook Miasma.Update call %d: MiasmaPatch.Miasma_Update=%d MiasmaPatch.Miasma_Update_FreezeCosmetics=%d MiasmaPatch.Miasma_Update_UnfreezeCosmetics=%d, original %s", ++g_calls_Hook_98, (int)g_on_Hook_98[0], (int)g_on_Hook_98[1], (int)g_on_Hook_98[2], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_99::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_99[2]) tfex::gen::State_Miasma::Miasma_Update_UnfreezeCosmetics();
+        if (run) Hook_98::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_98[2]) tfex::gen::State_Miasma::Miasma_Update_UnfreezeCosmetics();
         ran_ = run;
 }
-void Miasma_Update::Orig() { ran_ = true; Hook_99::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Miasma_Update::Wrap(void (*shell)(Miasma_Update&)) { g_shell_Hook_99 = shell; if (!g_installed_Hook_99 && bind::m_Miasma_Update) { Hook_99::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_99 = true; } }
+void Miasma_Update::Orig() { ran_ = true; Hook_98::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Miasma_Update::Wrap(void (*shell)(Miasma_Update&)) { g_shell_Hook_98 = shell; if (!g_installed_Hook_98 && bind::m_Miasma_Update) { Hook_98::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_98 = true; } }
 
 void MoonGlassBlock_InsideExplode::operator()() {
         bool run = true;
-        if (g_calls_Hook_100 < 8) hw::Log("[tfexgen] hook MoonGlassBlock.InsideExplode call %d: MoonGlassBlockPatch.MoonGlassBlock_InsideExplode=%d, original %s", ++g_calls_Hook_100, (int)g_on_Hook_100[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_99 < 8) hw::Log("[tfexgen] hook MoonGlassBlock.InsideExplode call %d: MoonGlassBlockPatch.MoonGlassBlock_InsideExplode=%d, original %s", ++g_calls_Hook_99, (int)g_on_Hook_99[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_100::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_100[0]) tfex::gen::State_MoonGlassBlock::MoonGlassBlock_InsideExplode(self);
+        if (run) Hook_99::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_99[0]) tfex::gen::State_MoonGlassBlock::MoonGlassBlock_InsideExplode(self);
         ran_ = run;
 }
-void MoonGlassBlock_InsideExplode::Orig() { ran_ = true; Hook_100::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MoonGlassBlock_InsideExplode::Wrap(void (*shell)(MoonGlassBlock_InsideExplode&)) { g_shell_Hook_100 = shell; if (!g_installed_Hook_100 && bind::m_MoonGlassBlock_InsideExplode) { Hook_100::InstallAtOffset(bind::m_MoonGlassBlock_InsideExplode); g_installed_Hook_100 = true; } }
+void MoonGlassBlock_InsideExplode::Orig() { ran_ = true; Hook_99::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MoonGlassBlock_InsideExplode::Wrap(void (*shell)(MoonGlassBlock_InsideExplode&)) { g_shell_Hook_99 = shell; if (!g_installed_Hook_99 && bind::m_MoonGlassBlock_InsideExplode) { Hook_99::InstallAtOffset(bind::m_MoonGlassBlock_InsideExplode); g_installed_Hook_99 = true; } }
 
 void MovingPlatform_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_101[0] && !tfex::gen::State_MovingPlatform::MovingPlatform_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_101 < 8) hw::Log("[tfexgen] hook MovingPlatform.Update call %d: MovingPlatformPatch.MovingPlatform_Update=%d, original %s", ++g_calls_Hook_101, (int)g_on_Hook_101[0], run ? "runs" : "skipped");
+        if (g_on_Hook_100[0] && !tfex::gen::State_MovingPlatform::MovingPlatform_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_100 < 8) hw::Log("[tfexgen] hook MovingPlatform.Update call %d: MovingPlatformPatch.MovingPlatform_Update=%d, original %s", ++g_calls_Hook_100, (int)g_on_Hook_100[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_101::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_100::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void MovingPlatform_Update::Orig() { ran_ = true; Hook_101::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void MovingPlatform_Update::Wrap(void (*shell)(MovingPlatform_Update&)) { g_shell_Hook_101 = shell; if (!g_installed_Hook_101 && bind::m_MovingPlatform_Update) { Hook_101::InstallAtOffset(bind::m_MovingPlatform_Update); g_installed_Hook_101 = true; } }
+void MovingPlatform_Update::Orig() { ran_ = true; Hook_100::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void MovingPlatform_Update::Wrap(void (*shell)(MovingPlatform_Update&)) { g_shell_Hook_100 = shell; if (!g_installed_Hook_100 && bind::m_MovingPlatform_Update) { Hook_100::InstallAtOffset(bind::m_MovingPlatform_Update); g_installed_Hook_100 = true; } }
 
 void OptionsButton_OnSelect::operator()() {
         bool run = true;
-        if (g_calls_Hook_102 < 8) hw::Log("[tfexgen] hook OptionsButton.OnSelect call %d: OptionsButton.OnSelect=%d, original %s", ++g_calls_Hook_102, (int)g_on_Hook_102[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_101 < 8) hw::Log("[tfexgen] hook OptionsButton.OnSelect call %d: OptionsButton.OnSelect=%d, original %s", ++g_calls_Hook_101, (int)g_on_Hook_101[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { if (g_on_Hook_102[0]) tfex::gen::Fr_OptionsButton::OnSelect(self); else Hook_102::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
+        if (run) { if (g_on_Hook_101[0]) tfex::gen::Fr_OptionsButton::OnSelect(self); else Hook_101::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
         ran_ = run;
 }
-void OptionsButton_OnSelect::Orig() { ran_ = true; Hook_102::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OptionsButton_OnSelect::Wrap(void (*shell)(OptionsButton_OnSelect&)) { g_shell_Hook_102 = shell; if (!g_installed_Hook_102 && bind::m_OptionsButton_OnSelect) { Hook_102::InstallAtOffset(bind::m_OptionsButton_OnSelect); g_installed_Hook_102 = true; } }
+void OptionsButton_OnSelect::Orig() { ran_ = true; Hook_101::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OptionsButton_OnSelect::Wrap(void (*shell)(OptionsButton_OnSelect&)) { g_shell_Hook_101 = shell; if (!g_installed_Hook_101 && bind::m_OptionsButton_OnSelect) { Hook_101::InstallAtOffset(bind::m_OptionsButton_OnSelect); g_installed_Hook_101 = true; } }
 
 void Orb_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_103[0]) tfex::gen::State_Orb::Orb_ctor_Vector2_bool_Prefix();
-        if (g_calls_Hook_103 < 8) hw::Log("[tfexgen] hook Orb.ctor call %d (explodes %d): OrbPatch.Orb_ctor_Vector2_bool_Prefix=%d OrbPatch.Orb_ctor_Vector2_bool_PostFix=%d, original %s", ++g_calls_Hook_103, (int)explodes, (int)g_on_Hook_103[0], (int)g_on_Hook_103[1], run ? "runs" : "skipped");
+        if (g_on_Hook_102[0]) tfex::gen::State_Orb::Orb_ctor_Vector2_bool_Prefix();
+        if (g_calls_Hook_102 < 8) hw::Log("[tfexgen] hook Orb.ctor call %d (explodes %d): OrbPatch.Orb_ctor_Vector2_bool_Prefix=%d OrbPatch.Orb_ctor_Vector2_bool_PostFix=%d, original %s", ++g_calls_Hook_102, (int)explodes, (int)g_on_Hook_102[0], (int)g_on_Hook_102[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_103::Orig(self, position, explodes, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_103[1]) tfex::gen::State_Orb::Orb_ctor_Vector2_bool_PostFix(obj);
+        if (run) { void* r_ = Hook_102::Orig(self, position, explodes, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_102[1]) tfex::gen::State_Orb::Orb_ctor_Vector2_bool_PostFix(obj);
         ran_ = run;
         result_ = obj;
 }
-void Orb_ctor::Orig() { ran_ = true; void* r_ = Hook_103::Orig(self, position, explodes, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Orb_ctor::Wrap(void (*shell)(Orb_ctor&)) { g_shell_Hook_103 = shell; if (!g_installed_Hook_103 && bind::m_Orb__ctor_2265) { Hook_103::InstallAtOffset(bind::m_Orb__ctor_2265); g_installed_Hook_103 = true; } }
+void Orb_ctor::Orig() { ran_ = true; void* r_ = Hook_102::Orig(self, position, explodes, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Orb_ctor::Wrap(void (*shell)(Orb_ctor&)) { g_shell_Hook_102 = shell; if (!g_installed_Hook_102 && bind::m_Orb__ctor_2265) { Hook_102::InstallAtOffset(bind::m_Orb__ctor_2265); g_installed_Hook_102 = true; } }
 
 void Orb_Update::operator()() {
         bool run = true;
         void* state_OrbPatch{};
-        if (g_on_Hook_104[0]) tfex::gen::State_Orb::Orb_Update_Prefix(self, state_OrbPatch);
-        if (g_calls_Hook_104 < 8) hw::Log("[tfexgen] hook Orb.Update call %d: OrbPatch.Orb_Update_Prefix=%d OrbPatch.Orb_Update_Postfix=%d, original %s", ++g_calls_Hook_104, (int)g_on_Hook_104[0], (int)g_on_Hook_104[1], run ? "runs" : "skipped");
+        if (g_on_Hook_103[0]) tfex::gen::State_Orb::Orb_Update_Prefix(self, state_OrbPatch);
+        if (g_calls_Hook_103 < 8) hw::Log("[tfexgen] hook Orb.Update call %d: OrbPatch.Orb_Update_Prefix=%d OrbPatch.Orb_Update_Postfix=%d, original %s", ++g_calls_Hook_103, (int)g_on_Hook_103[0], (int)g_on_Hook_103[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_104::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_104[1]) tfex::gen::State_Orb::Orb_Update_Postfix(state_OrbPatch);
+        if (run) Hook_103::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_103[1]) tfex::gen::State_Orb::Orb_Update_Postfix(state_OrbPatch);
         ran_ = run;
 }
-void Orb_Update::Orig() { ran_ = true; Hook_104::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Orb_Update::Wrap(void (*shell)(Orb_Update&)) { g_shell_Hook_104 = shell; if (!g_installed_Hook_104 && bind::m_Orb_Update) { Hook_104::InstallAtOffset(bind::m_Orb_Update); g_installed_Hook_104 = true; } }
+void Orb_Update::Orig() { ran_ = true; Hook_103::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Orb_Update::Wrap(void (*shell)(Orb_Update&)) { g_shell_Hook_103 = shell; if (!g_installed_Hook_103 && bind::m_Orb_Update) { Hook_103::InstallAtOffset(bind::m_Orb_Update); g_installed_Hook_103 = true; } }
 
 void OrbLogic_DoDarkOrb::operator()() {
         bool run = true;
-        if (g_on_Hook_105[0]) tfex::gen::State_OrbLogic::OrbLogic_DoDarkOrb_Prefix();
-        if (g_calls_Hook_105 < 8) hw::Log("[tfexgen] hook OrbLogic.DoDarkOrb call %d: OrbLogicPatch.OrbLogic_DoDarkOrb_Prefix=%d OrbLogicPatch.OrbLogic_DoDarkOrb_Postfix=%d, original %s", ++g_calls_Hook_105, (int)g_on_Hook_105[0], (int)g_on_Hook_105[1], run ? "runs" : "skipped");
+        if (g_on_Hook_104[0]) tfex::gen::State_OrbLogic::OrbLogic_DoDarkOrb_Prefix();
+        if (g_calls_Hook_104 < 8) hw::Log("[tfexgen] hook OrbLogic.DoDarkOrb call %d: OrbLogicPatch.OrbLogic_DoDarkOrb_Prefix=%d OrbLogicPatch.OrbLogic_DoDarkOrb_Postfix=%d, original %s", ++g_calls_Hook_104, (int)g_on_Hook_104[0], (int)g_on_Hook_104[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_105::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_105[1]) tfex::gen::State_OrbLogic::OrbLogic_DoDarkOrb_Postfix();
+        if (run) Hook_104::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_104[1]) tfex::gen::State_OrbLogic::OrbLogic_DoDarkOrb_Postfix();
         ran_ = run;
 }
-void OrbLogic_DoDarkOrb::Orig() { ran_ = true; Hook_105::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbLogic_DoDarkOrb::Wrap(void (*shell)(OrbLogic_DoDarkOrb&)) { g_shell_Hook_105 = shell; if (!g_installed_Hook_105 && bind::m_OrbLogic_DoDarkOrb) { Hook_105::InstallAtOffset(bind::m_OrbLogic_DoDarkOrb); g_installed_Hook_105 = true; } }
+void OrbLogic_DoDarkOrb::Orig() { ran_ = true; Hook_104::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbLogic_DoDarkOrb::Wrap(void (*shell)(OrbLogic_DoDarkOrb&)) { g_shell_Hook_104 = shell; if (!g_installed_Hook_104 && bind::m_OrbLogic_DoDarkOrb) { Hook_104::InstallAtOffset(bind::m_OrbLogic_DoDarkOrb); g_installed_Hook_104 = true; } }
 
 void OrbLogic_DoOffsetWorldVariant::operator()() {
         bool run = true;
-        if (g_on_Hook_106[0] && !tfex::gen::State_OrbLogic::OrbLogic_DoOffsetWorldVariant(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_106 < 8) hw::Log("[tfexgen] hook OrbLogic.DoOffsetWorldVariant call %d: OrbLogicPatch.OrbLogic_DoOffsetWorldVariant=%d, original %s", ++g_calls_Hook_106, (int)g_on_Hook_106[0], run ? "runs" : "skipped");
+        if (g_on_Hook_105[0] && !tfex::gen::State_OrbLogic::OrbLogic_DoOffsetWorldVariant(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_105 < 8) hw::Log("[tfexgen] hook OrbLogic.DoOffsetWorldVariant call %d: OrbLogicPatch.OrbLogic_DoOffsetWorldVariant=%d, original %s", ++g_calls_Hook_105, (int)g_on_Hook_105[0], run ? "runs" : "skipped");
+        if (run && beforeOrig_) beforeOrig_(*this);
+        if (run) Hook_105::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        ran_ = run;
+}
+void OrbLogic_DoOffsetWorldVariant::Orig() { ran_ = true; Hook_105::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbLogic_DoOffsetWorldVariant::Wrap(void (*shell)(OrbLogic_DoOffsetWorldVariant&)) { g_shell_Hook_105 = shell; if (!g_installed_Hook_105 && bind::m_OrbLogic_DoOffsetWorldVariant) { Hook_105::InstallAtOffset(bind::m_OrbLogic_DoOffsetWorldVariant); g_installed_Hook_105 = true; } }
+
+void OrbLogic_DoSpaceOrb::operator()() {
+        bool run = true;
+        if (g_on_Hook_106[0] && !tfex::gen::State_OrbLogic::OrbLogic_DoSpaceOrb(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_106 < 8) hw::Log("[tfexgen] hook OrbLogic.DoSpaceOrb call %d: OrbLogicPatch.OrbLogic_DoSpaceOrb=%d, original %s", ++g_calls_Hook_106, (int)g_on_Hook_106[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_106::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void OrbLogic_DoOffsetWorldVariant::Orig() { ran_ = true; Hook_106::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbLogic_DoOffsetWorldVariant::Wrap(void (*shell)(OrbLogic_DoOffsetWorldVariant&)) { g_shell_Hook_106 = shell; if (!g_installed_Hook_106 && bind::m_OrbLogic_DoOffsetWorldVariant) { Hook_106::InstallAtOffset(bind::m_OrbLogic_DoOffsetWorldVariant); g_installed_Hook_106 = true; } }
-
-void OrbLogic_DoSpaceOrb::operator()() {
-        bool run = true;
-        if (g_on_Hook_107[0] && !tfex::gen::State_OrbLogic::OrbLogic_DoSpaceOrb(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_107 < 8) hw::Log("[tfexgen] hook OrbLogic.DoSpaceOrb call %d: OrbLogicPatch.OrbLogic_DoSpaceOrb=%d, original %s", ++g_calls_Hook_107, (int)g_on_Hook_107[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_107::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void OrbLogic_DoSpaceOrb::Orig() { ran_ = true; Hook_107::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbLogic_DoSpaceOrb::Wrap(void (*shell)(OrbLogic_DoSpaceOrb&)) { g_shell_Hook_107 = shell; if (!g_installed_Hook_107 && bind::m_OrbLogic_DoSpaceOrb) { Hook_107::InstallAtOffset(bind::m_OrbLogic_DoSpaceOrb); g_installed_Hook_107 = true; } }
+void OrbLogic_DoSpaceOrb::Orig() { ran_ = true; Hook_106::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbLogic_DoSpaceOrb::Wrap(void (*shell)(OrbLogic_DoSpaceOrb&)) { g_shell_Hook_106 = shell; if (!g_installed_Hook_106 && bind::m_OrbLogic_DoSpaceOrb) { Hook_106::InstallAtOffset(bind::m_OrbLogic_DoSpaceOrb); g_installed_Hook_106 = true; } }
 
 void OrbLogic_DoTimeOrb::operator()() {
         bool run = true;
-        if (g_on_Hook_108[0]) tfex::gen::State_OrbLogic::OrbLogic_DoTimeOrb_Prefix();
-        if (g_calls_Hook_108 < 8) hw::Log("[tfexgen] hook OrbLogic.DoTimeOrb call %d (delay %d): OrbLogicPatch.OrbLogic_DoTimeOrb_Prefix=%d OrbLogicPatch.OrbLogic_DoTimeOrb_Postfix=%d, original %s", ++g_calls_Hook_108, (int)delay, (int)g_on_Hook_108[0], (int)g_on_Hook_108[1], run ? "runs" : "skipped");
+        if (g_on_Hook_107[0]) tfex::gen::State_OrbLogic::OrbLogic_DoTimeOrb_Prefix();
+        if (g_calls_Hook_107 < 8) hw::Log("[tfexgen] hook OrbLogic.DoTimeOrb call %d (delay %d): OrbLogicPatch.OrbLogic_DoTimeOrb_Prefix=%d OrbLogicPatch.OrbLogic_DoTimeOrb_Postfix=%d, original %s", ++g_calls_Hook_107, (int)delay, (int)g_on_Hook_107[0], (int)g_on_Hook_107[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_108::Orig(self, delay, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_108[1]) tfex::gen::State_OrbLogic::OrbLogic_DoTimeOrb_Postfix();
+        if (run) Hook_107::Orig(self, delay, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_107[1]) tfex::gen::State_OrbLogic::OrbLogic_DoTimeOrb_Postfix();
         ran_ = run;
 }
-void OrbLogic_DoTimeOrb::Orig() { ran_ = true; Hook_108::Orig(self, delay, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbLogic_DoTimeOrb::Wrap(void (*shell)(OrbLogic_DoTimeOrb&)) { g_shell_Hook_108 = shell; if (!g_installed_Hook_108 && bind::m_OrbLogic_DoTimeOrb_953d) { Hook_108::InstallAtOffset(bind::m_OrbLogic_DoTimeOrb_953d); g_installed_Hook_108 = true; } }
+void OrbLogic_DoTimeOrb::Orig() { ran_ = true; Hook_107::Orig(self, delay, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbLogic_DoTimeOrb::Wrap(void (*shell)(OrbLogic_DoTimeOrb&)) { g_shell_Hook_107 = shell; if (!g_installed_Hook_107 && bind::m_OrbLogic_DoTimeOrb_953d) { Hook_107::InstallAtOffset(bind::m_OrbLogic_DoTimeOrb_953d); g_installed_Hook_107 = true; } }
 
 void OrbLogic_StartScroll::operator()() {
         bool run = true;
-        if (g_on_Hook_109[0]) tfex::gen::State_OrbLogic::OrbLogic_StartScroll_Prefix();
-        if (g_calls_Hook_109 < 8) hw::Log("[tfexgen] hook OrbLogic.StartScroll call %d: OrbLogicPatch.OrbLogic_StartScroll_Prefix=%d OrbLogicPatch.OrbLogic_StartScroll_Postfix=%d, original %s", ++g_calls_Hook_109, (int)g_on_Hook_109[0], (int)g_on_Hook_109[1], run ? "runs" : "skipped");
+        if (g_on_Hook_108[0]) tfex::gen::State_OrbLogic::OrbLogic_StartScroll_Prefix();
+        if (g_calls_Hook_108 < 8) hw::Log("[tfexgen] hook OrbLogic.StartScroll call %d: OrbLogicPatch.OrbLogic_StartScroll_Prefix=%d OrbLogicPatch.OrbLogic_StartScroll_Postfix=%d, original %s", ++g_calls_Hook_108, (int)g_on_Hook_108[0], (int)g_on_Hook_108[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_109::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_109[1]) tfex::gen::State_OrbLogic::OrbLogic_StartScroll_Postfix();
+        if (run) Hook_108::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_108[1]) tfex::gen::State_OrbLogic::OrbLogic_StartScroll_Postfix();
         ran_ = run;
 }
-void OrbLogic_StartScroll::Orig() { ran_ = true; Hook_109::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbLogic_StartScroll::Wrap(void (*shell)(OrbLogic_StartScroll&)) { g_shell_Hook_109 = shell; if (!g_installed_Hook_109 && bind::m_OrbLogic_StartScroll) { Hook_109::InstallAtOffset(bind::m_OrbLogic_StartScroll); g_installed_Hook_109 = true; } }
+void OrbLogic_StartScroll::Orig() { ran_ = true; Hook_108::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbLogic_StartScroll::Wrap(void (*shell)(OrbLogic_StartScroll&)) { g_shell_Hook_108 = shell; if (!g_installed_Hook_108 && bind::m_OrbLogic_StartScroll) { Hook_108::InstallAtOffset(bind::m_OrbLogic_StartScroll); g_installed_Hook_108 = true; } }
 
 void OrbLogic_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_110[0]) tfex::gen::State_OrbLogic::OrbLogic_Update_Prefix();
-        if (g_calls_Hook_110 < 8) hw::Log("[tfexgen] hook OrbLogic.Update call %d: OrbLogicPatch.OrbLogic_Update_Prefix=%d OrbLogicPatch.OrbLogic_Update_Postfix=%d, original %s", ++g_calls_Hook_110, (int)g_on_Hook_110[0], (int)g_on_Hook_110[1], run ? "runs" : "skipped");
+        if (g_on_Hook_109[0]) tfex::gen::State_OrbLogic::OrbLogic_Update_Prefix();
+        if (g_calls_Hook_109 < 8) hw::Log("[tfexgen] hook OrbLogic.Update call %d: OrbLogicPatch.OrbLogic_Update_Prefix=%d OrbLogicPatch.OrbLogic_Update_Postfix=%d, original %s", ++g_calls_Hook_109, (int)g_on_Hook_109[0], (int)g_on_Hook_109[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_110::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_110[1]) tfex::gen::State_OrbLogic::OrbLogic_Update_Postfix();
+        if (run) Hook_109::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_109[1]) tfex::gen::State_OrbLogic::OrbLogic_Update_Postfix();
         ran_ = run;
 }
-void OrbLogic_Update::Orig() { ran_ = true; Hook_110::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbLogic_Update::Wrap(void (*shell)(OrbLogic_Update&)) { g_shell_Hook_110 = shell; if (!g_installed_Hook_110 && bind::m_OrbLogic_Update) { Hook_110::InstallAtOffset(bind::m_OrbLogic_Update); g_installed_Hook_110 = true; } }
+void OrbLogic_Update::Orig() { ran_ = true; Hook_109::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbLogic_Update::Wrap(void (*shell)(OrbLogic_Update&)) { g_shell_Hook_109 = shell; if (!g_installed_Hook_109 && bind::m_OrbLogic_Update) { Hook_109::InstallAtOffset(bind::m_OrbLogic_Update); g_installed_Hook_109 = true; } }
 
 void OrbPickup_OnPlayerCollide::operator()() {
         bool run = true;
         tfex::gen::st::Snapshot state_OrbPickupPatch{};
-        if (g_on_Hook_111[0]) tfex::gen::State_OrbPickup::OrbPickup_OnPlayerCollide_Prefix(state_OrbPickupPatch);
-        if (g_calls_Hook_111 < 8) hw::Log("[tfexgen] hook OrbPickup.OnPlayerCollide call %d: OrbPickupPatch.OrbPickup_OnPlayerCollide_Prefix=%d OrbPickupPatch.OrbPickup_OnPlayerCollide_Finalizer=%d, original %s", ++g_calls_Hook_111, (int)g_on_Hook_111[0], (int)g_on_Hook_111[1], run ? "runs" : "skipped");
+        if (g_on_Hook_110[0]) tfex::gen::State_OrbPickup::OrbPickup_OnPlayerCollide_Prefix(state_OrbPickupPatch);
+        if (g_calls_Hook_110 < 8) hw::Log("[tfexgen] hook OrbPickup.OnPlayerCollide call %d: OrbPickupPatch.OrbPickup_OnPlayerCollide_Prefix=%d OrbPickupPatch.OrbPickup_OnPlayerCollide_Finalizer=%d, original %s", ++g_calls_Hook_110, (int)g_on_Hook_110[0], (int)g_on_Hook_110[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_111::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_111[1]) tfex::gen::State_OrbPickup::OrbPickup_OnPlayerCollide_Finalizer(state_OrbPickupPatch);
+        if (run) Hook_110::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_110[1]) tfex::gen::State_OrbPickup::OrbPickup_OnPlayerCollide_Finalizer(state_OrbPickupPatch);
         ran_ = run;
 }
-void OrbPickup_OnPlayerCollide::Orig() { ran_ = true; Hook_111::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_); }
-void OrbPickup_OnPlayerCollide::Wrap(void (*shell)(OrbPickup_OnPlayerCollide&)) { g_shell_Hook_111 = shell; if (!g_installed_Hook_111 && bind::m_OrbPickup_OnPlayerCollide_468a) { Hook_111::InstallAtOffset(bind::m_OrbPickup_OnPlayerCollide_468a); g_installed_Hook_111 = true; } }
+void OrbPickup_OnPlayerCollide::Orig() { ran_ = true; Hook_110::Orig(self, player, x2_, x3_, x4_, x5_, x6_, x7_); }
+void OrbPickup_OnPlayerCollide::Wrap(void (*shell)(OrbPickup_OnPlayerCollide&)) { g_shell_Hook_110 = shell; if (!g_installed_Hook_110 && bind::m_OrbPickup_OnPlayerCollide_468a) { Hook_110::InstallAtOffset(bind::m_OrbPickup_OnPlayerCollide_468a); g_installed_Hook_110 = true; } }
 
 void PauseMenu_AddItem::operator()() {
         bool run = true;
-        if (g_on_Hook_112[0] && !tfex::gen::PauseMenuPatch::PauseMenu_AddItem(self, name)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_112 < 8) hw::Log("[tfexgen] hook PauseMenu.AddItem call %d: PauseMenuPatch.PauseMenu_AddItem=%d, original %s", ++g_calls_Hook_112, (int)g_on_Hook_112[0], run ? "runs" : "skipped");
+        if (g_on_Hook_111[0] && !tfex::gen::PauseMenuPatch::PauseMenu_AddItem(self, name)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_111 < 8) hw::Log("[tfexgen] hook PauseMenu.AddItem call %d: PauseMenuPatch.PauseMenu_AddItem=%d, original %s", ++g_calls_Hook_111, (int)g_on_Hook_111[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_112::Orig(self, name, action, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_111::Orig(self, name, action, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PauseMenu_AddItem::Orig() { ran_ = true; Hook_112::Orig(self, name, action, x3_, x4_, x5_, x6_, x7_); }
-void PauseMenu_AddItem::Wrap(void (*shell)(PauseMenu_AddItem&)) { g_shell_Hook_112 = shell; if (!g_installed_Hook_112 && bind::m_PauseMenu_AddItem_3b33) { Hook_112::InstallAtOffset(bind::m_PauseMenu_AddItem_3b33); g_installed_Hook_112 = true; } }
+void PauseMenu_AddItem::Orig() { ran_ = true; Hook_111::Orig(self, name, action, x3_, x4_, x5_, x6_, x7_); }
+void PauseMenu_AddItem::Wrap(void (*shell)(PauseMenu_AddItem&)) { g_shell_Hook_111 = shell; if (!g_installed_Hook_111 && bind::m_PauseMenu_AddItem_3b33) { Hook_111::InstallAtOffset(bind::m_PauseMenu_AddItem_3b33); g_installed_Hook_111 = true; } }
 
 void PauseMenu_Quit::operator()() {
         bool run = true;
-        if (g_on_Hook_113[0] && !tfex::gen::PauseMenuPatch::PauseMenu_Quit(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_113 < 8) hw::Log("[tfexgen] hook PauseMenu.Quit call %d: PauseMenuPatch.PauseMenu_Quit=%d, original %s", ++g_calls_Hook_113, (int)g_on_Hook_113[0], run ? "runs" : "skipped");
+        if (g_on_Hook_112[0] && !tfex::gen::PauseMenuPatch::PauseMenu_Quit(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_112 < 8) hw::Log("[tfexgen] hook PauseMenu.Quit call %d: PauseMenuPatch.PauseMenu_Quit=%d, original %s", ++g_calls_Hook_112, (int)g_on_Hook_112[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_113::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_112::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PauseMenu_Quit::Orig() { ran_ = true; Hook_113::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PauseMenu_Quit::Wrap(void (*shell)(PauseMenu_Quit&)) { g_shell_Hook_113 = shell; if (!g_installed_Hook_113 && bind::m_PauseMenu_Quit) { Hook_113::InstallAtOffset(bind::m_PauseMenu_Quit); g_installed_Hook_113 = true; } }
+void PauseMenu_Quit::Orig() { ran_ = true; Hook_112::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PauseMenu_Quit::Wrap(void (*shell)(PauseMenu_Quit&)) { g_shell_Hook_112 = shell; if (!g_installed_Hook_112 && bind::m_PauseMenu_Quit) { Hook_112::InstallAtOffset(bind::m_PauseMenu_Quit); g_installed_Hook_112 = true; } }
 
 void PauseMenu_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_114 < 8) hw::Log("[tfexgen] hook PauseMenu.Update call %d: PauseMenuPatch.PauseMenu_Update=%d, original %s", ++g_calls_Hook_114, (int)g_on_Hook_114[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_113 < 8) hw::Log("[tfexgen] hook PauseMenu.Update call %d: PauseMenuPatch.PauseMenu_Update=%d, original %s", ++g_calls_Hook_113, (int)g_on_Hook_113[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_114::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_114[0]) tfex::gen::PauseMenuPatch::PauseMenu_Update(self);
+        if (run) Hook_113::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_113[0]) tfex::gen::PauseMenuPatch::PauseMenu_Update(self);
         ran_ = run;
 }
-void PauseMenu_Update::Orig() { ran_ = true; Hook_114::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PauseMenu_Update::Wrap(void (*shell)(PauseMenu_Update&)) { g_shell_Hook_114 = shell; if (!g_installed_Hook_114 && bind::m_PauseMenu_Update) { Hook_114::InstallAtOffset(bind::m_PauseMenu_Update); g_installed_Hook_114 = true; } }
+void PauseMenu_Update::Orig() { ran_ = true; Hook_113::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PauseMenu_Update::Wrap(void (*shell)(PauseMenu_Update&)) { g_shell_Hook_113 = shell; if (!g_installed_Hook_113 && bind::m_PauseMenu_Update) { Hook_113::InstallAtOffset(bind::m_PauseMenu_Update); g_installed_Hook_113 = true; } }
 
 void PauseMenu_VersusArcherSelect::operator()() {
         bool run = true;
-        if (g_on_Hook_115[0] && !tfex::gen::PauseMenuPatch::PauseMenu_VersusArcherSelect(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_115 < 8) hw::Log("[tfexgen] hook PauseMenu.VersusArcherSelect call %d: PauseMenuPatch.PauseMenu_VersusArcherSelect=%d, original %s", ++g_calls_Hook_115, (int)g_on_Hook_115[0], run ? "runs" : "skipped");
+        if (g_on_Hook_114[0] && !tfex::gen::PauseMenuPatch::PauseMenu_VersusArcherSelect(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_114 < 8) hw::Log("[tfexgen] hook PauseMenu.VersusArcherSelect call %d: PauseMenuPatch.PauseMenu_VersusArcherSelect=%d, original %s", ++g_calls_Hook_114, (int)g_on_Hook_114[0], run ? "runs" : "skipped");
+        if (run && beforeOrig_) beforeOrig_(*this);
+        if (run) Hook_114::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        ran_ = run;
+}
+void PauseMenu_VersusArcherSelect::Orig() { ran_ = true; Hook_114::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PauseMenu_VersusArcherSelect::Wrap(void (*shell)(PauseMenu_VersusArcherSelect&)) { g_shell_Hook_114 = shell; if (!g_installed_Hook_114 && bind::m_PauseMenu_VersusArcherSelect) { Hook_114::InstallAtOffset(bind::m_PauseMenu_VersusArcherSelect); g_installed_Hook_114 = true; } }
+
+void PauseMenu_VersusMatchSettingsAndSave::operator()() {
+        bool run = true;
+        if (g_on_Hook_115[0] && !tfex::gen::PauseMenuPatch::PauseMenu_VersusMatchSettingsAndSave(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_115 < 8) hw::Log("[tfexgen] hook PauseMenu.VersusMatchSettingsAndSave call %d: PauseMenuPatch.PauseMenu_VersusMatchSettingsAndSave=%d, original %s", ++g_calls_Hook_115, (int)g_on_Hook_115[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_115::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PauseMenu_VersusArcherSelect::Orig() { ran_ = true; Hook_115::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PauseMenu_VersusArcherSelect::Wrap(void (*shell)(PauseMenu_VersusArcherSelect&)) { g_shell_Hook_115 = shell; if (!g_installed_Hook_115 && bind::m_PauseMenu_VersusArcherSelect) { Hook_115::InstallAtOffset(bind::m_PauseMenu_VersusArcherSelect); g_installed_Hook_115 = true; } }
+void PauseMenu_VersusMatchSettingsAndSave::Orig() { ran_ = true; Hook_115::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PauseMenu_VersusMatchSettingsAndSave::Wrap(void (*shell)(PauseMenu_VersusMatchSettingsAndSave&)) { g_shell_Hook_115 = shell; if (!g_installed_Hook_115 && bind::m_PauseMenu_VersusMatchSettingsAndSave) { Hook_115::InstallAtOffset(bind::m_PauseMenu_VersusMatchSettingsAndSave); g_installed_Hook_115 = true; } }
 
-void PauseMenu_VersusMatchSettingsAndSave::operator()() {
+void PauseMenu_VersusRematch::operator()() {
         bool run = true;
-        if (g_on_Hook_116[0] && !tfex::gen::PauseMenuPatch::PauseMenu_VersusMatchSettingsAndSave(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_116 < 8) hw::Log("[tfexgen] hook PauseMenu.VersusMatchSettingsAndSave call %d: PauseMenuPatch.PauseMenu_VersusMatchSettingsAndSave=%d, original %s", ++g_calls_Hook_116, (int)g_on_Hook_116[0], run ? "runs" : "skipped");
+        if (g_on_Hook_116[0] && !tfex::gen::PauseMenuPatch::PauseMenu_VersusRematch(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_116 < 8) hw::Log("[tfexgen] hook PauseMenu.VersusRematch call %d: PauseMenuPatch.PauseMenu_VersusRematch=%d, original %s", ++g_calls_Hook_116, (int)g_on_Hook_116[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
         if (run) Hook_116::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PauseMenu_VersusMatchSettingsAndSave::Orig() { ran_ = true; Hook_116::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PauseMenu_VersusMatchSettingsAndSave::Wrap(void (*shell)(PauseMenu_VersusMatchSettingsAndSave&)) { g_shell_Hook_116 = shell; if (!g_installed_Hook_116 && bind::m_PauseMenu_VersusMatchSettingsAndSave) { Hook_116::InstallAtOffset(bind::m_PauseMenu_VersusMatchSettingsAndSave); g_installed_Hook_116 = true; } }
-
-void PauseMenu_VersusRematch::operator()() {
-        bool run = true;
-        if (g_on_Hook_117[0] && !tfex::gen::PauseMenuPatch::PauseMenu_VersusRematch(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_117 < 8) hw::Log("[tfexgen] hook PauseMenu.VersusRematch call %d: PauseMenuPatch.PauseMenu_VersusRematch=%d, original %s", ++g_calls_Hook_117, (int)g_on_Hook_117[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_117::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void PauseMenu_VersusRematch::Orig() { ran_ = true; Hook_117::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PauseMenu_VersusRematch::Wrap(void (*shell)(PauseMenu_VersusRematch&)) { g_shell_Hook_117 = shell; if (!g_installed_Hook_117 && bind::m_PauseMenu_VersusRematch) { Hook_117::InstallAtOffset(bind::m_PauseMenu_VersusRematch); g_installed_Hook_117 = true; } }
+void PauseMenu_VersusRematch::Orig() { ran_ = true; Hook_116::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PauseMenu_VersusRematch::Wrap(void (*shell)(PauseMenu_VersusRematch&)) { g_shell_Hook_116 = shell; if (!g_installed_Hook_116 && bind::m_PauseMenu_VersusRematch) { Hook_116::InstallAtOffset(bind::m_PauseMenu_VersusRematch); g_installed_Hook_116 = true; } }
 
 void Pickup_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_118 < 8) hw::Log("[tfexgen] hook Pickup.ctor call %d: PickupPatch.Pickup_ctor=%d, original %s", ++g_calls_Hook_118, (int)g_on_Hook_118[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_117 < 8) hw::Log("[tfexgen] hook Pickup.ctor call %d: PickupPatch.Pickup_ctor=%d, original %s", ++g_calls_Hook_117, (int)g_on_Hook_117[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_118::Orig(self, position, targetPosition, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_118[0]) tfex::gen::State_Pickup::Pickup_ctor(obj, targetPosition);
+        if (run) { void* r_ = Hook_117::Orig(self, position, targetPosition, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_117[0]) tfex::gen::State_Pickup::Pickup_ctor(obj, targetPosition);
         ran_ = run;
         result_ = obj;
 }
-void Pickup_ctor::Orig() { ran_ = true; void* r_ = Hook_118::Orig(self, position, targetPosition, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Pickup_ctor::Wrap(void (*shell)(Pickup_ctor&)) { g_shell_Hook_118 = shell; if (!g_installed_Hook_118 && bind::m_Pickup__ctor_f3db) { Hook_118::InstallAtOffset(bind::m_Pickup__ctor_f3db); g_installed_Hook_118 = true; } }
+void Pickup_ctor::Orig() { ran_ = true; void* r_ = Hook_117::Orig(self, position, targetPosition, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Pickup_ctor::Wrap(void (*shell)(Pickup_ctor&)) { g_shell_Hook_117 = shell; if (!g_installed_Hook_117 && bind::m_Pickup__ctor_f3db) { Hook_117::InstallAtOffset(bind::m_Pickup__ctor_f3db); g_installed_Hook_117 = true; } }
 
 void Pickup_FinishUnpack::operator()() {
         bool run = true;
-        if (g_calls_Hook_119 < 8) hw::Log("[tfexgen] hook Pickup.FinishUnpack call %d: PickupPatch.Pickup_FinishUnpack=%d, original %s", ++g_calls_Hook_119, (int)g_on_Hook_119[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_118 < 8) hw::Log("[tfexgen] hook Pickup.FinishUnpack call %d: PickupPatch.Pickup_FinishUnpack=%d, original %s", ++g_calls_Hook_118, (int)g_on_Hook_118[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_119::Orig(self, t, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_119[0]) tfex::gen::State_Pickup::Pickup_FinishUnpack(self);
+        if (run) Hook_118::Orig(self, t, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_118[0]) tfex::gen::State_Pickup::Pickup_FinishUnpack(self);
         ran_ = run;
 }
-void Pickup_FinishUnpack::Orig() { ran_ = true; Hook_119::Orig(self, t, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Pickup_FinishUnpack::Wrap(void (*shell)(Pickup_FinishUnpack&)) { g_shell_Hook_119 = shell; if (!g_installed_Hook_119 && bind::m_Pickup_FinishUnpack_4305) { Hook_119::InstallAtOffset(bind::m_Pickup_FinishUnpack_4305); g_installed_Hook_119 = true; } }
+void Pickup_FinishUnpack::Orig() { ran_ = true; Hook_118::Orig(self, t, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Pickup_FinishUnpack::Wrap(void (*shell)(Pickup_FinishUnpack&)) { g_shell_Hook_118 = shell; if (!g_installed_Hook_118 && bind::m_Pickup_FinishUnpack_4305) { Hook_118::InstallAtOffset(bind::m_Pickup_FinishUnpack_4305); g_installed_Hook_118 = true; } }
 
 void PirateBanner_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_120[0] && !tfex::gen::State_PirateBanner::PirateBanner_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_120 < 8) hw::Log("[tfexgen] hook PirateBanner.Update call %d: PirateBannerPatch.PirateBanner_Update=%d, original %s", ++g_calls_Hook_120, (int)g_on_Hook_120[0], run ? "runs" : "skipped");
+        if (g_on_Hook_119[0] && !tfex::gen::State_PirateBanner::PirateBanner_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_119 < 8) hw::Log("[tfexgen] hook PirateBanner.Update call %d: PirateBannerPatch.PirateBanner_Update=%d, original %s", ++g_calls_Hook_119, (int)g_on_Hook_119[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_120::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_119::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PirateBanner_Update::Orig() { ran_ = true; Hook_120::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PirateBanner_Update::Wrap(void (*shell)(PirateBanner_Update&)) { g_shell_Hook_120 = shell; if (!g_installed_Hook_120 && bind::m_PirateBanner_Update) { Hook_120::InstallAtOffset(bind::m_PirateBanner_Update); g_installed_Hook_120 = true; } }
+void PirateBanner_Update::Orig() { ran_ = true; Hook_119::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PirateBanner_Update::Wrap(void (*shell)(PirateBanner_Update&)) { g_shell_Hook_119 = shell; if (!g_installed_Hook_119 && bind::m_PirateBanner_Update) { Hook_119::InstallAtOffset(bind::m_PirateBanner_Update); g_installed_Hook_119 = true; } }
 
 void Player_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_121[0]) tfex::gen::PlayerPatch::Player_Ctor_Prefix(playerIndex);
-        if (g_calls_Hook_121 < 8) hw::Log("[tfexgen] hook Player.ctor call %d (playerIndex %d, allegiance %d, teamColor %d, hatState %d, frozen %d, flash %d, indicator %d): PlayerPatch.Player_Ctor_Prefix=%d PlayerPatch.Player_Ctor_Finalizer=%d PlayerStatePatch.Player_ctor=%d VisualHooks.PlayerCtor_Postfix=%d MyPlayer.ctor_patch=%d, original %s", ++g_calls_Hook_121, (int)playerIndex, (int)allegiance, (int)teamColor, (int)hatState, (int)frozen, (int)flash, (int)indicator, (int)g_on_Hook_121[0], (int)g_on_Hook_121[1], (int)g_on_Hook_121[2], (int)g_on_Hook_121[3], (int)g_on_Hook_121[4], run ? "runs" : "skipped");
+        if (g_on_Hook_120[0]) tfex::gen::PlayerPatch::Player_Ctor_Prefix(playerIndex);
+        if (g_calls_Hook_120 < 8) hw::Log("[tfexgen] hook Player.ctor call %d (playerIndex %d, allegiance %d, teamColor %d, hatState %d, frozen %d, flash %d, indicator %d): PlayerPatch.Player_Ctor_Prefix=%d PlayerPatch.Player_Ctor_Finalizer=%d PlayerStatePatch.Player_ctor=%d VisualHooks.PlayerCtor_Postfix=%d, original %s", ++g_calls_Hook_120, (int)playerIndex, (int)allegiance, (int)teamColor, (int)hatState, (int)frozen, (int)flash, (int)indicator, (int)g_on_Hook_120[0], (int)g_on_Hook_120[1], (int)g_on_Hook_120[2], (int)g_on_Hook_120[3], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_121::Orig(self, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator); obj = self ? self : r_; }
-        if (g_on_Hook_121[1]) tfex::gen::PlayerPatch::Player_Ctor_Finalizer();
-        if (g_on_Hook_121[2]) tfex::gen::State_PlayerState::Player_ctor(obj, hatState);
-        if (g_on_Hook_121[3]) tfex::gen::Tp_VisualHooks::PlayerCtor_Postfix(obj);
-        if (g_on_Hook_121[4]) tfex::gen::Md_MyPlayer::ctor_patch(obj, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator);
+        if (run) { void* r_ = Hook_120::Orig(self, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator); obj = self ? self : r_; }
+        if (g_on_Hook_120[1]) tfex::gen::PlayerPatch::Player_Ctor_Finalizer();
+        if (g_on_Hook_120[2]) tfex::gen::State_PlayerState::Player_ctor(obj, hatState);
+        if (g_on_Hook_120[3]) tfex::gen::Tp_VisualHooks::PlayerCtor_Postfix(obj);
         ran_ = run;
         result_ = obj;
 }
-void Player_ctor::Orig() { ran_ = true; void* r_ = Hook_121::Orig(self, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator); result_ = self ? self : r_; }
-void Player_ctor::Wrap(void (*shell)(Player_ctor&)) { g_shell_Hook_121 = shell; if (!g_installed_Hook_121 && bind::m_Player__ctor_0ed9) { Hook_121::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_121 = true; } }
+void Player_ctor::Orig() { ran_ = true; void* r_ = Hook_120::Orig(self, playerIndex, position, allegiance, teamColor, inventory, hatState, frozen, flash, indicator); result_ = self ? self : r_; }
+void Player_ctor::Wrap(void (*shell)(Player_ctor&)) { g_shell_Hook_120 = shell; if (!g_installed_Hook_120 && bind::m_Player__ctor_0ed9) { Hook_120::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_120 = true; } }
 
 void Player_Added::operator()() {
         bool run = true;
-        if (g_calls_Hook_122 < 8) hw::Log("[tfexgen] hook Player.Added call %d: patch_Player.Added_Postfix=%d, original %s", ++g_calls_Hook_122, (int)g_on_Hook_122[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_121 < 8) hw::Log("[tfexgen] hook Player.Added call %d: patch_Player.Added_Postfix=%d, original %s", ++g_calls_Hook_121, (int)g_on_Hook_121[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_122::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_122[0]) tfex::gen::Fr_Player::Added_Postfix(self);
+        if (run) Hook_121::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_121[0]) tfex::gen::Fr_Player::Added_Postfix(self);
         ran_ = run;
 }
-void Player_Added::Orig() { ran_ = true; Hook_122::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_Added::Wrap(void (*shell)(Player_Added&)) { g_shell_Hook_122 = shell; if (!g_installed_Hook_122 && bind::m_Player_Added) { Hook_122::InstallAtOffset(bind::m_Player_Added); g_installed_Hook_122 = true; } }
-
-void Player_Die_Arrow::operator()() {
-        bool run = true;
-        if (g_on_Hook_123[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_123 < 8) hw::Log("[tfexgen] hook Player.Die call %d: MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_123, (int)g_on_Hook_123[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_123::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_Die_Arrow::Orig() { ran_ = true; Hook_123::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_Die_Arrow::Wrap(void (*shell)(Player_Die_Arrow&)) { g_shell_Hook_123 = shell; if (!g_installed_Hook_123 && bind::m_Player_Die_3b10) { Hook_123::InstallAtOffset(bind::m_Player_Die_3b10); g_installed_Hook_123 = true; } }
-
-void Player_Die_DeathCause_Int32_Boolean_Boolean::operator()() {
-        void* __result{};
-        bool run = true;
-        if (g_on_Hook_124[0] && !tfex::gen::So_MyPlayerDeath::Die_patch(__result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_124 < 8) hw::Log("[tfexgen] hook Player.Die call %d (deathCause %d, killerIndex %d, brambled %d, laser %d): MyPlayerDeath.Die_patch=%d, original %s", ++g_calls_Hook_124, (int)deathCause, (int)killerIndex, (int)brambled, (int)laser, (int)g_on_Hook_124[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_124::Orig(self, deathCause, killerIndex, brambled, laser, x5_, x6_, x7_);
-        ran_ = run;
-        result_ = __result;
-}
-void Player_Die_DeathCause_Int32_Boolean_Boolean::Orig() { ran_ = true; result_ = Hook_124::Orig(self, deathCause, killerIndex, brambled, laser, x5_, x6_, x7_); }
-void Player_Die_DeathCause_Int32_Boolean_Boolean::Wrap(void (*shell)(Player_Die_DeathCause_Int32_Boolean_Boolean&)) { g_shell_Hook_124 = shell; if (!g_installed_Hook_124 && bind::m_Player_Die_1d72) { Hook_124::InstallAtOffset(bind::m_Player_Die_1d72); g_installed_Hook_124 = true; } }
-
-void Player_DoSquish::operator()() {
-        bool run = true;
-        if (g_on_Hook_125[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_125 < 8) hw::Log("[tfexgen] hook Player.DoSquish call %d: MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_125, (int)g_on_Hook_125[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_125::Orig(self, solid, direction, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_DoSquish::Orig() { ran_ = true; Hook_125::Orig(self, solid, direction, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_DoSquish::Wrap(void (*shell)(Player_DoSquish&)) { g_shell_Hook_125 = shell; if (!g_installed_Hook_125 && bind::m_Player_DoSquish_62aa) { Hook_125::InstallAtOffset(bind::m_Player_DoSquish_62aa); g_installed_Hook_125 = true; } }
+void Player_Added::Orig() { ran_ = true; Hook_121::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_Added::Wrap(void (*shell)(Player_Added&)) { g_shell_Hook_121 = shell; if (!g_installed_Hook_121 && bind::m_Player_Added) { Hook_121::InstallAtOffset(bind::m_Player_Added); g_installed_Hook_121 = true; } }
 
 void Player_DoWrapRender::operator()() {
         bool run = true;
-        if (g_on_Hook_126[0]) tfex::gen::PlayerPatch::Player_DoWrapRender_Prefix(self);
-        if (g_calls_Hook_126 < 8) hw::Log("[tfexgen] hook Player.DoWrapRender call %d: PlayerPatch.Player_DoWrapRender_Prefix=%d, original %s", ++g_calls_Hook_126, (int)g_on_Hook_126[0], run ? "runs" : "skipped");
+        if (g_on_Hook_122[0]) tfex::gen::PlayerPatch::Player_DoWrapRender_Prefix(self);
+        if (g_calls_Hook_122 < 8) hw::Log("[tfexgen] hook Player.DoWrapRender call %d: PlayerPatch.Player_DoWrapRender_Prefix=%d, original %s", ++g_calls_Hook_122, (int)g_on_Hook_122[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_126::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_122::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Player_DoWrapRender::Orig() { ran_ = true; Hook_126::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_DoWrapRender::Wrap(void (*shell)(Player_DoWrapRender&)) { g_shell_Hook_126 = shell; if (!g_installed_Hook_126 && bind::m_Player_DoWrapRender) { Hook_126::InstallAtOffset(bind::m_Player_DoWrapRender); g_installed_Hook_126 = true; } }
+void Player_DoWrapRender::Orig() { ran_ = true; Hook_122::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_DoWrapRender::Wrap(void (*shell)(Player_DoWrapRender&)) { g_shell_Hook_122 = shell; if (!g_installed_Hook_122 && bind::m_Player_DoWrapRender) { Hook_122::InstallAtOffset(bind::m_Player_DoWrapRender); g_installed_Hook_122 = true; } }
 
 void Player_DropArrow::operator()() {
         bool run = true;
-        if (g_on_Hook_127[0]) tfex::gen::State_PlayerState::Player_DropArrow_Prefix();
-        if (g_calls_Hook_127 < 8) hw::Log("[tfexgen] hook Player.DropArrow call %d: PlayerStatePatch.Player_DropArrow_Prefix=%d PlayerStatePatch.Player_DropArrow_Postfix=%d, original %s", ++g_calls_Hook_127, (int)g_on_Hook_127[0], (int)g_on_Hook_127[1], run ? "runs" : "skipped");
+        if (g_on_Hook_123[0]) tfex::gen::State_PlayerState::Player_DropArrow_Prefix();
+        if (g_calls_Hook_123 < 8) hw::Log("[tfexgen] hook Player.DropArrow call %d: PlayerStatePatch.Player_DropArrow_Prefix=%d PlayerStatePatch.Player_DropArrow_Postfix=%d, original %s", ++g_calls_Hook_123, (int)g_on_Hook_123[0], (int)g_on_Hook_123[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_127::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_127[1]) tfex::gen::State_PlayerState::Player_DropArrow_Postfix();
+        if (run) Hook_123::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_123[1]) tfex::gen::State_PlayerState::Player_DropArrow_Postfix();
         ran_ = run;
 }
-void Player_DropArrow::Orig() { ran_ = true; Hook_127::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_DropArrow::Wrap(void (*shell)(Player_DropArrow&)) { g_shell_Hook_127 = shell; if (!g_installed_Hook_127 && bind::m_Player_DropArrow) { Hook_127::InstallAtOffset(bind::m_Player_DropArrow); g_installed_Hook_127 = true; } }
+void Player_DropArrow::Orig() { ran_ = true; Hook_123::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_DropArrow::Wrap(void (*shell)(Player_DropArrow&)) { g_shell_Hook_123 = shell; if (!g_installed_Hook_123 && bind::m_Player_DropArrow) { Hook_123::InstallAtOffset(bind::m_Player_DropArrow); g_installed_Hook_123 = true; } }
 
 void Player_HUDRender::operator()() {
         bool run = true;
-        if (g_on_Hook_128[0] && !tfex::gen::PlayerPatch::Player_HUDRender_Prefix(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_128 < 8) hw::Log("[tfexgen] hook Player.HUDRender call %d (wrapped %d): PlayerPatch.Player_HUDRender_Prefix=%d, original %s", ++g_calls_Hook_128, (int)wrapped, (int)g_on_Hook_128[0], run ? "runs" : "skipped");
+        if (g_on_Hook_124[0] && !tfex::gen::PlayerPatch::Player_HUDRender_Prefix(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_124 < 8) hw::Log("[tfexgen] hook Player.HUDRender call %d (wrapped %d): PlayerPatch.Player_HUDRender_Prefix=%d, original %s", ++g_calls_Hook_124, (int)wrapped, (int)g_on_Hook_124[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_128::Orig(self, wrapped, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_124::Orig(self, wrapped, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Player_HUDRender::Orig() { ran_ = true; Hook_128::Orig(self, wrapped, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_HUDRender::Wrap(void (*shell)(Player_HUDRender&)) { g_shell_Hook_128 = shell; if (!g_installed_Hook_128 && bind::m_Player_HUDRender_953d) { Hook_128::InstallAtOffset(bind::m_Player_HUDRender_953d); g_installed_Hook_128 = true; } }
-
-void Player_Hurt_DeathCause_Vector2_Int32_SFX::operator()() {
-        bool run = true;
-        if (g_on_Hook_129[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_129 < 8) hw::Log("[tfexgen] hook Player.Hurt call %d (cause %d, attacker %d): MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_129, (int)cause, (int)attacker, (int)g_on_Hook_129[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_129::Orig(self, cause, bounceFrom, attacker, sfx, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_Hurt_DeathCause_Vector2_Int32_SFX::Orig() { ran_ = true; Hook_129::Orig(self, cause, bounceFrom, attacker, sfx, x4_, x5_, x6_, x7_); }
-void Player_Hurt_DeathCause_Vector2_Int32_SFX::Wrap(void (*shell)(Player_Hurt_DeathCause_Vector2_Int32_SFX&)) { g_shell_Hook_129 = shell; if (!g_installed_Hook_129 && bind::m_Player_Hurt_a0dc) { Hook_129::InstallAtOffset(bind::m_Player_Hurt_a0dc); g_installed_Hook_129 = true; } }
-
-void Player_Hurt_Explosion_Vector2::operator()() {
-        bool run = true;
-        if (g_on_Hook_130[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_130 < 8) hw::Log("[tfexgen] hook Player.Hurt call %d: MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_130, (int)g_on_Hook_130[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_130::Orig(self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_Hurt_Explosion_Vector2::Orig() { ran_ = true; Hook_130::Orig(self, explosion, normal, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_Hurt_Explosion_Vector2::Wrap(void (*shell)(Player_Hurt_Explosion_Vector2&)) { g_shell_Hook_130 = shell; if (!g_installed_Hook_130 && bind::m_Player_Hurt_e39e) { Hook_130::InstallAtOffset(bind::m_Player_Hurt_e39e); g_installed_Hook_130 = true; } }
-
-void Player_Hurt_Lava::operator()() {
-        bool run = true;
-        if (g_on_Hook_131[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_131 < 8) hw::Log("[tfexgen] hook Player.Hurt call %d: MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_131, (int)g_on_Hook_131[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_131::Orig(self, lava, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_Hurt_Lava::Orig() { ran_ = true; Hook_131::Orig(self, lava, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_Hurt_Lava::Wrap(void (*shell)(Player_Hurt_Lava&)) { g_shell_Hook_131 = shell; if (!g_installed_Hook_131 && bind::m_Player_Hurt_a7cd) { Hook_131::InstallAtOffset(bind::m_Player_Hurt_a7cd); g_installed_Hook_131 = true; } }
-
-void Player_HurtBouncedOn::operator()() {
-        bool run = true;
-        if (g_on_Hook_132[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_132 < 8) hw::Log("[tfexgen] hook Player.HurtBouncedOn call %d (bouncerIndex %d): MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_132, (int)bouncerIndex, (int)g_on_Hook_132[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_132::Orig(self, bouncerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_HurtBouncedOn::Orig() { ran_ = true; Hook_132::Orig(self, bouncerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_HurtBouncedOn::Wrap(void (*shell)(Player_HurtBouncedOn&)) { g_shell_Hook_132 = shell; if (!g_installed_Hook_132 && bind::m_Player_HurtBouncedOn_e2bf) { Hook_132::InstallAtOffset(bind::m_Player_HurtBouncedOn_e2bf); g_installed_Hook_132 = true; } }
-
-void Player_HurtDelayed::operator()() {
-        bool run = true;
-        if (g_on_Hook_133[0] && !tfex::gen::So_MyPlayerDeath::Block_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_133 < 8) hw::Log("[tfexgen] hook Player.HurtDelayed call %d: MyPlayerDeath.Block_patch=%d, original %s", ++g_calls_Hook_133, (int)g_on_Hook_133[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_133::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_HurtDelayed::Orig() { ran_ = true; Hook_133::Orig(self, arrow, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_HurtDelayed::Wrap(void (*shell)(Player_HurtDelayed&)) { g_shell_Hook_133 = shell; if (!g_installed_Hook_133 && bind::m_Player_HurtDelayed_3b10) { Hook_133::InstallAtOffset(bind::m_Player_HurtDelayed_3b10); g_installed_Hook_133 = true; } }
+void Player_HUDRender::Orig() { ran_ = true; Hook_124::Orig(self, wrapped, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_HUDRender::Wrap(void (*shell)(Player_HUDRender&)) { g_shell_Hook_124 = shell; if (!g_installed_Hook_124 && bind::m_Player_HUDRender_953d) { Hook_124::InstallAtOffset(bind::m_Player_HUDRender_953d); g_installed_Hook_124 = true; } }
 
 void Player_InitHead::operator()() {
         bool run = true;
-        if (g_on_Hook_134[0]) tfex::gen::PlayerPatch::Player_InitHead_Prefix(self);
-        if (g_calls_Hook_134 < 8) hw::Log("[tfexgen] hook Player.InitHead call %d: PlayerPatch.Player_InitHead_Prefix=%d VisualHooks.InitHead_Postfix=%d, original %s", ++g_calls_Hook_134, (int)g_on_Hook_134[0], (int)g_on_Hook_134[1], run ? "runs" : "skipped");
+        if (g_on_Hook_125[0]) tfex::gen::PlayerPatch::Player_InitHead_Prefix(self);
+        if (g_calls_Hook_125 < 8) hw::Log("[tfexgen] hook Player.InitHead call %d: PlayerPatch.Player_InitHead_Prefix=%d VisualHooks.InitHead_Postfix=%d, original %s", ++g_calls_Hook_125, (int)g_on_Hook_125[0], (int)g_on_Hook_125[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_134::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_134[1]) tfex::gen::Tp_VisualHooks::InitHead_Postfix(self);
+        if (run) Hook_125::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_125[1]) tfex::gen::Tp_VisualHooks::InitHead_Postfix(self);
         ran_ = run;
 }
-void Player_InitHead::Orig() { ran_ = true; Hook_134::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_InitHead::Wrap(void (*shell)(Player_InitHead&)) { g_shell_Hook_134 = shell; if (!g_installed_Hook_134 && bind::m_Player_InitHead) { Hook_134::InstallAtOffset(bind::m_Player_InitHead); g_installed_Hook_134 = true; } }
+void Player_InitHead::Orig() { ran_ = true; Hook_125::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_InitHead::Wrap(void (*shell)(Player_InitHead&)) { g_shell_Hook_125 = shell; if (!g_installed_Hook_125 && bind::m_Player_InitHead) { Hook_125::InstallAtOffset(bind::m_Player_InitHead); g_installed_Hook_125 = true; } }
 
 void Player_LoseHat::operator()() {
         bool run = true;
-        if (g_on_Hook_135[0]) tfex::gen::State_PlayerState::Player_LoseHat_Prefix();
-        if (g_calls_Hook_135 < 8) hw::Log("[tfexgen] hook Player.LoseHat call %d (updateHead %d): PlayerStatePatch.Player_LoseHat_Prefix=%d PlayerStatePatch.Player_LoseHat_Postfix=%d, original %s", ++g_calls_Hook_135, (int)updateHead, (int)g_on_Hook_135[0], (int)g_on_Hook_135[1], run ? "runs" : "skipped");
+        if (g_on_Hook_126[0]) tfex::gen::State_PlayerState::Player_LoseHat_Prefix();
+        if (g_calls_Hook_126 < 8) hw::Log("[tfexgen] hook Player.LoseHat call %d (updateHead %d): PlayerStatePatch.Player_LoseHat_Prefix=%d PlayerStatePatch.Player_LoseHat_Postfix=%d, original %s", ++g_calls_Hook_126, (int)updateHead, (int)g_on_Hook_126[0], (int)g_on_Hook_126[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_135::Orig(self, arrow, updateHead, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_135[1]) tfex::gen::State_PlayerState::Player_LoseHat_Postfix();
+        if (run) Hook_126::Orig(self, arrow, updateHead, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_126[1]) tfex::gen::State_PlayerState::Player_LoseHat_Postfix();
         ran_ = run;
 }
-void Player_LoseHat::Orig() { ran_ = true; Hook_135::Orig(self, arrow, updateHead, x3_, x4_, x5_, x6_, x7_); }
-void Player_LoseHat::Wrap(void (*shell)(Player_LoseHat&)) { g_shell_Hook_135 = shell; if (!g_installed_Hook_135 && bind::m_Player_LoseHat_106c) { Hook_135::InstallAtOffset(bind::m_Player_LoseHat_106c); g_installed_Hook_135 = true; } }
-
-void Player_NormalUpdate::operator()() {
-        int32_t __result{};
-        bool run = true;
-        if (g_on_Hook_136[0]) tfex::gen::So_FlatPlay::NormalUpdate_prefix(self);
-        if (g_calls_Hook_136 < 8) hw::Log("[tfexgen] hook Player.NormalUpdate call %d: FlatPlay.NormalUpdate_prefix=%d FlatPlay.NormalUpdate_postfix=%d, original %s", ++g_calls_Hook_136, (int)g_on_Hook_136[0], (int)g_on_Hook_136[1], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_136::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_136[1]) tfex::gen::So_FlatPlay::NormalUpdate_postfix(__result);
-        ran_ = run;
-        result_ = __result;
-}
-void Player_NormalUpdate::Orig() { ran_ = true; result_ = Hook_136::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_NormalUpdate::Wrap(void (*shell)(Player_NormalUpdate&)) { g_shell_Hook_136 = shell; if (!g_installed_Hook_136 && bind::m_Player_NormalUpdate) { Hook_136::InstallAtOffset(bind::m_Player_NormalUpdate); g_installed_Hook_136 = true; } }
-
-void Player_PlayerOnPlayer::operator()() {
-        bool run = true;
-        if (g_calls_Hook_137 < 8) hw::Log("[tfexgen] hook Player.PlayerOnPlayer call %d: MyPlayerOnPlayer.PlayerOnPlayer_patch=%d, original %s", ++g_calls_Hook_137, (int)g_on_Hook_137[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_137::Orig(a, b, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_137[0]) tfex::gen::So_MyPlayerOnPlayer::PlayerOnPlayer_patch(a, b);
-        ran_ = run;
-}
-void Player_PlayerOnPlayer::Orig() { ran_ = true; Hook_137::Orig(a, b, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_PlayerOnPlayer::Wrap(void (*shell)(Player_PlayerOnPlayer&)) { g_shell_Hook_137 = shell; if (!g_installed_Hook_137 && bind::m_Player_PlayerOnPlayer_200d) { Hook_137::InstallAtOffset(bind::m_Player_PlayerOnPlayer_200d); g_installed_Hook_137 = true; } }
-
-void Player_ShootArrow::operator()() {
-        bool run = true;
-        if (g_on_Hook_138[0] && !tfex::gen::So_MyPlayer::ShootArrow_patch(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_138 < 8) hw::Log("[tfexgen] hook Player.ShootArrow call %d: MyPlayer.ShootArrow_patch=%d, original %s", ++g_calls_Hook_138, (int)g_on_Hook_138[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_138::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void Player_ShootArrow::Orig() { ran_ = true; Hook_138::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_ShootArrow::Wrap(void (*shell)(Player_ShootArrow&)) { g_shell_Hook_138 = shell; if (!g_installed_Hook_138 && bind::m_Player_ShootArrow) { Hook_138::InstallAtOffset(bind::m_Player_ShootArrow); g_installed_Hook_138 = true; } }
+void Player_LoseHat::Orig() { ran_ = true; Hook_126::Orig(self, arrow, updateHead, x3_, x4_, x5_, x6_, x7_); }
+void Player_LoseHat::Wrap(void (*shell)(Player_LoseHat&)) { g_shell_Hook_126 = shell; if (!g_installed_Hook_126 && bind::m_Player_LoseHat_106c) { Hook_126::InstallAtOffset(bind::m_Player_LoseHat_106c); g_installed_Hook_126 = true; } }
 
 void Player_SpawnedInsideSolidCheck::operator()() {
         bool run = true;
-        if (g_on_Hook_139[0] && !tfex::gen::State_PlayerState::Player_SpawnedInsideSolidCheck_Prefix()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_139 < 8) hw::Log("[tfexgen] hook Player.SpawnedInsideSolidCheck call %d: PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix=%d, original %s", ++g_calls_Hook_139, (int)g_on_Hook_139[0], run ? "runs" : "skipped");
+        if (g_on_Hook_127[0] && !tfex::gen::State_PlayerState::Player_SpawnedInsideSolidCheck_Prefix()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_127 < 8) hw::Log("[tfexgen] hook Player.SpawnedInsideSolidCheck call %d: PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix=%d, original %s", ++g_calls_Hook_127, (int)g_on_Hook_127[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_139::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_127::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Player_SpawnedInsideSolidCheck::Orig() { ran_ = true; Hook_139::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_SpawnedInsideSolidCheck::Wrap(void (*shell)(Player_SpawnedInsideSolidCheck&)) { g_shell_Hook_139 = shell; if (!g_installed_Hook_139 && bind::m_Player_SpawnedInsideSolidCheck) { Hook_139::InstallAtOffset(bind::m_Player_SpawnedInsideSolidCheck); g_installed_Hook_139 = true; } }
+void Player_SpawnedInsideSolidCheck::Orig() { ran_ = true; Hook_127::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_SpawnedInsideSolidCheck::Wrap(void (*shell)(Player_SpawnedInsideSolidCheck&)) { g_shell_Hook_127 = shell; if (!g_installed_Hook_127 && bind::m_Player_SpawnedInsideSolidCheck) { Hook_127::InstallAtOffset(bind::m_Player_SpawnedInsideSolidCheck); g_installed_Hook_127 = true; } }
 
 void Player_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_140 < 8) hw::Log("[tfexgen] hook Player.Update call %d: PlayerPatch.Player_Update_Postfix=%d MyPlayer.Update_patch=%d MyPlayer.Update=%d, original %s", ++g_calls_Hook_140, (int)g_on_Hook_140[0], (int)g_on_Hook_140[1], (int)g_on_Hook_140[2], run ? "runs" : "skipped");
+        if (g_calls_Hook_128 < 8) hw::Log("[tfexgen] hook Player.Update call %d: PlayerPatch.Player_Update_Postfix=%d, original %s", ++g_calls_Hook_128, (int)g_on_Hook_128[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_140::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_140[0]) tfex::gen::PlayerPatch::Player_Update_Postfix(self);
-        if (g_on_Hook_140[1]) tfex::gen::So_MyPlayer::Update_patch(self);
-        if (g_on_Hook_140[2]) tfex::gen::Md_MyPlayer::Update(self);
+        if (run) Hook_128::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_128[0]) tfex::gen::PlayerPatch::Player_Update_Postfix(self);
         ran_ = run;
 }
-void Player_Update::Orig() { ran_ = true; Hook_140::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Player_Update::Wrap(void (*shell)(Player_Update&)) { g_shell_Hook_140 = shell; if (!g_installed_Hook_140 && bind::m_Player_Update) { Hook_140::InstallAtOffset(bind::m_Player_Update); g_installed_Hook_140 = true; } }
+void Player_Update::Orig() { ran_ = true; Hook_128::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Player_Update::Wrap(void (*shell)(Player_Update&)) { g_shell_Hook_128 = shell; if (!g_installed_Hook_128 && bind::m_Player_Update) { Hook_128::InstallAtOffset(bind::m_Player_Update); g_installed_Hook_128 = true; } }
 
 void PlayerCorpse_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_141 < 8) hw::Log("[tfexgen] hook PlayerCorpse.ctor call %d (teamColor %d, facing %d, playerIndex %d, killerIndex %d): PlayerCorpsePatch.PlayerCorpse_ctor_Postfix=%d, original %s", ++g_calls_Hook_141, (int)teamColor, (int)facing, (int)playerIndex, (int)killerIndex, (int)g_on_Hook_141[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_129 < 8) hw::Log("[tfexgen] hook PlayerCorpse.ctor call %d (teamColor %d, facing %d, playerIndex %d, killerIndex %d): PlayerCorpsePatch.PlayerCorpse_ctor_Postfix=%d, original %s", ++g_calls_Hook_129, (int)teamColor, (int)facing, (int)playerIndex, (int)killerIndex, (int)g_on_Hook_129[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_141::Orig(self, corpseSpriteID, teamColor, position, facing, playerIndex, killerIndex, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_141[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_ctor_Postfix(obj);
+        if (run) { void* r_ = Hook_129::Orig(self, corpseSpriteID, teamColor, position, facing, playerIndex, killerIndex, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_129[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_ctor_Postfix(obj);
         ran_ = run;
         result_ = obj;
 }
-void PlayerCorpse_ctor::Orig() { ran_ = true; void* r_ = Hook_141::Orig(self, corpseSpriteID, teamColor, position, facing, playerIndex, killerIndex, x6_, x7_); result_ = self ? self : r_; }
-void PlayerCorpse_ctor::Wrap(void (*shell)(PlayerCorpse_ctor&)) { g_shell_Hook_141 = shell; if (!g_installed_Hook_141 && bind::m_PlayerCorpse__ctor_f519) { Hook_141::InstallAtOffset(bind::m_PlayerCorpse__ctor_f519); g_installed_Hook_141 = true; } }
+void PlayerCorpse_ctor::Orig() { ran_ = true; void* r_ = Hook_129::Orig(self, corpseSpriteID, teamColor, position, facing, playerIndex, killerIndex, x6_, x7_); result_ = self ? self : r_; }
+void PlayerCorpse_ctor::Wrap(void (*shell)(PlayerCorpse_ctor&)) { g_shell_Hook_129 = shell; if (!g_installed_Hook_129 && bind::m_PlayerCorpse__ctor_f519) { Hook_129::InstallAtOffset(bind::m_PlayerCorpse__ctor_f519); g_installed_Hook_129 = true; } }
 
 void PlayerCorpse_Added::operator()() {
         bool run = true;
-        if (g_calls_Hook_142 < 8) hw::Log("[tfexgen] hook PlayerCorpse.Added call %d: PlayerCorpsePatch.PlayerCorpse_Added_Postfix=%d ReviveHooks.Added_Postfix=%d, original %s", ++g_calls_Hook_142, (int)g_on_Hook_142[0], (int)g_on_Hook_142[1], run ? "runs" : "skipped");
+        if (g_calls_Hook_130 < 8) hw::Log("[tfexgen] hook PlayerCorpse.Added call %d: PlayerCorpsePatch.PlayerCorpse_Added_Postfix=%d ReviveHooks.Added_Postfix=%d, original %s", ++g_calls_Hook_130, (int)g_on_Hook_130[0], (int)g_on_Hook_130[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_142::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_142[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_Added_Postfix(self);
-        if (g_on_Hook_142[1]) tfex::gen::Tp_ReviveHooks::Added_Postfix(self);
+        if (run) Hook_130::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_130[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_Added_Postfix(self);
+        if (g_on_Hook_130[1]) tfex::gen::Tp_ReviveHooks::Added_Postfix(self);
         ran_ = run;
 }
-void PlayerCorpse_Added::Orig() { ran_ = true; Hook_142::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerCorpse_Added::Wrap(void (*shell)(PlayerCorpse_Added&)) { g_shell_Hook_142 = shell; if (!g_installed_Hook_142 && bind::m_PlayerCorpse_Added) { Hook_142::InstallAtOffset(bind::m_PlayerCorpse_Added); g_installed_Hook_142 = true; } }
+void PlayerCorpse_Added::Orig() { ran_ = true; Hook_130::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerCorpse_Added::Wrap(void (*shell)(PlayerCorpse_Added&)) { g_shell_Hook_130 = shell; if (!g_installed_Hook_130 && bind::m_PlayerCorpse_Added) { Hook_130::InstallAtOffset(bind::m_PlayerCorpse_Added); g_installed_Hook_130 = true; } }
 
 void PlayerCorpse_DieByArrow::operator()() {
         bool run = true;
-        if (g_calls_Hook_143 < 8) hw::Log("[tfexgen] hook PlayerCorpse.DieByArrow call %d (ledge %d): PlayerCorpsePatch.PlayerCorpse_DieByArrow_Postfix=%d, original %s", ++g_calls_Hook_143, (int)ledge, (int)g_on_Hook_143[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_131 < 8) hw::Log("[tfexgen] hook PlayerCorpse.DieByArrow call %d (ledge %d): PlayerCorpsePatch.PlayerCorpse_DieByArrow_Postfix=%d, original %s", ++g_calls_Hook_131, (int)ledge, (int)g_on_Hook_131[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_143::Orig(self, arrow, ledge, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_143[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_DieByArrow_Postfix(self, arrow);
+        if (run) Hook_131::Orig(self, arrow, ledge, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_131[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_DieByArrow_Postfix(self, arrow);
         ran_ = run;
 }
-void PlayerCorpse_DieByArrow::Orig() { ran_ = true; Hook_143::Orig(self, arrow, ledge, x3_, x4_, x5_, x6_, x7_); }
-void PlayerCorpse_DieByArrow::Wrap(void (*shell)(PlayerCorpse_DieByArrow&)) { g_shell_Hook_143 = shell; if (!g_installed_Hook_143 && bind::m_PlayerCorpse_DieByArrow_c838) { Hook_143::InstallAtOffset(bind::m_PlayerCorpse_DieByArrow_c838); g_installed_Hook_143 = true; } }
+void PlayerCorpse_DieByArrow::Orig() { ran_ = true; Hook_131::Orig(self, arrow, ledge, x3_, x4_, x5_, x6_, x7_); }
+void PlayerCorpse_DieByArrow::Wrap(void (*shell)(PlayerCorpse_DieByArrow&)) { g_shell_Hook_131 = shell; if (!g_installed_Hook_131 && bind::m_PlayerCorpse_DieByArrow_c838) { Hook_131::InstallAtOffset(bind::m_PlayerCorpse_DieByArrow_c838); g_installed_Hook_131 = true; } }
 
 void PlayerCorpse_DropNextArrow::operator()() {
         bool run = true;
-        if (g_on_Hook_144[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_DropNextArrow_Prefix();
-        if (g_calls_Hook_144 < 8) hw::Log("[tfexgen] hook PlayerCorpse.DropNextArrow call %d: PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Prefix=%d PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Postfix=%d, original %s", ++g_calls_Hook_144, (int)g_on_Hook_144[0], (int)g_on_Hook_144[1], run ? "runs" : "skipped");
+        if (g_on_Hook_132[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_DropNextArrow_Prefix();
+        if (g_calls_Hook_132 < 8) hw::Log("[tfexgen] hook PlayerCorpse.DropNextArrow call %d: PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Prefix=%d PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Postfix=%d, original %s", ++g_calls_Hook_132, (int)g_on_Hook_132[0], (int)g_on_Hook_132[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_144::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_144[1]) tfex::gen::State_PlayerCorpse::PlayerCorpse_DropNextArrow_Postfix();
+        if (run) Hook_132::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_132[1]) tfex::gen::State_PlayerCorpse::PlayerCorpse_DropNextArrow_Postfix();
         ran_ = run;
 }
-void PlayerCorpse_DropNextArrow::Orig() { ran_ = true; Hook_144::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerCorpse_DropNextArrow::Wrap(void (*shell)(PlayerCorpse_DropNextArrow&)) { g_shell_Hook_144 = shell; if (!g_installed_Hook_144 && bind::m_PlayerCorpse_DropNextArrow) { Hook_144::InstallAtOffset(bind::m_PlayerCorpse_DropNextArrow); g_installed_Hook_144 = true; } }
+void PlayerCorpse_DropNextArrow::Orig() { ran_ = true; Hook_132::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerCorpse_DropNextArrow::Wrap(void (*shell)(PlayerCorpse_DropNextArrow&)) { g_shell_Hook_132 = shell; if (!g_installed_Hook_132 && bind::m_PlayerCorpse_DropNextArrow) { Hook_132::InstallAtOffset(bind::m_PlayerCorpse_DropNextArrow); g_installed_Hook_132 = true; } }
 
 void PlayerCorpse_StartDroppingArrows::operator()() {
         bool run = true;
-        if (g_on_Hook_145[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_StartDroppingArrows_Prefix(self);
-        if (g_calls_Hook_145 < 8) hw::Log("[tfexgen] hook PlayerCorpse.StartDroppingArrows call %d: PlayerCorpsePatch.PlayerCorpse_StartDroppingArrows_Prefix=%d, original %s", ++g_calls_Hook_145, (int)g_on_Hook_145[0], run ? "runs" : "skipped");
+        if (g_on_Hook_133[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_StartDroppingArrows_Prefix(self);
+        if (g_calls_Hook_133 < 8) hw::Log("[tfexgen] hook PlayerCorpse.StartDroppingArrows call %d: PlayerCorpsePatch.PlayerCorpse_StartDroppingArrows_Prefix=%d, original %s", ++g_calls_Hook_133, (int)g_on_Hook_133[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_145::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_133::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PlayerCorpse_StartDroppingArrows::Orig() { ran_ = true; Hook_145::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerCorpse_StartDroppingArrows::Wrap(void (*shell)(PlayerCorpse_StartDroppingArrows&)) { g_shell_Hook_145 = shell; if (!g_installed_Hook_145 && bind::m_PlayerCorpse_StartDroppingArrows) { Hook_145::InstallAtOffset(bind::m_PlayerCorpse_StartDroppingArrows); g_installed_Hook_145 = true; } }
+void PlayerCorpse_StartDroppingArrows::Orig() { ran_ = true; Hook_133::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerCorpse_StartDroppingArrows::Wrap(void (*shell)(PlayerCorpse_StartDroppingArrows&)) { g_shell_Hook_133 = shell; if (!g_installed_Hook_133 && bind::m_PlayerCorpse_StartDroppingArrows) { Hook_133::InstallAtOffset(bind::m_PlayerCorpse_StartDroppingArrows); g_installed_Hook_133 = true; } }
 
 void PlayerCorpse_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_146 < 8) hw::Log("[tfexgen] hook PlayerCorpse.Update call %d: PlayerCorpsePatch.PlayerCorpse_Update_Postfix=%d, original %s", ++g_calls_Hook_146, (int)g_on_Hook_146[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_134 < 8) hw::Log("[tfexgen] hook PlayerCorpse.Update call %d: PlayerCorpsePatch.PlayerCorpse_Update_Postfix=%d, original %s", ++g_calls_Hook_134, (int)g_on_Hook_134[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_146::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_146[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_Update_Postfix(self);
+        if (run) Hook_134::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_134[0]) tfex::gen::State_PlayerCorpse::PlayerCorpse_Update_Postfix(self);
         ran_ = run;
 }
-void PlayerCorpse_Update::Orig() { ran_ = true; Hook_146::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerCorpse_Update::Wrap(void (*shell)(PlayerCorpse_Update&)) { g_shell_Hook_146 = shell; if (!g_installed_Hook_146 && bind::m_PlayerCorpse_Update) { Hook_146::InstallAtOffset(bind::m_PlayerCorpse_Update); g_installed_Hook_146 = true; } }
+void PlayerCorpse_Update::Orig() { ran_ = true; Hook_134::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerCorpse_Update::Wrap(void (*shell)(PlayerCorpse_Update&)) { g_shell_Hook_134 = shell; if (!g_installed_Hook_134 && bind::m_PlayerCorpse_Update) { Hook_134::InstallAtOffset(bind::m_PlayerCorpse_Update); g_installed_Hook_134 = true; } }
 
 void PlayerGhost_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_147 < 8) hw::Log("[tfexgen] hook PlayerGhost.ctor call %d: PlayerGhostPatch.PlayerGhost_ctor=%d, original %s", ++g_calls_Hook_147, (int)g_on_Hook_147[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_135 < 8) hw::Log("[tfexgen] hook PlayerGhost.ctor call %d: PlayerGhostPatch.PlayerGhost_ctor=%d, original %s", ++g_calls_Hook_135, (int)g_on_Hook_135[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_147::Orig(self, corpse, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_147[0]) tfex::gen::State_PlayerGhost::PlayerGhost_ctor(obj);
+        if (run) { void* r_ = Hook_135::Orig(self, corpse, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_135[0]) tfex::gen::State_PlayerGhost::PlayerGhost_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void PlayerGhost_ctor::Orig() { ran_ = true; void* r_ = Hook_147::Orig(self, corpse, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void PlayerGhost_ctor::Wrap(void (*shell)(PlayerGhost_ctor&)) { g_shell_Hook_147 = shell; if (!g_installed_Hook_147 && bind::m_PlayerGhost__ctor_d536) { Hook_147::InstallAtOffset(bind::m_PlayerGhost__ctor_d536); g_installed_Hook_147 = true; } }
+void PlayerGhost_ctor::Orig() { ran_ = true; void* r_ = Hook_135::Orig(self, corpse, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void PlayerGhost_ctor::Wrap(void (*shell)(PlayerGhost_ctor&)) { g_shell_Hook_135 = shell; if (!g_installed_Hook_135 && bind::m_PlayerGhost__ctor_d536) { Hook_135::InstallAtOffset(bind::m_PlayerGhost__ctor_d536); g_installed_Hook_135 = true; } }
 
 void PlayerGhost_DespawnEnter::operator()() {
         bool run = true;
-        if (g_calls_Hook_148 < 8) hw::Log("[tfexgen] hook PlayerGhost.DespawnEnter call %d: PlayerGhostPatch.PlayerGhost_DespawnEnter_Postfix=%d, original %s", ++g_calls_Hook_148, (int)g_on_Hook_148[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_136 < 8) hw::Log("[tfexgen] hook PlayerGhost.DespawnEnter call %d: PlayerGhostPatch.PlayerGhost_DespawnEnter_Postfix=%d, original %s", ++g_calls_Hook_136, (int)g_on_Hook_136[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_148::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_148[0]) tfex::gen::State_PlayerGhost::PlayerGhost_DespawnEnter_Postfix(self);
+        if (run) Hook_136::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_136[0]) tfex::gen::State_PlayerGhost::PlayerGhost_DespawnEnter_Postfix(self);
         ran_ = run;
 }
-void PlayerGhost_DespawnEnter::Orig() { ran_ = true; Hook_148::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerGhost_DespawnEnter::Wrap(void (*shell)(PlayerGhost_DespawnEnter&)) { g_shell_Hook_148 = shell; if (!g_installed_Hook_148 && bind::m_PlayerGhost_DespawnEnter) { Hook_148::InstallAtOffset(bind::m_PlayerGhost_DespawnEnter); g_installed_Hook_148 = true; } }
+void PlayerGhost_DespawnEnter::Orig() { ran_ = true; Hook_136::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerGhost_DespawnEnter::Wrap(void (*shell)(PlayerGhost_DespawnEnter&)) { g_shell_Hook_136 = shell; if (!g_installed_Hook_136 && bind::m_PlayerGhost_DespawnEnter) { Hook_136::InstallAtOffset(bind::m_PlayerGhost_DespawnEnter); g_installed_Hook_136 = true; } }
 
 void PlayerGhost_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_149[0] && !tfex::gen::State_PlayerGhost::PlayerGhost_Update_Prefix(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_149 < 8) hw::Log("[tfexgen] hook PlayerGhost.Update call %d: PlayerGhostPatch.PlayerGhost_Update_Prefix=%d PlayerGhostPatch.PlayerGhost_Update_Postfix=%d, original %s", ++g_calls_Hook_149, (int)g_on_Hook_149[0], (int)g_on_Hook_149[1], run ? "runs" : "skipped");
+        if (g_on_Hook_137[0] && !tfex::gen::State_PlayerGhost::PlayerGhost_Update_Prefix(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_137 < 8) hw::Log("[tfexgen] hook PlayerGhost.Update call %d: PlayerGhostPatch.PlayerGhost_Update_Prefix=%d PlayerGhostPatch.PlayerGhost_Update_Postfix=%d, original %s", ++g_calls_Hook_137, (int)g_on_Hook_137[0], (int)g_on_Hook_137[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_149::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_149[1]) tfex::gen::State_PlayerGhost::PlayerGhost_Update_Postfix(self);
+        if (run) Hook_137::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_137[1]) tfex::gen::State_PlayerGhost::PlayerGhost_Update_Postfix(self);
         ran_ = run;
 }
-void PlayerGhost_Update::Orig() { ran_ = true; Hook_149::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerGhost_Update::Wrap(void (*shell)(PlayerGhost_Update&)) { g_shell_Hook_149 = shell; if (!g_installed_Hook_149 && bind::m_PlayerGhost_Update) { Hook_149::InstallAtOffset(bind::m_PlayerGhost_Update); g_installed_Hook_149 = true; } }
+void PlayerGhost_Update::Orig() { ran_ = true; Hook_137::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerGhost_Update::Wrap(void (*shell)(PlayerGhost_Update&)) { g_shell_Hook_137 = shell; if (!g_installed_Hook_137 && bind::m_PlayerGhost_Update) { Hook_137::InstallAtOffset(bind::m_PlayerGhost_Update); g_installed_Hook_137 = true; } }
 
 void PlayerHair_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_150 < 8) hw::Log("[tfexgen] hook PlayerHair.ctor call %d: patch_PlayerHair.ctor_Prefix=%d, original %s", ++g_calls_Hook_150, (int)g_on_Hook_150[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_138 < 8) hw::Log("[tfexgen] hook PlayerHair.ctor call %d: patch_PlayerHair.ctor_Prefix=%d, original %s", ++g_calls_Hook_138, (int)g_on_Hook_138[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_150::Orig(self, follow, position, scale, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_150[0]) tfex::gen::Fr_PlayerHair::ctor_Prefix(obj);
+        if (run) { void* r_ = Hook_138::Orig(self, follow, position, scale, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_138[0]) tfex::gen::Fr_PlayerHair::ctor_Prefix(obj);
         ran_ = run;
         result_ = obj;
 }
-void PlayerHair_ctor::Orig() { ran_ = true; void* r_ = Hook_150::Orig(self, follow, position, scale, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void PlayerHair_ctor::Wrap(void (*shell)(PlayerHair_ctor&)) { g_shell_Hook_150 = shell; if (!g_installed_Hook_150 && bind::m_PlayerHair__ctor_d352) { Hook_150::InstallAtOffset(bind::m_PlayerHair__ctor_d352); g_installed_Hook_150 = true; } }
+void PlayerHair_ctor::Orig() { ran_ = true; void* r_ = Hook_138::Orig(self, follow, position, scale, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void PlayerHair_ctor::Wrap(void (*shell)(PlayerHair_ctor&)) { g_shell_Hook_138 = shell; if (!g_installed_Hook_138 && bind::m_PlayerHair__ctor_d352) { Hook_138::InstallAtOffset(bind::m_PlayerHair__ctor_d352); g_installed_Hook_138 = true; } }
 
 void PlayerHair_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_151 < 8) hw::Log("[tfexgen] hook PlayerHair.Render call %d: patch_PlayerHair.Render=%d, original %s", ++g_calls_Hook_151, (int)g_on_Hook_151[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_139 < 8) hw::Log("[tfexgen] hook PlayerHair.Render call %d: patch_PlayerHair.Render=%d, original %s", ++g_calls_Hook_139, (int)g_on_Hook_139[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { if (g_on_Hook_151[0]) tfex::gen::Fr_PlayerHair::Render(self); else Hook_151::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
+        if (run) { if (g_on_Hook_139[0]) tfex::gen::Fr_PlayerHair::Render(self); else Hook_139::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
         ran_ = run;
 }
-void PlayerHair_Render::Orig() { ran_ = true; Hook_151::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerHair_Render::Wrap(void (*shell)(PlayerHair_Render&)) { g_shell_Hook_151 = shell; if (!g_installed_Hook_151 && bind::m_PlayerHair_Render) { Hook_151::InstallAtOffset(bind::m_PlayerHair_Render); g_installed_Hook_151 = true; } }
+void PlayerHair_Render::Orig() { ran_ = true; Hook_139::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerHair_Render::Wrap(void (*shell)(PlayerHair_Render&)) { g_shell_Hook_139 = shell; if (!g_installed_Hook_139 && bind::m_PlayerHair_Render) { Hook_139::InstallAtOffset(bind::m_PlayerHair_Render); g_installed_Hook_139 = true; } }
 
 void PlayerHair_RenderBlack::operator()() {
         bool run = true;
-        if (g_calls_Hook_152 < 8) hw::Log("[tfexgen] hook PlayerHair.RenderBlack call %d: patch_PlayerHair.RenderBlack=%d, original %s", ++g_calls_Hook_152, (int)g_on_Hook_152[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_140 < 8) hw::Log("[tfexgen] hook PlayerHair.RenderBlack call %d: patch_PlayerHair.RenderBlack=%d, original %s", ++g_calls_Hook_140, (int)g_on_Hook_140[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { if (g_on_Hook_152[0]) tfex::gen::Fr_PlayerHair::RenderBlack(self); else Hook_152::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
+        if (run) { if (g_on_Hook_140[0]) tfex::gen::Fr_PlayerHair::RenderBlack(self); else Hook_140::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
         ran_ = run;
 }
-void PlayerHair_RenderBlack::Orig() { ran_ = true; Hook_152::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerHair_RenderBlack::Wrap(void (*shell)(PlayerHair_RenderBlack&)) { g_shell_Hook_152 = shell; if (!g_installed_Hook_152 && bind::m_PlayerHair_RenderBlack) { Hook_152::InstallAtOffset(bind::m_PlayerHair_RenderBlack); g_installed_Hook_152 = true; } }
+void PlayerHair_RenderBlack::Orig() { ran_ = true; Hook_140::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerHair_RenderBlack::Wrap(void (*shell)(PlayerHair_RenderBlack&)) { g_shell_Hook_140 = shell; if (!g_installed_Hook_140 && bind::m_PlayerHair_RenderBlack) { Hook_140::InstallAtOffset(bind::m_PlayerHair_RenderBlack); g_installed_Hook_140 = true; } }
 
 void PlayerHair_RenderOutline::operator()() {
         bool run = true;
-        if (g_calls_Hook_153 < 8) hw::Log("[tfexgen] hook PlayerHair.RenderOutline call %d: patch_PlayerHair.RenderOutline=%d, original %s", ++g_calls_Hook_153, (int)g_on_Hook_153[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_141 < 8) hw::Log("[tfexgen] hook PlayerHair.RenderOutline call %d: patch_PlayerHair.RenderOutline=%d, original %s", ++g_calls_Hook_141, (int)g_on_Hook_141[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { if (g_on_Hook_153[0]) tfex::gen::Fr_PlayerHair::RenderOutline(self); else Hook_153::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
+        if (run) { if (g_on_Hook_141[0]) tfex::gen::Fr_PlayerHair::RenderOutline(self); else Hook_141::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
         ran_ = run;
 }
-void PlayerHair_RenderOutline::Orig() { ran_ = true; Hook_153::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerHair_RenderOutline::Wrap(void (*shell)(PlayerHair_RenderOutline&)) { g_shell_Hook_153 = shell; if (!g_installed_Hook_153 && bind::m_PlayerHair_RenderOutline) { Hook_153::InstallAtOffset(bind::m_PlayerHair_RenderOutline); g_installed_Hook_153 = true; } }
+void PlayerHair_RenderOutline::Orig() { ran_ = true; Hook_141::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerHair_RenderOutline::Wrap(void (*shell)(PlayerHair_RenderOutline&)) { g_shell_Hook_141 = shell; if (!g_installed_Hook_141 && bind::m_PlayerHair_RenderOutline) { Hook_141::InstallAtOffset(bind::m_PlayerHair_RenderOutline); g_installed_Hook_141 = true; } }
 
 void PlayerHair_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_154[0] && !tfex::gen::State_PlayerHair::PlayerHair_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_154 < 8) hw::Log("[tfexgen] hook PlayerHair.Update call %d: PlayerHairPatch.PlayerHair_Update=%d, original %s", ++g_calls_Hook_154, (int)g_on_Hook_154[0], run ? "runs" : "skipped");
+        if (g_on_Hook_142[0] && !tfex::gen::State_PlayerHair::PlayerHair_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_142 < 8) hw::Log("[tfexgen] hook PlayerHair.Update call %d: PlayerHairPatch.PlayerHair_Update=%d, original %s", ++g_calls_Hook_142, (int)g_on_Hook_142[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_154::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_142::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PlayerHair_Update::Orig() { ran_ = true; Hook_154::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerHair_Update::Wrap(void (*shell)(PlayerHair_Update&)) { g_shell_Hook_154 = shell; if (!g_installed_Hook_154 && bind::m_PlayerHair_Update) { Hook_154::InstallAtOffset(bind::m_PlayerHair_Update); g_installed_Hook_154 = true; } }
+void PlayerHair_Update::Orig() { ran_ = true; Hook_142::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerHair_Update::Wrap(void (*shell)(PlayerHair_Update&)) { g_shell_Hook_142 = shell; if (!g_installed_Hook_142 && bind::m_PlayerHair_Update) { Hook_142::InstallAtOffset(bind::m_PlayerHair_Update); g_installed_Hook_142 = true; } }
 
 void PlayerIndicator_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_155 < 8) hw::Log("[tfexgen] hook PlayerIndicator.ctor call %d (playerIndex %d, crown %d): PlayerIndicatorPatch.PlayerIndicator_ctor=%d, original %s", ++g_calls_Hook_155, (int)playerIndex, (int)crown, (int)g_on_Hook_155[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_143 < 8) hw::Log("[tfexgen] hook PlayerIndicator.ctor call %d (playerIndex %d, crown %d): PlayerIndicatorPatch.PlayerIndicator_ctor=%d, original %s", ++g_calls_Hook_143, (int)playerIndex, (int)crown, (int)g_on_Hook_143[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_155::Orig(self, offset, playerIndex, crown, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_155[0]) tfex::gen::PlayerIndicatorPatch::PlayerIndicator_ctor(obj);
+        if (run) { void* r_ = Hook_143::Orig(self, offset, playerIndex, crown, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_143[0]) tfex::gen::PlayerIndicatorPatch::PlayerIndicator_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void PlayerIndicator_ctor::Orig() { ran_ = true; void* r_ = Hook_155::Orig(self, offset, playerIndex, crown, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void PlayerIndicator_ctor::Wrap(void (*shell)(PlayerIndicator_ctor&)) { g_shell_Hook_155 = shell; if (!g_installed_Hook_155 && bind::m_PlayerIndicator__ctor_4031) { Hook_155::InstallAtOffset(bind::m_PlayerIndicator__ctor_4031); g_installed_Hook_155 = true; } }
+void PlayerIndicator_ctor::Orig() { ran_ = true; void* r_ = Hook_143::Orig(self, offset, playerIndex, crown, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void PlayerIndicator_ctor::Wrap(void (*shell)(PlayerIndicator_ctor&)) { g_shell_Hook_143 = shell; if (!g_installed_Hook_143 && bind::m_PlayerIndicator__ctor_4031) { Hook_143::InstallAtOffset(bind::m_PlayerIndicator__ctor_4031); g_installed_Hook_143 = true; } }
 
 void PlayerIndicator_Render::operator()() {
         bool run = true;
-        if (g_on_Hook_156[0] && !tfex::gen::State_PlayerIndicatorState::PlayerIndicator_Render(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_156 < 8) hw::Log("[tfexgen] hook PlayerIndicator.Render call %d: PlayerIndicatorStatePatch.PlayerIndicator_Render=%d, original %s", ++g_calls_Hook_156, (int)g_on_Hook_156[0], run ? "runs" : "skipped");
+        if (g_on_Hook_144[0] && !tfex::gen::State_PlayerIndicatorState::PlayerIndicator_Render(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_144 < 8) hw::Log("[tfexgen] hook PlayerIndicator.Render call %d: PlayerIndicatorStatePatch.PlayerIndicator_Render=%d, original %s", ++g_calls_Hook_144, (int)g_on_Hook_144[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_156::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_144::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PlayerIndicator_Render::Orig() { ran_ = true; Hook_156::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerIndicator_Render::Wrap(void (*shell)(PlayerIndicator_Render&)) { g_shell_Hook_156 = shell; if (!g_installed_Hook_156 && bind::m_PlayerIndicator_Render) { Hook_156::InstallAtOffset(bind::m_PlayerIndicator_Render); g_installed_Hook_156 = true; } }
+void PlayerIndicator_Render::Orig() { ran_ = true; Hook_144::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerIndicator_Render::Wrap(void (*shell)(PlayerIndicator_Render&)) { g_shell_Hook_144 = shell; if (!g_installed_Hook_144 && bind::m_PlayerIndicator_Render) { Hook_144::InstallAtOffset(bind::m_PlayerIndicator_Render); g_installed_Hook_144 = true; } }
 
 void PlayerIndicator_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_157[0]) tfex::gen::State_PlayerIndicatorState::PlayerIndicator_Update_Prefix(self);
-        if (g_calls_Hook_157 < 8) hw::Log("[tfexgen] hook PlayerIndicator.Update call %d: PlayerIndicatorStatePatch.PlayerIndicator_Update_Prefix=%d, original %s", ++g_calls_Hook_157, (int)g_on_Hook_157[0], run ? "runs" : "skipped");
+        if (g_on_Hook_145[0]) tfex::gen::State_PlayerIndicatorState::PlayerIndicator_Update_Prefix(self);
+        if (g_calls_Hook_145 < 8) hw::Log("[tfexgen] hook PlayerIndicator.Update call %d: PlayerIndicatorStatePatch.PlayerIndicator_Update_Prefix=%d, original %s", ++g_calls_Hook_145, (int)g_on_Hook_145[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_157::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_145::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PlayerIndicator_Update::Orig() { ran_ = true; Hook_157::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerIndicator_Update::Wrap(void (*shell)(PlayerIndicator_Update&)) { g_shell_Hook_157 = shell; if (!g_installed_Hook_157 && bind::m_PlayerIndicator_Update) { Hook_157::InstallAtOffset(bind::m_PlayerIndicator_Update); g_installed_Hook_157 = true; } }
+void PlayerIndicator_Update::Orig() { ran_ = true; Hook_145::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerIndicator_Update::Wrap(void (*shell)(PlayerIndicator_Update&)) { g_shell_Hook_145 = shell; if (!g_installed_Hook_145 && bind::m_PlayerIndicator_Update) { Hook_145::InstallAtOffset(bind::m_PlayerIndicator_Update); g_installed_Hook_145 = true; } }
 
 void PlayerInput_AssignInputs::operator()() {
         bool run = true;
-        if (g_on_Hook_158[0] && !tfex::gen::PlayerInputPatch::PlayerInput_AssignInputs()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_158 < 8) hw::Log("[tfexgen] hook PlayerInput.AssignInputs call %d: PlayerInputPatch.PlayerInput_AssignInputs=%d, original %s", ++g_calls_Hook_158, (int)g_on_Hook_158[0], run ? "runs" : "skipped");
+        if (g_on_Hook_146[0] && !tfex::gen::PlayerInputPatch::PlayerInput_AssignInputs()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_146 < 8) hw::Log("[tfexgen] hook PlayerInput.AssignInputs call %d: PlayerInputPatch.PlayerInput_AssignInputs=%d, original %s", ++g_calls_Hook_146, (int)g_on_Hook_146[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_158::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_146::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void PlayerInput_AssignInputs::Orig() { ran_ = true; Hook_158::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerInput_AssignInputs::Wrap(void (*shell)(PlayerInput_AssignInputs&)) { g_shell_Hook_158 = shell; if (!g_installed_Hook_158 && bind::m_PlayerInput_AssignInputs) { Hook_158::InstallAtOffset(bind::m_PlayerInput_AssignInputs); g_installed_Hook_158 = true; } }
-
-void PlayerInput_GetAimDirection::operator()() {
-        gen::Opt<float> __result{};
-        bool run = true;
-        if (g_on_Hook_159[0]) tfex::gen::So_FlatPlay::GetAimDirection_prefix(snap);
-        if (g_calls_Hook_159 < 8) hw::Log("[tfexgen] hook PlayerInput.GetAimDirection call %d (snap %d): FlatPlay.GetAimDirection_prefix=%d, original %s", ++g_calls_Hook_159, (int)snap, (int)g_on_Hook_159[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_159::Orig(axis, snap, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-        result_ = __result;
-}
-void PlayerInput_GetAimDirection::Orig() { ran_ = true; result_ = Hook_159::Orig(axis, snap, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void PlayerInput_GetAimDirection::Wrap(void (*shell)(PlayerInput_GetAimDirection&)) { g_shell_Hook_159 = shell; if (!g_installed_Hook_159 && bind::m_PlayerInput_GetAimDirection_2265) { Hook_159::InstallAtOffset(bind::m_PlayerInput_GetAimDirection_2265); g_installed_Hook_159 = true; } }
+void PlayerInput_AssignInputs::Orig() { ran_ = true; Hook_146::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void PlayerInput_AssignInputs::Wrap(void (*shell)(PlayerInput_AssignInputs&)) { g_shell_Hook_146 = shell; if (!g_installed_Hook_146 && bind::m_PlayerInput_AssignInputs) { Hook_146::InstallAtOffset(bind::m_PlayerInput_AssignInputs); g_installed_Hook_146 = true; } }
 
 void QuestSpawnPortal_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_160 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.ctor call %d: QuestSpawnPortalPatch.QuestSpawnPortal_ctor=%d, original %s", ++g_calls_Hook_160, (int)g_on_Hook_160[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_147 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.ctor call %d: QuestSpawnPortalPatch.QuestSpawnPortal_ctor=%d, original %s", ++g_calls_Hook_147, (int)g_on_Hook_147[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_160::Orig(self, position, nodes, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_160[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_ctor(obj);
+        if (run) { void* r_ = Hook_147::Orig(self, position, nodes, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_147[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void QuestSpawnPortal_ctor::Orig() { ran_ = true; void* r_ = Hook_160::Orig(self, position, nodes, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void QuestSpawnPortal_ctor::Wrap(void (*shell)(QuestSpawnPortal_ctor&)) { g_shell_Hook_160 = shell; if (!g_installed_Hook_160 && bind::m_QuestSpawnPortal__ctor_71e7) { Hook_160::InstallAtOffset(bind::m_QuestSpawnPortal__ctor_71e7); g_installed_Hook_160 = true; } }
+void QuestSpawnPortal_ctor::Orig() { ran_ = true; void* r_ = Hook_147::Orig(self, position, nodes, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void QuestSpawnPortal_ctor::Wrap(void (*shell)(QuestSpawnPortal_ctor&)) { g_shell_Hook_147 = shell; if (!g_installed_Hook_147 && bind::m_QuestSpawnPortal__ctor_71e7) { Hook_147::InstallAtOffset(bind::m_QuestSpawnPortal__ctor_71e7); g_installed_Hook_147 = true; } }
 
 void QuestSpawnPortal_Appear::operator()() {
         bool __result{};
         bool run = true;
-        if (g_calls_Hook_161 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.Appear call %d: QuestSpawnPortalPatch.QuestSpawnPortal_Appear_Postfix=%d, original %s", ++g_calls_Hook_161, (int)g_on_Hook_161[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_148 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.Appear call %d: QuestSpawnPortalPatch.QuestSpawnPortal_Appear_Postfix=%d, original %s", ++g_calls_Hook_148, (int)g_on_Hook_148[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_161::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_161[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_Appear_Postfix(self, __result);
+        if (run) __result = Hook_148::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_148[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_Appear_Postfix(self, __result);
         ran_ = run;
         result_ = __result;
 }
-void QuestSpawnPortal_Appear::Orig() { ran_ = true; result_ = Hook_161::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void QuestSpawnPortal_Appear::Wrap(void (*shell)(QuestSpawnPortal_Appear&)) { g_shell_Hook_161 = shell; if (!g_installed_Hook_161 && bind::m_QuestSpawnPortal_Appear) { Hook_161::InstallAtOffset(bind::m_QuestSpawnPortal_Appear); g_installed_Hook_161 = true; } }
+void QuestSpawnPortal_Appear::Orig() { ran_ = true; result_ = Hook_148::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void QuestSpawnPortal_Appear::Wrap(void (*shell)(QuestSpawnPortal_Appear&)) { g_shell_Hook_148 = shell; if (!g_installed_Hook_148 && bind::m_QuestSpawnPortal_Appear) { Hook_148::InstallAtOffset(bind::m_QuestSpawnPortal_Appear); g_installed_Hook_148 = true; } }
 
 void QuestSpawnPortal_Disappear::operator()() {
         bool __result{};
         bool run = true;
-        if (g_calls_Hook_162 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.Disappear call %d: QuestSpawnPortalPatch.QuestSpawnPortal_Disappear_Postfix=%d, original %s", ++g_calls_Hook_162, (int)g_on_Hook_162[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_149 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.Disappear call %d: QuestSpawnPortalPatch.QuestSpawnPortal_Disappear_Postfix=%d, original %s", ++g_calls_Hook_149, (int)g_on_Hook_149[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_162::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_162[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_Disappear_Postfix(self, __result);
+        if (run) __result = Hook_149::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_149[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_Disappear_Postfix(self, __result);
         ran_ = run;
         result_ = __result;
 }
-void QuestSpawnPortal_Disappear::Orig() { ran_ = true; result_ = Hook_162::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void QuestSpawnPortal_Disappear::Wrap(void (*shell)(QuestSpawnPortal_Disappear&)) { g_shell_Hook_162 = shell; if (!g_installed_Hook_162 && bind::m_QuestSpawnPortal_Disappear) { Hook_162::InstallAtOffset(bind::m_QuestSpawnPortal_Disappear); g_installed_Hook_162 = true; } }
+void QuestSpawnPortal_Disappear::Orig() { ran_ = true; result_ = Hook_149::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void QuestSpawnPortal_Disappear::Wrap(void (*shell)(QuestSpawnPortal_Disappear&)) { g_shell_Hook_149 = shell; if (!g_installed_Hook_149 && bind::m_QuestSpawnPortal_Disappear) { Hook_149::InstallAtOffset(bind::m_QuestSpawnPortal_Disappear); g_installed_Hook_149 = true; } }
 
 void QuestSpawnPortal_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_163 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.Update call %d: QuestSpawnPortalPatch.QuestSpawnPortal_Update_Postfix=%d, original %s", ++g_calls_Hook_163, (int)g_on_Hook_163[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_150 < 8) hw::Log("[tfexgen] hook QuestSpawnPortal.Update call %d: QuestSpawnPortalPatch.QuestSpawnPortal_Update_Postfix=%d, original %s", ++g_calls_Hook_150, (int)g_on_Hook_150[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_163::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_163[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_Update_Postfix(self);
+        if (run) Hook_150::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_150[0]) tfex::gen::State_QuestSpawnPortal::QuestSpawnPortal_Update_Postfix(self);
         ran_ = run;
 }
-void QuestSpawnPortal_Update::Orig() { ran_ = true; Hook_163::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void QuestSpawnPortal_Update::Wrap(void (*shell)(QuestSpawnPortal_Update&)) { g_shell_Hook_163 = shell; if (!g_installed_Hook_163 && bind::m_QuestSpawnPortal_Update) { Hook_163::InstallAtOffset(bind::m_QuestSpawnPortal_Update); g_installed_Hook_163 = true; } }
+void QuestSpawnPortal_Update::Orig() { ran_ = true; Hook_150::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void QuestSpawnPortal_Update::Wrap(void (*shell)(QuestSpawnPortal_Update&)) { g_shell_Hook_150 = shell; if (!g_installed_Hook_150 && bind::m_QuestSpawnPortal_Update) { Hook_150::InstallAtOffset(bind::m_QuestSpawnPortal_Update); g_installed_Hook_150 = true; } }
 
 void ReadyBanner_GetReadyState::operator()() {
         bool __result{};
         bool run = true;
-        if (g_calls_Hook_164 < 8) hw::Log("[tfexgen] hook ReadyBanner.GetReadyState call %d: ReadyBannerPatch.ReadyBanner_GetReadyState=%d, original %s", ++g_calls_Hook_164, (int)g_on_Hook_164[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_151 < 8) hw::Log("[tfexgen] hook ReadyBanner.GetReadyState call %d: ReadyBannerPatch.ReadyBanner_GetReadyState=%d, original %s", ++g_calls_Hook_151, (int)g_on_Hook_151[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_164::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_164[0]) tfex::gen::ReadyBannerPatch::ReadyBanner_GetReadyState(__result);
+        if (run) __result = Hook_151::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_151[0]) tfex::gen::ReadyBannerPatch::ReadyBanner_GetReadyState(__result);
         ran_ = run;
         result_ = __result;
 }
-void ReadyBanner_GetReadyState::Orig() { ran_ = true; result_ = Hook_164::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void ReadyBanner_GetReadyState::Wrap(void (*shell)(ReadyBanner_GetReadyState&)) { g_shell_Hook_164 = shell; if (!g_installed_Hook_164 && bind::m_ReadyBanner_GetReadyState) { Hook_164::InstallAtOffset(bind::m_ReadyBanner_GetReadyState); g_installed_Hook_164 = true; } }
+void ReadyBanner_GetReadyState::Orig() { ran_ = true; result_ = Hook_151::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void ReadyBanner_GetReadyState::Wrap(void (*shell)(ReadyBanner_GetReadyState&)) { g_shell_Hook_151 = shell; if (!g_installed_Hook_151 && bind::m_ReadyBanner_GetReadyState) { Hook_151::InstallAtOffset(bind::m_ReadyBanner_GetReadyState); g_installed_Hook_151 = true; } }
 
 void RollcallElement_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_165[0]) tfex::gen::RollCallElementPatch::RollcallElement_Ctor_Prefix(playerIndex);
-        if (g_calls_Hook_165 < 8) hw::Log("[tfexgen] hook RollcallElement.ctor call %d (playerIndex %d): RollCallElementPatch.RollcallElement_Ctor_Prefix=%d RollCallElementPatch.RollcallElement_Ctor_Finalizer=%d MyRollcallElement.ctor_patch=%d, original %s", ++g_calls_Hook_165, (int)playerIndex, (int)g_on_Hook_165[0], (int)g_on_Hook_165[1], (int)g_on_Hook_165[2], run ? "runs" : "skipped");
+        if (g_on_Hook_152[0]) tfex::gen::RollCallElementPatch::RollcallElement_Ctor_Prefix(playerIndex);
+        if (g_calls_Hook_152 < 8) hw::Log("[tfexgen] hook RollcallElement.ctor call %d (playerIndex %d): RollCallElementPatch.RollcallElement_Ctor_Prefix=%d RollCallElementPatch.RollcallElement_Ctor_Finalizer=%d, original %s", ++g_calls_Hook_152, (int)playerIndex, (int)g_on_Hook_152[0], (int)g_on_Hook_152[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_165::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_165[1]) tfex::gen::RollCallElementPatch::RollcallElement_Ctor_Finalizer();
-        if (g_on_Hook_165[2]) tfex::gen::La_MyRollcallElement::ctor_patch(obj, playerIndex);
+        if (run) { void* r_ = Hook_152::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_152[1]) tfex::gen::RollCallElementPatch::RollcallElement_Ctor_Finalizer();
         ran_ = run;
         result_ = obj;
 }
-void RollcallElement_ctor::Orig() { ran_ = true; void* r_ = Hook_165::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void RollcallElement_ctor::Wrap(void (*shell)(RollcallElement_ctor&)) { g_shell_Hook_165 = shell; if (!g_installed_Hook_165 && bind::m_RollcallElement__ctor_e2bf) { Hook_165::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_165 = true; } }
+void RollcallElement_ctor::Orig() { ran_ = true; void* r_ = Hook_152::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void RollcallElement_ctor::Wrap(void (*shell)(RollcallElement_ctor&)) { g_shell_Hook_152 = shell; if (!g_installed_Hook_152 && bind::m_RollcallElement__ctor_e2bf) { Hook_152::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_152 = true; } }
 
 void RollcallElement_EnterJoined::operator()() {
         bool run = true;
-        if (g_calls_Hook_166 < 8) hw::Log("[tfexgen] hook RollcallElement.EnterJoined call %d: RollCallElementPatch.RollcallElement_EnterJoined=%d, original %s", ++g_calls_Hook_166, (int)g_on_Hook_166[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_153 < 8) hw::Log("[tfexgen] hook RollcallElement.EnterJoined call %d: RollCallElementPatch.RollcallElement_EnterJoined=%d, original %s", ++g_calls_Hook_153, (int)g_on_Hook_153[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_166::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_166[0]) tfex::gen::RollCallElementPatch::RollcallElement_EnterJoined(self);
+        if (run) Hook_153::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_153[0]) tfex::gen::RollCallElementPatch::RollcallElement_EnterJoined(self);
         ran_ = run;
 }
-void RollcallElement_EnterJoined::Orig() { ran_ = true; Hook_166::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_EnterJoined::Wrap(void (*shell)(RollcallElement_EnterJoined&)) { g_shell_Hook_166 = shell; if (!g_installed_Hook_166 && bind::m_RollcallElement_EnterJoined) { Hook_166::InstallAtOffset(bind::m_RollcallElement_EnterJoined); g_installed_Hook_166 = true; } }
+void RollcallElement_EnterJoined::Orig() { ran_ = true; Hook_153::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_EnterJoined::Wrap(void (*shell)(RollcallElement_EnterJoined&)) { g_shell_Hook_153 = shell; if (!g_installed_Hook_153 && bind::m_RollcallElement_EnterJoined) { Hook_153::InstallAtOffset(bind::m_RollcallElement_EnterJoined); g_installed_Hook_153 = true; } }
 
 void RollcallElement_ForceStart::operator()() {
         bool run = true;
-        if (g_on_Hook_167[0] && !tfex::gen::RollCallElementPatch::RollcallElement_ForceStart_Prefix()) run = false;   /* a bool prefix: false skips the original */
-        if (g_on_Hook_167[1]) tfex::gen::La_MyRollcallElement::ForceStart_patch(self);
-        if (g_calls_Hook_167 < 8) hw::Log("[tfexgen] hook RollcallElement.ForceStart call %d: RollCallElementPatch.RollcallElement_ForceStart_Prefix=%d MyRollcallElement.ForceStart_patch=%d, original %s", ++g_calls_Hook_167, (int)g_on_Hook_167[0], (int)g_on_Hook_167[1], run ? "runs" : "skipped");
+        if (g_on_Hook_154[0] && !tfex::gen::RollCallElementPatch::RollcallElement_ForceStart_Prefix()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_154 < 8) hw::Log("[tfexgen] hook RollcallElement.ForceStart call %d: RollCallElementPatch.RollcallElement_ForceStart_Prefix=%d, original %s", ++g_calls_Hook_154, (int)g_on_Hook_154[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_167::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_154::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void RollcallElement_ForceStart::Orig() { ran_ = true; Hook_167::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_ForceStart::Wrap(void (*shell)(RollcallElement_ForceStart&)) { g_shell_Hook_167 = shell; if (!g_installed_Hook_167 && bind::m_RollcallElement_ForceStart) { Hook_167::InstallAtOffset(bind::m_RollcallElement_ForceStart); g_installed_Hook_167 = true; } }
+void RollcallElement_ForceStart::Orig() { ran_ = true; Hook_154::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_ForceStart::Wrap(void (*shell)(RollcallElement_ForceStart&)) { g_shell_Hook_154 = shell; if (!g_installed_Hook_154 && bind::m_RollcallElement_ForceStart) { Hook_154::InstallAtOffset(bind::m_RollcallElement_ForceStart); g_installed_Hook_154 = true; } }
 
 void RollcallElement_JoinedUpdate::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_168[0] && !tfex::gen::RollCallElementPatch::RollcallElement_JoinedUpdate_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_168 < 8) hw::Log("[tfexgen] hook RollcallElement.JoinedUpdate call %d: RollCallElementPatch.RollcallElement_JoinedUpdate_Prefix=%d RollCallElementPatch.RollcallElement_JoinedUpdate=%d, original %s", ++g_calls_Hook_168, (int)g_on_Hook_168[0], (int)g_on_Hook_168[1], run ? "runs" : "skipped");
+        if (g_on_Hook_155[0] && !tfex::gen::RollCallElementPatch::RollcallElement_JoinedUpdate_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_155 < 8) hw::Log("[tfexgen] hook RollcallElement.JoinedUpdate call %d: RollCallElementPatch.RollcallElement_JoinedUpdate_Prefix=%d RollCallElementPatch.RollcallElement_JoinedUpdate=%d, original %s", ++g_calls_Hook_155, (int)g_on_Hook_155[0], (int)g_on_Hook_155[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_168::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_168[1]) tfex::gen::RollCallElementPatch::RollcallElement_JoinedUpdate(self, __result);
+        if (run) __result = Hook_155::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_155[1]) tfex::gen::RollCallElementPatch::RollcallElement_JoinedUpdate(self, __result);
         ran_ = run;
         result_ = __result;
 }
-void RollcallElement_JoinedUpdate::Orig() { ran_ = true; result_ = Hook_168::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_JoinedUpdate::Wrap(void (*shell)(RollcallElement_JoinedUpdate&)) { g_shell_Hook_168 = shell; if (!g_installed_Hook_168 && bind::m_RollcallElement_JoinedUpdate) { Hook_168::InstallAtOffset(bind::m_RollcallElement_JoinedUpdate); g_installed_Hook_168 = true; } }
+void RollcallElement_JoinedUpdate::Orig() { ran_ = true; result_ = Hook_155::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_JoinedUpdate::Wrap(void (*shell)(RollcallElement_JoinedUpdate&)) { g_shell_Hook_155 = shell; if (!g_installed_Hook_155 && bind::m_RollcallElement_JoinedUpdate) { Hook_155::InstallAtOffset(bind::m_RollcallElement_JoinedUpdate); g_installed_Hook_155 = true; } }
 
 void RollcallElement_LeaveJoined::operator()() {
         bool run = true;
-        if (g_calls_Hook_169 < 8) hw::Log("[tfexgen] hook RollcallElement.LeaveJoined call %d: RollCallElementPatch.RollcallElement_LeaveJoined=%d, original %s", ++g_calls_Hook_169, (int)g_on_Hook_169[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_156 < 8) hw::Log("[tfexgen] hook RollcallElement.LeaveJoined call %d: RollCallElementPatch.RollcallElement_LeaveJoined=%d, original %s", ++g_calls_Hook_156, (int)g_on_Hook_156[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_169::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_169[0]) tfex::gen::RollCallElementPatch::RollcallElement_LeaveJoined(self);
+        if (run) Hook_156::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_156[0]) tfex::gen::RollCallElementPatch::RollcallElement_LeaveJoined(self);
         ran_ = run;
 }
-void RollcallElement_LeaveJoined::Orig() { ran_ = true; Hook_169::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_LeaveJoined::Wrap(void (*shell)(RollcallElement_LeaveJoined&)) { g_shell_Hook_169 = shell; if (!g_installed_Hook_169 && bind::m_RollcallElement_LeaveJoined) { Hook_169::InstallAtOffset(bind::m_RollcallElement_LeaveJoined); g_installed_Hook_169 = true; } }
+void RollcallElement_LeaveJoined::Orig() { ran_ = true; Hook_156::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_LeaveJoined::Wrap(void (*shell)(RollcallElement_LeaveJoined&)) { g_shell_Hook_156 = shell; if (!g_installed_Hook_156 && bind::m_RollcallElement_LeaveJoined) { Hook_156::InstallAtOffset(bind::m_RollcallElement_LeaveJoined); g_installed_Hook_156 = true; } }
 
 void RollcallElement_NotJoinedUpdate::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_170[0] && !tfex::gen::RollCallElementPatch::RollcallElement_NotJoinedUpdate_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_on_Hook_170[2]) tfex::gen::La_MyRollcallElement::NotJoinedUpdate_patch(self);
-        if (g_calls_Hook_170 < 8) hw::Log("[tfexgen] hook RollcallElement.NotJoinedUpdate call %d: RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix=%d RollCallElementPatch.RollcallElement_NotJoinedUpdate=%d MyRollcallElement.NotJoinedUpdate_patch=%d, original %s", ++g_calls_Hook_170, (int)g_on_Hook_170[0], (int)g_on_Hook_170[1], (int)g_on_Hook_170[2], run ? "runs" : "skipped");
+        if (g_on_Hook_157[0] && !tfex::gen::RollCallElementPatch::RollcallElement_NotJoinedUpdate_Prefix(self, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_157 < 8) hw::Log("[tfexgen] hook RollcallElement.NotJoinedUpdate call %d: RollCallElementPatch.RollcallElement_NotJoinedUpdate_Prefix=%d RollCallElementPatch.RollcallElement_NotJoinedUpdate=%d, original %s", ++g_calls_Hook_157, (int)g_on_Hook_157[0], (int)g_on_Hook_157[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_170::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_170[1]) tfex::gen::RollCallElementPatch::RollcallElement_NotJoinedUpdate(self);
+        if (run) __result = Hook_157::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_157[1]) tfex::gen::RollCallElementPatch::RollcallElement_NotJoinedUpdate(self);
         ran_ = run;
         result_ = __result;
 }
-void RollcallElement_NotJoinedUpdate::Orig() { ran_ = true; result_ = Hook_170::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_NotJoinedUpdate::Wrap(void (*shell)(RollcallElement_NotJoinedUpdate&)) { g_shell_Hook_170 = shell; if (!g_installed_Hook_170 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_170::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_170 = true; } }
+void RollcallElement_NotJoinedUpdate::Orig() { ran_ = true; result_ = Hook_157::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_NotJoinedUpdate::Wrap(void (*shell)(RollcallElement_NotJoinedUpdate&)) { g_shell_Hook_157 = shell; if (!g_installed_Hook_157 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_157::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_157 = true; } }
 
 void RollcallElement_Render::operator()() {
         bool run = true;
-        if (g_on_Hook_171[1]) tfex::gen::La_MyRollcallElement::Render_patch(self);
-        if (g_calls_Hook_171 < 8) hw::Log("[tfexgen] hook RollcallElement.Render call %d: RollCallElementPatch.RollcallElement_Render=%d MyRollcallElement.Render_patch=%d MyRollcallElement.Keys_postfix=%d, original %s", ++g_calls_Hook_171, (int)g_on_Hook_171[0], (int)g_on_Hook_171[1], (int)g_on_Hook_171[2], run ? "runs" : "skipped");
+        if (g_calls_Hook_158 < 8) hw::Log("[tfexgen] hook RollcallElement.Render call %d: RollCallElementPatch.RollcallElement_Render=%d, original %s", ++g_calls_Hook_158, (int)g_on_Hook_158[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_171::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_171[0]) tfex::gen::RollCallElementPatch::RollcallElement_Render(self);
-        if (g_on_Hook_171[2]) tfex::gen::La_MyRollcallElement::Keys_postfix(self);
+        if (run) Hook_158::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_158[0]) tfex::gen::RollCallElementPatch::RollcallElement_Render(self);
         ran_ = run;
 }
-void RollcallElement_Render::Orig() { ran_ = true; Hook_171::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_Render::Wrap(void (*shell)(RollcallElement_Render&)) { g_shell_Hook_171 = shell; if (!g_installed_Hook_171 && bind::m_RollcallElement_Render) { Hook_171::InstallAtOffset(bind::m_RollcallElement_Render); g_installed_Hook_171 = true; } }
-
-void RollcallElement_StartVersus::operator()() {
-        bool run = true;
-        if (g_on_Hook_172[0]) tfex::gen::La_MyRollcallElement::StartVersus_patch(self);
-        if (g_calls_Hook_172 < 8) hw::Log("[tfexgen] hook RollcallElement.StartVersus call %d: MyRollcallElement.StartVersus_patch=%d, original %s", ++g_calls_Hook_172, (int)g_on_Hook_172[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_172::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void RollcallElement_StartVersus::Orig() { ran_ = true; Hook_172::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_StartVersus::Wrap(void (*shell)(RollcallElement_StartVersus&)) { g_shell_Hook_172 = shell; if (!g_installed_Hook_172 && bind::m_RollcallElement_StartVersus) { Hook_172::InstallAtOffset(bind::m_RollcallElement_StartVersus); g_installed_Hook_172 = true; } }
+void RollcallElement_Render::Orig() { ran_ = true; Hook_158::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_Render::Wrap(void (*shell)(RollcallElement_Render&)) { g_shell_Hook_158 = shell; if (!g_installed_Hook_158 && bind::m_RollcallElement_Render) { Hook_158::InstallAtOffset(bind::m_RollcallElement_Render); g_installed_Hook_158 = true; } }
 
 void RollcallElement_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_173[0]) tfex::gen::RollCallElementPatch::RollcallElement_Update(self);
-        if (g_calls_Hook_173 < 8) hw::Log("[tfexgen] hook RollcallElement.Update call %d: RollCallElementPatch.RollcallElement_Update=%d, original %s", ++g_calls_Hook_173, (int)g_on_Hook_173[0], run ? "runs" : "skipped");
+        if (g_on_Hook_159[0]) tfex::gen::RollCallElementPatch::RollcallElement_Update(self);
+        if (g_calls_Hook_159 < 8) hw::Log("[tfexgen] hook RollcallElement.Update call %d: RollCallElementPatch.RollcallElement_Update=%d, original %s", ++g_calls_Hook_159, (int)g_on_Hook_159[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_173::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_159::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void RollcallElement_Update::Orig() { ran_ = true; Hook_173::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RollcallElement_Update::Wrap(void (*shell)(RollcallElement_Update&)) { g_shell_Hook_173 = shell; if (!g_installed_Hook_173 && bind::m_RollcallElement_Update) { Hook_173::InstallAtOffset(bind::m_RollcallElement_Update); g_installed_Hook_173 = true; } }
+void RollcallElement_Update::Orig() { ran_ = true; Hook_159::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RollcallElement_Update::Wrap(void (*shell)(RollcallElement_Update&)) { g_shell_Hook_159 = shell; if (!g_installed_Hook_159 && bind::m_RollcallElement_Update) { Hook_159::InstallAtOffset(bind::m_RollcallElement_Update); g_installed_Hook_159 = true; } }
 
 void RotatePlatform_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_174[0] && !tfex::gen::State_RotatePlatform::RotatePlatform_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_174 < 8) hw::Log("[tfexgen] hook RotatePlatform.Update call %d: RotatePlatformPatch.RotatePlatform_Update=%d, original %s", ++g_calls_Hook_174, (int)g_on_Hook_174[0], run ? "runs" : "skipped");
+        if (g_on_Hook_160[0] && !tfex::gen::State_RotatePlatform::RotatePlatform_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_160 < 8) hw::Log("[tfexgen] hook RotatePlatform.Update call %d: RotatePlatformPatch.RotatePlatform_Update=%d, original %s", ++g_calls_Hook_160, (int)g_on_Hook_160[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_174::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_160::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void RotatePlatform_Update::Orig() { ran_ = true; Hook_174::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RotatePlatform_Update::Wrap(void (*shell)(RotatePlatform_Update&)) { g_shell_Hook_174 = shell; if (!g_installed_Hook_174 && bind::m_RotatePlatform_Update) { Hook_174::InstallAtOffset(bind::m_RotatePlatform_Update); g_installed_Hook_174 = true; } }
+void RotatePlatform_Update::Orig() { ran_ = true; Hook_160::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RotatePlatform_Update::Wrap(void (*shell)(RotatePlatform_Update&)) { g_shell_Hook_160 = shell; if (!g_installed_Hook_160 && bind::m_RotatePlatform_Update) { Hook_160::InstallAtOffset(bind::m_RotatePlatform_Update); g_installed_Hook_160 = true; } }
 
 void RoundLogic_GetRoundLogic::operator()() {
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_175 < 8) hw::Log("[tfexgen] hook RoundLogic.GetRoundLogic call %d: patch_RoundLogic.GetRoundLogic=%d, original %s", ++g_calls_Hook_175, (int)g_on_Hook_175[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_161 < 8) hw::Log("[tfexgen] hook RoundLogic.GetRoundLogic call %d: patch_RoundLogic.GetRoundLogic=%d, original %s", ++g_calls_Hook_161, (int)g_on_Hook_161[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = g_on_Hook_175[0] ? tfex::gen::Fr_RoundLogic::GetRoundLogic(session) : Hook_175::Orig(session, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
+        if (run) __result = g_on_Hook_161[0] ? tfex::gen::Fr_RoundLogic::GetRoundLogic(session) : Hook_161::Orig(session, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
         ran_ = run;
         result_ = __result;
 }
-void RoundLogic_GetRoundLogic::Orig() { ran_ = true; result_ = Hook_175::Orig(session, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RoundLogic_GetRoundLogic::Wrap(void (*shell)(RoundLogic_GetRoundLogic&)) { g_shell_Hook_175 = shell; if (!g_installed_Hook_175 && bind::m_RoundLogic_GetRoundLogic_9385) { Hook_175::InstallAtOffset(bind::m_RoundLogic_GetRoundLogic_9385); g_installed_Hook_175 = true; } }
+void RoundLogic_GetRoundLogic::Orig() { ran_ = true; result_ = Hook_161::Orig(session, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RoundLogic_GetRoundLogic::Wrap(void (*shell)(RoundLogic_GetRoundLogic&)) { g_shell_Hook_161 = shell; if (!g_installed_Hook_161 && bind::m_RoundLogic_GetRoundLogic_9385) { Hook_161::InstallAtOffset(bind::m_RoundLogic_GetRoundLogic_9385); g_installed_Hook_161 = true; } }
 
 void RoundLogic_OnUpdate::operator()() {
         bool run = true;
-        if (g_on_Hook_176[0]) tfex::gen::State_RoundLogic::RoundLogic_OnUpdate_Prefix(self);
-        if (g_calls_Hook_176 < 8) hw::Log("[tfexgen] hook RoundLogic.OnUpdate call %d: RoundLogicPatch.RoundLogic_OnUpdate_Prefix=%d, original %s", ++g_calls_Hook_176, (int)g_on_Hook_176[0], run ? "runs" : "skipped");
+        if (g_on_Hook_162[0]) tfex::gen::State_RoundLogic::RoundLogic_OnUpdate_Prefix(self);
+        if (g_calls_Hook_162 < 8) hw::Log("[tfexgen] hook RoundLogic.OnUpdate call %d: RoundLogicPatch.RoundLogic_OnUpdate_Prefix=%d, original %s", ++g_calls_Hook_162, (int)g_on_Hook_162[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_176::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_162::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void RoundLogic_OnUpdate::Orig() { ran_ = true; Hook_176::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RoundLogic_OnUpdate::Wrap(void (*shell)(RoundLogic_OnUpdate&)) { g_shell_Hook_176 = shell; if (!g_installed_Hook_176 && bind::m_RoundLogic_OnUpdate) { Hook_176::InstallAtOffset(bind::m_RoundLogic_OnUpdate); g_installed_Hook_176 = true; } }
+void RoundLogic_OnUpdate::Orig() { ran_ = true; Hook_162::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RoundLogic_OnUpdate::Wrap(void (*shell)(RoundLogic_OnUpdate&)) { g_shell_Hook_162 = shell; if (!g_installed_Hook_162 && bind::m_RoundLogic_OnUpdate) { Hook_162::InstallAtOffset(bind::m_RoundLogic_OnUpdate); g_installed_Hook_162 = true; } }
 
 void RoundLogic_SpawnPlayersFFA::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_177[0] && !tfex::gen::State_RoundLogic::RoundLogic_SpawnPlayersFFA(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_177 < 8) hw::Log("[tfexgen] hook RoundLogic.SpawnPlayersFFA call %d: RoundLogicPatch.RoundLogic_SpawnPlayersFFA=%d, original %s", ++g_calls_Hook_177, (int)g_on_Hook_177[0], run ? "runs" : "skipped");
+        if (g_on_Hook_163[0] && !tfex::gen::State_RoundLogic::RoundLogic_SpawnPlayersFFA(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_163 < 8) hw::Log("[tfexgen] hook RoundLogic.SpawnPlayersFFA call %d: RoundLogicPatch.RoundLogic_SpawnPlayersFFA=%d, original %s", ++g_calls_Hook_163, (int)g_on_Hook_163[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_177::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_163::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void RoundLogic_SpawnPlayersFFA::Orig() { ran_ = true; result_ = Hook_177::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RoundLogic_SpawnPlayersFFA::Wrap(void (*shell)(RoundLogic_SpawnPlayersFFA&)) { g_shell_Hook_177 = shell; if (!g_installed_Hook_177 && bind::m_RoundLogic_SpawnPlayersFFA) { Hook_177::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersFFA); g_installed_Hook_177 = true; } }
+void RoundLogic_SpawnPlayersFFA::Orig() { ran_ = true; result_ = Hook_163::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RoundLogic_SpawnPlayersFFA::Wrap(void (*shell)(RoundLogic_SpawnPlayersFFA&)) { g_shell_Hook_163 = shell; if (!g_installed_Hook_163 && bind::m_RoundLogic_SpawnPlayersFFA) { Hook_163::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersFFA); g_installed_Hook_163 = true; } }
 
 void RoundLogic_SpawnPlayersTeams::operator()() {
         bool run = true;
-        if (g_on_Hook_178[0] && !tfex::gen::State_RoundLogic::RoundLogic_SpawnPlayersTeams(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_178 < 8) hw::Log("[tfexgen] hook RoundLogic.SpawnPlayersTeams call %d: RoundLogicPatch.RoundLogic_SpawnPlayersTeams=%d, original %s", ++g_calls_Hook_178, (int)g_on_Hook_178[0], run ? "runs" : "skipped");
+        if (g_on_Hook_164[0] && !tfex::gen::State_RoundLogic::RoundLogic_SpawnPlayersTeams(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_164 < 8) hw::Log("[tfexgen] hook RoundLogic.SpawnPlayersTeams call %d: RoundLogicPatch.RoundLogic_SpawnPlayersTeams=%d, original %s", ++g_calls_Hook_164, (int)g_on_Hook_164[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_178::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_164::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void RoundLogic_SpawnPlayersTeams::Orig() { ran_ = true; Hook_178::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void RoundLogic_SpawnPlayersTeams::Wrap(void (*shell)(RoundLogic_SpawnPlayersTeams&)) { g_shell_Hook_178 = shell; if (!g_installed_Hook_178 && bind::m_RoundLogic_SpawnPlayersTeams) { Hook_178::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersTeams); g_installed_Hook_178 = true; } }
+void RoundLogic_SpawnPlayersTeams::Orig() { ran_ = true; Hook_164::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void RoundLogic_SpawnPlayersTeams::Wrap(void (*shell)(RoundLogic_SpawnPlayersTeams&)) { g_shell_Hook_164 = shell; if (!g_installed_Hook_164 && bind::m_RoundLogic_SpawnPlayersTeams) { Hook_164::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersTeams); g_installed_Hook_164 = true; } }
 
 void SaveData_Save::operator()() {
         void* __result{};
         bool run = true;
-        if (g_on_Hook_179[0]) tfex::gen::SaveDataPatch::Save_Prefix();
-        if (g_calls_Hook_179 < 8) hw::Log("[tfexgen] hook SaveData.Save call %d: SaveDataPatch.Save_Prefix=%d SaveDataPatch.Save_Postfix=%d, original %s", ++g_calls_Hook_179, (int)g_on_Hook_179[0], (int)g_on_Hook_179[1], run ? "runs" : "skipped");
+        if (g_on_Hook_165[0]) tfex::gen::SaveDataPatch::Save_Prefix();
+        if (g_calls_Hook_165 < 8) hw::Log("[tfexgen] hook SaveData.Save call %d: SaveDataPatch.Save_Prefix=%d SaveDataPatch.Save_Postfix=%d, original %s", ++g_calls_Hook_165, (int)g_on_Hook_165[0], (int)g_on_Hook_165[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_179::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_179[1]) tfex::gen::SaveDataPatch::Save_Postfix();
+        if (run) __result = Hook_165::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_165[1]) tfex::gen::SaveDataPatch::Save_Postfix();
         ran_ = run;
         result_ = __result;
 }
-void SaveData_Save::Orig() { ran_ = true; result_ = Hook_179::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void SaveData_Save::Wrap(void (*shell)(SaveData_Save&)) { g_shell_Hook_179 = shell; if (!g_installed_Hook_179 && bind::m_SaveData_Save) { Hook_179::InstallAtOffset(bind::m_SaveData_Save); g_installed_Hook_179 = true; } }
+void SaveData_Save::Orig() { ran_ = true; result_ = Hook_165::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void SaveData_Save::Wrap(void (*shell)(SaveData_Save&)) { g_shell_Hook_165 = shell; if (!g_installed_Hook_165 && bind::m_SaveData_Save) { Hook_165::InstallAtOffset(bind::m_SaveData_Save); g_installed_Hook_165 = true; } }
 
 void ScreenTitle_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_180[0]) tfex::gen::ScreenTitlePatch::ScreenTitle_ctor(state);
-        if (g_calls_Hook_180 < 8) hw::Log("[tfexgen] hook ScreenTitle.ctor call %d (state %d): ScreenTitlePatch.ScreenTitle_ctor=%d, original %s", ++g_calls_Hook_180, (int)state, (int)g_on_Hook_180[0], run ? "runs" : "skipped");
+        if (g_on_Hook_166[0]) tfex::gen::ScreenTitlePatch::ScreenTitle_ctor(state);
+        if (g_calls_Hook_166 < 8) hw::Log("[tfexgen] hook ScreenTitle.ctor call %d (state %d): ScreenTitlePatch.ScreenTitle_ctor=%d, original %s", ++g_calls_Hook_166, (int)state, (int)g_on_Hook_166[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_180::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (run) { void* r_ = Hook_166::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
         ran_ = run;
         result_ = obj;
 }
-void ScreenTitle_ctor::Orig() { ran_ = true; void* r_ = Hook_180::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void ScreenTitle_ctor::Wrap(void (*shell)(ScreenTitle_ctor&)) { g_shell_Hook_180 = shell; if (!g_installed_Hook_180 && bind::m_ScreenTitle__ctor_b2b6) { Hook_180::InstallAtOffset(bind::m_ScreenTitle__ctor_b2b6); g_installed_Hook_180 = true; } }
+void ScreenTitle_ctor::Orig() { ran_ = true; void* r_ = Hook_166::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void ScreenTitle_ctor::Wrap(void (*shell)(ScreenTitle_ctor&)) { g_shell_Hook_166 = shell; if (!g_installed_Hook_166 && bind::m_ScreenTitle__ctor_b2b6) { Hook_166::InstallAtOffset(bind::m_ScreenTitle__ctor_b2b6); g_installed_Hook_166 = true; } }
 
 void ScreenTitle_ChangeState::operator()() {
         bool run = true;
-        if (g_on_Hook_181[0] && !tfex::gen::ScreenTitlePatch::ScreenTitle_ChangeState(self, state)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_181 < 8) hw::Log("[tfexgen] hook ScreenTitle.ChangeState call %d (state %d): ScreenTitlePatch.ScreenTitle_ChangeState=%d, original %s", ++g_calls_Hook_181, (int)state, (int)g_on_Hook_181[0], run ? "runs" : "skipped");
+        if (g_on_Hook_167[0] && !tfex::gen::ScreenTitlePatch::ScreenTitle_ChangeState(self, state)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_167 < 8) hw::Log("[tfexgen] hook ScreenTitle.ChangeState call %d (state %d): ScreenTitlePatch.ScreenTitle_ChangeState=%d, original %s", ++g_calls_Hook_167, (int)state, (int)g_on_Hook_167[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_181::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_167::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void ScreenTitle_ChangeState::Orig() { ran_ = true; Hook_181::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_); }
-void ScreenTitle_ChangeState::Wrap(void (*shell)(ScreenTitle_ChangeState&)) { g_shell_Hook_181 = shell; if (!g_installed_Hook_181 && bind::m_ScreenTitle_ChangeState_b2b6) { Hook_181::InstallAtOffset(bind::m_ScreenTitle_ChangeState_b2b6); g_installed_Hook_181 = true; } }
+void ScreenTitle_ChangeState::Orig() { ran_ = true; Hook_167::Orig(self, state, x2_, x3_, x4_, x5_, x6_, x7_); }
+void ScreenTitle_ChangeState::Wrap(void (*shell)(ScreenTitle_ChangeState&)) { g_shell_Hook_167 = shell; if (!g_installed_Hook_167 && bind::m_ScreenTitle_ChangeState_b2b6) { Hook_167::InstallAtOffset(bind::m_ScreenTitle_ChangeState_b2b6); g_installed_Hook_167 = true; } }
 
 void SensorBlock_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_182[0] && !tfex::gen::State_SensorBlock::SensorBlock_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_182 < 8) hw::Log("[tfexgen] hook SensorBlock.Update call %d: SensorBlockPatch.SensorBlock_Update=%d, original %s", ++g_calls_Hook_182, (int)g_on_Hook_182[0], run ? "runs" : "skipped");
+        if (g_on_Hook_168[0] && !tfex::gen::State_SensorBlock::SensorBlock_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_168 < 8) hw::Log("[tfexgen] hook SensorBlock.Update call %d: SensorBlockPatch.SensorBlock_Update=%d, original %s", ++g_calls_Hook_168, (int)g_on_Hook_168[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_182::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_168::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void SensorBlock_Update::Orig() { ran_ = true; Hook_182::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void SensorBlock_Update::Wrap(void (*shell)(SensorBlock_Update&)) { g_shell_Hook_182 = shell; if (!g_installed_Hook_182 && bind::m_SensorBlock_Update) { Hook_182::InstallAtOffset(bind::m_SensorBlock_Update); g_installed_Hook_182 = true; } }
+void SensorBlock_Update::Orig() { ran_ = true; Hook_168::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void SensorBlock_Update::Wrap(void (*shell)(SensorBlock_Update&)) { g_shell_Hook_168 = shell; if (!g_installed_Hook_168 && bind::m_SensorBlock_Update) { Hook_168::InstallAtOffset(bind::m_SensorBlock_Update); g_installed_Hook_168 = true; } }
 
 void Session_CreateResults::operator()() {
         bool run = true;
-        if (g_on_Hook_183[0] && !tfex::gen::SessionPatch::Session_CreateResults(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_183 < 8) hw::Log("[tfexgen] hook Session.CreateResults call %d: SessionPatch.Session_CreateResults=%d, original %s", ++g_calls_Hook_183, (int)g_on_Hook_183[0], run ? "runs" : "skipped");
+        if (g_on_Hook_169[0] && !tfex::gen::SessionPatch::Session_CreateResults(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_169 < 8) hw::Log("[tfexgen] hook Session.CreateResults call %d: SessionPatch.Session_CreateResults=%d, original %s", ++g_calls_Hook_169, (int)g_on_Hook_169[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_183::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_169::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Session_CreateResults::Orig() { ran_ = true; Hook_183::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_CreateResults::Wrap(void (*shell)(Session_CreateResults&)) { g_shell_Hook_183 = shell; if (!g_installed_Hook_183 && bind::m_Session_CreateResults) { Hook_183::InstallAtOffset(bind::m_Session_CreateResults); g_installed_Hook_183 = true; } }
+void Session_CreateResults::Orig() { ran_ = true; Hook_169::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_CreateResults::Wrap(void (*shell)(Session_CreateResults&)) { g_shell_Hook_169 = shell; if (!g_installed_Hook_169 && bind::m_Session_CreateResults) { Hook_169::InstallAtOffset(bind::m_Session_CreateResults); g_installed_Hook_169 = true; } }
 
 void Session_EndRound::operator()() {
         bool run = true;
         void* state_SessionPatch{};
-        if (g_on_Hook_184[0] && !tfex::gen::SessionPatch::Session_EndRound_SkipWhileBaking(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_on_Hook_184[1]) tfex::gen::SessionPatch::Session_EndRound_Prefix(self, state_SessionPatch);
-        if (g_calls_Hook_184 < 8) hw::Log("[tfexgen] hook Session.EndRound call %d: SessionPatch.Session_EndRound_SkipWhileBaking=%d SessionPatch.Session_EndRound_Prefix=%d SessionPatch.Session_EndRound_Postfix=%d, original %s", ++g_calls_Hook_184, (int)g_on_Hook_184[0], (int)g_on_Hook_184[1], (int)g_on_Hook_184[2], run ? "runs" : "skipped");
+        if (g_on_Hook_170[0] && !tfex::gen::SessionPatch::Session_EndRound_SkipWhileBaking(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_on_Hook_170[1]) tfex::gen::SessionPatch::Session_EndRound_Prefix(self, state_SessionPatch);
+        if (g_calls_Hook_170 < 8) hw::Log("[tfexgen] hook Session.EndRound call %d: SessionPatch.Session_EndRound_SkipWhileBaking=%d SessionPatch.Session_EndRound_Prefix=%d SessionPatch.Session_EndRound_Postfix=%d, original %s", ++g_calls_Hook_170, (int)g_on_Hook_170[0], (int)g_on_Hook_170[1], (int)g_on_Hook_170[2], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_184::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_184[2]) tfex::gen::SessionPatch::Session_EndRound_Postfix(self, state_SessionPatch);
+        if (run) Hook_170::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_170[2]) tfex::gen::SessionPatch::Session_EndRound_Postfix(self, state_SessionPatch);
         ran_ = run;
 }
-void Session_EndRound::Orig() { ran_ = true; Hook_184::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_EndRound::Wrap(void (*shell)(Session_EndRound&)) { g_shell_Hook_184 = shell; if (!g_installed_Hook_184 && bind::m_Session_EndRound) { Hook_184::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_184 = true; } }
+void Session_EndRound::Orig() { ran_ = true; Hook_170::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_EndRound::Wrap(void (*shell)(Session_EndRound&)) { g_shell_Hook_170 = shell; if (!g_installed_Hook_170 && bind::m_Session_EndRound) { Hook_170::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_170 = true; } }
 
 void Session_GetScoreIndex::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_185[0] && !tfex::gen::Tp_RulesHooks::GetScoreIndex_Prefix(self, playerIndex, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_185 < 8) hw::Log("[tfexgen] hook Session.GetScoreIndex call %d (playerIndex %d): RulesHooks.GetScoreIndex_Prefix=%d, original %s", ++g_calls_Hook_185, (int)playerIndex, (int)g_on_Hook_185[0], run ? "runs" : "skipped");
+        if (g_on_Hook_171[0] && !tfex::gen::Tp_RulesHooks::GetScoreIndex_Prefix(self, playerIndex, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_171 < 8) hw::Log("[tfexgen] hook Session.GetScoreIndex call %d (playerIndex %d): RulesHooks.GetScoreIndex_Prefix=%d, original %s", ++g_calls_Hook_171, (int)playerIndex, (int)g_on_Hook_171[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_185::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_171::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void Session_GetScoreIndex::Orig() { ran_ = true; result_ = Hook_185::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_GetScoreIndex::Wrap(void (*shell)(Session_GetScoreIndex&)) { g_shell_Hook_185 = shell; if (!g_installed_Hook_185 && bind::m_Session_GetScoreIndex_e2bf) { Hook_185::InstallAtOffset(bind::m_Session_GetScoreIndex_e2bf); g_installed_Hook_185 = true; } }
+void Session_GetScoreIndex::Orig() { ran_ = true; result_ = Hook_171::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_GetScoreIndex::Wrap(void (*shell)(Session_GetScoreIndex&)) { g_shell_Hook_171 = shell; if (!g_installed_Hook_171 && bind::m_Session_GetScoreIndex_e2bf) { Hook_171::InstallAtOffset(bind::m_Session_GetScoreIndex_e2bf); g_installed_Hook_171 = true; } }
 
 void Session_GotoNextRound::operator()() {
         bool run = true;
-        if (g_on_Hook_186[0] && !tfex::gen::SessionPatch::Session_GotoNextRound(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_186 < 8) hw::Log("[tfexgen] hook Session.GotoNextRound call %d: SessionPatch.Session_GotoNextRound=%d, original %s", ++g_calls_Hook_186, (int)g_on_Hook_186[0], run ? "runs" : "skipped");
+        if (g_on_Hook_172[0] && !tfex::gen::SessionPatch::Session_GotoNextRound(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_172 < 8) hw::Log("[tfexgen] hook Session.GotoNextRound call %d: SessionPatch.Session_GotoNextRound=%d, original %s", ++g_calls_Hook_172, (int)g_on_Hook_172[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_186::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_172::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Session_GotoNextRound::Orig() { ran_ = true; Hook_186::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_GotoNextRound::Wrap(void (*shell)(Session_GotoNextRound&)) { g_shell_Hook_186 = shell; if (!g_installed_Hook_186 && bind::m_Session_GotoNextRound) { Hook_186::InstallAtOffset(bind::m_Session_GotoNextRound); g_installed_Hook_186 = true; } }
+void Session_GotoNextRound::Orig() { ran_ = true; Hook_172::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_GotoNextRound::Wrap(void (*shell)(Session_GotoNextRound&)) { g_shell_Hook_172 = shell; if (!g_installed_Hook_172 && bind::m_Session_GotoNextRound) { Hook_172::InstallAtOffset(bind::m_Session_GotoNextRound); g_installed_Hook_172 = true; } }
 
 void Session_LevelLoadStart::operator()() {
         bool run = true;
-        if (g_calls_Hook_187 < 8) hw::Log("[tfexgen] hook Session.LevelLoadStart call %d: SessionStatePatch.Session_LevelLoadStart=%d, original %s", ++g_calls_Hook_187, (int)g_on_Hook_187[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_173 < 8) hw::Log("[tfexgen] hook Session.LevelLoadStart call %d: SessionStatePatch.Session_LevelLoadStart=%d, original %s", ++g_calls_Hook_173, (int)g_on_Hook_173[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_187::Orig(self, level, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_187[0]) tfex::gen::State_SessionState::Session_LevelLoadStart();
+        if (run) Hook_173::Orig(self, level, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_173[0]) tfex::gen::State_SessionState::Session_LevelLoadStart();
         ran_ = run;
 }
-void Session_LevelLoadStart::Orig() { ran_ = true; Hook_187::Orig(self, level, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_LevelLoadStart::Wrap(void (*shell)(Session_LevelLoadStart&)) { g_shell_Hook_187 = shell; if (!g_installed_Hook_187 && bind::m_Session_LevelLoadStart_429b) { Hook_187::InstallAtOffset(bind::m_Session_LevelLoadStart_429b); g_installed_Hook_187 = true; } }
+void Session_LevelLoadStart::Orig() { ran_ = true; Hook_173::Orig(self, level, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_LevelLoadStart::Wrap(void (*shell)(Session_LevelLoadStart&)) { g_shell_Hook_173 = shell; if (!g_installed_Hook_173 && bind::m_Session_LevelLoadStart_429b) { Hook_173::InstallAtOffset(bind::m_Session_LevelLoadStart_429b); g_installed_Hook_173 = true; } }
 
 void Session_StartGame::operator()() {
         bool run = true;
-        if (g_on_Hook_188[0]) tfex::gen::SessionPatch::Session_StartGame();
-        if (g_on_Hook_188[1]) tfex::gen::State_SessionState::Session_StartGame(self);
-        if (g_calls_Hook_188 < 8) hw::Log("[tfexgen] hook Session.StartGame call %d: SessionPatch.Session_StartGame=%d SessionStatePatch.Session_StartGame=%d SafetyHooks.StartGame_Postfix=%d, original %s", ++g_calls_Hook_188, (int)g_on_Hook_188[0], (int)g_on_Hook_188[1], (int)g_on_Hook_188[2], run ? "runs" : "skipped");
-        if (run) { Hook_188::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); tfex::gen::svc::FortRiseStartGameTail(self); }   /* + FortRise's wrapper ([fortrise] after) */
-        if (g_on_Hook_188[2]) tfex::gen::Tp_SafetyHooks::StartGame_Postfix(self);
+        if (g_on_Hook_174[0]) tfex::gen::SessionPatch::Session_StartGame();
+        if (g_on_Hook_174[1]) tfex::gen::State_SessionState::Session_StartGame(self);
+        if (g_calls_Hook_174 < 8) hw::Log("[tfexgen] hook Session.StartGame call %d: SessionPatch.Session_StartGame=%d SessionStatePatch.Session_StartGame=%d SafetyHooks.StartGame_Postfix=%d, original %s", ++g_calls_Hook_174, (int)g_on_Hook_174[0], (int)g_on_Hook_174[1], (int)g_on_Hook_174[2], run ? "runs" : "skipped");
+        if (run) { Hook_174::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); tfex::gen::svc::FortRiseStartGameTail(self); }   /* + FortRise's wrapper ([fortrise] after) */
+        if (g_on_Hook_174[2]) tfex::gen::Tp_SafetyHooks::StartGame_Postfix(self);
         ran_ = run;
 }
-void Session_StartGame::Orig() { ran_ = true; Hook_188::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_StartGame::Wrap(void (*shell)(Session_StartGame&)) { g_shell_Hook_188 = shell; if (!g_installed_Hook_188 && bind::m_Session_StartGame) { Hook_188::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_188 = true; } }
+void Session_StartGame::Orig() { ran_ = true; Hook_174::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_StartGame::Wrap(void (*shell)(Session_StartGame&)) { g_shell_Hook_174 = shell; if (!g_installed_Hook_174 && bind::m_Session_StartGame) { Hook_174::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_174 = true; } }
 
 void Session_StartRound::operator()() {
         bool run = true;
-        if (g_calls_Hook_189 < 8) hw::Log("[tfexgen] hook Session.StartRound call %d: SessionPatch.Session_StartRound=%d, original %s", ++g_calls_Hook_189, (int)g_on_Hook_189[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_175 < 8) hw::Log("[tfexgen] hook Session.StartRound call %d: SessionPatch.Session_StartRound=%d, original %s", ++g_calls_Hook_175, (int)g_on_Hook_175[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_189::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_189[0]) tfex::gen::SessionPatch::Session_StartRound();
+        if (run) Hook_175::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_175[0]) tfex::gen::SessionPatch::Session_StartRound();
         ran_ = run;
 }
-void Session_StartRound::Orig() { ran_ = true; Hook_189::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Session_StartRound::Wrap(void (*shell)(Session_StartRound&)) { g_shell_Hook_189 = shell; if (!g_installed_Hook_189 && bind::m_Session_StartRound) { Hook_189::InstallAtOffset(bind::m_Session_StartRound); g_installed_Hook_189 = true; } }
+void Session_StartRound::Orig() { ran_ = true; Hook_175::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Session_StartRound::Wrap(void (*shell)(Session_StartRound&)) { g_shell_Hook_175 = shell; if (!g_installed_Hook_175 && bind::m_Session_StartRound) { Hook_175::InstallAtOffset(bind::m_Session_StartRound); g_installed_Hook_175 = true; } }
 
 void ShiftBlock_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_190[0] && !tfex::gen::State_ShiftBlockHold::ShiftBlock_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_190 < 8) hw::Log("[tfexgen] hook ShiftBlock.Update call %d: ShiftBlockHoldPatch.ShiftBlock_Update=%d, original %s", ++g_calls_Hook_190, (int)g_on_Hook_190[0], run ? "runs" : "skipped");
+        if (g_on_Hook_176[0] && !tfex::gen::State_ShiftBlockHold::ShiftBlock_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_176 < 8) hw::Log("[tfexgen] hook ShiftBlock.Update call %d: ShiftBlockHoldPatch.ShiftBlock_Update=%d, original %s", ++g_calls_Hook_176, (int)g_on_Hook_176[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_190::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_176::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void ShiftBlock_Update::Orig() { ran_ = true; Hook_190::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void ShiftBlock_Update::Wrap(void (*shell)(ShiftBlock_Update&)) { g_shell_Hook_190 = shell; if (!g_installed_Hook_190 && bind::m_ShiftBlock_Update) { Hook_190::InstallAtOffset(bind::m_ShiftBlock_Update); g_installed_Hook_190 = true; } }
+void ShiftBlock_Update::Orig() { ran_ = true; Hook_176::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void ShiftBlock_Update::Wrap(void (*shell)(ShiftBlock_Update&)) { g_shell_Hook_176 = shell; if (!g_installed_Hook_176 && bind::m_ShiftBlock_Update) { Hook_176::InstallAtOffset(bind::m_ShiftBlock_Update); g_installed_Hook_176 = true; } }
 
 void Slime_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_191 < 8) hw::Log("[tfexgen] hook Slime.ctor call %d (facing %d, slimeColor %d): SlimePatch.Slime_ctor=%d, original %s", ++g_calls_Hook_191, (int)facing, (int)slimeColor, (int)g_on_Hook_191[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_177 < 8) hw::Log("[tfexgen] hook Slime.ctor call %d (facing %d, slimeColor %d): SlimePatch.Slime_ctor=%d, original %s", ++g_calls_Hook_177, (int)facing, (int)slimeColor, (int)g_on_Hook_177[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_191::Orig(self, position, facing, slimeColor, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_191[0]) tfex::gen::State_Slime::Slime_ctor(obj);
+        if (run) { void* r_ = Hook_177::Orig(self, position, facing, slimeColor, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_177[0]) tfex::gen::State_Slime::Slime_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void Slime_ctor::Orig() { ran_ = true; void* r_ = Hook_191::Orig(self, position, facing, slimeColor, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Slime_ctor::Wrap(void (*shell)(Slime_ctor&)) { g_shell_Hook_191 = shell; if (!g_installed_Hook_191 && bind::m_Slime__ctor_a0ec) { Hook_191::InstallAtOffset(bind::m_Slime__ctor_a0ec); g_installed_Hook_191 = true; } }
+void Slime_ctor::Orig() { ran_ = true; void* r_ = Hook_177::Orig(self, position, facing, slimeColor, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Slime_ctor::Wrap(void (*shell)(Slime_ctor&)) { g_shell_Hook_177 = shell; if (!g_installed_Hook_177 && bind::m_Slime__ctor_a0ec) { Hook_177::InstallAtOffset(bind::m_Slime__ctor_a0ec); g_installed_Hook_177 = true; } }
 
 void Slime_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_192 < 8) hw::Log("[tfexgen] hook Slime.Update call %d: SlimePatch.Slime_Update_Postfix=%d, original %s", ++g_calls_Hook_192, (int)g_on_Hook_192[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_178 < 8) hw::Log("[tfexgen] hook Slime.Update call %d: SlimePatch.Slime_Update_Postfix=%d, original %s", ++g_calls_Hook_178, (int)g_on_Hook_178[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_192::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_192[0]) tfex::gen::State_Slime::Slime_Update_Postfix(self);
+        if (run) Hook_178::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_178[0]) tfex::gen::State_Slime::Slime_Update_Postfix(self);
         ran_ = run;
 }
-void Slime_Update::Orig() { ran_ = true; Hook_192::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Slime_Update::Wrap(void (*shell)(Slime_Update&)) { g_shell_Hook_192 = shell; if (!g_installed_Hook_192 && bind::m_Slime_Update) { Hook_192::InstallAtOffset(bind::m_Slime_Update); g_installed_Hook_192 = true; } }
+void Slime_Update::Orig() { ran_ = true; Hook_178::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Slime_Update::Wrap(void (*shell)(Slime_Update&)) { g_shell_Hook_178 = shell; if (!g_installed_Hook_178 && bind::m_Slime_Update) { Hook_178::InstallAtOffset(bind::m_Slime_Update); g_installed_Hook_178 = true; } }
 
 void Spikeball_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_193 < 8) hw::Log("[tfexgen] hook Spikeball.ctor call %d (exploding %d): SpikeballPatch.Spikeball_ctor_Vector2_Vector2_bool=%d, original %s", ++g_calls_Hook_193, (int)exploding, (int)g_on_Hook_193[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_179 < 8) hw::Log("[tfexgen] hook Spikeball.ctor call %d (exploding %d): SpikeballPatch.Spikeball_ctor_Vector2_Vector2_bool=%d, original %s", ++g_calls_Hook_179, (int)exploding, (int)g_on_Hook_179[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_193::Orig(self, position, pivot, exploding, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_193[0]) tfex::gen::State_Spikeball::Spikeball_ctor_Vector2_Vector2_bool(obj);
+        if (run) { void* r_ = Hook_179::Orig(self, position, pivot, exploding, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_179[0]) tfex::gen::State_Spikeball::Spikeball_ctor_Vector2_Vector2_bool(obj);
         ran_ = run;
         result_ = obj;
 }
-void Spikeball_ctor::Orig() { ran_ = true; void* r_ = Hook_193::Orig(self, position, pivot, exploding, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void Spikeball_ctor::Wrap(void (*shell)(Spikeball_ctor&)) { g_shell_Hook_193 = shell; if (!g_installed_Hook_193 && bind::m_Spikeball__ctor_a40d) { Hook_193::InstallAtOffset(bind::m_Spikeball__ctor_a40d); g_installed_Hook_193 = true; } }
+void Spikeball_ctor::Orig() { ran_ = true; void* r_ = Hook_179::Orig(self, position, pivot, exploding, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void Spikeball_ctor::Wrap(void (*shell)(Spikeball_ctor&)) { g_shell_Hook_179 = shell; if (!g_installed_Hook_179 && bind::m_Spikeball__ctor_a40d) { Hook_179::InstallAtOffset(bind::m_Spikeball__ctor_a40d); g_installed_Hook_179 = true; } }
 
 void Spikeball_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_194[0] && !tfex::gen::State_Spikeball::Spikeball_Update(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_194 < 8) hw::Log("[tfexgen] hook Spikeball.Update call %d: SpikeballPatch.Spikeball_Update=%d, original %s", ++g_calls_Hook_194, (int)g_on_Hook_194[0], run ? "runs" : "skipped");
+        if (g_on_Hook_180[0] && !tfex::gen::State_Spikeball::Spikeball_Update(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_180 < 8) hw::Log("[tfexgen] hook Spikeball.Update call %d: SpikeballPatch.Spikeball_Update=%d, original %s", ++g_calls_Hook_180, (int)g_on_Hook_180[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_194::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_180::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void Spikeball_Update::Orig() { ran_ = true; Hook_194::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void Spikeball_Update::Wrap(void (*shell)(Spikeball_Update&)) { g_shell_Hook_194 = shell; if (!g_installed_Hook_194 && bind::m_Spikeball_Update) { Hook_194::InstallAtOffset(bind::m_Spikeball_Update); g_installed_Hook_194 = true; } }
+void Spikeball_Update::Orig() { ran_ = true; Hook_180::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void Spikeball_Update::Wrap(void (*shell)(Spikeball_Update&)) { g_shell_Hook_180 = shell; if (!g_installed_Hook_180 && bind::m_Spikeball_Update) { Hook_180::InstallAtOffset(bind::m_Spikeball_Update); g_installed_Hook_180 = true; } }
 
 void SteelHat_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_195[0]) tfex::gen::State_SteelHatRng::SteelHat_Update_Prefix();
-        if (g_calls_Hook_195 < 8) hw::Log("[tfexgen] hook SteelHat.Update call %d: SteelHatRngPatch.SteelHat_Update_Prefix=%d SteelHatRngPatch.SteelHat_Update_Postfix=%d, original %s", ++g_calls_Hook_195, (int)g_on_Hook_195[0], (int)g_on_Hook_195[1], run ? "runs" : "skipped");
+        if (g_on_Hook_181[0]) tfex::gen::State_SteelHatRng::SteelHat_Update_Prefix();
+        if (g_calls_Hook_181 < 8) hw::Log("[tfexgen] hook SteelHat.Update call %d: SteelHatRngPatch.SteelHat_Update_Prefix=%d SteelHatRngPatch.SteelHat_Update_Postfix=%d, original %s", ++g_calls_Hook_181, (int)g_on_Hook_181[0], (int)g_on_Hook_181[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_195::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_195[1]) tfex::gen::State_SteelHatRng::SteelHat_Update_Postfix();
+        if (run) Hook_181::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_181[1]) tfex::gen::State_SteelHatRng::SteelHat_Update_Postfix();
         ran_ = run;
 }
-void SteelHat_Update::Orig() { ran_ = true; Hook_195::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void SteelHat_Update::Wrap(void (*shell)(SteelHat_Update&)) { g_shell_Hook_195 = shell; if (!g_installed_Hook_195 && bind::m_SteelHat_Update) { Hook_195::InstallAtOffset(bind::m_SteelHat_Update); g_installed_Hook_195 = true; } }
+void SteelHat_Update::Orig() { ran_ = true; Hook_181::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void SteelHat_Update::Wrap(void (*shell)(SteelHat_Update&)) { g_shell_Hook_181 = shell; if (!g_installed_Hook_181 && bind::m_SteelHat_Update) { Hook_181::InstallAtOffset(bind::m_SteelHat_Update); g_installed_Hook_181 = true; } }
 
 void TFGame_Load::operator()() {
         bool run = true;
-        if (g_calls_Hook_196 < 8) hw::Log("[tfexgen] hook TFGame.Load call %d: TFGamePatch.TFGame_Load=%d, original %s", ++g_calls_Hook_196, (int)g_on_Hook_196[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_182 < 8) hw::Log("[tfexgen] hook TFGame.Load call %d: TFGamePatch.TFGame_Load=%d, original %s", ++g_calls_Hook_182, (int)g_on_Hook_182[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_196::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_196[0]) tfex::gen::NetplayEntry::TFGame_Load();
+        if (run) Hook_182::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_182[0]) tfex::gen::NetplayEntry::TFGame_Load();
         ran_ = run;
 }
-void TFGame_Load::Orig() { ran_ = true; Hook_196::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TFGame_Load::Wrap(void (*shell)(TFGame_Load&)) { g_shell_Hook_196 = shell; if (!g_installed_Hook_196 && bind::m_TFGame_Load) { Hook_196::InstallAtOffset(bind::m_TFGame_Load); g_installed_Hook_196 = true; } }
+void TFGame_Load::Orig() { ran_ = true; Hook_182::Orig(x0_, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TFGame_Load::Wrap(void (*shell)(TFGame_Load&)) { g_shell_Hook_182 = shell; if (!g_installed_Hook_182 && bind::m_TFGame_Load) { Hook_182::InstallAtOffset(bind::m_TFGame_Load); g_installed_Hook_182 = true; } }
 
 void TFGame_OnSceneTransition::operator()() {
         bool run = true;
-        if (g_calls_Hook_197 < 8) hw::Log("[tfexgen] hook TFGame.OnSceneTransition call %d: TFGamePatch.TFGame_OnSceneTransition=%d, original %s", ++g_calls_Hook_197, (int)g_on_Hook_197[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_183 < 8) hw::Log("[tfexgen] hook TFGame.OnSceneTransition call %d: TFGamePatch.TFGame_OnSceneTransition=%d, original %s", ++g_calls_Hook_183, (int)g_on_Hook_183[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_197::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_197[0]) tfex::gen::NetplayEntry::TFGame_OnSceneTransition(self);
+        if (run) Hook_183::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_183[0]) tfex::gen::NetplayEntry::TFGame_OnSceneTransition(self);
         ran_ = run;
 }
-void TFGame_OnSceneTransition::Orig() { ran_ = true; Hook_197::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TFGame_OnSceneTransition::Wrap(void (*shell)(TFGame_OnSceneTransition&)) { g_shell_Hook_197 = shell; if (!g_installed_Hook_197 && bind::m_TFGame_OnSceneTransition) { Hook_197::InstallAtOffset(bind::m_TFGame_OnSceneTransition); g_installed_Hook_197 = true; } }
+void TFGame_OnSceneTransition::Orig() { ran_ = true; Hook_183::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TFGame_OnSceneTransition::Wrap(void (*shell)(TFGame_OnSceneTransition&)) { g_shell_Hook_183 = shell; if (!g_installed_Hook_183 && bind::m_TFGame_OnSceneTransition) { Hook_183::InstallAtOffset(bind::m_TFGame_OnSceneTransition); g_installed_Hook_183 = true; } }
 
 void TFGame_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_198[0] && !tfex::gen::NetplayEntry::TFGameUpdate_Patch(self, gameTime)) run = false;   /* a bool prefix: false skips the original */
-        if (g_on_Hook_198[1]) tfex::gen::La_MyTFGame::Update_patch(self);
-        if (g_on_Hook_198[2]) tfex::gen::An_MyTFGame::Update_prefix();
-        if (g_on_Hook_198[3]) tfex::gen::Aj_MyTFGame::Update_patch_prefix(self);
-        if (g_calls_Hook_198 < 8) hw::Log("[tfexgen] hook TFGame.Update call %d: TFGamePatch.TFGameUpdate_Patch=%d MyTFGame.Update_patch=%d MyTFGame.Update_prefix=%d MyTFGame.Update_patch_prefix=%d, original %s", ++g_calls_Hook_198, (int)g_on_Hook_198[0], (int)g_on_Hook_198[1], (int)g_on_Hook_198[2], (int)g_on_Hook_198[3], run ? "runs" : "skipped");
+        if (g_on_Hook_184[0] && !tfex::gen::NetplayEntry::TFGameUpdate_Patch(self, gameTime)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_184 < 8) hw::Log("[tfexgen] hook TFGame.Update call %d: TFGamePatch.TFGameUpdate_Patch=%d, original %s", ++g_calls_Hook_184, (int)g_on_Hook_184[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_198::Orig(self, gameTime, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_184::Orig(self, gameTime, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void TFGame_Update::Orig() { ran_ = true; Hook_198::Orig(self, gameTime, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TFGame_Update::Wrap(void (*shell)(TFGame_Update&)) { g_shell_Hook_198 = shell; if (!g_installed_Hook_198 && bind::m_TFGame_Update_79e7) { Hook_198::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_198 = true; } }
+void TFGame_Update::Orig() { ran_ = true; Hook_184::Orig(self, gameTime, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TFGame_Update::Wrap(void (*shell)(TFGame_Update&)) { g_shell_Hook_184 = shell; if (!g_installed_Hook_184 && bind::m_TFGame_Update_79e7) { Hook_184::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_184 = true; } }
 
 void TeamReviver_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_199 < 8) hw::Log("[tfexgen] hook TeamReviver.ctor call %d (mode %d): TeamReviverPatch.TeamReviver_ctor=%d, original %s", ++g_calls_Hook_199, (int)mode, (int)g_on_Hook_199[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_185 < 8) hw::Log("[tfexgen] hook TeamReviver.ctor call %d (mode %d): TeamReviverPatch.TeamReviver_ctor=%d, original %s", ++g_calls_Hook_185, (int)mode, (int)g_on_Hook_185[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_199::Orig(self, corpse, mode, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_199[0]) tfex::gen::State_TeamReviver::TeamReviver_ctor(obj);
+        if (run) { void* r_ = Hook_185::Orig(self, corpse, mode, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_185[0]) tfex::gen::State_TeamReviver::TeamReviver_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void TeamReviver_ctor::Orig() { ran_ = true; void* r_ = Hook_199::Orig(self, corpse, mode, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void TeamReviver_ctor::Wrap(void (*shell)(TeamReviver_ctor&)) { g_shell_Hook_199 = shell; if (!g_installed_Hook_199 && bind::m_TeamReviver__ctor_02d9) { Hook_199::InstallAtOffset(bind::m_TeamReviver__ctor_02d9); g_installed_Hook_199 = true; } }
+void TeamReviver_ctor::Orig() { ran_ = true; void* r_ = Hook_185::Orig(self, corpse, mode, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void TeamReviver_ctor::Wrap(void (*shell)(TeamReviver_ctor&)) { g_shell_Hook_185 = shell; if (!g_installed_Hook_185 && bind::m_TeamReviver__ctor_02d9) { Hook_185::InstallAtOffset(bind::m_TeamReviver__ctor_02d9); g_installed_Hook_185 = true; } }
 
 void TeamReviver_FinishReviving::operator()() {
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_200 < 8) hw::Log("[tfexgen] hook TeamReviver.FinishReviving call %d: ReviveHooks.FinishReviving_Postfix=%d, original %s", ++g_calls_Hook_200, (int)g_on_Hook_200[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_186 < 8) hw::Log("[tfexgen] hook TeamReviver.FinishReviving call %d: ReviveHooks.FinishReviving_Postfix=%d, original %s", ++g_calls_Hook_186, (int)g_on_Hook_186[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_200::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_200[0]) tfex::gen::Tp_ReviveHooks::FinishReviving_Postfix(self, __result);
+        if (run) __result = Hook_186::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_186[0]) tfex::gen::Tp_ReviveHooks::FinishReviving_Postfix(self, __result);
         ran_ = run;
         result_ = __result;
 }
-void TeamReviver_FinishReviving::Orig() { ran_ = true; result_ = Hook_200::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TeamReviver_FinishReviving::Wrap(void (*shell)(TeamReviver_FinishReviving&)) { g_shell_Hook_200 = shell; if (!g_installed_Hook_200 && bind::m_TeamReviver_FinishReviving) { Hook_200::InstallAtOffset(bind::m_TeamReviver_FinishReviving); g_installed_Hook_200 = true; } }
+void TeamReviver_FinishReviving::Orig() { ran_ = true; result_ = Hook_186::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TeamReviver_FinishReviving::Wrap(void (*shell)(TeamReviver_FinishReviving&)) { g_shell_Hook_186 = shell; if (!g_installed_Hook_186 && bind::m_TeamReviver_FinishReviving) { Hook_186::InstallAtOffset(bind::m_TeamReviver_FinishReviving); g_installed_Hook_186 = true; } }
 
 void TeamReviver_ReviveUpdate::operator()() {
         bool run = true;
-        if (g_calls_Hook_201 < 8) hw::Log("[tfexgen] hook TeamReviver.ReviveUpdate call %d: TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix=%d, original %s", ++g_calls_Hook_201, (int)g_on_Hook_201[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_187 < 8) hw::Log("[tfexgen] hook TeamReviver.ReviveUpdate call %d: TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix=%d, original %s", ++g_calls_Hook_187, (int)g_on_Hook_187[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_201::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_201[0]) tfex::gen::State_TeamReviver::TeamReviver_ReviveUpdate_Postfix(self);
+        if (run) Hook_187::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_187[0]) tfex::gen::State_TeamReviver::TeamReviver_ReviveUpdate_Postfix(self);
         ran_ = run;
 }
-void TeamReviver_ReviveUpdate::Orig() { ran_ = true; Hook_201::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TeamReviver_ReviveUpdate::Wrap(void (*shell)(TeamReviver_ReviveUpdate&)) { g_shell_Hook_201 = shell; if (!g_installed_Hook_201 && bind::m_TeamReviver_ReviveUpdate) { Hook_201::InstallAtOffset(bind::m_TeamReviver_ReviveUpdate); g_installed_Hook_201 = true; } }
+void TeamReviver_ReviveUpdate::Orig() { ran_ = true; Hook_187::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TeamReviver_ReviveUpdate::Wrap(void (*shell)(TeamReviver_ReviveUpdate&)) { g_shell_Hook_187 = shell; if (!g_installed_Hook_187 && bind::m_TeamReviver_ReviveUpdate) { Hook_187::InstallAtOffset(bind::m_TeamReviver_ReviveUpdate); g_installed_Hook_187 = true; } }
 
 void TechnoMage_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_202 < 8) hw::Log("[tfexgen] hook TechnoMage.ctor call %d (facing %d): TechnoMagePatch.TechnoMage_ctor=%d, original %s", ++g_calls_Hook_202, (int)facing, (int)g_on_Hook_202[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_188 < 8) hw::Log("[tfexgen] hook TechnoMage.ctor call %d (facing %d): TechnoMagePatch.TechnoMage_ctor=%d, original %s", ++g_calls_Hook_188, (int)facing, (int)g_on_Hook_188[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_202::Orig(self, position, facing, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_202[0]) tfex::gen::State_TechnoMage::TechnoMage_ctor(obj);
+        if (run) { void* r_ = Hook_188::Orig(self, position, facing, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_188[0]) tfex::gen::State_TechnoMage::TechnoMage_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void TechnoMage_ctor::Orig() { ran_ = true; void* r_ = Hook_202::Orig(self, position, facing, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void TechnoMage_ctor::Wrap(void (*shell)(TechnoMage_ctor&)) { g_shell_Hook_202 = shell; if (!g_installed_Hook_202 && bind::m_TechnoMage__ctor_566d) { Hook_202::InstallAtOffset(bind::m_TechnoMage__ctor_566d); g_installed_Hook_202 = true; } }
+void TechnoMage_ctor::Orig() { ran_ = true; void* r_ = Hook_188::Orig(self, position, facing, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void TechnoMage_ctor::Wrap(void (*shell)(TechnoMage_ctor&)) { g_shell_Hook_188 = shell; if (!g_installed_Hook_188 && bind::m_TechnoMage__ctor_566d) { Hook_188::InstallAtOffset(bind::m_TechnoMage__ctor_566d); g_installed_Hook_188 = true; } }
 
 void TechnoMage_AlertUpdate::operator()() {
         int32_t __result{};
         bool run = true;
-        if (g_on_Hook_203[0] && !tfex::gen::State_TechnoMage::TechnoMage_AlertUpdate(self, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_203 < 8) hw::Log("[tfexgen] hook TechnoMage.AlertUpdate call %d: TechnoMagePatch.TechnoMage_AlertUpdate=%d, original %s", ++g_calls_Hook_203, (int)g_on_Hook_203[0], run ? "runs" : "skipped");
+        if (g_on_Hook_189[0] && !tfex::gen::State_TechnoMage::TechnoMage_AlertUpdate(self, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_189 < 8) hw::Log("[tfexgen] hook TechnoMage.AlertUpdate call %d: TechnoMagePatch.TechnoMage_AlertUpdate=%d, original %s", ++g_calls_Hook_189, (int)g_on_Hook_189[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_203::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_189::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void TechnoMage_AlertUpdate::Orig() { ran_ = true; result_ = Hook_203::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TechnoMage_AlertUpdate::Wrap(void (*shell)(TechnoMage_AlertUpdate&)) { g_shell_Hook_203 = shell; if (!g_installed_Hook_203 && bind::m_TechnoMage_AlertUpdate) { Hook_203::InstallAtOffset(bind::m_TechnoMage_AlertUpdate); g_installed_Hook_203 = true; } }
+void TechnoMage_AlertUpdate::Orig() { ran_ = true; result_ = Hook_189::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TechnoMage_AlertUpdate::Wrap(void (*shell)(TechnoMage_AlertUpdate&)) { g_shell_Hook_189 = shell; if (!g_installed_Hook_189 && bind::m_TechnoMage_AlertUpdate) { Hook_189::InstallAtOffset(bind::m_TechnoMage_AlertUpdate); g_installed_Hook_189 = true; } }
 
 void TechnoMage_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_204 < 8) hw::Log("[tfexgen] hook TechnoMage.Update call %d: TechnoMagePatch.TechnoMage_Update_Postfix=%d, original %s", ++g_calls_Hook_204, (int)g_on_Hook_204[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_190 < 8) hw::Log("[tfexgen] hook TechnoMage.Update call %d: TechnoMagePatch.TechnoMage_Update_Postfix=%d, original %s", ++g_calls_Hook_190, (int)g_on_Hook_190[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_204::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_204[0]) tfex::gen::State_TechnoMage::TechnoMage_Update_Postfix(self);
+        if (run) Hook_190::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_190[0]) tfex::gen::State_TechnoMage::TechnoMage_Update_Postfix(self);
         ran_ = run;
 }
-void TechnoMage_Update::Orig() { ran_ = true; Hook_204::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TechnoMage_Update::Wrap(void (*shell)(TechnoMage_Update&)) { g_shell_Hook_204 = shell; if (!g_installed_Hook_204 && bind::m_TechnoMage_Update) { Hook_204::InstallAtOffset(bind::m_TechnoMage_Update); g_installed_Hook_204 = true; } }
+void TechnoMage_Update::Orig() { ran_ = true; Hook_190::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TechnoMage_Update::Wrap(void (*shell)(TechnoMage_Update&)) { g_shell_Hook_190 = shell; if (!g_installed_Hook_190 && bind::m_TechnoMage_Update) { Hook_190::InstallAtOffset(bind::m_TechnoMage_Update); g_installed_Hook_190 = true; } }
 
 void TreasureChest_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_205 < 8) hw::Log("[tfexgen] hook TreasureChest.ctor call %d (graphic %d, mode %d, timer %d): TreasureChestPatch.TreasureChest_ctor=%d, original %s", ++g_calls_Hook_205, (int)graphic, (int)mode, (int)timer, (int)g_on_Hook_205[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_191 < 8) hw::Log("[tfexgen] hook TreasureChest.ctor call %d (graphic %d, mode %d, timer %d): TreasureChestPatch.TreasureChest_ctor=%d, original %s", ++g_calls_Hook_191, (int)graphic, (int)mode, (int)timer, (int)g_on_Hook_191[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_205::Orig(self, position, graphic, mode, pickups, timer, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_205[0]) tfex::gen::State_TreasureChest::TreasureChest_ctor(obj);
+        if (run) { void* r_ = Hook_191::Orig(self, position, graphic, mode, pickups, timer, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_191[0]) tfex::gen::State_TreasureChest::TreasureChest_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void TreasureChest_ctor::Orig() { ran_ = true; void* r_ = Hook_205::Orig(self, position, graphic, mode, pickups, timer, x5_, x6_, x7_); result_ = self ? self : r_; }
-void TreasureChest_ctor::Wrap(void (*shell)(TreasureChest_ctor&)) { g_shell_Hook_205 = shell; if (!g_installed_Hook_205 && bind::m_TreasureChest__ctor_ba96) { Hook_205::InstallAtOffset(bind::m_TreasureChest__ctor_ba96); g_installed_Hook_205 = true; } }
+void TreasureChest_ctor::Orig() { ran_ = true; void* r_ = Hook_191::Orig(self, position, graphic, mode, pickups, timer, x5_, x6_, x7_); result_ = self ? self : r_; }
+void TreasureChest_ctor::Wrap(void (*shell)(TreasureChest_ctor&)) { g_shell_Hook_191 = shell; if (!g_installed_Hook_191 && bind::m_TreasureChest__ctor_ba96) { Hook_191::InstallAtOffset(bind::m_TreasureChest__ctor_ba96); g_installed_Hook_191 = true; } }
 
 void TreasureChest_Added::operator()() {
         bool run = true;
-        if (g_calls_Hook_206 < 8) hw::Log("[tfexgen] hook TreasureChest.Added call %d: TreasureChestPatch.TreasureChest_Added_Postfix=%d, original %s", ++g_calls_Hook_206, (int)g_on_Hook_206[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_192 < 8) hw::Log("[tfexgen] hook TreasureChest.Added call %d: TreasureChestPatch.TreasureChest_Added_Postfix=%d, original %s", ++g_calls_Hook_192, (int)g_on_Hook_192[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_206::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_206[0]) tfex::gen::State_TreasureChest::TreasureChest_Added_Postfix(self);
+        if (run) Hook_192::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_192[0]) tfex::gen::State_TreasureChest::TreasureChest_Added_Postfix(self);
         ran_ = run;
 }
-void TreasureChest_Added::Orig() { ran_ = true; Hook_206::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TreasureChest_Added::Wrap(void (*shell)(TreasureChest_Added&)) { g_shell_Hook_206 = shell; if (!g_installed_Hook_206 && bind::m_TreasureChest_Added) { Hook_206::InstallAtOffset(bind::m_TreasureChest_Added); g_installed_Hook_206 = true; } }
+void TreasureChest_Added::Orig() { ran_ = true; Hook_192::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TreasureChest_Added::Wrap(void (*shell)(TreasureChest_Added&)) { g_shell_Hook_192 = shell; if (!g_installed_Hook_192 && bind::m_TreasureChest_Added) { Hook_192::InstallAtOffset(bind::m_TreasureChest_Added); g_installed_Hook_192 = true; } }
 
 void TreasureChest_OpenChest::operator()() {
         bool run = true;
-        if (g_calls_Hook_207 < 8) hw::Log("[tfexgen] hook TreasureChest.OpenChest call %d (playerIndex %d): TreasureChestPatch.TreasureChest_OpenChest_Postfix=%d, original %s", ++g_calls_Hook_207, (int)playerIndex, (int)g_on_Hook_207[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_193 < 8) hw::Log("[tfexgen] hook TreasureChest.OpenChest call %d (playerIndex %d): TreasureChestPatch.TreasureChest_OpenChest_Postfix=%d, original %s", ++g_calls_Hook_193, (int)playerIndex, (int)g_on_Hook_193[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_207::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_207[0]) tfex::gen::State_TreasureChest::TreasureChest_OpenChest_Postfix(self);
+        if (run) Hook_193::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_193[0]) tfex::gen::State_TreasureChest::TreasureChest_OpenChest_Postfix(self);
         ran_ = run;
 }
-void TreasureChest_OpenChest::Orig() { ran_ = true; Hook_207::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TreasureChest_OpenChest::Wrap(void (*shell)(TreasureChest_OpenChest&)) { g_shell_Hook_207 = shell; if (!g_installed_Hook_207 && bind::m_TreasureChest_OpenChest_e2bf) { Hook_207::InstallAtOffset(bind::m_TreasureChest_OpenChest_e2bf); g_installed_Hook_207 = true; } }
+void TreasureChest_OpenChest::Orig() { ran_ = true; Hook_193::Orig(self, playerIndex, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TreasureChest_OpenChest::Wrap(void (*shell)(TreasureChest_OpenChest&)) { g_shell_Hook_193 = shell; if (!g_installed_Hook_193 && bind::m_TreasureChest_OpenChest_e2bf) { Hook_193::InstallAtOffset(bind::m_TreasureChest_OpenChest_e2bf); g_installed_Hook_193 = true; } }
 
 void TreasureChest_Update::operator()() {
         bool run = true;
-        if (g_calls_Hook_208 < 8) hw::Log("[tfexgen] hook TreasureChest.Update call %d: TreasureChestPatch.TreasureChest_Update_Postfix=%d, original %s", ++g_calls_Hook_208, (int)g_on_Hook_208[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_194 < 8) hw::Log("[tfexgen] hook TreasureChest.Update call %d: TreasureChestPatch.TreasureChest_Update_Postfix=%d, original %s", ++g_calls_Hook_194, (int)g_on_Hook_194[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_208::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_208[0]) tfex::gen::State_TreasureChest::TreasureChest_Update_Postfix(self);
+        if (run) Hook_194::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_194[0]) tfex::gen::State_TreasureChest::TreasureChest_Update_Postfix(self);
         ran_ = run;
 }
-void TreasureChest_Update::Orig() { ran_ = true; Hook_208::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TreasureChest_Update::Wrap(void (*shell)(TreasureChest_Update&)) { g_shell_Hook_208 = shell; if (!g_installed_Hook_208 && bind::m_TreasureChest_Update) { Hook_208::InstallAtOffset(bind::m_TreasureChest_Update); g_installed_Hook_208 = true; } }
+void TreasureChest_Update::Orig() { ran_ = true; Hook_194::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TreasureChest_Update::Wrap(void (*shell)(TreasureChest_Update&)) { g_shell_Hook_194 = shell; if (!g_installed_Hook_194 && bind::m_TreasureChest_Update) { Hook_194::InstallAtOffset(bind::m_TreasureChest_Update); g_installed_Hook_194 = true; } }
 
 void TreasurePreview_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_209 < 8) hw::Log("[tfexgen] hook TreasurePreview.ctor call %d (isBig %d): TreasurePreviewPatch.TreasurePreview_ctor=%d, original %s", ++g_calls_Hook_209, (int)isBig, (int)g_on_Hook_209[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_195 < 8) hw::Log("[tfexgen] hook TreasurePreview.ctor call %d (isBig %d): TreasurePreviewPatch.TreasurePreview_ctor=%d, original %s", ++g_calls_Hook_195, (int)isBig, (int)g_on_Hook_195[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_209::Orig(self, position, isBig, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_209[0]) tfex::gen::State_TreasurePreview::TreasurePreview_ctor(obj);
+        if (run) { void* r_ = Hook_195::Orig(self, position, isBig, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_195[0]) tfex::gen::State_TreasurePreview::TreasurePreview_ctor(obj);
         ran_ = run;
         result_ = obj;
 }
-void TreasurePreview_ctor::Orig() { ran_ = true; void* r_ = Hook_209::Orig(self, position, isBig, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void TreasurePreview_ctor::Wrap(void (*shell)(TreasurePreview_ctor&)) { g_shell_Hook_209 = shell; if (!g_installed_Hook_209 && bind::m_TreasurePreview__ctor_2265) { Hook_209::InstallAtOffset(bind::m_TreasurePreview__ctor_2265); g_installed_Hook_209 = true; } }
+void TreasurePreview_ctor::Orig() { ran_ = true; void* r_ = Hook_195::Orig(self, position, isBig, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void TreasurePreview_ctor::Wrap(void (*shell)(TreasurePreview_ctor&)) { g_shell_Hook_195 = shell; if (!g_installed_Hook_195 && bind::m_TreasurePreview__ctor_2265) { Hook_195::InstallAtOffset(bind::m_TreasurePreview__ctor_2265); g_installed_Hook_195 = true; } }
 
 void TreasureSpawner_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
         tfex::gen::st::Snapshot state_TreasureSpawnerPatch{};
-        if (g_on_Hook_210[0]) tfex::gen::State_TreasureSpawner::TreasureSpawner_ctor_Prefix(state_TreasureSpawnerPatch);
-        if (g_calls_Hook_210 < 8) hw::Log("[tfexgen] hook TreasureSpawner.ctor call %d (arrowShuffle %d): TreasureSpawnerPatch.TreasureSpawner_ctor_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_ctor_Finalizer=%d, original %s", ++g_calls_Hook_210, (int)arrowShuffle, (int)g_on_Hook_210[0], (int)g_on_Hook_210[1], run ? "runs" : "skipped");
+        if (g_on_Hook_196[0]) tfex::gen::State_TreasureSpawner::TreasureSpawner_ctor_Prefix(state_TreasureSpawnerPatch);
+        if (g_calls_Hook_196 < 8) hw::Log("[tfexgen] hook TreasureSpawner.ctor call %d (arrowShuffle %d): TreasureSpawnerPatch.TreasureSpawner_ctor_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_ctor_Finalizer=%d, original %s", ++g_calls_Hook_196, (int)arrowShuffle, (int)g_on_Hook_196[0], (int)g_on_Hook_196[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_210::Orig(self, session, mask, arrowChance, arrowShuffle, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_210[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_ctor_Finalizer(state_TreasureSpawnerPatch);
+        if (run) { void* r_ = Hook_196::Orig(self, session, mask, arrowChance, arrowShuffle, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_196[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_ctor_Finalizer(state_TreasureSpawnerPatch);
         ran_ = run;
         result_ = obj;
 }
-void TreasureSpawner_ctor::Orig() { ran_ = true; void* r_ = Hook_210::Orig(self, session, mask, arrowChance, arrowShuffle, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void TreasureSpawner_ctor::Wrap(void (*shell)(TreasureSpawner_ctor&)) { g_shell_Hook_210 = shell; if (!g_installed_Hook_210 && bind::m_TreasureSpawner__ctor_ebe6) { Hook_210::InstallAtOffset(bind::m_TreasureSpawner__ctor_ebe6); g_installed_Hook_210 = true; } }
+void TreasureSpawner_ctor::Orig() { ran_ = true; void* r_ = Hook_196::Orig(self, session, mask, arrowChance, arrowShuffle, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void TreasureSpawner_ctor::Wrap(void (*shell)(TreasureSpawner_ctor&)) { g_shell_Hook_196 = shell; if (!g_installed_Hook_196 && bind::m_TreasureSpawner__ctor_ebe6) { Hook_196::InstallAtOffset(bind::m_TreasureSpawner__ctor_ebe6); g_installed_Hook_196 = true; } }
 
 void TreasureSpawner_GetArrowShufflePickups::operator()() {
         void* __result{};
         bool run = true;
         tfex::gen::st::Snapshot state_TreasureSpawnerPatch{};
-        if (g_on_Hook_211[0]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetArrowShufflePickups_Prefix(state_TreasureSpawnerPatch);
-        if (g_calls_Hook_211 < 8) hw::Log("[tfexgen] hook TreasureSpawner.GetArrowShufflePickups call %d: TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Postfix=%d TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Finalizer=%d, original %s", ++g_calls_Hook_211, (int)g_on_Hook_211[0], (int)g_on_Hook_211[1], (int)g_on_Hook_211[2], run ? "runs" : "skipped");
-        if (run) { __result = Hook_211::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); tfex::gen::svc::FortRiseArrowShuffleTail(__result); }   /* + FortRise's wrapper ([fortrise] after) */
-        if (g_on_Hook_211[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetArrowShufflePickups_Postfix(__result);
-        if (g_on_Hook_211[2]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetArrowShufflePickups_Finalizer(state_TreasureSpawnerPatch);
+        if (g_on_Hook_197[0]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetArrowShufflePickups_Prefix(state_TreasureSpawnerPatch);
+        if (g_calls_Hook_197 < 8) hw::Log("[tfexgen] hook TreasureSpawner.GetArrowShufflePickups call %d: TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Postfix=%d TreasureSpawnerPatch.TreasureSpawner_GetArrowShufflePickups_Finalizer=%d, original %s", ++g_calls_Hook_197, (int)g_on_Hook_197[0], (int)g_on_Hook_197[1], (int)g_on_Hook_197[2], run ? "runs" : "skipped");
+        if (run) { __result = Hook_197::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); tfex::gen::svc::FortRiseArrowShuffleTail(__result); }   /* + FortRise's wrapper ([fortrise] after) */
+        if (g_on_Hook_197[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetArrowShufflePickups_Postfix(__result);
+        if (g_on_Hook_197[2]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetArrowShufflePickups_Finalizer(state_TreasureSpawnerPatch);
         ran_ = run;
         result_ = __result;
 }
-void TreasureSpawner_GetArrowShufflePickups::Orig() { ran_ = true; result_ = Hook_211::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TreasureSpawner_GetArrowShufflePickups::Wrap(void (*shell)(TreasureSpawner_GetArrowShufflePickups&)) { g_shell_Hook_211 = shell; if (!g_installed_Hook_211 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_211::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_211 = true; } }
+void TreasureSpawner_GetArrowShufflePickups::Orig() { ran_ = true; result_ = Hook_197::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TreasureSpawner_GetArrowShufflePickups::Wrap(void (*shell)(TreasureSpawner_GetArrowShufflePickups&)) { g_shell_Hook_197 = shell; if (!g_installed_Hook_197 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_197::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_197 = true; } }
 
 void TreasureSpawner_GetChestSpawnsForLevel::operator()() {
         void* __result{};
         bool run = true;
-        if (g_on_Hook_212[0]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetChestSpawnsForLevel_Prefix();
-        if (g_calls_Hook_212 < 8) hw::Log("[tfexgen] hook TreasureSpawner.GetChestSpawnsForLevel call %d: TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Finalizer=%d, original %s", ++g_calls_Hook_212, (int)g_on_Hook_212[0], (int)g_on_Hook_212[1], run ? "runs" : "skipped");
+        if (g_on_Hook_198[0]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetChestSpawnsForLevel_Prefix();
+        if (g_calls_Hook_198 < 8) hw::Log("[tfexgen] hook TreasureSpawner.GetChestSpawnsForLevel call %d: TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_GetChestSpawnsForLevel_Finalizer=%d, original %s", ++g_calls_Hook_198, (int)g_on_Hook_198[0], (int)g_on_Hook_198[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_212::Orig(self, chestPositions, bigChestPositions, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_212[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetChestSpawnsForLevel_Finalizer();
+        if (run) __result = Hook_198::Orig(self, chestPositions, bigChestPositions, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_198[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetChestSpawnsForLevel_Finalizer();
         ran_ = run;
         result_ = __result;
 }
-void TreasureSpawner_GetChestSpawnsForLevel::Orig() { ran_ = true; result_ = Hook_212::Orig(self, chestPositions, bigChestPositions, x3_, x4_, x5_, x6_, x7_); }
-void TreasureSpawner_GetChestSpawnsForLevel::Wrap(void (*shell)(TreasureSpawner_GetChestSpawnsForLevel&)) { g_shell_Hook_212 = shell; if (!g_installed_Hook_212 && bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b) { Hook_212::InstallAtOffset(bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b); g_installed_Hook_212 = true; } }
+void TreasureSpawner_GetChestSpawnsForLevel::Orig() { ran_ = true; result_ = Hook_198::Orig(self, chestPositions, bigChestPositions, x3_, x4_, x5_, x6_, x7_); }
+void TreasureSpawner_GetChestSpawnsForLevel::Wrap(void (*shell)(TreasureSpawner_GetChestSpawnsForLevel&)) { g_shell_Hook_198 = shell; if (!g_installed_Hook_198 && bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b) { Hook_198::InstallAtOffset(bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b); g_installed_Hook_198 = true; } }
 
 void TreasureSpawner_GetRandomArrowType::operator()() {
         int32_t __result{};
         bool run = true;
         tfex::gen::st::Snapshot state_TreasureSpawnerPatch{};
-        if (g_on_Hook_213[0] && !tfex::gen::State_TreasureSpawner::TreasureSpawner_GetRandomArrowType_Prefix(self, includeDefaultArrows, __result, state_TreasureSpawnerPatch)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_213 < 8) hw::Log("[tfexgen] hook TreasureSpawner.GetRandomArrowType call %d (includeDefaultArrows %d): TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Finalizer=%d, original %s", ++g_calls_Hook_213, (int)includeDefaultArrows, (int)g_on_Hook_213[0], (int)g_on_Hook_213[1], run ? "runs" : "skipped");
+        if (g_on_Hook_199[0] && !tfex::gen::State_TreasureSpawner::TreasureSpawner_GetRandomArrowType_Prefix(self, includeDefaultArrows, __result, state_TreasureSpawnerPatch)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_199 < 8) hw::Log("[tfexgen] hook TreasureSpawner.GetRandomArrowType call %d (includeDefaultArrows %d): TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Prefix=%d TreasureSpawnerPatch.TreasureSpawner_GetRandomArrowType_Finalizer=%d, original %s", ++g_calls_Hook_199, (int)includeDefaultArrows, (int)g_on_Hook_199[0], (int)g_on_Hook_199[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_213::Orig(self, includeDefaultArrows, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_213[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetRandomArrowType_Finalizer(state_TreasureSpawnerPatch);
+        if (run) __result = Hook_199::Orig(self, includeDefaultArrows, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_199[1]) tfex::gen::State_TreasureSpawner::TreasureSpawner_GetRandomArrowType_Finalizer(state_TreasureSpawnerPatch);
         ran_ = run;
         result_ = __result;
 }
-void TreasureSpawner_GetRandomArrowType::Orig() { ran_ = true; result_ = Hook_213::Orig(self, includeDefaultArrows, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TreasureSpawner_GetRandomArrowType::Wrap(void (*shell)(TreasureSpawner_GetRandomArrowType&)) { g_shell_Hook_213 = shell; if (!g_installed_Hook_213 && bind::m_TreasureSpawner_GetRandomArrowType_953d) { Hook_213::InstallAtOffset(bind::m_TreasureSpawner_GetRandomArrowType_953d); g_installed_Hook_213 = true; } }
+void TreasureSpawner_GetRandomArrowType::Orig() { ran_ = true; result_ = Hook_199::Orig(self, includeDefaultArrows, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TreasureSpawner_GetRandomArrowType::Wrap(void (*shell)(TreasureSpawner_GetRandomArrowType&)) { g_shell_Hook_199 = shell; if (!g_installed_Hook_199 && bind::m_TreasureSpawner_GetRandomArrowType_953d) { Hook_199::InstallAtOffset(bind::m_TreasureSpawner_GetRandomArrowType_953d); g_installed_Hook_199 = true; } }
 
 void TriggerArrow_PlayEyeAnim::operator()() {
         bool run = true;
-        if (g_on_Hook_214[0]) tfex::gen::State_TriggerArrowRng::TriggerArrow_PlayEyeAnim_Prefix();
-        if (g_calls_Hook_214 < 8) hw::Log("[tfexgen] hook TriggerArrow.PlayEyeAnim call %d: TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Prefix=%d TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Postfix=%d, original %s", ++g_calls_Hook_214, (int)g_on_Hook_214[0], (int)g_on_Hook_214[1], run ? "runs" : "skipped");
+        if (g_on_Hook_200[0]) tfex::gen::State_TriggerArrowRng::TriggerArrow_PlayEyeAnim_Prefix();
+        if (g_calls_Hook_200 < 8) hw::Log("[tfexgen] hook TriggerArrow.PlayEyeAnim call %d: TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Prefix=%d TriggerArrowRngPatch.TriggerArrow_PlayEyeAnim_Postfix=%d, original %s", ++g_calls_Hook_200, (int)g_on_Hook_200[0], (int)g_on_Hook_200[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_214::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_214[1]) tfex::gen::State_TriggerArrowRng::TriggerArrow_PlayEyeAnim_Postfix();
+        if (run) Hook_200::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_200[1]) tfex::gen::State_TriggerArrowRng::TriggerArrow_PlayEyeAnim_Postfix();
         ran_ = run;
 }
-void TriggerArrow_PlayEyeAnim::Orig() { ran_ = true; Hook_214::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void TriggerArrow_PlayEyeAnim::Wrap(void (*shell)(TriggerArrow_PlayEyeAnim&)) { g_shell_Hook_214 = shell; if (!g_installed_Hook_214 && bind::m_TriggerArrow_PlayEyeAnim) { Hook_214::InstallAtOffset(bind::m_TriggerArrow_PlayEyeAnim); g_installed_Hook_214 = true; } }
+void TriggerArrow_PlayEyeAnim::Orig() { ran_ = true; Hook_200::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void TriggerArrow_PlayEyeAnim::Wrap(void (*shell)(TriggerArrow_PlayEyeAnim&)) { g_shell_Hook_200 = shell; if (!g_installed_Hook_200 && bind::m_TriggerArrow_PlayEyeAnim) { Hook_200::InstallAtOffset(bind::m_TriggerArrow_PlayEyeAnim); g_installed_Hook_200 = true; } }
 
 void UnlockData_get_ShouldOpenPurpleArcherPortal::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_215[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldOpenPurpleArcherPortal_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_215 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldOpenPurpleArcherPortal call %d: UnlockDataPatch.UnlockData_ShouldOpenPurpleArcherPortal_Prefix=%d, original %s", ++g_calls_Hook_215, (int)g_on_Hook_215[0], run ? "runs" : "skipped");
+        if (g_on_Hook_201[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldOpenPurpleArcherPortal_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_201 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldOpenPurpleArcherPortal call %d: UnlockDataPatch.UnlockData_ShouldOpenPurpleArcherPortal_Prefix=%d, original %s", ++g_calls_Hook_201, (int)g_on_Hook_201[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_215::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_201::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void UnlockData_get_ShouldOpenPurpleArcherPortal::Orig() { ran_ = true; result_ = Hook_215::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void UnlockData_get_ShouldOpenPurpleArcherPortal::Wrap(void (*shell)(UnlockData_get_ShouldOpenPurpleArcherPortal&)) { g_shell_Hook_215 = shell; if (!g_installed_Hook_215 && bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal) { Hook_215::InstallAtOffset(bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal); g_installed_Hook_215 = true; } }
+void UnlockData_get_ShouldOpenPurpleArcherPortal::Orig() { ran_ = true; result_ = Hook_201::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void UnlockData_get_ShouldOpenPurpleArcherPortal::Wrap(void (*shell)(UnlockData_get_ShouldOpenPurpleArcherPortal&)) { g_shell_Hook_201 = shell; if (!g_installed_Hook_201 && bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal) { Hook_201::InstallAtOffset(bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal); g_installed_Hook_201 = true; } }
 
 void UnlockData_get_ShouldSelectSunkenCity::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_216[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldSelectSunkenCity_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_216 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldSelectSunkenCity call %d: UnlockDataPatch.UnlockData_ShouldSelectSunkenCity_Prefix=%d, original %s", ++g_calls_Hook_216, (int)g_on_Hook_216[0], run ? "runs" : "skipped");
+        if (g_on_Hook_202[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldSelectSunkenCity_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_202 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldSelectSunkenCity call %d: UnlockDataPatch.UnlockData_ShouldSelectSunkenCity_Prefix=%d, original %s", ++g_calls_Hook_202, (int)g_on_Hook_202[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_216::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_202::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void UnlockData_get_ShouldSelectSunkenCity::Orig() { ran_ = true; result_ = Hook_216::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void UnlockData_get_ShouldSelectSunkenCity::Wrap(void (*shell)(UnlockData_get_ShouldSelectSunkenCity&)) { g_shell_Hook_216 = shell; if (!g_installed_Hook_216 && bind::m_UnlockData_get_ShouldSelectSunkenCity) { Hook_216::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectSunkenCity); g_installed_Hook_216 = true; } }
+void UnlockData_get_ShouldSelectSunkenCity::Orig() { ran_ = true; result_ = Hook_202::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void UnlockData_get_ShouldSelectSunkenCity::Wrap(void (*shell)(UnlockData_get_ShouldSelectSunkenCity&)) { g_shell_Hook_202 = shell; if (!g_installed_Hook_202 && bind::m_UnlockData_get_ShouldSelectSunkenCity) { Hook_202::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectSunkenCity); g_installed_Hook_202 = true; } }
 
 void UnlockData_get_ShouldSelectTowerForgeInVersus::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_217[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldSelectTowerForgeInVersus_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_217 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldSelectTowerForgeInVersus call %d: UnlockDataPatch.UnlockData_ShouldSelectTowerForgeInVersus_Prefix=%d, original %s", ++g_calls_Hook_217, (int)g_on_Hook_217[0], run ? "runs" : "skipped");
+        if (g_on_Hook_203[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldSelectTowerForgeInVersus_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_203 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldSelectTowerForgeInVersus call %d: UnlockDataPatch.UnlockData_ShouldSelectTowerForgeInVersus_Prefix=%d, original %s", ++g_calls_Hook_203, (int)g_on_Hook_203[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_217::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_203::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void UnlockData_get_ShouldSelectTowerForgeInVersus::Orig() { ran_ = true; result_ = Hook_217::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void UnlockData_get_ShouldSelectTowerForgeInVersus::Wrap(void (*shell)(UnlockData_get_ShouldSelectTowerForgeInVersus&)) { g_shell_Hook_217 = shell; if (!g_installed_Hook_217 && bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus) { Hook_217::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus); g_installed_Hook_217 = true; } }
+void UnlockData_get_ShouldSelectTowerForgeInVersus::Orig() { ran_ = true; result_ = Hook_203::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void UnlockData_get_ShouldSelectTowerForgeInVersus::Wrap(void (*shell)(UnlockData_get_ShouldSelectTowerForgeInVersus&)) { g_shell_Hook_203 = shell; if (!g_installed_Hook_203 && bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus) { Hook_203::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus); g_installed_Hook_203 = true; } }
 
 void UnlockData_get_ShouldShowMoonBreakSequence::operator()() {
         bool __result{};
         bool run = true;
-        if (g_on_Hook_218[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldShowMoonBreakSequence_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_218 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldShowMoonBreakSequence call %d: UnlockDataPatch.UnlockData_ShouldShowMoonBreakSequence_Prefix=%d, original %s", ++g_calls_Hook_218, (int)g_on_Hook_218[0], run ? "runs" : "skipped");
+        if (g_on_Hook_204[0] && !tfex::gen::State_UnlockData::UnlockData_ShouldShowMoonBreakSequence_Prefix(__result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_204 < 8) hw::Log("[tfexgen] hook UnlockData.get_ShouldShowMoonBreakSequence call %d: UnlockDataPatch.UnlockData_ShouldShowMoonBreakSequence_Prefix=%d, original %s", ++g_calls_Hook_204, (int)g_on_Hook_204[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_218::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_204::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void UnlockData_get_ShouldShowMoonBreakSequence::Orig() { ran_ = true; result_ = Hook_218::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void UnlockData_get_ShouldShowMoonBreakSequence::Wrap(void (*shell)(UnlockData_get_ShouldShowMoonBreakSequence&)) { g_shell_Hook_218 = shell; if (!g_installed_Hook_218 && bind::m_UnlockData_get_ShouldShowMoonBreakSequence) { Hook_218::InstallAtOffset(bind::m_UnlockData_get_ShouldShowMoonBreakSequence); g_installed_Hook_218 = true; } }
+void UnlockData_get_ShouldShowMoonBreakSequence::Orig() { ran_ = true; result_ = Hook_204::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void UnlockData_get_ShouldShowMoonBreakSequence::Wrap(void (*shell)(UnlockData_get_ShouldShowMoonBreakSequence&)) { g_shell_Hook_204 = shell; if (!g_installed_Hook_204 && bind::m_UnlockData_get_ShouldShowMoonBreakSequence) { Hook_204::InstallAtOffset(bind::m_UnlockData_get_ShouldShowMoonBreakSequence); g_installed_Hook_204 = true; } }
 
 void VariantDisableAll_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_219[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_219 < 8) hw::Log("[tfexgen] hook VariantDisableAll.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_219, (int)g_on_Hook_219[0], run ? "runs" : "skipped");
+        if (g_on_Hook_205[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_205 < 8) hw::Log("[tfexgen] hook VariantDisableAll.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_205, (int)g_on_Hook_205[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_219::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_205::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantDisableAll_OnConfirm::Orig() { ran_ = true; Hook_219::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantDisableAll_OnConfirm::Wrap(void (*shell)(VariantDisableAll_OnConfirm&)) { g_shell_Hook_219 = shell; if (!g_installed_Hook_219 && bind::m_VariantDisableAll_OnConfirm) { Hook_219::InstallAtOffset(bind::m_VariantDisableAll_OnConfirm); g_installed_Hook_219 = true; } }
+void VariantDisableAll_OnConfirm::Orig() { ran_ = true; Hook_205::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantDisableAll_OnConfirm::Wrap(void (*shell)(VariantDisableAll_OnConfirm&)) { g_shell_Hook_205 = shell; if (!g_installed_Hook_205 && bind::m_VariantDisableAll_OnConfirm) { Hook_205::InstallAtOffset(bind::m_VariantDisableAll_OnConfirm); g_installed_Hook_205 = true; } }
 
 void VariantDisableAll_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_220 < 8) hw::Log("[tfexgen] hook VariantDisableAll.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_220, (int)g_on_Hook_220[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_206 < 8) hw::Log("[tfexgen] hook VariantDisableAll.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_206, (int)g_on_Hook_206[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_220::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_220[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
+        if (run) Hook_206::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_206[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
         ran_ = run;
 }
-void VariantDisableAll_Render::Orig() { ran_ = true; Hook_220::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantDisableAll_Render::Wrap(void (*shell)(VariantDisableAll_Render&)) { g_shell_Hook_220 = shell; if (!g_installed_Hook_220 && bind::m_VariantDisableAll_Render) { Hook_220::InstallAtOffset(bind::m_VariantDisableAll_Render); g_installed_Hook_220 = true; } }
+void VariantDisableAll_Render::Orig() { ran_ = true; Hook_206::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantDisableAll_Render::Wrap(void (*shell)(VariantDisableAll_Render&)) { g_shell_Hook_206 = shell; if (!g_installed_Hook_206 && bind::m_VariantDisableAll_Render) { Hook_206::InstallAtOffset(bind::m_VariantDisableAll_Render); g_installed_Hook_206 = true; } }
 
 void VariantPreset_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_221[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_221 < 8) hw::Log("[tfexgen] hook VariantPreset.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_221, (int)g_on_Hook_221[0], run ? "runs" : "skipped");
+        if (g_on_Hook_207[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_207 < 8) hw::Log("[tfexgen] hook VariantPreset.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_207, (int)g_on_Hook_207[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_221::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_207::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantPreset_OnConfirm::Orig() { ran_ = true; Hook_221::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantPreset_OnConfirm::Wrap(void (*shell)(VariantPreset_OnConfirm&)) { g_shell_Hook_221 = shell; if (!g_installed_Hook_221 && bind::m_VariantPreset_OnConfirm) { Hook_221::InstallAtOffset(bind::m_VariantPreset_OnConfirm); g_installed_Hook_221 = true; } }
+void VariantPreset_OnConfirm::Orig() { ran_ = true; Hook_207::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantPreset_OnConfirm::Wrap(void (*shell)(VariantPreset_OnConfirm&)) { g_shell_Hook_207 = shell; if (!g_installed_Hook_207 && bind::m_VariantPreset_OnConfirm) { Hook_207::InstallAtOffset(bind::m_VariantPreset_OnConfirm); g_installed_Hook_207 = true; } }
 
 void VariantPreset_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_222 < 8) hw::Log("[tfexgen] hook VariantPreset.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_222, (int)g_on_Hook_222[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_208 < 8) hw::Log("[tfexgen] hook VariantPreset.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_208, (int)g_on_Hook_208[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_222::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_222[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
+        if (run) Hook_208::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_208[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
         ran_ = run;
 }
-void VariantPreset_Render::Orig() { ran_ = true; Hook_222::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantPreset_Render::Wrap(void (*shell)(VariantPreset_Render&)) { g_shell_Hook_222 = shell; if (!g_installed_Hook_222 && bind::m_VariantPreset_Render) { Hook_222::InstallAtOffset(bind::m_VariantPreset_Render); g_installed_Hook_222 = true; } }
+void VariantPreset_Render::Orig() { ran_ = true; Hook_208::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantPreset_Render::Wrap(void (*shell)(VariantPreset_Render&)) { g_shell_Hook_208 = shell; if (!g_installed_Hook_208 && bind::m_VariantPreset_Render) { Hook_208::InstallAtOffset(bind::m_VariantPreset_Render); g_installed_Hook_208 = true; } }
 
 void VariantRandomize_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_223[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_223 < 8) hw::Log("[tfexgen] hook VariantRandomize.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_223, (int)g_on_Hook_223[0], run ? "runs" : "skipped");
+        if (g_on_Hook_209[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_209 < 8) hw::Log("[tfexgen] hook VariantRandomize.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_209, (int)g_on_Hook_209[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_223::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_209::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantRandomize_OnConfirm::Orig() { ran_ = true; Hook_223::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantRandomize_OnConfirm::Wrap(void (*shell)(VariantRandomize_OnConfirm&)) { g_shell_Hook_223 = shell; if (!g_installed_Hook_223 && bind::m_VariantRandomize_OnConfirm) { Hook_223::InstallAtOffset(bind::m_VariantRandomize_OnConfirm); g_installed_Hook_223 = true; } }
+void VariantRandomize_OnConfirm::Orig() { ran_ = true; Hook_209::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantRandomize_OnConfirm::Wrap(void (*shell)(VariantRandomize_OnConfirm&)) { g_shell_Hook_209 = shell; if (!g_installed_Hook_209 && bind::m_VariantRandomize_OnConfirm) { Hook_209::InstallAtOffset(bind::m_VariantRandomize_OnConfirm); g_installed_Hook_209 = true; } }
 
 void VariantRandomize_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_224 < 8) hw::Log("[tfexgen] hook VariantRandomize.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_224, (int)g_on_Hook_224[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_210 < 8) hw::Log("[tfexgen] hook VariantRandomize.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_210, (int)g_on_Hook_210[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_224::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_224[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
+        if (run) Hook_210::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_210[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
         ran_ = run;
 }
-void VariantRandomize_Render::Orig() { ran_ = true; Hook_224::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantRandomize_Render::Wrap(void (*shell)(VariantRandomize_Render&)) { g_shell_Hook_224 = shell; if (!g_installed_Hook_224 && bind::m_VariantRandomize_Render) { Hook_224::InstallAtOffset(bind::m_VariantRandomize_Render); g_installed_Hook_224 = true; } }
+void VariantRandomize_Render::Orig() { ran_ = true; Hook_210::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantRandomize_Render::Wrap(void (*shell)(VariantRandomize_Render&)) { g_shell_Hook_210 = shell; if (!g_installed_Hook_210 && bind::m_VariantRandomize_Render) { Hook_210::InstallAtOffset(bind::m_VariantRandomize_Render); g_installed_Hook_210 = true; } }
 
 void VariantToggle_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_225[0] && !tfex::gen::VariantTogglePatch::VariantToggle_OnConfirm(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_225 < 8) hw::Log("[tfexgen] hook VariantToggle.OnConfirm call %d: VariantTogglePatch.VariantToggle_OnConfirm=%d, original %s", ++g_calls_Hook_225, (int)g_on_Hook_225[0], run ? "runs" : "skipped");
+        if (g_on_Hook_211[0] && !tfex::gen::VariantTogglePatch::VariantToggle_OnConfirm(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_211 < 8) hw::Log("[tfexgen] hook VariantToggle.OnConfirm call %d: VariantTogglePatch.VariantToggle_OnConfirm=%d, original %s", ++g_calls_Hook_211, (int)g_on_Hook_211[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_225::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_211::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantToggle_OnConfirm::Orig() { ran_ = true; Hook_225::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantToggle_OnConfirm::Wrap(void (*shell)(VariantToggle_OnConfirm&)) { g_shell_Hook_225 = shell; if (!g_installed_Hook_225 && bind::m_VariantToggle_OnConfirm) { Hook_225::InstallAtOffset(bind::m_VariantToggle_OnConfirm); g_installed_Hook_225 = true; } }
-
-void VariantToggle_OnSelect::operator()() {
-        bool run = true;
-        if (g_calls_Hook_226 < 8) hw::Log("[tfexgen] hook VariantToggle.OnSelect call %d: MyVariantToggle.OnSelect_patch=%d, original %s", ++g_calls_Hook_226, (int)g_on_Hook_226[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_226::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_226[0]) tfex::gen::Md_MyVariantToggle::OnSelect_patch(self);
-        ran_ = run;
-}
-void VariantToggle_OnSelect::Orig() { ran_ = true; Hook_226::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantToggle_OnSelect::Wrap(void (*shell)(VariantToggle_OnSelect&)) { g_shell_Hook_226 = shell; if (!g_installed_Hook_226 && bind::m_VariantToggle_OnSelect) { Hook_226::InstallAtOffset(bind::m_VariantToggle_OnSelect); g_installed_Hook_226 = true; } }
+void VariantToggle_OnConfirm::Orig() { ran_ = true; Hook_211::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantToggle_OnConfirm::Wrap(void (*shell)(VariantToggle_OnConfirm&)) { g_shell_Hook_211 = shell; if (!g_installed_Hook_211 && bind::m_VariantToggle_OnConfirm) { Hook_211::InstallAtOffset(bind::m_VariantToggle_OnConfirm); g_installed_Hook_211 = true; } }
 
 void VariantToggle_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_227 < 8) hw::Log("[tfexgen] hook VariantToggle.Render call %d: VariantTogglePatch.VariantToggle_Render=%d, original %s", ++g_calls_Hook_227, (int)g_on_Hook_227[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_212 < 8) hw::Log("[tfexgen] hook VariantToggle.Render call %d: VariantTogglePatch.VariantToggle_Render=%d, original %s", ++g_calls_Hook_212, (int)g_on_Hook_212[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_227::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_227[0]) tfex::gen::VariantTogglePatch::VariantToggle_Render(self);
+        if (run) Hook_212::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_212[0]) tfex::gen::VariantTogglePatch::VariantToggle_Render(self);
         ran_ = run;
 }
-void VariantToggle_Render::Orig() { ran_ = true; Hook_227::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantToggle_Render::Wrap(void (*shell)(VariantToggle_Render&)) { g_shell_Hook_227 = shell; if (!g_installed_Hook_227 && bind::m_VariantToggle_Render) { Hook_227::InstallAtOffset(bind::m_VariantToggle_Render); g_installed_Hook_227 = true; } }
+void VariantToggle_Render::Orig() { ran_ = true; Hook_212::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantToggle_Render::Wrap(void (*shell)(VariantToggle_Render&)) { g_shell_Hook_212 = shell; if (!g_installed_Hook_212 && bind::m_VariantToggle_Render) { Hook_212::InstallAtOffset(bind::m_VariantToggle_Render); g_installed_Hook_212 = true; } }
 
 void VariantToggle_ShowPerPlayer::operator()() {
         bool run = true;
-        if (g_on_Hook_228[0] && !tfex::gen::VariantTogglePatch::VariantToggle_ShowPerPlayer(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_228 < 8) hw::Log("[tfexgen] hook VariantToggle.ShowPerPlayer call %d: VariantTogglePatch.VariantToggle_ShowPerPlayer=%d, original %s", ++g_calls_Hook_228, (int)g_on_Hook_228[0], run ? "runs" : "skipped");
+        if (g_on_Hook_213[0] && !tfex::gen::VariantTogglePatch::VariantToggle_ShowPerPlayer(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_213 < 8) hw::Log("[tfexgen] hook VariantToggle.ShowPerPlayer call %d: VariantTogglePatch.VariantToggle_ShowPerPlayer=%d, original %s", ++g_calls_Hook_213, (int)g_on_Hook_213[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_228::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_213::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantToggle_ShowPerPlayer::Orig() { ran_ = true; Hook_228::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantToggle_ShowPerPlayer::Wrap(void (*shell)(VariantToggle_ShowPerPlayer&)) { g_shell_Hook_228 = shell; if (!g_installed_Hook_228 && bind::m_VariantToggle_ShowPerPlayer) { Hook_228::InstallAtOffset(bind::m_VariantToggle_ShowPerPlayer); g_installed_Hook_228 = true; } }
-
-void VariantToggle_Update::operator()() {
-        bool run = true;
-        if (g_calls_Hook_229 < 8) hw::Log("[tfexgen] hook VariantToggle.Update call %d: MyVariantToggle.Update_patch=%d, original %s", ++g_calls_Hook_229, (int)g_on_Hook_229[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_229::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_229[0]) tfex::gen::Md_MyVariantToggle::Update_patch(self);
-        ran_ = run;
-}
-void VariantToggle_Update::Orig() { ran_ = true; Hook_229::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantToggle_Update::Wrap(void (*shell)(VariantToggle_Update&)) { g_shell_Hook_229 = shell; if (!g_installed_Hook_229 && bind::m_VariantToggle_Update) { Hook_229::InstallAtOffset(bind::m_VariantToggle_Update); g_installed_Hook_229 = true; } }
+void VariantToggle_ShowPerPlayer::Orig() { ran_ = true; Hook_213::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantToggle_ShowPerPlayer::Wrap(void (*shell)(VariantToggle_ShowPerPlayer&)) { g_shell_Hook_213 = shell; if (!g_installed_Hook_213 && bind::m_VariantToggle_ShowPerPlayer) { Hook_213::InstallAtOffset(bind::m_VariantToggle_ShowPerPlayer); g_installed_Hook_213 = true; } }
 
 void VariantTournament1v1_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_230[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_230 < 8) hw::Log("[tfexgen] hook VariantTournament1v1.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_230, (int)g_on_Hook_230[0], run ? "runs" : "skipped");
+        if (g_on_Hook_214[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_214 < 8) hw::Log("[tfexgen] hook VariantTournament1v1.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_214, (int)g_on_Hook_214[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_230::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_214::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantTournament1v1_OnConfirm::Orig() { ran_ = true; Hook_230::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantTournament1v1_OnConfirm::Wrap(void (*shell)(VariantTournament1v1_OnConfirm&)) { g_shell_Hook_230 = shell; if (!g_installed_Hook_230 && bind::m_VariantTournament1v1_OnConfirm) { Hook_230::InstallAtOffset(bind::m_VariantTournament1v1_OnConfirm); g_installed_Hook_230 = true; } }
+void VariantTournament1v1_OnConfirm::Orig() { ran_ = true; Hook_214::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantTournament1v1_OnConfirm::Wrap(void (*shell)(VariantTournament1v1_OnConfirm&)) { g_shell_Hook_214 = shell; if (!g_installed_Hook_214 && bind::m_VariantTournament1v1_OnConfirm) { Hook_214::InstallAtOffset(bind::m_VariantTournament1v1_OnConfirm); g_installed_Hook_214 = true; } }
 
 void VariantTournament1v1_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_231 < 8) hw::Log("[tfexgen] hook VariantTournament1v1.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_231, (int)g_on_Hook_231[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_215 < 8) hw::Log("[tfexgen] hook VariantTournament1v1.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_215, (int)g_on_Hook_215[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_231::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_231[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
+        if (run) Hook_215::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_215[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
         ran_ = run;
 }
-void VariantTournament1v1_Render::Orig() { ran_ = true; Hook_231::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantTournament1v1_Render::Wrap(void (*shell)(VariantTournament1v1_Render&)) { g_shell_Hook_231 = shell; if (!g_installed_Hook_231 && bind::m_VariantTournament1v1_Render) { Hook_231::InstallAtOffset(bind::m_VariantTournament1v1_Render); g_installed_Hook_231 = true; } }
+void VariantTournament1v1_Render::Orig() { ran_ = true; Hook_215::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantTournament1v1_Render::Wrap(void (*shell)(VariantTournament1v1_Render&)) { g_shell_Hook_215 = shell; if (!g_installed_Hook_215 && bind::m_VariantTournament1v1_Render) { Hook_215::InstallAtOffset(bind::m_VariantTournament1v1_Render); g_installed_Hook_215 = true; } }
 
 void VariantTournament2v2_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_232[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_232 < 8) hw::Log("[tfexgen] hook VariantTournament2v2.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_232, (int)g_on_Hook_232[0], run ? "runs" : "skipped");
+        if (g_on_Hook_216[0] && !tfex::gen::VariantButtonConfirmPatch::VariantButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_216 < 8) hw::Log("[tfexgen] hook VariantTournament2v2.OnConfirm call %d: VariantButtonConfirmPatch.VariantButton_OnConfirm=%d, original %s", ++g_calls_Hook_216, (int)g_on_Hook_216[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_232::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_216::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VariantTournament2v2_OnConfirm::Orig() { ran_ = true; Hook_232::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantTournament2v2_OnConfirm::Wrap(void (*shell)(VariantTournament2v2_OnConfirm&)) { g_shell_Hook_232 = shell; if (!g_installed_Hook_232 && bind::m_VariantTournament2v2_OnConfirm) { Hook_232::InstallAtOffset(bind::m_VariantTournament2v2_OnConfirm); g_installed_Hook_232 = true; } }
+void VariantTournament2v2_OnConfirm::Orig() { ran_ = true; Hook_216::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantTournament2v2_OnConfirm::Wrap(void (*shell)(VariantTournament2v2_OnConfirm&)) { g_shell_Hook_216 = shell; if (!g_installed_Hook_216 && bind::m_VariantTournament2v2_OnConfirm) { Hook_216::InstallAtOffset(bind::m_VariantTournament2v2_OnConfirm); g_installed_Hook_216 = true; } }
 
 void VariantTournament2v2_Render::operator()() {
         bool run = true;
-        if (g_calls_Hook_233 < 8) hw::Log("[tfexgen] hook VariantTournament2v2.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_233, (int)g_on_Hook_233[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_217 < 8) hw::Log("[tfexgen] hook VariantTournament2v2.Render call %d: VariantButtonRenderPatch.VariantButton_Render=%d, original %s", ++g_calls_Hook_217, (int)g_on_Hook_217[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_233::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_233[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
+        if (run) Hook_217::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_217[0]) tfex::gen::VariantButtonRenderPatch::VariantButton_Render(self);
         ran_ = run;
 }
-void VariantTournament2v2_Render::Orig() { ran_ = true; Hook_233::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VariantTournament2v2_Render::Wrap(void (*shell)(VariantTournament2v2_Render&)) { g_shell_Hook_233 = shell; if (!g_installed_Hook_233 && bind::m_VariantTournament2v2_Render) { Hook_233::InstallAtOffset(bind::m_VariantTournament2v2_Render); g_installed_Hook_233 = true; } }
+void VariantTournament2v2_Render::Orig() { ran_ = true; Hook_217::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VariantTournament2v2_Render::Wrap(void (*shell)(VariantTournament2v2_Render&)) { g_shell_Hook_217 = shell; if (!g_installed_Hook_217 && bind::m_VariantTournament2v2_Render) { Hook_217::InstallAtOffset(bind::m_VariantTournament2v2_Render); g_installed_Hook_217 = true; } }
 
 void VersusAwards_GetAwards::operator()() {
         void* __result{};
         bool run = true;
         bool state_VersusAwardsPatch{};
-        if (g_on_Hook_234[0]) tfex::gen::State_VersusAwards::VersusAwards_GetAwards_Prefix(gen::GameArr<gen::GameVal<680>>(stats, bind::m_Array_get_Length), state_VersusAwardsPatch);
-        if (g_calls_Hook_234 < 8) hw::Log("[tfexgen] hook VersusAwards.GetAwards call %d: VersusAwardsPatch.VersusAwards_GetAwards_Prefix=%d VersusAwardsPatch.VersusAwards_GetAwards_Finalizer=%d, original %s", ++g_calls_Hook_234, (int)g_on_Hook_234[0], (int)g_on_Hook_234[1], run ? "runs" : "skipped");
+        if (g_on_Hook_218[0]) tfex::gen::State_VersusAwards::VersusAwards_GetAwards_Prefix(gen::GameArr<gen::GameVal<680>>(stats, bind::m_Array_get_Length), state_VersusAwardsPatch);
+        if (g_calls_Hook_218 < 8) hw::Log("[tfexgen] hook VersusAwards.GetAwards call %d: VersusAwardsPatch.VersusAwards_GetAwards_Prefix=%d VersusAwardsPatch.VersusAwards_GetAwards_Finalizer=%d, original %s", ++g_calls_Hook_218, (int)g_on_Hook_218[0], (int)g_on_Hook_218[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_234::Orig(settings, stats, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_234[1]) tfex::gen::State_VersusAwards::VersusAwards_GetAwards_Finalizer(state_VersusAwardsPatch);
+        if (run) __result = Hook_218::Orig(settings, stats, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_218[1]) tfex::gen::State_VersusAwards::VersusAwards_GetAwards_Finalizer(state_VersusAwardsPatch);
         ran_ = run;
         result_ = __result;
 }
-void VersusAwards_GetAwards::Orig() { ran_ = true; result_ = Hook_234::Orig(settings, stats, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusAwards_GetAwards::Wrap(void (*shell)(VersusAwards_GetAwards&)) { g_shell_Hook_234 = shell; if (!g_installed_Hook_234 && bind::m_VersusAwards_GetAwards_48f1) { Hook_234::InstallAtOffset(bind::m_VersusAwards_GetAwards_48f1); g_installed_Hook_234 = true; } }
+void VersusAwards_GetAwards::Orig() { ran_ = true; result_ = Hook_218::Orig(settings, stats, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusAwards_GetAwards::Wrap(void (*shell)(VersusAwards_GetAwards&)) { g_shell_Hook_218 = shell; if (!g_installed_Hook_218 && bind::m_VersusAwards_GetAwards_48f1) { Hook_218::InstallAtOffset(bind::m_VersusAwards_GetAwards_48f1); g_installed_Hook_218 = true; } }
 
 void VersusBeginButton_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_235 < 8) hw::Log("[tfexgen] hook VersusBeginButton.ctor call %d: VersusBeginButtonPatch.VersusBeginButton_ctor=%d, original %s", ++g_calls_Hook_235, (int)g_on_Hook_235[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_219 < 8) hw::Log("[tfexgen] hook VersusBeginButton.ctor call %d: VersusBeginButtonPatch.VersusBeginButton_ctor=%d, original %s", ++g_calls_Hook_219, (int)g_on_Hook_219[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_235::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_235[0]) tfex::gen::VersusBeginButtonPatch::VersusBeginButton_ctor();
+        if (run) { void* r_ = Hook_219::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_219[0]) tfex::gen::VersusBeginButtonPatch::VersusBeginButton_ctor();
         ran_ = run;
         result_ = obj;
 }
-void VersusBeginButton_ctor::Orig() { ran_ = true; void* r_ = Hook_235::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void VersusBeginButton_ctor::Wrap(void (*shell)(VersusBeginButton_ctor&)) { g_shell_Hook_235 = shell; if (!g_installed_Hook_235 && bind::m_VersusBeginButton__ctor_f3db) { Hook_235::InstallAtOffset(bind::m_VersusBeginButton__ctor_f3db); g_installed_Hook_235 = true; } }
+void VersusBeginButton_ctor::Orig() { ran_ = true; void* r_ = Hook_219::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void VersusBeginButton_ctor::Wrap(void (*shell)(VersusBeginButton_ctor&)) { g_shell_Hook_219 = shell; if (!g_installed_Hook_219 && bind::m_VersusBeginButton__ctor_f3db) { Hook_219::InstallAtOffset(bind::m_VersusBeginButton__ctor_f3db); g_installed_Hook_219 = true; } }
 
 void VersusBeginButton_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_236[0] && !tfex::gen::VersusBeginButtonPatch::VersusBeginButton_OnConfirm(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_236 < 8) hw::Log("[tfexgen] hook VersusBeginButton.OnConfirm call %d: VersusBeginButtonPatch.VersusBeginButton_OnConfirm=%d, original %s", ++g_calls_Hook_236, (int)g_on_Hook_236[0], run ? "runs" : "skipped");
+        if (g_on_Hook_220[0] && !tfex::gen::VersusBeginButtonPatch::VersusBeginButton_OnConfirm(self)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_220 < 8) hw::Log("[tfexgen] hook VersusBeginButton.OnConfirm call %d: VersusBeginButtonPatch.VersusBeginButton_OnConfirm=%d, original %s", ++g_calls_Hook_220, (int)g_on_Hook_220[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_236::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_220::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VersusBeginButton_OnConfirm::Orig() { ran_ = true; Hook_236::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusBeginButton_OnConfirm::Wrap(void (*shell)(VersusBeginButton_OnConfirm&)) { g_shell_Hook_236 = shell; if (!g_installed_Hook_236 && bind::m_VersusBeginButton_OnConfirm) { Hook_236::InstallAtOffset(bind::m_VersusBeginButton_OnConfirm); g_installed_Hook_236 = true; } }
+void VersusBeginButton_OnConfirm::Orig() { ran_ = true; Hook_220::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusBeginButton_OnConfirm::Wrap(void (*shell)(VersusBeginButton_OnConfirm&)) { g_shell_Hook_220 = shell; if (!g_installed_Hook_220 && bind::m_VersusBeginButton_OnConfirm) { Hook_220::InstallAtOffset(bind::m_VersusBeginButton_OnConfirm); g_installed_Hook_220 = true; } }
 
 void VersusCoinButton_Render::operator()() {
         bool run = true;
-        if (g_on_Hook_237[0] && !tfex::gen::VersusCoinButtonPatch::VersusCoinButton_Render()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_237 < 8) hw::Log("[tfexgen] hook VersusCoinButton.Render call %d: VersusCoinButtonPatch.VersusCoinButton_Render=%d, original %s", ++g_calls_Hook_237, (int)g_on_Hook_237[0], run ? "runs" : "skipped");
+        if (g_on_Hook_221[0] && !tfex::gen::VersusCoinButtonPatch::VersusCoinButton_Render()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_221 < 8) hw::Log("[tfexgen] hook VersusCoinButton.Render call %d: VersusCoinButtonPatch.VersusCoinButton_Render=%d, original %s", ++g_calls_Hook_221, (int)g_on_Hook_221[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_237::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_221::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VersusCoinButton_Render::Orig() { ran_ = true; Hook_237::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusCoinButton_Render::Wrap(void (*shell)(VersusCoinButton_Render&)) { g_shell_Hook_237 = shell; if (!g_installed_Hook_237 && bind::m_VersusCoinButton_Render) { Hook_237::InstallAtOffset(bind::m_VersusCoinButton_Render); g_installed_Hook_237 = true; } }
+void VersusCoinButton_Render::Orig() { ran_ = true; Hook_221::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusCoinButton_Render::Wrap(void (*shell)(VersusCoinButton_Render&)) { g_shell_Hook_221 = shell; if (!g_installed_Hook_221 && bind::m_VersusCoinButton_Render) { Hook_221::InstallAtOffset(bind::m_VersusCoinButton_Render); g_installed_Hook_221 = true; } }
 
 void VersusLevelSystem_GenLevels::operator()() {
         bool run = true;
-        if (g_on_Hook_238[0] && !tfex::gen::State_VersusLevelSystem::VersusLevelSystem_GenLevels(self, matchSettings)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_238 < 8) hw::Log("[tfexgen] hook VersusLevelSystem.GenLevels call %d: VersusLevelSystemPatch.VersusLevelSystem_GenLevels=%d, original %s", ++g_calls_Hook_238, (int)g_on_Hook_238[0], run ? "runs" : "skipped");
+        if (g_on_Hook_222[0] && !tfex::gen::State_VersusLevelSystem::VersusLevelSystem_GenLevels(self, matchSettings)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_222 < 8) hw::Log("[tfexgen] hook VersusLevelSystem.GenLevels call %d: VersusLevelSystemPatch.VersusLevelSystem_GenLevels=%d, original %s", ++g_calls_Hook_222, (int)g_on_Hook_222[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_238::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_222::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VersusLevelSystem_GenLevels::Orig() { ran_ = true; Hook_238::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusLevelSystem_GenLevels::Wrap(void (*shell)(VersusLevelSystem_GenLevels&)) { g_shell_Hook_238 = shell; if (!g_installed_Hook_238 && bind::m_VersusLevelSystem_GenLevels_3ca1) { Hook_238::InstallAtOffset(bind::m_VersusLevelSystem_GenLevels_3ca1); g_installed_Hook_238 = true; } }
-
-void VersusMapButton_OnConfirm::operator()() {
-        bool run = true;
-        if (g_on_Hook_239[0] && !tfex::gen::So_MyVersusModeButton::MapConfirm_patch()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_239 < 8) hw::Log("[tfexgen] hook VersusMapButton.OnConfirm call %d: MyVersusModeButton.MapConfirm_patch=%d, original %s", ++g_calls_Hook_239, (int)g_on_Hook_239[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_239::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        ran_ = run;
-}
-void VersusMapButton_OnConfirm::Orig() { ran_ = true; Hook_239::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusMapButton_OnConfirm::Wrap(void (*shell)(VersusMapButton_OnConfirm&)) { g_shell_Hook_239 = shell; if (!g_installed_Hook_239 && bind::m_VersusMapButton_OnConfirm) { Hook_239::InstallAtOffset(bind::m_VersusMapButton_OnConfirm); g_installed_Hook_239 = true; } }
+void VersusLevelSystem_GenLevels::Orig() { ran_ = true; Hook_222::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusLevelSystem_GenLevels::Wrap(void (*shell)(VersusLevelSystem_GenLevels&)) { g_shell_Hook_222 = shell; if (!g_installed_Hook_222 && bind::m_VersusLevelSystem_GenLevels_3ca1) { Hook_222::InstallAtOffset(bind::m_VersusLevelSystem_GenLevels_3ca1); g_installed_Hook_222 = true; } }
 
 void VersusMatchResults_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_240[0]) tfex::gen::State_VersusMatchResults::VersusMatchResults_ctor_Prefix();
-        if (g_calls_Hook_240 < 8) hw::Log("[tfexgen] hook VersusMatchResults.ctor call %d: VersusMatchResultsPatch.VersusMatchResults_ctor_Prefix=%d VersusMatchResultsPatch.VersusMatchResults_ctor=%d, original %s", ++g_calls_Hook_240, (int)g_on_Hook_240[0], (int)g_on_Hook_240[1], run ? "runs" : "skipped");
+        if (g_on_Hook_223[0]) tfex::gen::State_VersusMatchResults::VersusMatchResults_ctor_Prefix();
+        if (g_calls_Hook_223 < 8) hw::Log("[tfexgen] hook VersusMatchResults.ctor call %d: VersusMatchResultsPatch.VersusMatchResults_ctor_Prefix=%d VersusMatchResultsPatch.VersusMatchResults_ctor=%d, original %s", ++g_calls_Hook_223, (int)g_on_Hook_223[0], (int)g_on_Hook_223[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_240::Orig(self, session, roundResults, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_240[1]) tfex::gen::State_VersusMatchResults::VersusMatchResults_ctor(obj, session);
+        if (run) { void* r_ = Hook_223::Orig(self, session, roundResults, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_223[1]) tfex::gen::State_VersusMatchResults::VersusMatchResults_ctor(obj, session);
         ran_ = run;
         result_ = obj;
 }
-void VersusMatchResults_ctor::Orig() { ran_ = true; void* r_ = Hook_240::Orig(self, session, roundResults, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void VersusMatchResults_ctor::Wrap(void (*shell)(VersusMatchResults_ctor&)) { g_shell_Hook_240 = shell; if (!g_installed_Hook_240 && bind::m_VersusMatchResults__ctor_7521) { Hook_240::InstallAtOffset(bind::m_VersusMatchResults__ctor_7521); g_installed_Hook_240 = true; } }
+void VersusMatchResults_ctor::Orig() { ran_ = true; void* r_ = Hook_223::Orig(self, session, roundResults, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void VersusMatchResults_ctor::Wrap(void (*shell)(VersusMatchResults_ctor&)) { g_shell_Hook_223 = shell; if (!g_installed_Hook_223 && bind::m_VersusMatchResults__ctor_7521) { Hook_223::InstallAtOffset(bind::m_VersusMatchResults__ctor_7521); g_installed_Hook_223 = true; } }
 
 void VersusModeButton_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_241 < 8) hw::Log("[tfexgen] hook VersusModeButton.ctor call %d: patch_VersusModeButton.Create=%d, original %s", ++g_calls_Hook_241, (int)g_on_Hook_241[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_224 < 8) hw::Log("[tfexgen] hook VersusModeButton.ctor call %d: patch_VersusModeButton.Create=%d, original %s", ++g_calls_Hook_224, (int)g_on_Hook_224[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_241::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_241[0]) tfex::gen::Fr_VersusModeButton::Create(obj);
+        if (run) { void* r_ = Hook_224::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_224[0]) tfex::gen::Fr_VersusModeButton::Create(obj);
         ran_ = run;
         result_ = obj;
 }
-void VersusModeButton_ctor::Orig() { ran_ = true; void* r_ = Hook_241::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
-void VersusModeButton_ctor::Wrap(void (*shell)(VersusModeButton_ctor&)) { g_shell_Hook_241 = shell; if (!g_installed_Hook_241 && bind::m_VersusModeButton__ctor_f3db) { Hook_241::InstallAtOffset(bind::m_VersusModeButton__ctor_f3db); g_installed_Hook_241 = true; } }
+void VersusModeButton_ctor::Orig() { ran_ = true; void* r_ = Hook_224::Orig(self, position, tweenFrom, x1_, x2_, x3_, x4_, x5_, x6_, x7_); result_ = self ? self : r_; }
+void VersusModeButton_ctor::Wrap(void (*shell)(VersusModeButton_ctor&)) { g_shell_Hook_224 = shell; if (!g_installed_Hook_224 && bind::m_VersusModeButton__ctor_f3db) { Hook_224::InstallAtOffset(bind::m_VersusModeButton__ctor_f3db); g_installed_Hook_224 = true; } }
 
 void VersusModeButton_GetModeIcon::operator()() {
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_242 < 8) hw::Log("[tfexgen] hook VersusModeButton.GetModeIcon call %d (mode %d): patch_VersusModeButton.GetModeIcon=%d, original %s", ++g_calls_Hook_242, (int)mode, (int)g_on_Hook_242[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_225 < 8) hw::Log("[tfexgen] hook VersusModeButton.GetModeIcon call %d (mode %d): patch_VersusModeButton.GetModeIcon=%d, original %s", ++g_calls_Hook_225, (int)mode, (int)g_on_Hook_225[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = g_on_Hook_242[0] ? tfex::gen::Fr_VersusModeButton::GetModeIcon(mode) : Hook_242::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
+        if (run) __result = g_on_Hook_225[0] ? tfex::gen::Fr_VersusModeButton::GetModeIcon(mode) : Hook_225::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
         ran_ = run;
         result_ = __result;
 }
-void VersusModeButton_GetModeIcon::Orig() { ran_ = true; result_ = Hook_242::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusModeButton_GetModeIcon::Wrap(void (*shell)(VersusModeButton_GetModeIcon&)) { g_shell_Hook_242 = shell; if (!g_installed_Hook_242 && bind::m_VersusModeButton_GetModeIcon_1c75) { Hook_242::InstallAtOffset(bind::m_VersusModeButton_GetModeIcon_1c75); g_installed_Hook_242 = true; } }
+void VersusModeButton_GetModeIcon::Orig() { ran_ = true; result_ = Hook_225::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusModeButton_GetModeIcon::Wrap(void (*shell)(VersusModeButton_GetModeIcon&)) { g_shell_Hook_225 = shell; if (!g_installed_Hook_225 && bind::m_VersusModeButton_GetModeIcon_1c75) { Hook_225::InstallAtOffset(bind::m_VersusModeButton_GetModeIcon_1c75); g_installed_Hook_225 = true; } }
 
 void VersusModeButton_GetModeName::operator()() {
         void* __result{};
         bool run = true;
-        if (g_calls_Hook_243 < 8) hw::Log("[tfexgen] hook VersusModeButton.GetModeName call %d (mode %d): patch_VersusModeButton.GetModeName=%d, original %s", ++g_calls_Hook_243, (int)mode, (int)g_on_Hook_243[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_226 < 8) hw::Log("[tfexgen] hook VersusModeButton.GetModeName call %d (mode %d): patch_VersusModeButton.GetModeName=%d, original %s", ++g_calls_Hook_226, (int)mode, (int)g_on_Hook_226[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = g_on_Hook_243[0] ? tfex::gen::Fr_VersusModeButton::GetModeName(mode) : Hook_243::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
+        if (run) __result = g_on_Hook_226[0] ? tfex::gen::Fr_VersusModeButton::GetModeName(mode) : Hook_226::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_);   /* MonoMod: FortRise's body */
         ran_ = run;
         result_ = __result;
 }
-void VersusModeButton_GetModeName::Orig() { ran_ = true; result_ = Hook_243::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusModeButton_GetModeName::Wrap(void (*shell)(VersusModeButton_GetModeName&)) { g_shell_Hook_243 = shell; if (!g_installed_Hook_243 && bind::m_VersusModeButton_GetModeName_1c75) { Hook_243::InstallAtOffset(bind::m_VersusModeButton_GetModeName_1c75); g_installed_Hook_243 = true; } }
-
-void VersusModeButton_Render::operator()() {
-        bool run = true;
-        if (g_calls_Hook_244 < 8) hw::Log("[tfexgen] hook VersusModeButton.Render call %d: MyVersusModeButton.Render_patch=%d, original %s", ++g_calls_Hook_244, (int)g_on_Hook_244[0], run ? "runs" : "skipped");
-        if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_244::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_244[0]) tfex::gen::So_MyVersusModeButton::Render_patch(self);
-        ran_ = run;
-}
-void VersusModeButton_Render::Orig() { ran_ = true; Hook_244::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusModeButton_Render::Wrap(void (*shell)(VersusModeButton_Render&)) { g_shell_Hook_244 = shell; if (!g_installed_Hook_244 && bind::m_VersusModeButton_Render) { Hook_244::InstallAtOffset(bind::m_VersusModeButton_Render); g_installed_Hook_244 = true; } }
+void VersusModeButton_GetModeName::Orig() { ran_ = true; result_ = Hook_226::Orig(mode, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusModeButton_GetModeName::Wrap(void (*shell)(VersusModeButton_GetModeName&)) { g_shell_Hook_226 = shell; if (!g_installed_Hook_226 && bind::m_VersusModeButton_GetModeName_1c75) { Hook_226::InstallAtOffset(bind::m_VersusModeButton_GetModeName_1c75); g_installed_Hook_226 = true; } }
 
 void VersusModeButton_Update::operator()() {
         bool run = true;
         tfex::gen::st::ModeSelection state_VersusModeButtonPatch{};
-        if (g_on_Hook_245[0]) tfex::gen::VersusModeButtonPatch::VersusModeButton_Update_Prefix(self, state_VersusModeButtonPatch);
-        if (g_on_Hook_245[3] && !tfex::gen::So_MyVersusModeButton::Update_patch(self)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_245 < 8) hw::Log("[tfexgen] hook VersusModeButton.Update call %d: VersusModeButtonPatch.VersusModeButton_Update_Prefix=%d VersusModeButtonPatch.VersusModeButton_Update_Postfix=%d patch_VersusModeButton.Update=%d MyVersusModeButton.Update_patch=%d, original %s", ++g_calls_Hook_245, (int)g_on_Hook_245[0], (int)g_on_Hook_245[1], (int)g_on_Hook_245[2], (int)g_on_Hook_245[3], run ? "runs" : "skipped");
+        if (g_on_Hook_227[0]) tfex::gen::VersusModeButtonPatch::VersusModeButton_Update_Prefix(self, state_VersusModeButtonPatch);
+        if (g_calls_Hook_227 < 8) hw::Log("[tfexgen] hook VersusModeButton.Update call %d: VersusModeButtonPatch.VersusModeButton_Update_Prefix=%d VersusModeButtonPatch.VersusModeButton_Update_Postfix=%d patch_VersusModeButton.Update=%d, original %s", ++g_calls_Hook_227, (int)g_on_Hook_227[0], (int)g_on_Hook_227[1], (int)g_on_Hook_227[2], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { if (g_on_Hook_245[2]) tfex::gen::Fr_VersusModeButton::Update(self); else Hook_245::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
-        if (g_on_Hook_245[1]) tfex::gen::VersusModeButtonPatch::VersusModeButton_Update_Postfix(self, state_VersusModeButtonPatch);
+        if (run) { if (g_on_Hook_227[2]) tfex::gen::Fr_VersusModeButton::Update(self); else Hook_227::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
+        if (g_on_Hook_227[1]) tfex::gen::VersusModeButtonPatch::VersusModeButton_Update_Postfix(self, state_VersusModeButtonPatch);
         ran_ = run;
 }
-void VersusModeButton_Update::Orig() { ran_ = true; Hook_245::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusModeButton_Update::Wrap(void (*shell)(VersusModeButton_Update&)) { g_shell_Hook_245 = shell; if (!g_installed_Hook_245 && bind::m_VersusModeButton_Update) { Hook_245::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_245 = true; } }
+void VersusModeButton_Update::Orig() { ran_ = true; Hook_227::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusModeButton_Update::Wrap(void (*shell)(VersusModeButton_Update&)) { g_shell_Hook_227 = shell; if (!g_installed_Hook_227 && bind::m_VersusModeButton_Update) { Hook_227::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_227 = true; } }
 
 void VersusModeButton_UpdateSides::operator()() {
         bool run = true;
-        if (g_calls_Hook_246 < 8) hw::Log("[tfexgen] hook VersusModeButton.UpdateSides call %d: patch_VersusModeButton.UpdateSides=%d, original %s", ++g_calls_Hook_246, (int)g_on_Hook_246[0], run ? "runs" : "skipped");
+        if (g_calls_Hook_228 < 8) hw::Log("[tfexgen] hook VersusModeButton.UpdateSides call %d: patch_VersusModeButton.UpdateSides=%d, original %s", ++g_calls_Hook_228, (int)g_on_Hook_228[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { if (g_on_Hook_246[0]) tfex::gen::Fr_VersusModeButton::UpdateSides(self); else Hook_246::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
+        if (run) { if (g_on_Hook_228[0]) tfex::gen::Fr_VersusModeButton::UpdateSides(self); else Hook_228::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }   /* MonoMod: FortRise's body */
         ran_ = run;
 }
-void VersusModeButton_UpdateSides::Orig() { ran_ = true; Hook_246::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusModeButton_UpdateSides::Wrap(void (*shell)(VersusModeButton_UpdateSides&)) { g_shell_Hook_246 = shell; if (!g_installed_Hook_246 && bind::m_VersusModeButton_UpdateSides) { Hook_246::InstallAtOffset(bind::m_VersusModeButton_UpdateSides); g_installed_Hook_246 = true; } }
+void VersusModeButton_UpdateSides::Orig() { ran_ = true; Hook_228::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusModeButton_UpdateSides::Wrap(void (*shell)(VersusModeButton_UpdateSides&)) { g_shell_Hook_228 = shell; if (!g_installed_Hook_228 && bind::m_VersusModeButton_UpdateSides) { Hook_228::InstallAtOffset(bind::m_VersusModeButton_UpdateSides); g_installed_Hook_228 = true; } }
 
 void VersusPlayerMatchResults_ctor::operator()() {
         void* obj = self;
         void* __result{};
         bool run = true;
-        if (g_on_Hook_247[0]) tfex::gen::VersusPlayerMatchResultsPatch::VersusPlayerMatchResults_Ctor_Prefix(playerIndex);
-        if (g_calls_Hook_247 < 8) hw::Log("[tfexgen] hook VersusPlayerMatchResults.ctor call %d (playerIndex %d): VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Prefix=%d VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Finalizer=%d VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_ctor=%d, original %s", ++g_calls_Hook_247, (int)playerIndex, (int)g_on_Hook_247[0], (int)g_on_Hook_247[1], (int)g_on_Hook_247[2], run ? "runs" : "skipped");
+        if (g_on_Hook_229[0]) tfex::gen::VersusPlayerMatchResultsPatch::VersusPlayerMatchResults_Ctor_Prefix(playerIndex);
+        if (g_calls_Hook_229 < 8) hw::Log("[tfexgen] hook VersusPlayerMatchResults.ctor call %d (playerIndex %d): VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Prefix=%d VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_Ctor_Finalizer=%d VersusPlayerMatchResultsPatch.VersusPlayerMatchResults_ctor=%d, original %s", ++g_calls_Hook_229, (int)playerIndex, (int)g_on_Hook_229[0], (int)g_on_Hook_229[1], (int)g_on_Hook_229[2], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) { void* r_ = Hook_247::Orig(self, session, matchResults, playerIndex, tweenFrom, tweenTo, awards, x5_, x6_, x7_); obj = self ? self : r_; }
-        if (g_on_Hook_247[1]) tfex::gen::VersusPlayerMatchResultsPatch::VersusPlayerMatchResults_Ctor_Finalizer();
-        if (g_on_Hook_247[2]) tfex::gen::VersusPlayerMatchResultsPatch::VersusPlayerMatchResults_ctor(obj, session, matchResults, playerIndex, tweenFrom, tweenTo, awards);
+        if (run) { void* r_ = Hook_229::Orig(self, session, matchResults, playerIndex, tweenFrom, tweenTo, awards, x5_, x6_, x7_); obj = self ? self : r_; }
+        if (g_on_Hook_229[1]) tfex::gen::VersusPlayerMatchResultsPatch::VersusPlayerMatchResults_Ctor_Finalizer();
+        if (g_on_Hook_229[2]) tfex::gen::VersusPlayerMatchResultsPatch::VersusPlayerMatchResults_ctor(obj, session, matchResults, playerIndex, tweenFrom, tweenTo, awards);
         ran_ = run;
         result_ = obj;
 }
-void VersusPlayerMatchResults_ctor::Orig() { ran_ = true; void* r_ = Hook_247::Orig(self, session, matchResults, playerIndex, tweenFrom, tweenTo, awards, x5_, x6_, x7_); result_ = self ? self : r_; }
-void VersusPlayerMatchResults_ctor::Wrap(void (*shell)(VersusPlayerMatchResults_ctor&)) { g_shell_Hook_247 = shell; if (!g_installed_Hook_247 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_247::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_247 = true; } }
+void VersusPlayerMatchResults_ctor::Orig() { ran_ = true; void* r_ = Hook_229::Orig(self, session, matchResults, playerIndex, tweenFrom, tweenTo, awards, x5_, x6_, x7_); result_ = self ? self : r_; }
+void VersusPlayerMatchResults_ctor::Wrap(void (*shell)(VersusPlayerMatchResults_ctor&)) { g_shell_Hook_229 = shell; if (!g_installed_Hook_229 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_229::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_229 = true; } }
 
 void VersusTowerData_GetLevels::operator()() {
         void* __result{};
         bool run = true;
-        if (g_on_Hook_248[0] && !tfex::gen::Tp_LevelHooks::GetLevels_Prefix(self, matchSettings, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_248 < 8) hw::Log("[tfexgen] hook VersusTowerData.GetLevels call %d: LevelHooks.GetLevels_Prefix=%d, original %s", ++g_calls_Hook_248, (int)g_on_Hook_248[0], run ? "runs" : "skipped");
+        if (g_on_Hook_230[0] && !tfex::gen::Tp_LevelHooks::GetLevels_Prefix(self, matchSettings, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_230 < 8) hw::Log("[tfexgen] hook VersusTowerData.GetLevels call %d: LevelHooks.GetLevels_Prefix=%d, original %s", ++g_calls_Hook_230, (int)g_on_Hook_230[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_248::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_230::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void VersusTowerData_GetLevels::Orig() { ran_ = true; result_ = Hook_248::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusTowerData_GetLevels::Wrap(void (*shell)(VersusTowerData_GetLevels&)) { g_shell_Hook_248 = shell; if (!g_installed_Hook_248 && bind::m_VersusTowerData_GetLevels_3ca1) { Hook_248::InstallAtOffset(bind::m_VersusTowerData_GetLevels_3ca1); g_installed_Hook_248 = true; } }
+void VersusTowerData_GetLevels::Orig() { ran_ = true; result_ = Hook_230::Orig(self, matchSettings, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusTowerData_GetLevels::Wrap(void (*shell)(VersusTowerData_GetLevels&)) { g_shell_Hook_230 = shell; if (!g_installed_Hook_230 && bind::m_VersusTowerData_GetLevels_3ca1) { Hook_230::InstallAtOffset(bind::m_VersusTowerData_GetLevels_3ca1); g_installed_Hook_230 = true; } }
 
 void VersusVariantsButton_OnConfirm::operator()() {
         bool run = true;
-        if (g_on_Hook_249[0] && !tfex::gen::VersusVariantButtonPatch::VersusVariantsButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_249 < 8) hw::Log("[tfexgen] hook VersusVariantsButton.OnConfirm call %d: VersusVariantButtonPatch.VersusVariantsButton_OnConfirm=%d, original %s", ++g_calls_Hook_249, (int)g_on_Hook_249[0], run ? "runs" : "skipped");
+        if (g_on_Hook_231[0] && !tfex::gen::VersusVariantButtonPatch::VersusVariantsButton_OnConfirm()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_231 < 8) hw::Log("[tfexgen] hook VersusVariantsButton.OnConfirm call %d: VersusVariantButtonPatch.VersusVariantsButton_OnConfirm=%d, original %s", ++g_calls_Hook_231, (int)g_on_Hook_231[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_249::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_231::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VersusVariantsButton_OnConfirm::Orig() { ran_ = true; Hook_249::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusVariantsButton_OnConfirm::Wrap(void (*shell)(VersusVariantsButton_OnConfirm&)) { g_shell_Hook_249 = shell; if (!g_installed_Hook_249 && bind::m_VersusVariantsButton_OnConfirm) { Hook_249::InstallAtOffset(bind::m_VersusVariantsButton_OnConfirm); g_installed_Hook_249 = true; } }
+void VersusVariantsButton_OnConfirm::Orig() { ran_ = true; Hook_231::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusVariantsButton_OnConfirm::Wrap(void (*shell)(VersusVariantsButton_OnConfirm&)) { g_shell_Hook_231 = shell; if (!g_installed_Hook_231 && bind::m_VersusVariantsButton_OnConfirm) { Hook_231::InstallAtOffset(bind::m_VersusVariantsButton_OnConfirm); g_installed_Hook_231 = true; } }
 
 void VersusVariantsButton_Render::operator()() {
         bool run = true;
-        if (g_on_Hook_250[0] && !tfex::gen::VersusVariantButtonPatch::VersusVariantsButton_Render()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_250 < 8) hw::Log("[tfexgen] hook VersusVariantsButton.Render call %d: VersusVariantButtonPatch.VersusVariantsButton_Render=%d, original %s", ++g_calls_Hook_250, (int)g_on_Hook_250[0], run ? "runs" : "skipped");
+        if (g_on_Hook_232[0] && !tfex::gen::VersusVariantButtonPatch::VersusVariantsButton_Render()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_232 < 8) hw::Log("[tfexgen] hook VersusVariantsButton.Render call %d: VersusVariantButtonPatch.VersusVariantsButton_Render=%d, original %s", ++g_calls_Hook_232, (int)g_on_Hook_232[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_250::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_232::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void VersusVariantsButton_Render::Orig() { ran_ = true; Hook_250::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void VersusVariantsButton_Render::Wrap(void (*shell)(VersusVariantsButton_Render&)) { g_shell_Hook_250 = shell; if (!g_installed_Hook_250 && bind::m_VersusVariantsButton_Render) { Hook_250::InstallAtOffset(bind::m_VersusVariantsButton_Render); g_installed_Hook_250 = true; } }
+void VersusVariantsButton_Render::Orig() { ran_ = true; Hook_232::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void VersusVariantsButton_Render::Wrap(void (*shell)(VersusVariantsButton_Render&)) { g_shell_Hook_232 = shell; if (!g_installed_Hook_232 && bind::m_VersusVariantsButton_Render) { Hook_232::InstallAtOffset(bind::m_VersusVariantsButton_Render); g_installed_Hook_232 = true; } }
 
 void WhiteArcherPrison_Spawn::operator()() {
         void* __result{};
         bool run = true;
-        if (g_on_Hook_251[0] && !tfex::gen::WhiteArcherPrisonPatch::WhiteArcherPrison_Spawn(xml, __result)) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_251 < 8) hw::Log("[tfexgen] hook WhiteArcherPrison.Spawn call %d: WhiteArcherPrisonPatch.WhiteArcherPrison_Spawn=%d, original %s", ++g_calls_Hook_251, (int)g_on_Hook_251[0], run ? "runs" : "skipped");
+        if (g_on_Hook_233[0] && !tfex::gen::WhiteArcherPrisonPatch::WhiteArcherPrison_Spawn(xml, __result)) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_233 < 8) hw::Log("[tfexgen] hook WhiteArcherPrison.Spawn call %d: WhiteArcherPrisonPatch.WhiteArcherPrison_Spawn=%d, original %s", ++g_calls_Hook_233, (int)g_on_Hook_233[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) __result = Hook_251::Orig(xml, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) __result = Hook_233::Orig(xml, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
         result_ = __result;
 }
-void WhiteArcherPrison_Spawn::Orig() { ran_ = true; result_ = Hook_251::Orig(xml, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void WhiteArcherPrison_Spawn::Wrap(void (*shell)(WhiteArcherPrison_Spawn&)) { g_shell_Hook_251 = shell; if (!g_installed_Hook_251 && bind::m_WhiteArcherPrison_Spawn_08c4) { Hook_251::InstallAtOffset(bind::m_WhiteArcherPrison_Spawn_08c4); g_installed_Hook_251 = true; } }
+void WhiteArcherPrison_Spawn::Orig() { ran_ = true; result_ = Hook_233::Orig(xml, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void WhiteArcherPrison_Spawn::Wrap(void (*shell)(WhiteArcherPrison_Spawn&)) { g_shell_Hook_233 = shell; if (!g_installed_Hook_233 && bind::m_WhiteArcherPrison_Spawn_08c4) { Hook_233::InstallAtOffset(bind::m_WhiteArcherPrison_Spawn_08c4); g_installed_Hook_233 = true; } }
 
 void WoodenHat_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_252[0]) tfex::gen::State_WoodenHatRng::WoodenHat_Update_Prefix();
-        if (g_calls_Hook_252 < 8) hw::Log("[tfexgen] hook WoodenHat.Update call %d: WoodenHatRngPatch.WoodenHat_Update_Prefix=%d WoodenHatRngPatch.WoodenHat_Update_Postfix=%d, original %s", ++g_calls_Hook_252, (int)g_on_Hook_252[0], (int)g_on_Hook_252[1], run ? "runs" : "skipped");
+        if (g_on_Hook_234[0]) tfex::gen::State_WoodenHatRng::WoodenHat_Update_Prefix();
+        if (g_calls_Hook_234 < 8) hw::Log("[tfexgen] hook WoodenHat.Update call %d: WoodenHatRngPatch.WoodenHat_Update_Prefix=%d WoodenHatRngPatch.WoodenHat_Update_Postfix=%d, original %s", ++g_calls_Hook_234, (int)g_on_Hook_234[0], (int)g_on_Hook_234[1], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_252::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
-        if (g_on_Hook_252[1]) tfex::gen::State_WoodenHatRng::WoodenHat_Update_Postfix();
+        if (run) Hook_234::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (g_on_Hook_234[1]) tfex::gen::State_WoodenHatRng::WoodenHat_Update_Postfix();
         ran_ = run;
 }
-void WoodenHat_Update::Orig() { ran_ = true; Hook_252::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void WoodenHat_Update::Wrap(void (*shell)(WoodenHat_Update&)) { g_shell_Hook_252 = shell; if (!g_installed_Hook_252 && bind::m_WoodenHat_Update) { Hook_252::InstallAtOffset(bind::m_WoodenHat_Update); g_installed_Hook_252 = true; } }
+void WoodenHat_Update::Orig() { ran_ = true; Hook_234::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void WoodenHat_Update::Wrap(void (*shell)(WoodenHat_Update&)) { g_shell_Hook_234 = shell; if (!g_installed_Hook_234 && bind::m_WoodenHat_Update) { Hook_234::InstallAtOffset(bind::m_WoodenHat_Update); g_installed_Hook_234 = true; } }
 
 void YellowArcherStatue_Update::operator()() {
         bool run = true;
-        if (g_on_Hook_253[0] && !tfex::gen::State_YellowArcherStatue::YellowArcherStatue_Update()) run = false;   /* a bool prefix: false skips the original */
-        if (g_calls_Hook_253 < 8) hw::Log("[tfexgen] hook YellowArcherStatue.Update call %d: YellowArcherStatuePatch.YellowArcherStatue_Update=%d, original %s", ++g_calls_Hook_253, (int)g_on_Hook_253[0], run ? "runs" : "skipped");
+        if (g_on_Hook_235[0] && !tfex::gen::State_YellowArcherStatue::YellowArcherStatue_Update()) run = false;   /* a bool prefix: false skips the original */
+        if (g_calls_Hook_235 < 8) hw::Log("[tfexgen] hook YellowArcherStatue.Update call %d: YellowArcherStatuePatch.YellowArcherStatue_Update=%d, original %s", ++g_calls_Hook_235, (int)g_on_Hook_235[0], run ? "runs" : "skipped");
         if (run && beforeOrig_) beforeOrig_(*this);
-        if (run) Hook_253::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
+        if (run) Hook_235::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_);
         ran_ = run;
 }
-void YellowArcherStatue_Update::Orig() { ran_ = true; Hook_253::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
-void YellowArcherStatue_Update::Wrap(void (*shell)(YellowArcherStatue_Update&)) { g_shell_Hook_253 = shell; if (!g_installed_Hook_253 && bind::m_YellowArcherStatue_Update) { Hook_253::InstallAtOffset(bind::m_YellowArcherStatue_Update); g_installed_Hook_253 = true; } }
+void YellowArcherStatue_Update::Orig() { ran_ = true; Hook_235::Orig(self, x1_, x2_, x3_, x4_, x5_, x6_, x7_); }
+void YellowArcherStatue_Update::Wrap(void (*shell)(YellowArcherStatue_Update&)) { g_shell_Hook_235 = shell; if (!g_installed_Hook_235 && bind::m_YellowArcherStatue_Update) { Hook_235::InstallAtOffset(bind::m_YellowArcherStatue_Update); g_installed_Hook_235 = true; } }
 
 void Orig_Alarm_Removed(void* self) { Hook_0::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
 void Orig_Audio_Stop() { Hook_1::Orig(0, 0, 0, 0, 0, 0, 0, 0); }
@@ -6357,198 +5904,185 @@ void Orig_Arrow_EnterFallMode(void* self, bool bounce, bool zeroX, bool sound) {
 void Orig_Arrow_Init(void* self, void* owner, gen::Vector2 position, float direction) { Hook_25::Orig(self, owner, position, direction, 0, 0, 0, 0, 0, 0); }
 void Orig_Arrow_Removed(void* self) { Hook_26::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
 void Orig_ArrowCushion_AddArrow(void* self, void* arrow, float moveIn, bool drawHead) { Hook_27::Orig(self, arrow, moveIn, drawHead, 0, 0, 0, 0, 0); }
-void Orig_ArrowHUD_Render(void* self) { Hook_28::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_BGCrystal_Update(void* self) { Hook_29::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LightningFlashLayer_SequenceB(void* self) { Hook_30::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LightningFlashLayer_SequenceC(void* self) { Hook_31::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LightningFlashLayer_SequenceD(void* self) { Hook_32::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Background_Update(void* self) { Hook_33::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Bat_Update(void* self) { Hook_35::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_BombParticle_Update(void* self) { Hook_36::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_BrambleArrow_HitWall(void* self, void* platform) { Hook_37::Orig(self, platform, 0, 0, 0, 0, 0, 0); }
-void Orig_BrambleArrow_Update(void* self) { Hook_38::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_Brambles_Create(int32_t id, gen::Vector2 position, int32_t ownerIndex, int32_t delay, bool shortTime) { return Hook_39::Orig(id, position, ownerIndex, delay, shortTime, 0, 0, 0, 0); }
-void Orig_CataclysmMeat_Update(void* self) { Hook_40::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Crown_Update(void* self) { Hook_42::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_DreadBGTentacle_Update(void* self) { Hook_44::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Enemy_SetState(void* self, int32_t newState) { Hook_46::Orig(self, newState, 0, 0, 0, 0, 0, 0); }
-void Orig_FightButton_MenuAction(void* self) { Hook_47::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_GameplayLayer_BatchedRender(void* self) { Hook_48::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_HUD_Update(void* self) { Hook_49::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_HeavyPhysicsObject_Update(void* self) { Hook_50::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Ice_Update(void* self) { Hook_51::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_Icicle_OnArrowHit(void* self, void* arrow) { return Hook_52::Orig(self, arrow, 0, 0, 0, 0, 0, 0); }
-void Orig_Icicle_OnExplodePush(void* self, void* explosion, gen::Vector2 normal) { Hook_53::Orig(self, explosion, normal, 0, 0, 0, 0, 0, 0); }
-void Orig_Icicle_OnPlayerCollide(void* self, void* player) { Hook_54::Orig(self, player, 0, 0, 0, 0, 0, 0); }
-void Orig_Icicle_OnPlayerGhostCollide(void* self, void* ghost) { Hook_55::Orig(self, ghost, 0, 0, 0, 0, 0, 0); }
-void Orig_Icicle_Update(void* self) { Hook_56::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Lantern_SceneBegin(void* self) { Hook_57::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Lantern_Update(void* self) { Hook_58::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LastManStandingRoundLogic_OnLevelLoadFinish(void* self) { Hook_59::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LastManStandingRoundLogic_OnRoundStart(void* self) { Hook_60::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Lava_BubbleComplete(void* self, void* bubble) { Hook_61::Orig(self, bubble, 0, 0, 0, 0, 0, 0); }
-void Orig_LavaControl_Added(void* self) { Hook_63::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LavaControl_Extend(void* self, int32_t ownerIndex) { Hook_64::Orig(self, ownerIndex, 0, 0, 0, 0, 0, 0); }
-void Orig_Level_HandlePausing(void* self) { Hook_66::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Level_ScreenShake(void* self, int32_t frames) { Hook_67::Orig(self, frames, 0, 0, 0, 0, 0, 0); }
-void Orig_Level_Update(void* self) { Hook_68::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LevelEntity_Render(void* self) { Hook_69::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LevelEntity_Update(void* self) { Hook_70::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LevelLoaderXML_Update(void* self) { Hook_72::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LevelTestRoundLogic_OnLevelLoadFinish(void* self) { Hook_73::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LightingLayer_Update(void* self) { Hook_74::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Loader_TweenIn(void* self) { Hook_75::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_LoopPlatform_Update(void* self) { Hook_76::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MainMenu_CreateTeamSelect(void* self) { Hook_77::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MainMenu_CreateVersusOptions(void* self) { Hook_78::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MainMenu_set_State(void* self, int32_t value) { Hook_79::Orig(self, value, 0, 0, 0, 0, 0, 0); }
-void Orig_MapScene_Begin(void* self) { Hook_80::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_MapScene_GetRandomVersusTower(void* self) { return Hook_81::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MapScene_InitVersusButtons(void* self) { Hook_82::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MapScene_StartSession(void* self) { Hook_83::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MatchSettings_CleanSettingsVersus(void* self) { Hook_84::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_MatchSettings_GetMaxTeamSize(void* self) { return Hook_85::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_MatchSettings_GetPlayerTeamSize(void* self, int32_t playerIndex) { return Hook_86::Orig(self, playerIndex, 0, 0, 0, 0, 0, 0); }
-bool Orig_MatchSettings_IsFriendly(void* self, int32_t playerA, int32_t playerB) { return Hook_87::Orig(self, playerA, playerB, 0, 0, 0, 0, 0); }
-int32_t Orig_MatchSettings_PlayerGoals(void* self, int32_t p2goal, int32_t p3goal, int32_t p4goal) { return Hook_88::Orig(self, p2goal, p3goal, p4goal, 0, 0, 0, 0); }
-bool Orig_MatchSettings_get_CanPlayThisMode(void* self) { return Hook_89::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_MatchSettings_get_CanStartWithTeams(void* self) { return Hook_90::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_MatchSettings_get_GoalScore(void* self) { return Hook_91::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_MatchSettings_get_TeamMode(void* self) { return Hook_92::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_MatchTeams_get_ProperlyAssigned(void* self) { return Hook_93::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_MatchVariants_BuildMenu(void* self, void* menu, void** startSelected, float* maxUICameraY) { return Hook_95::Orig(self, menu, startSelected, maxUICameraY, 0, 0, 0, 0); }
-void Orig_MatchVariants_Randomize(void* self) { Hook_96::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MenuItem_Update(void* self) { Hook_97::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Miasma_Dissipate(void* self) { Hook_98::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Miasma_Update(void* self) { Hook_99::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MoonGlassBlock_InsideExplode(void* self) { Hook_100::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_MovingPlatform_Update(void* self) { Hook_101::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OptionsButton_OnSelect(void* self) { Hook_102::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Orb_Update(void* self) { Hook_104::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbLogic_DoDarkOrb(void* self) { Hook_105::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbLogic_DoOffsetWorldVariant(void* self) { Hook_106::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbLogic_DoSpaceOrb(void* self) { Hook_107::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbLogic_DoTimeOrb(void* self, bool delay) { Hook_108::Orig(self, delay, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbLogic_StartScroll(void* self) { Hook_109::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbLogic_Update(void* self) { Hook_110::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_OrbPickup_OnPlayerCollide(void* self, void* player) { Hook_111::Orig(self, player, 0, 0, 0, 0, 0, 0); }
-void Orig_PauseMenu_AddItem(void* self, void* name, void* action) { Hook_112::Orig(self, name, action, 0, 0, 0, 0, 0); }
-void Orig_PauseMenu_Quit(void* self) { Hook_113::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PauseMenu_Update(void* self) { Hook_114::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PauseMenu_VersusArcherSelect(void* self) { Hook_115::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PauseMenu_VersusMatchSettingsAndSave(void* self) { Hook_116::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PauseMenu_VersusRematch(void* self) { Hook_117::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Pickup_FinishUnpack(void* self, void* t) { Hook_119::Orig(self, t, 0, 0, 0, 0, 0, 0); }
-void Orig_PirateBanner_Update(void* self) { Hook_120::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_Added(void* self) { Hook_122::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_DoSquish(void* self, void* solid, gen::Vector2 direction) { Hook_125::Orig(self, solid, direction, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_DoWrapRender(void* self) { Hook_126::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_DropArrow(void* self) { Hook_127::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_HUDRender(void* self, bool wrapped) { Hook_128::Orig(self, wrapped, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_HurtBouncedOn(void* self, int32_t bouncerIndex) { Hook_132::Orig(self, bouncerIndex, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_HurtDelayed(void* self, void* arrow) { Hook_133::Orig(self, arrow, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_InitHead(void* self) { Hook_134::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_LoseHat(void* self, void* arrow, bool updateHead) { Hook_135::Orig(self, arrow, updateHead, 0, 0, 0, 0, 0); }
-int32_t Orig_Player_NormalUpdate(void* self) { return Hook_136::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_PlayerOnPlayer(void* a, void* b) { Hook_137::Orig(a, b, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_ShootArrow(void* self) { Hook_138::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_SpawnedInsideSolidCheck(void* self) { Hook_139::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Player_Update(void* self) { Hook_140::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerCorpse_Added(void* self) { Hook_142::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerCorpse_DieByArrow(void* self, void* arrow, int32_t ledge) { Hook_143::Orig(self, arrow, ledge, 0, 0, 0, 0, 0); }
-void Orig_PlayerCorpse_DropNextArrow(void* self) { Hook_144::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerCorpse_StartDroppingArrows(void* self) { Hook_145::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerCorpse_Update(void* self) { Hook_146::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerGhost_DespawnEnter(void* self) { Hook_148::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerGhost_Update(void* self) { Hook_149::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerHair_Render(void* self) { Hook_151::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerHair_RenderBlack(void* self) { Hook_152::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerHair_RenderOutline(void* self) { Hook_153::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerHair_Update(void* self) { Hook_154::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerIndicator_Render(void* self) { Hook_156::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerIndicator_Update(void* self) { Hook_157::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_PlayerInput_AssignInputs() { Hook_158::Orig(0, 0, 0, 0, 0, 0, 0, 0); }
-gen::Opt<float> Orig_PlayerInput_GetAimDirection(gen::Vector2 axis, bool snap) { return Hook_159::Orig(axis, snap, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_QuestSpawnPortal_Appear(void* self) { return Hook_161::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_QuestSpawnPortal_Disappear(void* self) { return Hook_162::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_QuestSpawnPortal_Update(void* self) { Hook_163::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_ReadyBanner_GetReadyState(void* self) { return Hook_164::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RollcallElement_EnterJoined(void* self) { Hook_166::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RollcallElement_ForceStart(void* self) { Hook_167::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_RollcallElement_JoinedUpdate(void* self) { return Hook_168::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RollcallElement_LeaveJoined(void* self) { Hook_169::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_RollcallElement_NotJoinedUpdate(void* self) { return Hook_170::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RollcallElement_Render(void* self) { Hook_171::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RollcallElement_StartVersus(void* self) { Hook_172::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RollcallElement_Update(void* self) { Hook_173::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RotatePlatform_Update(void* self) { Hook_174::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_RoundLogic_GetRoundLogic(void* session) { return Hook_175::Orig(session, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RoundLogic_OnUpdate(void* self) { Hook_176::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_RoundLogic_SpawnPlayersFFA(void* self) { return Hook_177::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_RoundLogic_SpawnPlayersTeams(void* self) { Hook_178::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_SaveData_Save(void* self) { return Hook_179::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_ScreenTitle_ChangeState(void* self, int32_t state) { Hook_181::Orig(self, state, 0, 0, 0, 0, 0, 0); }
-void Orig_SensorBlock_Update(void* self) { Hook_182::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Session_CreateResults(void* self) { Hook_183::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Session_EndRound(void* self) { Hook_184::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_Session_GetScoreIndex(void* self, int32_t playerIndex) { return Hook_185::Orig(self, playerIndex, 0, 0, 0, 0, 0, 0); }
-void Orig_Session_GotoNextRound(void* self) { Hook_186::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Session_LevelLoadStart(void* self, void* level) { Hook_187::Orig(self, level, 0, 0, 0, 0, 0, 0); }
-void Orig_Session_StartGame(void* self) { Hook_188::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Session_StartRound(void* self) { Hook_189::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_ShiftBlock_Update(void* self) { Hook_190::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Slime_Update(void* self) { Hook_192::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_Spikeball_Update(void* self) { Hook_194::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_SteelHat_Update(void* self) { Hook_195::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TFGame_Load() { Hook_196::Orig(0, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TFGame_OnSceneTransition(void* self) { Hook_197::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TFGame_Update(void* self, void* gameTime) { Hook_198::Orig(self, gameTime, 0, 0, 0, 0, 0, 0); }
-void* Orig_TeamReviver_FinishReviving(void* self) { return Hook_200::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TeamReviver_ReviveUpdate(void* self) { Hook_201::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-int32_t Orig_TechnoMage_AlertUpdate(void* self) { return Hook_203::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TechnoMage_Update(void* self) { Hook_204::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TreasureChest_Added(void* self) { Hook_206::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_TreasureChest_OpenChest(void* self, int32_t playerIndex) { Hook_207::Orig(self, playerIndex, 0, 0, 0, 0, 0, 0); }
-void Orig_TreasureChest_Update(void* self) { Hook_208::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_TreasureSpawner_GetArrowShufflePickups(void* self) { return Hook_211::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_TreasureSpawner_GetChestSpawnsForLevel(void* self, void* chestPositions, void* bigChestPositions) { return Hook_212::Orig(self, chestPositions, bigChestPositions, 0, 0, 0, 0, 0); }
-int32_t Orig_TreasureSpawner_GetRandomArrowType(void* self, bool includeDefaultArrows) { return Hook_213::Orig(self, includeDefaultArrows, 0, 0, 0, 0, 0, 0); }
-void Orig_TriggerArrow_PlayEyeAnim(void* self) { Hook_214::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_UnlockData_get_ShouldOpenPurpleArcherPortal(void* self) { return Hook_215::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_UnlockData_get_ShouldSelectSunkenCity(void* self) { return Hook_216::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_UnlockData_get_ShouldSelectTowerForgeInVersus(void* self) { return Hook_217::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-bool Orig_UnlockData_get_ShouldShowMoonBreakSequence(void* self) { return Hook_218::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantDisableAll_OnConfirm(void* self) { Hook_219::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantDisableAll_Render(void* self) { Hook_220::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantPreset_OnConfirm(void* self) { Hook_221::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantPreset_Render(void* self) { Hook_222::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantRandomize_OnConfirm(void* self) { Hook_223::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantRandomize_Render(void* self) { Hook_224::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantToggle_OnConfirm(void* self) { Hook_225::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantToggle_OnSelect(void* self) { Hook_226::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantToggle_Render(void* self) { Hook_227::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantToggle_ShowPerPlayer(void* self) { Hook_228::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantToggle_Update(void* self) { Hook_229::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantTournament1v1_OnConfirm(void* self) { Hook_230::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantTournament1v1_Render(void* self) { Hook_231::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantTournament2v2_OnConfirm(void* self) { Hook_232::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VariantTournament2v2_Render(void* self) { Hook_233::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_VersusAwards_GetAwards(void* settings, void* stats) { return Hook_234::Orig(settings, stats, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusBeginButton_OnConfirm(void* self) { Hook_236::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusCoinButton_Render(void* self) { Hook_237::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusLevelSystem_GenLevels(void* self, void* matchSettings) { Hook_238::Orig(self, matchSettings, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusMapButton_OnConfirm(void* self) { Hook_239::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_VersusModeButton_GetModeIcon(int32_t mode) { return Hook_242::Orig(mode, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_VersusModeButton_GetModeName(int32_t mode) { return Hook_243::Orig(mode, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusModeButton_Render(void* self) { Hook_244::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusModeButton_Update(void* self) { Hook_245::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusModeButton_UpdateSides(void* self) { Hook_246::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_VersusTowerData_GetLevels(void* self, void* matchSettings) { return Hook_248::Orig(self, matchSettings, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusVariantsButton_OnConfirm(void* self) { Hook_249::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_VersusVariantsButton_Render(void* self) { Hook_250::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void* Orig_WhiteArcherPrison_Spawn(void* xml) { return Hook_251::Orig(xml, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_WoodenHat_Update(void* self) { Hook_252::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
-void Orig_YellowArcherStatue_Update(void* self) { Hook_253::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_BGCrystal_Update(void* self) { Hook_28::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LightningFlashLayer_SequenceB(void* self) { Hook_29::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LightningFlashLayer_SequenceC(void* self) { Hook_30::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LightningFlashLayer_SequenceD(void* self) { Hook_31::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Background_Update(void* self) { Hook_32::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Bat_Update(void* self) { Hook_34::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_BombParticle_Update(void* self) { Hook_35::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_BrambleArrow_HitWall(void* self, void* platform) { Hook_36::Orig(self, platform, 0, 0, 0, 0, 0, 0); }
+void Orig_BrambleArrow_Update(void* self) { Hook_37::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_Brambles_Create(int32_t id, gen::Vector2 position, int32_t ownerIndex, int32_t delay, bool shortTime) { return Hook_38::Orig(id, position, ownerIndex, delay, shortTime, 0, 0, 0, 0); }
+void Orig_CataclysmMeat_Update(void* self) { Hook_39::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Crown_Update(void* self) { Hook_41::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_DreadBGTentacle_Update(void* self) { Hook_43::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Enemy_SetState(void* self, int32_t newState) { Hook_45::Orig(self, newState, 0, 0, 0, 0, 0, 0); }
+void Orig_FightButton_MenuAction(void* self) { Hook_46::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_GameplayLayer_BatchedRender(void* self) { Hook_47::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_HUD_Update(void* self) { Hook_48::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_HeavyPhysicsObject_Update(void* self) { Hook_49::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Ice_Update(void* self) { Hook_50::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_Icicle_OnArrowHit(void* self, void* arrow) { return Hook_51::Orig(self, arrow, 0, 0, 0, 0, 0, 0); }
+void Orig_Icicle_OnExplodePush(void* self, void* explosion, gen::Vector2 normal) { Hook_52::Orig(self, explosion, normal, 0, 0, 0, 0, 0, 0); }
+void Orig_Icicle_OnPlayerCollide(void* self, void* player) { Hook_53::Orig(self, player, 0, 0, 0, 0, 0, 0); }
+void Orig_Icicle_OnPlayerGhostCollide(void* self, void* ghost) { Hook_54::Orig(self, ghost, 0, 0, 0, 0, 0, 0); }
+void Orig_Icicle_Update(void* self) { Hook_55::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Lantern_SceneBegin(void* self) { Hook_56::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Lantern_Update(void* self) { Hook_57::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LastManStandingRoundLogic_OnLevelLoadFinish(void* self) { Hook_58::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LastManStandingRoundLogic_OnRoundStart(void* self) { Hook_59::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Lava_BubbleComplete(void* self, void* bubble) { Hook_60::Orig(self, bubble, 0, 0, 0, 0, 0, 0); }
+void Orig_LavaControl_Added(void* self) { Hook_62::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LavaControl_Extend(void* self, int32_t ownerIndex) { Hook_63::Orig(self, ownerIndex, 0, 0, 0, 0, 0, 0); }
+void Orig_Level_HandlePausing(void* self) { Hook_65::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Level_ScreenShake(void* self, int32_t frames) { Hook_66::Orig(self, frames, 0, 0, 0, 0, 0, 0); }
+void Orig_Level_Update(void* self) { Hook_67::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LevelEntity_Render(void* self) { Hook_68::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LevelEntity_Update(void* self) { Hook_69::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LevelLoaderXML_Update(void* self) { Hook_71::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LevelTestRoundLogic_OnLevelLoadFinish(void* self) { Hook_72::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LightingLayer_Update(void* self) { Hook_73::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Loader_TweenIn(void* self) { Hook_74::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_LoopPlatform_Update(void* self) { Hook_75::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MainMenu_CreateTeamSelect(void* self) { Hook_76::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MainMenu_CreateVersusOptions(void* self) { Hook_77::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MainMenu_set_State(void* self, int32_t value) { Hook_78::Orig(self, value, 0, 0, 0, 0, 0, 0); }
+void Orig_MapScene_Begin(void* self) { Hook_79::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_MapScene_GetRandomVersusTower(void* self) { return Hook_80::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MapScene_InitVersusButtons(void* self) { Hook_81::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MapScene_StartSession(void* self) { Hook_82::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MatchSettings_CleanSettingsVersus(void* self) { Hook_83::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_MatchSettings_GetMaxTeamSize(void* self) { return Hook_84::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_MatchSettings_GetPlayerTeamSize(void* self, int32_t playerIndex) { return Hook_85::Orig(self, playerIndex, 0, 0, 0, 0, 0, 0); }
+bool Orig_MatchSettings_IsFriendly(void* self, int32_t playerA, int32_t playerB) { return Hook_86::Orig(self, playerA, playerB, 0, 0, 0, 0, 0); }
+int32_t Orig_MatchSettings_PlayerGoals(void* self, int32_t p2goal, int32_t p3goal, int32_t p4goal) { return Hook_87::Orig(self, p2goal, p3goal, p4goal, 0, 0, 0, 0); }
+bool Orig_MatchSettings_get_CanPlayThisMode(void* self) { return Hook_88::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_MatchSettings_get_CanStartWithTeams(void* self) { return Hook_89::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_MatchSettings_get_GoalScore(void* self) { return Hook_90::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_MatchSettings_get_TeamMode(void* self) { return Hook_91::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_MatchTeams_get_ProperlyAssigned(void* self) { return Hook_92::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_MatchVariants_BuildMenu(void* self, void* menu, void** startSelected, float* maxUICameraY) { return Hook_94::Orig(self, menu, startSelected, maxUICameraY, 0, 0, 0, 0); }
+void Orig_MatchVariants_Randomize(void* self) { Hook_95::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MenuItem_Update(void* self) { Hook_96::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Miasma_Dissipate(void* self) { Hook_97::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Miasma_Update(void* self) { Hook_98::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MoonGlassBlock_InsideExplode(void* self) { Hook_99::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_MovingPlatform_Update(void* self) { Hook_100::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OptionsButton_OnSelect(void* self) { Hook_101::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Orb_Update(void* self) { Hook_103::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbLogic_DoDarkOrb(void* self) { Hook_104::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbLogic_DoOffsetWorldVariant(void* self) { Hook_105::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbLogic_DoSpaceOrb(void* self) { Hook_106::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbLogic_DoTimeOrb(void* self, bool delay) { Hook_107::Orig(self, delay, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbLogic_StartScroll(void* self) { Hook_108::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbLogic_Update(void* self) { Hook_109::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_OrbPickup_OnPlayerCollide(void* self, void* player) { Hook_110::Orig(self, player, 0, 0, 0, 0, 0, 0); }
+void Orig_PauseMenu_AddItem(void* self, void* name, void* action) { Hook_111::Orig(self, name, action, 0, 0, 0, 0, 0); }
+void Orig_PauseMenu_Quit(void* self) { Hook_112::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PauseMenu_Update(void* self) { Hook_113::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PauseMenu_VersusArcherSelect(void* self) { Hook_114::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PauseMenu_VersusMatchSettingsAndSave(void* self) { Hook_115::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PauseMenu_VersusRematch(void* self) { Hook_116::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Pickup_FinishUnpack(void* self, void* t) { Hook_118::Orig(self, t, 0, 0, 0, 0, 0, 0); }
+void Orig_PirateBanner_Update(void* self) { Hook_119::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_Added(void* self) { Hook_121::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_DoWrapRender(void* self) { Hook_122::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_DropArrow(void* self) { Hook_123::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_HUDRender(void* self, bool wrapped) { Hook_124::Orig(self, wrapped, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_InitHead(void* self) { Hook_125::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_LoseHat(void* self, void* arrow, bool updateHead) { Hook_126::Orig(self, arrow, updateHead, 0, 0, 0, 0, 0); }
+void Orig_Player_SpawnedInsideSolidCheck(void* self) { Hook_127::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Player_Update(void* self) { Hook_128::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerCorpse_Added(void* self) { Hook_130::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerCorpse_DieByArrow(void* self, void* arrow, int32_t ledge) { Hook_131::Orig(self, arrow, ledge, 0, 0, 0, 0, 0); }
+void Orig_PlayerCorpse_DropNextArrow(void* self) { Hook_132::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerCorpse_StartDroppingArrows(void* self) { Hook_133::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerCorpse_Update(void* self) { Hook_134::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerGhost_DespawnEnter(void* self) { Hook_136::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerGhost_Update(void* self) { Hook_137::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerHair_Render(void* self) { Hook_139::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerHair_RenderBlack(void* self) { Hook_140::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerHair_RenderOutline(void* self) { Hook_141::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerHair_Update(void* self) { Hook_142::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerIndicator_Render(void* self) { Hook_144::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerIndicator_Update(void* self) { Hook_145::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_PlayerInput_AssignInputs() { Hook_146::Orig(0, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_QuestSpawnPortal_Appear(void* self) { return Hook_148::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_QuestSpawnPortal_Disappear(void* self) { return Hook_149::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_QuestSpawnPortal_Update(void* self) { Hook_150::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_ReadyBanner_GetReadyState(void* self) { return Hook_151::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RollcallElement_EnterJoined(void* self) { Hook_153::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RollcallElement_ForceStart(void* self) { Hook_154::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_RollcallElement_JoinedUpdate(void* self) { return Hook_155::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RollcallElement_LeaveJoined(void* self) { Hook_156::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_RollcallElement_NotJoinedUpdate(void* self) { return Hook_157::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RollcallElement_Render(void* self) { Hook_158::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RollcallElement_Update(void* self) { Hook_159::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RotatePlatform_Update(void* self) { Hook_160::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_RoundLogic_GetRoundLogic(void* session) { return Hook_161::Orig(session, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RoundLogic_OnUpdate(void* self) { Hook_162::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_RoundLogic_SpawnPlayersFFA(void* self) { return Hook_163::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_RoundLogic_SpawnPlayersTeams(void* self) { Hook_164::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_SaveData_Save(void* self) { return Hook_165::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_ScreenTitle_ChangeState(void* self, int32_t state) { Hook_167::Orig(self, state, 0, 0, 0, 0, 0, 0); }
+void Orig_SensorBlock_Update(void* self) { Hook_168::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Session_CreateResults(void* self) { Hook_169::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Session_EndRound(void* self) { Hook_170::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_Session_GetScoreIndex(void* self, int32_t playerIndex) { return Hook_171::Orig(self, playerIndex, 0, 0, 0, 0, 0, 0); }
+void Orig_Session_GotoNextRound(void* self) { Hook_172::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Session_LevelLoadStart(void* self, void* level) { Hook_173::Orig(self, level, 0, 0, 0, 0, 0, 0); }
+void Orig_Session_StartGame(void* self) { Hook_174::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Session_StartRound(void* self) { Hook_175::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_ShiftBlock_Update(void* self) { Hook_176::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Slime_Update(void* self) { Hook_178::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_Spikeball_Update(void* self) { Hook_180::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_SteelHat_Update(void* self) { Hook_181::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TFGame_Load() { Hook_182::Orig(0, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TFGame_OnSceneTransition(void* self) { Hook_183::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TFGame_Update(void* self, void* gameTime) { Hook_184::Orig(self, gameTime, 0, 0, 0, 0, 0, 0); }
+void* Orig_TeamReviver_FinishReviving(void* self) { return Hook_186::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TeamReviver_ReviveUpdate(void* self) { Hook_187::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+int32_t Orig_TechnoMage_AlertUpdate(void* self) { return Hook_189::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TechnoMage_Update(void* self) { Hook_190::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TreasureChest_Added(void* self) { Hook_192::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_TreasureChest_OpenChest(void* self, int32_t playerIndex) { Hook_193::Orig(self, playerIndex, 0, 0, 0, 0, 0, 0); }
+void Orig_TreasureChest_Update(void* self) { Hook_194::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_TreasureSpawner_GetArrowShufflePickups(void* self) { return Hook_197::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_TreasureSpawner_GetChestSpawnsForLevel(void* self, void* chestPositions, void* bigChestPositions) { return Hook_198::Orig(self, chestPositions, bigChestPositions, 0, 0, 0, 0, 0); }
+int32_t Orig_TreasureSpawner_GetRandomArrowType(void* self, bool includeDefaultArrows) { return Hook_199::Orig(self, includeDefaultArrows, 0, 0, 0, 0, 0, 0); }
+void Orig_TriggerArrow_PlayEyeAnim(void* self) { Hook_200::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_UnlockData_get_ShouldOpenPurpleArcherPortal(void* self) { return Hook_201::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_UnlockData_get_ShouldSelectSunkenCity(void* self) { return Hook_202::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_UnlockData_get_ShouldSelectTowerForgeInVersus(void* self) { return Hook_203::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+bool Orig_UnlockData_get_ShouldShowMoonBreakSequence(void* self) { return Hook_204::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantDisableAll_OnConfirm(void* self) { Hook_205::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantDisableAll_Render(void* self) { Hook_206::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantPreset_OnConfirm(void* self) { Hook_207::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantPreset_Render(void* self) { Hook_208::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantRandomize_OnConfirm(void* self) { Hook_209::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantRandomize_Render(void* self) { Hook_210::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantToggle_OnConfirm(void* self) { Hook_211::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantToggle_Render(void* self) { Hook_212::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantToggle_ShowPerPlayer(void* self) { Hook_213::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantTournament1v1_OnConfirm(void* self) { Hook_214::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantTournament1v1_Render(void* self) { Hook_215::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantTournament2v2_OnConfirm(void* self) { Hook_216::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VariantTournament2v2_Render(void* self) { Hook_217::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_VersusAwards_GetAwards(void* settings, void* stats) { return Hook_218::Orig(settings, stats, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusBeginButton_OnConfirm(void* self) { Hook_220::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusCoinButton_Render(void* self) { Hook_221::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusLevelSystem_GenLevels(void* self, void* matchSettings) { Hook_222::Orig(self, matchSettings, 0, 0, 0, 0, 0, 0); }
+void* Orig_VersusModeButton_GetModeIcon(int32_t mode) { return Hook_225::Orig(mode, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_VersusModeButton_GetModeName(int32_t mode) { return Hook_226::Orig(mode, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusModeButton_Update(void* self) { Hook_227::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusModeButton_UpdateSides(void* self) { Hook_228::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_VersusTowerData_GetLevels(void* self, void* matchSettings) { return Hook_230::Orig(self, matchSettings, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusVariantsButton_OnConfirm(void* self) { Hook_231::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_VersusVariantsButton_Render(void* self) { Hook_232::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void* Orig_WhiteArcherPrison_Spawn(void* xml) { return Hook_233::Orig(xml, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_WoodenHat_Update(void* self) { Hook_234::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
+void Orig_YellowArcherStatue_Update(void* self) { Hook_235::Orig(self, 0, 0, 0, 0, 0, 0, 0); }
 
 bool Enable(const char* cls, const char* skip) {
     bool any = false;
@@ -6584,302 +6118,268 @@ bool Enable(const char* cls, const char* skip) {
     if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ArrowPatch") && !Listed(skip, "Arrow_Removed")) { g_on_Hook_26[0] = true; any = true; if (!g_installed_Hook_26 && bind::m_Arrow_Removed) { Hook_26::InstallAtOffset(bind::m_Arrow_Removed); g_installed_Hook_26 = true; } }
     if (Is(cls, "TF.State.Patchs.Component.ArrowCushionPatch") && !Listed(skip, "AddArrow_Patch_Prefix")) { g_on_Hook_27[0] = true; any = true; if (!g_installed_Hook_27 && bind::m_ArrowCushion_AddArrow_a4b1) { Hook_27::InstallAtOffset(bind::m_ArrowCushion_AddArrow_a4b1); g_installed_Hook_27 = true; } }
     if (Is(cls, "TF.State.Patchs.Component.ArrowCushionPatch") && !Listed(skip, "AddArrow_Patch_Postfix")) { g_on_Hook_27[1] = true; any = true; if (!g_installed_Hook_27 && bind::m_ArrowCushion_AddArrow_a4b1) { Hook_27::InstallAtOffset(bind::m_ArrowCushion_AddArrow_a4b1); g_installed_Hook_27 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyArrowHUD") && !Listed(skip, "Render_patch")) { g_on_Hook_28[0] = true; any = true; if (!g_installed_Hook_28 && bind::m_ArrowHUD_Render) { Hook_28::InstallAtOffset(bind::m_ArrowHUD_Render); g_installed_Hook_28 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BGCrystalPatch") && !Listed(skip, "BGCrystal_Update")) { g_on_Hook_29[0] = true; any = true; if (!g_installed_Hook_29 && bind::m_BGCrystal_Update) { Hook_29::InstallAtOffset(bind::m_BGCrystal_Update); g_installed_Hook_29 = true; } }
-    if (Is(cls, "TF.State.Patchs.Layer.LightningFlashLayerPatch") && !Listed(skip, "LightningFlashLayer_SequenceB")) { g_on_Hook_30[0] = true; any = true; if (!g_installed_Hook_30 && bind::m_Background_LightningFlashLayer_SequenceB) { Hook_30::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceB); g_installed_Hook_30 = true; } }
-    if (Is(cls, "TF.State.Patchs.Layer.LightningFlashLayerPatch") && !Listed(skip, "LightningFlashLayer_SequenceC")) { g_on_Hook_31[0] = true; any = true; if (!g_installed_Hook_31 && bind::m_Background_LightningFlashLayer_SequenceC) { Hook_31::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceC); g_installed_Hook_31 = true; } }
-    if (Is(cls, "TF.State.Patchs.Layer.LightningFlashLayerPatch") && !Listed(skip, "LightningFlashLayer_SequenceD")) { g_on_Hook_32[0] = true; any = true; if (!g_installed_Hook_32 && bind::m_Background_LightningFlashLayer_SequenceD) { Hook_32::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceD); g_installed_Hook_32 = true; } }
-    if (Is(cls, "TF.State.Patchs.Background.BackgroundPatch") && !Listed(skip, "Background_Update")) { g_on_Hook_33[0] = true; any = true; if (!g_installed_Hook_33 && bind::m_Background_Update) { Hook_33::InstallAtOffset(bind::m_Background_Update); g_installed_Hook_33 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BatPatch") && !Listed(skip, "Bat_ctor")) { g_on_Hook_34[0] = true; any = true; if (!g_installed_Hook_34 && bind::m_Bat__ctor_81ac) { Hook_34::InstallAtOffset(bind::m_Bat__ctor_81ac); g_installed_Hook_34 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BatPatch") && !Listed(skip, "Bat_Update_Postfix")) { g_on_Hook_35[0] = true; any = true; if (!g_installed_Hook_35 && bind::m_Bat_Update) { Hook_35::InstallAtOffset(bind::m_Bat_Update); g_installed_Hook_35 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BombParticlePatch") && !Listed(skip, "BombParticle_Update")) { g_on_Hook_36[0] = true; any = true; if (!g_installed_Hook_36 && bind::m_BombParticle_Update) { Hook_36::InstallAtOffset(bind::m_BombParticle_Update); g_installed_Hook_36 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BrambleArrowPatch") && !Listed(skip, "HitWall_Prefix")) { g_on_Hook_37[0] = true; any = true; if (!g_installed_Hook_37 && bind::m_BrambleArrow_HitWall_18a4) { Hook_37::InstallAtOffset(bind::m_BrambleArrow_HitWall_18a4); g_installed_Hook_37 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BrambleArrowPatch") && !Listed(skip, "Update_Postfix")) { g_on_Hook_38[0] = true; any = true; if (!g_installed_Hook_38 && bind::m_BrambleArrow_Update) { Hook_38::InstallAtOffset(bind::m_BrambleArrow_Update); g_installed_Hook_38 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BramblesPatch") && !Listed(skip, "Create_Prefix")) { g_on_Hook_39[0] = true; any = true; if (!g_installed_Hook_39 && bind::m_Brambles_Create_4889) { Hook_39::InstallAtOffset(bind::m_Brambles_Create_4889); g_installed_Hook_39 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.CataclysmMeatPatch") && !Listed(skip, "CataclysmMeat_Update")) { g_on_Hook_40[0] = true; any = true; if (!g_installed_Hook_40 && bind::m_CataclysmMeat_Update) { Hook_40::InstallAtOffset(bind::m_CataclysmMeat_Update); g_installed_Hook_40 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ChainPatch") && !Listed(skip, "Chain_ctor_Vector2_int_Prefix")) { g_on_Hook_41[0] = true; any = true; if (!g_installed_Hook_41 && bind::m_Chain__ctor_5ce7) { Hook_41::InstallAtOffset(bind::m_Chain__ctor_5ce7); g_installed_Hook_41 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ChainPatch") && !Listed(skip, "Chain_ctor_Vector2_int_Postfix")) { g_on_Hook_41[1] = true; any = true; if (!g_installed_Hook_41 && bind::m_Chain__ctor_5ce7) { Hook_41::InstallAtOffset(bind::m_Chain__ctor_5ce7); g_installed_Hook_41 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.CrownRngPatch") && !Listed(skip, "Crown_Update_Prefix")) { g_on_Hook_42[0] = true; any = true; if (!g_installed_Hook_42 && bind::m_Crown_Update) { Hook_42::InstallAtOffset(bind::m_Crown_Update); g_installed_Hook_42 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.CrownRngPatch") && !Listed(skip, "Crown_Update_Postfix")) { g_on_Hook_42[1] = true; any = true; if (!g_installed_Hook_42 && bind::m_Crown_Update) { Hook_42::InstallAtOffset(bind::m_Crown_Update); g_installed_Hook_42 = true; } }
-    if (Is(cls, "TF.State.Patchs.DarkPortalsVariantSequencePatch") && !Listed(skip, "DarkPortalsVariantSequence_ctor")) { g_on_Hook_43[0] = true; any = true; if (!g_installed_Hook_43 && bind::m_DarkPortalsVariantSequence__ctor) { Hook_43::InstallAtOffset(bind::m_DarkPortalsVariantSequence__ctor); g_installed_Hook_43 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.DreadBGTentaclePatch") && !Listed(skip, "DreadBGTentacle_Update")) { g_on_Hook_44[0] = true; any = true; if (!g_installed_Hook_44 && bind::m_DreadBGTentacle_Update) { Hook_44::InstallAtOffset(bind::m_DreadBGTentacle_Update); g_installed_Hook_44 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.DummyHeadPatch") && !Listed(skip, "DummyHead_ctor_Prefix")) { g_on_Hook_45[0] = true; any = true; if (!g_installed_Hook_45 && bind::m_DummyHead__ctor_c1e0) { Hook_45::InstallAtOffset(bind::m_DummyHead__ctor_c1e0); g_installed_Hook_45 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.DummyHeadPatch") && !Listed(skip, "DummyHead_ctor_Postfix")) { g_on_Hook_45[1] = true; any = true; if (!g_installed_Hook_45 && bind::m_DummyHead__ctor_c1e0) { Hook_45::InstallAtOffset(bind::m_DummyHead__ctor_c1e0); g_installed_Hook_45 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "Enemy_SetState_Postfix")) { g_on_Hook_46[0] = true; any = true; if (!g_installed_Hook_46 && bind::m_Enemy_SetState_e2bf) { Hook_46::InstallAtOffset(bind::m_Enemy_SetState_e2bf); g_installed_Hook_46 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.FightButtonPatch") && !Listed(skip, "FightButton_MenuAction")) { g_on_Hook_47[0] = true; any = true; if (!g_installed_Hook_47 && bind::m_FightButton_MenuAction) { Hook_47::InstallAtOffset(bind::m_FightButton_MenuAction); g_installed_Hook_47 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Layer.GameplayLayerPatch") && !Listed(skip, "GameplayLayer_BatchedRender")) { g_on_Hook_48[0] = true; any = true; if (!g_installed_Hook_48 && bind::m_GameplayLayer_BatchedRender) { Hook_48::InstallAtOffset(bind::m_GameplayLayer_BatchedRender); g_installed_Hook_48 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.HUD.HUDPatch") && !Listed(skip, "HUD_Update")) { g_on_Hook_49[0] = true; any = true; if (!g_installed_Hook_49 && bind::m_HUD_Update) { Hook_49::InstallAtOffset(bind::m_HUD_Update); g_installed_Hook_49 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.HeavyPhysicsObjectPatch") && !Listed(skip, "HeavyPhysicsObject_Update")) { g_on_Hook_50[0] = true; any = true; if (!g_installed_Hook_50 && bind::m_HeavyPhysicsObject_Update) { Hook_50::InstallAtOffset(bind::m_HeavyPhysicsObject_Update); g_installed_Hook_50 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IcePatch") && !Listed(skip, "Ice_Update")) { g_on_Hook_51[0] = true; any = true; if (!g_installed_Hook_51 && bind::m_Ice_Update) { Hook_51::InstallAtOffset(bind::m_Ice_Update); g_installed_Hook_51 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnArrowHit")) { g_on_Hook_52[0] = true; any = true; if (!g_installed_Hook_52 && bind::m_Icicle_OnArrowHit_3b10) { Hook_52::InstallAtOffset(bind::m_Icicle_OnArrowHit_3b10); g_installed_Hook_52 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnExplodePush")) { g_on_Hook_53[0] = true; any = true; if (!g_installed_Hook_53 && bind::m_Icicle_OnExplodePush_e39e) { Hook_53::InstallAtOffset(bind::m_Icicle_OnExplodePush_e39e); g_installed_Hook_53 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnPlayerCollide")) { g_on_Hook_54[0] = true; any = true; if (!g_installed_Hook_54 && bind::m_Icicle_OnPlayerCollide_468a) { Hook_54::InstallAtOffset(bind::m_Icicle_OnPlayerCollide_468a); g_installed_Hook_54 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnPlayerGhostCollide")) { g_on_Hook_55[0] = true; any = true; if (!g_installed_Hook_55 && bind::m_Icicle_OnPlayerGhostCollide_8681) { Hook_55::InstallAtOffset(bind::m_Icicle_OnPlayerGhostCollide_8681); g_installed_Hook_55 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_Update")) { g_on_Hook_56[0] = true; any = true; if (!g_installed_Hook_56 && bind::m_Icicle_Update) { Hook_56::InstallAtOffset(bind::m_Icicle_Update); g_installed_Hook_56 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LanternPatch") && !Listed(skip, "Lantern_SceneBegin_Postfix")) { g_on_Hook_57[0] = true; any = true; if (!g_installed_Hook_57 && bind::m_Lantern_SceneBegin) { Hook_57::InstallAtOffset(bind::m_Lantern_SceneBegin); g_installed_Hook_57 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LanternCosmeticPatch") && !Listed(skip, "Lantern_Update_Prefix")) { g_on_Hook_58[0] = true; any = true; if (!g_installed_Hook_58 && bind::m_Lantern_Update) { Hook_58::InstallAtOffset(bind::m_Lantern_Update); g_installed_Hook_58 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LanternCosmeticPatch") && !Listed(skip, "Lantern_Update_Postfix")) { g_on_Hook_58[1] = true; any = true; if (!g_installed_Hook_58 && bind::m_Lantern_Update) { Hook_58::InstallAtOffset(bind::m_Lantern_Update); g_installed_Hook_58 = true; } }
-    if (Is(cls, "TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch") && !Listed(skip, "LastManStandingRoundLogic_OnLevelLoadFinish")) { g_on_Hook_59[0] = true; any = true; if (!g_installed_Hook_59 && bind::m_LastManStandingRoundLogic_OnLevelLoadFinish) { Hook_59::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnLevelLoadFinish); g_installed_Hook_59 = true; } }
-    if (Is(cls, "TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch") && !Listed(skip, "LastManStandingRoundLogic_OnRoundStart")) { g_on_Hook_60[0] = true; any = true; if (!g_installed_Hook_60 && bind::m_LastManStandingRoundLogic_OnRoundStart) { Hook_60::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnRoundStart); g_installed_Hook_60 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaPatch") && !Listed(skip, "Lava_BubbleComplete_Prefix")) { g_on_Hook_61[0] = true; any = true; if (!g_installed_Hook_61 && bind::m_Lava_BubbleComplete_77d2) { Hook_61::InstallAtOffset(bind::m_Lava_BubbleComplete_77d2); g_installed_Hook_61 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaPatch") && !Listed(skip, "Lava_BubbleComplete_Postfix")) { g_on_Hook_61[1] = true; any = true; if (!g_installed_Hook_61 && bind::m_Lava_BubbleComplete_77d2) { Hook_61::InstallAtOffset(bind::m_Lava_BubbleComplete_77d2); g_installed_Hook_61 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_ctor_Prefix")) { g_on_Hook_62[0] = true; any = true; if (!g_installed_Hook_62 && bind::m_LavaControl__ctor_7672) { Hook_62::InstallAtOffset(bind::m_LavaControl__ctor_7672); g_installed_Hook_62 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_ctor_Postfix")) { g_on_Hook_62[1] = true; any = true; if (!g_installed_Hook_62 && bind::m_LavaControl__ctor_7672) { Hook_62::InstallAtOffset(bind::m_LavaControl__ctor_7672); g_installed_Hook_62 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Added_Prefix")) { g_on_Hook_63[0] = true; any = true; if (!g_installed_Hook_63 && bind::m_LavaControl_Added) { Hook_63::InstallAtOffset(bind::m_LavaControl_Added); g_installed_Hook_63 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Added_Postfix")) { g_on_Hook_63[1] = true; any = true; if (!g_installed_Hook_63 && bind::m_LavaControl_Added) { Hook_63::InstallAtOffset(bind::m_LavaControl_Added); g_installed_Hook_63 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Extend_Prefix")) { g_on_Hook_64[0] = true; any = true; if (!g_installed_Hook_64 && bind::m_LavaControl_Extend_e2bf) { Hook_64::InstallAtOffset(bind::m_LavaControl_Extend_e2bf); g_installed_Hook_64 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Extend_Postfix")) { g_on_Hook_64[1] = true; any = true; if (!g_installed_Hook_64 && bind::m_LavaControl_Extend_e2bf) { Hook_64::InstallAtOffset(bind::m_LavaControl_Extend_e2bf); g_installed_Hook_64 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_ctor")) { g_on_Hook_65[0] = true; any = true; if (!g_installed_Hook_65 && bind::m_Level__ctor_8bd2) { Hook_65::InstallAtOffset(bind::m_Level__ctor_8bd2); g_installed_Hook_65 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyLevel") && !Listed(skip, "ctor_patch")) { g_on_Hook_65[1] = true; any = true; if (!g_installed_Hook_65 && bind::m_Level__ctor_8bd2) { Hook_65::InstallAtOffset(bind::m_Level__ctor_8bd2); g_installed_Hook_65 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_HandlePausing")) { g_on_Hook_66[0] = true; any = true; if (!g_installed_Hook_66 && bind::m_Level_HandlePausing) { Hook_66::InstallAtOffset(bind::m_Level_HandlePausing); g_installed_Hook_66 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_HandlePausing")) { g_on_Hook_66[1] = true; any = true; if (!g_installed_Hook_66 && bind::m_Level_HandlePausing) { Hook_66::InstallAtOffset(bind::m_Level_HandlePausing); g_installed_Hook_66 = true; } }
-    if (Is(cls, "TF.State.Patchs.Scene.LevelScreenShakePatch") && !Listed(skip, "Level_ScreenShake")) { g_on_Hook_67[0] = true; any = true; if (!g_installed_Hook_67 && bind::m_Level_ScreenShake_e2bf) { Hook_67::InstallAtOffset(bind::m_Level_ScreenShake_e2bf); g_installed_Hook_67 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_Update__Prefix")) { g_on_Hook_68[0] = true; any = true; if (!g_installed_Hook_68 && bind::m_Level_Update) { Hook_68::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_68 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_Update__Postfix")) { g_on_Hook_68[1] = true; any = true; if (!g_installed_Hook_68 && bind::m_Level_Update) { Hook_68::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_68 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyLevel") && !Listed(skip, "Update_patch")) { g_on_Hook_68[2] = true; any = true; if (!g_installed_Hook_68 && bind::m_Level_Update) { Hook_68::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_68 = true; } }
-    if (Is(cls, "TFModFortRiseAiGraph.MyLevel") && !Listed(skip, "Update_patch")) { g_on_Hook_68[3] = true; any = true; if (!g_installed_Hook_68 && bind::m_Level_Update) { Hook_68::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_68 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntityPatch") && !Listed(skip, "LevelEntity_Render_Prefix")) { g_on_Hook_69[0] = true; any = true; if (!g_installed_Hook_69 && bind::m_LevelEntity_Render) { Hook_69::InstallAtOffset(bind::m_LevelEntity_Render); g_installed_Hook_69 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntityPatch") && !Listed(skip, "LevelEntity_Render_Postfix")) { g_on_Hook_69[1] = true; any = true; if (!g_installed_Hook_69 && bind::m_LevelEntity_Render) { Hook_69::InstallAtOffset(bind::m_LevelEntity_Render); g_installed_Hook_69 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ShockCirclePatch") && !Listed(skip, "LevelEntity_Update")) { g_on_Hook_70[0] = true; any = true; if (!g_installed_Hook_70 && bind::m_LevelEntity_Update) { Hook_70::InstallAtOffset(bind::m_LevelEntity_Update); g_installed_Hook_70 = true; } }
-    if (Is(cls, "TF.State.Patchs.Scene.LevelLoaderXMLStatePatch") && !Listed(skip, "LevelLoaderXML_ctor")) { g_on_Hook_71[0] = true; any = true; if (!g_installed_Hook_71 && bind::m_LevelLoaderXML__ctor_9385) { Hook_71::InstallAtOffset(bind::m_LevelLoaderXML__ctor_9385); g_installed_Hook_71 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.LevelLoaderXMLPatch") && !Listed(skip, "LevelLoaderXML_Update")) { g_on_Hook_72[0] = true; any = true; if (!g_installed_Hook_72 && bind::m_LevelLoaderXML_Update) { Hook_72::InstallAtOffset(bind::m_LevelLoaderXML_Update); g_installed_Hook_72 = true; } }
-    if (Is(cls, "TF.State.Patchs.RoundLogic.LevelTestRoundLogicPatch") && !Listed(skip, "RoundLogic_OnLevelLoadFinish")) { g_on_Hook_73[0] = true; any = true; if (!g_installed_Hook_73 && bind::m_LevelTestRoundLogic_OnLevelLoadFinish) { Hook_73::InstallAtOffset(bind::m_LevelTestRoundLogic_OnLevelLoadFinish); g_installed_Hook_73 = true; } }
-    if (Is(cls, "TF.State.Patchs.Layer.LightingLayerPatch") && !Listed(skip, "LightingLayer_Update")) { g_on_Hook_74[0] = true; any = true; if (!g_installed_Hook_74 && bind::m_LightingLayer_Update) { Hook_74::InstallAtOffset(bind::m_LightingLayer_Update); g_installed_Hook_74 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.LoaderPatch") && !Listed(skip, "Loader_TweenIn")) { g_on_Hook_75[0] = true; any = true; if (!g_installed_Hook_75 && bind::m_Loader_TweenIn) { Hook_75::InstallAtOffset(bind::m_Loader_TweenIn); g_installed_Hook_75 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LoopPlatformPatch") && !Listed(skip, "LoopPlatform_Update")) { g_on_Hook_76[0] = true; any = true; if (!g_installed_Hook_76 && bind::m_LoopPlatform_Update) { Hook_76::InstallAtOffset(bind::m_LoopPlatform_Update); g_installed_Hook_76 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.MenuHooks") && !Listed(skip, "CreateTeamSelect_Prefix")) { g_on_Hook_77[0] = true; any = true; if (!g_installed_Hook_77 && bind::m_MainMenu_CreateTeamSelect) { Hook_77::InstallAtOffset(bind::m_MainMenu_CreateTeamSelect); g_installed_Hook_77 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MainMenuPatch") && !Listed(skip, "MainMenu_CreateVersusOptions")) { g_on_Hook_78[0] = true; any = true; if (!g_installed_Hook_78 && bind::m_MainMenu_CreateVersusOptions) { Hook_78::InstallAtOffset(bind::m_MainMenu_CreateVersusOptions); g_installed_Hook_78 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MainMenuPatch") && !Listed(skip, "MainMenu_set_State")) { g_on_Hook_79[0] = true; any = true; if (!g_installed_Hook_79 && bind::m_MainMenu_set_State_b2b6) { Hook_79::InstallAtOffset(bind::m_MainMenu_set_State_b2b6); g_installed_Hook_79 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "Begin_Postfix")) { g_on_Hook_80[0] = true; any = true; if (!g_installed_Hook_80 && bind::m_MapScene_Begin) { Hook_80::InstallAtOffset(bind::m_MapScene_Begin); g_installed_Hook_80 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "MapScene_GetRandomVersusTower")) { g_on_Hook_81[0] = true; any = true; if (!g_installed_Hook_81 && bind::m_MapScene_GetRandomVersusTower) { Hook_81::InstallAtOffset(bind::m_MapScene_GetRandomVersusTower); g_installed_Hook_81 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "InitVersusButtons_Prefix")) { g_on_Hook_82[0] = true; any = true; if (!g_installed_Hook_82 && bind::m_MapScene_InitVersusButtons) { Hook_82::InstallAtOffset(bind::m_MapScene_InitVersusButtons); g_installed_Hook_82 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "InitVersusButtons_Postfix")) { g_on_Hook_82[1] = true; any = true; if (!g_installed_Hook_82 && bind::m_MapScene_InitVersusButtons) { Hook_82::InstallAtOffset(bind::m_MapScene_InitVersusButtons); g_installed_Hook_82 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "StartSession_Prefix")) { g_on_Hook_83[0] = true; any = true; if (!g_installed_Hook_83 && bind::m_MapScene_StartSession) { Hook_83::InstallAtOffset(bind::m_MapScene_StartSession); g_installed_Hook_83 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "StartSession_Postfix")) { g_on_Hook_83[1] = true; any = true; if (!g_installed_Hook_83 && bind::m_MapScene_StartSession) { Hook_83::InstallAtOffset(bind::m_MapScene_StartSession); g_installed_Hook_83 = true; } }
-    if (Is(cls, "TF.EX.Patchs.MatchSettingsPatch") && !Listed(skip, "MatchSettings_CleanSettingsVersus")) { g_on_Hook_84[0] = true; any = true; if (!g_installed_Hook_84 && bind::m_MatchSettings_CleanSettingsVersus) { Hook_84::InstallAtOffset(bind::m_MatchSettings_CleanSettingsVersus); g_installed_Hook_84 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "GetMaxTeamSize_Prefix")) { g_on_Hook_85[0] = true; any = true; if (!g_installed_Hook_85 && bind::m_MatchSettings_GetMaxTeamSize) { Hook_85::InstallAtOffset(bind::m_MatchSettings_GetMaxTeamSize); g_installed_Hook_85 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "GetPlayerTeamSize_Prefix")) { g_on_Hook_86[0] = true; any = true; if (!g_installed_Hook_86 && bind::m_MatchSettings_GetPlayerTeamSize_e2bf) { Hook_86::InstallAtOffset(bind::m_MatchSettings_GetPlayerTeamSize_e2bf); g_installed_Hook_86 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "IsFriendly_Prefix")) { g_on_Hook_87[0] = true; any = true; if (!g_installed_Hook_87 && bind::m_MatchSettings_IsFriendly_c11b) { Hook_87::InstallAtOffset(bind::m_MatchSettings_IsFriendly_c11b); g_installed_Hook_87 = true; } }
-    if (Is(cls, "TF.EX.Patchs.MatchSettingsPatch") && !Listed(skip, "MatchSettings_PlayerGoals")) { g_on_Hook_88[0] = true; any = true; if (!g_installed_Hook_88 && bind::m_MatchSettings_PlayerGoals_cf0f) { Hook_88::InstallAtOffset(bind::m_MatchSettings_PlayerGoals_cf0f); g_installed_Hook_88 = true; } }
-    if (Is(cls, "TowerFall.patch_MatchSettings") && !Listed(skip, "get_CanPlayThisMode")) { g_on_Hook_89[0] = true; any = true; if (!g_installed_Hook_89 && bind::m_MatchSettings_get_CanPlayThisMode) { Hook_89::InstallAtOffset(bind::m_MatchSettings_get_CanPlayThisMode); g_installed_Hook_89 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "CanStartWithTeams_Prefix")) { g_on_Hook_90[0] = true; any = true; if (!g_installed_Hook_90 && bind::m_MatchSettings_get_CanStartWithTeams) { Hook_90::InstallAtOffset(bind::m_MatchSettings_get_CanStartWithTeams); g_installed_Hook_90 = true; } }
-    if (Is(cls, "TowerFall.patch_MatchSettings") && !Listed(skip, "get_GoalScore")) { g_on_Hook_91[0] = true; any = true; if (!g_installed_Hook_91 && bind::m_MatchSettings_get_GoalScore) { Hook_91::InstallAtOffset(bind::m_MatchSettings_get_GoalScore); g_installed_Hook_91 = true; } }
-    if (Is(cls, "TowerFall.patch_MatchSettings") && !Listed(skip, "get_TeamMode")) { g_on_Hook_92[0] = true; any = true; if (!g_installed_Hook_92 && bind::m_MatchSettings_get_TeamMode) { Hook_92::InstallAtOffset(bind::m_MatchSettings_get_TeamMode); g_installed_Hook_92 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "ProperlyAssigned_Prefix")) { g_on_Hook_93[0] = true; any = true; if (!g_installed_Hook_93 && bind::m_MatchTeams_get_ProperlyAssigned) { Hook_93::InstallAtOffset(bind::m_MatchTeams_get_ProperlyAssigned); g_installed_Hook_93 = true; } }
-    if (Is(cls, "TF.EX.Patchs.MatchVariantsPatchs") && !Listed(skip, "MatchVariants_ctor")) { g_on_Hook_94[0] = true; any = true; if (!g_installed_Hook_94 && bind::m_MatchVariants__ctor_953d) { Hook_94::InstallAtOffset(bind::m_MatchVariants__ctor_953d); g_installed_Hook_94 = true; } }
-    if (Is(cls, "TF.EX.Patchs.MatchVariantsPatchs") && !Listed(skip, "MatchVariants_BuildMenu_Prefix")) { g_on_Hook_95[0] = true; any = true; if (!g_installed_Hook_95 && bind::m_MatchVariants_BuildMenu_62a4) { Hook_95::InstallAtOffset(bind::m_MatchVariants_BuildMenu_62a4); g_installed_Hook_95 = true; } }
-    if (Is(cls, "TF.State.Patchs.MatchVariantsPatch") && !Listed(skip, "MatchVariants_Randomize_Prefix")) { g_on_Hook_96[0] = true; any = true; if (!g_installed_Hook_96 && bind::m_MatchVariants_Randomize) { Hook_96::InstallAtOffset(bind::m_MatchVariants_Randomize); g_installed_Hook_96 = true; } }
-    if (Is(cls, "TF.State.Patchs.MatchVariantsPatch") && !Listed(skip, "MatchVariants_Randomize_Postfix")) { g_on_Hook_96[1] = true; any = true; if (!g_installed_Hook_96 && bind::m_MatchVariants_Randomize) { Hook_96::InstallAtOffset(bind::m_MatchVariants_Randomize); g_installed_Hook_96 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.MenuItemPatch") && !Listed(skip, "MenuItem_Update")) { g_on_Hook_97[0] = true; any = true; if (!g_installed_Hook_97 && bind::m_MenuItem_Update) { Hook_97::InstallAtOffset(bind::m_MenuItem_Update); g_installed_Hook_97 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Dissipate")) { g_on_Hook_98[0] = true; any = true; if (!g_installed_Hook_98 && bind::m_Miasma_Dissipate) { Hook_98::InstallAtOffset(bind::m_Miasma_Dissipate); g_installed_Hook_98 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Update")) { g_on_Hook_99[0] = true; any = true; if (!g_installed_Hook_99 && bind::m_Miasma_Update) { Hook_99::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_99 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Update_FreezeCosmetics")) { g_on_Hook_99[1] = true; any = true; if (!g_installed_Hook_99 && bind::m_Miasma_Update) { Hook_99::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_99 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Update_UnfreezeCosmetics")) { g_on_Hook_99[2] = true; any = true; if (!g_installed_Hook_99 && bind::m_Miasma_Update) { Hook_99::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_99 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MoonGlassBlockPatch") && !Listed(skip, "MoonGlassBlock_InsideExplode")) { g_on_Hook_100[0] = true; any = true; if (!g_installed_Hook_100 && bind::m_MoonGlassBlock_InsideExplode) { Hook_100::InstallAtOffset(bind::m_MoonGlassBlock_InsideExplode); g_installed_Hook_100 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MovingPlatformPatch") && !Listed(skip, "MovingPlatform_Update")) { g_on_Hook_101[0] = true; any = true; if (!g_installed_Hook_101 && bind::m_MovingPlatform_Update) { Hook_101::InstallAtOffset(bind::m_MovingPlatform_Update); g_installed_Hook_101 = true; } }
-    if (Is(cls, "TowerFall.Patching.OptionsButton") && !Listed(skip, "OnSelect")) { g_on_Hook_102[0] = true; any = true; if (!g_installed_Hook_102 && bind::m_OptionsButton_OnSelect) { Hook_102::InstallAtOffset(bind::m_OptionsButton_OnSelect); g_installed_Hook_102 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_ctor_Vector2_bool_Prefix")) { g_on_Hook_103[0] = true; any = true; if (!g_installed_Hook_103 && bind::m_Orb__ctor_2265) { Hook_103::InstallAtOffset(bind::m_Orb__ctor_2265); g_installed_Hook_103 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_ctor_Vector2_bool_PostFix")) { g_on_Hook_103[1] = true; any = true; if (!g_installed_Hook_103 && bind::m_Orb__ctor_2265) { Hook_103::InstallAtOffset(bind::m_Orb__ctor_2265); g_installed_Hook_103 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_Update_Prefix")) { g_on_Hook_104[0] = true; any = true; if (!g_installed_Hook_104 && bind::m_Orb_Update) { Hook_104::InstallAtOffset(bind::m_Orb_Update); g_installed_Hook_104 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_Update_Postfix")) { g_on_Hook_104[1] = true; any = true; if (!g_installed_Hook_104 && bind::m_Orb_Update) { Hook_104::InstallAtOffset(bind::m_Orb_Update); g_installed_Hook_104 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoDarkOrb_Prefix")) { g_on_Hook_105[0] = true; any = true; if (!g_installed_Hook_105 && bind::m_OrbLogic_DoDarkOrb) { Hook_105::InstallAtOffset(bind::m_OrbLogic_DoDarkOrb); g_installed_Hook_105 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoDarkOrb_Postfix")) { g_on_Hook_105[1] = true; any = true; if (!g_installed_Hook_105 && bind::m_OrbLogic_DoDarkOrb) { Hook_105::InstallAtOffset(bind::m_OrbLogic_DoDarkOrb); g_installed_Hook_105 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoOffsetWorldVariant")) { g_on_Hook_106[0] = true; any = true; if (!g_installed_Hook_106 && bind::m_OrbLogic_DoOffsetWorldVariant) { Hook_106::InstallAtOffset(bind::m_OrbLogic_DoOffsetWorldVariant); g_installed_Hook_106 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoSpaceOrb")) { g_on_Hook_107[0] = true; any = true; if (!g_installed_Hook_107 && bind::m_OrbLogic_DoSpaceOrb) { Hook_107::InstallAtOffset(bind::m_OrbLogic_DoSpaceOrb); g_installed_Hook_107 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoTimeOrb_Prefix")) { g_on_Hook_108[0] = true; any = true; if (!g_installed_Hook_108 && bind::m_OrbLogic_DoTimeOrb_953d) { Hook_108::InstallAtOffset(bind::m_OrbLogic_DoTimeOrb_953d); g_installed_Hook_108 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoTimeOrb_Postfix")) { g_on_Hook_108[1] = true; any = true; if (!g_installed_Hook_108 && bind::m_OrbLogic_DoTimeOrb_953d) { Hook_108::InstallAtOffset(bind::m_OrbLogic_DoTimeOrb_953d); g_installed_Hook_108 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_StartScroll_Prefix")) { g_on_Hook_109[0] = true; any = true; if (!g_installed_Hook_109 && bind::m_OrbLogic_StartScroll) { Hook_109::InstallAtOffset(bind::m_OrbLogic_StartScroll); g_installed_Hook_109 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_StartScroll_Postfix")) { g_on_Hook_109[1] = true; any = true; if (!g_installed_Hook_109 && bind::m_OrbLogic_StartScroll) { Hook_109::InstallAtOffset(bind::m_OrbLogic_StartScroll); g_installed_Hook_109 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_Update_Prefix")) { g_on_Hook_110[0] = true; any = true; if (!g_installed_Hook_110 && bind::m_OrbLogic_Update) { Hook_110::InstallAtOffset(bind::m_OrbLogic_Update); g_installed_Hook_110 = true; } }
-    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_Update_Postfix")) { g_on_Hook_110[1] = true; any = true; if (!g_installed_Hook_110 && bind::m_OrbLogic_Update) { Hook_110::InstallAtOffset(bind::m_OrbLogic_Update); g_installed_Hook_110 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPickupPatch") && !Listed(skip, "OrbPickup_OnPlayerCollide_Prefix")) { g_on_Hook_111[0] = true; any = true; if (!g_installed_Hook_111 && bind::m_OrbPickup_OnPlayerCollide_468a) { Hook_111::InstallAtOffset(bind::m_OrbPickup_OnPlayerCollide_468a); g_installed_Hook_111 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPickupPatch") && !Listed(skip, "OrbPickup_OnPlayerCollide_Finalizer")) { g_on_Hook_111[1] = true; any = true; if (!g_installed_Hook_111 && bind::m_OrbPickup_OnPlayerCollide_468a) { Hook_111::InstallAtOffset(bind::m_OrbPickup_OnPlayerCollide_468a); g_installed_Hook_111 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_AddItem")) { g_on_Hook_112[0] = true; any = true; if (!g_installed_Hook_112 && bind::m_PauseMenu_AddItem_3b33) { Hook_112::InstallAtOffset(bind::m_PauseMenu_AddItem_3b33); g_installed_Hook_112 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_Quit")) { g_on_Hook_113[0] = true; any = true; if (!g_installed_Hook_113 && bind::m_PauseMenu_Quit) { Hook_113::InstallAtOffset(bind::m_PauseMenu_Quit); g_installed_Hook_113 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_Update")) { g_on_Hook_114[0] = true; any = true; if (!g_installed_Hook_114 && bind::m_PauseMenu_Update) { Hook_114::InstallAtOffset(bind::m_PauseMenu_Update); g_installed_Hook_114 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_VersusArcherSelect")) { g_on_Hook_115[0] = true; any = true; if (!g_installed_Hook_115 && bind::m_PauseMenu_VersusArcherSelect) { Hook_115::InstallAtOffset(bind::m_PauseMenu_VersusArcherSelect); g_installed_Hook_115 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_VersusMatchSettingsAndSave")) { g_on_Hook_116[0] = true; any = true; if (!g_installed_Hook_116 && bind::m_PauseMenu_VersusMatchSettingsAndSave) { Hook_116::InstallAtOffset(bind::m_PauseMenu_VersusMatchSettingsAndSave); g_installed_Hook_116 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_VersusRematch")) { g_on_Hook_117[0] = true; any = true; if (!g_installed_Hook_117 && bind::m_PauseMenu_VersusRematch) { Hook_117::InstallAtOffset(bind::m_PauseMenu_VersusRematch); g_installed_Hook_117 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PickupPatch") && !Listed(skip, "Pickup_ctor")) { g_on_Hook_118[0] = true; any = true; if (!g_installed_Hook_118 && bind::m_Pickup__ctor_f3db) { Hook_118::InstallAtOffset(bind::m_Pickup__ctor_f3db); g_installed_Hook_118 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PickupPatch") && !Listed(skip, "Pickup_FinishUnpack")) { g_on_Hook_119[0] = true; any = true; if (!g_installed_Hook_119 && bind::m_Pickup_FinishUnpack_4305) { Hook_119::InstallAtOffset(bind::m_Pickup_FinishUnpack_4305); g_installed_Hook_119 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PirateBannerPatch") && !Listed(skip, "PirateBanner_Update")) { g_on_Hook_120[0] = true; any = true; if (!g_installed_Hook_120 && bind::m_PirateBanner_Update) { Hook_120::InstallAtOffset(bind::m_PirateBanner_Update); g_installed_Hook_120 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_Ctor_Prefix")) { g_on_Hook_121[0] = true; any = true; if (!g_installed_Hook_121 && bind::m_Player__ctor_0ed9) { Hook_121::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_121 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_Ctor_Finalizer")) { g_on_Hook_121[1] = true; any = true; if (!g_installed_Hook_121 && bind::m_Player__ctor_0ed9) { Hook_121::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_121 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_ctor")) { g_on_Hook_121[2] = true; any = true; if (!g_installed_Hook_121 && bind::m_Player__ctor_0ed9) { Hook_121::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_121 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.VisualHooks") && !Listed(skip, "PlayerCtor_Postfix")) { g_on_Hook_121[3] = true; any = true; if (!g_installed_Hook_121 && bind::m_Player__ctor_0ed9) { Hook_121::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_121 = true; } }
-    if (Is(cls, "TFModFortRiseVariantMoveOrDie.MyPlayer") && !Listed(skip, "ctor_patch")) { g_on_Hook_121[4] = true; any = true; if (!g_installed_Hook_121 && bind::m_Player__ctor_0ed9) { Hook_121::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_121 = true; } }
-    if (Is(cls, "TowerFall.patch_Player") && !Listed(skip, "Added_Postfix")) { g_on_Hook_122[0] = true; any = true; if (!g_installed_Hook_122 && bind::m_Player_Added) { Hook_122::InstallAtOffset(bind::m_Player_Added); g_installed_Hook_122 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_123[0] = true; any = true; if (!g_installed_Hook_123 && bind::m_Player_Die_3b10) { Hook_123::InstallAtOffset(bind::m_Player_Die_3b10); g_installed_Hook_123 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Die_patch")) { g_on_Hook_124[0] = true; any = true; if (!g_installed_Hook_124 && bind::m_Player_Die_1d72) { Hook_124::InstallAtOffset(bind::m_Player_Die_1d72); g_installed_Hook_124 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_125[0] = true; any = true; if (!g_installed_Hook_125 && bind::m_Player_DoSquish_62aa) { Hook_125::InstallAtOffset(bind::m_Player_DoSquish_62aa); g_installed_Hook_125 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_DoWrapRender_Prefix")) { g_on_Hook_126[0] = true; any = true; if (!g_installed_Hook_126 && bind::m_Player_DoWrapRender) { Hook_126::InstallAtOffset(bind::m_Player_DoWrapRender); g_installed_Hook_126 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_DropArrow_Prefix")) { g_on_Hook_127[0] = true; any = true; if (!g_installed_Hook_127 && bind::m_Player_DropArrow) { Hook_127::InstallAtOffset(bind::m_Player_DropArrow); g_installed_Hook_127 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_DropArrow_Postfix")) { g_on_Hook_127[1] = true; any = true; if (!g_installed_Hook_127 && bind::m_Player_DropArrow) { Hook_127::InstallAtOffset(bind::m_Player_DropArrow); g_installed_Hook_127 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_HUDRender_Prefix")) { g_on_Hook_128[0] = true; any = true; if (!g_installed_Hook_128 && bind::m_Player_HUDRender_953d) { Hook_128::InstallAtOffset(bind::m_Player_HUDRender_953d); g_installed_Hook_128 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_129[0] = true; any = true; if (!g_installed_Hook_129 && bind::m_Player_Hurt_a0dc) { Hook_129::InstallAtOffset(bind::m_Player_Hurt_a0dc); g_installed_Hook_129 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_130[0] = true; any = true; if (!g_installed_Hook_130 && bind::m_Player_Hurt_e39e) { Hook_130::InstallAtOffset(bind::m_Player_Hurt_e39e); g_installed_Hook_130 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_131[0] = true; any = true; if (!g_installed_Hook_131 && bind::m_Player_Hurt_a7cd) { Hook_131::InstallAtOffset(bind::m_Player_Hurt_a7cd); g_installed_Hook_131 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_132[0] = true; any = true; if (!g_installed_Hook_132 && bind::m_Player_HurtBouncedOn_e2bf) { Hook_132::InstallAtOffset(bind::m_Player_HurtBouncedOn_e2bf); g_installed_Hook_132 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerDeath") && !Listed(skip, "Block_patch")) { g_on_Hook_133[0] = true; any = true; if (!g_installed_Hook_133 && bind::m_Player_HurtDelayed_3b10) { Hook_133::InstallAtOffset(bind::m_Player_HurtDelayed_3b10); g_installed_Hook_133 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_InitHead_Prefix")) { g_on_Hook_134[0] = true; any = true; if (!g_installed_Hook_134 && bind::m_Player_InitHead) { Hook_134::InstallAtOffset(bind::m_Player_InitHead); g_installed_Hook_134 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.VisualHooks") && !Listed(skip, "InitHead_Postfix")) { g_on_Hook_134[1] = true; any = true; if (!g_installed_Hook_134 && bind::m_Player_InitHead) { Hook_134::InstallAtOffset(bind::m_Player_InitHead); g_installed_Hook_134 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_LoseHat_Prefix")) { g_on_Hook_135[0] = true; any = true; if (!g_installed_Hook_135 && bind::m_Player_LoseHat_106c) { Hook_135::InstallAtOffset(bind::m_Player_LoseHat_106c); g_installed_Hook_135 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_LoseHat_Postfix")) { g_on_Hook_135[1] = true; any = true; if (!g_installed_Hook_135 && bind::m_Player_LoseHat_106c) { Hook_135::InstallAtOffset(bind::m_Player_LoseHat_106c); g_installed_Hook_135 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.FlatPlay") && !Listed(skip, "NormalUpdate_prefix")) { g_on_Hook_136[0] = true; any = true; if (!g_installed_Hook_136 && bind::m_Player_NormalUpdate) { Hook_136::InstallAtOffset(bind::m_Player_NormalUpdate); g_installed_Hook_136 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.FlatPlay") && !Listed(skip, "NormalUpdate_postfix")) { g_on_Hook_136[1] = true; any = true; if (!g_installed_Hook_136 && bind::m_Player_NormalUpdate) { Hook_136::InstallAtOffset(bind::m_Player_NormalUpdate); g_installed_Hook_136 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayerOnPlayer") && !Listed(skip, "PlayerOnPlayer_patch")) { g_on_Hook_137[0] = true; any = true; if (!g_installed_Hook_137 && bind::m_Player_PlayerOnPlayer_200d) { Hook_137::InstallAtOffset(bind::m_Player_PlayerOnPlayer_200d); g_installed_Hook_137 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayer") && !Listed(skip, "ShootArrow_patch")) { g_on_Hook_138[0] = true; any = true; if (!g_installed_Hook_138 && bind::m_Player_ShootArrow) { Hook_138::InstallAtOffset(bind::m_Player_ShootArrow); g_installed_Hook_138 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_SpawnedInsideSolidCheck_Prefix")) { g_on_Hook_139[0] = true; any = true; if (!g_installed_Hook_139 && bind::m_Player_SpawnedInsideSolidCheck) { Hook_139::InstallAtOffset(bind::m_Player_SpawnedInsideSolidCheck); g_installed_Hook_139 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_Update_Postfix")) { g_on_Hook_140[0] = true; any = true; if (!g_installed_Hook_140 && bind::m_Player_Update) { Hook_140::InstallAtOffset(bind::m_Player_Update); g_installed_Hook_140 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyPlayer") && !Listed(skip, "Update_patch")) { g_on_Hook_140[1] = true; any = true; if (!g_installed_Hook_140 && bind::m_Player_Update) { Hook_140::InstallAtOffset(bind::m_Player_Update); g_installed_Hook_140 = true; } }
-    if (Is(cls, "TFModFortRiseVariantMoveOrDie.MyPlayer") && !Listed(skip, "Update")) { g_on_Hook_140[2] = true; any = true; if (!g_installed_Hook_140 && bind::m_Player_Update) { Hook_140::InstallAtOffset(bind::m_Player_Update); g_installed_Hook_140 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_ctor_Postfix")) { g_on_Hook_141[0] = true; any = true; if (!g_installed_Hook_141 && bind::m_PlayerCorpse__ctor_f519) { Hook_141::InstallAtOffset(bind::m_PlayerCorpse__ctor_f519); g_installed_Hook_141 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_Added_Postfix")) { g_on_Hook_142[0] = true; any = true; if (!g_installed_Hook_142 && bind::m_PlayerCorpse_Added) { Hook_142::InstallAtOffset(bind::m_PlayerCorpse_Added); g_installed_Hook_142 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.ReviveHooks") && !Listed(skip, "Added_Postfix")) { g_on_Hook_142[1] = true; any = true; if (!g_installed_Hook_142 && bind::m_PlayerCorpse_Added) { Hook_142::InstallAtOffset(bind::m_PlayerCorpse_Added); g_installed_Hook_142 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_DieByArrow_Postfix")) { g_on_Hook_143[0] = true; any = true; if (!g_installed_Hook_143 && bind::m_PlayerCorpse_DieByArrow_c838) { Hook_143::InstallAtOffset(bind::m_PlayerCorpse_DieByArrow_c838); g_installed_Hook_143 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_DropNextArrow_Prefix")) { g_on_Hook_144[0] = true; any = true; if (!g_installed_Hook_144 && bind::m_PlayerCorpse_DropNextArrow) { Hook_144::InstallAtOffset(bind::m_PlayerCorpse_DropNextArrow); g_installed_Hook_144 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_DropNextArrow_Postfix")) { g_on_Hook_144[1] = true; any = true; if (!g_installed_Hook_144 && bind::m_PlayerCorpse_DropNextArrow) { Hook_144::InstallAtOffset(bind::m_PlayerCorpse_DropNextArrow); g_installed_Hook_144 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_StartDroppingArrows_Prefix")) { g_on_Hook_145[0] = true; any = true; if (!g_installed_Hook_145 && bind::m_PlayerCorpse_StartDroppingArrows) { Hook_145::InstallAtOffset(bind::m_PlayerCorpse_StartDroppingArrows); g_installed_Hook_145 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_Update_Postfix")) { g_on_Hook_146[0] = true; any = true; if (!g_installed_Hook_146 && bind::m_PlayerCorpse_Update) { Hook_146::InstallAtOffset(bind::m_PlayerCorpse_Update); g_installed_Hook_146 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_ctor")) { g_on_Hook_147[0] = true; any = true; if (!g_installed_Hook_147 && bind::m_PlayerGhost__ctor_d536) { Hook_147::InstallAtOffset(bind::m_PlayerGhost__ctor_d536); g_installed_Hook_147 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_DespawnEnter_Postfix")) { g_on_Hook_148[0] = true; any = true; if (!g_installed_Hook_148 && bind::m_PlayerGhost_DespawnEnter) { Hook_148::InstallAtOffset(bind::m_PlayerGhost_DespawnEnter); g_installed_Hook_148 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_Update_Prefix")) { g_on_Hook_149[0] = true; any = true; if (!g_installed_Hook_149 && bind::m_PlayerGhost_Update) { Hook_149::InstallAtOffset(bind::m_PlayerGhost_Update); g_installed_Hook_149 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_Update_Postfix")) { g_on_Hook_149[1] = true; any = true; if (!g_installed_Hook_149 && bind::m_PlayerGhost_Update) { Hook_149::InstallAtOffset(bind::m_PlayerGhost_Update); g_installed_Hook_149 = true; } }
-    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "ctor_Prefix")) { g_on_Hook_150[0] = true; any = true; if (!g_installed_Hook_150 && bind::m_PlayerHair__ctor_d352) { Hook_150::InstallAtOffset(bind::m_PlayerHair__ctor_d352); g_installed_Hook_150 = true; } }
-    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "Render")) { g_on_Hook_151[0] = true; any = true; if (!g_installed_Hook_151 && bind::m_PlayerHair_Render) { Hook_151::InstallAtOffset(bind::m_PlayerHair_Render); g_installed_Hook_151 = true; } }
-    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "RenderBlack")) { g_on_Hook_152[0] = true; any = true; if (!g_installed_Hook_152 && bind::m_PlayerHair_RenderBlack) { Hook_152::InstallAtOffset(bind::m_PlayerHair_RenderBlack); g_installed_Hook_152 = true; } }
-    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "RenderOutline")) { g_on_Hook_153[0] = true; any = true; if (!g_installed_Hook_153 && bind::m_PlayerHair_RenderOutline) { Hook_153::InstallAtOffset(bind::m_PlayerHair_RenderOutline); g_installed_Hook_153 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerHairPatch") && !Listed(skip, "PlayerHair_Update")) { g_on_Hook_154[0] = true; any = true; if (!g_installed_Hook_154 && bind::m_PlayerHair_Update) { Hook_154::InstallAtOffset(bind::m_PlayerHair_Update); g_installed_Hook_154 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Component.PlayerIndicatorPatch") && !Listed(skip, "PlayerIndicator_ctor")) { g_on_Hook_155[0] = true; any = true; if (!g_installed_Hook_155 && bind::m_PlayerIndicator__ctor_4031) { Hook_155::InstallAtOffset(bind::m_PlayerIndicator__ctor_4031); g_installed_Hook_155 = true; } }
-    if (Is(cls, "TF.State.Patchs.Component.PlayerIndicatorStatePatch") && !Listed(skip, "PlayerIndicator_Render")) { g_on_Hook_156[0] = true; any = true; if (!g_installed_Hook_156 && bind::m_PlayerIndicator_Render) { Hook_156::InstallAtOffset(bind::m_PlayerIndicator_Render); g_installed_Hook_156 = true; } }
-    if (Is(cls, "TF.State.Patchs.Component.PlayerIndicatorStatePatch") && !Listed(skip, "PlayerIndicator_Update_Prefix")) { g_on_Hook_157[0] = true; any = true; if (!g_installed_Hook_157 && bind::m_PlayerIndicator_Update) { Hook_157::InstallAtOffset(bind::m_PlayerIndicator_Update); g_installed_Hook_157 = true; } }
-    if (Is(cls, "TF.EX.Patchs.PlayerInput.PlayerInputPatch") && !Listed(skip, "PlayerInput_AssignInputs")) { g_on_Hook_158[0] = true; any = true; if (!g_installed_Hook_158 && bind::m_PlayerInput_AssignInputs) { Hook_158::InstallAtOffset(bind::m_PlayerInput_AssignInputs); g_installed_Hook_158 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.FlatPlay") && !Listed(skip, "GetAimDirection_prefix")) { g_on_Hook_159[0] = true; any = true; if (!g_installed_Hook_159 && bind::m_PlayerInput_GetAimDirection_2265) { Hook_159::InstallAtOffset(bind::m_PlayerInput_GetAimDirection_2265); g_installed_Hook_159 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_ctor")) { g_on_Hook_160[0] = true; any = true; if (!g_installed_Hook_160 && bind::m_QuestSpawnPortal__ctor_71e7) { Hook_160::InstallAtOffset(bind::m_QuestSpawnPortal__ctor_71e7); g_installed_Hook_160 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_Appear_Postfix")) { g_on_Hook_161[0] = true; any = true; if (!g_installed_Hook_161 && bind::m_QuestSpawnPortal_Appear) { Hook_161::InstallAtOffset(bind::m_QuestSpawnPortal_Appear); g_installed_Hook_161 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_Disappear_Postfix")) { g_on_Hook_162[0] = true; any = true; if (!g_installed_Hook_162 && bind::m_QuestSpawnPortal_Disappear) { Hook_162::InstallAtOffset(bind::m_QuestSpawnPortal_Disappear); g_installed_Hook_162 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_Update_Postfix")) { g_on_Hook_163[0] = true; any = true; if (!g_installed_Hook_163 && bind::m_QuestSpawnPortal_Update) { Hook_163::InstallAtOffset(bind::m_QuestSpawnPortal_Update); g_installed_Hook_163 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.ReadyBannerPatch") && !Listed(skip, "ReadyBanner_GetReadyState")) { g_on_Hook_164[0] = true; any = true; if (!g_installed_Hook_164 && bind::m_ReadyBanner_GetReadyState) { Hook_164::InstallAtOffset(bind::m_ReadyBanner_GetReadyState); g_installed_Hook_164 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Ctor_Prefix")) { g_on_Hook_165[0] = true; any = true; if (!g_installed_Hook_165 && bind::m_RollcallElement__ctor_e2bf) { Hook_165::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_165 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Ctor_Finalizer")) { g_on_Hook_165[1] = true; any = true; if (!g_installed_Hook_165 && bind::m_RollcallElement__ctor_e2bf) { Hook_165::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_165 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyRollcallElement") && !Listed(skip, "ctor_patch")) { g_on_Hook_165[2] = true; any = true; if (!g_installed_Hook_165 && bind::m_RollcallElement__ctor_e2bf) { Hook_165::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_165 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_EnterJoined")) { g_on_Hook_166[0] = true; any = true; if (!g_installed_Hook_166 && bind::m_RollcallElement_EnterJoined) { Hook_166::InstallAtOffset(bind::m_RollcallElement_EnterJoined); g_installed_Hook_166 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_ForceStart_Prefix")) { g_on_Hook_167[0] = true; any = true; if (!g_installed_Hook_167 && bind::m_RollcallElement_ForceStart) { Hook_167::InstallAtOffset(bind::m_RollcallElement_ForceStart); g_installed_Hook_167 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyRollcallElement") && !Listed(skip, "ForceStart_patch")) { g_on_Hook_167[1] = true; any = true; if (!g_installed_Hook_167 && bind::m_RollcallElement_ForceStart) { Hook_167::InstallAtOffset(bind::m_RollcallElement_ForceStart); g_installed_Hook_167 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_JoinedUpdate_Prefix")) { g_on_Hook_168[0] = true; any = true; if (!g_installed_Hook_168 && bind::m_RollcallElement_JoinedUpdate) { Hook_168::InstallAtOffset(bind::m_RollcallElement_JoinedUpdate); g_installed_Hook_168 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_JoinedUpdate")) { g_on_Hook_168[1] = true; any = true; if (!g_installed_Hook_168 && bind::m_RollcallElement_JoinedUpdate) { Hook_168::InstallAtOffset(bind::m_RollcallElement_JoinedUpdate); g_installed_Hook_168 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_LeaveJoined")) { g_on_Hook_169[0] = true; any = true; if (!g_installed_Hook_169 && bind::m_RollcallElement_LeaveJoined) { Hook_169::InstallAtOffset(bind::m_RollcallElement_LeaveJoined); g_installed_Hook_169 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_NotJoinedUpdate_Prefix")) { g_on_Hook_170[0] = true; any = true; if (!g_installed_Hook_170 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_170::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_170 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_NotJoinedUpdate")) { g_on_Hook_170[1] = true; any = true; if (!g_installed_Hook_170 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_170::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_170 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyRollcallElement") && !Listed(skip, "NotJoinedUpdate_patch")) { g_on_Hook_170[2] = true; any = true; if (!g_installed_Hook_170 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_170::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_170 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Render")) { g_on_Hook_171[0] = true; any = true; if (!g_installed_Hook_171 && bind::m_RollcallElement_Render) { Hook_171::InstallAtOffset(bind::m_RollcallElement_Render); g_installed_Hook_171 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyRollcallElement") && !Listed(skip, "Render_patch")) { g_on_Hook_171[1] = true; any = true; if (!g_installed_Hook_171 && bind::m_RollcallElement_Render) { Hook_171::InstallAtOffset(bind::m_RollcallElement_Render); g_installed_Hook_171 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyRollcallElement") && !Listed(skip, "Keys_postfix")) { g_on_Hook_171[2] = true; any = true; if (!g_installed_Hook_171 && bind::m_RollcallElement_Render) { Hook_171::InstallAtOffset(bind::m_RollcallElement_Render); g_installed_Hook_171 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyRollcallElement") && !Listed(skip, "StartVersus_patch")) { g_on_Hook_172[0] = true; any = true; if (!g_installed_Hook_172 && bind::m_RollcallElement_StartVersus) { Hook_172::InstallAtOffset(bind::m_RollcallElement_StartVersus); g_installed_Hook_172 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Update")) { g_on_Hook_173[0] = true; any = true; if (!g_installed_Hook_173 && bind::m_RollcallElement_Update) { Hook_173::InstallAtOffset(bind::m_RollcallElement_Update); g_installed_Hook_173 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.RotatePlatformPatch") && !Listed(skip, "RotatePlatform_Update")) { g_on_Hook_174[0] = true; any = true; if (!g_installed_Hook_174 && bind::m_RotatePlatform_Update) { Hook_174::InstallAtOffset(bind::m_RotatePlatform_Update); g_installed_Hook_174 = true; } }
-    if (Is(cls, "TowerFall.patch_RoundLogic") && !Listed(skip, "GetRoundLogic")) { g_on_Hook_175[0] = true; any = true; if (!g_installed_Hook_175 && bind::m_RoundLogic_GetRoundLogic_9385) { Hook_175::InstallAtOffset(bind::m_RoundLogic_GetRoundLogic_9385); g_installed_Hook_175 = true; } }
-    if (Is(cls, "TF.State.Patchs.RoundLogic.RoundLogicPatch") && !Listed(skip, "RoundLogic_OnUpdate_Prefix")) { g_on_Hook_176[0] = true; any = true; if (!g_installed_Hook_176 && bind::m_RoundLogic_OnUpdate) { Hook_176::InstallAtOffset(bind::m_RoundLogic_OnUpdate); g_installed_Hook_176 = true; } }
-    if (Is(cls, "TF.State.Patchs.RoundLogic.RoundLogicPatch") && !Listed(skip, "RoundLogic_SpawnPlayersFFA")) { g_on_Hook_177[0] = true; any = true; if (!g_installed_Hook_177 && bind::m_RoundLogic_SpawnPlayersFFA) { Hook_177::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersFFA); g_installed_Hook_177 = true; } }
-    if (Is(cls, "TF.State.Patchs.RoundLogic.RoundLogicPatch") && !Listed(skip, "RoundLogic_SpawnPlayersTeams")) { g_on_Hook_178[0] = true; any = true; if (!g_installed_Hook_178 && bind::m_RoundLogic_SpawnPlayersTeams) { Hook_178::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersTeams); g_installed_Hook_178 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SaveDataPatch") && !Listed(skip, "Save_Prefix")) { g_on_Hook_179[0] = true; any = true; if (!g_installed_Hook_179 && bind::m_SaveData_Save) { Hook_179::InstallAtOffset(bind::m_SaveData_Save); g_installed_Hook_179 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SaveDataPatch") && !Listed(skip, "Save_Postfix")) { g_on_Hook_179[1] = true; any = true; if (!g_installed_Hook_179 && bind::m_SaveData_Save) { Hook_179::InstallAtOffset(bind::m_SaveData_Save); g_installed_Hook_179 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.ScreenTitlePatch") && !Listed(skip, "ScreenTitle_ctor")) { g_on_Hook_180[0] = true; any = true; if (!g_installed_Hook_180 && bind::m_ScreenTitle__ctor_b2b6) { Hook_180::InstallAtOffset(bind::m_ScreenTitle__ctor_b2b6); g_installed_Hook_180 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.ScreenTitlePatch") && !Listed(skip, "ScreenTitle_ChangeState")) { g_on_Hook_181[0] = true; any = true; if (!g_installed_Hook_181 && bind::m_ScreenTitle_ChangeState_b2b6) { Hook_181::InstallAtOffset(bind::m_ScreenTitle_ChangeState_b2b6); g_installed_Hook_181 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SensorBlockPatch") && !Listed(skip, "SensorBlock_Update")) { g_on_Hook_182[0] = true; any = true; if (!g_installed_Hook_182 && bind::m_SensorBlock_Update) { Hook_182::InstallAtOffset(bind::m_SensorBlock_Update); g_installed_Hook_182 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_CreateResults")) { g_on_Hook_183[0] = true; any = true; if (!g_installed_Hook_183 && bind::m_Session_CreateResults) { Hook_183::InstallAtOffset(bind::m_Session_CreateResults); g_installed_Hook_183 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_EndRound_SkipWhileBaking")) { g_on_Hook_184[0] = true; any = true; if (!g_installed_Hook_184 && bind::m_Session_EndRound) { Hook_184::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_184 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_EndRound_Prefix")) { g_on_Hook_184[1] = true; any = true; if (!g_installed_Hook_184 && bind::m_Session_EndRound) { Hook_184::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_184 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_EndRound_Postfix")) { g_on_Hook_184[2] = true; any = true; if (!g_installed_Hook_184 && bind::m_Session_EndRound) { Hook_184::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_184 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "GetScoreIndex_Prefix")) { g_on_Hook_185[0] = true; any = true; if (!g_installed_Hook_185 && bind::m_Session_GetScoreIndex_e2bf) { Hook_185::InstallAtOffset(bind::m_Session_GetScoreIndex_e2bf); g_installed_Hook_185 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_GotoNextRound")) { g_on_Hook_186[0] = true; any = true; if (!g_installed_Hook_186 && bind::m_Session_GotoNextRound) { Hook_186::InstallAtOffset(bind::m_Session_GotoNextRound); g_installed_Hook_186 = true; } }
-    if (Is(cls, "TF.State.Patchs.SessionStatePatch") && !Listed(skip, "Session_LevelLoadStart")) { g_on_Hook_187[0] = true; any = true; if (!g_installed_Hook_187 && bind::m_Session_LevelLoadStart_429b) { Hook_187::InstallAtOffset(bind::m_Session_LevelLoadStart_429b); g_installed_Hook_187 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_StartGame")) { g_on_Hook_188[0] = true; any = true; if (!g_installed_Hook_188 && bind::m_Session_StartGame) { Hook_188::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_188 = true; } }
-    if (Is(cls, "TF.State.Patchs.SessionStatePatch") && !Listed(skip, "Session_StartGame")) { g_on_Hook_188[1] = true; any = true; if (!g_installed_Hook_188 && bind::m_Session_StartGame) { Hook_188::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_188 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.SafetyHooks") && !Listed(skip, "StartGame_Postfix")) { g_on_Hook_188[2] = true; any = true; if (!g_installed_Hook_188 && bind::m_Session_StartGame) { Hook_188::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_188 = true; } }
-    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_StartRound")) { g_on_Hook_189[0] = true; any = true; if (!g_installed_Hook_189 && bind::m_Session_StartRound) { Hook_189::InstallAtOffset(bind::m_Session_StartRound); g_installed_Hook_189 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ShiftBlockHoldPatch") && !Listed(skip, "ShiftBlock_Update")) { g_on_Hook_190[0] = true; any = true; if (!g_installed_Hook_190 && bind::m_ShiftBlock_Update) { Hook_190::InstallAtOffset(bind::m_ShiftBlock_Update); g_installed_Hook_190 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SlimePatch") && !Listed(skip, "Slime_ctor")) { g_on_Hook_191[0] = true; any = true; if (!g_installed_Hook_191 && bind::m_Slime__ctor_a0ec) { Hook_191::InstallAtOffset(bind::m_Slime__ctor_a0ec); g_installed_Hook_191 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SlimePatch") && !Listed(skip, "Slime_Update_Postfix")) { g_on_Hook_192[0] = true; any = true; if (!g_installed_Hook_192 && bind::m_Slime_Update) { Hook_192::InstallAtOffset(bind::m_Slime_Update); g_installed_Hook_192 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SpikeballPatch") && !Listed(skip, "Spikeball_ctor_Vector2_Vector2_bool")) { g_on_Hook_193[0] = true; any = true; if (!g_installed_Hook_193 && bind::m_Spikeball__ctor_a40d) { Hook_193::InstallAtOffset(bind::m_Spikeball__ctor_a40d); g_installed_Hook_193 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SpikeballPatch") && !Listed(skip, "Spikeball_Update")) { g_on_Hook_194[0] = true; any = true; if (!g_installed_Hook_194 && bind::m_Spikeball_Update) { Hook_194::InstallAtOffset(bind::m_Spikeball_Update); g_installed_Hook_194 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SteelHatRngPatch") && !Listed(skip, "SteelHat_Update_Prefix")) { g_on_Hook_195[0] = true; any = true; if (!g_installed_Hook_195 && bind::m_SteelHat_Update) { Hook_195::InstallAtOffset(bind::m_SteelHat_Update); g_installed_Hook_195 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SteelHatRngPatch") && !Listed(skip, "SteelHat_Update_Postfix")) { g_on_Hook_195[1] = true; any = true; if (!g_installed_Hook_195 && bind::m_SteelHat_Update) { Hook_195::InstallAtOffset(bind::m_SteelHat_Update); g_installed_Hook_195 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Engine.TFGamePatch") && !Listed(skip, "TFGame_Load")) { g_on_Hook_196[0] = true; any = true; if (!g_installed_Hook_196 && bind::m_TFGame_Load) { Hook_196::InstallAtOffset(bind::m_TFGame_Load); g_installed_Hook_196 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Engine.TFGamePatch") && !Listed(skip, "TFGame_OnSceneTransition")) { g_on_Hook_197[0] = true; any = true; if (!g_installed_Hook_197 && bind::m_TFGame_OnSceneTransition) { Hook_197::InstallAtOffset(bind::m_TFGame_OnSceneTransition); g_installed_Hook_197 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Engine.TFGamePatch") && !Listed(skip, "TFGameUpdate_Patch")) { g_on_Hook_198[0] = true; any = true; if (!g_installed_Hook_198 && bind::m_TFGame_Update_79e7) { Hook_198::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_198 = true; } }
-    if (Is(cls, "TFModFortRiseLoaderAI.MyTFGame") && !Listed(skip, "Update_patch")) { g_on_Hook_198[1] = true; any = true; if (!g_installed_Hook_198 && bind::m_TFGame_Update_79e7) { Hook_198::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_198 = true; } }
-    if (Is(cls, "TFModFortRiseAiNova.MyTFGame") && !Listed(skip, "Update_prefix")) { g_on_Hook_198[2] = true; any = true; if (!g_installed_Hook_198 && bind::m_TFGame_Update_79e7) { Hook_198::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_198 = true; } }
-    if (Is(cls, "TFModFortRiseAiGraph.MyTFGame") && !Listed(skip, "Update_patch_prefix")) { g_on_Hook_198[3] = true; any = true; if (!g_installed_Hook_198 && bind::m_TFGame_Update_79e7) { Hook_198::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_198 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TeamReviverPatch") && !Listed(skip, "TeamReviver_ctor")) { g_on_Hook_199[0] = true; any = true; if (!g_installed_Hook_199 && bind::m_TeamReviver__ctor_02d9) { Hook_199::InstallAtOffset(bind::m_TeamReviver__ctor_02d9); g_installed_Hook_199 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.ReviveHooks") && !Listed(skip, "FinishReviving_Postfix")) { g_on_Hook_200[0] = true; any = true; if (!g_installed_Hook_200 && bind::m_TeamReviver_FinishReviving) { Hook_200::InstallAtOffset(bind::m_TeamReviver_FinishReviving); g_installed_Hook_200 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TeamReviverPatch") && !Listed(skip, "TeamReviver_ReviveUpdate_Postfix")) { g_on_Hook_201[0] = true; any = true; if (!g_installed_Hook_201 && bind::m_TeamReviver_ReviveUpdate) { Hook_201::InstallAtOffset(bind::m_TeamReviver_ReviveUpdate); g_installed_Hook_201 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TechnoMagePatch") && !Listed(skip, "TechnoMage_ctor")) { g_on_Hook_202[0] = true; any = true; if (!g_installed_Hook_202 && bind::m_TechnoMage__ctor_566d) { Hook_202::InstallAtOffset(bind::m_TechnoMage__ctor_566d); g_installed_Hook_202 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TechnoMagePatch") && !Listed(skip, "TechnoMage_AlertUpdate")) { g_on_Hook_203[0] = true; any = true; if (!g_installed_Hook_203 && bind::m_TechnoMage_AlertUpdate) { Hook_203::InstallAtOffset(bind::m_TechnoMage_AlertUpdate); g_installed_Hook_203 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TechnoMagePatch") && !Listed(skip, "TechnoMage_Update_Postfix")) { g_on_Hook_204[0] = true; any = true; if (!g_installed_Hook_204 && bind::m_TechnoMage_Update) { Hook_204::InstallAtOffset(bind::m_TechnoMage_Update); g_installed_Hook_204 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_ctor")) { g_on_Hook_205[0] = true; any = true; if (!g_installed_Hook_205 && bind::m_TreasureChest__ctor_ba96) { Hook_205::InstallAtOffset(bind::m_TreasureChest__ctor_ba96); g_installed_Hook_205 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_Added_Postfix")) { g_on_Hook_206[0] = true; any = true; if (!g_installed_Hook_206 && bind::m_TreasureChest_Added) { Hook_206::InstallAtOffset(bind::m_TreasureChest_Added); g_installed_Hook_206 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_OpenChest_Postfix")) { g_on_Hook_207[0] = true; any = true; if (!g_installed_Hook_207 && bind::m_TreasureChest_OpenChest_e2bf) { Hook_207::InstallAtOffset(bind::m_TreasureChest_OpenChest_e2bf); g_installed_Hook_207 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_Update_Postfix")) { g_on_Hook_208[0] = true; any = true; if (!g_installed_Hook_208 && bind::m_TreasureChest_Update) { Hook_208::InstallAtOffset(bind::m_TreasureChest_Update); g_installed_Hook_208 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasurePreviewPatch") && !Listed(skip, "TreasurePreview_ctor")) { g_on_Hook_209[0] = true; any = true; if (!g_installed_Hook_209 && bind::m_TreasurePreview__ctor_2265) { Hook_209::InstallAtOffset(bind::m_TreasurePreview__ctor_2265); g_installed_Hook_209 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_ctor_Prefix")) { g_on_Hook_210[0] = true; any = true; if (!g_installed_Hook_210 && bind::m_TreasureSpawner__ctor_ebe6) { Hook_210::InstallAtOffset(bind::m_TreasureSpawner__ctor_ebe6); g_installed_Hook_210 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_ctor_Finalizer")) { g_on_Hook_210[1] = true; any = true; if (!g_installed_Hook_210 && bind::m_TreasureSpawner__ctor_ebe6) { Hook_210::InstallAtOffset(bind::m_TreasureSpawner__ctor_ebe6); g_installed_Hook_210 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetArrowShufflePickups_Prefix")) { g_on_Hook_211[0] = true; any = true; if (!g_installed_Hook_211 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_211::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_211 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetArrowShufflePickups_Postfix")) { g_on_Hook_211[1] = true; any = true; if (!g_installed_Hook_211 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_211::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_211 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetArrowShufflePickups_Finalizer")) { g_on_Hook_211[2] = true; any = true; if (!g_installed_Hook_211 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_211::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_211 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetChestSpawnsForLevel_Prefix")) { g_on_Hook_212[0] = true; any = true; if (!g_installed_Hook_212 && bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b) { Hook_212::InstallAtOffset(bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b); g_installed_Hook_212 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetChestSpawnsForLevel_Finalizer")) { g_on_Hook_212[1] = true; any = true; if (!g_installed_Hook_212 && bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b) { Hook_212::InstallAtOffset(bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b); g_installed_Hook_212 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetRandomArrowType_Prefix")) { g_on_Hook_213[0] = true; any = true; if (!g_installed_Hook_213 && bind::m_TreasureSpawner_GetRandomArrowType_953d) { Hook_213::InstallAtOffset(bind::m_TreasureSpawner_GetRandomArrowType_953d); g_installed_Hook_213 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetRandomArrowType_Finalizer")) { g_on_Hook_213[1] = true; any = true; if (!g_installed_Hook_213 && bind::m_TreasureSpawner_GetRandomArrowType_953d) { Hook_213::InstallAtOffset(bind::m_TreasureSpawner_GetRandomArrowType_953d); g_installed_Hook_213 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TriggerArrowRngPatch") && !Listed(skip, "TriggerArrow_PlayEyeAnim_Prefix")) { g_on_Hook_214[0] = true; any = true; if (!g_installed_Hook_214 && bind::m_TriggerArrow_PlayEyeAnim) { Hook_214::InstallAtOffset(bind::m_TriggerArrow_PlayEyeAnim); g_installed_Hook_214 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TriggerArrowRngPatch") && !Listed(skip, "TriggerArrow_PlayEyeAnim_Postfix")) { g_on_Hook_214[1] = true; any = true; if (!g_installed_Hook_214 && bind::m_TriggerArrow_PlayEyeAnim) { Hook_214::InstallAtOffset(bind::m_TriggerArrow_PlayEyeAnim); g_installed_Hook_214 = true; } }
-    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldOpenPurpleArcherPortal_Prefix")) { g_on_Hook_215[0] = true; any = true; if (!g_installed_Hook_215 && bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal) { Hook_215::InstallAtOffset(bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal); g_installed_Hook_215 = true; } }
-    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldSelectSunkenCity_Prefix")) { g_on_Hook_216[0] = true; any = true; if (!g_installed_Hook_216 && bind::m_UnlockData_get_ShouldSelectSunkenCity) { Hook_216::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectSunkenCity); g_installed_Hook_216 = true; } }
-    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldSelectTowerForgeInVersus_Prefix")) { g_on_Hook_217[0] = true; any = true; if (!g_installed_Hook_217 && bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus) { Hook_217::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus); g_installed_Hook_217 = true; } }
-    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldShowMoonBreakSequence_Prefix")) { g_on_Hook_218[0] = true; any = true; if (!g_installed_Hook_218 && bind::m_UnlockData_get_ShouldShowMoonBreakSequence) { Hook_218::InstallAtOffset(bind::m_UnlockData_get_ShouldShowMoonBreakSequence); g_installed_Hook_218 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_219[0] = true; any = true; if (!g_installed_Hook_219 && bind::m_VariantDisableAll_OnConfirm) { Hook_219::InstallAtOffset(bind::m_VariantDisableAll_OnConfirm); g_installed_Hook_219 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_220[0] = true; any = true; if (!g_installed_Hook_220 && bind::m_VariantDisableAll_Render) { Hook_220::InstallAtOffset(bind::m_VariantDisableAll_Render); g_installed_Hook_220 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_221[0] = true; any = true; if (!g_installed_Hook_221 && bind::m_VariantPreset_OnConfirm) { Hook_221::InstallAtOffset(bind::m_VariantPreset_OnConfirm); g_installed_Hook_221 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_222[0] = true; any = true; if (!g_installed_Hook_222 && bind::m_VariantPreset_Render) { Hook_222::InstallAtOffset(bind::m_VariantPreset_Render); g_installed_Hook_222 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_223[0] = true; any = true; if (!g_installed_Hook_223 && bind::m_VariantRandomize_OnConfirm) { Hook_223::InstallAtOffset(bind::m_VariantRandomize_OnConfirm); g_installed_Hook_223 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_224[0] = true; any = true; if (!g_installed_Hook_224 && bind::m_VariantRandomize_Render) { Hook_224::InstallAtOffset(bind::m_VariantRandomize_Render); g_installed_Hook_224 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantTogglePatch") && !Listed(skip, "VariantToggle_OnConfirm")) { g_on_Hook_225[0] = true; any = true; if (!g_installed_Hook_225 && bind::m_VariantToggle_OnConfirm) { Hook_225::InstallAtOffset(bind::m_VariantToggle_OnConfirm); g_installed_Hook_225 = true; } }
-    if (Is(cls, "TFModFortRiseVariantMoveOrDie.MyVariantToggle") && !Listed(skip, "OnSelect_patch")) { g_on_Hook_226[0] = true; any = true; if (!g_installed_Hook_226 && bind::m_VariantToggle_OnSelect) { Hook_226::InstallAtOffset(bind::m_VariantToggle_OnSelect); g_installed_Hook_226 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantTogglePatch") && !Listed(skip, "VariantToggle_Render")) { g_on_Hook_227[0] = true; any = true; if (!g_installed_Hook_227 && bind::m_VariantToggle_Render) { Hook_227::InstallAtOffset(bind::m_VariantToggle_Render); g_installed_Hook_227 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantTogglePatch") && !Listed(skip, "VariantToggle_ShowPerPlayer")) { g_on_Hook_228[0] = true; any = true; if (!g_installed_Hook_228 && bind::m_VariantToggle_ShowPerPlayer) { Hook_228::InstallAtOffset(bind::m_VariantToggle_ShowPerPlayer); g_installed_Hook_228 = true; } }
-    if (Is(cls, "TFModFortRiseVariantMoveOrDie.MyVariantToggle") && !Listed(skip, "Update_patch")) { g_on_Hook_229[0] = true; any = true; if (!g_installed_Hook_229 && bind::m_VariantToggle_Update) { Hook_229::InstallAtOffset(bind::m_VariantToggle_Update); g_installed_Hook_229 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_230[0] = true; any = true; if (!g_installed_Hook_230 && bind::m_VariantTournament1v1_OnConfirm) { Hook_230::InstallAtOffset(bind::m_VariantTournament1v1_OnConfirm); g_installed_Hook_230 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_231[0] = true; any = true; if (!g_installed_Hook_231 && bind::m_VariantTournament1v1_Render) { Hook_231::InstallAtOffset(bind::m_VariantTournament1v1_Render); g_installed_Hook_231 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_232[0] = true; any = true; if (!g_installed_Hook_232 && bind::m_VariantTournament2v2_OnConfirm) { Hook_232::InstallAtOffset(bind::m_VariantTournament2v2_OnConfirm); g_installed_Hook_232 = true; } }
-    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_233[0] = true; any = true; if (!g_installed_Hook_233 && bind::m_VariantTournament2v2_Render) { Hook_233::InstallAtOffset(bind::m_VariantTournament2v2_Render); g_installed_Hook_233 = true; } }
-    if (Is(cls, "TF.State.Patchs.VersusAwardsPatch") && !Listed(skip, "VersusAwards_GetAwards_Prefix")) { g_on_Hook_234[0] = true; any = true; if (!g_installed_Hook_234 && bind::m_VersusAwards_GetAwards_48f1) { Hook_234::InstallAtOffset(bind::m_VersusAwards_GetAwards_48f1); g_installed_Hook_234 = true; } }
-    if (Is(cls, "TF.State.Patchs.VersusAwardsPatch") && !Listed(skip, "VersusAwards_GetAwards_Finalizer")) { g_on_Hook_234[1] = true; any = true; if (!g_installed_Hook_234 && bind::m_VersusAwards_GetAwards_48f1) { Hook_234::InstallAtOffset(bind::m_VersusAwards_GetAwards_48f1); g_installed_Hook_234 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusBeginButtonPatch") && !Listed(skip, "VersusBeginButton_ctor")) { g_on_Hook_235[0] = true; any = true; if (!g_installed_Hook_235 && bind::m_VersusBeginButton__ctor_f3db) { Hook_235::InstallAtOffset(bind::m_VersusBeginButton__ctor_f3db); g_installed_Hook_235 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusBeginButtonPatch") && !Listed(skip, "VersusBeginButton_OnConfirm")) { g_on_Hook_236[0] = true; any = true; if (!g_installed_Hook_236 && bind::m_VersusBeginButton_OnConfirm) { Hook_236::InstallAtOffset(bind::m_VersusBeginButton_OnConfirm); g_installed_Hook_236 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusCoinButtonPatch") && !Listed(skip, "VersusCoinButton_Render")) { g_on_Hook_237[0] = true; any = true; if (!g_installed_Hook_237 && bind::m_VersusCoinButton_Render) { Hook_237::InstallAtOffset(bind::m_VersusCoinButton_Render); g_installed_Hook_237 = true; } }
-    if (Is(cls, "TF.State.Patchs.VersusLevelSystemPatch") && !Listed(skip, "VersusLevelSystem_GenLevels")) { g_on_Hook_238[0] = true; any = true; if (!g_installed_Hook_238 && bind::m_VersusLevelSystem_GenLevels_3ca1) { Hook_238::InstallAtOffset(bind::m_VersusLevelSystem_GenLevels_3ca1); g_installed_Hook_238 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyVersusModeButton") && !Listed(skip, "MapConfirm_patch")) { g_on_Hook_239[0] = true; any = true; if (!g_installed_Hook_239 && bind::m_VersusMapButton_OnConfirm) { Hook_239::InstallAtOffset(bind::m_VersusMapButton_OnConfirm); g_installed_Hook_239 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.HUD.VersusMatchResultsPatch") && !Listed(skip, "VersusMatchResults_ctor_Prefix")) { g_on_Hook_240[0] = true; any = true; if (!g_installed_Hook_240 && bind::m_VersusMatchResults__ctor_7521) { Hook_240::InstallAtOffset(bind::m_VersusMatchResults__ctor_7521); g_installed_Hook_240 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.HUD.VersusMatchResultsPatch") && !Listed(skip, "VersusMatchResults_ctor")) { g_on_Hook_240[1] = true; any = true; if (!g_installed_Hook_240 && bind::m_VersusMatchResults__ctor_7521) { Hook_240::InstallAtOffset(bind::m_VersusMatchResults__ctor_7521); g_installed_Hook_240 = true; } }
-    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "Create")) { g_on_Hook_241[0] = true; any = true; if (!g_installed_Hook_241 && bind::m_VersusModeButton__ctor_f3db) { Hook_241::InstallAtOffset(bind::m_VersusModeButton__ctor_f3db); g_installed_Hook_241 = true; } }
-    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "GetModeIcon")) { g_on_Hook_242[0] = true; any = true; if (!g_installed_Hook_242 && bind::m_VersusModeButton_GetModeIcon_1c75) { Hook_242::InstallAtOffset(bind::m_VersusModeButton_GetModeIcon_1c75); g_installed_Hook_242 = true; } }
-    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "GetModeName")) { g_on_Hook_243[0] = true; any = true; if (!g_installed_Hook_243 && bind::m_VersusModeButton_GetModeName_1c75) { Hook_243::InstallAtOffset(bind::m_VersusModeButton_GetModeName_1c75); g_installed_Hook_243 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyVersusModeButton") && !Listed(skip, "Render_patch")) { g_on_Hook_244[0] = true; any = true; if (!g_installed_Hook_244 && bind::m_VersusModeButton_Render) { Hook_244::InstallAtOffset(bind::m_VersusModeButton_Render); g_installed_Hook_244 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusModeButtonPatch") && !Listed(skip, "VersusModeButton_Update_Prefix")) { g_on_Hook_245[0] = true; any = true; if (!g_installed_Hook_245 && bind::m_VersusModeButton_Update) { Hook_245::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_245 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusModeButtonPatch") && !Listed(skip, "VersusModeButton_Update_Postfix")) { g_on_Hook_245[1] = true; any = true; if (!g_installed_Hook_245 && bind::m_VersusModeButton_Update) { Hook_245::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_245 = true; } }
-    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "Update")) { g_on_Hook_245[2] = true; any = true; if (!g_installed_Hook_245 && bind::m_VersusModeButton_Update) { Hook_245::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_245 = true; } }
-    if (Is(cls, "TFModFortRiseGameModeSoccer.MyVersusModeButton") && !Listed(skip, "Update_patch")) { g_on_Hook_245[3] = true; any = true; if (!g_installed_Hook_245 && bind::m_VersusModeButton_Update) { Hook_245::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_245 = true; } }
-    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "UpdateSides")) { g_on_Hook_246[0] = true; any = true; if (!g_installed_Hook_246 && bind::m_VersusModeButton_UpdateSides) { Hook_246::InstallAtOffset(bind::m_VersusModeButton_UpdateSides); g_installed_Hook_246 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.HUD.VersusPlayerMatchResultsPatch") && !Listed(skip, "VersusPlayerMatchResults_Ctor_Prefix")) { g_on_Hook_247[0] = true; any = true; if (!g_installed_Hook_247 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_247::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_247 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.HUD.VersusPlayerMatchResultsPatch") && !Listed(skip, "VersusPlayerMatchResults_Ctor_Finalizer")) { g_on_Hook_247[1] = true; any = true; if (!g_installed_Hook_247 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_247::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_247 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.HUD.VersusPlayerMatchResultsPatch") && !Listed(skip, "VersusPlayerMatchResults_ctor")) { g_on_Hook_247[2] = true; any = true; if (!g_installed_Hook_247 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_247::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_247 = true; } }
-    if (Is(cls, "TeamsPlus.Hooks.LevelHooks") && !Listed(skip, "GetLevels_Prefix")) { g_on_Hook_248[0] = true; any = true; if (!g_installed_Hook_248 && bind::m_VersusTowerData_GetLevels_3ca1) { Hook_248::InstallAtOffset(bind::m_VersusTowerData_GetLevels_3ca1); g_installed_Hook_248 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusVariantButtonPatch") && !Listed(skip, "VersusVariantsButton_OnConfirm")) { g_on_Hook_249[0] = true; any = true; if (!g_installed_Hook_249 && bind::m_VersusVariantsButton_OnConfirm) { Hook_249::InstallAtOffset(bind::m_VersusVariantsButton_OnConfirm); g_installed_Hook_249 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusVariantButtonPatch") && !Listed(skip, "VersusVariantsButton_Render")) { g_on_Hook_250[0] = true; any = true; if (!g_installed_Hook_250 && bind::m_VersusVariantsButton_Render) { Hook_250::InstallAtOffset(bind::m_VersusVariantsButton_Render); g_installed_Hook_250 = true; } }
-    if (Is(cls, "TF.EX.Patchs.Entity.WhiteArcherPrisonPatch") && !Listed(skip, "WhiteArcherPrison_Spawn")) { g_on_Hook_251[0] = true; any = true; if (!g_installed_Hook_251 && bind::m_WhiteArcherPrison_Spawn_08c4) { Hook_251::InstallAtOffset(bind::m_WhiteArcherPrison_Spawn_08c4); g_installed_Hook_251 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.WoodenHatRngPatch") && !Listed(skip, "WoodenHat_Update_Prefix")) { g_on_Hook_252[0] = true; any = true; if (!g_installed_Hook_252 && bind::m_WoodenHat_Update) { Hook_252::InstallAtOffset(bind::m_WoodenHat_Update); g_installed_Hook_252 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.WoodenHatRngPatch") && !Listed(skip, "WoodenHat_Update_Postfix")) { g_on_Hook_252[1] = true; any = true; if (!g_installed_Hook_252 && bind::m_WoodenHat_Update) { Hook_252::InstallAtOffset(bind::m_WoodenHat_Update); g_installed_Hook_252 = true; } }
-    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.YellowArcherStatuePatch") && !Listed(skip, "YellowArcherStatue_Update")) { g_on_Hook_253[0] = true; any = true; if (!g_installed_Hook_253 && bind::m_YellowArcherStatue_Update) { Hook_253::InstallAtOffset(bind::m_YellowArcherStatue_Update); g_installed_Hook_253 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BGCrystalPatch") && !Listed(skip, "BGCrystal_Update")) { g_on_Hook_28[0] = true; any = true; if (!g_installed_Hook_28 && bind::m_BGCrystal_Update) { Hook_28::InstallAtOffset(bind::m_BGCrystal_Update); g_installed_Hook_28 = true; } }
+    if (Is(cls, "TF.State.Patchs.Layer.LightningFlashLayerPatch") && !Listed(skip, "LightningFlashLayer_SequenceB")) { g_on_Hook_29[0] = true; any = true; if (!g_installed_Hook_29 && bind::m_Background_LightningFlashLayer_SequenceB) { Hook_29::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceB); g_installed_Hook_29 = true; } }
+    if (Is(cls, "TF.State.Patchs.Layer.LightningFlashLayerPatch") && !Listed(skip, "LightningFlashLayer_SequenceC")) { g_on_Hook_30[0] = true; any = true; if (!g_installed_Hook_30 && bind::m_Background_LightningFlashLayer_SequenceC) { Hook_30::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceC); g_installed_Hook_30 = true; } }
+    if (Is(cls, "TF.State.Patchs.Layer.LightningFlashLayerPatch") && !Listed(skip, "LightningFlashLayer_SequenceD")) { g_on_Hook_31[0] = true; any = true; if (!g_installed_Hook_31 && bind::m_Background_LightningFlashLayer_SequenceD) { Hook_31::InstallAtOffset(bind::m_Background_LightningFlashLayer_SequenceD); g_installed_Hook_31 = true; } }
+    if (Is(cls, "TF.State.Patchs.Background.BackgroundPatch") && !Listed(skip, "Background_Update")) { g_on_Hook_32[0] = true; any = true; if (!g_installed_Hook_32 && bind::m_Background_Update) { Hook_32::InstallAtOffset(bind::m_Background_Update); g_installed_Hook_32 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BatPatch") && !Listed(skip, "Bat_ctor")) { g_on_Hook_33[0] = true; any = true; if (!g_installed_Hook_33 && bind::m_Bat__ctor_81ac) { Hook_33::InstallAtOffset(bind::m_Bat__ctor_81ac); g_installed_Hook_33 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BatPatch") && !Listed(skip, "Bat_Update_Postfix")) { g_on_Hook_34[0] = true; any = true; if (!g_installed_Hook_34 && bind::m_Bat_Update) { Hook_34::InstallAtOffset(bind::m_Bat_Update); g_installed_Hook_34 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BombParticlePatch") && !Listed(skip, "BombParticle_Update")) { g_on_Hook_35[0] = true; any = true; if (!g_installed_Hook_35 && bind::m_BombParticle_Update) { Hook_35::InstallAtOffset(bind::m_BombParticle_Update); g_installed_Hook_35 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BrambleArrowPatch") && !Listed(skip, "HitWall_Prefix")) { g_on_Hook_36[0] = true; any = true; if (!g_installed_Hook_36 && bind::m_BrambleArrow_HitWall_18a4) { Hook_36::InstallAtOffset(bind::m_BrambleArrow_HitWall_18a4); g_installed_Hook_36 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BrambleArrowPatch") && !Listed(skip, "Update_Postfix")) { g_on_Hook_37[0] = true; any = true; if (!g_installed_Hook_37 && bind::m_BrambleArrow_Update) { Hook_37::InstallAtOffset(bind::m_BrambleArrow_Update); g_installed_Hook_37 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.BramblesPatch") && !Listed(skip, "Create_Prefix")) { g_on_Hook_38[0] = true; any = true; if (!g_installed_Hook_38 && bind::m_Brambles_Create_4889) { Hook_38::InstallAtOffset(bind::m_Brambles_Create_4889); g_installed_Hook_38 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.CataclysmMeatPatch") && !Listed(skip, "CataclysmMeat_Update")) { g_on_Hook_39[0] = true; any = true; if (!g_installed_Hook_39 && bind::m_CataclysmMeat_Update) { Hook_39::InstallAtOffset(bind::m_CataclysmMeat_Update); g_installed_Hook_39 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ChainPatch") && !Listed(skip, "Chain_ctor_Vector2_int_Prefix")) { g_on_Hook_40[0] = true; any = true; if (!g_installed_Hook_40 && bind::m_Chain__ctor_5ce7) { Hook_40::InstallAtOffset(bind::m_Chain__ctor_5ce7); g_installed_Hook_40 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ChainPatch") && !Listed(skip, "Chain_ctor_Vector2_int_Postfix")) { g_on_Hook_40[1] = true; any = true; if (!g_installed_Hook_40 && bind::m_Chain__ctor_5ce7) { Hook_40::InstallAtOffset(bind::m_Chain__ctor_5ce7); g_installed_Hook_40 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.CrownRngPatch") && !Listed(skip, "Crown_Update_Prefix")) { g_on_Hook_41[0] = true; any = true; if (!g_installed_Hook_41 && bind::m_Crown_Update) { Hook_41::InstallAtOffset(bind::m_Crown_Update); g_installed_Hook_41 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.CrownRngPatch") && !Listed(skip, "Crown_Update_Postfix")) { g_on_Hook_41[1] = true; any = true; if (!g_installed_Hook_41 && bind::m_Crown_Update) { Hook_41::InstallAtOffset(bind::m_Crown_Update); g_installed_Hook_41 = true; } }
+    if (Is(cls, "TF.State.Patchs.DarkPortalsVariantSequencePatch") && !Listed(skip, "DarkPortalsVariantSequence_ctor")) { g_on_Hook_42[0] = true; any = true; if (!g_installed_Hook_42 && bind::m_DarkPortalsVariantSequence__ctor) { Hook_42::InstallAtOffset(bind::m_DarkPortalsVariantSequence__ctor); g_installed_Hook_42 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.DreadBGTentaclePatch") && !Listed(skip, "DreadBGTentacle_Update")) { g_on_Hook_43[0] = true; any = true; if (!g_installed_Hook_43 && bind::m_DreadBGTentacle_Update) { Hook_43::InstallAtOffset(bind::m_DreadBGTentacle_Update); g_installed_Hook_43 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.DummyHeadPatch") && !Listed(skip, "DummyHead_ctor_Prefix")) { g_on_Hook_44[0] = true; any = true; if (!g_installed_Hook_44 && bind::m_DummyHead__ctor_c1e0) { Hook_44::InstallAtOffset(bind::m_DummyHead__ctor_c1e0); g_installed_Hook_44 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.DummyHeadPatch") && !Listed(skip, "DummyHead_ctor_Postfix")) { g_on_Hook_44[1] = true; any = true; if (!g_installed_Hook_44 && bind::m_DummyHead__ctor_c1e0) { Hook_44::InstallAtOffset(bind::m_DummyHead__ctor_c1e0); g_installed_Hook_44 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "Enemy_SetState_Postfix")) { g_on_Hook_45[0] = true; any = true; if (!g_installed_Hook_45 && bind::m_Enemy_SetState_e2bf) { Hook_45::InstallAtOffset(bind::m_Enemy_SetState_e2bf); g_installed_Hook_45 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.FightButtonPatch") && !Listed(skip, "FightButton_MenuAction")) { g_on_Hook_46[0] = true; any = true; if (!g_installed_Hook_46 && bind::m_FightButton_MenuAction) { Hook_46::InstallAtOffset(bind::m_FightButton_MenuAction); g_installed_Hook_46 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Layer.GameplayLayerPatch") && !Listed(skip, "GameplayLayer_BatchedRender")) { g_on_Hook_47[0] = true; any = true; if (!g_installed_Hook_47 && bind::m_GameplayLayer_BatchedRender) { Hook_47::InstallAtOffset(bind::m_GameplayLayer_BatchedRender); g_installed_Hook_47 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.HUD.HUDPatch") && !Listed(skip, "HUD_Update")) { g_on_Hook_48[0] = true; any = true; if (!g_installed_Hook_48 && bind::m_HUD_Update) { Hook_48::InstallAtOffset(bind::m_HUD_Update); g_installed_Hook_48 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.HeavyPhysicsObjectPatch") && !Listed(skip, "HeavyPhysicsObject_Update")) { g_on_Hook_49[0] = true; any = true; if (!g_installed_Hook_49 && bind::m_HeavyPhysicsObject_Update) { Hook_49::InstallAtOffset(bind::m_HeavyPhysicsObject_Update); g_installed_Hook_49 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IcePatch") && !Listed(skip, "Ice_Update")) { g_on_Hook_50[0] = true; any = true; if (!g_installed_Hook_50 && bind::m_Ice_Update) { Hook_50::InstallAtOffset(bind::m_Ice_Update); g_installed_Hook_50 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnArrowHit")) { g_on_Hook_51[0] = true; any = true; if (!g_installed_Hook_51 && bind::m_Icicle_OnArrowHit_3b10) { Hook_51::InstallAtOffset(bind::m_Icicle_OnArrowHit_3b10); g_installed_Hook_51 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnExplodePush")) { g_on_Hook_52[0] = true; any = true; if (!g_installed_Hook_52 && bind::m_Icicle_OnExplodePush_e39e) { Hook_52::InstallAtOffset(bind::m_Icicle_OnExplodePush_e39e); g_installed_Hook_52 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnPlayerCollide")) { g_on_Hook_53[0] = true; any = true; if (!g_installed_Hook_53 && bind::m_Icicle_OnPlayerCollide_468a) { Hook_53::InstallAtOffset(bind::m_Icicle_OnPlayerCollide_468a); g_installed_Hook_53 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_OnPlayerGhostCollide")) { g_on_Hook_54[0] = true; any = true; if (!g_installed_Hook_54 && bind::m_Icicle_OnPlayerGhostCollide_8681) { Hook_54::InstallAtOffset(bind::m_Icicle_OnPlayerGhostCollide_8681); g_installed_Hook_54 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.IciclePatch") && !Listed(skip, "Icicle_Update")) { g_on_Hook_55[0] = true; any = true; if (!g_installed_Hook_55 && bind::m_Icicle_Update) { Hook_55::InstallAtOffset(bind::m_Icicle_Update); g_installed_Hook_55 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LanternPatch") && !Listed(skip, "Lantern_SceneBegin_Postfix")) { g_on_Hook_56[0] = true; any = true; if (!g_installed_Hook_56 && bind::m_Lantern_SceneBegin) { Hook_56::InstallAtOffset(bind::m_Lantern_SceneBegin); g_installed_Hook_56 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LanternCosmeticPatch") && !Listed(skip, "Lantern_Update_Prefix")) { g_on_Hook_57[0] = true; any = true; if (!g_installed_Hook_57 && bind::m_Lantern_Update) { Hook_57::InstallAtOffset(bind::m_Lantern_Update); g_installed_Hook_57 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LanternCosmeticPatch") && !Listed(skip, "Lantern_Update_Postfix")) { g_on_Hook_57[1] = true; any = true; if (!g_installed_Hook_57 && bind::m_Lantern_Update) { Hook_57::InstallAtOffset(bind::m_Lantern_Update); g_installed_Hook_57 = true; } }
+    if (Is(cls, "TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch") && !Listed(skip, "LastManStandingRoundLogic_OnLevelLoadFinish")) { g_on_Hook_58[0] = true; any = true; if (!g_installed_Hook_58 && bind::m_LastManStandingRoundLogic_OnLevelLoadFinish) { Hook_58::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnLevelLoadFinish); g_installed_Hook_58 = true; } }
+    if (Is(cls, "TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch") && !Listed(skip, "LastManStandingRoundLogic_OnRoundStart")) { g_on_Hook_59[0] = true; any = true; if (!g_installed_Hook_59 && bind::m_LastManStandingRoundLogic_OnRoundStart) { Hook_59::InstallAtOffset(bind::m_LastManStandingRoundLogic_OnRoundStart); g_installed_Hook_59 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaPatch") && !Listed(skip, "Lava_BubbleComplete_Prefix")) { g_on_Hook_60[0] = true; any = true; if (!g_installed_Hook_60 && bind::m_Lava_BubbleComplete_77d2) { Hook_60::InstallAtOffset(bind::m_Lava_BubbleComplete_77d2); g_installed_Hook_60 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaPatch") && !Listed(skip, "Lava_BubbleComplete_Postfix")) { g_on_Hook_60[1] = true; any = true; if (!g_installed_Hook_60 && bind::m_Lava_BubbleComplete_77d2) { Hook_60::InstallAtOffset(bind::m_Lava_BubbleComplete_77d2); g_installed_Hook_60 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_ctor_Prefix")) { g_on_Hook_61[0] = true; any = true; if (!g_installed_Hook_61 && bind::m_LavaControl__ctor_7672) { Hook_61::InstallAtOffset(bind::m_LavaControl__ctor_7672); g_installed_Hook_61 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_ctor_Postfix")) { g_on_Hook_61[1] = true; any = true; if (!g_installed_Hook_61 && bind::m_LavaControl__ctor_7672) { Hook_61::InstallAtOffset(bind::m_LavaControl__ctor_7672); g_installed_Hook_61 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Added_Prefix")) { g_on_Hook_62[0] = true; any = true; if (!g_installed_Hook_62 && bind::m_LavaControl_Added) { Hook_62::InstallAtOffset(bind::m_LavaControl_Added); g_installed_Hook_62 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Added_Postfix")) { g_on_Hook_62[1] = true; any = true; if (!g_installed_Hook_62 && bind::m_LavaControl_Added) { Hook_62::InstallAtOffset(bind::m_LavaControl_Added); g_installed_Hook_62 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Extend_Prefix")) { g_on_Hook_63[0] = true; any = true; if (!g_installed_Hook_63 && bind::m_LavaControl_Extend_e2bf) { Hook_63::InstallAtOffset(bind::m_LavaControl_Extend_e2bf); g_installed_Hook_63 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LavaControlPatch") && !Listed(skip, "LavaControl_Extend_Postfix")) { g_on_Hook_63[1] = true; any = true; if (!g_installed_Hook_63 && bind::m_LavaControl_Extend_e2bf) { Hook_63::InstallAtOffset(bind::m_LavaControl_Extend_e2bf); g_installed_Hook_63 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_ctor")) { g_on_Hook_64[0] = true; any = true; if (!g_installed_Hook_64 && bind::m_Level__ctor_8bd2) { Hook_64::InstallAtOffset(bind::m_Level__ctor_8bd2); g_installed_Hook_64 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_HandlePausing")) { g_on_Hook_65[0] = true; any = true; if (!g_installed_Hook_65 && bind::m_Level_HandlePausing) { Hook_65::InstallAtOffset(bind::m_Level_HandlePausing); g_installed_Hook_65 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_HandlePausing")) { g_on_Hook_65[1] = true; any = true; if (!g_installed_Hook_65 && bind::m_Level_HandlePausing) { Hook_65::InstallAtOffset(bind::m_Level_HandlePausing); g_installed_Hook_65 = true; } }
+    if (Is(cls, "TF.State.Patchs.Scene.LevelScreenShakePatch") && !Listed(skip, "Level_ScreenShake")) { g_on_Hook_66[0] = true; any = true; if (!g_installed_Hook_66 && bind::m_Level_ScreenShake_e2bf) { Hook_66::InstallAtOffset(bind::m_Level_ScreenShake_e2bf); g_installed_Hook_66 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_Update__Prefix")) { g_on_Hook_67[0] = true; any = true; if (!g_installed_Hook_67 && bind::m_Level_Update) { Hook_67::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_67 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.LevelPatch") && !Listed(skip, "Level_Update__Postfix")) { g_on_Hook_67[1] = true; any = true; if (!g_installed_Hook_67 && bind::m_Level_Update) { Hook_67::InstallAtOffset(bind::m_Level_Update); g_installed_Hook_67 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntityPatch") && !Listed(skip, "LevelEntity_Render_Prefix")) { g_on_Hook_68[0] = true; any = true; if (!g_installed_Hook_68 && bind::m_LevelEntity_Render) { Hook_68::InstallAtOffset(bind::m_LevelEntity_Render); g_installed_Hook_68 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntityPatch") && !Listed(skip, "LevelEntity_Render_Postfix")) { g_on_Hook_68[1] = true; any = true; if (!g_installed_Hook_68 && bind::m_LevelEntity_Render) { Hook_68::InstallAtOffset(bind::m_LevelEntity_Render); g_installed_Hook_68 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ShockCirclePatch") && !Listed(skip, "LevelEntity_Update")) { g_on_Hook_69[0] = true; any = true; if (!g_installed_Hook_69 && bind::m_LevelEntity_Update) { Hook_69::InstallAtOffset(bind::m_LevelEntity_Update); g_installed_Hook_69 = true; } }
+    if (Is(cls, "TF.State.Patchs.Scene.LevelLoaderXMLStatePatch") && !Listed(skip, "LevelLoaderXML_ctor")) { g_on_Hook_70[0] = true; any = true; if (!g_installed_Hook_70 && bind::m_LevelLoaderXML__ctor_9385) { Hook_70::InstallAtOffset(bind::m_LevelLoaderXML__ctor_9385); g_installed_Hook_70 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.LevelLoaderXMLPatch") && !Listed(skip, "LevelLoaderXML_Update")) { g_on_Hook_71[0] = true; any = true; if (!g_installed_Hook_71 && bind::m_LevelLoaderXML_Update) { Hook_71::InstallAtOffset(bind::m_LevelLoaderXML_Update); g_installed_Hook_71 = true; } }
+    if (Is(cls, "TF.State.Patchs.RoundLogic.LevelTestRoundLogicPatch") && !Listed(skip, "RoundLogic_OnLevelLoadFinish")) { g_on_Hook_72[0] = true; any = true; if (!g_installed_Hook_72 && bind::m_LevelTestRoundLogic_OnLevelLoadFinish) { Hook_72::InstallAtOffset(bind::m_LevelTestRoundLogic_OnLevelLoadFinish); g_installed_Hook_72 = true; } }
+    if (Is(cls, "TF.State.Patchs.Layer.LightingLayerPatch") && !Listed(skip, "LightingLayer_Update")) { g_on_Hook_73[0] = true; any = true; if (!g_installed_Hook_73 && bind::m_LightingLayer_Update) { Hook_73::InstallAtOffset(bind::m_LightingLayer_Update); g_installed_Hook_73 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.LoaderPatch") && !Listed(skip, "Loader_TweenIn")) { g_on_Hook_74[0] = true; any = true; if (!g_installed_Hook_74 && bind::m_Loader_TweenIn) { Hook_74::InstallAtOffset(bind::m_Loader_TweenIn); g_installed_Hook_74 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.LoopPlatformPatch") && !Listed(skip, "LoopPlatform_Update")) { g_on_Hook_75[0] = true; any = true; if (!g_installed_Hook_75 && bind::m_LoopPlatform_Update) { Hook_75::InstallAtOffset(bind::m_LoopPlatform_Update); g_installed_Hook_75 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.MenuHooks") && !Listed(skip, "CreateTeamSelect_Prefix")) { g_on_Hook_76[0] = true; any = true; if (!g_installed_Hook_76 && bind::m_MainMenu_CreateTeamSelect) { Hook_76::InstallAtOffset(bind::m_MainMenu_CreateTeamSelect); g_installed_Hook_76 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MainMenuPatch") && !Listed(skip, "MainMenu_CreateVersusOptions")) { g_on_Hook_77[0] = true; any = true; if (!g_installed_Hook_77 && bind::m_MainMenu_CreateVersusOptions) { Hook_77::InstallAtOffset(bind::m_MainMenu_CreateVersusOptions); g_installed_Hook_77 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MainMenuPatch") && !Listed(skip, "MainMenu_set_State")) { g_on_Hook_78[0] = true; any = true; if (!g_installed_Hook_78 && bind::m_MainMenu_set_State_b2b6) { Hook_78::InstallAtOffset(bind::m_MainMenu_set_State_b2b6); g_installed_Hook_78 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "Begin_Postfix")) { g_on_Hook_79[0] = true; any = true; if (!g_installed_Hook_79 && bind::m_MapScene_Begin) { Hook_79::InstallAtOffset(bind::m_MapScene_Begin); g_installed_Hook_79 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "MapScene_GetRandomVersusTower")) { g_on_Hook_80[0] = true; any = true; if (!g_installed_Hook_80 && bind::m_MapScene_GetRandomVersusTower) { Hook_80::InstallAtOffset(bind::m_MapScene_GetRandomVersusTower); g_installed_Hook_80 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "InitVersusButtons_Prefix")) { g_on_Hook_81[0] = true; any = true; if (!g_installed_Hook_81 && bind::m_MapScene_InitVersusButtons) { Hook_81::InstallAtOffset(bind::m_MapScene_InitVersusButtons); g_installed_Hook_81 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "InitVersusButtons_Postfix")) { g_on_Hook_81[1] = true; any = true; if (!g_installed_Hook_81 && bind::m_MapScene_InitVersusButtons) { Hook_81::InstallAtOffset(bind::m_MapScene_InitVersusButtons); g_installed_Hook_81 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "StartSession_Prefix")) { g_on_Hook_82[0] = true; any = true; if (!g_installed_Hook_82 && bind::m_MapScene_StartSession) { Hook_82::InstallAtOffset(bind::m_MapScene_StartSession); g_installed_Hook_82 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Scene.MapScenePatch") && !Listed(skip, "StartSession_Postfix")) { g_on_Hook_82[1] = true; any = true; if (!g_installed_Hook_82 && bind::m_MapScene_StartSession) { Hook_82::InstallAtOffset(bind::m_MapScene_StartSession); g_installed_Hook_82 = true; } }
+    if (Is(cls, "TF.EX.Patchs.MatchSettingsPatch") && !Listed(skip, "MatchSettings_CleanSettingsVersus")) { g_on_Hook_83[0] = true; any = true; if (!g_installed_Hook_83 && bind::m_MatchSettings_CleanSettingsVersus) { Hook_83::InstallAtOffset(bind::m_MatchSettings_CleanSettingsVersus); g_installed_Hook_83 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "GetMaxTeamSize_Prefix")) { g_on_Hook_84[0] = true; any = true; if (!g_installed_Hook_84 && bind::m_MatchSettings_GetMaxTeamSize) { Hook_84::InstallAtOffset(bind::m_MatchSettings_GetMaxTeamSize); g_installed_Hook_84 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "GetPlayerTeamSize_Prefix")) { g_on_Hook_85[0] = true; any = true; if (!g_installed_Hook_85 && bind::m_MatchSettings_GetPlayerTeamSize_e2bf) { Hook_85::InstallAtOffset(bind::m_MatchSettings_GetPlayerTeamSize_e2bf); g_installed_Hook_85 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "IsFriendly_Prefix")) { g_on_Hook_86[0] = true; any = true; if (!g_installed_Hook_86 && bind::m_MatchSettings_IsFriendly_c11b) { Hook_86::InstallAtOffset(bind::m_MatchSettings_IsFriendly_c11b); g_installed_Hook_86 = true; } }
+    if (Is(cls, "TF.EX.Patchs.MatchSettingsPatch") && !Listed(skip, "MatchSettings_PlayerGoals")) { g_on_Hook_87[0] = true; any = true; if (!g_installed_Hook_87 && bind::m_MatchSettings_PlayerGoals_cf0f) { Hook_87::InstallAtOffset(bind::m_MatchSettings_PlayerGoals_cf0f); g_installed_Hook_87 = true; } }
+    if (Is(cls, "TowerFall.patch_MatchSettings") && !Listed(skip, "get_CanPlayThisMode")) { g_on_Hook_88[0] = true; any = true; if (!g_installed_Hook_88 && bind::m_MatchSettings_get_CanPlayThisMode) { Hook_88::InstallAtOffset(bind::m_MatchSettings_get_CanPlayThisMode); g_installed_Hook_88 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "CanStartWithTeams_Prefix")) { g_on_Hook_89[0] = true; any = true; if (!g_installed_Hook_89 && bind::m_MatchSettings_get_CanStartWithTeams) { Hook_89::InstallAtOffset(bind::m_MatchSettings_get_CanStartWithTeams); g_installed_Hook_89 = true; } }
+    if (Is(cls, "TowerFall.patch_MatchSettings") && !Listed(skip, "get_GoalScore")) { g_on_Hook_90[0] = true; any = true; if (!g_installed_Hook_90 && bind::m_MatchSettings_get_GoalScore) { Hook_90::InstallAtOffset(bind::m_MatchSettings_get_GoalScore); g_installed_Hook_90 = true; } }
+    if (Is(cls, "TowerFall.patch_MatchSettings") && !Listed(skip, "get_TeamMode")) { g_on_Hook_91[0] = true; any = true; if (!g_installed_Hook_91 && bind::m_MatchSettings_get_TeamMode) { Hook_91::InstallAtOffset(bind::m_MatchSettings_get_TeamMode); g_installed_Hook_91 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "ProperlyAssigned_Prefix")) { g_on_Hook_92[0] = true; any = true; if (!g_installed_Hook_92 && bind::m_MatchTeams_get_ProperlyAssigned) { Hook_92::InstallAtOffset(bind::m_MatchTeams_get_ProperlyAssigned); g_installed_Hook_92 = true; } }
+    if (Is(cls, "TF.EX.Patchs.MatchVariantsPatchs") && !Listed(skip, "MatchVariants_ctor")) { g_on_Hook_93[0] = true; any = true; if (!g_installed_Hook_93 && bind::m_MatchVariants__ctor_953d) { Hook_93::InstallAtOffset(bind::m_MatchVariants__ctor_953d); g_installed_Hook_93 = true; } }
+    if (Is(cls, "TF.EX.Patchs.MatchVariantsPatchs") && !Listed(skip, "MatchVariants_BuildMenu_Prefix")) { g_on_Hook_94[0] = true; any = true; if (!g_installed_Hook_94 && bind::m_MatchVariants_BuildMenu_62a4) { Hook_94::InstallAtOffset(bind::m_MatchVariants_BuildMenu_62a4); g_installed_Hook_94 = true; } }
+    if (Is(cls, "TF.State.Patchs.MatchVariantsPatch") && !Listed(skip, "MatchVariants_Randomize_Prefix")) { g_on_Hook_95[0] = true; any = true; if (!g_installed_Hook_95 && bind::m_MatchVariants_Randomize) { Hook_95::InstallAtOffset(bind::m_MatchVariants_Randomize); g_installed_Hook_95 = true; } }
+    if (Is(cls, "TF.State.Patchs.MatchVariantsPatch") && !Listed(skip, "MatchVariants_Randomize_Postfix")) { g_on_Hook_95[1] = true; any = true; if (!g_installed_Hook_95 && bind::m_MatchVariants_Randomize) { Hook_95::InstallAtOffset(bind::m_MatchVariants_Randomize); g_installed_Hook_95 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.MenuItemPatch") && !Listed(skip, "MenuItem_Update")) { g_on_Hook_96[0] = true; any = true; if (!g_installed_Hook_96 && bind::m_MenuItem_Update) { Hook_96::InstallAtOffset(bind::m_MenuItem_Update); g_installed_Hook_96 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Dissipate")) { g_on_Hook_97[0] = true; any = true; if (!g_installed_Hook_97 && bind::m_Miasma_Dissipate) { Hook_97::InstallAtOffset(bind::m_Miasma_Dissipate); g_installed_Hook_97 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Update")) { g_on_Hook_98[0] = true; any = true; if (!g_installed_Hook_98 && bind::m_Miasma_Update) { Hook_98::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_98 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Update_FreezeCosmetics")) { g_on_Hook_98[1] = true; any = true; if (!g_installed_Hook_98 && bind::m_Miasma_Update) { Hook_98::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_98 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MiasmaPatch") && !Listed(skip, "Miasma_Update_UnfreezeCosmetics")) { g_on_Hook_98[2] = true; any = true; if (!g_installed_Hook_98 && bind::m_Miasma_Update) { Hook_98::InstallAtOffset(bind::m_Miasma_Update); g_installed_Hook_98 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MoonGlassBlockPatch") && !Listed(skip, "MoonGlassBlock_InsideExplode")) { g_on_Hook_99[0] = true; any = true; if (!g_installed_Hook_99 && bind::m_MoonGlassBlock_InsideExplode) { Hook_99::InstallAtOffset(bind::m_MoonGlassBlock_InsideExplode); g_installed_Hook_99 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.MovingPlatformPatch") && !Listed(skip, "MovingPlatform_Update")) { g_on_Hook_100[0] = true; any = true; if (!g_installed_Hook_100 && bind::m_MovingPlatform_Update) { Hook_100::InstallAtOffset(bind::m_MovingPlatform_Update); g_installed_Hook_100 = true; } }
+    if (Is(cls, "TowerFall.Patching.OptionsButton") && !Listed(skip, "OnSelect")) { g_on_Hook_101[0] = true; any = true; if (!g_installed_Hook_101 && bind::m_OptionsButton_OnSelect) { Hook_101::InstallAtOffset(bind::m_OptionsButton_OnSelect); g_installed_Hook_101 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_ctor_Vector2_bool_Prefix")) { g_on_Hook_102[0] = true; any = true; if (!g_installed_Hook_102 && bind::m_Orb__ctor_2265) { Hook_102::InstallAtOffset(bind::m_Orb__ctor_2265); g_installed_Hook_102 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_ctor_Vector2_bool_PostFix")) { g_on_Hook_102[1] = true; any = true; if (!g_installed_Hook_102 && bind::m_Orb__ctor_2265) { Hook_102::InstallAtOffset(bind::m_Orb__ctor_2265); g_installed_Hook_102 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_Update_Prefix")) { g_on_Hook_103[0] = true; any = true; if (!g_installed_Hook_103 && bind::m_Orb_Update) { Hook_103::InstallAtOffset(bind::m_Orb_Update); g_installed_Hook_103 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPatch") && !Listed(skip, "Orb_Update_Postfix")) { g_on_Hook_103[1] = true; any = true; if (!g_installed_Hook_103 && bind::m_Orb_Update) { Hook_103::InstallAtOffset(bind::m_Orb_Update); g_installed_Hook_103 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoDarkOrb_Prefix")) { g_on_Hook_104[0] = true; any = true; if (!g_installed_Hook_104 && bind::m_OrbLogic_DoDarkOrb) { Hook_104::InstallAtOffset(bind::m_OrbLogic_DoDarkOrb); g_installed_Hook_104 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoDarkOrb_Postfix")) { g_on_Hook_104[1] = true; any = true; if (!g_installed_Hook_104 && bind::m_OrbLogic_DoDarkOrb) { Hook_104::InstallAtOffset(bind::m_OrbLogic_DoDarkOrb); g_installed_Hook_104 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoOffsetWorldVariant")) { g_on_Hook_105[0] = true; any = true; if (!g_installed_Hook_105 && bind::m_OrbLogic_DoOffsetWorldVariant) { Hook_105::InstallAtOffset(bind::m_OrbLogic_DoOffsetWorldVariant); g_installed_Hook_105 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoSpaceOrb")) { g_on_Hook_106[0] = true; any = true; if (!g_installed_Hook_106 && bind::m_OrbLogic_DoSpaceOrb) { Hook_106::InstallAtOffset(bind::m_OrbLogic_DoSpaceOrb); g_installed_Hook_106 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoTimeOrb_Prefix")) { g_on_Hook_107[0] = true; any = true; if (!g_installed_Hook_107 && bind::m_OrbLogic_DoTimeOrb_953d) { Hook_107::InstallAtOffset(bind::m_OrbLogic_DoTimeOrb_953d); g_installed_Hook_107 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_DoTimeOrb_Postfix")) { g_on_Hook_107[1] = true; any = true; if (!g_installed_Hook_107 && bind::m_OrbLogic_DoTimeOrb_953d) { Hook_107::InstallAtOffset(bind::m_OrbLogic_DoTimeOrb_953d); g_installed_Hook_107 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_StartScroll_Prefix")) { g_on_Hook_108[0] = true; any = true; if (!g_installed_Hook_108 && bind::m_OrbLogic_StartScroll) { Hook_108::InstallAtOffset(bind::m_OrbLogic_StartScroll); g_installed_Hook_108 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_StartScroll_Postfix")) { g_on_Hook_108[1] = true; any = true; if (!g_installed_Hook_108 && bind::m_OrbLogic_StartScroll) { Hook_108::InstallAtOffset(bind::m_OrbLogic_StartScroll); g_installed_Hook_108 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_Update_Prefix")) { g_on_Hook_109[0] = true; any = true; if (!g_installed_Hook_109 && bind::m_OrbLogic_Update) { Hook_109::InstallAtOffset(bind::m_OrbLogic_Update); g_installed_Hook_109 = true; } }
+    if (Is(cls, "TF.State.Patchs.OrbLogicPatch") && !Listed(skip, "OrbLogic_Update_Postfix")) { g_on_Hook_109[1] = true; any = true; if (!g_installed_Hook_109 && bind::m_OrbLogic_Update) { Hook_109::InstallAtOffset(bind::m_OrbLogic_Update); g_installed_Hook_109 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPickupPatch") && !Listed(skip, "OrbPickup_OnPlayerCollide_Prefix")) { g_on_Hook_110[0] = true; any = true; if (!g_installed_Hook_110 && bind::m_OrbPickup_OnPlayerCollide_468a) { Hook_110::InstallAtOffset(bind::m_OrbPickup_OnPlayerCollide_468a); g_installed_Hook_110 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.OrbPickupPatch") && !Listed(skip, "OrbPickup_OnPlayerCollide_Finalizer")) { g_on_Hook_110[1] = true; any = true; if (!g_installed_Hook_110 && bind::m_OrbPickup_OnPlayerCollide_468a) { Hook_110::InstallAtOffset(bind::m_OrbPickup_OnPlayerCollide_468a); g_installed_Hook_110 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_AddItem")) { g_on_Hook_111[0] = true; any = true; if (!g_installed_Hook_111 && bind::m_PauseMenu_AddItem_3b33) { Hook_111::InstallAtOffset(bind::m_PauseMenu_AddItem_3b33); g_installed_Hook_111 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_Quit")) { g_on_Hook_112[0] = true; any = true; if (!g_installed_Hook_112 && bind::m_PauseMenu_Quit) { Hook_112::InstallAtOffset(bind::m_PauseMenu_Quit); g_installed_Hook_112 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_Update")) { g_on_Hook_113[0] = true; any = true; if (!g_installed_Hook_113 && bind::m_PauseMenu_Update) { Hook_113::InstallAtOffset(bind::m_PauseMenu_Update); g_installed_Hook_113 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_VersusArcherSelect")) { g_on_Hook_114[0] = true; any = true; if (!g_installed_Hook_114 && bind::m_PauseMenu_VersusArcherSelect) { Hook_114::InstallAtOffset(bind::m_PauseMenu_VersusArcherSelect); g_installed_Hook_114 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_VersusMatchSettingsAndSave")) { g_on_Hook_115[0] = true; any = true; if (!g_installed_Hook_115 && bind::m_PauseMenu_VersusMatchSettingsAndSave) { Hook_115::InstallAtOffset(bind::m_PauseMenu_VersusMatchSettingsAndSave); g_installed_Hook_115 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.PauseMenuPatch") && !Listed(skip, "PauseMenu_VersusRematch")) { g_on_Hook_116[0] = true; any = true; if (!g_installed_Hook_116 && bind::m_PauseMenu_VersusRematch) { Hook_116::InstallAtOffset(bind::m_PauseMenu_VersusRematch); g_installed_Hook_116 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PickupPatch") && !Listed(skip, "Pickup_ctor")) { g_on_Hook_117[0] = true; any = true; if (!g_installed_Hook_117 && bind::m_Pickup__ctor_f3db) { Hook_117::InstallAtOffset(bind::m_Pickup__ctor_f3db); g_installed_Hook_117 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PickupPatch") && !Listed(skip, "Pickup_FinishUnpack")) { g_on_Hook_118[0] = true; any = true; if (!g_installed_Hook_118 && bind::m_Pickup_FinishUnpack_4305) { Hook_118::InstallAtOffset(bind::m_Pickup_FinishUnpack_4305); g_installed_Hook_118 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PirateBannerPatch") && !Listed(skip, "PirateBanner_Update")) { g_on_Hook_119[0] = true; any = true; if (!g_installed_Hook_119 && bind::m_PirateBanner_Update) { Hook_119::InstallAtOffset(bind::m_PirateBanner_Update); g_installed_Hook_119 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_Ctor_Prefix")) { g_on_Hook_120[0] = true; any = true; if (!g_installed_Hook_120 && bind::m_Player__ctor_0ed9) { Hook_120::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_120 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_Ctor_Finalizer")) { g_on_Hook_120[1] = true; any = true; if (!g_installed_Hook_120 && bind::m_Player__ctor_0ed9) { Hook_120::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_120 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_ctor")) { g_on_Hook_120[2] = true; any = true; if (!g_installed_Hook_120 && bind::m_Player__ctor_0ed9) { Hook_120::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_120 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.VisualHooks") && !Listed(skip, "PlayerCtor_Postfix")) { g_on_Hook_120[3] = true; any = true; if (!g_installed_Hook_120 && bind::m_Player__ctor_0ed9) { Hook_120::InstallAtOffset(bind::m_Player__ctor_0ed9); g_installed_Hook_120 = true; } }
+    if (Is(cls, "TowerFall.patch_Player") && !Listed(skip, "Added_Postfix")) { g_on_Hook_121[0] = true; any = true; if (!g_installed_Hook_121 && bind::m_Player_Added) { Hook_121::InstallAtOffset(bind::m_Player_Added); g_installed_Hook_121 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_DoWrapRender_Prefix")) { g_on_Hook_122[0] = true; any = true; if (!g_installed_Hook_122 && bind::m_Player_DoWrapRender) { Hook_122::InstallAtOffset(bind::m_Player_DoWrapRender); g_installed_Hook_122 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_DropArrow_Prefix")) { g_on_Hook_123[0] = true; any = true; if (!g_installed_Hook_123 && bind::m_Player_DropArrow) { Hook_123::InstallAtOffset(bind::m_Player_DropArrow); g_installed_Hook_123 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_DropArrow_Postfix")) { g_on_Hook_123[1] = true; any = true; if (!g_installed_Hook_123 && bind::m_Player_DropArrow) { Hook_123::InstallAtOffset(bind::m_Player_DropArrow); g_installed_Hook_123 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_HUDRender_Prefix")) { g_on_Hook_124[0] = true; any = true; if (!g_installed_Hook_124 && bind::m_Player_HUDRender_953d) { Hook_124::InstallAtOffset(bind::m_Player_HUDRender_953d); g_installed_Hook_124 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_InitHead_Prefix")) { g_on_Hook_125[0] = true; any = true; if (!g_installed_Hook_125 && bind::m_Player_InitHead) { Hook_125::InstallAtOffset(bind::m_Player_InitHead); g_installed_Hook_125 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.VisualHooks") && !Listed(skip, "InitHead_Postfix")) { g_on_Hook_125[1] = true; any = true; if (!g_installed_Hook_125 && bind::m_Player_InitHead) { Hook_125::InstallAtOffset(bind::m_Player_InitHead); g_installed_Hook_125 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_LoseHat_Prefix")) { g_on_Hook_126[0] = true; any = true; if (!g_installed_Hook_126 && bind::m_Player_LoseHat_106c) { Hook_126::InstallAtOffset(bind::m_Player_LoseHat_106c); g_installed_Hook_126 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_LoseHat_Postfix")) { g_on_Hook_126[1] = true; any = true; if (!g_installed_Hook_126 && bind::m_Player_LoseHat_106c) { Hook_126::InstallAtOffset(bind::m_Player_LoseHat_106c); g_installed_Hook_126 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerStatePatch") && !Listed(skip, "Player_SpawnedInsideSolidCheck_Prefix")) { g_on_Hook_127[0] = true; any = true; if (!g_installed_Hook_127 && bind::m_Player_SpawnedInsideSolidCheck) { Hook_127::InstallAtOffset(bind::m_Player_SpawnedInsideSolidCheck); g_installed_Hook_127 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.LevelEntity.PlayerPatch") && !Listed(skip, "Player_Update_Postfix")) { g_on_Hook_128[0] = true; any = true; if (!g_installed_Hook_128 && bind::m_Player_Update) { Hook_128::InstallAtOffset(bind::m_Player_Update); g_installed_Hook_128 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_ctor_Postfix")) { g_on_Hook_129[0] = true; any = true; if (!g_installed_Hook_129 && bind::m_PlayerCorpse__ctor_f519) { Hook_129::InstallAtOffset(bind::m_PlayerCorpse__ctor_f519); g_installed_Hook_129 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_Added_Postfix")) { g_on_Hook_130[0] = true; any = true; if (!g_installed_Hook_130 && bind::m_PlayerCorpse_Added) { Hook_130::InstallAtOffset(bind::m_PlayerCorpse_Added); g_installed_Hook_130 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.ReviveHooks") && !Listed(skip, "Added_Postfix")) { g_on_Hook_130[1] = true; any = true; if (!g_installed_Hook_130 && bind::m_PlayerCorpse_Added) { Hook_130::InstallAtOffset(bind::m_PlayerCorpse_Added); g_installed_Hook_130 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_DieByArrow_Postfix")) { g_on_Hook_131[0] = true; any = true; if (!g_installed_Hook_131 && bind::m_PlayerCorpse_DieByArrow_c838) { Hook_131::InstallAtOffset(bind::m_PlayerCorpse_DieByArrow_c838); g_installed_Hook_131 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_DropNextArrow_Prefix")) { g_on_Hook_132[0] = true; any = true; if (!g_installed_Hook_132 && bind::m_PlayerCorpse_DropNextArrow) { Hook_132::InstallAtOffset(bind::m_PlayerCorpse_DropNextArrow); g_installed_Hook_132 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_DropNextArrow_Postfix")) { g_on_Hook_132[1] = true; any = true; if (!g_installed_Hook_132 && bind::m_PlayerCorpse_DropNextArrow) { Hook_132::InstallAtOffset(bind::m_PlayerCorpse_DropNextArrow); g_installed_Hook_132 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_StartDroppingArrows_Prefix")) { g_on_Hook_133[0] = true; any = true; if (!g_installed_Hook_133 && bind::m_PlayerCorpse_StartDroppingArrows) { Hook_133::InstallAtOffset(bind::m_PlayerCorpse_StartDroppingArrows); g_installed_Hook_133 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerCorpsePatch") && !Listed(skip, "PlayerCorpse_Update_Postfix")) { g_on_Hook_134[0] = true; any = true; if (!g_installed_Hook_134 && bind::m_PlayerCorpse_Update) { Hook_134::InstallAtOffset(bind::m_PlayerCorpse_Update); g_installed_Hook_134 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_ctor")) { g_on_Hook_135[0] = true; any = true; if (!g_installed_Hook_135 && bind::m_PlayerGhost__ctor_d536) { Hook_135::InstallAtOffset(bind::m_PlayerGhost__ctor_d536); g_installed_Hook_135 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_DespawnEnter_Postfix")) { g_on_Hook_136[0] = true; any = true; if (!g_installed_Hook_136 && bind::m_PlayerGhost_DespawnEnter) { Hook_136::InstallAtOffset(bind::m_PlayerGhost_DespawnEnter); g_installed_Hook_136 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_Update_Prefix")) { g_on_Hook_137[0] = true; any = true; if (!g_installed_Hook_137 && bind::m_PlayerGhost_Update) { Hook_137::InstallAtOffset(bind::m_PlayerGhost_Update); g_installed_Hook_137 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerGhostPatch") && !Listed(skip, "PlayerGhost_Update_Postfix")) { g_on_Hook_137[1] = true; any = true; if (!g_installed_Hook_137 && bind::m_PlayerGhost_Update) { Hook_137::InstallAtOffset(bind::m_PlayerGhost_Update); g_installed_Hook_137 = true; } }
+    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "ctor_Prefix")) { g_on_Hook_138[0] = true; any = true; if (!g_installed_Hook_138 && bind::m_PlayerHair__ctor_d352) { Hook_138::InstallAtOffset(bind::m_PlayerHair__ctor_d352); g_installed_Hook_138 = true; } }
+    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "Render")) { g_on_Hook_139[0] = true; any = true; if (!g_installed_Hook_139 && bind::m_PlayerHair_Render) { Hook_139::InstallAtOffset(bind::m_PlayerHair_Render); g_installed_Hook_139 = true; } }
+    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "RenderBlack")) { g_on_Hook_140[0] = true; any = true; if (!g_installed_Hook_140 && bind::m_PlayerHair_RenderBlack) { Hook_140::InstallAtOffset(bind::m_PlayerHair_RenderBlack); g_installed_Hook_140 = true; } }
+    if (Is(cls, "TowerFall.patch_PlayerHair") && !Listed(skip, "RenderOutline")) { g_on_Hook_141[0] = true; any = true; if (!g_installed_Hook_141 && bind::m_PlayerHair_RenderOutline) { Hook_141::InstallAtOffset(bind::m_PlayerHair_RenderOutline); g_installed_Hook_141 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.PlayerHairPatch") && !Listed(skip, "PlayerHair_Update")) { g_on_Hook_142[0] = true; any = true; if (!g_installed_Hook_142 && bind::m_PlayerHair_Update) { Hook_142::InstallAtOffset(bind::m_PlayerHair_Update); g_installed_Hook_142 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Component.PlayerIndicatorPatch") && !Listed(skip, "PlayerIndicator_ctor")) { g_on_Hook_143[0] = true; any = true; if (!g_installed_Hook_143 && bind::m_PlayerIndicator__ctor_4031) { Hook_143::InstallAtOffset(bind::m_PlayerIndicator__ctor_4031); g_installed_Hook_143 = true; } }
+    if (Is(cls, "TF.State.Patchs.Component.PlayerIndicatorStatePatch") && !Listed(skip, "PlayerIndicator_Render")) { g_on_Hook_144[0] = true; any = true; if (!g_installed_Hook_144 && bind::m_PlayerIndicator_Render) { Hook_144::InstallAtOffset(bind::m_PlayerIndicator_Render); g_installed_Hook_144 = true; } }
+    if (Is(cls, "TF.State.Patchs.Component.PlayerIndicatorStatePatch") && !Listed(skip, "PlayerIndicator_Update_Prefix")) { g_on_Hook_145[0] = true; any = true; if (!g_installed_Hook_145 && bind::m_PlayerIndicator_Update) { Hook_145::InstallAtOffset(bind::m_PlayerIndicator_Update); g_installed_Hook_145 = true; } }
+    if (Is(cls, "TF.EX.Patchs.PlayerInput.PlayerInputPatch") && !Listed(skip, "PlayerInput_AssignInputs")) { g_on_Hook_146[0] = true; any = true; if (!g_installed_Hook_146 && bind::m_PlayerInput_AssignInputs) { Hook_146::InstallAtOffset(bind::m_PlayerInput_AssignInputs); g_installed_Hook_146 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_ctor")) { g_on_Hook_147[0] = true; any = true; if (!g_installed_Hook_147 && bind::m_QuestSpawnPortal__ctor_71e7) { Hook_147::InstallAtOffset(bind::m_QuestSpawnPortal__ctor_71e7); g_installed_Hook_147 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_Appear_Postfix")) { g_on_Hook_148[0] = true; any = true; if (!g_installed_Hook_148 && bind::m_QuestSpawnPortal_Appear) { Hook_148::InstallAtOffset(bind::m_QuestSpawnPortal_Appear); g_installed_Hook_148 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_Disappear_Postfix")) { g_on_Hook_149[0] = true; any = true; if (!g_installed_Hook_149 && bind::m_QuestSpawnPortal_Disappear) { Hook_149::InstallAtOffset(bind::m_QuestSpawnPortal_Disappear); g_installed_Hook_149 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.QuestSpawnPortalPatch") && !Listed(skip, "QuestSpawnPortal_Update_Postfix")) { g_on_Hook_150[0] = true; any = true; if (!g_installed_Hook_150 && bind::m_QuestSpawnPortal_Update) { Hook_150::InstallAtOffset(bind::m_QuestSpawnPortal_Update); g_installed_Hook_150 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.ReadyBannerPatch") && !Listed(skip, "ReadyBanner_GetReadyState")) { g_on_Hook_151[0] = true; any = true; if (!g_installed_Hook_151 && bind::m_ReadyBanner_GetReadyState) { Hook_151::InstallAtOffset(bind::m_ReadyBanner_GetReadyState); g_installed_Hook_151 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Ctor_Prefix")) { g_on_Hook_152[0] = true; any = true; if (!g_installed_Hook_152 && bind::m_RollcallElement__ctor_e2bf) { Hook_152::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_152 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Ctor_Finalizer")) { g_on_Hook_152[1] = true; any = true; if (!g_installed_Hook_152 && bind::m_RollcallElement__ctor_e2bf) { Hook_152::InstallAtOffset(bind::m_RollcallElement__ctor_e2bf); g_installed_Hook_152 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_EnterJoined")) { g_on_Hook_153[0] = true; any = true; if (!g_installed_Hook_153 && bind::m_RollcallElement_EnterJoined) { Hook_153::InstallAtOffset(bind::m_RollcallElement_EnterJoined); g_installed_Hook_153 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_ForceStart_Prefix")) { g_on_Hook_154[0] = true; any = true; if (!g_installed_Hook_154 && bind::m_RollcallElement_ForceStart) { Hook_154::InstallAtOffset(bind::m_RollcallElement_ForceStart); g_installed_Hook_154 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_JoinedUpdate_Prefix")) { g_on_Hook_155[0] = true; any = true; if (!g_installed_Hook_155 && bind::m_RollcallElement_JoinedUpdate) { Hook_155::InstallAtOffset(bind::m_RollcallElement_JoinedUpdate); g_installed_Hook_155 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_JoinedUpdate")) { g_on_Hook_155[1] = true; any = true; if (!g_installed_Hook_155 && bind::m_RollcallElement_JoinedUpdate) { Hook_155::InstallAtOffset(bind::m_RollcallElement_JoinedUpdate); g_installed_Hook_155 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_LeaveJoined")) { g_on_Hook_156[0] = true; any = true; if (!g_installed_Hook_156 && bind::m_RollcallElement_LeaveJoined) { Hook_156::InstallAtOffset(bind::m_RollcallElement_LeaveJoined); g_installed_Hook_156 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_NotJoinedUpdate_Prefix")) { g_on_Hook_157[0] = true; any = true; if (!g_installed_Hook_157 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_157::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_157 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_NotJoinedUpdate")) { g_on_Hook_157[1] = true; any = true; if (!g_installed_Hook_157 && bind::m_RollcallElement_NotJoinedUpdate) { Hook_157::InstallAtOffset(bind::m_RollcallElement_NotJoinedUpdate); g_installed_Hook_157 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Render")) { g_on_Hook_158[0] = true; any = true; if (!g_installed_Hook_158 && bind::m_RollcallElement_Render) { Hook_158::InstallAtOffset(bind::m_RollcallElement_Render); g_installed_Hook_158 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.RollCallElementPatch") && !Listed(skip, "RollcallElement_Update")) { g_on_Hook_159[0] = true; any = true; if (!g_installed_Hook_159 && bind::m_RollcallElement_Update) { Hook_159::InstallAtOffset(bind::m_RollcallElement_Update); g_installed_Hook_159 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.RotatePlatformPatch") && !Listed(skip, "RotatePlatform_Update")) { g_on_Hook_160[0] = true; any = true; if (!g_installed_Hook_160 && bind::m_RotatePlatform_Update) { Hook_160::InstallAtOffset(bind::m_RotatePlatform_Update); g_installed_Hook_160 = true; } }
+    if (Is(cls, "TowerFall.patch_RoundLogic") && !Listed(skip, "GetRoundLogic")) { g_on_Hook_161[0] = true; any = true; if (!g_installed_Hook_161 && bind::m_RoundLogic_GetRoundLogic_9385) { Hook_161::InstallAtOffset(bind::m_RoundLogic_GetRoundLogic_9385); g_installed_Hook_161 = true; } }
+    if (Is(cls, "TF.State.Patchs.RoundLogic.RoundLogicPatch") && !Listed(skip, "RoundLogic_OnUpdate_Prefix")) { g_on_Hook_162[0] = true; any = true; if (!g_installed_Hook_162 && bind::m_RoundLogic_OnUpdate) { Hook_162::InstallAtOffset(bind::m_RoundLogic_OnUpdate); g_installed_Hook_162 = true; } }
+    if (Is(cls, "TF.State.Patchs.RoundLogic.RoundLogicPatch") && !Listed(skip, "RoundLogic_SpawnPlayersFFA")) { g_on_Hook_163[0] = true; any = true; if (!g_installed_Hook_163 && bind::m_RoundLogic_SpawnPlayersFFA) { Hook_163::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersFFA); g_installed_Hook_163 = true; } }
+    if (Is(cls, "TF.State.Patchs.RoundLogic.RoundLogicPatch") && !Listed(skip, "RoundLogic_SpawnPlayersTeams")) { g_on_Hook_164[0] = true; any = true; if (!g_installed_Hook_164 && bind::m_RoundLogic_SpawnPlayersTeams) { Hook_164::InstallAtOffset(bind::m_RoundLogic_SpawnPlayersTeams); g_installed_Hook_164 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SaveDataPatch") && !Listed(skip, "Save_Prefix")) { g_on_Hook_165[0] = true; any = true; if (!g_installed_Hook_165 && bind::m_SaveData_Save) { Hook_165::InstallAtOffset(bind::m_SaveData_Save); g_installed_Hook_165 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SaveDataPatch") && !Listed(skip, "Save_Postfix")) { g_on_Hook_165[1] = true; any = true; if (!g_installed_Hook_165 && bind::m_SaveData_Save) { Hook_165::InstallAtOffset(bind::m_SaveData_Save); g_installed_Hook_165 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.ScreenTitlePatch") && !Listed(skip, "ScreenTitle_ctor")) { g_on_Hook_166[0] = true; any = true; if (!g_installed_Hook_166 && bind::m_ScreenTitle__ctor_b2b6) { Hook_166::InstallAtOffset(bind::m_ScreenTitle__ctor_b2b6); g_installed_Hook_166 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.ScreenTitlePatch") && !Listed(skip, "ScreenTitle_ChangeState")) { g_on_Hook_167[0] = true; any = true; if (!g_installed_Hook_167 && bind::m_ScreenTitle_ChangeState_b2b6) { Hook_167::InstallAtOffset(bind::m_ScreenTitle_ChangeState_b2b6); g_installed_Hook_167 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SensorBlockPatch") && !Listed(skip, "SensorBlock_Update")) { g_on_Hook_168[0] = true; any = true; if (!g_installed_Hook_168 && bind::m_SensorBlock_Update) { Hook_168::InstallAtOffset(bind::m_SensorBlock_Update); g_installed_Hook_168 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_CreateResults")) { g_on_Hook_169[0] = true; any = true; if (!g_installed_Hook_169 && bind::m_Session_CreateResults) { Hook_169::InstallAtOffset(bind::m_Session_CreateResults); g_installed_Hook_169 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_EndRound_SkipWhileBaking")) { g_on_Hook_170[0] = true; any = true; if (!g_installed_Hook_170 && bind::m_Session_EndRound) { Hook_170::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_170 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_EndRound_Prefix")) { g_on_Hook_170[1] = true; any = true; if (!g_installed_Hook_170 && bind::m_Session_EndRound) { Hook_170::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_170 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_EndRound_Postfix")) { g_on_Hook_170[2] = true; any = true; if (!g_installed_Hook_170 && bind::m_Session_EndRound) { Hook_170::InstallAtOffset(bind::m_Session_EndRound); g_installed_Hook_170 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.RulesHooks") && !Listed(skip, "GetScoreIndex_Prefix")) { g_on_Hook_171[0] = true; any = true; if (!g_installed_Hook_171 && bind::m_Session_GetScoreIndex_e2bf) { Hook_171::InstallAtOffset(bind::m_Session_GetScoreIndex_e2bf); g_installed_Hook_171 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_GotoNextRound")) { g_on_Hook_172[0] = true; any = true; if (!g_installed_Hook_172 && bind::m_Session_GotoNextRound) { Hook_172::InstallAtOffset(bind::m_Session_GotoNextRound); g_installed_Hook_172 = true; } }
+    if (Is(cls, "TF.State.Patchs.SessionStatePatch") && !Listed(skip, "Session_LevelLoadStart")) { g_on_Hook_173[0] = true; any = true; if (!g_installed_Hook_173 && bind::m_Session_LevelLoadStart_429b) { Hook_173::InstallAtOffset(bind::m_Session_LevelLoadStart_429b); g_installed_Hook_173 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_StartGame")) { g_on_Hook_174[0] = true; any = true; if (!g_installed_Hook_174 && bind::m_Session_StartGame) { Hook_174::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_174 = true; } }
+    if (Is(cls, "TF.State.Patchs.SessionStatePatch") && !Listed(skip, "Session_StartGame")) { g_on_Hook_174[1] = true; any = true; if (!g_installed_Hook_174 && bind::m_Session_StartGame) { Hook_174::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_174 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.SafetyHooks") && !Listed(skip, "StartGame_Postfix")) { g_on_Hook_174[2] = true; any = true; if (!g_installed_Hook_174 && bind::m_Session_StartGame) { Hook_174::InstallAtOffset(bind::m_Session_StartGame); g_installed_Hook_174 = true; } }
+    if (Is(cls, "TF.EX.Patchs.SessionPatch") && !Listed(skip, "Session_StartRound")) { g_on_Hook_175[0] = true; any = true; if (!g_installed_Hook_175 && bind::m_Session_StartRound) { Hook_175::InstallAtOffset(bind::m_Session_StartRound); g_installed_Hook_175 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.ShiftBlockHoldPatch") && !Listed(skip, "ShiftBlock_Update")) { g_on_Hook_176[0] = true; any = true; if (!g_installed_Hook_176 && bind::m_ShiftBlock_Update) { Hook_176::InstallAtOffset(bind::m_ShiftBlock_Update); g_installed_Hook_176 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SlimePatch") && !Listed(skip, "Slime_ctor")) { g_on_Hook_177[0] = true; any = true; if (!g_installed_Hook_177 && bind::m_Slime__ctor_a0ec) { Hook_177::InstallAtOffset(bind::m_Slime__ctor_a0ec); g_installed_Hook_177 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SlimePatch") && !Listed(skip, "Slime_Update_Postfix")) { g_on_Hook_178[0] = true; any = true; if (!g_installed_Hook_178 && bind::m_Slime_Update) { Hook_178::InstallAtOffset(bind::m_Slime_Update); g_installed_Hook_178 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SpikeballPatch") && !Listed(skip, "Spikeball_ctor_Vector2_Vector2_bool")) { g_on_Hook_179[0] = true; any = true; if (!g_installed_Hook_179 && bind::m_Spikeball__ctor_a40d) { Hook_179::InstallAtOffset(bind::m_Spikeball__ctor_a40d); g_installed_Hook_179 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SpikeballPatch") && !Listed(skip, "Spikeball_Update")) { g_on_Hook_180[0] = true; any = true; if (!g_installed_Hook_180 && bind::m_Spikeball_Update) { Hook_180::InstallAtOffset(bind::m_Spikeball_Update); g_installed_Hook_180 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SteelHatRngPatch") && !Listed(skip, "SteelHat_Update_Prefix")) { g_on_Hook_181[0] = true; any = true; if (!g_installed_Hook_181 && bind::m_SteelHat_Update) { Hook_181::InstallAtOffset(bind::m_SteelHat_Update); g_installed_Hook_181 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.SteelHatRngPatch") && !Listed(skip, "SteelHat_Update_Postfix")) { g_on_Hook_181[1] = true; any = true; if (!g_installed_Hook_181 && bind::m_SteelHat_Update) { Hook_181::InstallAtOffset(bind::m_SteelHat_Update); g_installed_Hook_181 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Engine.TFGamePatch") && !Listed(skip, "TFGame_Load")) { g_on_Hook_182[0] = true; any = true; if (!g_installed_Hook_182 && bind::m_TFGame_Load) { Hook_182::InstallAtOffset(bind::m_TFGame_Load); g_installed_Hook_182 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Engine.TFGamePatch") && !Listed(skip, "TFGame_OnSceneTransition")) { g_on_Hook_183[0] = true; any = true; if (!g_installed_Hook_183 && bind::m_TFGame_OnSceneTransition) { Hook_183::InstallAtOffset(bind::m_TFGame_OnSceneTransition); g_installed_Hook_183 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Engine.TFGamePatch") && !Listed(skip, "TFGameUpdate_Patch")) { g_on_Hook_184[0] = true; any = true; if (!g_installed_Hook_184 && bind::m_TFGame_Update_79e7) { Hook_184::InstallAtOffset(bind::m_TFGame_Update_79e7); g_installed_Hook_184 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TeamReviverPatch") && !Listed(skip, "TeamReviver_ctor")) { g_on_Hook_185[0] = true; any = true; if (!g_installed_Hook_185 && bind::m_TeamReviver__ctor_02d9) { Hook_185::InstallAtOffset(bind::m_TeamReviver__ctor_02d9); g_installed_Hook_185 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.ReviveHooks") && !Listed(skip, "FinishReviving_Postfix")) { g_on_Hook_186[0] = true; any = true; if (!g_installed_Hook_186 && bind::m_TeamReviver_FinishReviving) { Hook_186::InstallAtOffset(bind::m_TeamReviver_FinishReviving); g_installed_Hook_186 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TeamReviverPatch") && !Listed(skip, "TeamReviver_ReviveUpdate_Postfix")) { g_on_Hook_187[0] = true; any = true; if (!g_installed_Hook_187 && bind::m_TeamReviver_ReviveUpdate) { Hook_187::InstallAtOffset(bind::m_TeamReviver_ReviveUpdate); g_installed_Hook_187 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TechnoMagePatch") && !Listed(skip, "TechnoMage_ctor")) { g_on_Hook_188[0] = true; any = true; if (!g_installed_Hook_188 && bind::m_TechnoMage__ctor_566d) { Hook_188::InstallAtOffset(bind::m_TechnoMage__ctor_566d); g_installed_Hook_188 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TechnoMagePatch") && !Listed(skip, "TechnoMage_AlertUpdate")) { g_on_Hook_189[0] = true; any = true; if (!g_installed_Hook_189 && bind::m_TechnoMage_AlertUpdate) { Hook_189::InstallAtOffset(bind::m_TechnoMage_AlertUpdate); g_installed_Hook_189 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TechnoMagePatch") && !Listed(skip, "TechnoMage_Update_Postfix")) { g_on_Hook_190[0] = true; any = true; if (!g_installed_Hook_190 && bind::m_TechnoMage_Update) { Hook_190::InstallAtOffset(bind::m_TechnoMage_Update); g_installed_Hook_190 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_ctor")) { g_on_Hook_191[0] = true; any = true; if (!g_installed_Hook_191 && bind::m_TreasureChest__ctor_ba96) { Hook_191::InstallAtOffset(bind::m_TreasureChest__ctor_ba96); g_installed_Hook_191 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_Added_Postfix")) { g_on_Hook_192[0] = true; any = true; if (!g_installed_Hook_192 && bind::m_TreasureChest_Added) { Hook_192::InstallAtOffset(bind::m_TreasureChest_Added); g_installed_Hook_192 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_OpenChest_Postfix")) { g_on_Hook_193[0] = true; any = true; if (!g_installed_Hook_193 && bind::m_TreasureChest_OpenChest_e2bf) { Hook_193::InstallAtOffset(bind::m_TreasureChest_OpenChest_e2bf); g_installed_Hook_193 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasureChestPatch") && !Listed(skip, "TreasureChest_Update_Postfix")) { g_on_Hook_194[0] = true; any = true; if (!g_installed_Hook_194 && bind::m_TreasureChest_Update) { Hook_194::InstallAtOffset(bind::m_TreasureChest_Update); g_installed_Hook_194 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TreasurePreviewPatch") && !Listed(skip, "TreasurePreview_ctor")) { g_on_Hook_195[0] = true; any = true; if (!g_installed_Hook_195 && bind::m_TreasurePreview__ctor_2265) { Hook_195::InstallAtOffset(bind::m_TreasurePreview__ctor_2265); g_installed_Hook_195 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_ctor_Prefix")) { g_on_Hook_196[0] = true; any = true; if (!g_installed_Hook_196 && bind::m_TreasureSpawner__ctor_ebe6) { Hook_196::InstallAtOffset(bind::m_TreasureSpawner__ctor_ebe6); g_installed_Hook_196 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_ctor_Finalizer")) { g_on_Hook_196[1] = true; any = true; if (!g_installed_Hook_196 && bind::m_TreasureSpawner__ctor_ebe6) { Hook_196::InstallAtOffset(bind::m_TreasureSpawner__ctor_ebe6); g_installed_Hook_196 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetArrowShufflePickups_Prefix")) { g_on_Hook_197[0] = true; any = true; if (!g_installed_Hook_197 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_197::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_197 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetArrowShufflePickups_Postfix")) { g_on_Hook_197[1] = true; any = true; if (!g_installed_Hook_197 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_197::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_197 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetArrowShufflePickups_Finalizer")) { g_on_Hook_197[2] = true; any = true; if (!g_installed_Hook_197 && bind::m_TreasureSpawner_GetArrowShufflePickups) { Hook_197::InstallAtOffset(bind::m_TreasureSpawner_GetArrowShufflePickups); g_installed_Hook_197 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetChestSpawnsForLevel_Prefix")) { g_on_Hook_198[0] = true; any = true; if (!g_installed_Hook_198 && bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b) { Hook_198::InstallAtOffset(bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b); g_installed_Hook_198 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetChestSpawnsForLevel_Finalizer")) { g_on_Hook_198[1] = true; any = true; if (!g_installed_Hook_198 && bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b) { Hook_198::InstallAtOffset(bind::m_TreasureSpawner_GetChestSpawnsForLevel_693b); g_installed_Hook_198 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetRandomArrowType_Prefix")) { g_on_Hook_199[0] = true; any = true; if (!g_installed_Hook_199 && bind::m_TreasureSpawner_GetRandomArrowType_953d) { Hook_199::InstallAtOffset(bind::m_TreasureSpawner_GetRandomArrowType_953d); g_installed_Hook_199 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.TreasureSpawnerPatch") && !Listed(skip, "TreasureSpawner_GetRandomArrowType_Finalizer")) { g_on_Hook_199[1] = true; any = true; if (!g_installed_Hook_199 && bind::m_TreasureSpawner_GetRandomArrowType_953d) { Hook_199::InstallAtOffset(bind::m_TreasureSpawner_GetRandomArrowType_953d); g_installed_Hook_199 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TriggerArrowRngPatch") && !Listed(skip, "TriggerArrow_PlayEyeAnim_Prefix")) { g_on_Hook_200[0] = true; any = true; if (!g_installed_Hook_200 && bind::m_TriggerArrow_PlayEyeAnim) { Hook_200::InstallAtOffset(bind::m_TriggerArrow_PlayEyeAnim); g_installed_Hook_200 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.TriggerArrowRngPatch") && !Listed(skip, "TriggerArrow_PlayEyeAnim_Postfix")) { g_on_Hook_200[1] = true; any = true; if (!g_installed_Hook_200 && bind::m_TriggerArrow_PlayEyeAnim) { Hook_200::InstallAtOffset(bind::m_TriggerArrow_PlayEyeAnim); g_installed_Hook_200 = true; } }
+    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldOpenPurpleArcherPortal_Prefix")) { g_on_Hook_201[0] = true; any = true; if (!g_installed_Hook_201 && bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal) { Hook_201::InstallAtOffset(bind::m_UnlockData_get_ShouldOpenPurpleArcherPortal); g_installed_Hook_201 = true; } }
+    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldSelectSunkenCity_Prefix")) { g_on_Hook_202[0] = true; any = true; if (!g_installed_Hook_202 && bind::m_UnlockData_get_ShouldSelectSunkenCity) { Hook_202::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectSunkenCity); g_installed_Hook_202 = true; } }
+    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldSelectTowerForgeInVersus_Prefix")) { g_on_Hook_203[0] = true; any = true; if (!g_installed_Hook_203 && bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus) { Hook_203::InstallAtOffset(bind::m_UnlockData_get_ShouldSelectTowerForgeInVersus); g_installed_Hook_203 = true; } }
+    if (Is(cls, "TF.State.Patchs.UnlockDataPatch") && !Listed(skip, "UnlockData_ShouldShowMoonBreakSequence_Prefix")) { g_on_Hook_204[0] = true; any = true; if (!g_installed_Hook_204 && bind::m_UnlockData_get_ShouldShowMoonBreakSequence) { Hook_204::InstallAtOffset(bind::m_UnlockData_get_ShouldShowMoonBreakSequence); g_installed_Hook_204 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_205[0] = true; any = true; if (!g_installed_Hook_205 && bind::m_VariantDisableAll_OnConfirm) { Hook_205::InstallAtOffset(bind::m_VariantDisableAll_OnConfirm); g_installed_Hook_205 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_206[0] = true; any = true; if (!g_installed_Hook_206 && bind::m_VariantDisableAll_Render) { Hook_206::InstallAtOffset(bind::m_VariantDisableAll_Render); g_installed_Hook_206 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_207[0] = true; any = true; if (!g_installed_Hook_207 && bind::m_VariantPreset_OnConfirm) { Hook_207::InstallAtOffset(bind::m_VariantPreset_OnConfirm); g_installed_Hook_207 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_208[0] = true; any = true; if (!g_installed_Hook_208 && bind::m_VariantPreset_Render) { Hook_208::InstallAtOffset(bind::m_VariantPreset_Render); g_installed_Hook_208 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_209[0] = true; any = true; if (!g_installed_Hook_209 && bind::m_VariantRandomize_OnConfirm) { Hook_209::InstallAtOffset(bind::m_VariantRandomize_OnConfirm); g_installed_Hook_209 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_210[0] = true; any = true; if (!g_installed_Hook_210 && bind::m_VariantRandomize_Render) { Hook_210::InstallAtOffset(bind::m_VariantRandomize_Render); g_installed_Hook_210 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantTogglePatch") && !Listed(skip, "VariantToggle_OnConfirm")) { g_on_Hook_211[0] = true; any = true; if (!g_installed_Hook_211 && bind::m_VariantToggle_OnConfirm) { Hook_211::InstallAtOffset(bind::m_VariantToggle_OnConfirm); g_installed_Hook_211 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantTogglePatch") && !Listed(skip, "VariantToggle_Render")) { g_on_Hook_212[0] = true; any = true; if (!g_installed_Hook_212 && bind::m_VariantToggle_Render) { Hook_212::InstallAtOffset(bind::m_VariantToggle_Render); g_installed_Hook_212 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantTogglePatch") && !Listed(skip, "VariantToggle_ShowPerPlayer")) { g_on_Hook_213[0] = true; any = true; if (!g_installed_Hook_213 && bind::m_VariantToggle_ShowPerPlayer) { Hook_213::InstallAtOffset(bind::m_VariantToggle_ShowPerPlayer); g_installed_Hook_213 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_214[0] = true; any = true; if (!g_installed_Hook_214 && bind::m_VariantTournament1v1_OnConfirm) { Hook_214::InstallAtOffset(bind::m_VariantTournament1v1_OnConfirm); g_installed_Hook_214 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_215[0] = true; any = true; if (!g_installed_Hook_215 && bind::m_VariantTournament1v1_Render) { Hook_215::InstallAtOffset(bind::m_VariantTournament1v1_Render); g_installed_Hook_215 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonConfirmPatch") && !Listed(skip, "VariantButton_OnConfirm")) { g_on_Hook_216[0] = true; any = true; if (!g_installed_Hook_216 && bind::m_VariantTournament2v2_OnConfirm) { Hook_216::InstallAtOffset(bind::m_VariantTournament2v2_OnConfirm); g_installed_Hook_216 = true; } }
+    if (Is(cls, "TF.EX.Patchs.VariantButtonRenderPatch") && !Listed(skip, "VariantButton_Render")) { g_on_Hook_217[0] = true; any = true; if (!g_installed_Hook_217 && bind::m_VariantTournament2v2_Render) { Hook_217::InstallAtOffset(bind::m_VariantTournament2v2_Render); g_installed_Hook_217 = true; } }
+    if (Is(cls, "TF.State.Patchs.VersusAwardsPatch") && !Listed(skip, "VersusAwards_GetAwards_Prefix")) { g_on_Hook_218[0] = true; any = true; if (!g_installed_Hook_218 && bind::m_VersusAwards_GetAwards_48f1) { Hook_218::InstallAtOffset(bind::m_VersusAwards_GetAwards_48f1); g_installed_Hook_218 = true; } }
+    if (Is(cls, "TF.State.Patchs.VersusAwardsPatch") && !Listed(skip, "VersusAwards_GetAwards_Finalizer")) { g_on_Hook_218[1] = true; any = true; if (!g_installed_Hook_218 && bind::m_VersusAwards_GetAwards_48f1) { Hook_218::InstallAtOffset(bind::m_VersusAwards_GetAwards_48f1); g_installed_Hook_218 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusBeginButtonPatch") && !Listed(skip, "VersusBeginButton_ctor")) { g_on_Hook_219[0] = true; any = true; if (!g_installed_Hook_219 && bind::m_VersusBeginButton__ctor_f3db) { Hook_219::InstallAtOffset(bind::m_VersusBeginButton__ctor_f3db); g_installed_Hook_219 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusBeginButtonPatch") && !Listed(skip, "VersusBeginButton_OnConfirm")) { g_on_Hook_220[0] = true; any = true; if (!g_installed_Hook_220 && bind::m_VersusBeginButton_OnConfirm) { Hook_220::InstallAtOffset(bind::m_VersusBeginButton_OnConfirm); g_installed_Hook_220 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusCoinButtonPatch") && !Listed(skip, "VersusCoinButton_Render")) { g_on_Hook_221[0] = true; any = true; if (!g_installed_Hook_221 && bind::m_VersusCoinButton_Render) { Hook_221::InstallAtOffset(bind::m_VersusCoinButton_Render); g_installed_Hook_221 = true; } }
+    if (Is(cls, "TF.State.Patchs.VersusLevelSystemPatch") && !Listed(skip, "VersusLevelSystem_GenLevels")) { g_on_Hook_222[0] = true; any = true; if (!g_installed_Hook_222 && bind::m_VersusLevelSystem_GenLevels_3ca1) { Hook_222::InstallAtOffset(bind::m_VersusLevelSystem_GenLevels_3ca1); g_installed_Hook_222 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.HUD.VersusMatchResultsPatch") && !Listed(skip, "VersusMatchResults_ctor_Prefix")) { g_on_Hook_223[0] = true; any = true; if (!g_installed_Hook_223 && bind::m_VersusMatchResults__ctor_7521) { Hook_223::InstallAtOffset(bind::m_VersusMatchResults__ctor_7521); g_installed_Hook_223 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.HUD.VersusMatchResultsPatch") && !Listed(skip, "VersusMatchResults_ctor")) { g_on_Hook_223[1] = true; any = true; if (!g_installed_Hook_223 && bind::m_VersusMatchResults__ctor_7521) { Hook_223::InstallAtOffset(bind::m_VersusMatchResults__ctor_7521); g_installed_Hook_223 = true; } }
+    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "Create")) { g_on_Hook_224[0] = true; any = true; if (!g_installed_Hook_224 && bind::m_VersusModeButton__ctor_f3db) { Hook_224::InstallAtOffset(bind::m_VersusModeButton__ctor_f3db); g_installed_Hook_224 = true; } }
+    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "GetModeIcon")) { g_on_Hook_225[0] = true; any = true; if (!g_installed_Hook_225 && bind::m_VersusModeButton_GetModeIcon_1c75) { Hook_225::InstallAtOffset(bind::m_VersusModeButton_GetModeIcon_1c75); g_installed_Hook_225 = true; } }
+    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "GetModeName")) { g_on_Hook_226[0] = true; any = true; if (!g_installed_Hook_226 && bind::m_VersusModeButton_GetModeName_1c75) { Hook_226::InstallAtOffset(bind::m_VersusModeButton_GetModeName_1c75); g_installed_Hook_226 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusModeButtonPatch") && !Listed(skip, "VersusModeButton_Update_Prefix")) { g_on_Hook_227[0] = true; any = true; if (!g_installed_Hook_227 && bind::m_VersusModeButton_Update) { Hook_227::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_227 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusModeButtonPatch") && !Listed(skip, "VersusModeButton_Update_Postfix")) { g_on_Hook_227[1] = true; any = true; if (!g_installed_Hook_227 && bind::m_VersusModeButton_Update) { Hook_227::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_227 = true; } }
+    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "Update")) { g_on_Hook_227[2] = true; any = true; if (!g_installed_Hook_227 && bind::m_VersusModeButton_Update) { Hook_227::InstallAtOffset(bind::m_VersusModeButton_Update); g_installed_Hook_227 = true; } }
+    if (Is(cls, "TowerFall.patch_VersusModeButton") && !Listed(skip, "UpdateSides")) { g_on_Hook_228[0] = true; any = true; if (!g_installed_Hook_228 && bind::m_VersusModeButton_UpdateSides) { Hook_228::InstallAtOffset(bind::m_VersusModeButton_UpdateSides); g_installed_Hook_228 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.HUD.VersusPlayerMatchResultsPatch") && !Listed(skip, "VersusPlayerMatchResults_Ctor_Prefix")) { g_on_Hook_229[0] = true; any = true; if (!g_installed_Hook_229 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_229::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_229 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.HUD.VersusPlayerMatchResultsPatch") && !Listed(skip, "VersusPlayerMatchResults_Ctor_Finalizer")) { g_on_Hook_229[1] = true; any = true; if (!g_installed_Hook_229 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_229::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_229 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.HUD.VersusPlayerMatchResultsPatch") && !Listed(skip, "VersusPlayerMatchResults_ctor")) { g_on_Hook_229[2] = true; any = true; if (!g_installed_Hook_229 && bind::m_VersusPlayerMatchResults__ctor_ee7f) { Hook_229::InstallAtOffset(bind::m_VersusPlayerMatchResults__ctor_ee7f); g_installed_Hook_229 = true; } }
+    if (Is(cls, "TeamsPlus.Hooks.LevelHooks") && !Listed(skip, "GetLevels_Prefix")) { g_on_Hook_230[0] = true; any = true; if (!g_installed_Hook_230 && bind::m_VersusTowerData_GetLevels_3ca1) { Hook_230::InstallAtOffset(bind::m_VersusTowerData_GetLevels_3ca1); g_installed_Hook_230 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusVariantButtonPatch") && !Listed(skip, "VersusVariantsButton_OnConfirm")) { g_on_Hook_231[0] = true; any = true; if (!g_installed_Hook_231 && bind::m_VersusVariantsButton_OnConfirm) { Hook_231::InstallAtOffset(bind::m_VersusVariantsButton_OnConfirm); g_installed_Hook_231 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.MenuItem.VersusVariantButtonPatch") && !Listed(skip, "VersusVariantsButton_Render")) { g_on_Hook_232[0] = true; any = true; if (!g_installed_Hook_232 && bind::m_VersusVariantsButton_Render) { Hook_232::InstallAtOffset(bind::m_VersusVariantsButton_Render); g_installed_Hook_232 = true; } }
+    if (Is(cls, "TF.EX.Patchs.Entity.WhiteArcherPrisonPatch") && !Listed(skip, "WhiteArcherPrison_Spawn")) { g_on_Hook_233[0] = true; any = true; if (!g_installed_Hook_233 && bind::m_WhiteArcherPrison_Spawn_08c4) { Hook_233::InstallAtOffset(bind::m_WhiteArcherPrison_Spawn_08c4); g_installed_Hook_233 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.WoodenHatRngPatch") && !Listed(skip, "WoodenHat_Update_Prefix")) { g_on_Hook_234[0] = true; any = true; if (!g_installed_Hook_234 && bind::m_WoodenHat_Update) { Hook_234::InstallAtOffset(bind::m_WoodenHat_Update); g_installed_Hook_234 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.WoodenHatRngPatch") && !Listed(skip, "WoodenHat_Update_Postfix")) { g_on_Hook_234[1] = true; any = true; if (!g_installed_Hook_234 && bind::m_WoodenHat_Update) { Hook_234::InstallAtOffset(bind::m_WoodenHat_Update); g_installed_Hook_234 = true; } }
+    if (Is(cls, "TF.State.Patchs.Entity.LevelEntity.YellowArcherStatuePatch") && !Listed(skip, "YellowArcherStatue_Update")) { g_on_Hook_235[0] = true; any = true; if (!g_installed_Hook_235 && bind::m_YellowArcherStatue_Update) { Hook_235::InstallAtOffset(bind::m_YellowArcherStatue_Update); g_installed_Hook_235 = true; } }
     return any;
 }
 
