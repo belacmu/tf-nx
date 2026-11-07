@@ -43,6 +43,7 @@ HOOK_DEFINE_TRAMPOLINE(MatchTeamsGetItemHook) {
 };
 }  // namespace
 
+void InstallOutlines();
 void InstallNative() {
     uintptr_t base = exl::util::GetMainModuleInfo().m_Total.m_Start;
     int done = 0;
@@ -58,6 +59,7 @@ void InstallNative() {
     sites += tfex::frmodes::RedirectAllegianceCall(0xb3874c, tfex::gen::Tp_RulesHooks::AllegianceForKillType, "Teams+'s AllegianceForKillType (OnPlayerDeath, killer)") ? 1 : 0;
     static bool hooked = false;
     if (!hooked) { MatchTeamsGetItemHook::InstallAtOffset(kMatchTeamsGetItem); hooked = true; }
+    InstallOutlines();   /* Teams+'s groups in the Switch's team outlines (TeamPlusOutlines.cpp) */
     hw::Log("[teamplus] native patches (Teams+'s IL edits): %d of %d words, %d of 2 OnPlayerDeath call sites, SensorBlock's team lookup hooked",
             done, (int)(sizeof kWords / sizeof *kWords), sites);
 }

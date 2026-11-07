@@ -2,6 +2,6 @@
 #pragma once
 
 namespace tfex::gen::codemods {
-void Boot_TeamsPlus();   /* TeamsPlus (teamplus/: Tp_Module, 7 patch classes) */
+void Boot_TeamsPlus();   /* TeamsPlus (teamplus/: Tp_Module, 6 patch classes) */
 }
 #define TFEX_CODEMOD_TeamsPlus 1   /* TeamsPlus is in this build (hand code that uses it tests this) */

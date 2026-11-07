@@ -17,11 +17,11 @@ void Boot_TeamsPlus() {
     if (!reg) { hw::Log("[mods] TeamsPlus: no registry (its folder isn't loaded): not constructed"); return; }
     void* content = tfex::gen::GlueFrMods::RegistryMod(reg);
     tfex::gen::Tp_Module::Ctor(content, content, reg, tfex::gen::svc::Service());   /* FortRise: Activator.CreateInstance(t, [content, context, logger]); its ILogger is the console's log (LoggerExtensions.Log* -> svc::Log) */
-    static const char* const kClasses[] = { "TeamsPlus.Hooks.DataHooks", "TeamsPlus.Hooks.LevelHooks", "TeamsPlus.Hooks.MenuHooks", "TeamsPlus.Hooks.ReviveHooks", "TeamsPlus.Hooks.RulesHooks", "TeamsPlus.Hooks.SafetyHooks", "TeamsPlus.Hooks.VisualHooks" };
+    static const char* const kClasses[] = { "TeamsPlus.Hooks.DataHooks", "TeamsPlus.Hooks.LevelHooks", "TeamsPlus.Hooks.MenuHooks", "TeamsPlus.Hooks.ReviveHooks", "TeamsPlus.Hooks.RulesHooks", "TeamsPlus.Hooks.SafetyHooks" };
     int on = 0, replayed = 0;
     for (const char* cls : kClasses) if (cls) { on += tfex::gen::hooks::Enable(cls) ? 1 : 0; replayed += tfex::gen::hooks::ReplayLoadTime(cls); }
     tfex::teamplus::InstallNative();   /* its IL edits as native patches */
-    hw::Log("[mods] TeamsPlus constructed: %d of 7 patch classes hooked, %d load-time postfixes replayed", on, replayed);
+    hw::Log("[mods] TeamsPlus constructed: %d of 6 patch classes hooked, %d load-time postfixes replayed", on, replayed);
 }
 
 }

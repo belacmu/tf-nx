@@ -354,7 +354,7 @@ auto unit (a TF.EX type the code calls) (310)
     Auto_XGamePadInputExtensions: network/TF.EX.Domain/Extensions/TowerFallScene.cs
     Auto_patch_SpriteData: fortrise/TowerFall.FortRise.mm/Patches/Monocle/SpriteData.cs
 code mod: a generated boot (FortRise's ModuleManager.LoadAssembly) (1)
-    TeamsPlus: Tp_Module, 7 patch classes, native tfex::teamplus::InstallNative
+    TeamsPlus: Tp_Module, 6 patch classes, native tfex::teamplus::InstallNative
 dispatch: an interface across compilations, generated (1)
     FortRise.IVersusGameMode: NetplayVersusMode, Tp_GameMode
 hand rule: FortRise member absent on the Switch ([fortrise], S-input) (2)
@@ -394,7 +394,7 @@ hand rule: a PC member the Switch lacks, kept in the side table ([fortrise] side
     patch_PlayerHair.OutlineColor
 hand rule: a member read by name (DynamicData) -> its [service] rule (1)
     VersusModeButton.currentIndex
-hand rule: call rewritten to glue (translate.toml [[rewrite]]) (42)
+hand rule: call rewritten to glue (translate.toml [[rewrite]]) (41)
     FortRise.EnumPool.Obtain<T>() -> TfexGlue.FortRiseSwitch.SwitchMods.ObtainMode: FortRise's EnumPool (generic math, CollectionsMarshal: not translatable) gives the enum's highest value + 1 and counts on; with FortRise's patch_Modes.Custom = 10 that is 11 on the Switch too (the PC's number: TF.EX's Netplay mode in the browser is 11)
     FortRise.ISettingsCreate.CreateCustomOptions(System.Func<TowerFall.OptionsButton>) -> TfexGlue.SettingsUi.CreateCustomOptions: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
     FortRise.ISettingsCreate.CreateInput(string, string, System.Action<string>, string, FortRise.InputBehavior) -> TfexGlue.SettingsUi.CreateInput: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
@@ -408,7 +408,6 @@ hand rule: call rewritten to glue (translate.toml [[rewrite]]) (42)
     MessagePack.MessagePackSerializer.Serialize<TF.State.Domain.Models.MatchStats[]>(TF.State.Domain.Models.MatchStats[], MessagePack.MessagePackSerializerOptions?, System.Threading.CancellationToken) -> TfexGlue.StateMsgPack.SerializeMatchStatsArray: VersusAwards' seed (MatchStatsExtensions.GetAwardsSeed): MessagePack-CSharp's default bytes of the stats (generated glue, no LZ4)
     Microsoft.Xna.Framework.Graphics.SpriteBatch.Begin(Microsoft.Xna.Framework.Graphics.SpriteSortMode, Microsoft.Xna.Framework.Graphics.BlendState, Microsoft.Xna.Framework.Graphics.SamplerState, Microsoft.Xna.Framework.Graphics.DepthStencilState, Microsoft.Xna.Framework.Graphics.RasterizerState, Microsoft.Xna.Framework.Graphics.Effect, Microsoft.Xna.Framework.Matrix) -> TfexGlue.Rewrites.SpriteBatchBegin: the Switch's MonoGame SpriteBatch.Begin takes the transform as a Matrix? (64 bytes, then hasValue at +0x40, by pointer; SwitchHud.hpp), the PC's FNA a Matrix: passed bare, hasValue was stack garbage and TF.EX's transform was dropped (its roll-call overlay without the UI camera's +50, 2026-10-29 console; PlayerPatch.RefreshSprites' too). The runtime's SpriteBatchBegin passes it as the Switch's
     Microsoft.Xna.Framework.Graphics.Texture2D.GetData<T>(int, Microsoft.Xna.Framework.Rectangle?, T[], int, int) -> TfexGlue.Skins.GetData: the Switch has the game's GetData<Color>(Color[]) (whole texture), not this overload: the whole texture, then the rect's pixels
-    Microsoft.Xna.Framework.Graphics.Texture2D.SetData<T>(T[]) -> TfexGlue.Skins.SetColors: the Switch's game expands SetData<Color>(Color[]) inline (no callable body): its two calls (Teams+'s Recolor)
     Microsoft.Xna.Framework.Graphics.Texture2D.SetData<T>(T[]) -> TfexGlue.Skins.SetData: the Switch has the game's SetData<Color>(Color[]): the same RGBA bytes as Colors
     Monocle.Cache.Create<T>() -> TfexGlue.Rewrites.CacheCreateEnemyAttack: generic game method: the Switch's instantiation (+0xa38680, called by EnemyAttack.Spawn); TF.State's LoadEnemyAttacks
     Monocle.Cache.Create<T>() -> TfexGlue.Rewrites.CacheCreateExplosion: generic game method: the Switch's instantiation (+0xa3e240, called by Explosion.Spawn / SpawnSuper); TF.State's LoadExplosions
@@ -477,8 +476,9 @@ hand rule: expression rewritten (translate.toml [[rewrite]] expr, S-native) (21)
     SubtextureRegistry: getAll.Contains(id) -> tfex::gen::GlueFrMods::IsVanillaSubtexture(id): whether the game's atlases have the texture (the names FortRise reads from their XMLs): asked of the loaded atlases (glue SwitchMods.IsVanillaSubtexture)
     patch_VersusModeButton: BuiltInModeCount -> tfex::gen::svc::BuiltInVersusModeCount(): FortRise's count of built-in modes before the registered ones in its list (3): 4 in the Switch's local play, the megamod's TOWERBALL inserted fourth (megamod.cpp)
     patch_VersusModeButton: mode is Modes.LastManStanding or Modes.TeamDeathmatch or Modes.HeadHunters -> tfex::gen::svc::BuiltInVersusMode(mode): the PC's three built-in versus modes; the Switch's local play has a fourth, the megamod's TOWERBALL (mode 6, megamod.cpp appends it to FortRise's list), which is no registered custom mode either
-hand rule: glue extern [Cpp] (Switch code) (108)
+hand rule: glue extern [Cpp] (Switch code) (109)
     TfexGlue.AiNames.AiNameOf(int)
+    TfexGlue.AiNames.BoardLaidOut(int, int)
     TfexGlue.Ffi.BytesOf(string)
     TfexGlue.Ffi.LogBusy()
     TfexGlue.Ffi.PassYielded()
@@ -1013,10 +1013,9 @@ interop: checked (consumer -> provider, TF.EX's ApiSurfaceTests) (3)
     TF.EX.Common.Interop.IWiderSetModApi -> TfexGlue.WiderSetApi: 0 methods
     TF.EX.Domain.Interop.ITfStateApi -> TF.State.Core.Api.TfStateApi: 45 methods
     Teuria.WiderSet.IWiderSetModApi -> TfexGlue.WiderSetApi: 0 methods
-mechanical: ++/-- on a property with accessors -> get, then set (3)
+mechanical: ++/-- on a property with accessors -> get, then set (2)
     Auto_BrambleSpreadController: Step: state.Waited++
     NetplayManager: UpdateNetplayRequests: _framesToReSimulate++
-    Tp_Recolor: Make: Converted++
 mechanical: ??= on a property with accessors -> get, then set when null (1)
     SkinStreamService: FromSpriteId: skinSprite.ExtraData ??= new Dictionary<string, string>()
 mechanical: AccessTools.MethodDelegate over a reflected game method -> a delegate (a thunk calling it) (1)
@@ -1894,17 +1893,17 @@ mechanical: Harmony patch -> exlaunch hook (236)
     Pickup..ctor: PickupPatch.Pickup_ctor
     Pickup.FinishUnpack: PickupPatch.Pickup_FinishUnpack
     PirateBanner.Update: PirateBannerPatch.PirateBanner_Update
-    Player..ctor: PlayerPatch.Player_Ctor_Prefix, PlayerPatch.Player_Ctor_Finalizer, PlayerStatePatch.Player_ctor, VisualHooks.PlayerCtor_Postfix
+    Player..ctor: PlayerPatch.Player_Ctor_Prefix, PlayerPatch.Player_Ctor_Finalizer, PlayerStatePatch.Player_ctor
     Player.Added: patch_Player.Added_Postfix
     Player.DoWrapRender: PlayerPatch.Player_DoWrapRender_Prefix
     Player.DropArrow: PlayerStatePatch.Player_DropArrow_Prefix, PlayerStatePatch.Player_DropArrow_Postfix
     Player.HUDRender: PlayerPatch.Player_HUDRender_Prefix
-    Player.InitHead: PlayerPatch.Player_InitHead_Prefix, VisualHooks.InitHead_Postfix
+    Player.InitHead: PlayerPatch.Player_InitHead_Prefix
     Player.LoseHat: PlayerStatePatch.Player_LoseHat_Prefix, PlayerStatePatch.Player_LoseHat_Postfix
     Player.SpawnedInsideSolidCheck: PlayerStatePatch.Player_SpawnedInsideSolidCheck_Prefix
     Player.Update: PlayerPatch.Player_Update_Postfix
     PlayerCorpse..ctor: PlayerCorpsePatch.PlayerCorpse_ctor_Postfix
-    PlayerCorpse.Added: PlayerCorpsePatch.PlayerCorpse_Added_Postfix, ReviveHooks.Added_Postfix
+    PlayerCorpse.Added: PlayerCorpsePatch.PlayerCorpse_Added_Postfix, PlayerCorpsePatch.PlayerCorpse_Added_Postfix, ReviveHooks.Added_Postfix
     PlayerCorpse.DieByArrow: PlayerCorpsePatch.PlayerCorpse_DieByArrow_Postfix
     PlayerCorpse.DropNextArrow: PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Prefix, PlayerCorpsePatch.PlayerCorpse_DropNextArrow_Postfix
     PlayerCorpse.StartDroppingArrows: PlayerCorpsePatch.PlayerCorpse_StartDroppingArrows_Prefix
@@ -2084,7 +2083,7 @@ mechanical: LINQ All -> internal iteration (7)
     NetplayMenus: EvaluateLobbyCompatibility: newLobby.GameData.Variants.All(availableVariants.Contains)
     PlayerInputPatch: PlayerInput_AssignInputs: TFGame.PlayerInputs.All(input => input == null)
     SessionPatch: Session_StartGame: lobby.Players.All(player => player.UseInstantReplay)
-mechanical: LINQ Any -> internal iteration (120)
+mechanical: LINQ Any -> internal iteration (121)
     Auto_APIManager: HasStateEvents: stateEvents.Keys.Any(key => key.StartsWith(id + "-", StringComparison.Ordinal))
     Auto_ConfirmDialog: IsPressed: _originalInputs.Any(input => input != null && IsPressed(input, button))
     Auto_ExplosionExtensions: GetSharedCounters: shared.Any(index => index >= 0)
@@ -2166,6 +2165,7 @@ mechanical: LINQ Any -> internal iteration (120)
     ScenarioCatalog: : AllOf<Player>(level).Any(p => p.PlayerIndex == 0 && p.Y < 150f)
     ScenarioCatalog: : AllOf<Player>(level).Any(p => p.PlayerIndex == 0)
     ScenarioCatalog: : AllOf<Player>(level).Any(p => p.PlayerIndex == 1 && !p.HasShield)
+    ScenarioCatalog: : AllOf<Player>(level).Any(p => p.PlayerIndex == 1 && p.State == Player.PlayerStates.Dying)
     ScenarioCatalog: : AllOf<Player>(level).Any(p => p.PlayerIndex == 1)
     ScenarioCatalog: : AllOf<Player>(level).Any(p => p.PlayerIndex == 2)
     ScenarioCatalog: : AllOf<Player>(level).Any(p => p.Y <= 152f)
@@ -2575,10 +2575,13 @@ mechanical: List<T>.FindIndex(predicate) on a value list -> the first index it a
     Tp_RoundLogic: SpawnGroups: groups.FindIndex(g => g.Team == Allegiance.Red)
 mechanical: List<T>.Sort(comparison) on a value list -> its Sort with the comparison inline (1)
     Fr_UIModMenu: GetMods: sorted.Sort((x, y) =>
-mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (11)
+mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (14)
     Auto_PlayerGhostExtensions: GetState: Math.Abs(sprite.Scale.X)
     Auto_XGamePadInputExtensions: GetRightStick: Math.Abs(vector.X)
     Auto_XGamePadInputExtensions: GetRightStick: Math.Abs(vector.Y)
+    GlueAiNames: LayOutRows: Math.Abs(image.Position.Y + 1f - rowY)
+    GlueAiNames: LayOutRows: Math.Abs(labels[b].Position.Y - rowY)
+    GlueAiNames: PlaceRow: Math.Abs(t.Position.Y - rowY)
     MainMenuCreate: AddNetplayButtonToMenu: Math.Abs(button.Position.Y - VANILLA_BOTTOM_ROW_Y)
     State_DeterministicMath: Atan2: Math.Abs(y / x)
     State_DeterministicMath: Atan: Math.Abs(x)
@@ -2646,20 +2649,14 @@ mechanical: [MonoModLinkTo] -> the linked game method, called directly (3)
     UIModPanel.base_Update -> Entity.Update
     patch_VersusModeButton.base_OnConfirm -> BorderButton.OnConfirm
     patch_VersusModeButton.base_Update -> BorderButton.Update
-mechanical: a Harmony FieldRef (AccessTools.(Static)FieldRefAccess) invoked -> the game field (6)
+mechanical: a Harmony FieldRef (AccessTools.(Static)FieldRefAccess) invoked -> the game field (3)
     Arrow.Graphics
     Brambles.cached
-    Player.bodySprite
-    Player.bowSprite
-    Player.headSprite
     Tween.cached
-mechanical: a Harmony FieldRef field -> unused (its invokes read the game field) (6)
+mechanical: a Harmony FieldRef field -> unused (its invokes read the game field) (3)
     ArrowPatch.ArrowGraphics
     BramblesPatch.Cached
     TweenPatch.Cached
-    VisualHooks.BodySprite
-    VisualHooks.BowSprite
-    VisualHooks.HeadSprite
 mechanical: a Harmony reverse patch -> the original under the generated hook (1)
     TFGamePatch.TFGame_Update_orig -> TFGame.Update
 mechanical: a MonoMod patch class's field that the game type has -> the game's field (15)
@@ -3223,7 +3220,7 @@ mechanical: a delegate type the game never compiled, of no shape it has -> a sta
 mechanical: a game Stack<T> / Queue<T> as a sequence -> its ToArray (its enumeration order) (2)
     Auto_QuestSpawnPortalExtensions: GetState: dynPortal.Get<Queue<string>>("toSpawn")
     State_Level: DropLiveFromEntityPool: pool
-mechanical: a game struct's field through a game object's field -> one load at the summed offset (76)
+mechanical: a game struct's field through a game object's field -> one load at the summed offset (74)
     GlueFrMods: CheckArcher: a.Gems.Gameplay
     GlueFrMods: CheckArcher: a.Gems.Menu
     GlueFrMods: CheckArcher: a.Hat.Blue
@@ -3298,18 +3295,17 @@ mechanical: a game struct's field through a game object's field -> one load at t
     SkinStreamService: Build: data.Sprites.HeadCrown
     SkinStreamService: Build: data.Sprites.HeadNoHat
     SkinStreamService: Build: data.Sprites.HeadNormal
-    Tp_VisualHooks: PlayerCtor_Postfix: __instance.ArcherData.Sprites.Body
-    Tp_VisualHooks: PlayerCtor_Postfix: __instance.ArcherData.Sprites.Bow
 mechanical: a game type missing on the Switch -> null (nothing is one) (3)
     TowerFall.ChaliceGhost
     TowerFall.CustomLevelSystem
     TowerFall.WorkshopButton
-mechanical: a game type's conversion operator -> its body (op_Implicit / op_Explicit) (10)
+mechanical: a game type's conversion operator -> its body (op_Implicit / op_Explicit) (11)
     Auto_LavaControlExtensions: GetState: targetCounter
     Auto_OrbLogicExtenions: GetSpaceTweenDuration: self.Level.Session.MatchSettings.Variants.OffsetWorld
     Fr_Player: Added_Postfix: Hair
     GlueFrMods: VariantIsActiveIn: variant
     NetplayRoundLogic: SpawnRoundPlayers: base.Session.MatchSettings.Variants.OffsetWorld
+    PlayerCorpsePatch: PlayerCorpse_Added_Postfix: matchSettings.Variants.TeamRevive
     State_Bat: UpdateIdle: dyn.Get<Counter>("swoopCooldown")
     State_DarkPortalsVariantSequence: Step: level.Session.MatchSettings.Variants.DarkPortals
     State_OrbLogic: OrbLogic_DoSpaceOrb: __instance.Level.Session.MatchSettings.Variants.OffsetWorld
@@ -3847,14 +3843,13 @@ mechanical: double/float.IsNaN / IsInfinity -> compiler builtins (13)
     State_DeterministicMath: Pow: double.IsNaN(y)
     State_DeterministicMath: Sin: double.IsInfinity(x)
     State_DeterministicMath: Sin: double.IsNaN(x)
-mechanical: enum to string -> its names (10)
+mechanical: enum to string -> its names (9)
     System.Net.WebSockets.WebSocketCloseStatus
     TF.EX.Domain.Models.AutoAdjustInputDelayMode
     TF.EX.Domain.Models.CustomSkinMode
     TF.EX.Domain.Models.Event
     TF.EX.Domain.Models.WebSocket.LobbyKind
     TF.EX.Domain.Services.WSAction
-    TeamsPlus.Tint
     TowerFall.Allegiance
     TowerFall.MatchSettings.MatchLengths
     TowerFall.Modes
@@ -4191,7 +4186,7 @@ mechanical: int.TryParse(string, out int) -> gen::TryParseInt (6)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: int.TryParse(sfx, out int s)
     ScenarioLaunch: LaunchScenario: int.TryParse(args[0], out var parsedIndex)
     SkinOverlayService: RegisterGameplaySprite: int.TryParse(animation.Id, out _)
-mechanical: lambda -> delegate (function of target, args) (125)
+mechanical: lambda -> delegate (function of target, args) (126)
     Auto_CornerButton: TweenIn: t => Position = Vector2.Lerp(tweenFrom, tweenTo, t.Eased)
     Auto_Fader: .ctor: delegate (Tween t)
     Auto_SpectatorRollcallGate: HandleBack: () => { }
@@ -4269,6 +4264,7 @@ mechanical: lambda -> delegate (function of target, args) (125)
     ScenarioCatalog: : level => AllOf<Player>(level).Any(p => p.PlayerIndex == 0 && p.X > 80 && p.Arrows.Count == 6)
     ScenarioCatalog: : level => AllOf<Player>(level).Any(p => p.PlayerIndex == 0 && p.Y < 150f)
     ScenarioCatalog: : level => AllOf<Player>(level).Any(p => p.PlayerIndex == 1 && !p.HasShield)
+    ScenarioCatalog: : level => AllOf<Player>(level).Any(p => p.PlayerIndex == 1 && p.State == Player.PlayerStates.Dying)
     ScenarioCatalog: : level => AllOf<Player>(level).Any(p => p.PlayerIndex == 1)
     ScenarioCatalog: : level => AllOf<Player>(level).Any(p => p.Y <= 152f) && AllOf<Arrow>(level).Any()
     ScenarioCatalog: : level => AllOf<PlayerCorpse>(level).Any()
@@ -4645,7 +4641,7 @@ mechanical: struct `with { ... }` -> a copy with the members set (3)
     Auto_PlayerGhostExtensions: GetState: sprite.Scale with { X = Math.Abs(sprite.Scale.X) }
     Fr_ArcherLoader: LoadAll: archerToCopy.Configuration with { AltFor = archerToCopy }
     Fr_ArcherLoader: LoadAll: archerToCopy.Configuration with { SecretFor = archerToCopy }
-mechanical: switch expression -> arms tested in order (22)
+mechanical: switch expression -> arms tested in order (21)
     Auto_ArrowExtensions: LoadState: cushionOwner switch
     Auto_ConfirmDialog: IsPressed: button switch
     Auto_ConnectionQualities: ToColor: quality switch
@@ -4667,11 +4663,10 @@ mechanical: switch expression -> arms tested in order (22)
     State_DeterministicMath: Atan2: m switch
     State_DeterministicMath: Cos: n switch
     State_DeterministicMath: Sin: n switch
-    Tp_Recolor: Apply: tint switch
 mechanical: try/catch around a throwing stand-in -> the body with a fault check after each call, the catch on a fault (gen::Faulted) (2)
     MatchmakingService: ConnectToServerAndListen: try
     NetplayMenus: OpenSupportPage: try
-mechanical: type pattern with a variable (is T x / case T x) (106)
+mechanical: type pattern with a variable (is T x / case T x) (108)
     Auto_ArrowBuilder: Build: BoltArrow boltArrow
     Auto_ArrowBuilder: Build: BombArrow bombArrow
     Auto_ArrowBuilder: Build: BrambleArrow brambleArrow
@@ -4710,6 +4705,8 @@ mechanical: type pattern with a variable (is T x / case T x) (106)
     Fr_SpriteDataLoader: LoadSpriteData: XmlElement element
     Fr_SpriteDataLoader: LoadSpriteData: XmlElement elm
     GameplayLayerPatch: UpdatePingAlpha: TowerFall.Level level
+    GlueAiNames: AnyToName: Text text
+    GlueAiNames: LayOutRows: Image image
     GlueAiNames: RoundResults: Text text
     GlueFrMods: BaseSfx: SFXEntry s
     GlueFrMods: BaseSfx: SFXLoopedEntry l
@@ -4932,7 +4929,7 @@ rule: ToHashSet(StringComparer) over strings -> a gen::ValSet comparing that way
 rule: a collection passed for a model-list parameter -> a temporary model list of it (2)
     MatchmakingService: PublishSettingsChanges: [title]
     ScenarioLaunch: StartGame: variants
-rule: a collection the game has no code for -> a C++ container in scanned GC memory (gen::ValMap/ValSet/VList) (84)
+rule: a collection the game has no code for -> a C++ container in scanned GC memory (gen::ValMap/ValSet/VList) (83)
     Auto_APIManager: .ctor: new()
     Auto_ArcherDataExtensions: ResolveArchers: new Dictionary<int, (int, int)>()
     Auto_ArcherDataExtensions: ResolveArchers: new HashSet<int>()
@@ -5015,7 +5012,6 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     SkinOverlayService: SetReplaySkinSeats: new Dictionary<int, string>()
     SkinStreamService: .ctor: []
     SkinStreamService: .ctor: new()
-    Tp_Recolor: : new()
     Tp_RoundLogic: SpawnGroups: new List<Group>()
 rule: a hosted unit's primary-constructor parameter -> its [service] rule (1)
     InputService.context
@@ -5245,7 +5241,7 @@ rule: throw -> gen::Throw (fatal, as the game's own exceptions) (71)
     Tp_Selector: OnConfirm: throw new NotImplementedException()
     Tp_Selector: OnDeselect: throw new NotImplementedException()
     Tp_Selector: OnSelect: throw new NotImplementedException()
-rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (48)
+rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (47)
     Auto_ArcherDataExtensions: Exists: try
     Auto_ArcherDataExtensions: GetCustomArcherId: try
     Auto_ArcherDataExtensions: GetInstalledArcherMods: try
@@ -5293,7 +5289,6 @@ rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (48)
     State_Level: LoadHats: try
     State_Level: LoadState: try
     State_Monocle: Audio_Stop: try
-    Tp_Recolor: Make: try
 rule: x == the local seat/index -> svc::IsLocalSeat(x) (several local players per device) (3)
     NetplayMenus: TryOpenLobbyEditor: seat != matchmakingService.GetLocalSeat()
     RollCallElementPatch: IsOwnOrGuestSeat: seat == matchmakingService.GetLocalSeat()
@@ -5569,11 +5564,10 @@ service map: fixed value (S-hooks) (1)
     FortRise.IModuleContext.Harmony
 service map: fixed value (S-keyboard) (1)
     TF.EX.Domain.Services.ClipboardService.GetText
-service map: fixed value (S-native) (7)
+service map: fixed value (S-native) (6)
     FortRise.IArrowEntry.ArrowTypes
     FortRise.ModuleMetadata.Update
     FortRise.ResourceTree.IsExist
-    Microsoft.Xna.Framework.Rectangle.Empty
     System.IO.Directory.CreateDirectory
     System.Type.GetMethod
     TowerFall.patch_VersusModeButton.ModeSwitch
@@ -5626,13 +5620,14 @@ service map: no-op (S-hooks) (3)
     TF.EX.Patchs.Scene.WiderSetMenu.PatchSelectionButtons
 service map: no-op (S-keyboard) (1)
     TF.EX.Domain.Services.ClipboardService.SetText
-service map: no-op (S-native) (7)
+service map: no-op (S-native) (8)
     TF.EX.Domain.ServiceCollections.Build
     TF.EX.Domain.ServiceCollections.RegisterModCollections
     TF.EX.Domain.ServiceCollections.RegisterServices
     TF.EX.Patchs.Engine.TFGamePatch.WarnAboutModifiedGameFiles
     TeamsPlus.Hooks.ResultsHooks.Load
     TeamsPlus.Hooks.SafetyHooks.Load
+    TeamsPlus.Hooks.VisualHooks.Load
     TowerFall.patch_MatchVariants.orig_ctor
 service map: no-op (S-net) (4)
     System.Threading.CancellationTokenSource.Cancel
@@ -5690,7 +5685,7 @@ settings: FortRise's ModuleSettings as JSON (CodeGen.ModSettings) (1)
     TF.EX.NetplaySettings: 10 properties
 unit's file not in this TF.EX tree (skipped) (1)
     ConnectionIcon: network/TF.EX.Patchs/ConnectionIcon.cs
-unresolved game member (101)
+unresolved game member (100)
     e_ArcherEntryType: no type FortRise.ArcherEntryType
     e_CustomVariantFlags: no type FortRise.CustomVariantFlags
     e_InputBehavior: no type FortRise.InputBehavior
@@ -5744,7 +5739,6 @@ unresolved game member (101)
     t_Dictionary_2_70f2: no type System.Collections.Generic.Dictionary`2[System.String, Monocle.SFX]
     t_Dictionary_2_7e19: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.Variant]
     t_Dictionary_2_9339: no type System.Collections.Generic.Dictionary`2[System.Int32, System.String]
-    t_Dictionary_2_97a9: no type System.Collections.Generic.Dictionary`2[System.ValueTuple`4[Microsoft.Xna.Framework.Graphics.Texture2D, Microsoft.Xna.Framework.Rectangle, Microsoft.Xna.Framework.Rectangle, System.Enum], Monocle.Subtexture]
     t_Dictionary_2_a062: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.Modes]
     t_Dictionary_2_a2c4: no type System.Collections.Generic.Dictionary`2[System.String, System.Double]
     t_Dictionary_2_a3a7: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Collections.Generic.List`1[System.Object]]

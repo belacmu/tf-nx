@@ -16,7 +16,7 @@
  * Offsets: TowerFall v1.4.1.6 main, flat-image (module-base-relative).
  */
 
-#include "tfex/gen/tfexgen_Tp_Teams3.hpp"
+namespace tfex::teamplus { void OutlinesFill(void* layer); }
 #include "xplay_internal.hpp"
 #include "megamod/megamod.hpp"
 #include "tfex/FrModes.hpp"   /* ScoreIndexScope: EndRound's inlined GetScoreIndex */
@@ -981,6 +981,7 @@ HOOK_DEFINE_TRAMPOLINE(TeamOutlinesHook) {
         if (!g_outlinesFromDraw) { g_outlinesSkipped++; return; }
         const uint64_t t0 = svcGetSystemTick();
         Orig(layer);
+        tfex::teamplus::OutlinesFill(layer);   /* Teams+'s yellow team and lone wolves: their own outlines (tfex/TeamPlusOutlines.cpp) */
         if (!g_npSession) { g_lp.outline += Ms(svcGetSystemTick() - t0); g_lp.outlines++; }
     }
 };
@@ -990,15 +991,6 @@ static void TeamOutlinesBeforeDraw(void* game) {
     char tn[32] = ""; rnd::TypeName(reinterpret_cast<void*>(sc), tn, sizeof tn);
     void* layer = std::strcmp(tn, "Level") ? nullptr : *reinterpret_cast<void**>(sc + 0xc8);   /* Level's TeamOutlinesLayer (team mode only) */
     if (!layer) return;
-    /* TFEX-DIFF S-native: none in a Teams+ match. The PC has no outline layer, and Teams+ marks its groups with recoloured sheets only
-     * (vendor/teamplus STATUS.md "Marking a group": outlines dropped by request). The Switch's layer knows only its two native teams: in
-     * the user's 8-player Teams+ match (7 lone wolves, the user yellow) it drew every archer blue, and it cost the most of any part of a
-     * frame in the emulator (12 ms of ~16, 2026-11-07) */
-    if (tfex::gen::Tp_Teams3::get_Live()) {
-        static int said = 0;
-        if (!said++) HWLOG("[np] a Teams+ match: the Switch's team outlines not drawn (Teams+ marks groups by their colours, as on the PC)");
-        return;
-    }
     if (!g_outlinesDrawn++) HWLOG("[np] the team outlines (the Switch's TeamOutlinesLayer) drawn once per drawn frame, not in each update's Level.Update (online and local)");
     g_outlinesFromDraw = true;
     TeamOutlinesHook::Callback(layer);

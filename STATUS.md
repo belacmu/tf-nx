@@ -38,13 +38,13 @@ identical, frame 0 as always). Browser PR #92 (240 Hz) is on browser main; the c
 (:18300 serves it from worktree tfex-028; the live site once #93 is merged).
 
 **TF.EX pin: upstream only (the user, 2026-11-06).** TF.NX's main pins an upstream TF.EX release, never our fork: since 2026-11-06
-**v0.29.0** (3d98d2e). Mod game modes stay local until TF.EX has them online (Fcornaire/TF.EX#314); TEAM REVIVE online comes with the
-next release (#312, merged). Our fork's branches and their state: docs/TFEX-FORKS.md. Moving off the fork took out its users: TF.State's
+**v0.29.1** (bd7480f, 2026-11-07: #312 TEAM REVIVE online, PlayerCorpsePatch back; #317 TF.State's removed death arrow). Mod game modes
+stay local until TF.EX has them online (Fcornaire/TF.EX#314). Our fork's branches and their state: docs/TFEX-FORKS.md. Moving off the fork took out its users: TF.State's
 RegisterStateEvents rules, PlayerCorpsePatch, our NetplayModeTest test mod and the lobby's custom-mode preset; vendor/moveordie is back on
 ebe1kenobi's release (b497071). The GAME MODE scroll our fork fixed doesn't happen on the PC with released mods (TF.EX loads after them);
 the Switch's boot order now follows FortRise's over every loaded mod (FrModsBoot: TF.EX waits for TF.State), so local VERSUS reaches
 Soccer's mode again (check.sh Soccer PASS 172411; smoke lobby PASS 172313 in sync, the Switch's Netplay mode now 14 with three mod modes
-loaded, the browser's 11, as on a modded PC). The browser runs the official release v0.29.0.
+loaded, the browser's 11, as on a modded PC). The browser runs the official release (v0.29.1 on its branch claude/tfex-0.29.1, the harness worktree tfex-0291).
 
 - **switch-online has no GitHub repository yet** (2026-11-02, the user: to fix soon): the checkout has no remote, so master is only on
   this Mac. Checked for publishing: tools/re/main.flat (the game's code) is git-ignored and was never committed; no file over 20 MB in
@@ -63,11 +63,22 @@ loaded, the browser's 11, as on a modded PC). The browser runs the official rele
   (the AIs 0.3 ms), most samples in LightingLayer.RenderLightCanvas (the game's own, as on the PC; a GPU wait there), 3.4 ms after.
   Waiting for the console's numbers. The Switch's team outlines (12 ms of a frame in the emulator, a GPU wait too) are off in Teams+.
 - Teams+ colours: 7 AIs Solo, the player on yellow: every archer had a blue outline (Solo and yellow), and the player's mod archer
-  (Kirby) was coloured yellow. The outlines: the Switch game's own two-team outline layer (PC: none; Teams+ dropped outlines by
-  request, vendor/teamplus STATUS.md), off in Teams+ matches since 2026-11-07 (`[np] a Teams+ match: the Switch's team outlines not
-  drawn`). The Kirby colour is still open.
-- The right stick changes an AI's Teams+ team (the AIs can't change team now).
-- The AI cursor's label ("R NEXT: JIMMY") under the portrait instead of above it.
+  (Kirby) was coloured yellow. The outlines (2026-11-07): the Switch's own styling, the user's: a player on a team has an outline of
+  its team's colour, a lone wolf none. The game tagged every non-red player into the blue canvas; now blue and red are the game's,
+  yellow is drawn into a third canvas the same way (tfex/TeamPlusOutlines.cpp, the old three-team mod's yellow ring), lone wolves have
+  none, all once per drawn frame. Emulator: P2 blue outline, P4 yellow, P1 / P3 none. Console proof: `[teamplus] outline: the yellow
+  team's outlines drawn`.
+  Sprites (2026-11-07, the user's): Teams+'s gold (yellow) / white (wolves) recolours are off on the Switch (overrides.toml
+  VisualHooks.Load; Recolor / VisualHooks not translated): every archer keeps its own colours, as in the Switch's team modes. That
+  also ends Kirby going gold (its blue and red sheets differ over 94% of the body, so the gold mask was the whole archer). Console
+  proof: `[mods] TeamsPlus constructed: 6 of 6 patch classes hooked` and no `recoloured` lines.
+- The right stick changes an AI's Teams+ team: done 2026-11-07 (team screen: up / down picks an AI, left / right moves it a column; emulator: P2 to BLUE, P4 to YELLOW, the level's colours matched). Console proof: `[aislot] team screen: P1's right stick moves slot N's AI right`.
+- The AI cursor's label ("R NEXT: JIMMY") under the portrait instead of above it: done 2026-11-07 (emulator screenshots, both roll calls).
+- The between-rounds score board with AIs (the user, 2026-11-07): every AI name ("NOVA 2".."NOVA 8") was off the screen's left edge:
+  the glue AiNames (Archer's) set each name's X to 20, its own layout, while the game right-aligns the labels by the coins. Fixed
+  2026-11-07: each name keeps the game's place, a row's labels laid out again right to left 9 px apart, the crown moved past them
+  (half size when a team row is too wide). Emulator: 8 players, all names by their coins. Console proof: `[aislot] round results: N AI
+  name(s) of M labels, rows laid out in the game's place`.
 - Changing one AI's archer changed other AIs' archers (4 players): the game moves a slot that isn't joined off an archer someone joins
   on (RollcallElement.EnforceCharacterLock), so those AIs had never joined. Fixed 2026-11-07 (an AI confirms again until joined);
   console proof: no `[aislot] ... not joined after its confirm` past a few, no ERROR.
@@ -280,7 +291,7 @@ Each line is the log line that proves it (published builds only; boot the build 
   TeamsPlus PASS, smoke lobby PASS 211434 with Teams+ installed.
 - PC levels from the delta (2026-11-05, pclevels.cpp): the channel deletes the romfs's PCVersus; online: `[pclevels] <tower>/<n>.oel: the
   PC level from the Switch's own and its delta`, never `[pclevels] ERROR` (a console whose level files differ from the extract's: CRC);
-  a match in sync with a PC or browser player on every tower worth trying. Boot line: `TF.NX 0.29.0.0, TF.EX 0.29.0`.
+  a match in sync with a PC or browser player on every tower worth trying. Boot line: `TF.NX 0.29.1.0, TF.EX 0.29.1`.
 - Code plugins (2026-11-04, docs/DISTRIBUTION-2026-11-04.md "Code plugins", parked): with no plugin.elf in any mod folder,
   `[plugins] 0 plugin(s) found in N mod folder(s)`; the proof plugin (plugins/HelloPlugin) only if asked.
 - Rarer GC pauses (2026-11-02, hw.txt gcmin 40 by default): an online match at 240 Hz; `[gc] a collection waits for at least 40 MB

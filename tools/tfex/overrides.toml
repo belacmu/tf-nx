@@ -176,7 +176,7 @@
 "network/TF.EX.Common/Handle/SafeHandle.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "8576385f52d4" }
 "network/TF.EX.Common/Handle/SafeRawBytes.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "9d41ad279bd6" }
 # ---- state: TF.State.Patchs, level generation, RNG -> rnd.cpp, xplay.cpp, pcgameplay.cpp, dm.cpp, miasma_seq.hpp ----
-"state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs *" = { key = "S-mode", at = "pcgameplay.cpp version-gap table (no TeamReviver from corpses)", hash = "1f097f8f3375" }
+"state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs *" = { key = "S-mode", at = "pcgameplay.cpp version-gap table (no TeamReviver from corpses)", hash = "d0670d33bcc6" }
 
 [names]
 # PC (TowerFall 1.3.3.3 / FNA) -> Switch 1.4.1.6. No such type on the Switch: TF.EX's patches on it are the S-input replace above.
@@ -574,6 +574,7 @@
 "FortRise.IHarmony.Patch" = { noop = true, key = "S-hooks", why = "a patch registered in code: HookGen made its hook at translate time (HookGen.ScanCalls); Teams+'s boot turns its classes on" }
 "TeamsPlus.Hooks.ResultsHooks.Load" = { noop = true, key = "S-native", why = "only registers its transpiler (the results board's `new int[2]`, over the coroutine bodies found by reflection): a native patch on the Switch (tfex/TeamsPlus.cpp)" }
 "TeamsPlus.Hooks.SafetyHooks.Load" = { noop = true, key = "S-native", why = "registers the StartGame postfix (a HookGen hook, on with the class) and its sensor-block transpiler over the coroutine bodies found by reflection: a native patch on the Switch (tfex/TeamsPlus.cpp)" }
+"TeamsPlus.Hooks.VisualHooks.Load" = { noop = true, key = "S-native", why = "the gold / white sprite recolours: the Switch's team modes keep each archer's own colours and mark a team by its outline (the user, 2026-11-07; the yellow team's outline: tfex/TeamPlusOutlines.cpp)" }
 "System.Diagnostics.Debugger.IsAttached" = { value = "false", key = "S-platform", why = "no debugger on the console (FortRise's mod template asks before Debugger.Launch)" }
 "System.Diagnostics.Debugger.Launch" = { value = "false", key = "S-platform", why = "as IsAttached" }
 "System.Diagnostics.Debugger.Break" = { noop = true, key = "S-platform", why = "as IsAttached" }

@@ -21675,6 +21675,16 @@
   "base": "Monocle.GraphicsComponent",
   "vtbytes": 112
  },
+ "t_Text_44a9": {
+  "getter": 7289840,
+  "desc": 73587776,
+  "vtable": 73587208,
+  "size": 40,
+  "flags": 8,
+  "cctor": 0,
+  "base": "System.Array",
+  "vtbytes": 472
+ },
  "t_ThreadStart": {
   "getter": 8963888,
   "desc": 73084464,
@@ -22186,6 +22196,13 @@
   "owner": "TowerFall.Arrow",
   "overload": 0,
   "slot": 512
+ },
+ "v_Arrow_Removed": {
+  "body": 9985376,
+  "static": false,
+  "owner": "TowerFall.Arrow",
+  "overload": 0,
+  "slot": 56
  },
  "v_Arrow_get_ArrowType": {
   "slot": 568,

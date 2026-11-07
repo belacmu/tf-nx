@@ -24,4 +24,4 @@ works = "local; online in TF.EX lobbies (mode 12 with Teams+ installed)"
 
 [check]
 with = ["tools/megamod/localrun.sh 4 TEAMS+"]   # a local Teams+ match
-expect = ["[mods] TeamsPlus constructed: 7 of 7 patch classes hooked, 1 load-time postfixes replayed"]
+expect = ["[mods] TeamsPlus constructed: 6 of 6 patch classes hooked, 1 load-time postfixes replayed"]

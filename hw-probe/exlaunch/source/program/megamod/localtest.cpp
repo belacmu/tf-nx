@@ -41,6 +41,7 @@ bool g_variantDone = false, g_firstDeath = false;
 char g_modeName[32] = "";   /* localmode <name>: a custom mode (FortRise's GAME MODE button, scrolled to as a player does) */
 bool g_modeDone = false; int g_modePresses = 0;
 bool g_narrow = false, g_aiNext = false;   /* localainext: the last AI's next AI type (a second click) */   /* localnarrow: the normal set (four slots), not WIDE: the Switch's every slot has a controller object there */
+char g_teamSteps[32] = "";   /* localteamsteps <s>: controller 1's right stick on Teams+'s team screen, one step / 20 frames from 60: r l u d (tfex/AiSlotButton.cpp teams) */
 char g_aiSteps[64] = "";   /* localaisteps <s>: controller 1 on archer select after the AIs, one step / 30 frames: L (the L button), r l u d (the right stick), c (its click) */
 int g_ai = 0;   /* localai <n>: n AI players put in with the right stick while the humans still choose (tfex/AiSlotButton.cpp) */
 float g_startX[8] = {}, g_startY[8] = {}, g_path[8] = {};
@@ -222,6 +223,21 @@ void Step() {   /* once per frame (controller 1's poll) */
         /* a custom team mode's select (Teams+'s columns SOLO | BLUE | YELLOW | RED, the cursors starting at SOLO): controller k goes
          * (k % 3) + 1 columns right (BLUE, YELLOW, RED in turn); from the seventh on they stay SOLO (lone wolves) */
         const bool columns = !std::strcmp(g_modeName, "TEAMS+");   /* Teams+'s own select; any other team mode the game's BLUE | RED */
+        if (state == kTeamSelect && columns && g_teamSteps[0]) {   /* (localteamsteps: the AIs' teams with the right stick instead) */
+            int t = (g_since - 60) / 20, n = (int)std::strlen(g_teamSteps);
+            if (g_since >= 60 && (g_since - 60) % 20 == 0 && t < n) {
+                switch (g_teamSteps[t]) {
+                case 'r': Press(0, 0, "right stick right (team screen)", 30000, 0); break;
+                case 'l': Press(0, 0, "right stick left (team screen)", -30000, 0); break;
+                case 'u': Press(0, 0, "right stick up (team screen)", 0, 30000); break;
+                case 'd': Press(0, 0, "right stick down (team screen)", 0, -30000); break;
+                default: break;
+                }
+            }
+            if (g_since < 60 + 20 * n + 30) return;
+            if (g_since % 90 == 0 && g_presses++ < 6) Press(0, kPlus, "START");
+            return;
+        }
         if (state == kTeamSelect && columns && g_since >= 60 && g_since < 60 + 20 * 3 * g_players) {
             int t = (g_since - 60) / 20, k = t / 3, r = t % 3;
             if ((g_since - 60) % 20 == 0 && k < 6 && r <= k % 3) Press(k, kRight, "Right (the next column)");
@@ -251,6 +267,7 @@ void SetLocalVariant(const char* name) { std::snprintf(g_variantName, sizeof g_v
 void SetLocalNarrow() { g_narrow = true; }
 void SetLocalAiNext() { g_aiNext = true; }
 void SetLocalAiSteps(const char* st) { int k = 0; for (; st[k] && st[k] != '\r' && st[k] != '\n' && k < (int)sizeof g_aiSteps - 1; k++) g_aiSteps[k] = st[k]; g_aiSteps[k] = 0; }
+void SetLocalTeamSteps(const char* st) { int k = 0; for (; st[k] && st[k] != '\r' && st[k] != '\n' && k < (int)sizeof g_teamSteps - 1; k++) g_teamSteps[k] = st[k]; g_teamSteps[k] = 0; }
 void SetLocalAi(int n) { g_ai = n < 0 ? 0 : n > 7 ? 7 : n; }
 void SetLocalTower(int rights) { g_towerRights = rights < 0 ? 0 : rights > 20 ? 20 : rights; }
 void SetLocalKill() { g_kill = true; }

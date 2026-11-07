@@ -46,7 +46,7 @@ Online play uses TF.EX's own rules: mod game modes stay offline until TF.EX supp
 
 ## Status
 
-Early. Online lobbies, with one or two players per Switch, play in sync with TF.EX v0.29.0 in our tests. Spectating and replays
+Early. Online lobbies, with one or two players per Switch, play in sync with TF.EX v0.29.1 in our tests. Spectating and replays
 aren't supported yet. Known problems are in [STATUS.md](STATUS.md). If something breaks, open an issue and attach `sd:/xplay/hw-log.txt`.
 
 ## Building
@@ -56,7 +56,7 @@ You need devkitPro (devkitA64, libnx), the .NET 10 SDK, and a nightly Rust toolc
 ```bash
 git submodule update --init
 ggrs-switch/build.sh                    # the netplay library (Rust)
-tools/tfex/translate.sh all v0.29.0     # TF.EX + FortRise -> C++ (optional: gen/ is committed)
+tools/tfex/translate.sh all v0.29.1     # TF.EX + FortRise -> C++ (optional: gen/ is committed)
 tools/build-probe.sh                    # the module -> hw-probe/exlaunch/deploy/
 tools/release.sh                        # the release zip -> dist/
 ```

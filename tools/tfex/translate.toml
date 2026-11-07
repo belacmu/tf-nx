@@ -1447,8 +1447,11 @@ file = "network/TF.EX.Patchs/Entity/LevelEntity/Player.cs"
 type = "PlayerPatch"
 hooks = true
 
-# PlayerCorpsePatch (TF.EX's PlayerCorpse.Added postfix, TEAM REVIVE online: Fcornaire/TF.EX#312, merged 2026-11-04): back with the first
-# upstream release that has it (after v0.29.0)
+[[unit]]
+name = "PlayerCorpsePatch"            # TF.EX's PlayerCorpse.Added postfix: TEAM REVIVE's reviver in a netplay team match (Fcornaire/TF.EX#312, v0.29.1)
+file = "network/TF.EX.Patchs/Entity/LevelEntity/PlayerCorpse.cs"
+type = "PlayerCorpsePatch"
+hooks = true
 
 [[unit]]
 name = "PlayerInputPatch"           # AssignInputs' prefix: a netplay lobby keeps TF.EX's controller arrangement; EndOfMatch.cpp's shell skips it
@@ -2851,10 +2854,7 @@ name = "Tp_Assets3"                  # Teams+: its two images (mode icon, yellow
 file = "teamplus/Assets3.cs"
 type = "Assets3"
 
-[[unit]]
-name = "Tp_Recolor"                  # Teams+: gold / white player sheets recoloured from the atlas at spawn
-file = "teamplus/Recolor.cs"
-type = "Recolor"
+# (Recolor.cs, Hooks/VisualHooks.cs: the gold / white sprite recolours, not on the Switch: overrides.toml VisualHooks.Load)
 
 [[unit]]
 name = "Tp_ColumnBanner"             # Teams+: the team select's column banner
@@ -2878,13 +2878,6 @@ exclude = ["OnPlayerDeath_Transpiler"]   # an IL edit: a native patch on the Swi
 name = "Tp_DataHooks"                # Teams+: team data for yellow and the wolves (ArcherData)
 file = "teamplus/Hooks/DataHooks.cs"
 type = "DataHooks"
-hooks = true
-enable_all = false
-
-[[unit]]
-name = "Tp_VisualHooks"              # Teams+: recolouring a player's sprites at spawn
-file = "teamplus/Hooks/VisualHooks.cs"
-type = "VisualHooks"
 hooks = true
 enable_all = false
 

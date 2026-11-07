@@ -2094,7 +2094,7 @@ struct PirateBanner_Update {
     static void Wrap(void (*shell)(PirateBanner_Update&));
 };
 void Orig_PirateBanner_Update(void* self);   /* TowerFall.PirateBanner.Update(): the original under the hook */
-/* TowerFall.Player.Player(int, Microsoft.Xna.Framework.Vector2, TowerFall.Allegiance, TowerFall.Allegiance, TowerFall.PlayerInventory, TowerFall.Player.HatStates, bool, bool, bool): PlayerPatch.Player_Ctor_Prefix (prefix), PlayerPatch.Player_Ctor_Finalizer (finalizer), PlayerStatePatch.Player_ctor (postfix), VisualHooks.PlayerCtor_Postfix (postfix) */
+/* TowerFall.Player.Player(int, Microsoft.Xna.Framework.Vector2, TowerFall.Allegiance, TowerFall.Allegiance, TowerFall.PlayerInventory, TowerFall.Player.HatStates, bool, bool, bool): PlayerPatch.Player_Ctor_Prefix (prefix), PlayerPatch.Player_Ctor_Finalizer (finalizer), PlayerStatePatch.Player_ctor (postfix) */
 struct Player_ctor {
     void* self;
     int32_t playerIndex;
@@ -2181,7 +2181,7 @@ struct Player_HUDRender {
     static void Wrap(void (*shell)(Player_HUDRender&));
 };
 void Orig_Player_HUDRender(void* self, bool wrapped);   /* TowerFall.Player.HUDRender(bool): the original under the hook */
-/* TowerFall.Player.InitHead(): PlayerPatch.Player_InitHead_Prefix (prefix), VisualHooks.InitHead_Postfix (postfix) */
+/* TowerFall.Player.InitHead(): PlayerPatch.Player_InitHead_Prefix (prefix) */
 struct Player_InitHead {
     void* self;
     uint64_t x1_;
@@ -2267,7 +2267,7 @@ struct PlayerCorpse_ctor {
     void Orig();
     static void Wrap(void (*shell)(PlayerCorpse_ctor&));
 };
-/* TowerFall.PlayerCorpse.Added(): PlayerCorpsePatch.PlayerCorpse_Added_Postfix (postfix), ReviveHooks.Added_Postfix (postfix) */
+/* TowerFall.PlayerCorpse.Added(): PlayerCorpsePatch.PlayerCorpse_Added_Postfix (postfix), PlayerCorpsePatch.PlayerCorpse_Added_Postfix (postfix), ReviveHooks.Added_Postfix (postfix) */
 struct PlayerCorpse_Added {
     void* self;
     uint64_t x1_;

@@ -18,6 +18,8 @@
  *    2026-11-07);
  *  - an AI never confirms an archer someone else has (the game's own CharacterTaken): it moves on first as a player's Right would
  *    (RollcallElement.ChangeSelectionRight: the next archer free and unlocked);
+ *  - Teams+'s team screen (its ThreeTeamSelector reads each player's MenuLeft / MenuRight): right stick up / down picks an AI, left / right
+ *    moves that AI to the next column (SOLO | BLUE | YELLOW | RED), as a player's own left / right does (the user, 2026-11-07);
  *  - online none of this: no AI archers in online games (the user, 2026-11-06; TF.EX itself only warns about non-netplay-safe mods).
  *    Online mode starting takes every AI out of PlayerInputs (DropAll, from pcgameplay::Set), and the controls are off on its roll call;
  *  - LoaderAI's Input (generated, tfexgen_Auto_Input) answers its menu getters from those pulses alone (no keyboard behind it; from its
@@ -33,6 +35,7 @@ namespace tfex::gen { template <int N> struct GameVal; }
 namespace tfex::aislot {
 void Install() { hw::Log("[aislot] LoaderAI isn't in this build: no AI players on archer select"); }
 void* AiNameOf(int32_t) { return nullptr; }
+void BoardLaidOut(int32_t, int32_t) {}
 void DropAll() {}
 void SetAiSeat(int) {}
 bool AiSeatOn() { return false; }
@@ -46,6 +49,7 @@ bool AiSeatState(int32_t, int, tfex::gen::GameVal<28>*) { return false; }
 #include "gen/tfexgen_La_TFModFortRiseLoaderAIModule.hpp"
 #include "runtime/tfexgen_services.hpp"
 #include "gen/tfexgen_GlueAiNames.hpp"
+#include "gen/tfexgen_Tp_Selector.hpp"
 #include "runtime/tfexgen_code_rt.hpp"
 #include <cstdint>
 #include <cstring>
@@ -211,6 +215,7 @@ void FreeArcher(void* elem, int pi) {
     Log("[aislot] slot %d's AI: archer %d is taken, the next free one first", pi + 1, ch);
 }
 
+namespace teams { void Override(); }
 /* once a frame (the first element's Update): LoaderAI's switch off, its agents out of the slots nobody put an AI in, the controls */
 void Frame() {
     Override();
@@ -235,6 +240,7 @@ void Frame() {
         g_cursor = -1;
         return;
     }
+    teams::Override();
     for (int j = 0; j < kSlots; j++) {   /* every human on archer select, still choosing or confirmed (the console: nobody had confirmed) */
         if (!g_elems[j]) continue;
         void* in = InputAt(j);
@@ -311,6 +317,85 @@ HOOK_DEFINE_TRAMPOLINE(RollcallUpdate) {
         } else if (StateOf(self) == kJoined) s.retries = 0;
     }
 };
+/* the console's stick-click picture (the menu atlas's controls/buttons/stick-press, 16 x 16) centred on y from x left. The atlas has only the
+ * left stick's (an L on its face): its L repainted as an R, pixel by pixel, in its own colours */
+void DrawRStick(void* icon, float left, float y) {
+    if (!icon) return;
+    constexpr float kIcon = 16.0f;
+    gen::Fn<void (*)(void*, gen::Vector2, gen::Color)>(bind::m_Draw_TextureCentered_39ab)(icon, gen::Vector2{left + kIcon / 2.0f, y}, gen::Color_White);
+    float x0 = left, y0 = y - kIcon / 2.0f;
+    auto px = [&](int x, int yy, uint32_t c) { gen::Fn<void (*)(float, float, float, float, gen::Color)>(bind::m_Draw_Rect_9c33)(x0 + x, y0 + yy, 1.0f, 1.0f, gen::Color{c}); };
+    constexpr uint32_t kFace = 0xffd8d8d8u, kInk = 0xff3c3c3cu;   /* the icon's face (216) and glyph (60) greys */
+    static const uint8_t kL[][2] = { {6,6}, {6,7},{7,7}, {6,8},{7,8}, {6,9},{7,9},{8,9},{9,9},{10,9}, {6,10},{7,10},{8,10},{9,10},{10,10} };
+    static const uint8_t kR[][2] = { {6,7},{7,7},{8,7},{9,7},   /* (row 6: the arrow's bottom; the L's top pixel there: face) */ {6,8},{7,8},{10,8}, {6,9},{7,9},{8,9},{9,9}, {6,10},{7,10},{9,10}, {6,11},{7,11},{10,11} };
+    for (auto& p : kL) px(p[0], p[1], kFace);
+    for (auto& p : kR) px(p[0], p[1], kInk);
+}
+
+/* ---- Teams+'s team screen: the right stick moves an AI between the columns ----
+ * Teams+'s ThreeTeamSelector (translated) reads TFGame.PlayerInputs[its player].MenuLeft / MenuRight in its Update; an AI's input answers
+ * them from g_slot[].now (AiLeft / AiRight). Its Update and Render are wrapped through its vtable: the first selector's Update of a frame
+ * reads the humans' right sticks (up / down: the AI cursor; left / right: that AI's next column), each AI selector's Update gets its
+ * pulse for that call, and the picked AI's Render draws the right-stick picture over its P label. */
+namespace teams {
+int g_cursor = -1;          /* the AI slot the right stick moves */
+Act g_pulse[kSlots] = {};   /* this frame's left / right for that AI's selector */
+uint32_t g_seen = 0;        /* selectors updated this frame (one seen again: a new frame) */
+bool g_any = false;         /* a human with a right stick on the team screen */
+bool g_overridden = false;
+void Sticks() {
+    g_any = false;
+    for (int j = 0; j < kSlots; j++) {
+        void* in = InputAt(j);
+        if (!IsJoyCon(in) || !Attached(in) || !rightstick::Full(in)) continue;
+        g_any = true;
+        if (g_cursor < 0 || !g_slot[g_cursor].ai) { g_cursor = -1; for (int i = 0; i < kSlots; i++) if (g_slot[i].ai) { g_cursor = i; break; } }
+        Pad& p = g_pad[j];
+        tfex::gen::Vector2 v = rightstick::Of(in);
+        float ax = v.X < 0 ? -v.X : v.X, ay = v.Y < 0 ? -v.Y : v.Y;
+        if (g_cursor < 0) { if (ax < 0.3f) p.armedX = true; if (ay < 0.3f) p.armedY = true; continue; }
+        if (p.armedY && ay > 0.6f && ay > ax) {   /* up / down: the previous / next AI (Y down) */
+            p.armedY = false;
+            for (int k = 1; k < kSlots; k++) { int i = (g_cursor + (v.Y > 0 ? k : kSlots - k)) % kSlots; if (g_slot[i].ai) { g_cursor = i; break; } }
+        } else if (ay < 0.3f) p.armedY = true;
+        if (p.armedX && ax > 0.6f && ax > ay) {   /* left / right: that AI one column over */
+            p.armedX = false;
+            g_pulse[g_cursor] = v.X > 0 ? Right : Left;
+            static int said = 0;
+            if (said++ < 6) hw::Log("[aislot] team screen: P%d's right stick moves slot %d's AI %s", j + 1, g_cursor + 1, v.X > 0 ? "right" : "left");
+        } else if (ax < 0.3f) p.armedX = true;
+    }
+}
+void SelUpdate(void* self) {
+    int pi = tfex::gen::Tp_Selector::S(self)->playerIndex;
+    if (pi >= 0 && pi < kSlots) {
+        if (g_seen & (1u << pi)) g_seen = 0;
+        if (!g_seen) Sticks();
+        g_seen |= 1u << pi;
+    }
+    const bool ai = pi >= 0 && pi < kSlots && g_slot[pi].ai && g_slot[pi].ai == InputAt(pi);
+    if (ai) { g_slot[pi].now = g_pulse[pi]; g_pulse[pi] = None; }
+    tfex::gen::Tp_Selector::Update(self);
+    if (ai) g_slot[pi].now = None;
+}
+void SelRender(void* self) {
+    tfex::gen::Tp_Selector::Render(self);
+    int pi = tfex::gen::Tp_Selector::S(self)->playerIndex;
+    if (!g_any || pi != g_cursor || pi < 0 || pi >= kSlots || !g_slot[pi].ai) return;
+    gen::Vector2 at = gen::Fld<gen::Vector2>(self, bind::f_Entity_Position);
+    DrawRStick(tfex::gen::svc::SwitchMenuIcon("stick-press"), (float)(int)(at.X - 8.0f), (float)(int)(at.Y - 16.0f));
+}
+/* the wrappers into the selector's vtable, once its class is made (on the roll call: a menu, before the team screen makes selectors) */
+void Override() {
+    if (g_overridden || !tfex::gen::Tp_Selector::EnsureClass()) return;
+    gen::Class& c = tfex::gen::Tp_Selector::ClassOf();
+    gen::Override(c, bind::v_Entity_Update, reinterpret_cast<void*>(&SelUpdate));
+    gen::Override(c, bind::v_Entity_Render, reinterpret_cast<void*>(&SelRender));
+    g_overridden = true;
+    hw::Log("[aislot] Teams+'s team screen: the right stick picks an AI (up / down) and moves its team (left / right)");
+}
+}  // namespace teams
+
 /* the cursor: over the highlighted slot what the click does, while a joined player is on a full controller */
 HOOK_DEFINE_TRAMPOLINE(RollcallRender) {
     static void Callback(void* self) {
@@ -318,29 +403,19 @@ HOOK_DEFINE_TRAMPOLINE(RollcallRender) {
         int pi = gen::Fld<int32_t>(self, bind::f_RollcallElement_playerIndex);
         if (!g_anyFull || pi != g_cursor || pi < 0 || pi >= kSlots) return;
         gen::Vector2 at = gen::Fld<gen::Vector2>(self, bind::f_Entity_Position);
-        at.Y -= g_elems[6] ? 52.0f : 70.0f;   /* above the portrait's frame (the 8-slot roll call's 60 x 60 portraits: above its P label) */
+        at.Y += g_elems[6] ? 46.0f : 76.0f;   /* under the portrait, below its gem (the 8-slot roll call's 60 x 60 portraits; the user, 2026-11-07) */
         void* font = (gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_Font)());
         /* what the click does: add the first AI type, the next type, or (after the last) take the AI out */
         int k = g_slot[pi].ai ? TypeOf(pi) : -1;
         void* text = !g_slot[pi].ai ? (TypeCount() ? gen::Concat(kAdd.P(), TypeAt(0)) : kAdd.P())
                    : k >= 0 && k + 1 < TypeCount() ? gen::Concat(kNext.P(), TypeAt(k + 1)) : kRemoveAi.P();
-        /* the console's stick-click picture (the menu atlas's controls/buttons/stick-press, 16 x 16), then what the click does, centered
-         * together. The atlas has only the left stick's (an L on its face): its L repainted as an R, pixel by pixel, in its own colours */
+        /* the right-stick picture (DrawRStick), then what the click does, centered together */
+        constexpr float kIcon = 16.0f, kGap = 3.0f;
         void* icon = tfex::gen::svc::SwitchMenuIcon("stick-press");
         float w = gen::Fn<gen::Vector2 (*)(void*, void*)>(bind::m_SpriteFont_MeasureString_0)(font, text).X;
-        constexpr float kIcon = 16.0f, kGap = 3.0f;
         float left = (float)(int)(at.X - ((icon ? kIcon + kGap : 0.0f) + w) / 2.0f);
         at.Y = (float)(int)at.Y;
-        if (icon) {
-            gen::Fn<void (*)(void*, gen::Vector2, gen::Color)>(bind::m_Draw_TextureCentered_39ab)(icon, gen::Vector2{left + kIcon / 2.0f, at.Y}, gen::Color_White);
-            float x0 = left, y0 = at.Y - kIcon / 2.0f;
-            auto px = [&](int x, int y, uint32_t c) { gen::Fn<void (*)(float, float, float, float, gen::Color)>(bind::m_Draw_Rect_9c33)(x0 + x, y0 + y, 1.0f, 1.0f, gen::Color{c}); };
-            constexpr uint32_t kFace = 0xffd8d8d8u, kInk = 0xff3c3c3cu;   /* the icon's face (216) and glyph (60) greys */
-            static const uint8_t kL[][2] = { {6,6}, {6,7},{7,7}, {6,8},{7,8}, {6,9},{7,9},{8,9},{9,9},{10,9}, {6,10},{7,10},{8,10},{9,10},{10,10} };
-            static const uint8_t kR[][2] = { {6,7},{7,7},{8,7},{9,7},   /* (row 6: the arrow's bottom; the L's top pixel there: face) */ {6,8},{7,8},{10,8}, {6,9},{7,9},{8,9},{9,9}, {6,10},{7,10},{9,10}, {6,11},{7,11},{10,11} };
-            for (auto& p : kL) px(p[0], p[1], kFace);
-            for (auto& p : kR) px(p[0], p[1], kInk);
-        }
+        DrawRStick(icon, left, at.Y);
         gen::Fn<void (*)(void*, void*, gen::Vector2, gen::Color, gen::Color, float)>(bind::m_Draw_OutlineTextCentered_cbf5)(
             font, text, gen::Vector2{left + (icon ? kIcon + kGap : 0.0f) + w / 2.0f, at.Y}, gen::Color_White, gen::Color_Black, 1.0f);
     }
@@ -377,6 +452,12 @@ HOOK_DEFINE_TRAMPOLINE(KeyboardInputCtor) {
 void* AiNameOf(int32_t playerIndex) {
     if (playerIndex < 0 || playerIndex >= kSlots || !IsAi(InputAt(playerIndex))) return nullptr;
     return la::GetAIPlayerName(playerIndex);
+}
+
+void BoardLaidOut(int32_t names, int32_t labels) {
+    static int boards = 0;
+    if (++boards <= 3 || boards % 50 == 0)
+        hw::Log("[aislot] round results: %d AI name(s) of %d labels, rows laid out in the game's place (board %d)", names, labels, boards);
 }
 
 void DropAll() {

@@ -1405,7 +1405,6 @@ constexpr uintptr_t m_GraphicsComponent_get_Y = 0x9329f0;   /* Monocle.GraphicsC
 constexpr uintptr_t m_GraphicsComponent_set_FlipX_953d = 0x932a20;   /* Monocle.GraphicsComponent.set_FlipX(bool) */
 constexpr uintptr_t m_GraphicsComponent_set_X_7410 = 0x9329e0;   /* Monocle.GraphicsComponent.set_X(float32) */
 constexpr uintptr_t m_GraphicsComponent_set_Y_7410 = 0x932a00;   /* Monocle.GraphicsComponent.set_Y(float32) */
-constexpr uintptr_t m_GraphicsResource_get_IsDisposed = 0xba660;   /* Microsoft.Xna.Framework.Graphics.GraphicsResource.get_IsDisposed */
 constexpr uintptr_t m_Grid__ctor_dbb9 = 0x933610;   /* Monocle.Grid..ctor(float32,float32,bool[]) */
 constexpr uintptr_t m_HUDFade__ctor = 0xa58870;   /* TowerFall.HUDFade..ctor */
 constexpr uintptr_t m_HUD_Update = 0xa585d0;   /* TowerFall.HUD.Update */
@@ -2049,7 +2048,6 @@ constexpr uintptr_t m_SpriteData__ctor_b276 = 0x94cb40;   /* Monocle.SpriteData.
 constexpr uintptr_t m_SpriteFont_MeasureString_0 = 0xd9590;   /* Microsoft.Xna.Framework.Graphics.SpriteFont.MeasureString(string) */
 constexpr uintptr_t m_Sprite_1_a67a_Add_db10 = 0x1727a10;   /* Monocle.Sprite`1[System.String].Add(T,float32,bool,int32[]) */
 constexpr uintptr_t m_Sprite_1_a67a_Play_19a5 = 0x95d2b0;   /* Monocle.Sprite`1[System.String].Play(T,bool) */
-constexpr uintptr_t m_Sprite_1_a67a_SwapSubtexture_b568 = 0xa59310;   /* Monocle.Sprite`1[System.String].SwapSubtexture(Monocle.Subtexture,System.Nullable`1<Microsoft.Xna.Framework.Rectangle>) */
 constexpr uintptr_t m_Sprite_1_a67a__ctor_f047 = 0x94e3a0;   /* Monocle.Sprite`1[System.String]..ctor(Monocle.Subtexture,int32,int32,int32) */
 constexpr uintptr_t m_Sprite_1_a67a_get_AnimationFrame = 0x172643c;   /* Monocle.Sprite`1[System.String].get_AnimationFrame */
 constexpr uintptr_t m_Sprite_1_a67a_get_CurrentAnimID = 0x17267f8;   /* Monocle.Sprite`1[System.String].get_CurrentAnimID */
@@ -2113,7 +2111,6 @@ constexpr uintptr_t m_Subtexture__ctor_ce93 = 0x955560;   /* Monocle.Subtexture.
 constexpr uintptr_t m_Subtexture__ctor_eb7d = 0x955470;   /* Monocle.Subtexture..ctor(Monocle.Texture) */
 constexpr uintptr_t m_Subtexture_get_Height = 0x9556c0;   /* Monocle.Subtexture.get_Height */
 constexpr uintptr_t m_Subtexture_get_Texture = 0x955660;   /* Monocle.Subtexture.get_Texture */
-constexpr uintptr_t m_Subtexture_get_Texture2D = 0x955670;   /* Monocle.Subtexture.get_Texture2D */
 constexpr uintptr_t m_Subtexture_get_Width = 0x9556b0;   /* Monocle.Subtexture.get_Width */
 constexpr uintptr_t m_TFGame_Load = 0xb75970;   /* TowerFall.TFGame.Load */
 constexpr uintptr_t m_TFGame_OnSceneTransition = 0xb76390;   /* TowerFall.TFGame.OnSceneTransition */
@@ -2131,7 +2128,6 @@ constexpr uintptr_t m_TFGame_get_MenuSpriteData = 0xb74a90;   /* TowerFall.TFGam
 constexpr uintptr_t m_TFGame_get_PlayerAmount = 0xb74cd0;   /* TowerFall.TFGame.get_PlayerAmount */
 constexpr uintptr_t m_TFGame_get_SpriteData = 0xb749d0;   /* TowerFall.TFGame.get_SpriteData */
 constexpr uintptr_t m_TeamData__ctor_08c4 = 0xb68320;   /* TowerFall.TeamData..ctor(System.Xml.XmlElement) */
-constexpr uintptr_t m_TeamDeathmatchRoundLogic_CheckForWin = 0xb689f0;   /* TowerFall.TeamDeathmatchRoundLogic.CheckForWin */
 constexpr uintptr_t m_TeamReviver_FinishReviving = 0xb6a630;   /* TowerFall.TeamReviver.FinishReviving */
 constexpr uintptr_t m_TeamReviver_ReviveUpdate = 0xb69830;   /* TowerFall.TeamReviver.ReviveUpdate */
 constexpr uintptr_t m_TeamReviver__ctor_02d9 = 0xb69260;   /* TowerFall.TeamReviver..ctor(TowerFall.PlayerCorpse,TowerFall.TeamReviver+Modes) */
@@ -2434,11 +2430,6 @@ constexpr uintptr_t t_Dictionary_2_8385 = 0x735bf0;   /* System.Collections.Gene
 constexpr uintptr_t t_Dictionary_2_9339 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, System.String]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.String] */
 #else
 /* UNRESOLVED t_Dictionary_2_9339: System.Collections.Generic.Dictionary`2[System.Int32, System.String]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.String] (a use is a compile error) */
-#endif
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Dictionary_2_97a9 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.ValueTuple`4[Microsoft.Xna.Framework.Graphics.Texture2D, Microsoft.Xna.Framework.Rectangle, Microsoft.Xna.Framework.Rectangle, System.Enum], Monocle.Subtexture]: no type System.Collections.Generic.Dictionary`2[System.ValueTuple`4[Microsoft.Xna.Framework.Graphics.Texture2D, Microsoft.Xna.Framework.Rectangle, Microsoft.Xna.Framework.Rectangle, System.Enum], Monocle.Subtexture] */
-#else
-/* UNRESOLVED t_Dictionary_2_97a9: System.Collections.Generic.Dictionary`2[System.ValueTuple`4[Microsoft.Xna.Framework.Graphics.Texture2D, Microsoft.Xna.Framework.Rectangle, Microsoft.Xna.Framework.Rectangle, System.Enum], Monocle.Subtexture]: no type System.Collections.Generic.Dictionary`2[System.ValueTuple`4[Microsoft.Xna.Framework.Graphics.Texture2D, Microsoft.Xna.Framework.Rectangle, Microsoft.Xna.Framework.Rectangle, System.Enum], Monocle.Subtexture] (a use is a compile error) */
 #endif
 constexpr uintptr_t t_Dictionary_2_9e61 = 0x735f70;   /* System.Collections.Generic.Dictionary`2[System.Type, System.Collections.Generic.Stack`1[Monocle.Entity]] */
 #ifdef TFEXGEN_COVERAGE
@@ -2778,6 +2769,7 @@ constexpr uintptr_t t_TeamReviver = 0x8c04f0;   /* TowerFall.TeamReviver */
 constexpr uintptr_t t_TechnoMage = 0x8c0870;   /* TowerFall.TechnoMage */
 constexpr uintptr_t t_TechnoMage_TechnoMissile = 0x8c09f0;   /* TowerFall.TechnoMage+TechnoMissile */
 constexpr uintptr_t t_Text = 0x6f3970;   /* Monocle.Text */
+constexpr uintptr_t t_Text_44a9 = 0x6f3bf0;   /* Monocle.Text[] */
 constexpr uintptr_t t_ThreadStart = 0x88c730;   /* System.Threading.ThreadStart */
 constexpr uintptr_t t_ToyArrow = 0x8c14f0;   /* TowerFall.ToyArrow */
 constexpr uintptr_t t_TreasureChest = 0x8c1570;   /* TowerFall.TreasureChest */
@@ -2815,6 +2807,7 @@ constexpr uintptr_t t_XmlText = 0x89edb0;   /* System.Xml.XmlText */
 constexpr uint32_t v_ArrowHUD_Render = 0x48;   /* TowerFall.ArrowHUD.Render */
 constexpr uint32_t v_Arrow_Added = 0x30;   /* TowerFall.Arrow.Added */
 constexpr uint32_t v_Arrow_EnterFallMode_06a1 = 0x200;   /* TowerFall.Arrow.EnterFallMode(bool,bool,bool) */
+constexpr uint32_t v_Arrow_Removed = 0x38;   /* TowerFall.Arrow.Removed */
 constexpr uint32_t v_Arrow_get_ArrowType = 0x238;   /* TowerFall.Arrow.get_ArrowType */
 constexpr uintptr_t v_ChaliceGhost_Added = 0x103c;   /* UNRESOLVED TowerFall.ChaliceGhost.Added: no type TowerFall.ChaliceGhost; a TF.State measurement gap (the game's `return 0`) */
 constexpr uint32_t v_Collider_set_Width_7410 = 0x80;   /* Monocle.Collider.set_Width(float32) */

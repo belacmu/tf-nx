@@ -680,7 +680,7 @@ namespace TfexGlue
         static void W_Player(global::TF.State.Domain.Models.Entity.LevelEntity.Player.Player v)
         {
             if (v == null) { Nil(); return; }
-            Array(60);
+            Array(61);
             Bool(v.IsCollidable);
             Bool(v.IsDead);
             W_Vector2f(v.Position);
@@ -744,6 +744,7 @@ namespace TfexGlue
             W_Vector2f(v.DodgeSpeed);
             F64(v.LastCaughtArrowDepth);
             F32(v.InvisOpacity);
+            W_Arrow(v.RemovedDeathArrow);
         }
 
         static global::TF.State.Domain.Models.Entity.LevelEntity.Player.Player R_Player()
@@ -811,7 +812,8 @@ namespace TfexGlue
             if (n > 57) v.DodgeSpeed = R_Vector2f();
             if (n > 58) v.LastCaughtArrowDepth = ReadF64();
             if (n > 59) v.InvisOpacity = ReadF32();
-            for (int i = 60; i < n; i++) Skip();
+            if (n > 60) v.RemovedDeathArrow = R_Arrow();
+            for (int i = 61; i < n; i++) Skip();
             return v;
         }
 

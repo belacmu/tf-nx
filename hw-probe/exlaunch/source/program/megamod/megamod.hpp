@@ -32,6 +32,7 @@ void SetLocalVariant(const char* name);
 void SetLocalNarrow();
 void SetLocalAiSteps(const char* steps);   /* localaisteps: archer-select steps after the AIs (L r l u d c) */
 void SetLocalAiNext();   /* localainext: the last AI switched to the next AI type */   /* localnarrow: the normal set on VERSUS, not WIDE */
+void SetLocalTeamSteps(const char* steps);   /* localteamsteps: controller 1's right stick on Teams+'s team screen (r l u d) */
 void SetLocalAi(int n);   /* localai <n>: n AI players put in with the right stick on archer select */
 void LocalTestStick(uint32_t id, int32_t* rx, int32_t* ry);   /* the test's right stick for controller id */
 void SetLocalTower(int rights);   /* localtower <n>: Right n times on the tower select */   /* localvariant <mod>/<id>: a FortRise custom variant on before START (Move or Die) */   /* localmode <name>: a custom mode by its GAME MODE name (Teams+'s TEAMS+) */

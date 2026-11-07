@@ -35,6 +35,7 @@ void LoadHwConfig() {
         else if (!std::strncmp(line, "localmode ", 10)) megamod::SetLocalModeName(line + 10);   /* a custom mode by name (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localvariant ", 13)) megamod::SetLocalVariant(line + 13);   /* a FortRise custom variant on (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localtower ", 11)) megamod::SetLocalTower(std::atoi(line + 11));   /* Right n times on the tower select */
+        else if (!std::strncmp(line, "localteamsteps ", 15)) megamod::SetLocalTeamSteps(line + 15);   /* Teams+'s team screen: the right stick (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localaisteps ", 13)) megamod::SetLocalAiSteps(line + 13);   /* steps on archer select: L r l u d c (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localainext", 11)) megamod::SetLocalAiNext();   /* the last AI: the next AI type (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localnarrow", 11)) megamod::SetLocalNarrow();   /* the normal set, not WIDE (megamod/localtest.cpp) */
