@@ -1,8 +1,8 @@
 # TF.NX
 
 [TF.EX](https://github.com/Fcornaire/TF.EX) for TowerFall on Nintendo Switch: online play with rollback netcode, in the same lobbies
-as TF.EX on PC and the TowerFall browser port. It also brings [FortRise](https://github.com/FortRise/FortRise)'s mod loading to the
-Switch, so PC mod folders work on the console.
+as TF.EX on PC and the TowerFall browser port. It also has limited support for [FortRise](https://github.com/FortRise/FortRise)
+mods: archer and skin mods, and the code mods TF.NX carries (see [Mods](#mods)).
 
 TF.NX is not a rewrite. A translator (`tools/tfex`) turns TF.EX's and FortRise's C# into C++ that runs inside the Switch game, so TF.NX
 follows each TF.EX release.
@@ -14,8 +14,7 @@ follows each TF.EX release.
 
 ![An online match: the Switch against a player in the browser port](docs/img/readme/match.png)
 
-*An online match between the Switch (right) and a player on the browser port (left). Screenshots are from the Ryujinx emulator,
-which is why the Switch player is named RYUJINX.*
+*An online match between the Switch (right) and a player on the browser port (left).*
 
 ## What you need
 
@@ -34,7 +33,8 @@ TF.EX's server only lets its latest version play online, so install each new TF.
 
 ## Mods
 
-Put mod folders in `sd:/xplay/mods/<mod>/`, exactly as the PC release ships them.
+Mod support is limited: most PC code mods don't run on the Switch. Put mod folders in `sd:/xplay/mods/<mod>/`, exactly as the PC
+release ships them.
 
 - **Content mods** (archers, skins): drop them in.
 - **Code mods** work when TF.NX carries their logic. The PC's DLL is never run on the Switch. The list is in
