@@ -44,6 +44,7 @@ void tfx_inflate_end(void* s);
 }
 
 namespace tfnxupdate {
+bool DownloadNow(void* onPhase, void* onProgress);   /* (below: the download and install, blocking) */
 namespace {
 constexpr const char* kVersion = TFEX_VERSION "." TFNX_BUILD;
 constexpr const char* kGame = "1.4.1.6";   /* the TowerFall update this module's offsets are for (xplay.cpp) */
@@ -61,6 +62,17 @@ bool g_off = false;                  /* devserver.txt */
 volatile int g_ui = (int)Ui::Checking;
 volatile int g_busy = 0;             /* a check or a download holds the network part */
 volatile int g_checkReq = 0;
+/* The download on this file's own thread. The Switch build's managed Thread runs its work on the caller (glue Ffi.cs), so TF.EX's
+ * `Task.Run(async () => DownloadAndApply(...))` ran on the game thread: the main menu froze for the whole download, the dialog first drawn
+ * at its end (the console, 2026-11-08). The game thread asks (StartDownload), this thread downloads and installs (Apply with no managed
+ * callbacks), the phase and the bytes are kept here for the dialog (glue Updates.Pump), and TF.EX's work runs on the game thread when it
+ * is done (DownloadAndApply then answers its result). */
+volatile int g_dlState = 0;            /* 0 none, 1 asked, 2 running, 3 done (its result in g_dlOk) */
+bool g_dlOk = false;
+char g_phaseText[96] = "";
+volatile int g_phaseSeq = 0;           /* + 1 at each new phase text */
+volatile int64_t g_dlBytes = 0, g_dlTotal = 0;
+bool g_skipCheck = false;              /* the check TF.EX's worker asks next was just made on this thread (glue Updates.Pump) */
 int64_t g_current = 0, g_latest = 0;
 char g_latestText[24] = "", g_failure[128] = "";
 uint64_t g_lastCheck = 0;            /* system ticks of the last good check (0: none) */
@@ -194,7 +206,12 @@ void Thread(void*) {
     if (g_ui == (int)Ui::Available) g_autoWanted = true;
     for (;;) {
         if (__atomic_exchange_n(&g_checkReq, 0, __ATOMIC_ACQUIRE)) Check();
-        netws::Sleep(250000000);
+        if (__atomic_load_n(&g_dlState, __ATOMIC_ACQUIRE) == 1) {
+            g_dlState = 2;
+            g_dlOk = DownloadNow(nullptr, nullptr);
+            __atomic_store_n(&g_dlState, 3, __ATOMIC_RELEASE);
+        }
+        netws::Sleep(100000000);
     }
 }
 
@@ -294,7 +311,7 @@ bool JsonText(const char* json, const char* key, char* out, int cap) {
 }
 
 struct Progress { void* onProgress; int64_t done, total; uint64_t lastTick; };
-struct FileSink { nn::fs::FileHandle h; int64_t off; bool ok; Progress* pr; };
+struct FileSink { nn::fs::FileHandle h; int64_t off; bool ok; Progress* pr; const int64_t* length; };   /* length: the response's Content-Length, set before the body */
 void DownloadSink(void* ctx, const uint8_t* p, int n) {
     FileSink* f = static_cast<FileSink*>(ctx);
     if (!f->ok) return;
@@ -302,6 +319,8 @@ void DownloadSink(void* ctx, const uint8_t* p, int n) {
     f->off += n;
     Progress* pr = f->pr;
     pr->done = f->off;
+    g_dlBytes = f->off;
+    if (f->length && *f->length > 0) g_dlTotal = *f->length;   /* (TF.EX's dialog draws its bar once it has a total) */
     if (pr->onProgress && Now() - pr->lastTick > 19200000 / 10) {   /* TF.EX reports each buffer; ten times a second is enough here */
         pr->lastTick = Now();
         tfex::gen::DlgInvoke<void, int64_t, int64_t>(pr->onProgress, pr->done, pr->total);
@@ -309,6 +328,8 @@ void DownloadSink(void* ctx, const uint8_t* p, int n) {
 }
 void Phase(void* onPhase, const char* text) {
     hw::Log("[update] %s", text);
+    std::snprintf(g_phaseText, sizeof g_phaseText, "%s", text);
+    __atomic_add_fetch(&g_phaseSeq, 1, __ATOMIC_RELEASE);
     if (onPhase) tfex::gen::DlgInvoke<void, void*>(onPhase, tfex::gen::ManagedUtf8(text, (int)std::strlen(text)));
 }
 
@@ -349,6 +370,8 @@ bool Apply(void* onPhase, void* onProgress) {
     f.ok = true;
     uint64_t t0 = Now();
     int64_t got = 0, len = -1;
+    g_dlBytes = 0; g_dlTotal = 0;
+    f.length = &len;
     int status = netws::HttpRequest("GET", url, true, DownloadSink, &f, &got, &len, nullptr, 0);
     nn::fs::FlushFile(f.h);
     nn::fs::CloseFile(f.h);
@@ -357,6 +380,7 @@ bool Apply(void* onPhase, void* onProgress) {
         Delete(kZip);
         return false;
     }
+    g_dlBytes = got; g_dlTotal = got;
     if (onProgress) tfex::gen::DlgInvoke<void, int64_t, int64_t>(onProgress, got, got);
     hw::Log("[update] downloaded %lld bytes in %.1f s", (long long)got, (double)(Now() - t0) / 19200000.0);
 
@@ -483,7 +507,7 @@ void Start() {
 }
 
 /* ---- TF.EX's IAutoUpdater ---- */
-void CheckForUpdate() { if (!IsStatusFresh()) Check(); }
+void CheckForUpdate() { if (g_skipCheck) { g_skipCheck = false; return; } if (!IsStatusFresh()) Check(); }
 bool IsStatusFresh() { return g_off || (g_checked && g_lastCheck && Now() - g_lastCheck < (uint64_t)kFreshTicks); }
 void Invalidate() { g_checked = false; }
 int32_t TfexStatus() {
@@ -495,7 +519,7 @@ int32_t TfexStatus() {
 int64_t Latest() { return g_latest; }
 int64_t Current() { return g_current; }
 void* FailureReason() { return g_failure[0] ? tfex::gen::ManagedUtf8(g_failure, (int)std::strlen(g_failure)) : nullptr; }
-bool DownloadAndApply(void* onPhase, void* onProgress) {
+bool DownloadNow(void* onPhase, void* onProgress) {
     if (g_off) return false;
     Lock();
     g_failure[0] = 0;
@@ -506,10 +530,29 @@ bool DownloadAndApply(void* onPhase, void* onProgress) {
     Unlock();
     return ok;
 }
+bool DownloadAndApply(void* onPhase, void* onProgress) {
+    if (__atomic_load_n(&g_dlState, __ATOMIC_ACQUIRE) == 3) { g_dlState = 0; return g_dlOk; }   /* the one this thread made (StartDownload) */
+    return DownloadNow(onPhase, onProgress);
+}
+void StartDownload() {
+    if (g_off || g_dlState != 0) return;
+    g_ui = (int)Ui::Downloading;
+    __atomic_store_n(&g_dlState, 1, __ATOMIC_RELEASE);
+    hw::Log("[update] the download starts on the updater's thread (the game keeps running, the dialog shows its progress)");
+}
+int DownloadState() { return __atomic_load_n(&g_dlState, __ATOMIC_ACQUIRE); }
+int PhaseSeq() { return __atomic_load_n(&g_phaseSeq, __ATOMIC_ACQUIRE); }
+const char* PhaseText() { return g_phaseText; }
+int64_t DownloadedBytes() { return g_dlBytes; }
+int64_t TotalBytes() { return g_dlTotal; }
+void CheckInBackground() { g_skipCheck = false; CheckNow(); }
+void SkipNextCheck() { g_skipCheck = true; }
 void RestartNeeded() {
-    hw::Log("[update] TF.NX %s is in: the game must be restarted (the dialog says so, then the main menu's notice)", g_latestText);
+    /* TF.EX restarts the PC game here ("RESTARTING"); the console can't: the dialog stays, saying to restart, as long as the game runs (it
+     * was dismissed 3 s later, the user 2026-11-08: "appeared, then disappeared very quickly"). TEST ONLY: dismissed, so the walk goes on */
+    hw::Log("[update] TF.NX %s is in: the game must be restarted (the dialog says so%s)", g_latestText, g_test ? "; TEST: dismissed in 3 s" : " until the game is restarted");
     g_ui = (int)Ui::Downloaded;
-    g_restartAt = 180;   /* the dialog's "restart the game" shown 3 s, then the controllers come back */
+    g_restartAt = g_test ? 180 : 0x7fffffff;
 }
 
 /* ---- the OPTIONS entry ---- */
@@ -524,6 +567,7 @@ void AutoStarted() { g_autoDone = true; }
 unsigned long TestButtons() { return g_testPress > 0 ? g_testBits : 0; }   /* npad bits: A 0, Down 15 */
 
 void Frame() {
+    tfex::gen::GlueUpdates::Pump();   /* TF.EX's update work when the updater's thread has done its part (glue Updates.Run) */
     using namespace tfex::game;
     void* scene = CurrentScene();
     bool menu = scene && SceneIs("MainMenu");
@@ -540,8 +584,8 @@ void Frame() {
         }
         if (g_testStep == 0 && state == MainMenu::PressStart && ++g_testFrames > 120) {
             hw::Log("[update] TEST: the main menu"); Fn<void (*)(void*, int)>(MainMenu::set_State)(scene, MainMenu::Main); g_testStep = 1; g_testFrames = 0;
-        } else if (g_testStep == 1) {   /* 2 s after the dialog has gone */
-            g_testFrames = g_ui == (int)Ui::Downloaded && g_restartAt < 0 ? g_testFrames + 1 : 0;
+        } else if (g_testStep == 1) {   /* 2 s after the dialog has gone (installed; or the download failed: UPDATETEST_FAIL) */
+            g_testFrames = (g_ui == (int)Ui::Downloaded && g_restartAt < 0) || g_ui == (int)Ui::Failed ? g_testFrames + 1 : 0;
             if (g_testFrames > 120) { hw::Log("[update] TEST: OPTIONS (the TF.NX entry)"); Fn<void (*)(void*, int)>(MainMenu::set_State)(scene, 12); g_testStep = 2; g_testFrames = 0; }
         } else if (g_testStep == 2) {   /* Down to the TF.NX entry (the TF.NX section, above TF.EX's), then 4 s on it */
             int at = tfex::NetplayOptions::TfnxEntry(), sel = tfex::NetplayOptions::SelectedIndex();

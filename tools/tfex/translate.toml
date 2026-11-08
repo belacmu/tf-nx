@@ -310,6 +310,13 @@ type = "VersusSelectBanner"
 
 # ---- hand rules: calls rewritten to glue, members replaced by the ledger ----
 [[rewrite]]
+call = "Monocle.Entity.RemoveSelf()"
+in = "TF.EX.Patchs.Engine.TFGamePatch"
+to = "TfexGlue.Updates.RemoveDialog"
+key = "S-native"
+why = "HandleAutoUpdate's _updaterDialog?.RemoveSelf() on a failed update: a download failing in its first frame finds the dialog not yet in the scene (a null Scene's Remove: the console crash 2026-11-08); hidden, removed when added"
+
+[[rewrite]]
 call = "System.Threading.Tasks.Task.Run(System.Action, System.Threading.CancellationToken)"
 in = "TF.EX.Domain.Services.NetplayManager"
 to = "TfexGlue.Ffi.RunWorker"
@@ -1356,7 +1363,14 @@ call = "System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?
 in = "TF.EX.Patchs.Engine.TFGamePatch"
 to = "TfexGlue.Updates.Run"
 key = "S-native"
-why = "the version check / the download on a game Thread (GC-registered), one at a time, off the game thread"
+why = "the version check / the download on the updater's own thread (the Switch build's managed Thread runs on the caller: the menu froze for the whole download), TF.EX's work after it on the game thread (Updates.Pump)"
+
+[[rewrite]]
+new = "TF.EX.Domain.CustomComponent.UpdaterDialog.UpdaterDialog(string)"
+in = "TF.EX.Patchs.Engine.TFGamePatch"
+to = "TfexGlue.Updates.NewDialog"
+key = "S-native"
+why = "StartUpdate's dialog: the Task.Run after it is the download, on the updater's thread (Updates.Run; the Switch's managed Thread runs on the caller)"
 
 [[rewrite]]
 call = "TF.EX.Domain.CustomComponent.UpdaterDialog.SetPhase(string)"

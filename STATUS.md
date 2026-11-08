@@ -240,6 +240,18 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- The update without the frozen main menu (2026-11-08, the console: the menu froze for the whole download, the dialog appeared at the end
+  and vanished): the Switch build's managed Thread runs its work on the caller, so TF.EX's Task.Run ran the download on the game thread.
+  The download now runs on the updater's own thread (tfnxupdate.cpp StartDownload), its phase and bytes shown in TF.EX's dialog (with
+  its bar), TF.EX's work after it on the game thread (glue Updates.Run / Pump); a check that isn't fresh (NETPLAY after 5 minutes) the
+  same way. The dialog stays after the install ("RESTART THE GAME TO FINISH", as TF.EX restarts the PC game there). Emulator:
+  UPDATETEST_SLOW=30 tools/update-test.sh PASS (no hang watchdog line, progress.png with the bar), UPDATETEST_FAIL=504 PASS. Proof:
+  `[update] the download starts on the updater's thread`, no `[hang] the game froze` during it.
+- The update dialog's crash on a failed download (2026-11-08, the console: GitHub answered 504 minutes after 0.29.1.3 was released,
+  the download failed in its first frame, TF.EX's HandleAutoUpdate removed a dialog not yet in the scene: a null Scene). The dialog is
+  hidden and removed a frame later (glue Updates.RemoveDialog, [[rewrite]]). Emulator: UPDATETEST_FAIL=504 tools/update-test.sh PASS
+  (the failure shown, RETRY, the game goes on). Proof: `[update] ERROR: the download failed ...` then
+  `[update] the update failed before its dialog was on the screen` and no crash. Not on GitHub yet (the next release).
 - Mod archers' heads, bows and corpses with a white box (2026-11-08, the user: Meta Knight's head a white square): the Switch's FNA PNG
   load cleared the colour of transparent pixels in the first quarter of an image only (+0x20a10: the loop's bound in pixels, its
   offset in bytes), so a mod atlas's lower rows drew their hidden colour. Fixed (xplay.cpp; GPU readback in the emulator: row 120's

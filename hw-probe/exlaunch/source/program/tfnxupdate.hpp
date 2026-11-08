@@ -21,7 +21,16 @@ int32_t TfexStatus();               /* UpdateStatus for TF.EX's online gate: 0 U
 int64_t Latest();                   /* the latest release's version (System.Version packed, gen::VersionString) */
 int64_t Current();                  /* this build's TF.NX version */
 void* FailureReason();              /* a managed string, or null */
-bool DownloadAndApply(void* onPhase, void* onProgress);   /* blocking (TF.EX's worker): Action<string>, Action<long, long> */
+bool DownloadAndApply(void* onPhase, void* onProgress);   /* TF.EX's worker: the result of the download StartDownload made, else blocking */
+/* the download on the updater's thread (the Switch's managed Thread runs on the caller: glue Updates.Run / Pump) */
+void StartDownload();
+int DownloadState();                /* 0 none, 1 asked, 2 running, 3 done */
+int PhaseSeq();                     /* + 1 at each new phase text */
+const char* PhaseText();
+int64_t DownloadedBytes();
+int64_t TotalBytes();
+void CheckInBackground();           /* a check on the updater's thread (TF.EX's NETPLAY check, glue Updates.Run) */
+void SkipNextCheck();               /* that check is the one CheckForUpdate would make now */
 void RestartNeeded();               /* TF.EX's HandleAutoUpdate when the update is in: the dialog's last phase, then the restart notice */
 
 /* TF.NX's OPTIONS entry (glue Updates): its state and what Confirm does */

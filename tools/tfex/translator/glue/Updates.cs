@@ -12,7 +12,6 @@ namespace TfexGlue
 {
     public static class Updates
     {
-        static Thread worker;
         static TF.EX.Domain.CustomComponent.UpdaterDialog dialog;
         static OptionsButton entry;
 
@@ -28,18 +27,78 @@ namespace TfexGlue
         [Cpp("tfex::gen::NetplayEntry::StartUpdate($0, tfex::gen::svc::Service(), tfex::gen::svc::Service())", Include = "tfexgen_NetplayEntry.hpp")]
         static extern void StartUpdate(TowerFall.MainMenu menu);
 
-        // `Task.Run(async () => { await autoUpdater.CheckForUpdate(); ... })` and StartUpdate's `Task.Run(async () => { ... DownloadAndApply ... })`:
-        // TFEX-DIFF S-native: a game System.Threading.Thread (managed, so the GC knows it), one at a time, as Reports.RunUpload.
+        // `Task.Run(async () => { await autoUpdater.CheckForUpdate(); ... })` and StartUpdate's `Task.Run(async () => { ... DownloadAndApply ... })`.
+        // TFEX-DIFF S-native: the Switch build's managed Thread runs its work on the caller (glue Ffi.cs), so a Thread here ran the download on
+        // the game thread: the main menu froze for the whole download (the console, 2026-11-08). The network part runs on the updater's own
+        // thread (tfnxupdate.cpp) instead: the download (StartUpdate's dialog came just before: NewDialog) or a check that isn't fresh; TF.EX's
+        // work runs on the game thread once it's done (Pump, every frame), where DownloadAndApply / CheckForUpdate answer at once. One at a time.
+        static Func<Task> pending;
+        static bool pendingDownload, downloadNext;
+        static TF.EX.Domain.CustomComponent.UpdaterDialog progressDialog;
+        static int shownSeq;
+        [Cpp("tfnxupdate::StartDownload()", Include = "../../tfnxupdate.hpp")] static extern void StartDownload();
+        [Cpp("tfnxupdate::DownloadState()", Include = "../../tfnxupdate.hpp")] static extern int DownloadState();
+        [Cpp("tfnxupdate::PhaseSeq()", Include = "../../tfnxupdate.hpp")] static extern int PhaseSeq();
+        [Cpp("gen::ManagedUtf8(tfnxupdate::PhaseText(), (int)std::strlen(tfnxupdate::PhaseText()))", Include = "../../tfnxupdate.hpp")] static extern string PhaseText();
+        [Cpp("tfnxupdate::DownloadedBytes()", Include = "../../tfnxupdate.hpp")] static extern long DownloadedBytes();
+        [Cpp("tfnxupdate::TotalBytes()", Include = "../../tfnxupdate.hpp")] static extern long TotalBytes();
+        [Cpp("tfnxupdate::IsStatusFresh()", Include = "../../tfnxupdate.hpp")] static extern bool IsFresh();
+        [Cpp("tfnxupdate::Busy()", Include = "../../tfnxupdate.hpp")] static extern bool UpdaterBusy();
+        [Cpp("tfnxupdate::CheckInBackground()", Include = "../../tfnxupdate.hpp")] static extern void CheckInBackground();
+        [Cpp("tfnxupdate::SkipNextCheck()", Include = "../../tfnxupdate.hpp")] static extern void SkipNextCheck();
+
+        // StartUpdate's `new UpdaterDialog(...)`: the Task.Run after it is the download
+        public static TF.EX.Domain.CustomComponent.UpdaterDialog NewDialog(string title)
+        {
+            downloadNext = true;
+            progressDialog = new TF.EX.Domain.CustomComponent.UpdaterDialog(title);
+            return progressDialog;
+        }
+
         public static void Run(Func<Task> work)
         {
-            if (worker != null && worker.IsAlive) { LogBusy(); return; }
-            worker = new Thread(() => work());
-            worker.IsBackground = true;
-            worker.Start();
+            if (pending != null) { LogBusy(); return; }
+            if (downloadNext)
+            {
+                downloadNext = false;
+                pending = work;
+                pendingDownload = true;
+                shownSeq = PhaseSeq();
+                StartDownload();
+                return;
+            }
+            if (IsFresh()) { work(); return; }
+            pending = work;
+            pendingDownload = false;
+            CheckInBackground();
+        }
+
+        // every frame (tfnxupdate::Frame): the download's phase and bytes into TF.EX's dialog, then TF.EX's work once the updater's part is done
+        public static void Pump()
+        {
+            if (pending == null) return;
+            if (pendingDownload)
+            {
+                if (progressDialog != null)
+                {
+                    int seq = PhaseSeq();
+                    if (seq != shownSeq) { shownSeq = seq; progressDialog.SetPhase(PhaseText()); }
+                    progressDialog.Report(DownloadedBytes(), TotalBytes());
+                }
+                if (DownloadState() != 3) return;
+            }
+            else
+            {
+                if (UpdaterBusy()) return;
+                SkipNextCheck();
+            }
+            var work = pending;
+            pending = null;
+            work();
         }
 
         // StartUpdate's `dialog.SetPhase("RESTARTING")`: TFEX-DIFF S-update: the console can't relaunch the game for us (the user chose a
-        // notice): the dialog says to restart, then (tfnxupdate.cpp, 3 s later) Dismiss takes it away.
+        // notice): the dialog says to restart and stays until the game is restarted (tfnxupdate.cpp RestartNeeded; the test dismisses it).
         public static void RestartPhase(TF.EX.Domain.CustomComponent.UpdaterDialog d, string phase)
         {
             dialog = d;
@@ -57,6 +116,21 @@ namespace TfexGlue
             dialog = null;
             TF.EX.Domain.ServiceCollections.ResolveInputService().EnableAllControllers();
         }
+
+        // HandleAutoUpdate's `_updaterDialog?.RemoveSelf()` when the update failed: a download that fails in the frame it started (GitHub
+        // answering 504 minutes after a release was made, 2026-11-08: the console crashed) finds the dialog not yet in the scene (Monocle
+        // adds an entity at the next frame), and RemoveSelf's Scene.Remove dereferences a null Scene (the PC's too). TFEX-DIFF S-native: such a
+        // dialog is hidden now and removed once the scene has it (Refresh, every main-menu frame); one in the scene goes as TF.EX's does
+        static Entity removeWhenAdded;
+        public static void RemoveDialog(Entity dialog)
+        {
+            if (dialog.Scene != null) { dialog.RemoveSelf(); return; }
+            dialog.Visible = false;
+            removeWhenAdded = dialog;
+            FailedEarly();
+        }
+        [Cpp("tfex::gen::ffi::Log(\"[update] the update failed before its dialog was on the screen: the dialog hidden, removed at the next frame\")", Include = "tfexgen_ffi.hpp")]
+        static extern void FailedEarly();
 
         // MatchmakingService's `?version={autoUpdater.GetCurrentVersion()}`: TF.EX's version (the server knows TF.EX's versions)
         [Cpp("tfex::gen::svc::TfexVersion()", Include = "tfexgen_services.hpp")]
@@ -141,6 +215,7 @@ namespace TfexGlue
         static int shownUi = -1;
         public static void Refresh()
         {
+            if (removeWhenAdded != null && removeWhenAdded.Scene != null) { removeWhenAdded.RemoveSelf(); removeWhenAdded = null; }
             if (entry == null) return;
             int ui = UiState();
             if (ui == shownUi) return;   // (no string made each frame)

@@ -393,7 +393,7 @@ hand rule: a PC member the Switch lacks, kept in the side table ([fortrise] side
     patch_PlayerHair.OutlineColor
 hand rule: a member read by name (DynamicData) -> its [service] rule (1)
     VersusModeButton.currentIndex
-hand rule: call rewritten to glue (translate.toml [[rewrite]]) (46)
+hand rule: call rewritten to glue (translate.toml [[rewrite]]) (47)
     FortRise.EnumPool.Obtain<T>() -> TfexGlue.FortRiseSwitch.SwitchMods.ObtainMode: FortRise's EnumPool (generic math, CollectionsMarshal: not translatable) gives the enum's highest value + 1 and counts on; with FortRise's patch_Modes.Custom = 10 that is 11 on the Switch too (the PC's number: TF.EX's Netplay mode in the browser is 11)
     FortRise.ISettingsCreate.CreateCustomOptions(System.Func<TowerFall.OptionsButton>) -> TfexGlue.SettingsUi.CreateCustomOptions: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
     FortRise.ISettingsCreate.CreateInput(string, string, System.Action<string>, string, FortRise.InputBehavior) -> TfexGlue.SettingsUi.CreateInput: FortRise's settings page -> the game's OPTIONS screen: FortRise OptionsCreate's entry as the game's OptionsButton (glue SettingsUi.cs)
@@ -417,6 +417,7 @@ hand rule: call rewritten to glue (translate.toml [[rewrite]]) (46)
     Monocle.Draw.TextureCentered(Monocle.Subtexture, Microsoft.Xna.Framework.Vector2, Microsoft.Xna.Framework.Color) -> TfexGlue.Rewrites.DrawControllerIcon: the netplay menu's local players: a Joy-Con's picture in its own colours, as the Switch's archer select (JoyConInput.DrawIcon); the button hints, no Joy-Con's picture, drawn as before
     Monocle.Entity.GetFirst<T>() -> TfexGlue.Rewrites.EntityGetFirstTween: generic game method (TF.State's BramblesExtensions): Monocle's body over Tween
     Monocle.Entity.Remove<T>() -> TfexGlue.Rewrites.EntityRemoveTweens: generic game method (TF.State's BramblesExtensions.LoadTween): Monocle's body over Tween
+    Monocle.Entity.RemoveSelf() -> TfexGlue.Updates.RemoveDialog: HandleAutoUpdate's _updaterDialog?.RemoveSelf() on a failed update: a download failing in its first frame finds the dialog not yet in the scene (a null Scene's Remove: the console crash 2026-11-08); hidden, removed when added
     Monocle.Scene.Add<T>(System.Collections.Generic.List<T>) -> TfexGlue.Rewrites.SceneAddList: generic method: no instantiation over a TF.EX class on the Switch (Monocle's body: one Add per entity)
     Monocle.Scene.Add<T>(T) -> TfexGlue.Rewrites.SceneAdd: generic method: no instantiation over a TF.EX class on the Switch
     Monocle.Scene.Add<T>(T) -> TfexGlue.Rewrites.SceneAddMenu: TF.EX's button-guide entities (EDIT LOBBY, COPY CODE, CREATE) on the Switch's guide layer 0 instead of the PC's -1: the Switch's MenuButtonGuide places itself in screen coordinates (360 / 410 by RollcallMode) on layer 0, whose camera has no +50, so on -1 TF.EX's guides landed 50 right, past the screen (2026-10-29 console: only EDIT shown); then as SceneAdd
@@ -432,7 +433,7 @@ hand rule: call rewritten to glue (translate.toml [[rewrite]]) (46)
     System.Threading.CancellationTokenSource.Cancel() -> TfexGlue.Ffi.CancelSockets: TF.EX's Close(): the cancellation ends the listen loop's receive (the stand-in's open socket aborts)
     System.Threading.Tasks.Task.Run(System.Action, System.Threading.CancellationToken) -> TfexGlue.Ffi.RunWorker: Task.Run(() => Connect(roundLogic), token): a game Thread (GC-registered), one at a time; netplay_init blocks there, not the game
     System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>) -> TfexGlue.Reports.RunUpload: Task.Run(() => Upload(...)): the zip and the blocking POST on a game Thread (GC-registered), one at a time, off the game thread
-    System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>) -> TfexGlue.Updates.Run: the version check / the download on a game Thread (GC-registered), one at a time, off the game thread
+    System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>) -> TfexGlue.Updates.Run: the version check / the download on the updater's own thread (the Switch build's managed Thread runs on the caller: the menu froze for the whole download), TF.EX's work after it on the game thread (Updates.Pump)
     System.Threading.Tasks.Task.Run(System.Func<System.Threading.Tasks.Task?>, System.Threading.CancellationToken) -> TfexGlue.Ffi.RunListener: ConnectToServerAndListen's listen loop: a game Thread (GC-registered), one at a time; the ClientWebSocket stand-in blocks there
     TF.EX.Common.IAutoUpdater.GetCurrentVersion() -> TfexGlue.Updates.ServerVersion: the server's ?version= is TF.EX's version (its MIN_CLIENT_VERSION); the Switch's IAutoUpdater speaks TF.NX's 4-part version
     TF.EX.Domain.CustomComponent.UpdaterDialog.SetPhase(string) -> TfexGlue.Updates.RestartPhase: StartUpdate's "RESTARTING": the console can't relaunch the game for us, the dialog says to restart it (the user's choice, 2026-11-07)
@@ -440,7 +441,7 @@ hand rule: call rewritten to glue (translate.toml [[rewrite]]) (46)
     TF.EX.Domain.Services.MatchmakingService.HandleMessageContents(string) -> TfexGlue.Ffi.HandleOnGameThread: the listen loop's message to the game thread, where TF.EX's handler runs (PumpTransport): the runtime's object pools aren't thread-safe
     TF.EX.Patchs.InputDelayAdvisor.Render() -> TfexGlue.Rewrites.InputDelayAdvisorRender: the Switch's wide roll call spans the 420 screen (its six seats, its guides at the right edge); TF.EX's advisor is anchored to a 320 screen's right edge: drawn UIXOffset right there, on the guides' edge (2026-10-29: it sat mid-screen). Standard and the series lobby as TF.EX (glue Rewrites.InputDelayAdvisorRender, tfex/MainMenuPatch.cpp AdvisorShiftBegin)
     TowerFall.MenuButtonGuide.SetDetails(TowerFall.MenuButtonGuide.ButtonModes, string) -> TfexGlue.Rewrites.SpectateGuide: the lobby list's SPECTATE guide hidden while spectators aren't on the Switch (step 4); every other guide unchanged. Remove with spectators
-hand rule: creation rewritten to glue (translate.toml [[rewrite]] new) (13)
+hand rule: creation rewritten to glue (translate.toml [[rewrite]] new) (14)
     FortRise.UIInputText.UIInputText(TowerFall.MenuItem, System.Action<string>, Microsoft.Xna.Framework.Vector2, int, string) in TF.EX.ServerOptionsButton -> TfexGlue.SettingsUi.KeyboardText (S-native): FortRise's typed-text entity -> the Switch's software keyboard (swkbd), its text handed back the next frame (glue SettingsUi.cs)
     FortRise.UIInputText.UIInputText(TowerFall.MenuItem, System.Action<string>, Microsoft.Xna.Framework.Vector2, string) in FortRise.UISearchPanel -> TfexGlue.SettingsUi.KeyboardTextAny (S-native): as the one above, for the constructor without a player (FortRise's UISearchPanel); FortRise's compilation (glue/fortrise/Rewrites.cs)
     Monocle.Canvas.Canvas(int, int) in TF.EX.Domain.CustomComponent.Notification -> TfexGlue.Ledger.SharedCanvas (S-rollback): a Canvas is a GPU render target outside the rollback undo log: one per toast leaks one per resimulated tick; TF.EX only reads its Width
@@ -451,6 +452,7 @@ hand rule: creation rewritten to glue (translate.toml [[rewrite]] new) (13)
     TF.EX.Common.Handle.SafeBytes<T>.SafeBytes(T, bool) in TF.EX.Domain.Services.NetplayManager -> TfexGlue.Ffi.GgrsConfigBytes (S-native): SafeBytes<GGRSConfig>(config, true) in NativeInit: TF.EX's JSON of the config in a runtime buffer (no MessagePack / Marshal on the Switch); its Fps and delays as TF.EX set them
     TF.EX.Common.Handle.SafeRawBytes.SafeRawBytes(TF.EX.Common.Handle.SafeBytesFFI, System.Action) in TF.EX.Domain.Services.NetplayManager -> TfexGlue.Ffi.RawBytesFFI (S-rollback): LoadGameState: the bytes ggrs_ffi returns (the snapshot handle); Dispose frees them with netplay_free_game_state
     TF.EX.Common.Handle.SafeRawBytes.SafeRawBytes(byte[]) in TF.EX.Domain.Services.NetplayManager -> TfexGlue.Ffi.RawBytes (S-rollback): SaveGameState's bytes for ggrs_ffi: on the Switch rollback.cpp's 16-byte snapshot handle (TFEX-DIFF, performance)
+    TF.EX.Domain.CustomComponent.UpdaterDialog.UpdaterDialog(string) in TF.EX.Patchs.Engine.TFGamePatch -> TfexGlue.Updates.NewDialog (S-native): StartUpdate's dialog: the Task.Run after it is the download, on the updater's thread (Updates.Run; the Switch's managed Thread runs on the caller)
     TowerFall.KeyboardInput.KeyboardInput() in TF.EX.Domain.Services.TF.InputService -> TfexGlue.Rewrites.RemoteSeatInput (S-input): EnsureRemoteControllers' remote-seat controller: no keyboard on the Switch, a JoyConInput over the local JoyCon (tfexgen_services.cpp NewRemoteSeatInput)
     TowerFall.patch_ArcherData.patch_ArcherData() in FortRise.ModArchers -> TfexGlue.FortRiseSwitch.SwitchMods.NewArcherData (S-native): FortRise's ModArchers.Invoke: `new patch_ArcherData { ... }`, MonoMod's empty constructor added to ArcherData: here an ArcherData object with nothing parsed (game::brute::NewObject), the members then set
     TowerFall.patch_CharacterSounds.patch_CharacterSounds() in FortRise.ModCharacterSounds -> TfexGlue.FortRiseSwitch.SwitchMods.NewCharacterSounds (S-native): FortRise's ModCharacterSounds.Invoke: `new patch_CharacterSounds { ... }`, MonoMod's empty constructor added to CharacterSounds: the game's object (game::brute::NewObject: it goes into Sounds.Characters), the members then set
@@ -480,7 +482,7 @@ hand rule: expression rewritten (translate.toml [[rewrite]] expr, S-native) (21)
     SubtextureRegistry: getAll.Contains(id) -> tfex::gen::GlueFrMods::IsVanillaSubtexture(id): whether the game's atlases have the texture (the names FortRise reads from their XMLs): asked of the loaded atlases (glue SwitchMods.IsVanillaSubtexture)
     patch_VersusModeButton: BuiltInModeCount -> tfex::gen::svc::BuiltInVersusModeCount(): FortRise's count of built-in modes before the registered ones in its list (3): 4 in the Switch's local play, the megamod's TOWERBALL inserted fourth (megamod.cpp)
     patch_VersusModeButton: mode is Modes.LastManStanding or Modes.TeamDeathmatch or Modes.HeadHunters -> tfex::gen::svc::BuiltInVersusMode(mode): the PC's three built-in versus modes; the Switch's local play has a fourth, the megamod's TOWERBALL (mode 6, megamod.cpp appends it to FortRise's list), which is no registered custom mode either
-hand rule: glue extern [Cpp] (Switch code) (133)
+hand rule: glue extern [Cpp] (Switch code) (144)
     TfexGlue.AiNames.AiNameOf(int)
     TfexGlue.AiNames.BoardLaidOut(int, int)
     TfexGlue.Ffi.BytesOf(string)
@@ -603,14 +605,25 @@ hand rule: glue extern [Cpp] (Switch code) (133)
     TfexGlue.StateMsgPack.Str(string)
     TfexGlue.StateMsgPack.UInt(ulong)
     TfexGlue.Updates.AutoStarted()
+    TfexGlue.Updates.CheckInBackground()
     TfexGlue.Updates.CheckNow()
     TfexGlue.Updates.CurrentText()
+    TfexGlue.Updates.DownloadState()
+    TfexGlue.Updates.DownloadedBytes()
+    TfexGlue.Updates.FailedEarly()
     TfexGlue.Updates.Failure()
+    TfexGlue.Updates.IsFresh()
     TfexGlue.Updates.LatestText()
     TfexGlue.Updates.LogBusy()
+    TfexGlue.Updates.PhaseSeq()
+    TfexGlue.Updates.PhaseText()
     TfexGlue.Updates.RestartNeeded()
+    TfexGlue.Updates.SkipNextCheck()
+    TfexGlue.Updates.StartDownload()
     TfexGlue.Updates.StartUpdate(TowerFall.MainMenu)
+    TfexGlue.Updates.TotalBytes()
     TfexGlue.Updates.UiState()
+    TfexGlue.Updates.UpdaterBusy()
     TfexGlue.WiderSetApi.SwitchIsWide()
     TfexGlue.WiderSetApi.SwitchSetWide(bool)
     TfexGlue.WiderSetApi.SwitchUIXOffset()
@@ -4375,7 +4388,7 @@ mechanical: lambda -> delegate (function of target, args) (127)
     Tp_RoundLogic: SpawnByPartition: (a, b) => a.X.CompareTo(b.X)
     Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Blue
     Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Red
-mechanical: lambda capturing unchanged locals -> closure (object[] target) (188)
+mechanical: lambda capturing unchanged locals -> closure (object[] target) (187)
     Auto_ArrowExtensions: LoadState: () => { entity.RemoveSelf(); }: entity
     Auto_CornerButton: TweenOut: t => Position = Vector2.Lerp(start, tweenFrom, t.Eased): start
     Auto_EnemyAttackExtensions: LoadState: () => DynamicData.For(bat).Invoke("Explode"): bat
@@ -4458,7 +4471,6 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (188)
     GlueSettingsUi: CreateOptions: () =>: index, selections, onSelect
     GlueUpdates: CreateEntry: () => { button.State = StateText(UiState()); }: button
     GlueUpdates: CreateEntry: () =>: button
-    GlueUpdates: Run: () => work(): work
     LightPauseMenu: Quit: () =>: matchmakingService
     LoaderPatch: Loader_TweenIn: delegate (Tween t): __instance
     LobbyInfos: OnSelect: delegate (Tween t): start, end

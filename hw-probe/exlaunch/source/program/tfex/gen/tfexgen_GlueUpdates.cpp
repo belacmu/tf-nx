@@ -2,8 +2,8 @@
  * vendor/tfex/src/glue/Updates.cs: Updates */
 #include "tfexgen_GlueUpdates.hpp"
 #include "tfexgen_binding.hpp"
-#include "tfexgen_ffi.hpp"
 #include "tfexgen_UpdaterDialog.hpp"
+#include "tfexgen_ffi.hpp"
 #include "../../tfnxupdate.hpp"
 #include "tfexgen_services.hpp"
 #include "tfexgen_InputService.hpp"
@@ -44,24 +44,35 @@ static void* StateText(int32_t ui);
 static void Describe(void* button, int32_t ui);
 
 static gen::Class g_dhost;   /* method records of this unit's delegates (gen::HostClass) */
-struct Clo_Lambda_0 { void* work; };
+struct Clo_Lambda_0 { void* button; };
 static void Lambda_0(void* clo_);
 struct Clo_Lambda_1 { void* button; };
-static void Lambda_1(void* clo_);
-struct Clo_Lambda_2 { void* button; };
-static bool Lambda_2(void* clo_);
+static bool Lambda_1(void* clo_);
 
-static void*& worker() {   /* TfexGlue.Updates.worker: a GC root, made at first use */
-    static void** p_ = nullptr;
-    if (!p_) { gen::RootStatic(p_); }
-    return *p_;
-}
 static void*& dialog() {   /* TfexGlue.Updates.dialog: a GC root, made at first use */
     static void** p_ = nullptr;
     if (!p_) { gen::RootStatic(p_); }
     return *p_;
 }
 static void*& entry() {   /* TfexGlue.Updates.entry: a GC root, made at first use */
+    static void** p_ = nullptr;
+    if (!p_) { gen::RootStatic(p_); }
+    return *p_;
+}
+static void*& pending() {   /* TfexGlue.Updates.pending: a GC root, made at first use */
+    static void** p_ = nullptr;
+    if (!p_) { gen::RootStatic(p_); }
+    return *p_;
+}
+static bool pendingDownload{};   /* TfexGlue.Updates.pendingDownload */
+static bool downloadNext{};   /* TfexGlue.Updates.downloadNext */
+static void*& progressDialog() {   /* TfexGlue.Updates.progressDialog: a GC root, made at first use */
+    static void** p_ = nullptr;
+    if (!p_) { gen::RootStatic(p_); }
+    return *p_;
+}
+static int32_t shownSeq{};   /* TfexGlue.Updates.shownSeq */
+static void*& removeWhenAdded() {   /* TfexGlue.Updates.removeWhenAdded: a GC root, made at first use */
     static void** p_ = nullptr;
     if (!p_) { gen::RootStatic(p_); }
     return *p_;
@@ -77,20 +88,10 @@ static void*& moved() {   /* TfexGlue.Updates.moved: a GC root, made at first us
     return *p_;
 }
 static int32_t shownUi = -1;   /* TfexGlue.Updates.shownUi */
-/*@M Updates.Run*/
-/* () => work() */
-static void Lambda_0(void* clo_) {
-    auto& c_ = *static_cast<Clo_Lambda_0*>(gen::ClosureData(clo_));
-    auto work = c_.work;
-    (void)c_;
-    gen::Fn<void (*)(void*)>(bind::m_Func_1_6f49_Invoke)(work);
-    return;
-}
-
 /*@M Updates.CreateEntry*/
 /* () => { button.State = StateText(UiState()); } */
-static void Lambda_1(void* clo_) {
-    auto& c_ = *static_cast<Clo_Lambda_1*>(gen::ClosureData(clo_));
+static void Lambda_0(void* clo_) {
+    auto& c_ = *static_cast<Clo_Lambda_0*>(gen::ClosureData(clo_));
     auto button = c_.button;
     (void)c_;
     gen::Fld<void*>(button, bind::f_OptionsButton_State) = StateText((int32_t)tfnxupdate::UiState());
@@ -99,8 +100,8 @@ static void Lambda_1(void* clo_) {
 
 /*@M Updates.CreateEntry*/
 /* () => */
-static bool Lambda_2(void* clo_) {
-    auto& c_ = *static_cast<Clo_Lambda_2*>(gen::ClosureData(clo_));
+static bool Lambda_1(void* clo_) {
+    auto& c_ = *static_cast<Clo_Lambda_1*>(gen::ClosureData(clo_));
     auto button = c_.button;
     (void)c_;
     int32_t ui = (int32_t)tfnxupdate::UiState();
@@ -117,16 +118,73 @@ static bool Lambda_2(void* clo_) {
     return true;
 }
 
+/*@M Updates.NewDialog*/
+void* NewDialog(void* title) {
+    downloadNext = true;
+    progressDialog() = tfex::gen::UpdaterDialog::New(title);
+    return progressDialog();
+}
+
 /*@M Updates.Run*/
 void Run(void* work) {
-    if ((worker() != nullptr) && gen::Fn<bool (*)(void*)>(bind::m_Thread_get_IsAlive)(worker()))
+    if (pending() != nullptr)
     {
         tfex::gen::ffi::Log("[update] a check or download already runs: this one dropped");
         return;
     }
-    worker() = gen::Fn<void* (*)(void*, void*)>(bind::m_Thread__ctor_0)(nullptr, gen::NewDelegate(gen::HostClass(g_dhost, u"Updates", bind::t_Object, bind::d_Object, bind::vb_Object), 0, bind::t_ThreadStart, gen::NewClosure(Clo_Lambda_0{work}, bind::t_Object_49d5), reinterpret_cast<void*>(&Lambda_0)));
-    gen::Fn<void (*)(void*, bool)>(bind::m_Thread_set_IsBackground_953d)(worker(), true);
-    gen::Fn<void (*)(void*)>(bind::m_Thread_Start_0)(worker());
+    if (downloadNext)
+    {
+        downloadNext = false;
+        pending() = work;
+        pendingDownload = true;
+        shownSeq = tfnxupdate::PhaseSeq();
+        tfnxupdate::StartDownload();
+        return;
+    }
+    if (tfnxupdate::IsStatusFresh())
+    {
+        gen::Fn<void (*)(void*)>(bind::m_Func_1_6f49_Invoke)(work);
+        return;
+    }
+    pending() = work;
+    pendingDownload = false;
+    tfnxupdate::CheckInBackground();
+}
+
+/*@M Updates.Pump*/
+void Pump() {
+    if (pending() == nullptr)
+    {
+        return;
+    }
+    if (pendingDownload)
+    {
+        if (progressDialog() != nullptr)
+        {
+            int32_t seq = tfnxupdate::PhaseSeq();
+            if (seq != shownSeq)
+            {
+                shownSeq = seq;
+                tfex::gen::UpdaterDialog::SetPhase(progressDialog(), gen::ManagedUtf8(tfnxupdate::PhaseText(), (int)std::strlen(tfnxupdate::PhaseText())));
+            }
+            tfex::gen::UpdaterDialog::Report(progressDialog(), tfnxupdate::DownloadedBytes(), tfnxupdate::TotalBytes());
+        }
+        if (tfnxupdate::DownloadState() != 3)
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (tfnxupdate::Busy())
+        {
+            return;
+        }
+        tfnxupdate::SkipNextCheck();
+    }
+    void* work = pending();
+    pending() = nullptr;
+    gen::Fn<void (*)(void*)>(bind::m_Func_1_6f49_Invoke)(work);
 }
 
 /*@M Updates.RestartPhase*/
@@ -148,6 +206,18 @@ void Dismiss() {
     }
     dialog() = nullptr;
     tfex::gen::InputService::EnableAllControllers(tfex::gen::svc::Service());
+}
+
+/*@M Updates.RemoveDialog*/
+void RemoveDialog(void* dialog) {
+    if (gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Scene)(dialog) != nullptr)
+    {
+        gen::Fn<void (*)(void*)>(bind::m_Entity_RemoveSelf)(dialog);
+        return;
+    }
+    gen::Fld<bool>(dialog, bind::f_Entity_Visible) = false;
+    removeWhenAdded() = dialog;
+    tfex::gen::ffi::Log("[update] the update failed before its dialog was on the screen: the dialog hidden, removed at the next frame");
 }
 
 /*@M Updates.BeginOptions*/
@@ -184,7 +254,7 @@ void CreateEntry(void* buttons) {
     void* button = gen::Fn<void* (*)(void*, void*)>(bind::m_OptionsButton__ctor_6538)(nullptr, L_3.P());
     entry() = button;
     shownUi = -1;
-    gen::Fn<void (*)(void*, void*, void*, void*, void*)>(bind::m_OptionsButton_SetCallbacks_e216)(button, gen::NewDelegate(gen::HostClass(g_dhost, u"Updates", bind::t_Object, bind::d_Object, bind::vb_Object), 1, bind::t_Action, gen::NewClosure(Clo_Lambda_1{button}, bind::t_Object_49d5), reinterpret_cast<void*>(&Lambda_1)), nullptr, nullptr, gen::NewDelegate(gen::HostClass(g_dhost, u"Updates", bind::t_Object, bind::d_Object, bind::vb_Object), 2, bind::t_Func_1_62a6, gen::NewClosure(Clo_Lambda_2{button}, bind::t_Object_49d5), reinterpret_cast<void*>(&Lambda_2)));
+    gen::Fn<void (*)(void*, void*, void*, void*, void*)>(bind::m_OptionsButton_SetCallbacks_e216)(button, gen::NewDelegate(gen::HostClass(g_dhost, u"Updates", bind::t_Object, bind::d_Object, bind::vb_Object), 0, bind::t_Action, gen::NewClosure(Clo_Lambda_0{button}, bind::t_Object_49d5), reinterpret_cast<void*>(&Lambda_0)), nullptr, nullptr, gen::NewDelegate(gen::HostClass(g_dhost, u"Updates", bind::t_Object, bind::d_Object, bind::vb_Object), 1, bind::t_Func_1_62a6, gen::NewClosure(Clo_Lambda_1{button}, bind::t_Object_49d5), reinterpret_cast<void*>(&Lambda_1)));
     gen::Fn<void (*)(void*, void*)>(bind::m_List_1_0d81_Add_0b43)(buttons, button);
     Describe(button, (int32_t)tfnxupdate::UiState());
 }
@@ -251,6 +321,11 @@ static void Describe(void* button, int32_t ui) {
 
 /*@M Updates.Refresh*/
 void Refresh() {
+    if ((removeWhenAdded() != nullptr) && (gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Scene)(removeWhenAdded()) != nullptr))
+    {
+        gen::Fn<void (*)(void*)>(bind::m_Entity_RemoveSelf)(removeWhenAdded());
+        removeWhenAdded() = nullptr;
+    }
     if (entry() == nullptr)
     {
         return;
@@ -266,9 +341,11 @@ void Refresh() {
 }
 
 void MakeStatics() {
-    (void)worker();
     (void)dialog();
     (void)entry();
+    (void)pending();
+    (void)progressDialog();
+    (void)removeWhenAdded();
     (void)autoUpdate();
     (void)moved();
     (void)gen::HostClass(g_dhost, u"Updates", bind::t_Object, bind::d_Object, bind::vb_Object);

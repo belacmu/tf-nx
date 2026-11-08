@@ -27,8 +27,8 @@
 #include "tfexgen_Auto_UpdateRequest.hpp"
 #include "tfexgen_Auto_NetplayPreferences.hpp"
 #include "tfexgen_ModCollections.hpp"
-#include "tfexgen_UpdaterDialog.hpp"
 #include "tfexgen_GlueRewrites.hpp"
+#include "tfexgen_UpdaterDialog.hpp"
 #include "tfexgen_Auto_VersusMatchResultsInputGate.hpp"
 #include "tfexgen_structs.hpp"
 #include "tfexgen_ffi.hpp"
@@ -487,7 +487,7 @@ static void HandleAutoUpdate(void* instance, void* autoUpdater, void* inputServi
     {
         _updateFailed = false;
         _updateFlowStarted = false;
-        ([&]() { auto ca_8 = _updaterDialog(); return ca_8 ? gen::Fn<void (*)(void*)>(bind::m_Entity_RemoveSelf)(ca_8) : void{}; }());
+        ([&]() { auto ca_8 = _updaterDialog(); return ca_8 ? tfex::gen::GlueUpdates::RemoveDialog(ca_8) : void{}; }());
         _updaterDialog() = nullptr;
         tfex::gen::InputService::EnableAllControllers(inputService);
         void* reason = ([&]() { auto c_9 = tfnxupdate::FailureReason(); return c_9 ? c_9 : L_3.P(); }());
@@ -666,7 +666,7 @@ static void* GetDesyncRiskModsMessage(void* riskyMods, int32_t count) {
 /*@M TFGamePatch.StartUpdate*/
 void StartUpdate(void* menu, void* autoUpdater, void* inputService) {
     _updateFlowStarted = true;
-    void* dialog = tfex::gen::UpdaterDialog::New(gen::Concat(L_21.P(), gen::VersionString(tfnxupdate::Latest())));
+    void* dialog = tfex::gen::GlueUpdates::NewDialog(gen::Concat(L_21.P(), gen::VersionString(tfnxupdate::Latest())));
     _updaterDialog() = dialog;
     tfex::gen::GlueRewrites::SceneAddUi(menu, dialog);
     gen::Virt<void>(gen::Static<void*>(bind::f_Sounds_ui_clickSpecial), bind::v_SFX_Play_f767, 160.0f, 5.0f);

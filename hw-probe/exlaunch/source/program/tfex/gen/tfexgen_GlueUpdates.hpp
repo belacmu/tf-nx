@@ -4,10 +4,13 @@
 #include "tfexgen_code_rt.hpp"
 
 namespace tfex::gen::GlueUpdates {
+void* NewDialog(void* title);
 void Run(void* work);
+void Pump();
 void RestartPhase(void* d, void* phase);
 void Restart(void* game);
 void Dismiss();
+void RemoveDialog(void* dialog);
 void BeginOptions();
 void NoteOnOff(void* name, void* button);
 void* TakeAutoUpdate();
