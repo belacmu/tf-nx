@@ -240,6 +240,13 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- Mod archers' heads, bows and corpses with a white box (2026-11-08, the user: Meta Knight's head a white square): the Switch's FNA PNG
+  load cleared the colour of transparent pixels in the first quarter of an image only (+0x20a10: the loop's bound in pixels, its
+  offset in bytes), so a mod atlas's lower rows drew their hidden colour. Fixed (xplay.cpp; GPU readback in the emulator: row 120's
+  transparent pixels were 255,255,255,0). Proof: `[xplay] fixes: PNG load clears every transparent pixel`; Meta Knight / Malicious
+  Metaguard / Crimson Co-Star with no box around the head.
+- Score board names: full size, a row too wide wraps onto more lines and the rows below move down (no smaller names; the user).
+  Emulator: the 5 v 3 board, red row on two lines.
 - Turning mods on and off (2026-11-08): MODS > TOGGLE MODS is FortRise's UIModToggler, translated (ENABLE ALL, DISABLE ALL, an ON / OFF
   per folder in sd:/xplay/mods; a mod's dependents go off with it, FortRise's rule). Leaving it writes sd:/xplay/mods/blacklist.txt and,
   when something changed, shows "RESTART THE GAME TO APPLY THE MOD CHANGES" (FortRise restarts by itself on the PC). At start a folder

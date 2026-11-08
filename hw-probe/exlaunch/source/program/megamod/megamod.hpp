@@ -27,6 +27,8 @@ void Install();            /* main.cpp: the patch-word table's pool (the mods th
 /* Tests (megamod/localtest.cpp): hw.txt "localvs <players> <mode>" */
 void SetLocalTest(int players, int mode);
 void SetLocalArcher(int steps);   /* hw.txt "localarcher <steps>": controller 1 steps Right before confirming */
+void SetLocalAlt();
+void SetLocalDump(int hide);               /* hw.txt "localdump": player 1's graphics in the log */               /* hw.txt "localalt": player 1 plays its archer's alt */
 void SetLocalModeName(const char* name);
 void SetLocalVariant(const char* name);
 void SetLocalNarrow();
@@ -51,6 +53,8 @@ inline void SetLocalRoundEnd() {}
 inline void SetLocalModeName(const char*) {}
 inline void SetLocalVictory() {}
 inline void SetLocalArcher(int) {}
+inline void SetLocalAlt() {}
+inline void SetLocalDump(int) {}
 inline bool LocalTestOn() { return false; }
 inline unsigned long LocalTestButtons(uint32_t) { return 0; }
 #endif

@@ -28,7 +28,7 @@ XPLAY_EXTRAS ?= 1
 CXX_FLAGS += -DXPLAY_EXTRAS=$(XPLAY_EXTRAS)
 # TF.NX's version is TF.EX's plus this build number: 0.29.0.0 = TF.NX's first release for TF.EX 0.29.0, 0.29.0.1 the next one between
 # TF.EX versions (main.cpp TFNX_VERSION; the boot line, tools/release.sh). Raise it per release; back to 0 when TF.EX's version changes.
-TFNX_BUILD := 2
+TFNX_BUILD := 3
 CXX_FLAGS += -DTFNX_BUILD=\"$(TFNX_BUILD)\"
 # Private settings (TFNX_SERVER, FTP_IP, RYU_PATH) come from ~/.config/tfnx/local.mk, outside the repo.
 # The matchmaking server built in (first-run default, TF.EX's LOCAL preset): TF.EX's official one unless local.mk names another.

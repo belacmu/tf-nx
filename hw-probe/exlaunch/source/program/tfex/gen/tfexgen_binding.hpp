@@ -2161,6 +2161,7 @@ constexpr uintptr_t m_Texture2D_get_Width = 0;   /* UNRESOLVED Microsoft.Xna.Fra
 #endif
 constexpr uintptr_t m_Texture__ctor_4d64 = 0x955fd0;   /* Monocle.Texture..ctor(string,bool) */
 constexpr uintptr_t m_Texture__ctor_fc22 = 0x9563e0;   /* Monocle.Texture..ctor(Microsoft.Xna.Framework.Graphics.Texture2D) */
+constexpr uintptr_t m_Texture_get_Rect = 0x9564d0;   /* Monocle.Texture.get_Rect */
 constexpr uintptr_t m_Texture_get_Texture2D = 0x9563c0;   /* Monocle.Texture.get_Texture2D */
 constexpr uintptr_t m_Texture_get_Width = 0x956500;   /* Monocle.Texture.get_Width */
 constexpr uintptr_t m_Thread_Start_0 = 0x3f6990;   /* System.Threading.Thread.Start */
@@ -2570,6 +2571,7 @@ constexpr uintptr_t t_GainPointEvent = 0x8b2870;   /* TowerFall.GainPointEvent *
 constexpr uintptr_t t_GameTags_7179 = 0x6f16f0;   /* Monocle.GameTags[] */
 constexpr uintptr_t t_GemPickup = 0x8b2af0;   /* TowerFall.GemPickup */
 constexpr uintptr_t t_GhostPlatform = 0x8b2e70;   /* TowerFall.GhostPlatform */
+constexpr uintptr_t t_GraphicsComponent = 0x6f1770;   /* Monocle.GraphicsComponent */
 constexpr uintptr_t t_HUDFade = 0x8b31f0;   /* TowerFall.HUDFade */
 constexpr uintptr_t t_HashSet_1_0151 = 0x7434f0;   /* System.Collections.Generic.HashSet`1[Monocle.Entity] */
 #ifdef TFEXGEN_COVERAGE

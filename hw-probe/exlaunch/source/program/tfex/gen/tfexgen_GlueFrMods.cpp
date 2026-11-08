@@ -14,6 +14,7 @@
 #include "tfexgen_Auto_GameFieldsFr.hpp"
 #include "tfexgen_bcl.hpp"
 #include "../Notification.hpp"
+#include "tfexgen_skins.hpp"
 #include "tfexgen_Auto_SdResource.hpp"
 #include "tfexgen_GlueUpdates.hpp"
 #include "../NetplayOptions.hpp"
@@ -75,98 +76,115 @@ static gen::LitN<1> L_27{u""};
 static gen::LitN<16> L_28{u"sd:/xplay/mods/"};
 static gen::LitN<10> L_29{u"sd:/xplay"};
 static gen::LitN<92> L_30{u"[mods] TOGGLE MODS changed which mods load: the game must be restarted (the notice says so)"};
-static gen::LitN<2> L_31{u" "};
-static gen::LitN<9> L_32{u"icon.png"};
-static gen::LitN<10> L_33{u"[frmods] "};
-static gen::LitN<20> L_34{u": icon.png loaded ("};
-static gen::LitN<2> L_35{u"x"};
-static gen::LitN<20> L_36{u") for the MODS menu"};
-static gen::LitN<6> L_37{u"TF.NX"};
-static gen::LitN<8> L_38{u"archers"};
-static gen::LitN<16> L_39{u"characterSounds"};
-static gen::LitN<33> L_40{u" mod folder(s) in sd:/xplay/mods"};
-static gen::LitN<17> L_41{u": atlases loaded"};
-static gen::LitN<21> L_42{u": sprite data loaded"};
-static gen::LitN<11> L_43{u": archers "};
-static gen::LitN<5> L_44{u" -> "};
-static gen::LitN<5> L_45{u" alt"};
-static gen::LitN<8> L_46{u" secret"};
-static gen::LitN<24> L_47{u"[frmods] archer check: "};
-static gen::LitN<12> L_48{u" complete, "};
-static gen::LitN<25> L_49{u" with problems (archers "};
-static gen::LitN<3> L_50{u".."};
-static gen::LitN<24> L_51{u"[frmods] ERROR: archer "};
-static gen::LitN<16> L_52{u": no ArcherData"};
-static gen::LitN<6> L_53{u"aimer"};
-static gen::LitN<5> L_54{u"body"};
-static gen::LitN<5> L_55{u"head"};
-static gen::LitN<12> L_56{u"no-hat head"};
-static gen::LitN<11> L_57{u"crown head"};
-static gen::LitN<4> L_58{u"bow"};
-static gen::LitN<9> L_59{u" sprite "};
-static gen::LitN<8> L_60{u"corpse "};
-static gen::LitN<11> L_61{u"a portrait"};
-static gen::LitN<7> L_62{u"statue"};
-static gen::LitN<10> L_63{u"menu gem "};
-static gen::LitN<5> L_64{u"gem "};
-static gen::LitN<4> L_65{u"hat"};
-static gen::LitN<17> L_66{u"[frmods] archer "};
-static gen::LitN<11> L_67{u": complete"};
-static gen::LitN<3> L_68{u": "};
-static gen::LitN<3> L_69{u", "};
-static gen::LitN<35> L_70{u" missing (it will fail in a match)"};
-static gen::LitN<10> L_71{u"TENACIOUS"};
-static gen::LitN<17> L_72{u"[frmods] ERROR: "};
-static gen::LitN<23> L_73{u": the Switch's archer "};
-static gen::LitN<63> L_74{u" isn't TENACIOUS TRAVELER: the mod's archers load as their own"};
-static gen::LitN<43> L_75{u": its archers are the Switch's own archer "};
-static gen::LitN<3> L_76{u" ("};
-static gen::LitN<20> L_77{u" names, not loaded)"};
-static gen::LitN<32> L_78{u"[frmods] the game's alt archer "};
-static gen::LitN<17> L_79{u"its own (online)"};
-static gen::LitN<14> L_80{u" (local play)"};
-static gen::LitN<38> L_81{u"Content/Atlas/GameData/archerData.xml"};
-static gen::LitN<7> L_82{u"Archer"};
-static gen::LitN<8> L_83{u"Archers"};
-static gen::LitN<22> L_84{u": no game alt archer "};
-static gen::LitN<64> L_85{u" or no <Archer> in its archerData.xml: loaded as its own archer"};
-static gen::LitN<10> L_86{u"Portraits"};
-static gen::LitN<10> L_87{u"NotJoined"};
-static gen::LitN<7> L_88{u"Joined"};
-static gen::LitN<4> L_89{u"Win"};
-static gen::LitN<5> L_90{u"Lose"};
-static gen::LitN<42> L_91{u": a portrait didn't load: the game's alt "};
-static gen::LitN<40> L_92{u" unchanged, the mod only its own archer"};
-static gen::LitN<6> L_93{u"Name0"};
-static gen::LitN<6> L_94{u"Name1"};
-static gen::LitN<27> L_95{u": local play's alt archer "};
-static gen::LitN<25> L_96{u"; online its own archer "};
-static gen::LitN<15> L_97{u" (loaded next)"};
-static gen::LitN<10> L_98{u": sprite "};
-static gen::LitN<14> L_99{u" not loaded: "};
-static gen::LitN<50> L_100{u" keeps the Switch's sprites (online play desyncs)"};
-static gen::LitN<18> L_101{u": the sprites of "};
-static gen::LitN<4> L_102{u"'s "};
-static gen::LitN<12> L_103{u" (the PC's)"};
-static gen::LitN<115> L_104{u"[frmods] CorpseSpriteData has its own atlas: a mod archer's main-sprite corpse isn't found (no PlayerCorpse patch)"};
-static gen::LitN<17> L_105{u"[frmods] corpse "};
-static gen::LitN<53> L_106{u": the main SpriteData's (as FortRise's PlayerCorpse)"};
-static gen::LitN<30> L_107{u"[frmods] ERROR: the game has "};
-static gen::LitN<57> L_108{u" character sounds, the mod archers' SFXIDs counted from "};
-static gen::LitN<24> L_109{u" (their sounds are off)"};
-static gen::LitN<27> L_110{u"[frmods] character sounds "};
-static gen::LitN<50> L_111{u" mod archers' own, built on the first menu frame)"};
-static gen::LitN<2> L_112{u"_"};
-static gen::LitN<5> L_113{u"_SFX"};
-static gen::LitN<17> L_114{u"[frmods] music: "};
-static gen::LitN<22> L_115{u" plays (a mod's track"};
-static gen::LitN<10> L_116{u", looping"};
-static gen::LitN<24> L_117{u"[frmods] ERROR: music: "};
-static gen::LitN<11> L_118{u": no file "};
-static gen::LitN<5> L_119{u".ogg"};
-static gen::LitN<5> L_120{u".wav"};
-static gen::LitN<20> L_121{u" is no .ogg or .wav"};
-static gen::LitN<14> L_122{u" ended, then "};
+static gen::LitN<15> L_31{u"[frmods] dump "};
+static gen::LitN<28> L_32{u": hidden (hw.txt localdump "};
+static gen::LitN<17> L_33{u": GPU texels at "};
+static gen::LitN<2> L_34{u","};
+static gen::LitN<18> L_35{u" 16x10: alpha 0: "};
+static gen::LitN<9> L_36{u" (white "};
+static gen::LitN<15> L_37{u"), alpha 255: "};
+static gen::LitN<9> L_38{u", first "};
+static gen::LitN<17> L_39{u": image visible="};
+static gen::LitN<6> L_40{u" pos="};
+static gen::LitN<7> L_41{u" rect="};
+static gen::LitN<2> L_42{u" "};
+static gen::LitN<2> L_43{u"x"};
+static gen::LitN<7> L_44{u" clip="};
+static gen::LitN<8> L_45{u" color="};
+static gen::LitN<8> L_46{u" scale="};
+static gen::LitN<21> L_47{u": component visible="};
+static gen::LitN<16> L_48{u"[frmods] dump: "};
+static gen::LitN<12> L_49{u" components"};
+static gen::LitN<9> L_50{u"icon.png"};
+static gen::LitN<10> L_51{u"[frmods] "};
+static gen::LitN<20> L_52{u": icon.png loaded ("};
+static gen::LitN<20> L_53{u") for the MODS menu"};
+static gen::LitN<6> L_54{u"TF.NX"};
+static gen::LitN<8> L_55{u"archers"};
+static gen::LitN<16> L_56{u"characterSounds"};
+static gen::LitN<33> L_57{u" mod folder(s) in sd:/xplay/mods"};
+static gen::LitN<17> L_58{u": atlases loaded"};
+static gen::LitN<21> L_59{u": sprite data loaded"};
+static gen::LitN<11> L_60{u": archers "};
+static gen::LitN<5> L_61{u" -> "};
+static gen::LitN<5> L_62{u" alt"};
+static gen::LitN<8> L_63{u" secret"};
+static gen::LitN<24> L_64{u"[frmods] archer check: "};
+static gen::LitN<12> L_65{u" complete, "};
+static gen::LitN<25> L_66{u" with problems (archers "};
+static gen::LitN<3> L_67{u".."};
+static gen::LitN<24> L_68{u"[frmods] ERROR: archer "};
+static gen::LitN<16> L_69{u": no ArcherData"};
+static gen::LitN<6> L_70{u"aimer"};
+static gen::LitN<5> L_71{u"body"};
+static gen::LitN<5> L_72{u"head"};
+static gen::LitN<12> L_73{u"no-hat head"};
+static gen::LitN<11> L_74{u"crown head"};
+static gen::LitN<4> L_75{u"bow"};
+static gen::LitN<9> L_76{u" sprite "};
+static gen::LitN<8> L_77{u"corpse "};
+static gen::LitN<11> L_78{u"a portrait"};
+static gen::LitN<7> L_79{u"statue"};
+static gen::LitN<10> L_80{u"menu gem "};
+static gen::LitN<5> L_81{u"gem "};
+static gen::LitN<4> L_82{u"hat"};
+static gen::LitN<17> L_83{u"[frmods] archer "};
+static gen::LitN<11> L_84{u": complete"};
+static gen::LitN<3> L_85{u": "};
+static gen::LitN<3> L_86{u", "};
+static gen::LitN<35> L_87{u" missing (it will fail in a match)"};
+static gen::LitN<10> L_88{u"TENACIOUS"};
+static gen::LitN<17> L_89{u"[frmods] ERROR: "};
+static gen::LitN<23> L_90{u": the Switch's archer "};
+static gen::LitN<63> L_91{u" isn't TENACIOUS TRAVELER: the mod's archers load as their own"};
+static gen::LitN<43> L_92{u": its archers are the Switch's own archer "};
+static gen::LitN<3> L_93{u" ("};
+static gen::LitN<20> L_94{u" names, not loaded)"};
+static gen::LitN<32> L_95{u"[frmods] the game's alt archer "};
+static gen::LitN<17> L_96{u"its own (online)"};
+static gen::LitN<14> L_97{u" (local play)"};
+static gen::LitN<38> L_98{u"Content/Atlas/GameData/archerData.xml"};
+static gen::LitN<7> L_99{u"Archer"};
+static gen::LitN<8> L_100{u"Archers"};
+static gen::LitN<22> L_101{u": no game alt archer "};
+static gen::LitN<64> L_102{u" or no <Archer> in its archerData.xml: loaded as its own archer"};
+static gen::LitN<10> L_103{u"Portraits"};
+static gen::LitN<10> L_104{u"NotJoined"};
+static gen::LitN<7> L_105{u"Joined"};
+static gen::LitN<4> L_106{u"Win"};
+static gen::LitN<5> L_107{u"Lose"};
+static gen::LitN<42> L_108{u": a portrait didn't load: the game's alt "};
+static gen::LitN<40> L_109{u" unchanged, the mod only its own archer"};
+static gen::LitN<6> L_110{u"Name0"};
+static gen::LitN<6> L_111{u"Name1"};
+static gen::LitN<27> L_112{u": local play's alt archer "};
+static gen::LitN<25> L_113{u"; online its own archer "};
+static gen::LitN<15> L_114{u" (loaded next)"};
+static gen::LitN<10> L_115{u": sprite "};
+static gen::LitN<14> L_116{u" not loaded: "};
+static gen::LitN<50> L_117{u" keeps the Switch's sprites (online play desyncs)"};
+static gen::LitN<18> L_118{u": the sprites of "};
+static gen::LitN<4> L_119{u"'s "};
+static gen::LitN<12> L_120{u" (the PC's)"};
+static gen::LitN<115> L_121{u"[frmods] CorpseSpriteData has its own atlas: a mod archer's main-sprite corpse isn't found (no PlayerCorpse patch)"};
+static gen::LitN<17> L_122{u"[frmods] corpse "};
+static gen::LitN<53> L_123{u": the main SpriteData's (as FortRise's PlayerCorpse)"};
+static gen::LitN<30> L_124{u"[frmods] ERROR: the game has "};
+static gen::LitN<57> L_125{u" character sounds, the mod archers' SFXIDs counted from "};
+static gen::LitN<24> L_126{u" (their sounds are off)"};
+static gen::LitN<27> L_127{u"[frmods] character sounds "};
+static gen::LitN<50> L_128{u" mod archers' own, built on the first menu frame)"};
+static gen::LitN<2> L_129{u"_"};
+static gen::LitN<5> L_130{u"_SFX"};
+static gen::LitN<17> L_131{u"[frmods] music: "};
+static gen::LitN<22> L_132{u" plays (a mod's track"};
+static gen::LitN<10> L_133{u", looping"};
+static gen::LitN<24> L_134{u"[frmods] ERROR: music: "};
+static gen::LitN<11> L_135{u": no file "};
+static gen::LitN<5> L_136{u".ogg"};
+static gen::LitN<5> L_137{u".wav"};
+static gen::LitN<20> L_138{u" is no .ogg or .wav"};
+static gen::LitN<14> L_139{u" ended, then "};
 
 static void* TfexContent();
 static void* ModContext(void* mod);
@@ -719,6 +737,67 @@ void RestartForMods() {
     tfex::Notification::Create(gen::Fn<void* (*)(void*)>(bind::m_Engine_get_Scene)((gen::Cctor(bind::c_Engine), gen::Fn<void* (*)()>(bind::m_Engine_get_Instance)())), "RESTART THE GAME TO APPLY THE MOD CHANGES", 20, 600);
 }
 
+/*@M SwitchMods.DumpGraphics*/
+void DumpGraphics(void* e, int32_t hide) {
+    if (e == nullptr)
+    {
+        return;
+    }
+    int32_t n = 0;
+    { void* list_8 = gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Components)(e); for (int32_t i_list_8 = 0; i_list_8 < gen::Fn<int32_t (*)(void*)>(bind::m_List_1_90fb_get_Count)(list_8); i_list_8++) {
+        void* c = gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_90fb_get_Item_e2bf)(list_8, i_list_8);
+        {
+            n++;
+            if (n == hide)
+            {
+                gen::Fld<bool>(c, bind::f_Component_Visible) = false;
+                tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_31.P(), gen::FromInt(n)), L_32.P()), gen::FromInt(hide)), L_22.P()));
+            }
+            void* img = nullptr;
+            if (((img = gen::As(c, gen::TypeOf(bind::t_Image))) != nullptr))
+            {
+                void* t = gen::Fn<void* (*)(void*)>(bind::m_Image_get_Texture)(img);
+                gen::Rectangle r = (t != nullptr ? gen::Fn<gen::Rectangle (*)(void*)>(bind::m_Texture_get_Rect)(t) : gen::Rectangle{});
+                if (gen::Fld<bool>(img, bind::f_Component_Visible) && (t != nullptr))
+                {
+                    gen::Arr<gen::Color> px = gen::NewArr<gen::Color>(bind::t_Color_1d77, 160);
+                    tfex::gen::skins::GetRect(gen::Fn<void* (*)(void*)>(0x9563c0)(t), 0, true, gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).X, gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).Y, 16, 10, px, 0, 160);
+                    int32_t clear = 0;
+                    int32_t solid = 0;
+                    int32_t whiteClear = 0;
+                    { auto arr_9 = px; for (int32_t i_arr_9 = 0; i_arr_9 < arr_9.len; i_arr_9++) {
+                        gen::Color c2 = arr_9[i_arr_9];
+                        {
+                            if ((int32_t)(c2.A()) == 0)
+                            {
+                                clear++;
+                            }
+                            else
+                            {
+                                if ((int32_t)(c2.A()) == 255)
+                                {
+                                    solid++;
+                                }
+                            }
+                            if (((((int32_t)(c2.A()) == 0) && ((int32_t)(c2.R()) == 255)) && ((int32_t)(c2.G()) == 255)) && ((int32_t)(c2.B()) == 255))
+                            {
+                                whiteClear++;
+                            }
+                        }
+                    } }
+                    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_31.P(), gen::FromInt(n)), L_33.P()), gen::FromInt(gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).X)), L_34.P()), gen::FromInt(gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).Y)), L_35.P()), gen::FromInt(clear)), L_36.P()), gen::FromInt(whiteClear)), L_37.P()), gen::FromInt(solid)), L_38.P()), gen::FromInt(px[0].R())), L_34.P()), gen::FromInt(px[0].G())), L_34.P()), gen::FromInt(px[0].B())), L_34.P()), gen::FromInt(px[0].A())));
+                }
+                tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_31.P(), gen::FromInt(n)), L_39.P()), ([&]() { bool b_ = gen::Fld<bool>(img, bind::f_Component_Visible); return gen::ManagedUtf8(b_ ? "True" : "False", b_ ? 4 : 5); }())), L_40.P()), gen::FromDouble((double)(gen::Fld<gen::Vector2>(img, bind::f_GraphicsComponent_Position).X))), L_34.P()), gen::FromDouble((double)(gen::Fld<gen::Vector2>(img, bind::f_GraphicsComponent_Position).Y))), L_41.P()), gen::FromInt(r.X)), L_34.P()), gen::FromInt(r.Y)), L_42.P()), gen::FromInt(r.Width)), L_43.P()), gen::FromInt(r.Height)), L_44.P()), gen::FromInt(gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).X)), L_34.P()), gen::FromInt(gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).Y)), L_42.P()), gen::FromInt(gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).Width)), L_43.P()), gen::FromInt(gen::Fld<gen::Rectangle>(img, bind::f_Image_ClipRect).Height)), L_45.P()), gen::FromInt(gen::Fld<gen::Color>(img, bind::f_GraphicsComponent_Color).R())), L_34.P()), gen::FromInt(gen::Fld<gen::Color>(img, bind::f_GraphicsComponent_Color).G())), L_34.P()), gen::FromInt(gen::Fld<gen::Color>(img, bind::f_GraphicsComponent_Color).B())), L_34.P()), gen::FromInt(gen::Fld<gen::Color>(img, bind::f_GraphicsComponent_Color).A())), L_46.P()), gen::FromDouble((double)(gen::Fld<gen::Vector2>(img, bind::f_GraphicsComponent_Scale).X))), L_34.P()), gen::FromDouble((double)(gen::Fld<gen::Vector2>(img, bind::f_GraphicsComponent_Scale).Y))));
+            }
+            else
+            {
+                tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_31.P(), gen::FromInt(n)), L_47.P()), ([&]() { bool b_ = gen::Fld<bool>(c, bind::f_Component_Visible); return gen::ManagedUtf8(b_ ? "True" : "False", b_ ? 4 : 5); }())));
+            }
+        }
+    } }
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_48.P(), gen::FromInt(n)), L_49.P()));
+}
+
 /*@M SwitchMods.Deps*/
 static gen::Arr<void*> Deps(int32_t i, bool optional) {
     gen::Arr<void*> d = gen::NewArr<void*>(bind::t_Object_49d5, tfex::gen::frmods::RegDepCount(i, optional));
@@ -742,7 +821,7 @@ void* ContentDisplayName(void* c) {
 
 /*@M SwitchMods.ContentToString*/
 void* ContentToString(void* c) {
-    return gen::Concat(gen::Concat(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(c)->Name, L_31.P()), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(c)->Version);
+    return gen::Concat(gen::Concat(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(c)->Name, L_42.P()), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(c)->Version);
 }
 
 /*@M SwitchMods.ContentEquals*/
@@ -770,8 +849,8 @@ gen::ValSet<void*>* LoadedModSet() {
     if (loadedSet == nullptr)
     {
         gen::KeepVal(loadedSet, ([&]() { auto* v_ = gen::NewVal<gen::ValSet<void*>>(); return v_; }()));
-        { auto arr_8 = LoadedMods(); for (int32_t i_arr_8 = 0; i_arr_8 < arr_8.len; i_arr_8++) {
-            void* m = arr_8[i_arr_8];
+        { auto arr_10 = LoadedMods(); for (int32_t i_arr_10 = 0; i_arr_10 < arr_10.len; i_arr_10++) {
+            void* m = arr_10[i_arr_10];
             {
                 (loadedSet)->Add(m);
             }
@@ -785,8 +864,8 @@ void* LoadedModList() {
     if (loadedList() == nullptr)
     {
         loadedList() = gen::Fn<void* (*)(void*)>(bind::m_List_1_f983__ctor_0)(nullptr);
-        { auto arr_9 = LoadedMods(); for (int32_t i_arr_9 = 0; i_arr_9 < arr_9.len; i_arr_9++) {
-            void* m = arr_9[i_arr_9];
+        { auto arr_11 = LoadedMods(); for (int32_t i_arr_11 = 0; i_arr_11 < arr_11.len; i_arr_11++) {
+            void* m = arr_11[i_arr_11];
             {
                 gen::Fn<void (*)(void*, void*)>(bind::m_List_1_f983_Add_0b43)(loadedList(), m);
             }
@@ -807,22 +886,22 @@ void* ModIcons() {
         return icons();
     }
     icons() = gen::Fn<void* (*)(void*)>(bind::m_Dictionary_2_fbc4__ctor_0)(nullptr);
-    { auto arr_10 = LoadedMods(); for (int32_t i_arr_10 = 0; i_arr_10 < arr_10.len; i_arr_10++) {
-        void* m = arr_10[i_arr_10];
+    { auto arr_12 = LoadedMods(); for (int32_t i_arr_12 = 0; i_arr_12 < arr_12.len; i_arr_12++) {
+        void* m = arr_12[i_arr_12];
         {
             void* root = (gen::StrEq(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(m)->Name, TfexModName()) ? L_15.P() : static_cast<tfex::gen::Auto_SdResource::Self*>(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(m)->Root)->Root);
             if (gen::IsNullOrEmpty(root))
             {
                 continue;
             }
-            void* stream = tfex::gen::Auto_SdResource::get_Stream(tfex::gen::Auto_SdResource::New(root, L_32.P()));
+            void* stream = tfex::gen::Auto_SdResource::get_Stream(tfex::gen::Auto_SdResource::New(root, L_50.P()));
             if (stream == nullptr)
             {
                 continue;
             }
             void* tex2D = gen::Fn<void* (*)(void*, void*)>(bind::m_Texture2D_FromStream_0)(gen::Fn<void* (*)(void*)>(bind::m_Game_get_GraphicsDevice)((gen::Cctor(bind::c_Engine), gen::Fn<void* (*)()>(bind::m_Engine_get_Instance)())), stream);
             gen::Fn<void (*)(void*, void*, void*)>(bind::m_Dictionary_2_fbc4_set_Item_538b)(icons(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(m)->Name, gen::Fn<void* (*)(void*, void*)>(bind::m_Subtexture__ctor_eb7d)(nullptr, gen::Fn<void* (*)(void*, void*)>(bind::m_Texture__ctor_fc22)(nullptr, tex2D)));
-            tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_33.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(m)->Name), L_34.P()), gen::FromInt(gen::Fld<int32_t>(tex2D, bind::f_Texture2D_Width))), L_35.P()), gen::FromInt(gen::Fld<int32_t>(tex2D, bind::f_Texture2D_Height))), L_36.P()));
+            tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_51.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(m)->Name), L_52.P()), gen::FromInt(gen::Fld<int32_t>(tex2D, bind::f_Texture2D_Width))), L_43.P()), gen::FromInt(gen::Fld<int32_t>(tex2D, bind::f_Texture2D_Height))), L_53.P()));
         }
     } }
     return icons();
@@ -866,7 +945,7 @@ void InitModOptions(void* buttons) {
         tfex = gen::Fn<void* (*)(void*)>(bind::m_List_1_0d81__ctor_0)(nullptr);
         tfex::gen::GlueUpdates::BeginOptions();
         tfex::NetplayOptions::CreateEntries(tfex);
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_0d81_Add_0b43)(buttons, tfex::gen::Fr_OptionsButtonHeader::New(L_37.P()));
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_0d81_Add_0b43)(buttons, tfex::gen::Fr_OptionsButtonHeader::New(L_54.P()));
         tfex::gen::GlueUpdates::CreateEntry(buttons);
         tfex::NetplayOptions::SetTfnxEntry(gen::Fn<int32_t (*)(void*)>(bind::m_List_1_0d81_get_Count)(buttons) - 1);
         void* autoUpdate = tfex::gen::GlueUpdates::TakeAutoUpdate();
@@ -875,8 +954,8 @@ void InitModOptions(void* buttons) {
             gen::Fn<void (*)(void*, void*)>(bind::m_List_1_0d81_Add_0b43)(buttons, autoUpdate);
         }
     }
-    { auto arr_11 = LoadedMods(); for (int32_t i_arr_11 = 0; i_arr_11 < arr_11.len; i_arr_11++) {
-        void* mod = arr_11[i_arr_11];
+    { auto arr_13 = LoadedMods(); for (int32_t i_arr_13 = 0; i_arr_13 < arr_13.len; i_arr_13++) {
+        void* mod = arr_13[i_arr_13];
         {
             if (ContentSettings(mod) == nullptr)
             {
@@ -916,14 +995,14 @@ void* ButtonDescription(void* button) {
 /*@M SwitchMods.WrapText*/
 gen::Arr<void*> WrapText(void* font, void* text, float maxWidth) {
     void* result = gen::Fn<void* (*)(void*)>(bind::m_List_1_eb65__ctor_0)(nullptr);
-    { auto arr_12 = gen::Split(text, (char16_t)10, bind::rt_StringArray); for (int32_t i_arr_12 = 0; i_arr_12 < arr_12.len; i_arr_12++) {
-        void* paragraph = arr_12[i_arr_12];
+    { auto arr_14 = gen::Split(text, (char16_t)10, bind::rt_StringArray); for (int32_t i_arr_14 = 0; i_arr_14 < arr_14.len; i_arr_14++) {
+        void* paragraph = arr_14[i_arr_14];
         {
             int32_t currentStart = 0;
             int32_t currentLength = 0;
             int32_t pos = 0;
-            { auto arr_13 = gen::Split(paragraph, u' ', bind::rt_StringArray); for (int32_t i_arr_13 = 0; i_arr_13 < arr_13.len; i_arr_13++) {
-                void* word = arr_13[i_arr_13];
+            { auto arr_15 = gen::Split(paragraph, u' ', bind::rt_StringArray); for (int32_t i_arr_15 = 0; i_arr_15 < arr_15.len; i_arr_15++) {
+                void* word = arr_15[i_arr_15];
                 {
                     int32_t wordStart = pos;
                     pos += (gen::Len(word) + 1);
@@ -967,10 +1046,10 @@ void* NewModsMenu(void* menu) {
 /*@M SwitchMods.LoadAll*/
 void LoadAll() {
     int32_t firstModArcher = gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len;
-    WarmIndex(L_38.P(), gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len - 1);
-    WarmIndex(L_39.P(), 15);
+    WarmIndex(L_55.P(), gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len - 1);
+    WarmIndex(L_56.P(), 15);
     int32_t n = tfex::gen::frmods::ModCount();
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_33.P(), gen::FromInt(n)), L_40.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_51.P(), gen::FromInt(n)), L_57.P()));
     for (int32_t i = 0; i < n; i++)
     {
         void* content = tfex::gen::Auto_SwitchModContent::New(tfex::gen::frmods::ModName(i), tfex::gen::frmods::ModFolder(i));
@@ -982,13 +1061,13 @@ void LoadAll() {
         tfex::gen::Fr_SubtextureLoader::Load(registry, content, 2, nullptr);
         tfex::gen::Fr_SubtextureLoader::Load(registry, content, 1, nullptr);
         tfex::gen::Fr_SubtextureLoader::Load(registry, content, 3, nullptr);
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_33.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name), L_41.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_51.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name), L_58.P()));
         tfex::gen::Fr_SpriteDataLoader::LoadSpriteData_1(registry, content, 0, nullptr);
         tfex::gen::Fr_SpriteDataLoader::LoadSpriteData_1(registry, content, 1, nullptr);
         tfex::gen::Fr_SpriteDataLoader::LoadSpriteData_1(registry, content, 3, nullptr);
         tfex::gen::Fr_SpriteDataLoader::LoadSpriteData_1(registry, content, 4, nullptr);
         tfex::gen::Fr_SpriteDataLoader::LoadSpriteData_1(registry, content, 2, nullptr);
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_33.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name), L_42.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_51.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name), L_59.P()));
         tfex::gen::Fr_MusicLoader::Load(registry, content, nullptr);
         if (NativeAlias(content))
         {
@@ -1000,7 +1079,7 @@ void LoadAll() {
         }
         tfex::gen::Fr_ArcherLoader::Load(registry, content, nullptr);
         CorpseFallback(archersBefore);
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_33.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name), L_43.P()), gen::FromInt(archersBefore)), L_44.P()), gen::FromInt(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len)));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_51.P(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name), L_60.P()), gen::FromInt(archersBefore)), L_61.P()), gen::FromInt(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len)));
     }
     Current() = nullptr;
     CheckArchers(firstModArcher);
@@ -1022,7 +1101,7 @@ static void CheckArchers(int32_t first) {
         }
         if (gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_AltArchers)(), bind::m_Array_get_Length)[i] != nullptr)
         {
-            if (CheckArcher(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_AltArchers)(), bind::m_Array_get_Length)[i], i, L_45.P()))
+            if (CheckArcher(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_AltArchers)(), bind::m_Array_get_Length)[i], i, L_62.P()))
             {
                 ok++;
             }
@@ -1033,7 +1112,7 @@ static void CheckArchers(int32_t first) {
         }
         if (gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_SecretArchers)(), bind::m_Array_get_Length)[i] != nullptr)
         {
-            if (CheckArcher(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_SecretArchers)(), bind::m_Array_get_Length)[i], i, L_46.P()))
+            if (CheckArcher(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_SecretArchers)(), bind::m_Array_get_Length)[i], i, L_63.P()))
             {
                 ok++;
             }
@@ -1043,61 +1122,61 @@ static void CheckArchers(int32_t first) {
             }
         }
     }
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_47.P(), gen::FromInt(ok)), L_48.P()), gen::FromInt(bad)), L_49.P()), gen::FromInt(first)), L_50.P()), gen::FromInt(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len - 1)), L_22.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_64.P(), gen::FromInt(ok)), L_65.P()), gen::FromInt(bad)), L_66.P()), gen::FromInt(first)), L_67.P()), gen::FromInt(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len - 1)), L_22.P()));
 }
 
 /*@M SwitchMods.CheckArcher*/
 static bool CheckArcher(void* a, int32_t index, void* kind) {
     if (a == nullptr)
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_51.P(), gen::FromInt(index)), kind), L_52.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_68.P(), gen::FromInt(index)), kind), L_69.P()));
         return false;
     }
     void* missing = gen::Fn<void* (*)(void*)>(bind::m_List_1_eb65__ctor_0)(nullptr);
     void* main = gen::Fld<void*>((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_SpriteData)()), bind::f_SpriteData_sprites);
     if (gen::Fld<void*>(a, bind::f_ArcherData_Aimer) == nullptr)
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_53.P());
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_70.P());
     }
-    gen::Arr<void*> whats = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_String_85cb, 5); if (a_.data) a_.data[0] = L_54.P(); if (a_.data) a_.data[1] = L_55.P(); if (a_.data) a_.data[2] = L_56.P(); if (a_.data) a_.data[3] = L_57.P(); if (a_.data) a_.data[4] = L_58.P(); return a_; }());
+    gen::Arr<void*> whats = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_String_85cb, 5); if (a_.data) a_.data[0] = L_71.P(); if (a_.data) a_.data[1] = L_72.P(); if (a_.data) a_.data[2] = L_73.P(); if (a_.data) a_.data[3] = L_74.P(); if (a_.data) a_.data[4] = L_75.P(); return a_; }());
     gen::Arr<void*> ids = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_String_85cb, 5); if (a_.data) a_.data[0] = gen::Fld<void*>(a, bind::f_ArcherData_Sprites + bind::f_ArcherData_SpriteInfo_Body); if (a_.data) a_.data[1] = gen::Fld<void*>(a, bind::f_ArcherData_Sprites + bind::f_ArcherData_SpriteInfo_HeadNormal); if (a_.data) a_.data[2] = gen::Fld<void*>(a, bind::f_ArcherData_Sprites + bind::f_ArcherData_SpriteInfo_HeadNoHat); if (a_.data) a_.data[3] = gen::Fld<void*>(a, bind::f_ArcherData_Sprites + bind::f_ArcherData_SpriteInfo_HeadCrown); if (a_.data) a_.data[4] = gen::Fld<void*>(a, bind::f_ArcherData_Sprites + bind::f_ArcherData_SpriteInfo_Bow); return a_; }());
     for (int32_t k = 0; k < ids.len; k++)
     {
         if ((gen::StrEq(ids[k], nullptr)) || !(gen::Fn<bool (*)(void*, void*)>(bind::m_Dictionary_2_8385_ContainsKey_109a)(main, ids[k])))
         {
-            gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(gen::Concat(whats[k], L_59.P()), ids[k]));
+            gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(gen::Concat(whats[k], L_76.P()), ids[k]));
         }
     }
     if ((gen::StrEq(gen::Fld<void*>(a, bind::f_ArcherData_Corpse), nullptr)) || !(gen::Fn<bool (*)(void*, void*)>(bind::m_Dictionary_2_8385_ContainsKey_109a)(gen::Fld<void*>((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_CorpseSpriteData)()), bind::f_SpriteData_sprites), gen::Fld<void*>(a, bind::f_ArcherData_Corpse)) || gen::Fn<bool (*)(void*, void*)>(bind::m_Dictionary_2_8385_ContainsKey_109a)(main, gen::Fld<void*>(a, bind::f_ArcherData_Corpse))))
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(L_60.P(), gen::Fld<void*>(a, bind::f_ArcherData_Corpse)));
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(L_77.P(), gen::Fld<void*>(a, bind::f_ArcherData_Corpse)));
     }
     if ((((gen::Fld<void*>(a, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_NotJoined) == nullptr) || (gen::Fld<void*>(a, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Joined) == nullptr)) || (gen::Fld<void*>(a, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Win) == nullptr)) || (gen::Fld<void*>(a, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Lose) == nullptr))
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_61.P());
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_78.P());
     }
     if ((gen::Fld<void*>(a, bind::f_ArcherData_Statue + bind::f_ArcherData_StatueInfo_Image) == nullptr) || (gen::Fld<void*>(a, bind::f_ArcherData_Statue + bind::f_ArcherData_StatueInfo_Glow) == nullptr))
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_62.P());
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_79.P());
     }
     if ((gen::StrEq(gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Menu), nullptr)) || !(gen::Fn<bool (*)(void*, void*)>(bind::m_Dictionary_2_8385_ContainsKey_109a)(gen::Fld<void*>((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_MenuSpriteData)()), bind::f_SpriteData_sprites), gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Menu))))
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(L_63.P(), gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Menu)));
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(L_80.P(), gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Menu)));
     }
     if ((gen::StrEq(gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Gameplay), nullptr)) || !(gen::Fn<bool (*)(void*, void*)>(bind::m_Dictionary_2_8385_ContainsKey_109a)(main, gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Gameplay))))
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(L_64.P(), gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Gameplay)));
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, gen::Concat(L_81.P(), gen::Fld<void*>(a, bind::f_ArcherData_Gems + bind::f_ArcherData_GemInfo_Gameplay)));
     }
     if (!(gen::Fld<bool>(a, bind::f_ArcherData_StartNoHat)) && (((gen::Fld<void*>(a, bind::f_ArcherData_Hat + bind::f_ArcherData_HatInfo_Normal) == nullptr) || (gen::Fld<void*>(a, bind::f_ArcherData_Hat + bind::f_ArcherData_HatInfo_Blue) == nullptr)) || (gen::Fld<void*>(a, bind::f_ArcherData_Hat + bind::f_ArcherData_HatInfo_Red) == nullptr)))
     {
-        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_65.P());
+        gen::Fn<void (*)(void*, void*)>(bind::m_List_1_eb65_Add_0b43)(missing, L_82.P());
     }
     if (gen::Fn<int32_t (*)(void*)>(bind::m_List_1_eb65_get_Count)(missing) == 0)
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_66.P(), gen::FromInt(index)), kind), L_31.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name0)), L_31.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name1)), L_67.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_83.P(), gen::FromInt(index)), kind), L_42.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name0)), L_42.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name1)), L_84.P()));
         return true;
     }
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_51.P(), gen::FromInt(index)), kind), L_31.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name0)), L_31.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name1)), L_68.P()), gen::Join(L_69.P(), gen::FromList<void*>(missing, bind::m_List_1_eb65_get_Count, bind::m_List_1_eb65_get_Item_e2bf))), L_70.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_68.P(), gen::FromInt(index)), kind), L_42.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name0)), L_42.P()), gen::Fld<void*>(a, bind::f_ArcherData_Name1)), L_85.P()), gen::Join(L_86.P(), gen::FromList<void*>(missing, bind::m_List_1_eb65_get_Count, bind::m_List_1_eb65_get_Item_e2bf))), L_87.P()));
     return false;
 }
 
@@ -1109,18 +1188,18 @@ static bool NativeAlias(void* content) {
         return false;
     }
     void* native = (9 < gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len ? gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length)[9] : nullptr);
-    if ((native == nullptr) || (!gen::StrEq(gen::Fld<void*>(native, bind::f_ArcherData_Name0), L_71.P())))
+    if ((native == nullptr) || (!gen::StrEq(gen::Fld<void*>(native, bind::f_ArcherData_Name0), L_88.P())))
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_72.P(), mod), L_73.P()), gen::FromInt(9)), L_74.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_89.P(), mod), L_90.P()), gen::FromInt(9)), L_91.P()));
         return false;
     }
     for (int32_t k = 0; k < AliasIds().len; k++)
     {
-        tfex::gen::Auto_ArcherRegistry::AddArcher(tfex::gen::Fr_ArcherEntry::New(gen::Concat(gen::Concat(mod, L_18.P()), AliasIds()[k]), ([&]() { tfex::gen::st::Fr_ArcherConfiguration o_14{}; o_14.ColorA = gen::Color_White; o_14.ColorB = gen::Color_White; o_14.LightbarColor = gen::Color_White; return o_14; }()), 9, AliasTypes()[k]));
+        tfex::gen::Auto_ArcherRegistry::AddArcher(tfex::gen::Fr_ArcherEntry::New(gen::Concat(gen::Concat(mod, L_18.P()), AliasIds()[k]), ([&]() { tfex::gen::st::Fr_ArcherConfiguration o_16{}; o_16.ColorA = gen::Color_White; o_16.ColorB = gen::Color_White; o_16.LightbarColor = gen::Color_White; return o_16; }()), 9, AliasTypes()[k]));
     }
     UseModSprites(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length)[9], mod, AliasSprites()[0]);
     UseModSprites(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_AltArchers)(), bind::m_Array_get_Length)[9], mod, AliasSprites()[1]);
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_33.P(), mod), L_31.P()), tfex::gen::frmods::ModVersion(mod)), L_75.P()), gen::FromInt(9)), L_76.P()), gen::FromInt(AliasIds().len)), L_77.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_51.P(), mod), L_42.P()), tfex::gen::frmods::ModVersion(mod)), L_92.P()), gen::FromInt(9)), L_93.P()), gen::FromInt(AliasIds().len)), L_94.P()));
     return true;
 }
 
@@ -1149,7 +1228,7 @@ void ReskinOnline(bool online) {
     gen::Fld<void*>(native, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Lose) = p[3];
     gen::Fld<void*>(native, bind::f_ArcherData_Name0) = n[0];
     gen::Fld<void*>(native, bind::f_ArcherData_Name1) = n[1];
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_78.P(), gen::FromInt(6)), L_68.P()), (online ? L_79.P() : gen::Concat(gen::Concat(gen::Concat(n[0], L_31.P()), n[1]), L_80.P()))));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_95.P(), gen::FromInt(6)), L_85.P()), (online ? L_96.P() : gen::Concat(gen::Concat(gen::Concat(n[0], L_42.P()), n[1]), L_97.P()))));
 }
 
 /*@M SwitchMods.NativeReskin*/
@@ -1160,34 +1239,34 @@ static bool NativeReskin(void* content) {
         return false;
     }
     void* native = (6 < gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_AltArchers)(), bind::m_Array_get_Length).len ? gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_AltArchers)(), bind::m_Array_get_Length)[6] : nullptr);
-    void* xml = tfex::gen::Auto_SdResource::get_Xml(tfex::gen::Auto_SdResource::New(static_cast<tfex::gen::Auto_SdResource::Self*>(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Root)->Root, L_81.P()));
-    void* archer = ([&]() { auto ca_15 = xml; return ca_15 ? ([&]() { auto ca_16 = gen::Virt<void*>(ca_15, bind::v_XmlNode_get_Item_0, L_83.P()); return ca_16 ? gen::Virt<void*>(ca_16, bind::v_XmlNode_get_Item_0, L_82.P()) : nullptr; }()) : nullptr; }());
+    void* xml = tfex::gen::Auto_SdResource::get_Xml(tfex::gen::Auto_SdResource::New(static_cast<tfex::gen::Auto_SdResource::Self*>(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Root)->Root, L_98.P()));
+    void* archer = ([&]() { auto ca_17 = xml; return ca_17 ? ([&]() { auto ca_18 = gen::Virt<void*>(ca_17, bind::v_XmlNode_get_Item_0, L_100.P()); return ca_18 ? gen::Virt<void*>(ca_18, bind::v_XmlNode_get_Item_0, L_99.P()) : nullptr; }()) : nullptr; }());
     if ((native == nullptr) || (archer == nullptr))
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_72.P(), mod), L_84.P()), gen::FromInt(6)), L_85.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_89.P(), mod), L_101.P()), gen::FromInt(6)), L_102.P()));
         return false;
     }
-    void* portraits = gen::Virt<void*>(archer, bind::v_XmlNode_get_Item_0, L_86.P());
+    void* portraits = gen::Virt<void*>(archer, bind::v_XmlNode_get_Item_0, L_103.P());
     auto Portrait = [&](void* tag) -> void* {
-        void* path = ([&]() { auto ca_17 = portraits; return ca_17 ? ([&]() { auto ca_18 = gen::Virt<void*>(ca_17, bind::v_XmlNode_get_Item_0, tag); return ca_18 ? ([&]() { auto ca_19 = gen::Virt<void*>(ca_18, bind::v_XmlElement_get_InnerText); return ca_19 ? gen::Trim(ca_19, (const char16_t[]){u'\0'}, 0, true, true) : nullptr; }()) : nullptr; }()) : nullptr; }());
+        void* path = ([&]() { auto ca_19 = portraits; return ca_19 ? ([&]() { auto ca_20 = gen::Virt<void*>(ca_19, bind::v_XmlNode_get_Item_0, tag); return ca_20 ? ([&]() { auto ca_21 = gen::Virt<void*>(ca_20, bind::v_XmlElement_get_InnerText); return ca_21 ? gen::Trim(ca_21, (const char16_t[]){u'\0'}, 0, true, true) : nullptr; }()) : nullptr; }()) : nullptr; }());
         void* entry = (gen::StrEq(path, nullptr) ? nullptr : tfex::gen::Fr_ModSubtextures::RegisterTexture(static_cast<tfex::gen::Auto_SwitchModRegistry::Self*>(gen::Fn<void* (*)(void*, void*)>(bind::m_Dictionary_2_b542_get_Item_109a)(modRegistries(), static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Name))->Subtextures, tfex::gen::Auto_SdResource::At(static_cast<tfex::gen::Auto_SdResource::Self*>(static_cast<tfex::gen::Auto_SwitchModContent::Self*>(content)->Root)->Root, path), 2));
-        return ([&]() { auto ca_20 = entry; return ca_20 ? tfex::gen::Fr_SubtextureEntry::get_Subtexture(ca_20) : nullptr; }());
+        return ([&]() { auto ca_22 = entry; return ca_22 ? tfex::gen::Fr_SubtextureEntry::get_Subtexture(ca_22) : nullptr; }());
     };
-    void* notJoined = Portrait(L_87.P());
-    void* joined = Portrait(L_88.P());
-    void* win = Portrait(L_89.P());
-    void* lose = Portrait(L_90.P());
+    void* notJoined = Portrait(L_104.P());
+    void* joined = Portrait(L_105.P());
+    void* win = Portrait(L_106.P());
+    void* lose = Portrait(L_107.P());
     if ((((notJoined == nullptr) || (joined == nullptr)) || (win == nullptr)) || (lose == nullptr))
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_72.P(), mod), L_91.P()), gen::FromInt(6)), L_92.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_89.P(), mod), L_108.P()), gen::FromInt(6)), L_109.P()));
         return false;
     }
     vanillaPortraits() = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_Subtexture_2b7f, 4); if (a_.data) a_.data[0] = gen::Fld<void*>(native, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_NotJoined); if (a_.data) a_.data[1] = gen::Fld<void*>(native, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Joined); if (a_.data) a_.data[2] = gen::Fld<void*>(native, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Win); if (a_.data) a_.data[3] = gen::Fld<void*>(native, bind::f_ArcherData_Portraits + bind::f_ArcherData_PortraitInfo_Lose); return a_; }());
     vanillaNames() = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_String_85cb, 2); if (a_.data) a_.data[0] = gen::Fld<void*>(native, bind::f_ArcherData_Name0); if (a_.data) a_.data[1] = gen::Fld<void*>(native, bind::f_ArcherData_Name1); return a_; }());
     reskinPortraits() = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_Subtexture_2b7f, 4); if (a_.data) a_.data[0] = notJoined; if (a_.data) a_.data[1] = joined; if (a_.data) a_.data[2] = win; if (a_.data) a_.data[3] = lose; return a_; }());
-    reskinNames() = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_String_85cb, 2); if (a_.data) a_.data[0] = ([&]() { auto c_21 = ([&]() { auto ca_22 = gen::Virt<void*>(archer, bind::v_XmlNode_get_Item_0, L_93.P()); return ca_22 ? ([&]() { auto ca_23 = gen::Virt<void*>(ca_22, bind::v_XmlElement_get_InnerText); return ca_23 ? gen::Trim(ca_23, (const char16_t[]){u'\0'}, 0, true, true) : nullptr; }()) : nullptr; }()); return c_21 ? c_21 : gen::Fld<void*>(native, bind::f_ArcherData_Name0); }()); if (a_.data) a_.data[1] = ([&]() { auto c_24 = ([&]() { auto ca_25 = gen::Virt<void*>(archer, bind::v_XmlNode_get_Item_0, L_94.P()); return ca_25 ? ([&]() { auto ca_26 = gen::Virt<void*>(ca_25, bind::v_XmlElement_get_InnerText); return ca_26 ? gen::Trim(ca_26, (const char16_t[]){u'\0'}, 0, true, true) : nullptr; }()) : nullptr; }()); return c_24 ? c_24 : gen::Fld<void*>(native, bind::f_ArcherData_Name1); }()); return a_; }());
+    reskinNames() = ([&]() { auto a_ = gen::NewArr<void*>(bind::t_String_85cb, 2); if (a_.data) a_.data[0] = ([&]() { auto c_23 = ([&]() { auto ca_24 = gen::Virt<void*>(archer, bind::v_XmlNode_get_Item_0, L_110.P()); return ca_24 ? ([&]() { auto ca_25 = gen::Virt<void*>(ca_24, bind::v_XmlElement_get_InnerText); return ca_25 ? gen::Trim(ca_25, (const char16_t[]){u'\0'}, 0, true, true) : nullptr; }()) : nullptr; }()); return c_23 ? c_23 : gen::Fld<void*>(native, bind::f_ArcherData_Name0); }()); if (a_.data) a_.data[1] = ([&]() { auto c_26 = ([&]() { auto ca_27 = gen::Virt<void*>(archer, bind::v_XmlNode_get_Item_0, L_111.P()); return ca_27 ? ([&]() { auto ca_28 = gen::Virt<void*>(ca_27, bind::v_XmlElement_get_InnerText); return ca_28 ? gen::Trim(ca_28, (const char16_t[]){u'\0'}, 0, true, true) : nullptr; }()) : nullptr; }()); return c_26 ? c_26 : gen::Fld<void*>(native, bind::f_ArcherData_Name1); }()); return a_; }());
     ReskinOnline(false);
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_33.P(), mod), L_31.P()), tfex::gen::frmods::ModVersion(mod)), L_95.P()), gen::FromInt(6)), L_96.P()), gen::FromInt(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len)), L_97.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_51.P(), mod), L_42.P()), tfex::gen::frmods::ModVersion(mod)), L_112.P()), gen::FromInt(6)), L_113.P()), gen::FromInt(gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len)), L_114.P()));
     return true;
 }
 
@@ -1200,12 +1279,12 @@ static void UseModSprites(void* native, void* mod, gen::Arr<void*> ids) {
     auto Id = [&](void* s_) -> void* {
         return gen::Concat(gen::Concat(mod, L_18.P()), s_);
     };
-    { auto arr_27 = ids; for (int32_t i_arr_27 = 0; i_arr_27 < arr_27.len; i_arr_27++) {
-        void* s_ = arr_27[i_arr_27];
+    { auto arr_29 = ids; for (int32_t i_arr_29 = 0; i_arr_29 < arr_29.len; i_arr_29++) {
+        void* s_ = arr_29[i_arr_29];
         {
             if (!(gen::Fn<bool (*)(void*, void*)>(bind::m_Dictionary_2_8385_ContainsKey_109a)(gen::Fld<void*>((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_SpriteData)()), bind::f_SpriteData_sprites), Id(s_))))
             {
-                tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_72.P(), mod), L_98.P()), Id(s_)), L_99.P()), gen::Fld<void*>(native, bind::f_ArcherData_Name0)), L_100.P()));
+                tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_89.P(), mod), L_115.P()), Id(s_)), L_116.P()), gen::Fld<void*>(native, bind::f_ArcherData_Name0)), L_117.P()));
                 return;
             }
         }
@@ -1217,7 +1296,7 @@ static void UseModSprites(void* native, void* mod, gen::Arr<void*> ids) {
     gen::Fld<void*>(native, bind::f_ArcherData_Sprites + bind::f_ArcherData_SpriteInfo_Bow) = Id(ids[4]);
     gen::Fld<void*>(native, bind::f_ArcherData_Corpse) = Id(ids[5]);
     CorpseOf(native, (gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_CorpseSpriteData)()), (gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_SpriteData)()));
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_33.P(), gen::Fld<void*>(native, bind::f_ArcherData_Name0)), L_31.P()), gen::Fld<void*>(native, bind::f_ArcherData_Name1)), L_101.P()), mod), L_102.P()), ids[0]), L_103.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_51.P(), gen::Fld<void*>(native, bind::f_ArcherData_Name0)), L_42.P()), gen::Fld<void*>(native, bind::f_ArcherData_Name1)), L_118.P()), mod), L_119.P()), ids[0]), L_120.P()));
 }
 
 /*@M SwitchMods.AtlasAdd*/
@@ -1265,7 +1344,7 @@ static void CorpseFallback(int32_t firstNew) {
     void* main = (gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_SpriteData)());
     if (gen::Fld<void*>(corpses, bind::f_SpriteData_atlas) != gen::Fld<void*>(main, bind::f_SpriteData_atlas))
     {
-        tfex::gen::frmods::Log(L_104.P());
+        tfex::gen::frmods::Log(L_121.P());
         return;
     }
     for (int32_t i = firstNew; i < gen::GameArr<void*>(gen::Fn<void* (*)()>(bind::m_ArcherData_get_Archers)(), bind::m_Array_get_Length).len; i++)
@@ -1283,7 +1362,7 @@ static void CorpseOf(void* archer, void* corpses, void* main) {
         return;
     }
     gen::Fn<void (*)(void*, void*, void*)>(bind::m_Dictionary_2_8385_set_Item_538b)(gen::Fld<void*>(corpses, bind::f_SpriteData_sprites), gen::Fld<void*>(archer, bind::f_ArcherData_Corpse), gen::Fn<void* (*)(void*, void*)>(bind::m_Dictionary_2_8385_get_Item_109a)(gen::Fld<void*>(main, bind::f_SpriteData_sprites), gen::Fld<void*>(archer, bind::f_ArcherData_Corpse)));
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_105.P(), gen::Fld<void*>(archer, bind::f_ArcherData_Corpse)), L_106.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(L_122.P(), gen::Fld<void*>(archer, bind::f_ArcherData_Corpse)), L_123.P()));
 }
 
 /*@M SwitchMods.AtlasOf*/
@@ -1346,14 +1425,14 @@ void LoadSounds() {
     int32_t vanilla = gen::GameArr<void*>(gen::Static<void*>(bind::f_Sounds_Characters), bind::m_Array_get_Length).len;
     if (vanilla != 16)
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_107.P(), gen::FromInt(vanilla)), L_108.P()), gen::FromInt(16)), L_109.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_124.P(), gen::FromInt(vanilla)), L_125.P()), gen::FromInt(16)), L_126.P()));
     }
     int32_t n = 0;
-    { void* list_28 = soundQueues(); for (int32_t i_list_28 = 0; i_list_28 < gen::Fn<int32_t (*)(void*)>(bind::m_List_1_f983_get_Count)(list_28); i_list_28++) {
-        void* q = gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_f983_get_Item_e2bf)(list_28, i_list_28);
+    { void* list_30 = soundQueues(); for (int32_t i_list_30 = 0; i_list_30 < gen::Fn<int32_t (*)(void*)>(bind::m_List_1_f983_get_Count)(list_30); i_list_30++) {
+        void* q = gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_f983_get_Item_e2bf)(list_30, i_list_30);
         {
-            { void* list_29 = static_cast<tfex::gen::Auto_SwitchQueue::Self*>(q)->Pending; for (int32_t i_list_29 = 0; i_list_29 < gen::Fn<int32_t (*)(void*)>(bind::m_List_1_f983_get_Count)(list_29); i_list_29++) {
-                void* e = gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_f983_get_Item_e2bf)(list_29, i_list_29);
+            { void* list_31 = static_cast<tfex::gen::Auto_SwitchQueue::Self*>(q)->Pending; for (int32_t i_list_31 = 0; i_list_31 < gen::Fn<int32_t (*)(void*)>(bind::m_List_1_f983_get_Count)(list_31); i_list_31++) {
+                void* e = gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_f983_get_Item_e2bf)(list_31, i_list_31);
                 {
                     gen::Fn<void (*)(void*, void*)>(bind::m_Action_1_7729_Invoke_0b43)(static_cast<tfex::gen::Auto_SwitchQueue::Self*>(q)->Invoker, e);
                     n++;
@@ -1363,7 +1442,7 @@ void LoadSounds() {
         }
     } }
     tfex::gen::Fr_Sounds::LoadModdedCharacterSounds();
-    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_110.P(), gen::FromInt(vanilla)), L_44.P()), gen::FromInt(gen::GameArr<void*>(gen::Static<void*>(bind::f_Sounds_Characters), bind::m_Array_get_Length).len)), L_76.P()), gen::FromInt(n)), L_111.P()));
+    tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_127.P(), gen::FromInt(vanilla)), L_61.P()), gen::FromInt(gen::GameArr<void*>(gen::Static<void*>(bind::f_Sounds_Characters), bind::m_Array_get_Length).len)), L_93.P()), gen::FromInt(n)), L_128.P()));
 }
 
 /*@M SwitchMods.ContentRoot*/
@@ -1413,7 +1492,7 @@ static void* NewModCharacterSounds(void* metadata) {
 
 /*@M SwitchMods.SfxId*/
 void* SfxId(void* id, void* type) {
-    return gen::Concat(gen::Concat(gen::Concat(id, L_112.P()), type), L_113.P());
+    return gen::Concat(gen::Concat(gen::Concat(id, L_129.P()), type), L_130.P());
 }
 
 /*@M SwitchMods.SfxEntryName*/
@@ -1507,34 +1586,34 @@ void* ResEnumerate(void* r, void* pattern) {
 /*@M SwitchMods.VanillaSubtextureIds*/
 gen::ValSet<gen::StrK>* VanillaSubtextureIds() {
     gen::ValSet<gen::StrK>* ids = ([&]() { auto* v_ = gen::NewVal<gen::ValSet<gen::StrK>>(); return v_; }());
-    bool ret_30 = false; (void)ret_30;
-    gen::ValSet<gen::StrK>* retv_31{}; (void)retv_31;
-    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_Atlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
-        (ids)->Add((kv).Key);
-        return true;
-    });
-    if (ret_30) return retv_31;
     bool ret_32 = false; (void)ret_32;
     gen::ValSet<gen::StrK>* retv_33{}; (void)retv_33;
-    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_MenuAtlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
+    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_Atlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
         (ids)->Add((kv).Key);
         return true;
     });
     if (ret_32) return retv_33;
     bool ret_34 = false; (void)ret_34;
     gen::ValSet<gen::StrK>* retv_35{}; (void)retv_35;
-    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_BGAtlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
+    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_MenuAtlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
         (ids)->Add((kv).Key);
         return true;
     });
     if (ret_34) return retv_35;
     bool ret_36 = false; (void)ret_36;
     gen::ValSet<gen::StrK>* retv_37{}; (void)retv_37;
-    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_BossAtlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
+    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_BGAtlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
         (ids)->Add((kv).Key);
         return true;
     });
     if (ret_36) return retv_37;
+    bool ret_38 = false; (void)ret_38;
+    gen::ValSet<gen::StrK>* retv_39{}; (void)retv_39;
+    gen::FromDict<void*, void*>(gen::Fn<void* (*)(void*)>(bind::m_Atlas_get_SubTextures)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_BossAtlas)())), bind::f_Dictionary_2_fbc4_linkSlots, bind::f_Dictionary_2_fbc4_keySlots, bind::f_Dictionary_2_fbc4_valueSlots, bind::f_Dictionary_2_fbc4_touchedSlots)([&](gen::KV<void*, void*> kv) -> bool {
+        (ids)->Add((kv).Key);
+        return true;
+    });
+    if (ret_38) return retv_39;
     return ids;
 }
 
@@ -1607,7 +1686,7 @@ void MusicPlayImmediate(void* name, bool looping) {
     trackName() = name;
     if (musicLogged++ < 8)
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_114.P(), name), L_115.P()), (looping ? L_116.P() : L_27.P())), L_22.P()));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_131.P(), name), L_132.P()), (looping ? L_133.P() : L_27.P())), L_22.P()));
     }
 }
 
@@ -1623,20 +1702,20 @@ static void* LoadTrack(tfex::gen::st::Fr_TrackInfo info) {
     int32_t size = tfex::gen::frmods::FileSize(tfex::gen::Auto_SdResource::get_RootPath(res));
     if (size <= 0)
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_117.P(), info.Name), L_118.P()), tfex::gen::Auto_SdResource::get_RootPath(res)));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_134.P(), info.Name), L_135.P()), tfex::gen::Auto_SdResource::get_RootPath(res)));
         return nullptr;
     }
     gen::Arr<uint8_t> bytes = gen::NewArr<uint8_t>(bind::t_Byte_ef68, size);
     tfex::gen::frmods::ReadInto(tfex::gen::Auto_SdResource::get_RootPath(res), bytes);
-    if (gen::Fn<bool (*)(void*, void*, int32_t)>(bind::m_String_EndsWith_2)(static_cast<tfex::gen::Auto_SdResource::Self*>(res)->Path, L_119.P(), 5))
+    if (gen::Fn<bool (*)(void*, void*, int32_t)>(bind::m_String_EndsWith_2)(static_cast<tfex::gen::Auto_SdResource::Self*>(res)->Path, L_136.P(), 5))
     {
         bytes = tfex::gen::frmods::OggToWav(bytes);
     }
     else
     {
-        if (!(gen::Fn<bool (*)(void*, void*, int32_t)>(bind::m_String_EndsWith_2)(static_cast<tfex::gen::Auto_SdResource::Self*>(res)->Path, L_120.P(), 5)))
+        if (!(gen::Fn<bool (*)(void*, void*, int32_t)>(bind::m_String_EndsWith_2)(static_cast<tfex::gen::Auto_SdResource::Self*>(res)->Path, L_137.P(), 5)))
         {
-            tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_117.P(), info.Name), L_68.P()), static_cast<tfex::gen::Auto_SdResource::Self*>(res)->Path), L_121.P()));
+            tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(gen::Concat(L_134.P(), info.Name), L_85.P()), static_cast<tfex::gen::Auto_SdResource::Self*>(res)->Path), L_138.P()));
             return nullptr;
         }
     }
@@ -1688,7 +1767,7 @@ void MusicUpdate() {
     gen::Fn<void (*)(void*, int32_t)>(bind::m_List_1_ee14_RemoveAt_e2bf)(nextLooping(), 0);
     if (musicLogged++ < 8)
     {
-        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_114.P(), ended), L_122.P()), song));
+        tfex::gen::frmods::Log(gen::Concat(gen::Concat(gen::Concat(L_131.P(), ended), L_139.P()), song));
     }
     MusicPlayImmediate(song, looping);
 }
@@ -1710,7 +1789,7 @@ void CorpseHair(void* corpse, void* archerData) {
     gen::SideSet<gen::Vector2>("DuckingOffset", hair, hairData.DuckingOffset);
     gen::SideSet<gen::Vector2>("Offset", hair, hairData.Offset);
     gen::SideSet<gen::Color>("OutlineColor", hair, hairData.OutlineColor);
-    tfex::gen::Fr_PlayerHair::ChangeHairTexture(hair, ([&]() { auto ca_38 = hairData.Texture; return ca_38 ? tfex::gen::Fr_SubtextureEntry::get_Subtexture(ca_38) : nullptr; }()), ([&]() { auto ca_39 = hairData.TextureEnd; return ca_39 ? tfex::gen::Fr_SubtextureEntry::get_Subtexture(ca_39) : nullptr; }()));
+    tfex::gen::Fr_PlayerHair::ChangeHairTexture(hair, ([&]() { auto ca_40 = hairData.Texture; return ca_40 ? tfex::gen::Fr_SubtextureEntry::get_Subtexture(ca_40) : nullptr; }()), ([&]() { auto ca_41 = hairData.TextureEnd; return ca_41 ? tfex::gen::Fr_SubtextureEntry::get_Subtexture(ca_41) : nullptr; }()));
 }
 
 void MakeStatics() {

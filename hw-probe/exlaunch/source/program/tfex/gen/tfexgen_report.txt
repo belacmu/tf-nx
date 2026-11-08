@@ -480,7 +480,7 @@ hand rule: expression rewritten (translate.toml [[rewrite]] expr, S-native) (21)
     SubtextureRegistry: getAll.Contains(id) -> tfex::gen::GlueFrMods::IsVanillaSubtexture(id): whether the game's atlases have the texture (the names FortRise reads from their XMLs): asked of the loaded atlases (glue SwitchMods.IsVanillaSubtexture)
     patch_VersusModeButton: BuiltInModeCount -> tfex::gen::svc::BuiltInVersusModeCount(): FortRise's count of built-in modes before the registered ones in its list (3): 4 in the Switch's local play, the megamod's TOWERBALL inserted fourth (megamod.cpp)
     patch_VersusModeButton: mode is Modes.LastManStanding or Modes.TeamDeathmatch or Modes.HeadHunters -> tfex::gen::svc::BuiltInVersusMode(mode): the PC's three built-in versus modes; the Switch's local play has a fourth, the megamod's TOWERBALL (mode 6, megamod.cpp appends it to FortRise's list), which is no registered custom mode either
-hand rule: glue extern [Cpp] (Switch code) (131)
+hand rule: glue extern [Cpp] (Switch code) (133)
     TfexGlue.AiNames.AiNameOf(int)
     TfexGlue.AiNames.BoardLaidOut(int, int)
     TfexGlue.Ffi.BytesOf(string)
@@ -498,6 +498,8 @@ hand rule: glue extern [Cpp] (Switch code) (131)
     TfexGlue.FortRiseSwitch.SwitchMods.BlackCount()
     TfexGlue.FortRiseSwitch.SwitchMods.BlackSave()
     TfexGlue.FortRiseSwitch.SwitchMods.CreateTfexEntries(System.Collections.Generic.List<TowerFall.OptionsButton>)
+    TfexGlue.FortRiseSwitch.SwitchMods.DumpGetRect(Microsoft.Xna.Framework.Graphics.Texture2D, int, bool, int, int, int, int, Microsoft.Xna.Framework.Color[], int, int)
+    TfexGlue.FortRiseSwitch.SwitchMods.DumpTexture2D(Monocle.Texture)
     TfexGlue.FortRiseSwitch.SwitchMods.FileExists(string)
     TfexGlue.FortRiseSwitch.SwitchMods.FileSize(string)
     TfexGlue.FortRiseSwitch.SwitchMods.ListFiles(string)
@@ -4740,7 +4742,7 @@ mechanical: switch expression -> arms tested in order (21)
 mechanical: try/catch around a throwing stand-in -> the body with a fault check after each call, the catch on a fault (gen::Faulted) (2)
     MatchmakingService: ConnectToServerAndListen: try
     NetplayMenus: OpenSupportPage: try
-mechanical: type pattern with a variable (is T x / case T x) (109)
+mechanical: type pattern with a variable (is T x / case T x) (111)
     Auto_ArrowBuilder: Build: BoltArrow boltArrow
     Auto_ArrowBuilder: Build: BombArrow bombArrow
     Auto_ArrowBuilder: Build: BrambleArrow brambleArrow
@@ -4780,11 +4782,13 @@ mechanical: type pattern with a variable (is T x / case T x) (109)
     Fr_SpriteDataLoader: LoadSpriteData: XmlElement elm
     GameplayLayerPatch: UpdatePingAlpha: TowerFall.Level level
     GlueAiNames: AnyToName: Text text
+    GlueAiNames: LayOutRows: GraphicsComponent g
     GlueAiNames: LayOutRows: Image image
     GlueAiNames: RoundResults: Text text
     GlueFrMods: BaseSfx: SFXEntry s
     GlueFrMods: BaseSfx: SFXLoopedEntry l
     GlueFrMods: BaseSfx: SFXVariedEntry v
+    GlueFrMods: DumpGraphics: Image img
     GlueFrMods: SfxEntryName: SFXEntry s
     GlueFrMods: SfxEntryName: SFXLoopedEntry l
     GlueFrMods: SfxEntryName: SFXVariedEntry v

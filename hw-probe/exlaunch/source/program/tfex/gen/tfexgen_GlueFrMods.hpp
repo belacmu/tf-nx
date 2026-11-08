@@ -47,6 +47,7 @@ void* FolderMeta(void* dir);
 void* ContentPathDirectory(void* c);
 void WriteBlacklist(void* folders);
 void RestartForMods();
+void DumpGraphics(void* e, int32_t hide);
 void* ContentVersion(void* c);
 void* ContentDisplayName(void* c);
 void* ContentToString(void* c);

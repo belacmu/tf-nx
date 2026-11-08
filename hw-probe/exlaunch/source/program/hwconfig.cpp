@@ -33,6 +33,8 @@ void LoadHwConfig() {
         else if (std::sscanf(line, "vstart %d", &a) == 1) g_vstart = a;
         else if (std::sscanf(line, "localvs %d %d", &a, &b) == 2) megamod::SetLocalTest(a, b);   /* tests: a local match (megamod/localtest.cpp) */
         else if (std::sscanf(line, "localarcher %d", &a) == 1) megamod::SetLocalArcher(a);
+        else if (!std::strncmp(line, "localalt", 8)) megamod::SetLocalAlt();
+        else if (!std::strncmp(line, "localdump", 9)) megamod::SetLocalDump(std::atoi(line + 9));
         else if (!std::strncmp(line, "localmode ", 10)) megamod::SetLocalModeName(line + 10);   /* a custom mode by name (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localvariant ", 13)) megamod::SetLocalVariant(line + 13);   /* a FortRise custom variant on (megamod/localtest.cpp) */
         else if (!std::strncmp(line, "localtower ", 11)) megamod::SetLocalTower(std::atoi(line + 11));   /* Right n times on the tower select */

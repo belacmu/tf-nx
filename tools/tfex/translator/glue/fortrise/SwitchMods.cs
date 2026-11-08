@@ -448,6 +448,38 @@ namespace TfexGlue.FortRiseSwitch
             RestartNotice(Engine.Instance.Scene);
         }
 
+        // TEST ONLY (hw.txt localdump, megamod/localtest.cpp): an entity's graphics, one line each (what draws, from which texture
+        // rectangle of which texture size), to find what a mod archer draws wrong
+        [Cpp("gen::Fn<void* (*)(void*)>(0x9563c0)($0)")] static extern Texture2D DumpTexture2D(Monocle.Texture t);   // Monocle.Texture.get_Texture2D
+        [Cpp("tfex::gen::skins::GetRect($0, $1, $2, $3, $4, $5, $6, $7, $8, $9)", Include = "tfexgen_skins.hpp")]
+        static extern void DumpGetRect(Texture2D texture, int level, bool hasRect, int x, int y, int w, int h, Color[] data, int start, int count);
+        public static void DumpGraphics(Entity e, int hide)
+        {
+            if (e == null) return;
+            int n = 0;
+            foreach (var c in e.Components)
+            {
+                n++;
+                if (n == hide) { c.Visible = false; Log($"[frmods] dump {n}: hidden (hw.txt localdump {hide})"); }
+                if (c is Image img)
+                {
+                    var t = img.Texture;
+                    var r = t != null ? t.Rect : new Rectangle();
+                    if (img.Visible && t != null)
+                    {
+                        var px = new Color[160];
+                        DumpGetRect(DumpTexture2D(t), 0, true, img.ClipRect.X, img.ClipRect.Y, 16, 10, px, 0, 160);
+                        int clear = 0, solid = 0, whiteClear = 0;
+                        foreach (var c2 in px) { if (c2.A == 0) clear++; else if (c2.A == 255) solid++; if (c2.A == 0 && c2.R == 255 && c2.G == 255 && c2.B == 255) whiteClear++; }
+                        Log($"[frmods] dump {n}: GPU texels at {img.ClipRect.X},{img.ClipRect.Y} 16x10: alpha 0: {clear} (white {whiteClear}), alpha 255: {solid}, first {px[0].R},{px[0].G},{px[0].B},{px[0].A}");
+                    }
+                    Log($"[frmods] dump {n}: image visible={img.Visible} pos={img.Position.X},{img.Position.Y} rect={r.X},{r.Y} {r.Width}x{r.Height} clip={img.ClipRect.X},{img.ClipRect.Y} {img.ClipRect.Width}x{img.ClipRect.Height} color={img.Color.R},{img.Color.G},{img.Color.B},{img.Color.A} scale={img.Scale.X},{img.Scale.Y}");
+                }
+                else Log($"[frmods] dump {n}: component visible={c.Visible}");
+            }
+            Log($"[frmods] dump: {n} components");
+        }
+
         static SwitchModContent[] Deps(int i, bool optional)
         {
             var d = new SwitchModContent[RegDepCount(i, optional)];

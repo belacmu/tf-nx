@@ -6059,6 +6059,9 @@
   "off": 88,
   "via": "get_Width accessor"
  },
+ "f_Texture_Rect": {
+  "error": "field not resolved"
+ },
  "f_Texture_Texture2D": {
   "off": 16,
   "via": "get_Texture2D accessor"
@@ -17257,6 +17260,12 @@
   "owner": "Monocle.Texture",
   "overload": 3
  },
+ "m_Texture_get_Rect": {
+  "body": 9790672,
+  "static": false,
+  "owner": "Monocle.Texture",
+  "overload": 0
+ },
  "m_Texture_get_Texture2D": {
   "body": 9790400,
   "static": false,
@@ -19894,6 +19903,16 @@
   "cctor": 0,
   "base": "TowerFall.JumpThru",
   "vtbytes": 296
+ },
+ "t_GraphicsComponent": {
+  "getter": 7280496,
+  "desc": 74409896,
+  "vtable": 74409784,
+  "size": 80,
+  "flags": 8,
+  "cctor": 0,
+  "base": "Monocle.Component",
+  "vtbytes": 112
  },
  "t_HUDFade": {
   "getter": 9122288,

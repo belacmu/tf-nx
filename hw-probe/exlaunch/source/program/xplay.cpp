@@ -146,6 +146,19 @@ static void ApplyFixes() {
     } else {
         HWLOG("[xplay] SoundEffectInstance.set_Volume isn't as expected at +0x470dc: volume clamp NOT applied");
     }
+
+    /* FNA's PNG load (+0x20990, Texture2D.FromStream's: stb_image, then the upload) clears the colour of every fully transparent pixel,
+     * as FNA does on the PC, so the game's premultiplied blending draws it as nothing. The Switch's loop steps 4 bytes a pixel but stops
+     * at width*height (+0x20a10 `sxtw x9, w9`, compared with the byte offset): only the image's first quarter was cleared. A mod atlas's
+     * lower rows kept their hidden colour and drew it: Malicious Metaguard / Meta Knight's empty head (row 120 of a 160-row atlas) a
+     * white box, Crimson Co-Star's head a white box behind it (the user, 2026-11-08; GPU read back: row 0's clear pixels 0,0,0,0, row
+     * 120's 255,255,255,0). The bound becomes width*height*4 (`sbfiz x9, x9, #2, #32`). The game's own textures (XNB) don't come here. */
+    {
+        constexpr uintptr_t kPngClearBound = 0x20a10;
+        auto* w = reinterpret_cast<uint32_t*>(Base() + kPngClearBound);
+        if (*w == 0x93407d29u) { exl::patch::CodePatcher p(kPngClearBound); p.Write<uint32_t>(0x937e7d29u); HWLOG("[xplay] fixes: PNG load clears every transparent pixel (was the first quarter of the image)"); }
+        else HWLOG("[xplay] PNG load's transparent-pixel loop isn't as expected at +%#lx (%08x): NOT fixed", (unsigned long)kPngClearBound, *w);
+    }
 }
 
 /* ---- Hardware probe configuration: sd:/xplay/hw.txt (the keys are parsed in LoadHwConfig) ----------

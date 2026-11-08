@@ -35,6 +35,8 @@ unsigned long g_bits[8];
 int32_t g_rx[8], g_ry[8];   /* the right stick (localai: the AI controls, tfex/AiSlotButton.cpp), held with the buttons */
 int g_hold[8];
 constexpr unsigned long kA = 1u << 0, kStickR = 1u << 5, kLeft = 1u << 12, kUp = 1u << 13, kRight = 1u << 14, kPlus = 1u << 10, kL = 1u << 6;
+bool g_alt = false, g_altDone = false, g_dump = false; int g_dumpHide = 0;   /* localdump: player 1's graphics in the log */
+   /* localalt: player 1's archer's alt */
 int g_towerRights = 0, g_towerMoved = 0;   /* localtower <n>: Right n times on the tower select (Soccer's check: Twilight Spire, no cobwebs) */
 char g_variantName[48] = "";   /* localvariant <mod>/<id>: a FortRise custom variant on before START (Move or Die's MoveOrDie/MoveOrDie) */
 bool g_variantDone = false, g_firstDeath = false;
@@ -108,6 +110,11 @@ void Step() {   /* once per frame (controller 1's poll) */
             for (int32_t i = 0; i < players.Count(); i++)
                 if (tfex::gen::Fn<void* (*)(void*, int32_t, int32_t, bool, bool)>(tfex::gen::bind::m_Player_Die_1d72)(players.items[i], 0, -1, false, false)) made++;
             MMLOG("[mmtest] localkill: %d players died, %d corpses", (int)players.Count(), made);
+        }
+        if (g_dump && g_since == 700) {   /* localdump: player 1's graphics, one line each (glue SwitchMods.DumpGraphics) */
+            auto players = tfex::gen::statert::EntGetAll(reinterpret_cast<void*>(scene), tfex::gen::TypeOf(tfex::gen::bind::t_Player));
+            for (int32_t i = 0; i < players.Count(); i++)
+                if (tfex::gen::Fn<int32_t (*)(void*)>(tfex::gen::bind::m_Player_get_PlayerIndex)(players.items[i]) == 0) { MMLOG("[mmtest] localdump: player 1"); tfex::gen::GlueFrMods::DumpGraphics(players.items[i], g_dumpHide); }
         }
         if (g_victory && g_since == 300) {
             void* p = tfex::gen::statert::EntGet(reinterpret_cast<void*>(scene), tfex::gen::TypeOf(tfex::gen::bind::t_Player));
@@ -198,6 +205,14 @@ void Step() {   /* once per frame (controller 1's poll) */
     /* the screens after the roll call (match settings, teams): the mode, then START */
     if (g_phase >= 3) {   /* (all ready: the roll call may go on before the driver's START) */
         g_phase = 6;
+        if (g_alt && !g_altDone && state == 8) {   /* localalt: player 1 plays its archer's alt (TFGame.AltSelect[0] = Alt, as the roll call's alt button leaves it) */
+            g_altDone = true;
+            uint8_t* arr = Static<uint8_t*>(0x4792460);   /* TFGame.AltSelect (cctor cell): BRUTE array, data at +0x10, its length's pointer at +0x20 */
+            int32_t* lenp = arr ? *reinterpret_cast<int32_t**>(arr + 0x20) : nullptr;
+            int32_t* data = arr ? *reinterpret_cast<int32_t**>(arr + 0x10) : nullptr;
+            if (lenp && data && *lenp > 0) { data[0] = 1; MMLOG("[mmtest] player 1: its archer's alt (TFGame.AltSelect[0] = 1)"); }
+            else MMLOG("[mmtest] ERROR: TFGame.AltSelect not found: player 1 keeps its normal archer");
+        }
         void* ms = Static<void*>(MainMenu::VersusMatchSettings);
         int32_t* mode = ms ? reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(ms) + 0x30) : nullptr;
         if (g_variantName[0] && !g_variantDone && ms) {
@@ -274,6 +289,8 @@ void SetLocalTower(int rights) { g_towerRights = rights < 0 ? 0 : rights > 20 ? 
 void SetLocalKill() { g_kill = true; }
 void SetLocalRoundEnd() { g_roundEnd = true; }
 void SetLocalVictory() { g_victory = true; }
+void SetLocalAlt() { g_alt = true; }
+void SetLocalDump(int hide) { g_dump = true; g_dumpHide = hide; }
 void SetLocalArcher(int steps) { g_steps = steps < 0 ? 0 : steps > 40 ? 40 : steps; }
 bool LocalTestOn() { return g_players > 0; }
 void LocalTestStick(uint32_t id, int32_t* rx, int32_t* ry) { *rx = id < 8 ? g_rx[id] : 0; *ry = id < 8 ? g_ry[id] : 0; }

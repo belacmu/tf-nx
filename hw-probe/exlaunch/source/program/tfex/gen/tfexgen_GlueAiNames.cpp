@@ -7,13 +7,16 @@
 namespace tfex::gen::GlueAiNames {
 using namespace tfex::gen;
 
+/* string literals */
+static gen::LitN<2> L_0{u"P"};
+
 static bool AnyToName(void* results);
 static void LayOutRows(void* results, gen::Arr<void*> labels, int32_t count);
-static float PlaceRow(gen::Arr<void*> row, int32_t inRow, float rowY, float right, bool wrap);
+static bool InRow(gen::Arr<void*> row, int32_t inRow, void* g);
+static float PlaceRow(gen::Arr<void*> row, int32_t inRow, float rowY, float right, float lineHeight, int32_t& lines);
 
 constexpr float MinLeft = 4.0f;
 constexpr float Gap = 9.0f;
-constexpr float LineHeight = 9.0f;
 /*@M AiNames.RoundResults*/
 void RoundResults(void* results) {
     if ((gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Components)(results) == nullptr) || !(AnyToName(results)))
@@ -89,13 +92,21 @@ static bool AnyToName(void* results) {
 /*@M AiNames.LayOutRows*/
 static void LayOutRows(void* results, gen::Arr<void*> labels, int32_t count) {
     gen::Arr<bool> done = gen::NewArr<bool>(bind::t_Boolean_4da6, 8);
-    for (int32_t a = 0; a < count; a++)
+    while (true)
     {
-        if ((labels[a] == nullptr) || done[a])
+        int32_t top = -1;
+        for (int32_t b = 0; b < count; b++)
         {
-            continue;
+            if (((labels[b] != nullptr) && !(done[b])) && ((top < 0) || (gen::Fld<gen::Vector2>(labels[b], bind::f_GraphicsComponent_Position).Y < gen::Fld<gen::Vector2>(labels[top], bind::f_GraphicsComponent_Position).Y)))
+            {
+                top = b;
+            }
         }
-        float rowY = gen::Fld<gen::Vector2>(labels[a], bind::f_GraphicsComponent_Position).Y;
+        if (top < 0)
+        {
+            break;
+        }
+        float rowY = gen::Fld<gen::Vector2>(labels[top], bind::f_GraphicsComponent_Position).Y;
         gen::Arr<void*> row = gen::NewArr<void*>(bind::t_Text_44a9, 8);
         int32_t inRow = 0;
         while (true)
@@ -120,56 +131,62 @@ static void LayOutRows(void* results, gen::Arr<void*> labels, int32_t count) {
             row[inRow++] = labels[next];
         }
         float right = gen::Fld<gen::Vector2>(row[0], bind::f_GraphicsComponent_Position).X;
-        float left = PlaceRow(row, inRow, rowY, right, false);
-        if (left < 4.0f)
-        {
-            for (int32_t b = 0; b < inRow; b++)
-            {
-                gen::Fld<gen::Vector2>(row[b], bind::f_GraphicsComponent_Scale) = gen::Vector2_One;
-            }
-            left = PlaceRow(row, inRow, rowY, right, true);
-        }
+        float lineHeight = (gen::Fn<gen::Vector2 (*)(void*, void*)>(bind::m_SpriteFont_MeasureString_0)((gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_Font)()), L_0.P()).Y * gen::Fld<gen::Vector2>(row[0], bind::f_GraphicsComponent_Scale).Y) + 2.0f;
+        int32_t lines = 1;
+        float left = PlaceRow(row, inRow, rowY, right, lineHeight, lines);
         float oldNext = right - (25.0f * (float)(inRow));
+        float extra = ((float)(lines - 1)) * lineHeight;
         for (int32_t i = 0; i < gen::Fn<int32_t (*)(void*)>(bind::m_List_1_90fb_get_Count)(gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Components)(results)); i++)
         {
             void* image = nullptr;
-            if (!((image = gen::As(gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_90fb_get_Item_e2bf)(gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Components)(results), i), gen::TypeOf(bind::t_Image))) != nullptr))
-            {
-                continue;
-            }
-            if ((__builtin_fabsf((gen::Fld<gen::Vector2>(image, bind::f_GraphicsComponent_Position).Y + 1.0f) - rowY) < 3.0f) && (gen::Fld<gen::Vector2>(image, bind::f_GraphicsComponent_Position).X < right))
+            if ((((image = gen::As(gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_90fb_get_Item_e2bf)(gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Components)(results), i), gen::TypeOf(bind::t_Image))) != nullptr) && (__builtin_fabsf((gen::Fld<gen::Vector2>(image, bind::f_GraphicsComponent_Position).Y + 1.0f) - rowY) < 3.0f)) && (gen::Fld<gen::Vector2>(image, bind::f_GraphicsComponent_Position).X < right))
             {
                 gen::Fld<gen::Vector2>(image, bind::f_GraphicsComponent_Position).X += ((left - 9.0f) - oldNext);
+            }
+            else
+            {
+                void* g = nullptr;
+                if ((((extra > 0.0f) && ((g = gen::As(gen::Fn<void* (*)(void*, int32_t)>(bind::m_List_1_90fb_get_Item_e2bf)(gen::Fn<void* (*)(void*)>(bind::m_Entity_get_Components)(results), i), gen::TypeOf(bind::t_GraphicsComponent))) != nullptr)) && (gen::Fld<gen::Vector2>(g, bind::f_GraphicsComponent_Position).Y > (rowY + 3.0f))) && !(InRow(row, inRow, g)))
+                {
+                    gen::Fld<gen::Vector2>(g, bind::f_GraphicsComponent_Position).Y += extra;
+                }
             }
         }
     }
 }
 
+/*@M AiNames.InRow*/
+static bool InRow(gen::Arr<void*> row, int32_t inRow, void* g) {
+    for (int32_t b = 0; b < inRow; b++)
+    {
+        if (row[b] == g)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*@M AiNames.PlaceRow*/
-static float PlaceRow(gen::Arr<void*> row, int32_t inRow, float rowY, float right, bool wrap) {
-    gen::Arr<int32_t> line = gen::NewArr<int32_t>(bind::t_Int32_90aa, 8);
-    int32_t lines = 1;
+static float PlaceRow(gen::Arr<void*> row, int32_t inRow, float rowY, float right, float lineHeight, int32_t& lines) {
     float edge = right;
     float left = right;
+    lines = 1;
     for (int32_t b = 0; b < inRow; b++)
     {
         float width = gen::Fld<gen::Vector2>(row[b], bind::f_GraphicsComponent_Origin).X * gen::Fld<gen::Vector2>(row[b], bind::f_GraphicsComponent_Scale).X;
-        if ((wrap && (edge < right)) && ((edge - width) < 4.0f))
+        if ((edge < right) && ((edge - width) < 4.0f))
         {
             lines++;
             edge = right;
         }
-        line[b] = lines - 1;
         gen::Fld<gen::Vector2>(row[b], bind::f_GraphicsComponent_Position).X = edge;
+        gen::Fld<gen::Vector2>(row[b], bind::f_GraphicsComponent_Position).Y = rowY + (((float)(lines - 1)) * lineHeight);
         if ((edge - width) < left)
         {
             left = edge - width;
         }
         edge = (edge - width) - 9.0f;
-    }
-    for (int32_t b = 0; b < inRow; b++)
-    {
-        gen::Fld<gen::Vector2>(row[b], bind::f_GraphicsComponent_Position).Y = rowY + (((float)(line[b]) - (((float)(lines - 1)) / 2.0f)) * 9.0f);
     }
     return left;
 }
