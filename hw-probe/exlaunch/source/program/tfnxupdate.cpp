@@ -543,11 +543,11 @@ void Frame() {
         } else if (g_testStep == 1) {   /* 2 s after the dialog has gone */
             g_testFrames = g_ui == (int)Ui::Downloaded && g_restartAt < 0 ? g_testFrames + 1 : 0;
             if (g_testFrames > 120) { hw::Log("[update] TEST: OPTIONS (the TF.NX entry)"); Fn<void (*)(void*, int)>(MainMenu::set_State)(scene, 12); g_testStep = 2; g_testFrames = 0; }
-        } else if (g_testStep == 2) {   /* Down to the TF.NX entry (right after TF.EX's 7: its AUTO UPDATE the last), then 4 s on it */
-            int first = tfex::NetplayOptions::FirstEntry(), sel = tfex::NetplayOptions::SelectedIndex();
+        } else if (g_testStep == 2) {   /* Down to the TF.NX entry (the TF.NX section, above TF.EX's), then 4 s on it */
+            int at = tfex::NetplayOptions::TfnxEntry(), sel = tfex::NetplayOptions::SelectedIndex();
             if (g_testPress > 0) g_testPress--;
-            else if (++g_testFrames > 90 && first >= 0 && sel != first + 7 && g_testFrames % 20 == 0) { g_testBits = 1u << 15; g_testPress = 6; }
-            else if (first >= 0 && sel == first + 7) { hw::Log("[update] TEST: the TF.NX entry selected"); g_testStep = 3; g_testFrames = 0; }
+            else if (++g_testFrames > 90 && at >= 0 && sel != at && g_testFrames % 20 == 0) { g_testBits = 1u << 15; g_testPress = 6; }
+            else if (at >= 0 && sel == at) { hw::Log("[update] TEST: the TF.NX entry selected"); g_testStep = 3; g_testFrames = 0; }
         } else if (g_testStep == 3 && ++g_testFrames == 240) hw::Log("[update] TEST: done");
     }
     if (g_justUpdated[0] && state == MainMenu::Main) {

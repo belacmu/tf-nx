@@ -20,6 +20,14 @@ public sealed partial class UnitEmitter
 
     /* ---------------------------------------------------------------- the class ---------------------------------------------------------------- */
     enum BaseKind { Game, Ours, Object }
+    /* a class's base, FortRise's MonoMod patch classes seen through: TowerFall.Patching.X ([MonoModPatch("TowerFall.X")] : TowerFall.X) is
+     * merged into the game's X on the PC, so a class deriving from it (UIModToggler's ModOptionsButton) derives from the game's X */
+    static INamedTypeSymbol BaseOf(INamedTypeSymbol t)
+    {
+        var b = t?.BaseType;
+        if (b?.BaseType != null && b.GetAttributes().Any(a => a.AttributeClass?.Name is "MonoModPatch" or "MonoModPatchAttribute")) return b.BaseType;
+        return b;
+    }
     /* a FortRise base translate.toml [fortrise] marks absent (ModuleSettings): not on the Switch, the class derives from object there */
     BaseKind Kind(INamedTypeSymbol bt) => gen.AbsentType(bt) != null ? BaseKind.Object : InBinary(bt) || CorlibBase(bt) ? BaseKind.Game : OriginOf(bt) == Origin.Tfex ? BaseKind.Ours : BaseKind.Object;
     readonly HashSet<string> headerIncludes = new();
@@ -42,7 +50,7 @@ public sealed partial class UnitEmitter
 
     void ClassPrelude(StringBuilder h, StringBuilder c)
     {
-        var bt = type.BaseType;
+        var bt = BaseOf(type);
         var kind = Kind(bt);
         R.Add("mechanical: class of ours (MakeClass, vtable overrides)", $"{type.Name} : {bt.Name}");
         headerIncludes.Add("tfexgen_binding.hpp");
@@ -194,7 +202,7 @@ public sealed partial class UnitEmitter
                 if (f.AssociatedSymbol == null && ModelFieldAssign(f, "self", Expr(InitOp(v))) is string mfa) { sb.Append($"    {mfa};   /* {f.Name} initializer */\n"); continue; }
                 sb.Append($"    {target} = {Expr(InitOp(v))};   /* {f.Name} initializer */\n");
             }
-        var bt = type.BaseType;
+        var bt = BaseOf(type);
         if (initializer is IExpressionStatementOperation ie && ie.Operation is IInvocationOperation baseCtor)
         {
             var args = baseCtor.Arguments.OrderBy(a => a.Parameter.Ordinal).Select(a => Expr(a.Value)).ToList();
@@ -202,7 +210,13 @@ public sealed partial class UnitEmitter
             else if (Kind(bt) == BaseKind.Ours) sb.Append($"    {BaseUnit(bt)}::Ctor{CtorSuffix(baseCtor.TargetMethod)}({string.Join(", ", new[] { "self" }.Concat(args))});   /* : base(...) */\n");
             // a hosted unit (no object of ours: Teams+'s ThreeTeamModule over FortRise.Mod): its FortRise base has no Switch object either
             else if (!isClass && bt?.ContainingNamespace?.ToDisplayString() == "FortRise") sb.Append("    /* : base(...): FortRise's Mod, no object on the Switch (hosted) */\n");
-            else if (Kind(bt) == BaseKind.Game) sb.Append("    ").Append(Call(baseCtor.TargetMethod, "self", args, baseCtor, true)).Append(";   /* : base(...) */\n");
+            else if (Kind(bt) == BaseKind.Game)
+            {
+                var gctor = baseCtor.TargetMethod;   // (a MonoMod patch's constructor: the game's with the same parameters)
+                if (!SymbolEqualityComparer.Default.Equals(gctor.ContainingType, bt))
+                    gctor = bt.InstanceConstructors.FirstOrDefault(c => c.Parameters.Select(p => p.Type.ToDisplayString()).SequenceEqual(gctor.Parameters.Select(p => p.Type.ToDisplayString()))) ?? gctor;
+                sb.Append("    ").Append(Call(gctor, "self", args, baseCtor, true)).Append(";   /* : base(...) */\n");
+            }
         }
         else if (Kind(bt) == BaseKind.Ours) sb.Append($"    {BaseUnit(bt)}::Ctor(self);   /* : base() */\n");
         else if (Kind(bt) == BaseKind.Game)
@@ -241,7 +255,7 @@ public sealed partial class UnitEmitter
 
     void ClassEnsure(StringBuilder h, StringBuilder body)
     {
-        var bt = type.BaseType;
+        var bt = BaseOf(type);
         var kind = Kind(bt);
         string U16(string s) => "u\"" + s.Replace("\"", "\\\"") + "\"";
         var full = type.ToDisplayString();
@@ -319,7 +333,7 @@ public sealed partial class UnitEmitter
             R.Add("mechanical: override of a FortRise virtual -> no slot (no FortRise on the Switch)", $"{type.Name}.{m.Name}");
             return;
         }
-        if (InBinary(root.ContainingType) || (CorlibBase(root.ContainingType) && Kind(type.BaseType) == BaseKind.Game))
+        if (InBinary(root.ContainingType) || (CorlibBase(root.ContainingType) && Kind(BaseOf(type)) == BaseKind.Game))
         {
             slot = B.Need("v", SwitchName(root.ContainingType), root.Name, IlSig(root));
             // a PC-only virtual (PlayerInput.MenuSaveReplay, Icon ...: no such member on the Switch): the Switch's game never calls it,

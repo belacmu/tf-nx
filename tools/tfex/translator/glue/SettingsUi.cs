@@ -86,6 +86,7 @@ namespace TfexGlue
             });
             buttons.Add(button);
             DescribeLastEntry(buttons, description);
+            Updates.NoteOnOff(name, button);   // (TF.EX's AUTO UPDATE: moved to the TF.NX section, glue SwitchMods.InitModOptions)
         }
 
         // FortRise OptionsCreate.CreateInput: Confirm opens the text input; the typed text is the value

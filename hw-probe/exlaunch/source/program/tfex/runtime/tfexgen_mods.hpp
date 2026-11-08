@@ -28,6 +28,7 @@ struct Mod {
     char folder[64];       /* a content mod's folder under sd:/xplay/mods */
     char source[96];       /* where the metadata came from */
     bool loaded;           /* FortRise would have loaded it (built-in: always) */
+    bool off;              /* its folder is in blacklist.txt (FortRise's TOGGLE MODS): listed, not loaded */
     bool catalog;          /* a folder whose logic is compiled in (translate.toml [mods.catalog]): `version` is the logic's */
     char folderVersion[32];/* a catalog mod's folder's own meta.json version */
     char missing[96];      /* a catalog mod's first needed file its folder lacks (it doesn't load) */
@@ -42,4 +43,11 @@ const Mod* Loaded(const char* name);  /* Find, if it loaded */
 /* FortRise's SemanticVersion order: major.minor.patch, a pre-release ("-beta.4") before its release, pre-release parts compared in
  * turn (numbers as numbers); < 0, 0, > 0 */
 int CompareVersions(const char* a, const char* b);
+/* FortRise's blacklist (RiseCore.ReadBlacklistedMods / WriteBlacklist: Mods/blacklist.txt, a JSON array of folder names): sd:/xplay/mods/
+ * blacklist.txt, read once with the registry; a folder in it is listed but not loaded (FortRise skips it). Written by TOGGLE MODS for the
+ * next start: Save true when written */
+constexpr int kMaxBlacklist = 32;
+int BlacklistCount();
+const char* BlacklistAt(int i);
+bool SaveBlacklist(const char* const* folders, int n);
 }  // namespace tfex::mods

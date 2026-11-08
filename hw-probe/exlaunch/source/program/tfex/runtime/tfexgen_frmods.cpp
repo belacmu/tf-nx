@@ -75,6 +75,25 @@ void* RegDepText(int i, int k, bool optional, int field) {
     const char* v = field == 0 ? d.name : d.version;
     return ManagedUtf8(v, (int)std::strlen(v));
 }
+int BlackCount() { return mods::BlacklistCount(); }
+void* BlackAt(int i) { const char* f = mods::BlacklistAt(i); return f ? ManagedUtf8(f, (int)std::strlen(f)) : nullptr; }
+namespace { char g_newBlack[mods::kMaxBlacklist][64]; int g_newCount = 0; }
+void BlackClear() { g_newCount = 0; }
+void BlackAdd(const void* folder) {
+    if (g_newCount >= mods::kMaxBlacklist) { hw::Log("[pools] ERROR mod blacklist full (%d): a folder left out of blacklist.txt", mods::kMaxBlacklist); return; }
+    Path(folder, g_newBlack[g_newCount], sizeof g_newBlack[0]);
+    g_newCount++;
+}
+bool BlackSave() {
+    const char* names[mods::kMaxBlacklist];
+    for (int i = 0; i < g_newCount; i++) names[i] = g_newBlack[i];
+    return mods::SaveBlacklist(names, g_newCount);
+}
+st::Fr_Result_ModuleMetadata_string ParseFolderMeta(const void* dir) {
+    void* meta = dir ? tfex::gen::GlueFrMods::FolderMeta(const_cast<void*>(dir)) : nullptr;
+    static const char kNone[] = "TOGGLE MODS: a folder the mod registry has no meta.json for";
+    return { meta, meta ? nullptr : ManagedUtf8(kNone, (int)sizeof kNone - 1), meta ? 0 : 1 };   /* (FortRise's Response: Ok 0, Error 1) */
+}
 bool FileExists(const void* path) {
     char p[256]; Path(path, p, sizeof p);
     nn::fs::FileHandle h;

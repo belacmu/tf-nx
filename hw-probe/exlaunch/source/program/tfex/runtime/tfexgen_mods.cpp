@@ -17,6 +17,9 @@ constexpr const char* kRoot = "sd:/xplay/mods";
 Mod g_mods[kMaxMods];
 int g_count = 0;
 bool g_loaded = false;
+constexpr const char* kBlacklist = "sd:/xplay/mods/blacklist.txt";
+char g_black[kMaxBlacklist][64];
+int g_blackCount = 0;
 
 bool SameName(const char* a, const char* b) {
     for (; *a && *b; a++, b++) if (std::tolower((unsigned char)*a) != std::tolower((unsigned char)*b)) return false;
@@ -104,8 +107,26 @@ bool Add(const char* json, int len, bool builtin, const char* folder, const char
     for (int i = 0; i < g_count; i++)
         if (SameName(g_mods[i].name, m.name)) { hw::Log("[mods] %s: a second %s (the first, from %s, stays)", source, m.name, g_mods[i].source); return false; }
     if (!builtin) CheckCatalog(m);
+    m.off = false;
+    for (int i = 0; i < g_blackCount && !builtin; i++) if (SameName(g_black[i], m.folder)) m.off = true;
     g_count++;
     return true;
+}
+/* FortRise's RiseCore.ReadBlacklistedMods: the JSON array of folder names; none when the file is missing or isn't one */
+void ReadBlacklist() {
+    static char text[2048];
+    long len = ReadAll(kBlacklist, text, sizeof text);
+    if (len < 0) return;
+    static json::Node nodes[kMaxBlacklist + 8];
+    json::Doc d{nodes, kMaxBlacklist + 8, 0};
+    if (!d.Parse(text, (int)len) || !d.Root() || d.Root()->type != json::Type::Array) { hw::Log("[mods] %s isn't a JSON array of folder names (or has more than %d): no mod turned off", kBlacklist, kMaxBlacklist); return; }
+    for (const json::Node* n = d.Child(d.Root()); n; n = d.Next(n)) {
+        if (n->type != json::Type::String) continue;
+        if (g_blackCount >= kMaxBlacklist) { hw::Log("[pools] ERROR mod blacklist full (%d): the rest of %s ignored", kMaxBlacklist, kBlacklist); break; }
+        json::Unescape(n->str, n->strLen, g_black[g_blackCount], sizeof g_black[0]);
+        g_blackCount++;
+    }
+    hw::Log("[mods] %s: %d folder(s) turned off (FortRise's blacklist)", kBlacklist, g_blackCount);
 }
 void ListSd() {
     /* the SD card mounted first (hwlog's MountSd: once, shared): the loader thread can get here before anything else mounted it, and
@@ -135,8 +156,9 @@ void ListSd() {
 void Resolve() {
     for (int i = 0; i < g_count; i++) {
         Mod& m = g_mods[i];
-        m.loaded = !m.missing[0];
-        if (m.missing[0]) std::snprintf(m.note, sizeof m.note, "its folder has no %s (TF.NX %s needs it)", m.missing, m.version);
+        m.loaded = !m.missing[0] && !m.off;
+        if (m.off) std::snprintf(m.note, sizeof m.note, "turned off (TOGGLE MODS: %s)", kBlacklist);
+        else if (m.missing[0]) std::snprintf(m.note, sizeof m.note, "its folder has no %s (TF.NX %s needs it)", m.missing, m.version);
     }
     for (bool changed = true; changed;) {
         changed = false;
@@ -196,6 +218,7 @@ void Load() {
     if (g_loaded) return;
     g_loaded = true;
     for (int i = 0; i < kBuiltinCount; i++) Add(kBuiltin[i].json, (int)std::strlen(kBuiltin[i].json), true, nullptr, kBuiltin[i].source);
+    ReadBlacklist();
     ListSd();
     Resolve();
     int loaded = 0;
@@ -209,6 +232,30 @@ void Load() {
     }
 }
 int Count() { Load(); return g_count; }
+int BlacklistCount() { Load(); return g_blackCount; }
+const char* BlacklistAt(int i) { Load(); return i >= 0 && i < g_blackCount ? g_black[i] : nullptr; }
+/* FortRise's RiseCore.WriteBlacklist: the folder names as a JSON array. Written over the old file in place (no SetFileSize here): a
+ * shorter text is followed by spaces, which JSON ignores */
+bool SaveBlacklist(const char* const* folders, int n) {
+    static char text[2048];
+    json::Writer w; w.Init(text, sizeof text);
+    w.BeginArray();
+    for (int i = 0; i < n; i++) w.Str(folders[i]);
+    w.EndArray();
+    if (!w.ok) { hw::Log("[mods] ERROR: the blacklist (%d folders) doesn't fit %d bytes: not written", n, (int)sizeof text); return false; }
+    if (!hw::MountSd()) return false;
+    nn::fs::CreateFile(kBlacklist, 0);   /* (fails if it's there: fine) */
+    nn::fs::FileHandle h;
+    if (nn::fs::OpenFile(&h, kBlacklist, nn::fs::OpenMode_Write | nn::fs::OpenMode_Append) != 0) { hw::Log("[mods] ERROR: %s can't be opened for writing", kBlacklist); return false; }
+    long old = 0; nn::fs::GetFileSize(&old, h);
+    bool ok = nn::fs::WriteFile(h, 0, text, (u64)w.len, nn::fs::WriteOption::CreateOption(0)) == 0;
+    static const char pad[64] = "                                                               ";
+    for (long at = w.len; ok && at < old; at += 63) ok = nn::fs::WriteFile(h, at, pad, (u64)(old - at < 63 ? old - at : 63), nn::fs::WriteOption::CreateOption(0)) == 0;
+    if (ok) nn::fs::FlushFile(h);
+    nn::fs::CloseFile(h);
+    hw::Log("[mods] %s %s: %d folder(s) off for the next start", kBlacklist, ok ? "written" : "NOT written (a write failed)", n);
+    return ok;
+}
 const Mod* At(int i) { Load(); return i >= 0 && i < g_count ? &g_mods[i] : nullptr; }
 const Mod* Find(const char* name) {
     Load();

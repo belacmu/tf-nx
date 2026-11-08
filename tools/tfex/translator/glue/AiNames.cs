@@ -56,59 +56,74 @@ namespace TfexGlue
         // TFEX-DIFF S-layout: Archer moves a name to X 20 (its own layout). The game right-aligns a row's "P#" labels 25 px apart (9 px
         // between them) and its crown 25 px left of the last (VersusRoundResults' ctor): with names, each row's labels are laid out again
         // right to left from the rightmost one's place, 9 px apart, and the row's crown moved to 9 px left of them. A row too wide for the
-        // screen (a team of AIs) is drawn at half size.
+        // screen (a team of AIs) is drawn at half size, and when that is still too wide, wrapped onto lines centred on the row (the user,
+        // 2026-11-08: four AIs on a team ran off the screen's left edge).
+        const float MinLeft = 4f;
+        const float Gap = 9f;
+        const float LineHeight = 9f;   // (the font at half size: rows are 20 px apart, two lines fit)
+
         static void LayOutRows(VersusRoundResults results, Text[] labels, int count)
         {
+            bool[] done = new bool[8];
             for (int a = 0; a < count; a++)
             {
-                Text first = labels[a];
-                if (first == null) continue;
-                float rowY = first.Position.Y;
-                float right = first.Position.X;
+                if (labels[a] == null || done[a]) continue;
+                float rowY = labels[a].Position.Y;
+                // the row's labels, rightmost first (as the game placed them)
+                Text[] row = new Text[8];
                 int inRow = 0;
-                for (int b = 0; b < count; b++)
-                    if (labels[b] != null && Math.Abs(labels[b].Position.Y - rowY) < 3f)
-                    {
-                        inRow++;
-                        if (labels[b].Position.X > right) right = labels[b].Position.X;
-                    }
-                float left = PlaceRow(labels, count, rowY, right);
-                if (left < 4f)
+                while (true)
                 {
+                    int next = -1;
                     for (int b = 0; b < count; b++)
-                        if (labels[b] != null && Math.Abs(labels[b].Position.Y - rowY) < 3f) labels[b].Scale = Vector2.One;
-                    left = PlaceRow(labels, count, rowY, right);
+                    {
+                        if (labels[b] == null || done[b] || Math.Abs(labels[b].Position.Y - rowY) >= 3f) continue;
+                        if (next < 0 || labels[b].Position.X > labels[next].Position.X) next = b;
+                    }
+                    if (next < 0) break;
+                    done[next] = true;
+                    row[inRow++] = labels[next];
+                }
+                float right = row[0].Position.X;
+                float left = PlaceRow(row, inRow, rowY, right, false);
+                if (left < MinLeft)
+                {
+                    for (int b = 0; b < inRow; b++) row[b].Scale = Vector2.One;
+                    left = PlaceRow(row, inRow, rowY, right, true);
                 }
                 float oldNext = right - 25f * inRow;   // (where the game put the crown's right edge)
                 for (int i = 0; i < results.Components.Count; i++)
                 {
                     if (results.Components[i] is not Image image) continue;
-                    if (Math.Abs(image.Position.Y + 1f - rowY) < 3f && image.Position.X < right) image.Position.X += left - 9f - oldNext;
+                    if (Math.Abs(image.Position.Y + 1f - rowY) < 3f && image.Position.X < right) image.Position.X += left - Gap - oldNext;
                 }
-                for (int b = 0; b < count; b++)
-                    if (labels[b] != null && Math.Abs(labels[b].Position.Y - rowY) < 3f) labels[b] = null;
             }
         }
 
-        // the row's labels right to left (rightmost first, as the game placed them) from `right`, 9 px apart; returns the row's left edge
-        static float PlaceRow(Text[] labels, int count, float rowY, float right)
+        // the row's labels (rightmost first) right to left from `right`, Gap px apart; with `wrap`, a label that would pass MinLeft starts
+        // a new line at `right`, and the lines are centred on the row. Returns the left edge of the widest line.
+        static float PlaceRow(Text[] row, int inRow, float rowY, float right, bool wrap)
         {
-            bool[] placed = new bool[8];
+            int[] line = new int[8];
+            int lines = 1;
             float edge = right;
-            while (true)
+            float left = right;
+            for (int b = 0; b < inRow; b++)
             {
-                int next = -1;
-                for (int b = 0; b < count; b++)
+                float width = row[b].Origin.X * row[b].Scale.X;
+                if (wrap && edge < right && edge - width < MinLeft)
                 {
-                    Text t = labels[b];
-                    if (t == null || placed[b] || Math.Abs(t.Position.Y - rowY) >= 3f) continue;
-                    if (next < 0 || t.Position.X > labels[next].Position.X) next = b;
+                    lines++;
+                    edge = right;
                 }
-                if (next < 0) return edge + 9f;
-                placed[next] = true;
-                labels[next].Position.X = edge;
-                edge = edge - labels[next].Origin.X * labels[next].Scale.X - 9f;
+                line[b] = lines - 1;
+                row[b].Position.X = edge;
+                if (edge - width < left) left = edge - width;
+                edge = edge - width - Gap;
             }
+            for (int b = 0; b < inRow; b++)
+                row[b].Position.Y = rowY + (line[b] - (lines - 1) / 2f) * LineHeight;
+            return left;
         }
     }
 }

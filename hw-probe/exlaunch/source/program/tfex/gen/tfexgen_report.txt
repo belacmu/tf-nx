@@ -480,19 +480,24 @@ hand rule: expression rewritten (translate.toml [[rewrite]] expr, S-native) (21)
     SubtextureRegistry: getAll.Contains(id) -> tfex::gen::GlueFrMods::IsVanillaSubtexture(id): whether the game's atlases have the texture (the names FortRise reads from their XMLs): asked of the loaded atlases (glue SwitchMods.IsVanillaSubtexture)
     patch_VersusModeButton: BuiltInModeCount -> tfex::gen::svc::BuiltInVersusModeCount(): FortRise's count of built-in modes before the registered ones in its list (3): 4 in the Switch's local play, the megamod's TOWERBALL inserted fourth (megamod.cpp)
     patch_VersusModeButton: mode is Modes.LastManStanding or Modes.TeamDeathmatch or Modes.HeadHunters -> tfex::gen::svc::BuiltInVersusMode(mode): the PC's three built-in versus modes; the Switch's local play has a fourth, the megamod's TOWERBALL (mode 6, megamod.cpp appends it to FortRise's list), which is no registered custom mode either
-hand rule: glue extern [Cpp] (Switch code) (117)
+hand rule: glue extern [Cpp] (Switch code) (131)
     TfexGlue.AiNames.AiNameOf(int)
     TfexGlue.AiNames.BoardLaidOut(int, int)
     TfexGlue.Ffi.BytesOf(string)
     TfexGlue.Ffi.LogBusy()
     TfexGlue.Ffi.PassYielded()
-    TfexGlue.FortRiseSwitch.SwitchMods.AddTfexEntries(System.Collections.Generic.List<TowerFall.OptionsButton>)
     TfexGlue.FortRiseSwitch.SwitchMods.AllocSfx()
     TfexGlue.FortRiseSwitch.SwitchMods.AllocSfxLooped()
     TfexGlue.FortRiseSwitch.SwitchMods.AllocSfxVaried()
     TfexGlue.FortRiseSwitch.SwitchMods.ArcherLoad(object, object)
     TfexGlue.FortRiseSwitch.SwitchMods.AsContext(TfexGlue.FortRiseSwitch.SwitchModRegistry)
     TfexGlue.FortRiseSwitch.SwitchMods.AsInit(object)
+    TfexGlue.FortRiseSwitch.SwitchMods.BlackAdd(string)
+    TfexGlue.FortRiseSwitch.SwitchMods.BlackAt(int)
+    TfexGlue.FortRiseSwitch.SwitchMods.BlackClear()
+    TfexGlue.FortRiseSwitch.SwitchMods.BlackCount()
+    TfexGlue.FortRiseSwitch.SwitchMods.BlackSave()
+    TfexGlue.FortRiseSwitch.SwitchMods.CreateTfexEntries(System.Collections.Generic.List<TowerFall.OptionsButton>)
     TfexGlue.FortRiseSwitch.SwitchMods.FileExists(string)
     TfexGlue.FortRiseSwitch.SwitchMods.FileSize(string)
     TfexGlue.FortRiseSwitch.SwitchMods.ListFiles(string)
@@ -519,12 +524,20 @@ hand rule: glue extern [Cpp] (Switch code) (117)
     TfexGlue.FortRiseSwitch.SwitchMods.RegDepText(int, int, bool, int)
     TfexGlue.FortRiseSwitch.SwitchMods.RegLoaded(int)
     TfexGlue.FortRiseSwitch.SwitchMods.RegText(int, int)
+    TfexGlue.FortRiseSwitch.SwitchMods.RestartNotice(Monocle.Scene)
+    TfexGlue.FortRiseSwitch.SwitchMods.SetTfnxEntry(int)
     TfexGlue.FortRiseSwitch.SwitchMods.SpriteDataLoad(object, object, int)
     TfexGlue.FortRiseSwitch.SwitchMods.SubtextureLoad(object, object, int)
     TfexGlue.FortRiseSwitch.SwitchMods.SwitchLogger()
+    TfexGlue.FortRiseSwitch.SwitchMods.TfexPlaced(System.Collections.Generic.List<TowerFall.OptionsButton>, int)
+    TfexGlue.FortRiseSwitch.SwitchMods.UpdatesBeginOptions()
+    TfexGlue.FortRiseSwitch.SwitchMods.UpdatesCreateEntry(System.Collections.Generic.List<TowerFall.OptionsButton>)
+    TfexGlue.FortRiseSwitch.SwitchMods.UpdatesIsMoved(TowerFall.OptionsButton)
+    TfexGlue.FortRiseSwitch.SwitchMods.UpdatesTakeAutoUpdate()
     TfexGlue.ModsButton.FilterMod()
     TfexGlue.ModsButton.InitOptions(TowerFall.MainMenu, System.Collections.Generic.List<TowerFall.OptionsButton>)
     TfexGlue.ModsButton.ModsState()
+    TfexGlue.ModsButton.ToggleState()
     TfexGlue.Reports.LogBusy()
     TfexGlue.Rewrites.AdvisorShiftBegin()
     TfexGlue.Rewrites.AdvisorShiftEnd()
@@ -590,6 +603,7 @@ hand rule: glue extern [Cpp] (Switch code) (117)
     TfexGlue.Updates.AutoStarted()
     TfexGlue.Updates.CheckNow()
     TfexGlue.Updates.CurrentText()
+    TfexGlue.Updates.Failure()
     TfexGlue.Updates.LatestText()
     TfexGlue.Updates.LogBusy()
     TfexGlue.Updates.RestartNeeded()
@@ -1007,7 +1021,8 @@ hand rule: pinned game member (translate.toml [pin]) (375)
     TowerFall.WingsPickup.image: MEASUREMENT LEAD, unconfirmed: layoutdb.py: runtime slot maps; bytes: ok
     TowerFall.WoodenHat.image: ctor 0xbce990: `str x23,[x19,#0xf0]` (archerData) then `bl 0x935cc0; str x0,[x19,#0xf8]` at 0xbcea5c (IL_0060 stfld image), CenterOrigin/FlipX/Add on [x19,#0xf8] at 0xbcea60-0xbcea78 (IL_006b..0086); Update 0xbcf0f0 loads `[x20,#0xf8]` twice. (static confirmation, 2026-10-22)
     TowerFall.WoodenHat.spin: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: unseen
-hook: not generated (13)
+hook: not generated (14)
+    OptionsButton.Wiggle: no OptionsButton.Wiggle with these parameters (MonoMod adds it: no hook)
     RulesHooks.OnPlayerDeath_Transpiler: Transpiler (IL-level: no hook) (teamplus/Hooks/RulesHooks.cs:48)
     SafetyHooks.TeamLookup_Transpiler: Transpiler (IL-level: no hook) (teamplus/Hooks/SafetyHooks.cs:43)
     patch_LevelTiles.ReloadTiles: no LevelTiles.ReloadTiles with these parameters (MonoMod adds it: no hook)
@@ -2270,7 +2285,7 @@ mechanical: LINQ First -> internal iteration (7)
     NetplayMenus: OnJoinSuccess: newLobby.Players.First(pl => pl.IsHost)
     XGamePadInputPatch: InterceptConfirm: (TFGame.Instance.Scene as MainMenu).GetAll<RollcallElement>().First(rc =>
     XGamePadInputPatch: InterceptStart: (TFGame.Instance.Scene as MainMenu).GetAll<RollcallElement>().First(rc =>
-mechanical: LINQ FirstOrDefault -> internal iteration (107)
+mechanical: LINQ FirstOrDefault -> internal iteration (109)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex && (int)e.Type == altIndex)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex && e.Type == FortRise.ArcherEntryType.Normal)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex)
@@ -2306,6 +2321,8 @@ mechanical: LINQ FirstOrDefault -> internal iteration (107)
     Auto_TreasureChestExtensions: GetState: pickupList.FirstOrDefault()
     ChangelogPanel: Update: releaseStarts.FirstOrDefault(start => start > scroll, maxScroll)
     Fr_UIModMenu: InitMods: RiseCore.ModuleManager.InternalFortModules
+    Fr_UIModToggler: Create: loadedMetadata.Where(meta => meta.PathDirectory == dir).FirstOrDefault()
+    Fr_UIModToggler: Create: loadedMetadata.Where(meta => meta.PathZip == filename).FirstOrDefault()
     GameplayLayerPatch: RenderPings: lobbyPlayers.FirstOrDefault(player => player.Seat == seat)
     HUDPatch: WinnerSeat: Enumerable.Range(0, TFGame.PlayerAmount).FirstOrDefault(seat => TFGame.Players[seat] && session.GetScoreIndex(seat) == winner, -1)
     InputService: DisableAllControllerExceptLocal: TFGame.PlayerInputs.FirstOrDefault(input => IsSameDevice(input, previous))
@@ -2587,13 +2604,12 @@ mechanical: List<T>.FindIndex(predicate) on a value list -> the first index it a
     Tp_RoundLogic: SpawnGroups: groups.FindIndex(g => g.Team == Allegiance.Red)
 mechanical: List<T>.Sort(comparison) on a value list -> its Sort with the comparison inline (1)
     Fr_UIModMenu: GetMods: sorted.Sort((x, y) =>
-mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (14)
+mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (13)
     Auto_PlayerGhostExtensions: GetState: Math.Abs(sprite.Scale.X)
     Auto_XGamePadInputExtensions: GetRightStick: Math.Abs(vector.X)
     Auto_XGamePadInputExtensions: GetRightStick: Math.Abs(vector.Y)
     GlueAiNames: LayOutRows: Math.Abs(image.Position.Y + 1f - rowY)
     GlueAiNames: LayOutRows: Math.Abs(labels[b].Position.Y - rowY)
-    GlueAiNames: PlaceRow: Math.Abs(t.Position.Y - rowY)
     MainMenuCreate: AddNetplayButtonToMenu: Math.Abs(button.Position.Y - VANILLA_BOTTOM_ROW_Y)
     State_DeterministicMath: Atan2: Math.Abs(y / x)
     State_DeterministicMath: Atan: Math.Abs(x)
@@ -2717,7 +2733,7 @@ mechanical: a P/Invoke extern -> a direct C call into the native library (22)
     GGRSFFI.netplay_save_game_state
     GGRSFFI.netplay_set_local_inputs
     GGRSFFI.netplay_set_test_inputs
-mechanical: a TF.State generic method -> a copy per instantiation (175)
+mechanical: a TF.State generic method -> a copy per instantiation (176)
     Auto_CalcExtensions: OwnShuffle__Int32
     Auto_CalcExtensions: OwnShuffle__Vector2
     Auto_EntityExtensions: DeleteAllComponents__Alarm
@@ -2798,6 +2814,7 @@ mechanical: a TF.State generic method -> a copy per instantiation (175)
     Fr_SpriteRegistry: GetMenuSpriteEntry__String
     Fr_SpriteRegistry: GetSpriteEntry__Int32
     Fr_SpriteRegistry: GetSpriteEntry__String
+    GlueFrRewrites: SceneAddList__ModOptionsButton
     GlueFrRewrites: SceneAddList__OptionsButton
     GlueFrRewrites: SceneAddList__UIModPanel
     GlueRewrites: SceneAddList__VariantItem
@@ -3344,10 +3361,11 @@ mechanical: a local lambdas capture and the code changes -> a one-element manage
     OrbLogic_DoOffsetWorldVariant: spaceTween
     OrbLogic_DoSpaceOrb: end
     OrbLogic_DoSpaceOrb: spaceTween
-mechanical: a logger's message template -> its placeholders filled in order (7)
+mechanical: a logger's message template -> its placeholders filled in order (8)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: ContentModule.Instance.Logger.LogWarning("Archer: '{id}' is missing Aimer field. Falling back to Green's Aimer", id)
     Fr_ModSubtextures: RegisterTexture: logger.LogWarning("The subtexture ID: {id} but with a different path has already been registered, overriding!", id)
     Fr_ModSubtextures: RegisterTexture: logger.LogWarning("The subtexture ID: {id} has already been registered, overriding", id)
+    Fr_UIModToggler: Destroy: RiseCore.logger.LogInformation("Disabled: '{blacklistMod}'.", blacklisted)
     MatchReport: Upload: logger.LogInformation("Sent {kind} report ({size} KB), server answered {status}", kind, zip.Length / 1024, (int)response.StatusCode)
     Tp_Module: .ctor: logger.LogInformation("Teams+ ready (sheets recoloured on demand, 8-player: {wide})",
     Tp_Module: .ctor: logger.LogWarning("{message}", message)
@@ -3378,8 +3396,15 @@ mechanical: a model map member = a value map of ours -> gen::SetKeyMapFrom (entr
     Auto_MatchStatsReport: Save: RawStats = BuildRawStats(matchStats[archer.Seat])
 mechanical: a model's own-type pattern (is T x on a T) -> a null test (1)
     Auto_InputDelayAdvisor: Update: Domain.Models.WebSocket.Player own
-mechanical: a new container assigned to a field -> copied into the field's own storage (gen::KeepVal) (12)
+mechanical: a new container assigned to a field -> copied into the field's own storage (gen::KeepVal) (19)
     Auto_StateContext: LoadRoundData: roundDataPerRound
+    Fr_UIModToggler: Create: blacklistedMods
+    Fr_UIModToggler: Create: oldBlacklistedMods
+    Fr_UIModToggler: Create: onOffs
+    Fr_UIModToggler: Create: toggles
+    Fr_UIModToggler: Destroy: blacklistedMods
+    Fr_UIModToggler: Destroy: oldBlacklistedMods
+    Fr_UIModToggler: Destroy: onOffs
     GameContext: SetGuestInputs: _guestInputs
     GlueFrMods: LoadedModSet: loadedSet
     MatchmakingService: ResendSkinToNewMembers: _skinKnownPeers
@@ -3422,8 +3447,9 @@ mechanical: a ref local over CollectionsMarshal.GetValueRefOrAddDefault -> the d
     Fr_SpriteRegistry: CreateVanillaEntry: CollectionsMarshal.GetValueRefOrAddDefault(vanillaCaches, id, out bool exists)
     Fr_SubtextureLoader: LoadSubtexture: CollectionsMarshal.GetValueRefOrAddDefault(textureCache, res.RootPath, out bool exists)
     Fr_SubtextureRegistry: GetVanillaSubtextureEntry: CollectionsMarshal.GetValueRefOrAddDefault(cachedVanillaSubtextureEntries, id, out bool exists)
-mechanical: a ref local over CollectionsMarshal.GetValueRefOrNullRef -> the dictionary's slot and a found flag (1)
+mechanical: a ref local over CollectionsMarshal.GetValueRefOrNullRef -> the dictionary's slot and a found flag (2)
     Fr_SubtextureRegistry: GetSubtexture: CollectionsMarshal.GetValueRefOrNullRef(entries, id)
+    Fr_UIModToggler: CreateButton: CollectionsMarshal.GetValueRefOrNullRef(onOffs, physicalName)
 mechanical: a reflected game method (AccessTools.Method / typeof(T).GetMethod) -> resolved where it's used (a direct call or delegate) (7)
     Auto_CrumbleWallExtensions: : typeof(TowerFall.CrumbleWall)
     Auto_PlayerExtensions: ToActions: typeof(PlayerExtensions).GetMethod("Gain", BindingFlags.NonPublic | BindingFlags.Static)
@@ -3468,9 +3494,10 @@ mechanical: a type's property pattern (is T { P: ... }) -> the type test and eac
 mechanical: a virtual game method group -> the receiver's override (its vtable slot, as ldvirtftn) (2)
     Auto_PickupExtensions: LoadState: entity.FinishUnpack
     State_Pickup: ProperlySetTween: self.FinishUnpack
-mechanical: an IEnumerable<T> local from a lazy LINQ chain -> a snapshot where it's declared (6)
+mechanical: an IEnumerable<T> local from a lazy LINQ chain -> a snapshot where it's declared (7)
     AddAwardIcons: topAwards
     CatalogLobbyMods: owners
+    Create: loadedMetadata
     Finish: census
     GetDesyncRiskMods: dependencies
     LaunchScenario: known
@@ -3487,7 +3514,7 @@ mechanical: an array's property pattern ({ Length: ... }) -> a null test and the
     InputScripter: GetInput: { Length: > 0 } script
 mechanical: an await of a stand-in with nothing yet -> the pass returns (gen::WouldBlock; its pump calls the loop again next frame) (1)
     MatchmakingService: ConnectToServerAndListen: result = await _webSocket.ReceiveAsync(segment, cancellationToken);
-mechanical: an empty collection expression -> the collection's new empty instance (33)
+mechanical: an empty collection expression -> the collection's new empty instance (34)
     Auto_ArcherRegistry: : []
     Auto_Changelog: SelectUnseen: []
     Auto_MatchStatsReport: RecordAwards: []
@@ -3506,6 +3533,7 @@ mechanical: an empty collection expression -> the collection's new empty instanc
     Fr_SubtextureLoader: Load: []
     Fr_SubtextureRegistry: : []
     Fr_UIModMenu: InitMods: []
+    Fr_UIModToggler: Create: []
     HUDPatch: SeatScores: []
     LobbyUpdateFeed: : []
     NetplayMenus: : []
@@ -3548,7 +3576,7 @@ mechanical: array.Clone() -> a new array, the elements copied (gen::ResizeArr) (
     Auto_ResultsSaveStats: OnlyCountOnce: .Clone()
 mechanical: char.IsAscii* -> its ASCII ranges (not in the Switch's binary) (1)
     MatchReport: Sanitize: char.IsAsciiLetterOrDigit(c)
-mechanical: class of ours (MakeClass, vtable overrides) (225)
+mechanical: class of ours (MakeClass, vtable overrides) (227)
     APIManager : Object
     Alarm : Object
     ArcherEntry : Object
@@ -3655,6 +3683,7 @@ mechanical: class of ours (MakeClass, vtable overrides) (225)
     ModGameModes : Object
     ModItem : Object
     ModMusics : Object
+    ModOptionsButton : OptionsButton
     ModSFXs : Object
     ModSprites : Object
     ModSubtextures : Object
@@ -3764,6 +3793,7 @@ mechanical: class of ours (MakeClass, vtable overrides) (225)
     UIModListPanel : MenuItem
     UIModMenu : CustomMenuState
     UIModPanel : MenuItem
+    UIModToggler : CustomMenuState
     UISearchPanel : MenuItem
     UpdaterDialog : Entity
     Variant : Variant
@@ -3906,7 +3936,7 @@ mechanical: foreach over XML nodes -> index loop over XmlNodeList.Count / Item (
 mechanical: foreach over a constant string array -> unrolled, the element a known constant (DynamicData member names) (2)
     PlayerPatch: EnsureTeamHeadTextures: foreach (var tag in new[] { "RedTexture", "BlueTexture" })
     State_Level: RestoreEnemyTags: foreach (var pending in new[] { "tagsToAdd", "tagsToRemove" })
-mechanical: foreach over a lazy sequence -> its visitor (202)
+mechanical: foreach over a lazy sequence -> its visitor (207)
     Auto_APIManager: GetStates: foreach (var pair in stateEvents.OrderBy(pair => pair.Key, StringComparer.Ordinal))
     Auto_APIManager: LoadStates: foreach (var pair in stateEvents)
     Auto_EventLogExtensions: ToTFModel: foreach (var evt in eventLog.CrownChanges)
@@ -3931,6 +3961,11 @@ mechanical: foreach over a lazy sequence -> its visitor (202)
     Fr_SpriteEntry_String: GetActualXml: foreach (var additional in Configuration.AdditionalData)
     Fr_UIModMenu: GetMods: foreach (var metadata in RiseCore.ModuleManager.InternalModuleMetadatas)
     Fr_UIModMenu: InitMods: foreach (var mod in mods)
+    Fr_UIModToggler: AddToBlacklist: foreach (var meta in modsMetadata.Values)
+    Fr_UIModToggler: AddToBlacklist: foreach (var mod in modsMetadata.Values)
+    Fr_UIModToggler: Destroy: foreach (var blacklisted in blacklistedMods)
+    Fr_UIModToggler: RemoveToBlacklist: foreach (var meta in modsMetadata.Values)
+    Fr_UIModToggler: RemoveToBlacklist: foreach (var mod in modsMetadata.Values)
     GlueFfi: List: foreach (var s in items) { r += (first ? "" : ",") + Q(s); first = false; }
     GlueFrMods: ContextRegistry: foreach (var r in modRegistries.Values) if (ReferenceEquals(r, context)) return r;
     GlueFrMods: ModContext: foreach (var r in modRegistries.Values) if (ReferenceEquals(r.Mod, mod)) return AsContext(r);
@@ -4111,7 +4146,7 @@ mechanical: foreach over a lazy sequence -> its visitor (202)
     Tp_Selector: Update: foreach (ThreeTeamSelector selector in base.MainMenu.Layers[-1].GetList<ThreeTeamSelector>())
 mechanical: foreach over x ?? Enumerable.Empty<T>() -> over x when it isn't null (1)
     SkinStreamService: IsValidBundle: foreach (var animation in sprite.Animations ?? Enumerable.Empty<SkinAnimation>())
-mechanical: game Dictionary iterated through Mono's slots (49)
+mechanical: game Dictionary iterated through Mono's slots (51)
     Auto_PlayerCorpseExtensions: RemoveRevivers: corpse.Level.Layers
     Auto_SceneExtensions: DeleteAllByDepth: scene.Layers
     Auto_SceneExtensions: GetAll: scene.Layers
@@ -4130,6 +4165,8 @@ mechanical: game Dictionary iterated through Mono's slots (49)
     Fr_MatchVariants: ctor: VariantRegistry.Variants
     Fr_SpriteEntry_Int32: GetActualXml: Configuration.AdditionalData
     Fr_SpriteEntry_String: GetActualXml: Configuration.AdditionalData
+    Fr_UIModToggler: AddToBlacklist: modsMetadata
+    Fr_UIModToggler: RemoveToBlacklist: modsMetadata
     GlueFrMods: ContextRegistry: modRegistries
     GlueFrMods: ModContext: modRegistries
     GlueFrMods: VanillaSubtextureIds: TFGame.Atlas.SubTextures
@@ -4208,7 +4245,7 @@ mechanical: int.TryParse(string, out int) -> gen::TryParseInt (6)
     Fr_ArcherLoader: CreateArcherConfigurationWithDefaults: int.TryParse(sfx, out int s)
     ScenarioLaunch: LaunchScenario: int.TryParse(args[0], out var parsedIndex)
     SkinOverlayService: RegisterGameplaySprite: int.TryParse(animation.Id, out _)
-mechanical: lambda -> delegate (function of target, args) (126)
+mechanical: lambda -> delegate (function of target, args) (127)
     Auto_CornerButton: TweenIn: t => Position = Vector2.Lerp(tweenFrom, tweenTo, t.Eased)
     Auto_Fader: .ctor: delegate (Tween t)
     Auto_SpectatorRollcallGate: HandleBack: () => { }
@@ -4219,6 +4256,7 @@ mechanical: lambda -> delegate (function of target, args) (126)
     Fr_UIModMenu: GetMods: (x, y) =>
     Fr_UIModMenu: InitMods: (item) =>
     Fr_UIModPanel: TweenIn: t =>
+    Fr_UIModToggler: Create: () =>
     Fr_UISearchPanel: .ctor: (x) =>
     Fr_UISearchPanel: TweenIn: t =>
     LightPauseMenu: Quit: () => { }
@@ -4335,7 +4373,7 @@ mechanical: lambda -> delegate (function of target, args) (126)
     Tp_RoundLogic: SpawnByPartition: (a, b) => a.X.CompareTo(b.X)
     Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Blue
     Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Red
-mechanical: lambda capturing unchanged locals -> closure (object[] target) (184)
+mechanical: lambda capturing unchanged locals -> closure (object[] target) (188)
     Auto_ArrowExtensions: LoadState: () => { entity.RemoveSelf(); }: entity
     Auto_CornerButton: TweenOut: t => Position = Vector2.Lerp(start, tweenFrom, t.Eased): start
     Auto_EnemyAttackExtensions: LoadState: () => DynamicData.For(bat).Invoke("Explode"): bat
@@ -4397,6 +4435,10 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (184)
     Fr_UIModListPanel: TweenOut: t =>: start
     Fr_UIModMenu: Create: (x) =>: searchPanel
     Fr_UIModPanel: TweenOut: t =>: start
+    Fr_UIModToggler: Create: () => disableAll.State = string.Empty: disableAll
+    Fr_UIModToggler: Create: () => enableAll.State = string.Empty: enableAll
+    Fr_UIModToggler: CreateButton: () =>: onOffs, physicalName
+    Fr_UIModToggler: CreateButton: () =>: toggleable, onOffs, physicalName, modName
     Fr_UISearchPanel: TweenOut: t =>: start
     GlueFfi: RunWorker: () => work(): work
     GlueKeyboardEntity: Added: () =>: text
@@ -4412,7 +4454,7 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (184)
     GlueSettingsUi: CreateOnOff: () =>: value, onPressed
     GlueSettingsUi: CreateOptions: () =>: button, selections, index
     GlueSettingsUi: CreateOptions: () =>: index, selections, onSelect
-    GlueUpdates: CreateEntry: () => { button.State = StateText(); }: button
+    GlueUpdates: CreateEntry: () => { button.State = StateText(UiState()); }: button
     GlueUpdates: CreateEntry: () =>: button
     GlueUpdates: Run: () => work(): work
     LightPauseMenu: Quit: () =>: matchmakingService
@@ -4620,10 +4662,12 @@ mechanical: new struct(...) whose constructor assigns its fields -> each field i
     Tp_RoundLogic: SpawnGroups: new Group(Allegiance.Neutral)
 mechanical: number.CompareTo(number) -> -1 / 0 / 1 (1)
     Tp_RoundLogic: SpawnByPartition: a.X.CompareTo(b.X)
-mechanical: override of a FortRise virtual -> no slot (no FortRise on the Switch) (3)
+mechanical: override of a FortRise virtual -> no slot (no FortRise on the Switch) (5)
     NetplaySettings.Create
     UIModMenu.Create
     UIModMenu.Destroy
+    UIModToggler.Create
+    UIModToggler.Destroy
 mechanical: override of a virtual the Switch's game lacks -> no slot (never called by the game) (6)
     FakeController.get_ArrowsIcon
     FakeController.get_Icon
@@ -4821,13 +4865,15 @@ mechanical: typeof(a primitive / string) -> its runtime type object (6)
     Fr_SpriteEntry_String: GetActualXml: typeof(T)
     Fr_SpriteEntry_String: GetActualXml: typeof(int)
     Fr_SpriteEntry_String: GetActualXml: typeof(string)
-mechanical: using -> its Dispose at the end of the scope (gen::MakeDefer) (20)
+mechanical: using -> its Dispose at the end of the scope (gen::MakeDefer) (22)
     Fr_SFX: ctor: using Stream stream = ModIO.OpenRead(path);
     Fr_SFXEntry: GetActualSFX: using var stream = Path!.Stream;
     Fr_SFXLoopedEntry: GetActualSFXLooped: using var stream = Path!.Stream;
     Fr_SFXVaried: ctor: using Stream fileStream = ModIO.OpenRead(Audio.LOAD_PREFIX + filename + GetSuffix(i + 1) + ".wav");
     Fr_SubtextureEntry: GetActualSubtexture: using var stream = Path.Stream;
     Fr_SubtextureLoader: LoadSubtexture: using var texRes = r.Stream;
+    Fr_UIModToggler: Create: using var meta = metaZip.ExtractStream();
+    Fr_UIModToggler: Create: using var zipFile = ZipFile.OpenRead(Path.Combine(modDirectory, filename));
     MatchReport: AddEntry: using var entry = archive.CreateEntry(entryName, CompressionLevel.SmallestSize).Open();
     MatchReport: BuildZip: using (var archive = new ZipArchive(memory, ZipArchiveMode.Create, leaveOpen: true))
     MatchReport: BuildZip: using var memory = new MemoryStream();
@@ -4959,7 +5005,7 @@ rule: ToHashSet(StringComparer) over strings -> a gen::ValSet comparing that way
 rule: a collection passed for a model-list parameter -> a temporary model list of it (2)
     MatchmakingService: PublishSettingsChanges: [title]
     ScenarioLaunch: StartGame: variants
-rule: a collection the game has no code for -> a C++ container in scanned GC memory (gen::ValMap/ValSet/VList) (83)
+rule: a collection the game has no code for -> a C++ container in scanned GC memory (gen::ValMap/ValSet/VList) (86)
     Auto_APIManager: .ctor: new()
     Auto_ArcherDataExtensions: ResolveArchers: new Dictionary<int, (int, int)>()
     Auto_ArcherDataExtensions: ResolveArchers: new HashSet<int>()
@@ -4998,11 +5044,14 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     Fr_SpriteDataLoader: LoadSpriteData: new List<Animation<T>>()
     Fr_SubtextureRegistry: : []
     Fr_UIModMenu: GetMods: new List<(double, ModuleMetadata)>()
+    Fr_UIModToggler: Create: [.. oldBlacklistedMods]
+    Fr_UIModToggler: Create: []
     Fr_VersusModeButton: Create: [Modes.LastManStanding, Modes.HeadHunters, Modes.TeamDeathmatch]
     GameContext: .ctor: []
     GameContext: .ctor: new()
     GlueFrMods: : new Dictionary<string, TrackInfo>()
     GlueFrMods: : new HashSet<SwitchModContent>()
+    GlueFrMods: BlacklistedMods: new HashSet<string>()
     GlueFrMods: LoadedModSet: new HashSet<SwitchModContent>()
     GlueFrMods: VanillaSubtextureIds: new HashSet<string>()
     GlueGameFields: RawFields_MatchStats: new Dictionary<string, double>()
@@ -5326,9 +5375,11 @@ rule: x == the local seat/index -> svc::IsLocalSeat(x) (several local players pe
     NetplayMenus: TryOpenLobbyEditor: seat != matchmakingService.GetLocalSeat()
     RollCallElementPatch: IsOwnOrGuestSeat: seat == matchmakingService.GetLocalSeat()
     RollCallElementPatch: RollcallElement_NotJoinedUpdate: playerIndex == matchmakingService.GetLocalSeat()
-service map: Switch code (251)
+service map: Switch code (263)
     FortRise.Content.ContentModule.CurrentModMetadata
     FortRise.Content.VanillaXmlCacher.GetAllAvailableSubtexturesID
+    FortRise.FortRiseModule.UIModTogglerEntry
+    FortRise.FortRiseModule.UIModsEntry
     FortRise.GameModeRegistry.ModesToVersusGameMode
     FortRise.GameModeRegistry.NameToModes
     FortRise.GameModeRegistry.RegistryVersusGameModes
@@ -5402,8 +5453,10 @@ service map: Switch code (251)
     FortRise.Mod.CreateSettings
     FortRise.Mod.GetSettings
     FortRise.Mod.Meta
+    FortRise.ModuleManager.BlacklistedMods
     FortRise.ModuleManager.CreateQueue
     FortRise.ModuleManager.InternalFortModules
+    FortRise.ModuleManager.InternalMods
     FortRise.ModuleManager.InternalModuleMetadatas
     FortRise.ModuleManager.NameToIcon
     FortRise.ModuleMetadata.DLL
@@ -5411,6 +5464,8 @@ service map: Switch code (251)
     FortRise.ModuleMetadata.DisplayName
     FortRise.ModuleMetadata.Name
     FortRise.ModuleMetadata.OptionalDependencies
+    FortRise.ModuleMetadata.ParseMetadata
+    FortRise.ModuleMetadata.PathDirectory
     FortRise.ModuleMetadata.ToString
     FortRise.ModuleMetadata.Version
     FortRise.ModuleMetadata.op_Equality
@@ -5422,7 +5477,10 @@ service map: Switch code (251)
     FortRise.RegistryQueue<FortRise.IMusicEntry>.AddOrInvoke
     FortRise.RegistryQueue<FortRise.ISubtextureEntry>.AddOrInvoke
     FortRise.RegistryQueue<FortRise.IVersusGameModeEntry>.AddOrInvoke
+    FortRise.Result<FortRise.ModuleMetadata, string>.Check
+    FortRise.RiseCore.InternalRestart
     FortRise.RiseCore.UpdateChecks.HasUpdates
+    FortRise.RiseCore.WriteBlacklist
     FortRise.SemanticVersion.ToString
     FortRise.SpriteFontExt.extension(Microsoft.Xna.Framework.Graphics.SpriteFont).WrapText
     FortRise.TextUtils.DrawOutlinedIconText
@@ -5443,12 +5501,15 @@ service map: Switch code (251)
     Monocle.patch_SFXLooped.Instance
     Monocle.patch_SFXVaried.Datas
     Monocle.patch_SFXVaried.thisctor
+    System.AppDomain.BaseDirectory
     System.Collections.Generic.IReadOnlyDictionary<string, FortRise.IArcherEntry>.TryGetValue
     System.Diagnostics.Stopwatch.ElapsedMilliseconds
     System.IO.Compression.ZipArchive..ctor
     System.IO.Compression.ZipArchive.CreateEntry
     System.IO.Compression.ZipArchiveEntry.Open
     System.IO.Compression.ZipFileExtensions.CreateEntryFromFile
+    System.IO.Directory.GetDirectories
+    System.IO.Directory.GetFiles
     System.IO.File.Exists
     System.IO.File.WriteAllText
     System.IO.MemoryStream..ctor
@@ -5604,10 +5665,15 @@ service map: fixed value (S-hooks) (1)
     FortRise.IModuleContext.Harmony
 service map: fixed value (S-keyboard) (1)
     TF.EX.Domain.Services.ClipboardService.GetText
-service map: fixed value (S-native) (6)
+service map: fixed value (S-native) (11)
     FortRise.IArrowEntry.ArrowTypes
+    FortRise.ModuleMetadata.IsDirectory
+    FortRise.ModuleMetadata.PathZip
     FortRise.ModuleMetadata.Update
     FortRise.ResourceTree.IsExist
+    FortRise.ZipExt.extension(System.IO.Compression.ZipArchiveEntry).ExtractStream
+    System.IO.Compression.ZipArchive.GetEntry
+    System.IO.Compression.ZipFile.OpenRead
     System.IO.Directory.CreateDirectory
     System.Type.GetMethod
     TowerFall.patch_VersusModeButton.ModeSwitch
@@ -5719,7 +5785,7 @@ settings: FortRise's ModuleSettings as JSON (CodeGen.ModSettings) (1)
     TF.EX.NetplaySettings: 10 properties
 unit's file not in this TF.EX tree (skipped) (1)
     ConnectionIcon: network/TF.EX.Patchs/ConnectionIcon.cs
-unresolved game member (101)
+unresolved game member (102)
     e_ArcherEntryType: no type FortRise.ArcherEntryType
     e_CustomVariantFlags: no type FortRise.CustomVariantFlags
     e_InputBehavior: no type FortRise.InputBehavior
@@ -5768,6 +5834,7 @@ unresolved game member (101)
     t_Dictionary_2_0f0b: no type System.Collections.Generic.Dictionary`2[System.String, Microsoft.Xna.Framework.Audio.SoundEffect]
     t_Dictionary_2_170f: no type System.Collections.Generic.Dictionary`2[System.String, System.Boolean]
     t_Dictionary_2_1bd9: no type System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime]
+    t_Dictionary_2_2b5c: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.OptionsButton]
     t_Dictionary_2_35f7: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Object]
     t_Dictionary_2_552e: no type System.Collections.Generic.Dictionary`2[TowerFall.Variant, System.Boolean]
     t_Dictionary_2_5e24: no type System.Collections.Generic.Dictionary`2[TowerFall.Modes, System.Object]

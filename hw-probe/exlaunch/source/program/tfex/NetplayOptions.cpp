@@ -9,7 +9,6 @@
 #include "MatchmakingService.hpp"
 #include "Game.hpp"
 #include "gen/tfexgen_NetplaySettings.hpp"
-#include "gen/tfexgen_GlueUpdates.hpp"
 #include "gen/tfexgen_GlueSettingsUi.hpp"
 #include "gen/tfexgen_Fr_MainMenuOptions.hpp"
 #include "runtime/tfexgen_code_rt.hpp"
@@ -28,6 +27,7 @@ constexpr int32_t kOptionsState = 12;                                     /* Mai
 bool g_added = false;
 void** g_buttonsRoot = nullptr;   /* the OPTIONS screen's List<OptionsButton> (GC-scanned slot) */
 int g_first = -1;
+int g_tfnx = -1;   /* the TF.NX entry (its version and update) on the screen's list */
 char g_testText[4][128]; int g_testCount = 0, g_testNext = 0;
 int ListCount(void* list) { return list ? At<int32_t>(list, 0x18) : 0; }
 void* ListItem(void* list, int i) {   /* List<T>: _items (a managed array: its data pointer at +0x10) at +0x10 */
@@ -48,22 +48,26 @@ HOOK_DEFINE_TRAMPOLINE(DestroyOptionsHook) {
     static void Callback(void* menu) {
         Orig(menu);
         if (!g_added) return;
-        g_added = false; g_first = -1; gen::RootStatic(g_buttonsRoot) = nullptr;
+        g_added = false; g_first = -1; g_tfnx = -1; gen::RootStatic(g_buttonsRoot) = nullptr;
         NetplaySettingsFile::StoreObject();   /* the edited NetplaySettings into TF.EX.settings.json (FortRise: saved when the page closes) */
     }
 };
 }
 
-void AddEntries(void* buttons) {   /* FortRise's InitModOptions for TF.EX (glue SwitchMods.InitModOptions), after its header */
-    void* settings = NetplaySettingsFile::Object();
-    if (!settings) return;
-    g_first = ListCount(buttons);
+void CreateEntries(void* list) {   /* TF.EX's NetplaySettings.Create into a list (FortRise's ISettingsCreate: glue SettingsUi) */
+    if (void* settings = NetplaySettingsFile::Object()) gen::NetplaySettings::Create(settings, list);
+}
+void Placed(void* buttons, int first) {   /* TF.EX's entries are on the screen's list from index `first` (glue SwitchMods.InitModOptions) */
+    g_first = first;
     gen::RootStatic(g_buttonsRoot) = buttons;
-    gen::NetplaySettings::Create(settings, buttons);   /* TF.EX's own entries (FortRise's ISettingsCreate: glue SettingsUi) */
-    gen::GlueUpdates::CreateEntry(buttons);   /* TF.NX's version and update (tfnxupdate.cpp; after TF.EX's AUTO UPDATE) */
     g_added = true;
     static int logged = 0;
-    if (logged++ < 3) hw::Log("[tfex] OPTIONS: TF.EX's netplay settings added (NetplaySettings.Create) under FortRise's TF.EX header");
+    if (logged++ < 3) hw::Log("[tfex] OPTIONS: TF.EX's netplay settings added (NetplaySettings.Create) under FortRise's TF.EX header, from entry %d", first);
+}
+void SetTfnxEntry(int index) {
+    g_tfnx = index;
+    static int logged = 0;
+    if (logged++ < 3) hw::Log("[update] OPTIONS: the TF.NX section above TF.EX's (entry %d: TF.NX's version, then TF.EX's AUTO UPDATE)", index);
 }
 
 void AddTestText(const char* text) {
@@ -73,6 +77,7 @@ void AddTestText(const char* text) {
     for (int n = (int)std::strlen(t); n > 0 && (t[n - 1] == '\n' || t[n - 1] == '\r' || t[n - 1] == ' '); n--) t[n - 1] = 0;
 }
 int FirstEntry() { return g_first; }
+int TfnxEntry() { return g_tfnx; }
 int SelectedIndex() {
     void* list = g_buttonsRoot ? *g_buttonsRoot : nullptr;
     for (int i = 0; list && i < ListCount(list); i++)

@@ -54,7 +54,10 @@ without the user's OK).
 2. The game check: meta.json's `game` must be the TowerFall update this module is for (1.4.1.6), else refused with the reason.
 3. Tested without publishing: hw.txt `updatesource <url>` + `updatetest`; tools/update-test.sh with tools/update-test/server.py.
 4. "TF.NX UPDATED TO V..." on the first start of the new version, and meta.json's one-line `notes` (release.sh's RELEASE_NOTE).
-5. The OPTIONS entry `TF.NX <version>`: UP TO DATE / V<new> / LOADING / RESTART / FAILED / CHECKING / DEV SERVER; Confirm downloads
+5. OPTIONS' TF.NX section (the user, 2026-11-08: above TF.EX's, the setting there): a TF.NX header first among the mods' sections,
+   then the entry `TF.NX <version>` and TF.EX's own AUTO UPDATE, moved from TF.EX's list (still NetplayPreferences.AutoUpdate; its
+   description says it downloads TF.NX releases, which bring TF.EX's updates). MODS > TF.EX shows TF.EX's list unchanged. The entry (2026-11-08: "TF.NX UPDATE" and what pressing it does,
+   the versions in the description; "TF.NX 0.29.1.1  RESTART" said nothing): UP TO DATE / DOWNLOAD / LOADING / RESTART / RETRY / CHECKING / DEV BUILD, each with its own description; Confirm downloads
    a new version, else checks again (also with AUTO UPDATE on).
 6. Only the release's folders written (exefs, xplay/tfex, xplay/mods, xplay/tfnx; the zip's root files skipped); 24 MB free checked
    before the download and the unpacked size before unpacking; a failure retries at the next start (or on Confirm).

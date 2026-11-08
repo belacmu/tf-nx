@@ -548,16 +548,23 @@ HOOK_DEFINE_TRAMPOLINE(GetLevelsHook) {
             int prefix = 0;
             int t = (items && count > 0) ? WideTower(*reinterpret_cast<void**>(items[0] + 0x10), &prefix) : -1;
             if (t < 0) { hw::Log("[pc] GetLevels (wide): tower not in the wide set, %d levels", count); return Orig(tower, matchSettings); }
+            /* the game's own rule (VersusTowerData.GetLevels, the PC's too): TEAM DEATHMATCH (mode 5) keeps a level whose TeamSpawns
+             * (VersusLevelData +0x1c: the fewer of TeamSpawnA / TeamSpawnB) hold the largest team (MatchSettings.GetMaxTeamSize, 8 seats:
+             * WiderSet's loop); every other mode PlayerSpawns (+0x18) >= the players. Online the mode is TF.EX's netplay mode (11): the
+             * second. Without it a local wide TDM drew levels with no team spawns (Sacred Ground 00) and SpawnPlayersTeams threw */
+            const bool tdm = localWide && *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(matchSettings) + 0x30) == 5;
+            const int need = tdm ? reinterpret_cast<int32_t (*)(void*)>(b + 0xabb5f0)(matchSettings) : players;
             int total = 0;
             for (int l = 0; widelevels::kTable[t].levels[l]; l++, total++) {
                 void* path = WidePath(*reinterpret_cast<void**>(items[0] + 0x10), t, l);
                 void* pc = reinterpret_cast<void* (*)(void*, void*)>(b + 0xbae420)(nullptr, path);
-                int spawns = pc ? *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(pc) + 0x18) : 0;
-                if (spawns >= players) { reinterpret_cast<void (*)(void*, void*)>(b + 0x97a0)(out, path); kept++; }
+                int spawns = pc ? *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(pc) + (tdm ? 0x1c : 0x18)) : 0;
+                if (spawns >= need) { reinterpret_cast<void (*)(void*, void*)>(b + 0x97a0)(out, path); kept++; }
             }
             static int said = 0;
             if (!localWide || said++ < 5)
-                hw::Log("[pc] GetLevels (wide%s): %s, %d of %d levels (PlayerSpawns >= %d)", localWide ? ", local play" : "", widelevels::kTable[t].folder, kept, total, players);
+                hw::Log("[pc] GetLevels (wide%s): %s, %d of %d levels (%s >= %d)", localWide ? ", local play" : "", widelevels::kTable[t].folder, kept, total,
+                        tdm ? "TeamSpawns" : "PlayerSpawns", need);
             int moved = SortByFolderAndName(out);
             LogOrder(moved ? "GetLevels order (sorted by folder and name, CHANGED)" : "GetLevels order (sorted by folder and name, as listed)", out);
             return out;

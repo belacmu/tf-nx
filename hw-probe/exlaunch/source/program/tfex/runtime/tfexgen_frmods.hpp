@@ -21,6 +21,18 @@ bool RegLoaded(int i);
 void* RegText(int i, int field);
 int RegDepCount(int i, bool optional);
 void* RegDepText(int i, int k, bool optional, int field);
+/* FortRise's blacklist (TOGGLE MODS, tfexgen_mods.hpp): the folders read at start; a new list made with BlackClear / BlackAdd, BlackSave
+ * writes it for the next start (true when written) */
+int BlackCount();
+void* BlackAt(int i);
+void BlackClear();
+void BlackAdd(const void* folder);
+bool BlackSave();
+/* FortRise's ModuleMetadata.ParseMetadata(dir, metaPath) for TOGGLE MODS: Ok with the registry's entry for that folder (glue FolderMeta),
+ * else an Error */
+st::Fr_Result_ModuleMetadata_string ParseFolderMeta(const void* dir);
+/* FortRise's Result<T, U>.Check(out ok, out error): ok and error out, true for Response.Ok (0) */
+template <class R, class T, class U> bool ResultCheck(const R& r, T& ok, U& error) { ok = r.Value; error = r.ErrorValue; return r.ResponseType == 0; }
 bool FileExists(const void* path);    /* a file at this managed "sd:/..." path */
 void* ReadText(const void* path);     /* the file as a managed string (UTF-8, a BOM dropped), or null */
 int FileSize(const void* path);       /* the file's size in bytes, or -1 */

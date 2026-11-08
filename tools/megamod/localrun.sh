@@ -29,22 +29,27 @@ XPLAY_RJCONFIG="$cfg" XPLAY_UNTIL='\[mmtest\] level ran 30 s' XPLAY_LOGKEEP="$lo
   XPLAY_TAG=hw tools/run-probe.sh "${LOCALRUN_SECS:-240}" > "$logs/run-probe.out" 2>&1 &
 rp=$!
 # LOCALRUN_SHOTAT=<regex> (as smoke.sh's SMOKE_SHOTAT): a screenshot of the window LOCALRUN_SHOTDELAY s (2) after that line of this run's log -> $logs/shot.png
+# (LOCALRUN_SHOTN=<n>: after its n-th match); LOCALRUN_SHOTAT2=<regex>: a second one after that, LOCALRUN_SHOTDELAY2 s (2) after its line -> $logs/shot2.png
 # (this run's Ryujinx: the newest instance started after this point; its log found through the files it has open)
 if [ -n "${LOCALRUN_SHOTAT:-}" ]; then
   wb=${TMPDIR:-/tmp}/xplay-winid; [ "$wb" -nt "$here/tools/winid.swift" ] || swiftc -O -o "$wb" "$here/tools/winid.swift" 2>/dev/null
-  t0=$(date +%s); live=
+  t0=$(date +%s); live=; k=1
   while kill -0 $rp 2>/dev/null; do
     pid=$(pgrep -n -x "$RJ_NAME")
     [ -z "$live" ] && [ -n "$pid" ] && live=$(lsof -p "$pid" -Fn 2>/dev/null | sed -n 's/^n\(.*\/Ryujinx_[^/]*\.log\)$/\1/p' | head -1)
-    if [ -n "$live" ] && [ "$(stat -f %m "$live")" -ge "$t0" ] && /usr/bin/grep -aqE "$LOCALRUN_SHOTAT" "$live"; then
-      sleep "${LOCALRUN_SHOTDELAY:-2}"; w=$("$wb" "$pid" 2>/dev/null); [ -n "$w" ] && screencapture -x -o -l "$w" "$logs/shot.png" 2>/dev/null; break
+    if [ "$k" = 1 ]; then re=$LOCALRUN_SHOTAT; n=${LOCALRUN_SHOTN:-1}; d=${LOCALRUN_SHOTDELAY:-2}; f=shot.png
+    else re=$LOCALRUN_SHOTAT2; n=1; d=${LOCALRUN_SHOTDELAY2:-2}; f=shot2.png; fi
+    if [ -n "$live" ] && [ "$(stat -f %m "$live")" -ge "$t0" ] && [ "$(/usr/bin/grep -acE "$re" "$live")" -ge "$n" ]; then
+      sleep "$d"; w=$("$wb" "$pid" 2>/dev/null); [ -n "$w" ] && screencapture -x -o -l "$w" "$logs/$f" 2>/dev/null
+      [ "$k" = 1 ] && [ -n "${LOCALRUN_SHOTAT2:-}" ] && { k=2; continue; }
+      break
     fi
     sleep 0.5
   done
 fi
 wait $rp
 log="$logs/ryujinx.log"
-res() { echo "LOCALRUN $players $mode $1$([ -f "$logs/shot.png" ] && echo " | shot $logs/shot.png") | logs $logs"; exit 0; }
+res() { echo "LOCALRUN $players $mode $1$([ -f "$logs/shot.png" ] && echo " | shot $logs/shot.png")$([ -f "$logs/shot2.png" ] && echo " | shot2 $logs/shot2.png") | logs $logs"; exit 0; }
 [ -f "$log" ] || res "FAIL: no Ryujinx log ($(grep -a 'run ended' "$logs/run-probe.out" | tail -1))"
 grep -aq "Unhandled exception" "$log" && res "FAIL: the guest crashed ($(grep -a 'Unhandled exception' "$log" | head -1 | cut -c1-160))"
 lv=$(grep -a '\[mmtest\] level:' "$log" | head -1 | sed 's/.*\[mmtest\] //')
@@ -53,6 +58,8 @@ lv=$(grep -a '\[mmtest\] level:' "$log" | head -1 | sed 's/.*\[mmtest\] //')
 want=$mode; if [ "$num" = 0 ]; then want=$(grep -ao "\[mmtest\] GAME MODE: $mode (mode [0-9]*)" "$log" | grep -o 'mode [0-9]*)' | tr -dc 0-9); [ -n "$want" ] || res "FAIL: GAME MODE never showed $mode"; fi
 [ "$mode" = 6 ] && { want=5; grep -aq '\[towerball\] mode-6 session live' "$log" || res "FAIL: no TowerBall session ($lv)"; }
 ai=$(printf '%s\n' "$@" | sed -n 's/^localai \([0-9]*\).*/\1/p' | tail -1)   # (hw.txt localai <n>: LoaderAI's AI players join too)
+ail=$(printf '%s\n' "$@" | sed -n 's/^localaisteps \(.*\)/\1/p' | tail -1 | tr -cd L | wc -c | tr -d ' ')   # (localaisteps' L presses: an AI each, filling)
+ai=$(( ${ai:-0} + ${ail:-0} > 8 - players ? 8 - players : ${ai:-0} + ${ail:-0} ))
 case "$lv" in "level: $((players + ${ai:-0})) players"*", mode $want,"*) ;; *) res "FAIL: $lv";; esac
 grep -aq '\[mmtest\] level ran 30 s' "$log" || res "FAIL: the level didn't run 30 s ($lv)"
 res "PASS: $lv"

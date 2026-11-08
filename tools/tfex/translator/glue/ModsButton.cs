@@ -15,6 +15,7 @@ namespace TfexGlue
     public static class ModsButton
     {
         [Cpp("tfex::ModsMenu::kState", Include = "../ModsMenu.hpp")] private static extern int ModsState();
+        [Cpp("tfex::ModsMenu::kToggleState", Include = "../ModsMenu.hpp")] private static extern int ToggleState();
 
         public static void AddToMain(MainMenu menu)
         {
@@ -42,6 +43,7 @@ namespace TfexGlue
             {
                 var textures = Traverse.Create(title).Field<Dictionary<MainMenu.MenuState, Subtexture>>("textures").Value;
                 textures[modsState] = TFGame.MenuAtlas["menuTitles/options"];
+                textures[(MainMenu.MenuState)ToggleState()] = TFGame.MenuAtlas["menuTitles/options"];   // TOGGLE MODS (FortRise registers it with no title of its own)
             }
         }
 

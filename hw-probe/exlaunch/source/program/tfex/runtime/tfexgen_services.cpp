@@ -83,6 +83,9 @@ void* GenModCollections() {
     return o;
 }
 int32_t ModsMenuState() { return tfex::ModsMenu::kState; }
+namespace { char g_togglerEntry; }
+void* ModTogglerEntry() { return &g_togglerEntry; }
+int32_t MenuStateOf(void* entry) { return entry == &g_togglerEntry ? tfex::ModsMenu::kToggleState : tfex::ModsMenu::kState; }
 void* ExportReplay() { tfex::gen::MatchReport::OnReplayExported(nullptr); return nullptr; }
 /* TF.EX's ownLobby: the generated MatchmakingService's own field (TF.EX's code reads and writes it in place) */
 ws::Lobby* GetOwnLobby() {

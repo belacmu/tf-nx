@@ -19,7 +19,9 @@ void* Service();                                /* ServiceCollections.ResolveX()
 void* ModApi(const void* name);
 /* TF.EX's ModCollections (generated), made once over FortRise's interop (the registry), kept in a GC root */
 void* GenModCollections();
-int32_t ModsMenuState();                       /* FortRise's MODS menu state on the Switch (tfex/ModsMenu.cpp: past TF.EX's MenuStates) */
+int32_t ModsMenuState();
+void* ModTogglerEntry();                  /* FortRise's FortRiseModule.UIModTogglerEntry: a registered menu state of its own (TOGGLE MODS) */
+int32_t MenuStateOf(void* entry);         /* FortRise's IMenuStateEntry.MenuState: TOGGLE MODS' state for ModTogglerEntry, else MODS' */                       /* FortRise's MODS menu state on the Switch (tfex/ModsMenu.cpp: past TF.EX's MenuStates) */
 /* IReplayService.Export with TF.Replay absent: no replay file (null), then ReplayService.Export's MatchReport.OnReplayExported(null) */
 void* ExportReplay();
 /* IMatchmakingService (tfex/MatchmakingService.hpp) */

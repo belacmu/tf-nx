@@ -18,8 +18,9 @@
  *    2026-11-07);
  *  - an AI never confirms an archer someone else has (the game's own CharacterTaken): it moves on first as a player's Right would
  *    (RollcallElement.ChangeSelectionRight: the next archer free and unlocked);
- *  - Teams+'s team screen (its ThreeTeamSelector reads each player's MenuLeft / MenuRight): right stick up / down picks an AI, left / right
- *    moves that AI to the next column (SOLO | BLUE | YELLOW | RED), as a player's own left / right does (the user, 2026-11-07);
+ *  - the team screen, Teams+'s and the game's own (each selector reads its player's MenuLeft / MenuRight): right stick up / down picks an
+ *    AI, left / right moves that AI one column over (Teams+: SOLO | BLUE | YELLOW | RED; the game's: BLUE | RED), as a player's own left /
+ *    right does (the user, 2026-11-07; the game's own screen 2026-11-08);
  *  - online none of this: no AI archers in online games (the user, 2026-11-06; TF.EX itself only warns about non-netplay-safe mods).
  *    Online mode starting takes every AI out of PlayerInputs (DropAll, from pcgameplay::Set), and the controls are off on its roll call;
  *  - LoaderAI's Input (generated, tfexgen_Auto_Input) answers its menu getters from those pulses alone (no keyboard behind it; from its
@@ -366,8 +367,8 @@ void Sticks() {
         } else if (ax < 0.3f) p.armedX = true;
     }
 }
-void SelUpdate(void* self) {
-    int pi = tfex::gen::Tp_Selector::S(self)->playerIndex;
+/* around one selector's Update (Teams+'s or the game's own TeamSelector): the right sticks read once a frame, an AI's pulse given */
+bool Before(int pi) {
     if (pi >= 0 && pi < kSlots) {
         if (g_seen & (1u << pi)) g_seen = 0;
         if (!g_seen) Sticks();
@@ -375,16 +376,40 @@ void SelUpdate(void* self) {
     }
     const bool ai = pi >= 0 && pi < kSlots && g_slot[pi].ai && g_slot[pi].ai == InputAt(pi);
     if (ai) { g_slot[pi].now = g_pulse[pi]; g_pulse[pi] = None; }
-    tfex::gen::Tp_Selector::Update(self);
-    if (ai) g_slot[pi].now = None;
+    return ai;
 }
-void SelRender(void* self) {
-    tfex::gen::Tp_Selector::Render(self);
-    int pi = tfex::gen::Tp_Selector::S(self)->playerIndex;
+void After(int pi, bool ai) { if (ai) g_slot[pi].now = None; }
+/* after one selector's Render: the right-stick picture over the picked AI's P label */
+void Cursor(void* self, int pi) {
     if (!g_any || pi != g_cursor || pi < 0 || pi >= kSlots || !g_slot[pi].ai) return;
     gen::Vector2 at = gen::Fld<gen::Vector2>(self, bind::f_Entity_Position);
     DrawRStick(tfex::gen::svc::SwitchMenuIcon("stick-press"), (float)(int)(at.X - 8.0f), (float)(int)(at.Y - 16.0f));
 }
+void SelUpdate(void* self) {
+    int pi = tfex::gen::Tp_Selector::S(self)->playerIndex;
+    const bool ai = Before(pi);
+    tfex::gen::Tp_Selector::Update(self);
+    After(pi, ai);
+}
+void SelRender(void* self) {
+    tfex::gen::Tp_Selector::Render(self);
+    Cursor(self, tfex::gen::Tp_Selector::S(self)->playerIndex);
+}
+/* the game's own team screen (TEAM DEATHMATCH without Teams+): its TeamSelector reads PlayerInputs[playerIndex].MenuLeft / MenuRight
+ * in Update, as Teams+'s does (tools/re vtable TowerFall.TeamSelector: Update +0xb6ba70, Render +0xb6c280; playerIndex +0xb0, its ctor) */
+constexpr uintptr_t kTeamSelectorUpdate = 0xb6ba70, kTeamSelectorRender = 0xb6c280;
+constexpr uint32_t kTeamSelectorPlayerIndex = 0xb0;
+HOOK_DEFINE_TRAMPOLINE(NativeSelUpdate) {
+    static void Callback(void* self) {
+        int pi = self ? gen::Fld<int32_t>(self, kTeamSelectorPlayerIndex) : -1;
+        const bool ai = Before(pi);
+        Orig(self);
+        After(pi, ai);
+    }
+};
+HOOK_DEFINE_TRAMPOLINE(NativeSelRender) {
+    static void Callback(void* self) { Orig(self); if (self) Cursor(self, gen::Fld<int32_t>(self, kTeamSelectorPlayerIndex)); }
+};
 /* the wrappers into the selector's vtable, once its class is made (on the roll call: a menu, before the team screen makes selectors) */
 void Override() {
     if (g_overridden || !tfex::gen::Tp_Selector::EnsureClass()) return;
@@ -522,6 +547,8 @@ void Install() {
     RollcallRender::InstallAtOffset(bind::m_RollcallElement_Render);
     PlayerIndicatorCtor::InstallAtOffset(kPlayerIndicatorCtor);
     RoundResultsUpdate::InstallAtOffset(kVersusRoundResultsUpdate);
+    teams::NativeSelUpdate::InstallAtOffset(teams::kTeamSelectorUpdate);
+    teams::NativeSelRender::InstallAtOffset(teams::kTeamSelectorRender);
     hw::Log("[aislot] archer select: a full controller's right stick puts LoaderAI's AI players in the empty slots");
 }
 }  // namespace tfex::aislot

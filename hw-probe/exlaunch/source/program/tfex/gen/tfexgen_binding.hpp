@@ -891,6 +891,7 @@ constexpr uintptr_t f_Sounds_ui_move2 = 0x488dcf0;   /* TowerFall.Sounds.ui_move
 constexpr uintptr_t f_Sounds_ui_pause = 0x488dd00;   /* TowerFall.Sounds.ui_pause */
 constexpr uintptr_t f_Sounds_ui_startGame = 0x488dd10;   /* TowerFall.Sounds.ui_startGame */
 constexpr uintptr_t f_Sounds_ui_startGameType = 0x488dd18;   /* TowerFall.Sounds.ui_startGameType */
+constexpr uintptr_t f_Sounds_ui_subclickOff = 0x488ddc0;   /* TowerFall.Sounds.ui_subclickOff */
 constexpr uintptr_t f_Sounds_ui_subclickOn = 0x488ddb8;   /* TowerFall.Sounds.ui_subclickOn */
 constexpr uintptr_t f_Sounds_ui_unpause = 0x488dd40;   /* TowerFall.Sounds.ui_unpause */
 constexpr uint32_t f_SpeedBootsPickup_image = 0xf8;   /* TowerFall.SpeedBootsPickup.image */
@@ -2401,6 +2402,11 @@ constexpr uintptr_t t_Dictionary_2_170f = 0;   /* UNRESOLVED System.Collections.
 constexpr uintptr_t t_Dictionary_2_1bd9 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime] */
 #else
 /* UNRESOLVED t_Dictionary_2_1bd9: System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.DateTime] (a use is a compile error) */
+#endif
+#ifdef TFEXGEN_COVERAGE
+constexpr uintptr_t t_Dictionary_2_2b5c = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.String, TowerFall.OptionsButton]: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.OptionsButton] */
+#else
+/* UNRESOLVED t_Dictionary_2_2b5c: System.Collections.Generic.Dictionary`2[System.String, TowerFall.OptionsButton]: no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.OptionsButton] (a use is a compile error) */
 #endif
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Dictionary_2_35f7 = 0;   /* UNRESOLVED System.Collections.Generic.Dictionary`2[System.Int32, System.Object]: no type System.Collections.Generic.Dictionary`2[System.Int32, System.Object] */

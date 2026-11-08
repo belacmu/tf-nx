@@ -41,7 +41,7 @@ bool g_variantDone = false, g_firstDeath = false;
 char g_modeName[32] = "";   /* localmode <name>: a custom mode (FortRise's GAME MODE button, scrolled to as a player does) */
 bool g_modeDone = false; int g_modePresses = 0;
 bool g_narrow = false, g_aiNext = false;   /* localainext: the last AI's next AI type (a second click) */   /* localnarrow: the normal set (four slots), not WIDE: the Switch's every slot has a controller object there */
-char g_teamSteps[32] = "";   /* localteamsteps <s>: controller 1's right stick on Teams+'s team screen, one step / 20 frames from 60: r l u d (tfex/AiSlotButton.cpp teams) */
+char g_teamSteps[32] = "";   /* localteamsteps <s>: controller 1's right stick on the team screen (Teams+'s, or the game's after the humans' picks), one step / 20 frames from 60: r l u d (tfex/AiSlotButton.cpp teams) */
 char g_aiSteps[64] = "";   /* localaisteps <s>: controller 1 on archer select after the AIs, one step / 30 frames: L (the L button), r l u d (the right stick), c (its click) */
 int g_ai = 0;   /* localai <n>: n AI players put in with the right stick while the humans still choose (tfex/AiSlotButton.cpp) */
 float g_startX[8] = {}, g_startY[8] = {}, g_path[8] = {};
@@ -223,9 +223,16 @@ void Step() {   /* once per frame (controller 1's poll) */
         /* a custom team mode's select (Teams+'s columns SOLO | BLUE | YELLOW | RED, the cursors starting at SOLO): controller k goes
          * (k % 3) + 1 columns right (BLUE, YELLOW, RED in turn); from the seventh on they stay SOLO (lone wolves) */
         const bool columns = !std::strcmp(g_modeName, "TEAMS+");   /* Teams+'s own select; any other team mode the game's BLUE | RED */
-        if (state == kTeamSelect && columns && g_teamSteps[0]) {   /* (localteamsteps: the AIs' teams with the right stick instead) */
-            int t = (g_since - 60) / 20, n = (int)std::strlen(g_teamSteps);
-            if (g_since >= 60 && (g_since - 60) % 20 == 0 && t < n) {
+        /* a team mode's teams (TEAM DEATHMATCH, TOWERBALL, a mod's team mode: SOCCER): odd controllers BLUE (Left), even RED (Right), one
+         * each 20 frames from 60 (until 2026-10-31 the hand-written three-team code handed out TDM's teams itself) */
+        if (state == kTeamSelect && !columns && (g_modeName[0] || (g_mode != 3 && g_mode != 4)) && g_since >= 60 && g_since < 60 + 20 * g_players) {
+            if ((g_since - 60) % 20 == 0) { int k = (g_since - 60) / 20; Press(k, k % 2 ? kRight : kLeft, k % 2 ? "Right (RED)" : "Left (BLUE)"); }
+            return;
+        }
+        if (state == kTeamSelect && g_teamSteps[0]) {   /* (localteamsteps: the AIs' teams with the right stick, after the humans' on the game's) */
+            const int from = columns ? 60 : 60 + 20 * g_players + 20;
+            int t = (g_since - from) / 20, n = (int)std::strlen(g_teamSteps);
+            if (g_since >= from && (g_since - from) % 20 == 0 && t < n) {
                 switch (g_teamSteps[t]) {
                 case 'r': Press(0, 0, "right stick right (team screen)", 30000, 0); break;
                 case 'l': Press(0, 0, "right stick left (team screen)", -30000, 0); break;
@@ -234,19 +241,13 @@ void Step() {   /* once per frame (controller 1's poll) */
                 default: break;
                 }
             }
-            if (g_since < 60 + 20 * n + 30) return;
+            if (g_since < from + 20 * n + 30) return;
             if (g_since % 90 == 0 && g_presses++ < 6) Press(0, kPlus, "START");
             return;
         }
         if (state == kTeamSelect && columns && g_since >= 60 && g_since < 60 + 20 * 3 * g_players) {
             int t = (g_since - 60) / 20, k = t / 3, r = t % 3;
             if ((g_since - 60) % 20 == 0 && k < 6 && r <= k % 3) Press(k, kRight, "Right (the next column)");
-            return;
-        }
-        /* a team mode's teams (TEAM DEATHMATCH, TOWERBALL, a mod's team mode: SOCCER): odd controllers BLUE (Left), even RED (Right), one
-         * each 20 frames from 60 (until 2026-10-31 the hand-written three-team code handed out TDM's teams itself) */
-        if (state == kTeamSelect && !columns && (g_modeName[0] || (g_mode != 3 && g_mode != 4)) && g_since >= 60 && g_since < 60 + 20 * g_players) {
-            if ((g_since - 60) % 20 == 0) { int k = (g_since - 60) / 20; Press(k, k % 2 ? kRight : kLeft, k % 2 ? "Right (RED)" : "Left (BLUE)"); }
             return;
         }
         if (g_modeName[0] && !g_modeDone) return;   /* (START once GAME MODE shows the custom mode) */

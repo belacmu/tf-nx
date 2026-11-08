@@ -240,6 +240,23 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- Turning mods on and off (2026-11-08): MODS > TOGGLE MODS is FortRise's UIModToggler, translated (ENABLE ALL, DISABLE ALL, an ON / OFF
+  per folder in sd:/xplay/mods; a mod's dependents go off with it, FortRise's rule). Leaving it writes sd:/xplay/mods/blacklist.txt and,
+  when something changed, shows "RESTART THE GAME TO APPLY THE MOD CHANGES" (FortRise restarts by itself on the PC). At start a folder
+  in blacklist.txt is listed but not loaded. Emulator: tools/mods/toggle-test.sh PASS (off, restart, on). Proof on the console: `[mods]
+  sd:/xplay/mods/blacklist.txt written: N folder(s) off`, then after a restart `[mods]   <mod> ... NOT loaded): turned off (TOGGLE MODS`
+  and that mod's things gone (an archer, a mode); turning it on again brings them back after the next restart.
+- P7 and P8 on one archer (2026-11-08, the user: every time after L's AI fill): TFGame.CharacterTaken is unrolled over seats 0-5 on the
+  Switch (WiderSet widens the PC's loop to 8), so P7's / P8's archers counted as free; seats 6-7 added (eightplayer.hpp
+  CharacterTakenHook). Emulator: localrun 2 3 "localaisteps LLLLLL": 8 players, archers 0-7 all different (the emulator's save has
+  every archer unlocked, so the collision itself didn't show there). Proof on the console: after L fills the slots, P7 and P8 on
+  different archers; `[aislot] slot N's AI: archer A is taken, the next free one first` for any AI that was moved.
+- 8-player TEAM DEATHMATCH with AIs (2026-11-08): the game's team screen has P7/P8 on screen (rows 15 px apart, WiderSet's step),
+  the right stick moves an AI between BLUE and RED there as on Teams+'s, a wide local TDM draws only levels with enough TeamSpawns
+  (Sacred Ground 00 has none: SpawnPlayersTeams threw), and a round results row too wide for half size wraps onto two lines.
+  Emulator: localrun 2 5 "localai 6" "localteamsteps rdrdrdrdldl" localroundend PASS (5 v 3). Proof: `[8player] team select: rows 15
+  px apart, 2 cursor(s) for P7/P8 added`, `[aislot] team screen: P1's right stick moves slot N's AI right`, `[pc] GetLevels (wide,
+  local play): ... (TeamSpawns >= N)`; the wrap itself (narrow screen, 6+ names in a row) is unchecked.
 - TF.NX's updater from its GitHub releases (2026-11-07, docs/PLAN-UPDATER-2026-11-07.md): TF.EX's update flow translated (its
   NETPLAY check, StartUpdate, UpdaterDialog) over program/tfnxupdate.cpp (check, HTTPS download, zip unpack, journalled install).
   Emulator: tools/update-test.sh PASS (a test server answering as GitHub). On a console WITHOUT sd:/xplay/devserver.txt (with it the

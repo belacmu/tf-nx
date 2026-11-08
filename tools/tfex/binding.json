@@ -2104,7 +2104,16 @@
   "off": 168,
   "via": "field record"
  },
+ "f_Commands_commandHistory": {
+  "error": "field not resolved"
+ },
  "f_Commands_currentText": {
+  "error": "field not resolved"
+ },
+ "f_Commands_drawCommands": {
+  "error": "field not resolved"
+ },
+ "f_Commands_seekIndex": {
   "error": "field not resolved"
  },
  "f_Component_Active": {
@@ -3476,6 +3485,12 @@
   "error": "no type Monocle.MInput+XGamepadData"
  },
  "f_MInput_XGamepadData_DPad": {
+  "error": "no type Monocle.MInput+XGamepadData"
+ },
+ "f_MInput_XGamepadData_PlayerIndex": {
+  "error": "no type Monocle.MInput+XGamepadData"
+ },
+ "f_MInput_XGamepadData_rumbleCounter": {
   "error": "no type Monocle.MInput+XGamepadData"
  },
  "f_MInput_XGamepads": {
@@ -5079,6 +5094,14 @@
   "cctor": 41823428,
   "via": "field record"
  },
+ "f_QuestLevelData_DataPath": {
+  "off": 40,
+  "via": "field record"
+ },
+ "f_QuestLevelData_Path": {
+  "off": 32,
+  "via": "field record"
+ },
  "f_QuestSpawnPortal_QueuedSpawns": {
   "error": "field not resolved"
  },
@@ -5694,6 +5717,11 @@
  },
  "f_Sounds_ui_startGameType": {
   "static": 76078360,
+  "cctor": 0,
+  "via": "field record"
+ },
+ "f_Sounds_ui_subclickOff": {
+  "static": 76078528,
   "cctor": 0,
   "via": "field record"
  },
@@ -7266,6 +7294,12 @@
   "owner": "System.Reflection.AssemblyName",
   "overload": 0
  },
+ "m_Assembly_GetExecutingAssembly": {
+  "body": 61392,
+  "static": false,
+  "owner": "System.Reflection.Assembly",
+  "overload": 0
+ },
  "m_Assembly_GetName_1": {
   "body": 2571808,
   "static": false,
@@ -7902,6 +7936,9 @@
   "owner": "Monocle.Calc",
   "overload": 1
  },
+ "m_Calc_StringToEnum_6538": {
+  "error": "method not found"
+ },
  "m_Camera_get_Matrix": {
   "body": 9499568,
   "static": false,
@@ -8407,6 +8444,12 @@
   "body": 10589216,
   "static": false,
   "owner": "TowerFall.DarkWorldTowerData+LevelData",
+  "overload": 0
+ },
+ "m_DarkWorldTowerData_LoadLevelSet_08c4": {
+  "body": 10582064,
+  "static": false,
+  "owner": "TowerFall.DarkWorldTowerData",
   "overload": 0
  },
  "m_DarkWorldTowerData__ctor": {
@@ -9775,7 +9818,7 @@
   "overload": 1
  },
  "m_Enum_Parse_6538": {
-  "error": "2 bodies named System.Enum.Parse, overload -1 of 3: can't pick"
+  "error": "not in the Switch's runtime: System.Enum.Parse(string) (Mono has 3 other overload(s))"
  },
  "m_Enum_ToString_0": {
   "body": 2556160,
@@ -10762,6 +10805,9 @@
   "error": "no type System.Text.Json.Nodes.JsonObject"
  },
  "m_JsonSerializer_Deserialize_9113": {
+  "error": "no type System.Text.Json.JsonSerializer"
+ },
+ "m_JsonSerializer_Serialize_dad8": {
   "error": "no type System.Text.Json.JsonSerializer"
  },
  "m_JsonSerializer_Serialize_f789": {
@@ -15249,6 +15295,12 @@
   "owner": "System.Random",
   "overload": 1
  },
+ "m_ReadOnlyCollection_1_cf2c_get_Count": {
+  "error": "no type System.Collections.ObjectModel.ReadOnlyCollection`1[System.IO.Compression.ZipArchiveEntry]"
+ },
+ "m_ReadOnlyCollection_1_cf2c_get_Item_e2bf": {
+  "error": "no type System.Collections.ObjectModel.ReadOnlyCollection`1[System.IO.Compression.ZipArchiveEntry]"
+ },
  "m_ReadOnlyCollection_1_f8a9_get_Count": {
   "body": 35573928,
   "static": false,
@@ -16828,7 +16880,7 @@
   "overload": 5
  },
  "m_String__ctor_eac9": {
-  "error": "43 bodies named System.String..ctor, overload -1 of 8: can't pick"
+  "error": "not in the Switch's runtime: System.String..ctor(System.ReadOnlySpan`1<char>) (Mono has 8 other overload(s))"
  },
  "m_StrongBox_1_e615__ctor_1": {
   "error": "no type System.Runtime.CompilerServices.StrongBox`1[System.Single]"
@@ -18348,6 +18400,9 @@
  "m_ZipArchive__ctor_9fbb": {
   "error": "no type System.IO.Compression.ZipArchive"
  },
+ "m_ZipArchive_get_Entries": {
+  "error": "no type System.IO.Compression.ZipArchive"
+ },
  "m_ZipFileExtensions_CreateEntryFromFile_ca96": {
   "error": "no type System.IO.Compression.ZipFileExtensions"
  },
@@ -18806,6 +18861,16 @@
   "base": "TowerFall.MenuItem",
   "vtbytes": 184
  },
+ "t_BottomMiasma": {
+  "getter": 9062192,
+  "desc": 74436856,
+  "vtable": 74436560,
+  "size": 280,
+  "flags": 8,
+  "cctor": 40920540,
+  "base": "TowerFall.LevelEntity",
+  "vtbytes": 280
+ },
  "t_BrambleArrow": {
   "getter": 9063088,
   "desc": 74438344,
@@ -18845,6 +18910,16 @@
   "cctor": 0,
   "base": "System.Array",
   "vtbytes": 472
+ },
+ "t_Byte": {
+  "getter": 12467232,
+  "desc": 72910448,
+  "vtable": 76087192,
+  "size": 1,
+  "flags": 64,
+  "cctor": 0,
+  "base": "System.ValueType",
+  "vtbytes": 0
  },
  "t_Byte_167c": {
   "error": "no type System.Byte[][]"
@@ -19242,6 +19317,9 @@
  },
  "t_Dictionary_2_28da": {
   "error": "no type System.Collections.Generic.Dictionary`2[System.Int32, System.Single]"
+ },
+ "t_Dictionary_2_2b5c": {
+  "error": "no type System.Collections.Generic.Dictionary`2[System.String, TowerFall.OptionsButton]"
  },
  "t_Dictionary_2_2fbb": {
   "error": "no type System.Collections.Generic.Dictionary`2[System.Int32, System.Object[]]"
@@ -19750,8 +19828,14 @@
  "t_Func_2_daf1": {
   "error": "no type System.Func`2[System.IServiceProvider, TF.EX.Common.IAutoUpdater]"
  },
+ "t_Func_2_ef24": {
+  "error": "no type System.Func`2[System.UInt64, System.UInt64]"
+ },
  "t_Func_2_f2e1": {
   "error": "no type System.Func`2[TowerFall.Level, System.Boolean]"
+ },
+ "t_Func_3_4cb4": {
+  "error": "no type System.Func`3[System.Byte[], System.Int32, System.UInt64]"
  },
  "t_Func_3_af7b": {
   "error": "no type System.Func`3[System.String, System.Exception, System.String]"
@@ -19764,6 +19848,9 @@
  },
  "t_Func_3_d86f": {
   "error": "no type System.Func`3[Microsoft.Xna.Framework.Point, System.Object, System.Collections.Generic.List`1[Microsoft.Xna.Framework.Point]]"
+ },
+ "t_Func_3_f061": {
+  "error": "no type System.Func`3[System.Byte[], System.Int32, System.UInt32]"
  },
  "t_Func_4_e660": {
   "error": "no type System.Func`4[System.Object, Microsoft.Xna.Framework.Point, Microsoft.Xna.Framework.Vector2, System.Boolean]"
@@ -19966,6 +20053,16 @@
   "cctor": 0,
   "base": "System.Array",
   "vtbytes": 472
+ },
+ "t_Int16": {
+  "getter": 12506496,
+  "desc": 72939424,
+  "vtable": 76091432,
+  "size": 2,
+  "flags": 64,
+  "cctor": 0,
+  "base": "System.ValueType",
+  "vtbytes": 0
  },
  "t_Int32": {
   "getter": 12416192,
@@ -21260,6 +21357,16 @@
   "base": "System.Object",
   "vtbytes": 72
  },
+ "t_SByte": {
+  "getter": 12708028,
+  "desc": 73015392,
+  "vtable": 76096816,
+  "size": 1,
+  "flags": 64,
+  "cctor": 0,
+  "base": "System.ValueType",
+  "vtbytes": 0
+ },
  "t_SFX": {
   "getter": 7285104,
   "desc": 74412744,
@@ -21827,6 +21934,36 @@
   "cctor": 0,
   "base": "System.Array",
   "vtbytes": 472
+ },
+ "t_UInt16": {
+  "getter": 12512056,
+  "desc": 73089256,
+  "vtable": 76100344,
+  "size": 2,
+  "flags": 64,
+  "cctor": 0,
+  "base": "System.ValueType",
+  "vtbytes": 0
+ },
+ "t_UInt32": {
+  "getter": 12424660,
+  "desc": 73089328,
+  "vtable": 76100720,
+  "size": 4,
+  "flags": 64,
+  "cctor": 0,
+  "base": "System.ValueType",
+  "vtbytes": 0
+ },
+ "t_UInt64": {
+  "getter": 12720516,
+  "desc": 73089400,
+  "vtable": 76101096,
+  "size": 8,
+  "flags": 64,
+  "cctor": 0,
+  "base": "System.ValueType",
+  "vtbytes": 0
  },
  "t_UInt64_9e74": {
   "getter": 8972336,

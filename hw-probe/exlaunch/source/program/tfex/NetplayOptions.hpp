@@ -4,11 +4,14 @@
 
 namespace tfex::NetplayOptions {
 void Install();
-void AddEntries(void* buttons);   /* TF.EX's settings into OPTIONS' list (FortRise's InitModOptions, glue SwitchMods) */
+void CreateEntries(void* list);           /* TF.EX's settings into a list (FortRise's InitModOptions, glue SwitchMods) */
+void Placed(void* buttons, int first);   /* ...now on OPTIONS' list from `first` (the screen's list: SelectedIndex, saved on leaving) */
+void SetTfnxEntry(int index);            /* the TF.NX section's version entry on that list (glue SwitchMods) */
 void* ReadKeyboard(void* initialValue);
 /* tests: hw.txt "optionstext1..4 <text>" (queued, in order): the keyboard's text instead of opening it (a hidden emulator can't type),
  * and the OPTIONS screen's buttons for the auto-UI (hw.txt optionsdrive) */
 void AddTestText(const char* text);
 int FirstEntry();      /* the index of TF.EX's first entry in the OPTIONS screen's list, -1 before it is made */
+int TfnxEntry();       /* the TF.NX entry's index there, -1 before it is made */
 int SelectedIndex();   /* the selected button's index there, -1 if none */   /* glue SettingsUi.KeyboardText: the typed text (a managed string), null when cancelled */
 }

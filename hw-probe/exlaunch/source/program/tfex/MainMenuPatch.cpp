@@ -443,6 +443,29 @@ static void AutoMods(void* menu, int state) {
     default: break;
     }
 }
+/* hw.txt "lobbyui 6": walks FortRise's TOGGLE MODS: Down (MODS) + A -> the MODS list -> A (TOGGLE MODS, its first panel) -> FortRise's
+ * UIModToggler (ENABLE ALL, DISABLE ALL, then a button per mod folder) -> Down, Down (the first folder) + A (ON <-> OFF) -> B (blacklist.txt
+ * written; changed: the restart notice) -> MODS -> B -> main menu. Run twice, the second start has that folder off and turns it on again */
+static void AutoToggle(void* menu, int state) {
+    switch (g_uiPhase) {
+    case 0: if (menu && state == MainMenu::PressStart && g_stateFrames > 120 && g_uiWait > 60) { Press(kA, "A (press start)"); break; }
+            if (menu && state == MainMenu::Main && g_stateFrames > 150) { Press(kDown, "Down (MODS)"); g_uiPhase = 1; } break;
+    case 1: if (g_uiWait > 30) { Press(kA, "A (MODS)"); g_uiPhase = 2; } break;
+    case 2: if (state == ModsMenu::kState && g_stateFrames > 90) { Log("[ui] toggle walk: on MODS"); Press(kA, "A (TOGGLE MODS)"); g_uiPhase = 3; }
+            else if (menu && state == MainMenu::Main && g_uiWait > 120) { Log("[ui] toggle walk: MODS didn't open"); g_uiPhase = 9; }
+            break;
+    case 3: if (state == ModsMenu::kToggleState && g_stateFrames > 90) { Log("[ui] toggle walk: on TOGGLE MODS"); Press(kDown, "Down (DISABLE ALL)"); g_uiPhase = 4; }
+            else if (state == ModsMenu::kState && g_uiWait > 150) { Log("[ui] toggle walk: TOGGLE MODS didn't open"); Press(kB, "B (back to the main menu)"); g_uiPhase = 7; }
+            break;
+    case 4: if (g_uiWait > 30) { Press(kDown, "Down (the first mod folder)"); g_uiPhase = 5; } break;
+    case 5: if (g_uiWait > 30) { Press(kA, "A (that folder ON <-> OFF)"); g_uiPhase = 50; } break;
+    case 50: if (g_uiWait > 90) { Log("[ui] toggle walk: toggled"); Press(kB, "B (back to MODS)"); g_uiPhase = 6; } break;
+    case 6: if (state == ModsMenu::kState && g_stateFrames > 120) { Log("[ui] toggle walk: back on MODS"); Press(kB, "B (back to the main menu)"); g_uiPhase = 7; } break;
+    case 7: if (menu && state == MainMenu::Main && g_stateFrames > 60) { Log("[ui] toggle walk: done"); g_uiPhase = 8; } break;
+    case 9: Log("[ui] toggle walk: done (failed)"); g_uiPhase = 8; break;
+    default: break;
+    }
+}
 static void AutoUi(void* menu, int state) {
     if (g_pressFrames > 0) { g_pressFrames--; return; }
     g_uiWait++;
@@ -458,6 +481,7 @@ static void AutoUi(void* menu, int state) {
     }
     if (g_autoUi == 3) { AutoScreens(menu, state); return; }
     if (g_autoUi == 5) { AutoMods(menu, state); return; }
+    if (g_autoUi == 6) { AutoToggle(menu, state); return; }
     if (g_autoUi == 4) {   /* tests: the game's own six-player path (VERSUS -> WIDE -> the local roll call), for the wide trace */
         if (state == MainMenu::PressStart && g_stateFrames > 120 && g_uiWait > 60) Press(kA, "A (press start)");
         else if (state == MainMenu::Main && g_stateFrames > 150 && g_uiWait > 60) Press(kA, "A (VERSUS)");

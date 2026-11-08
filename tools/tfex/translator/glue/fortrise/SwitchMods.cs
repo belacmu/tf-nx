@@ -130,6 +130,7 @@ namespace TfexGlue.FortRiseSwitch
         public string Dll;
         public SwitchModContent[] Dependencies;
         public SwitchModContent[] OptionalDependencies;
+        public string PathDirectory;   // ModuleMetadata.PathDirectory: the mod's folder, "sd:/xplay/mods/<folder>" (null built in)
         public SwitchModContent(string name, string folder) { Name = name; Root = SdResource.At(folder, ""); }
     }
 
@@ -373,19 +374,80 @@ namespace TfexGlue.FortRiseSwitch
             var list = new List<SwitchModContent>();
             for (int i = 0; i < RegCount(); i++)
             {
-                if (!RegLoaded(i)) continue;
-                var folder = RegText(i, 6);
-                var m = new SwitchModContent(RegText(i, 0), string.IsNullOrEmpty(folder) ? "" : "sd:/xplay/mods/" + folder + "/");
-                m.Version = RegText(i, 2);
-                m.DisplayName = RegText(i, 1);
-                m.Dll = RegText(i, 5);
-                m.Dependencies = Deps(i, false);
-                m.OptionalDependencies = Deps(i, true);
-                list.Add(m);
+                if (RegLoaded(i)) list.Add(FromRegistry(i));
             }
             loaded = list.ToArray();
             return loaded;
         }
+        // registry entry i as FortRise's ModuleMetadata
+        static SwitchModContent FromRegistry(int i)
+        {
+            var folder = RegText(i, 6);
+            var m = new SwitchModContent(RegText(i, 0), string.IsNullOrEmpty(folder) ? "" : "sd:/xplay/mods/" + folder + "/");
+            m.Version = RegText(i, 2);
+            m.DisplayName = RegText(i, 1);
+            m.Dll = RegText(i, 5);
+            m.Dependencies = Deps(i, false);
+            m.OptionalDependencies = Deps(i, true);
+            m.PathDirectory = string.IsNullOrEmpty(folder) ? null : "sd:/xplay/mods/" + folder;
+            return m;
+        }
+
+        // ---- FortRise's TOGGLE MODS (UIModToggler, translated: Fr_UIModToggler) over the registry. TFEX-DIFF S-native: FortRise's Mods
+        // folder is sd:/xplay/mods (folders only: FortRise's zip mods aren't read on the Switch), its blacklist.txt the same file there
+        // (runtime/tfexgen_mods.cpp reads it at start: a folder in it is listed, not loaded), and the restart FortRise does itself
+        // (RiseCore.InternalRestart) the player's: a notice, as TF.NX's updater (the Switch has no game restart of its own here)
+        [Cpp("tfex::gen::frmods::BlackCount()", Include = "tfexgen_frmods.hpp")] static extern int BlackCount();
+        [Cpp("tfex::gen::frmods::BlackAt($0)", Include = "tfexgen_frmods.hpp")] static extern string BlackAt(int i);
+        [Cpp("tfex::gen::frmods::BlackClear()", Include = "tfexgen_frmods.hpp")] static extern void BlackClear();
+        [Cpp("tfex::gen::frmods::BlackAdd($0)", Include = "tfexgen_frmods.hpp")] static extern void BlackAdd(string folder);
+        [Cpp("tfex::gen::frmods::BlackSave()", Include = "tfexgen_frmods.hpp")] static extern bool BlackSave();
+        // ModuleManager.BlacklistedMods: blacklist.txt's folders as read at start
+        public static HashSet<string> BlacklistedMods()
+        {
+            var set = new HashSet<string>();
+            for (int i = 0; i < BlackCount(); i++) set.Add(BlackAt(i));
+            return set;
+        }
+        // AppDomain.CurrentDomain.BaseDirectory (the folder holding FortRise's Mods): the Switch's sd:/xplay
+        public static string GameFolder() => "sd:/xplay";
+        // Directory.GetFiles(Mods): FortRise looks for its zip mods there; none on the Switch
+        public static string[] ModsFolderFiles(string dir) => new string[0];
+        // Directory.GetDirectories(Mods): the content mods' folders the registry found (each with a meta.json), turned off or not
+        public static string[] ModsFolderDirectories(string dir)
+        {
+            var list = new List<string>();
+            for (int i = 0; i < RegCount(); i++)
+            {
+                var folder = RegText(i, 6);
+                if (!string.IsNullOrEmpty(folder)) list.Add("sd:/xplay/mods/" + folder);
+            }
+            return list.ToArray();
+        }
+        // ModuleMetadata.ParseMetadata(dir, metaPath): the registry's entry for that folder (it read the meta.json at start), or null
+        public static SwitchModContent FolderMeta(string dir)
+        {
+            var name = Path.GetFileName(dir);
+            for (int i = 0; i < RegCount(); i++)
+                if (RegText(i, 6) == name) return FromRegistry(i);
+            return null;
+        }
+        public static string ContentPathDirectory(SwitchModContent c) => c.PathDirectory;
+        // RiseCore.WriteBlacklist (its path: sd:/xplay/mods/blacklist.txt)
+        public static void WriteBlacklist(List<string> folders)
+        {
+            BlackClear();
+            foreach (var f in folders) BlackAdd(f);
+            BlackSave();
+        }
+        [Cpp("tfex::Notification::Create($0, \"RESTART THE GAME TO APPLY THE MOD CHANGES\", 20, 600)", Include = "../Notification.hpp")] static extern void RestartNotice(Scene scene);   // TF.EX's toast (10 s)
+        // RiseCore.InternalRestart: the player restarts the game (the changed mods load then)
+        public static void RestartForMods()
+        {
+            Log("[mods] TOGGLE MODS changed which mods load: the game must be restarted (the notice says so)");
+            RestartNotice(Engine.Instance.Scene);
+        }
+
         static SwitchModContent[] Deps(int i, bool optional)
         {
             var d = new SwitchModContent[RegDepCount(i, optional)];
@@ -454,15 +516,33 @@ namespace TfexGlue.FortRiseSwitch
             Draw.OutlineTextJustify(font, text, position, color, Color.Black, justify);
         }
         // FortRise's patch_MainMenu.InitModOptions: each loaded mod with settings (FilterMod: only that one) gets its name as a header, then
-        // its entries. TF.EX's are NetplaySettings.Create's (tfex/NetplayOptions.cpp: TF.EX's compilation)
+        // its entries. TF.EX's are NetplaySettings.Create's (tfex/NetplayOptions.cpp: TF.EX's compilation).
+        // TFEX-DIFF S-update: on the full OPTIONS screen a TF.NX section comes first (the user, 2026-11-08): TF.NX's version and update
+        // entry, and TF.EX's own AUTO UPDATE moved there from TF.EX's list (on the Switch TF.EX's updates arrive in TF.NX's releases, so the
+        // switch decides TF.NX's downloads; it is still TF.EX's setting, NetplayPreferences.AutoUpdate). MODS > TF.EX shows TF.EX's list as is.
         public static void InitModOptions(List<OptionsButton> buttons)
         {
+            List<OptionsButton> tfex = null;
+            if (filterMod == null)
+            {
+                tfex = new List<OptionsButton>();
+                UpdatesBeginOptions();
+                CreateTfexEntries(tfex);
+                buttons.Add(new OptionsButtonHeader("TF.NX"));
+                UpdatesCreateEntry(buttons);
+                SetTfnxEntry(buttons.Count - 1);
+                OptionsButton autoUpdate = UpdatesTakeAutoUpdate();
+                if (autoUpdate != null) buttons.Add(autoUpdate);
+            }
             foreach (var mod in LoadedMods())
             {
                 if (ContentSettings(mod) == null) continue;
                 if (filterMod != null && filterMod.Name != mod.Name) continue;
                 buttons.Add(new OptionsButtonHeader(mod.Name.ToUpperInvariant()));   // (FortRise's DisplayName test is inverted: it shows Name)
-                AddTfexEntries(buttons);
+                int first = buttons.Count;
+                if (tfex == null) CreateTfexEntries(buttons);
+                else for (int i = 0; i < tfex.Count; i++) if (!UpdatesIsMoved(tfex[i])) buttons.Add(tfex[i]);
+                TfexPlaced(buttons, first);
             }
         }
         // OptionsButtonExt.Description (a C# 14 extension property: not translated): its getter, the DynamicData key FortRise's
@@ -506,7 +586,14 @@ namespace TfexGlue.FortRiseSwitch
             }
             return result.ToArray();
         }
-        [Cpp("tfex::NetplayOptions::AddEntries($0)", Include = "../NetplayOptions.hpp")] static extern void AddTfexEntries(List<OptionsButton> buttons);
+        [Cpp("tfex::NetplayOptions::CreateEntries($0)", Include = "../NetplayOptions.hpp")] static extern void CreateTfexEntries(List<OptionsButton> list);
+        [Cpp("tfex::NetplayOptions::Placed($0, $1)", Include = "../NetplayOptions.hpp")] static extern void TfexPlaced(List<OptionsButton> buttons, int first);
+        [Cpp("tfex::NetplayOptions::SetTfnxEntry($0)", Include = "../NetplayOptions.hpp")] static extern void SetTfnxEntry(int index);
+        // glue Updates (the main glue's TF.NX entry and the AUTO UPDATE it moves)
+        [Cpp("tfex::gen::GlueUpdates::BeginOptions()", Include = "tfexgen_GlueUpdates.hpp")] static extern void UpdatesBeginOptions();
+        [Cpp("tfex::gen::GlueUpdates::CreateEntry($0)", Include = "tfexgen_GlueUpdates.hpp")] static extern void UpdatesCreateEntry(List<OptionsButton> buttons);
+        [Cpp("tfex::gen::GlueUpdates::TakeAutoUpdate()", Include = "tfexgen_GlueUpdates.hpp")] static extern OptionsButton UpdatesTakeAutoUpdate();
+        [Cpp("tfex::gen::GlueUpdates::IsMoved($0)", Include = "tfexgen_GlueUpdates.hpp")] static extern bool UpdatesIsMoved(OptionsButton button);
         // [MonoModLinkTo] base calls (OptionsButtonHeader): the game's MenuItem.Update (+0xac9390) and Entity.Render (+0x92f680), not virtual
         [Cpp("gen::Fn<void (*)(void*)>(0xac9390)($0)")] public static extern void MenuItemUpdate(OptionsButton self);
         [Cpp("gen::Fn<void (*)(void*)>(0x92f680)($0)")] public static extern void EntityRender(OptionsButton self);

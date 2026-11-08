@@ -698,6 +698,22 @@ HOOK_DEFINE_TRAMPOLINE(AmountOfAllegianceHook) {
     }
 };
 
+/* TFGame.CharacterTaken (0xb76630): unrolled over seats 0-5 (WiderSet's transpiler makes the PC's loop 8,
+ * TFGameHooks EightPlayerTranspilerNoCondition). P7/P8's archers counted as free: the roll call let a player
+ * or an AI (RollcallElement.EnforceCharacterLock / ChangeSelectionRight, the AI's own check) take P7's archer
+ * for P8 (the user, 2026-11-08: every time with L's AI fill). Seats 6-7 added; online too (WiderSet's on the PC). */
+HOOK_DEFINE_TRAMPOLINE(CharacterTakenHook) {
+    static bool Callback(int ch) {
+        if (Orig(ch)) return true;
+        void** cobj = tf8::ArrayObj(0x4792458);   /* TFGame.Characters int[] */
+        if (!cobj || tf8::ArrayLenObj(cobj) < 8) return false;
+        const int32_t* cd = reinterpret_cast<const int32_t*>(tf8::ArrayData(cobj));
+        for (int i = 6; i < 8; i++)
+            if (cd && tf8::PlayersJoined(i) && cd[i] == ch) return true;
+        return false;
+    }
+};
+
 /* Start gate for team mode. In OUR 8-lobby (mode 1) we replace retail's verdict
  * with an explicit all-8-aware rule so it exactly matches what the user wants:
  *   - every JOINED player must have picked a team (not Neutral), AND
@@ -731,22 +747,38 @@ static void ProperlyAssignedShell(tfex::gen::hooks::MatchTeams_get_ProperlyAssig
  * CreateTeamSelect's loop builds a TeamSelector only for joined players up to
  * its 4/6 bound, so pads 7/8 get no team cursor. Post-hook: after Orig builds
  * 0..5, replicate the exact ctor + scene-add chain for indices 6/7 (when
- * joined). Retail seats selectors 0..5 at Y=105..205 (X=160, homes to the
- * team column via GetTargetX); P7/P8 continue retail's own grid downward,
- * BELOW P6 (Y = 105 + 20*idx -> P7=225, P8=245), so they read as the next two
- * rows rather than sitting on top of P1. tweenFrom.X = -40 (even idx) / 460
- * (odd) for a side slide-in, matching the PC 8-player build's CreateTeamSelect. */
+ * joined). tweenFrom.X = -40 (even idx) / 460 (odd) for a side slide-in.
+ * Rows: retail's 6-seat select starts at Y=105, 20 px a row (+0xaa24bc
+ * `add w26,w26,#20`): P7/P8 at 225/245 were off the 240-px screen (the user,
+ * 2026-11-08). WiderSet's own CreateTeamSelect transpiler makes the step
+ * 20 - 5 when wide; here the same 15 for this call (the word put back after:
+ * the 4-seat select is the game's), and P7/P8 continue the grid (195, 210). */
+constexpr uintptr_t kTeamSelectRowStep = 0xaa24bc;
+constexpr uint32_t kRowStep20 = 0x1100535a /* add w26,w26,#20 */, kRowStep15 = 0x11003f5a /* add w26,w26,#15 */;
+constexpr float kTeamRowY = 105.0f, kTeamRowStep = 15.0f;
+static bool SetTeamRowStep(uint32_t word) {
+    uint32_t cur = *reinterpret_cast<const uint32_t*>(exl::util::GetMainModuleInfo().m_Total.m_Start + kTeamSelectRowStep);
+    if (cur != kRowStep20 && cur != kRowStep15) {
+        MMLOG("[8player] ERROR: team select row step @+%#lx: found %08x, expected %08x: left alone", (unsigned long)kTeamSelectRowStep, cur, kRowStep20);
+        return false;
+    }
+    if (cur != word) exl::patch::CodePatcher(kTeamSelectRowStep).Write(word);
+    return true;
+}
 /* A shell around the generated hook on CreateTeamSelect (one trampoline: Teams+'s MenuHooks prefix builds its own four-column select
  * there and skips the game's): P7/P8's cursors only when the game's select was built. */
 static void CreateTeamSelectShell(tfex::gen::hooks::MainMenu_CreateTeamSelect& c) {
-    c();
-    if (::megamod::Online() || !c.ran_) return;
-    void* self = c.self;
     uint32_t* mode = tf8::RollcallModeStorage();
-    if (!mode || *mode != 1) return;   /* dev: 8-cap rides mode 1 */
+    const bool eight = !::megamod::Online() && mode && *mode == 1;   /* dev: 8-cap rides mode 1 */
+    const bool step = eight && SetTeamRowStep(kRowStep15);
+    c();
+    if (step) SetTeamRowStep(kRowStep20);
+    if (!eight || !c.ran_) return;
+    void* self = c.self;
+    int added = 0;
     for (int idx = 6; idx < 8; idx++) {
         if (!tf8::PlayersJoined(idx)) continue;
-        float y = 105.0f + 20.0f * idx;             /* idx6->225, idx7->245 (below P6) */
+        float y = step ? kTeamRowY + kTeamRowStep * idx : 105.0f + 20.0f * idx;
         tf8::Vec2 pos{ 160.0f, y };
         tf8::Vec2 tw{ (idx % 2 == 0) ? -40.0f : 460.0f, y - 10.0f };
         void* el    = tf8::Call<void* (*)(void*, int, tf8::Vec2, tf8::Vec2)>(
@@ -755,8 +787,10 @@ static void CreateTeamSelectShell(tfex::gen::hooks::MainMenu_CreateTeamSelect& c
         int   li    = tf8::Call<int (*)(void*)>(tf8::off::ElementLayerIndex)(el);
         void* layer = tf8::Call<void* (*)(void*, int)>(tf8::off::SceneGetLayer)(scene, li);
         tf8::Call<void (*)(void*, void*, int)>(tf8::off::SceneLayerAdd)(layer, el, 0);
+        added++;
     }
-    MMLOG("[8player] DEV: team-select cursors 7/8 added");
+    static int logged = 0;
+    if (logged++ < 4) MMLOG("[8player] team select: rows %d px apart, %d cursor(s) for P7/P8 added", step ? 15 : 20, added);
 }
 
 /* ---- Variant per-player values for P7/P8 ----------------------------------
@@ -1698,6 +1732,7 @@ inline void InstallAll() {
     GetPlayersOfAllegianceHook::InstallAtOffset(tf8::off::MatchTeams_GetPlayersOfAllegiance);
     AmountOfAllegianceHook::InstallAtOffset(tf8::off::MatchTeams_AmountOfAllegiance);
     PlayerTeamSizeHook::InstallAtOffset(tf8::off::MatchSettings_GetPlayerTeamSize);
+    CharacterTakenHook::InstallAtOffset(0xb76630);   /* TFGame.CharacterTaken(int) */
     tfex::gen::hooks::MainMenu_CreateTeamSelect::Wrap(CreateTeamSelectShell);   /* (Teams+'s hook's trampoline) */
     ReplayViewerCtorHook::InstallAtOffset(tf8::off::ReplayViewer_ctor);
     ReplayRenderHook::InstallAtOffset(tf8::off::ReplayRender);

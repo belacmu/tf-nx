@@ -1796,6 +1796,16 @@ file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModListPanel.cs"
 type = "UIModListPanel"
 
 [[unit]]
+name = "Fr_UIModToggler"            # TOGGLE MODS: an ON / OFF per mod folder, ENABLE / DISABLE ALL, dependents with it; blacklist.txt for the next start
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModToggler.cs"
+type = "UIModToggler"
+
+[[unit]]
+name = "Fr_ModOptionsButton"        # a TOGGLE MODS button: an OptionsButton with the mod's name and folder
+file = "fortrise/TowerFall.FortRise.mm/Core/UI/ModMenu/UIModToggler.cs"
+type = "ModOptionsButton"
+
+[[unit]]
 name = "Fr_OptionsButtonHeader"     # FortRise: a mod's name above its entries on OPTIONS (an OptionsButton that is only a label)
 file = "fortrise/TowerFall.FortRise.mm/Core/UI/OptionsButtonHeader.cs"
 type = "OptionsButtonHeader"

@@ -748,6 +748,8 @@ template <class T> T* NewValStatic() {
 template <class T> T& Discard() { static T t{}; return t; }
 /* field = new container (made in the ring): the field's own storage, allocated once and reused, gets the contents (C#'s new object;
  * a holder of the old reference sees the new contents, which TF.EX's code doesn't rely on) */
+/* field = null (TOGGLE MODS' Destroy clearing its sets) */
+template <class T> T* KeepVal(T*& slot, decltype(nullptr)) { slot = nullptr; return nullptr; }
 template <class T> T* KeepVal(T*& slot, T* v) {
     if (!v) { slot = nullptr; return nullptr; }
     if (slot == v) return slot;
