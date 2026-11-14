@@ -5,20 +5,20 @@ inline constexpr BuiltinMod kBuiltin[] = {
     { "vendor/fortrise/version.txt", R"tfexmeta({"name":"FortRise","version":"5.5.0-beta.4","displayName":"FortRise","author":"FortRise","description":"The Switch\u0027s FortRise layer: content mods\u0027 archers, sprites and textures from the SD card (FortRise\u0027s loaders, translated)"})tfexmeta" },
     { "vendor/tfex/src/network/TF.EX.Core/meta.json", R"tfexmeta({
   "name": "TF.EX",
-  "version": "0.29.1",
+  "version": "0.30.0",
   "author": "DShad",
   "description": "A Netplay (Rollback netcode) mod for Towerfall, uses TF.State for snapshots and TF.Replay for recording",
   "dll": "TF.EX.Core.dll",
   "priority": "Low",
   "dependencies": [
     { "name": "FortRise", "version": "5.5.0-beta.4" },
-    { "name": "TF.State", "version": "0.29.1" },
-    { "name": "TF.Replay", "version": "0.29.1" }
+    { "name": "TF.State", "version": "0.30.0" },
+    { "name": "TF.Replay", "version": "0.30.0" }
   ]
 })tfexmeta" },
     { "vendor/tfex/src/state/TF.State.Core/meta.json", R"tfexmeta({
   "name": "TF.State",
-  "version": "0.29.1",
+  "version": "0.30.0",
   "displayName": "TF State",
   "description": "Game state capture and restore for TowerFall mods,exposes a byte[] snapshot API other mods build on",
   "author": "DShad",

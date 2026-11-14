@@ -40,10 +40,9 @@
 "network/TF.EX.Patchs/Engine/TFGame.cs TFGamePatch.ArtificialSlow" = "S-tools: PC debug keys (hurtboxes, frame by frame, artificial slow, console)"
 # ---- tfex-update (2026-10-17): PC-only input and Harmony run-time reflection, not applicable on the Switch (the coverage report
 # lists [skip] apart from the applicable methods) ----
-"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.Pressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
-"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.PadPressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
+"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.IsPadButtonPressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
 "network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.PadButtonPressed" = "S-input: the PC gamepad (XGamepadInput, GamepadConfig); the Switch's menu input is the game's own"
-"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.KeyboardPressed" = "S-input: the PC keyboard (KeyboardConfig); the Switch's menu input is the game's own"
+"network/TF.EX.Domain/CustomComponent/RawMenuInput.cs RawMenuInput.IsKeyboardButtonPressed" = "S-input: the PC keyboard (KeyboardConfig); the Switch's menu input is the game's own"
 "network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.GameMousePosition" = "S-input: PC mouse position (Game.Window, Screen.Scale); no mouse on the Switch"
 "network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.UpdateMouse" = "S-input: hovering the advisor's track with the PC mouse; no mouse on the Switch"
 "network/TF.EX.Patchs/InputDelayAdvisor.cs InputDelayAdvisor.WideOffset" = "S-input: UpdateMouse's only (the mouse position against the track)"
@@ -168,7 +167,7 @@
 "network/TF.EX.Common/Handle/SafeHandle.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "8576385f52d4" }
 "network/TF.EX.Common/Handle/SafeRawBytes.cs *" = { key = "S-transport", at = "../../../../ggrs-switch/src/lib.rs (no FFI handles)", hash = "9d41ad279bd6" }
 # ---- state: TF.State.Patchs, level generation, RNG -> rnd.cpp, xplay.cpp, pcgameplay.cpp, dm.cpp, miasma_seq.hpp ----
-"state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs *" = { key = "S-mode", at = "pcgameplay.cpp version-gap table (no TeamReviver from corpses)", hash = "d0670d33bcc6" }
+"state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs *" = { key = "S-mode", at = "pcgameplay.cpp version-gap table (no TeamReviver from corpses)", hash = "ad83f9c92aa6" }
 
 [names]
 # PC (TowerFall 1.3.3.3 / FNA) -> Switch 1.4.1.6. No such type on the Switch: TF.EX's patches on it are the S-input replace above.
@@ -299,7 +298,7 @@
 "TF.EX.Domain.Context.ExFlags.IsReplayMode" = { set = "(void)($value)", value = "false", why = "replays are off (step 8, the user's decision): never in replay mode", key = "D" }
 # -- IInputService: Switch controller input (S-input)
 "TF.EX.Domain.Ports.TF.IInputService.GetLocalPlayerInputIndex" = { cpp = "tfex::gen::svc::GetLocalSeat()", key = "S-input", why = "our main seat only. TF.EX: the lobby seat in menus, GGRS's local handle in a match; the Switch's lockstep seats the local player at its lobby seat. Comparisons with it should be svc::IsLocalInputIndex (several local players per device planned)" }
-"TF.EX.Domain.CustomComponent.RawMenuInput.Pressed" = { cpp = "tfex::gen::svc::LightPausePressed((int32_t)($0))", key = "S-input", why = "TF.EX (v0.29.0: RawMenuInput, LightPauseMenu and ConfirmDialog's) reads XGamepadInput / KeyboardInput's raw buttons; the Switch reads the local JoyConInputs' menu getters (tfex/InputLock.cpp MenuPressed)" }
+"TF.EX.Domain.CustomComponent.RawMenuInput.IsButtonPressed" = { cpp = "tfex::gen::svc::LightPausePressed((int32_t)($0))", key = "S-input", why = "TF.EX (v0.29.0: RawMenuInput, LightPauseMenu and ConfirmDialog's; v0.30.0 renamed Pressed to IsButtonPressed and added Alt2, button 5) reads XGamepadInput / KeyboardInput's raw buttons; the Switch reads the local JoyConInputs' menu getters (tfex/InputLock.cpp MenuPressed)" }
 # -- TF.State's engine (S-rollback: the raw-memory rollback replaces it)
 "TF.State.Patchs.RoundLogic.LastManStandingRoundLogicPatch.LastManStandingRoundLogic_OnRoundStart" = { cpp = "((void)0)", key = "S-tools", why = "TF.State's desktop sync-test entity dump to <cwd>/EntitiesDump/*.json at each round start (test mode only): no such folder or reflection on the Switch; the sync test's check is ggrs_ffi's checksum" }
 "TF.EX.Domain.Interop.ITfStateApi.CaptureGameState" = { cpp = "tfex::gen::svc::CaptureForSeam()", key = "S-rollback", why = "TF.State's CaptureGameState through xplay's rollback seam (netplay_gate.cpp SeamCapture: the frame loop's side ring and the cost logs around it)" }

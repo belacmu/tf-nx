@@ -1654,8 +1654,8 @@ exclude = ["RollcallElement_StartVersus_Prefix", "RollcallElement_StartVersus_Po
 name = "LightPauseMenu"                 # TF.EX's mid-match netplay pause (RESUME / QUIT on the HUD layer): HandleStartPress, ForceClose, IsOpen for the hand code
 file = "network/TF.EX.Domain/CustomComponent/LightPauseMenu.cs"
 type = "LightPauseMenu"
-# its menu input is RawMenuInput.Pressed (v0.29.0 moved its PC input readers there, unchanged): overrides.toml [service]
-# "TF.EX.Domain.CustomComponent.RawMenuInput.Pressed" -> tfex::gen::svc::LightPausePressed(int32_t button), Confirm 0 Back 1 Up 2 Down 3 Start 4
+# its menu input is RawMenuInput.IsButtonPressed (Pressed until v0.30.0; v0.29.0 moved its PC input readers there, unchanged): overrides.toml [service]
+# "TF.EX.Domain.CustomComponent.RawMenuInput.IsButtonPressed" -> tfex::gen::svc::LightPausePressed(int32_t button), Confirm 0 Back 1 Up 2 Down 3 Start 4 Alt2 5
 
 [[unit]]
 name = "LevelPatch"                     # TF.EX's whole LevelPatch as hooks (on by default): the Level ctor postfix (no ReplayRecorder in netplay), Update's
@@ -2541,7 +2541,7 @@ hooks = true
 
 [[unit]]
 name = "State_HeavyPhysicsObject"
-file = "state/TF.State.Patchs/Entity/LevelEntity/CosmeticDecor.cs"
+file = "state/TF.State.Patchs/Entity/LevelEntity/HeavyPhysicsObject.cs"   # its own file since v0.30.0 (#319)
 type = "HeavyPhysicsObjectPatch"
 hooks = true
 
@@ -2638,6 +2638,12 @@ hooks = true
 name = "State_TeamReviver"
 file = "state/TF.State.Patchs/Entity/LevelEntity/TeamReviver.cs"
 type = "TeamReviverPatch"
+hooks = true
+
+[[unit]]   # v0.30.0 (#321): the level ticks its TeamRevivers itself in Scene.Update's prefix (TeamReviverPatch.TickRevivers), the same order on every TowerFall build
+name = "State_LevelReviverOrder"
+file = "state/TF.State.Patchs/Scene/LevelReviverOrderPatch.cs"
+type = "LevelReviverOrderPatch"
 hooks = true
 
 [[unit]]

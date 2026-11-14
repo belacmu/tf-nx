@@ -2028,6 +2028,13 @@ public sealed partial class UnitEmitter
             R.Add("rule: DynamicData state TF.EX adds to a game object -> the side table (gen::SideGet/SideSet)", $"{t.Name}.{memberName} (TryGet)");
             return $"([&]() {{ auto o_ = gen::SideGetOpt<{vc}>(\"{memberName}\", {recv}); if (!o_.has) return false; {LValue(args[1].Value)} = o_.value; return true; }}())";
         }
+        if (member == null && m.Name == "TryGet" && m.TypeArguments.Length == 0 && args.Count == 2)
+        {   // dyn.TryGet("NAME", out object v), often `out _` (TF.State v0.30.0's HeavyPhysicsObjectExtensions.IsTracked: is the halo's
+            // entry set): the side table's entry as a reference, when there is one
+            R.Add("rule: DynamicData state TF.EX adds to a game object -> the side table (gen::SideGet/SideSet)", $"{t.Name}.{memberName} (TryGet)");
+            var store = args[1].Value is IDiscardOperation ? "" : $"{LValue(args[1].Value)} = o_.value; ";
+            return $"([&]() {{ auto o_ = gen::SideGetOpt<void*>(\"{memberName}\", {recv}); if (!o_.has) return false; {store}return true; }}())";
+        }
         if (member == null) return Unsupported(inv, $"DynamicData member {memberName} not found on {t}");
         R.Add("mechanical: DynamicData member by name", $"{member.ContainingType.Name}.{memberName} ({m.Name})");
         if (m.Name == "Set")

@@ -38,13 +38,16 @@ identical, frame 0 as always). Browser PR #92 (240 Hz) is on browser main; the c
 (:18300 serves it from worktree tfex-028; the live site once #93 is merged).
 
 **TF.EX pin: upstream only (the user, 2026-11-06).** TF.NX's main pins an upstream TF.EX release, never our fork: since 2026-11-06
-**v0.29.1** (bd7480f, 2026-11-07: #312 TEAM REVIVE online, PlayerCorpsePatch back; #317 TF.State's removed death arrow). Mod game modes
+**v0.30.0** (3450744, 2026-11-14: #319 TF.State's HeavyPhysicsObject (ghost halos) and ice fixes; #320 a spectator can host a private
+lobby (LB / left trigger on the lobby screen: the Switch's MenuAlt2); #321 revivers ticked in a fixed order (LevelReviverOrderPatch);
+report: tools/tfex/reports/v0.29.1-v0.30.0-summary.md). Before: v0.29.1 (bd7480f, 2026-11-07). Mod game modes
 stay local until TF.EX has them online (Fcornaire/TF.EX#314). Our fork's branches and their state: docs/TFEX-FORKS.md. Moving off the fork took out its users: TF.State's
 RegisterStateEvents rules, PlayerCorpsePatch, our NetplayModeTest test mod and the lobby's custom-mode preset; vendor/moveordie is back on
 ebe1kenobi's release (b497071). The GAME MODE scroll our fork fixed doesn't happen on the PC with released mods (TF.EX loads after them);
 the Switch's boot order now follows FortRise's over every loaded mod (FrModsBoot: TF.EX waits for TF.State), so local VERSUS reaches
 Soccer's mode again (check.sh Soccer PASS 172411; smoke lobby PASS 172313 in sync, the Switch's Netplay mode now 14 with three mod modes
-loaded, the browser's 11, as on a modded PC). The browser runs the official release (v0.29.1 on its branch claude/tfex-0.29.1, the harness worktree tfex-0291).
+loaded, the browser's 11, as on a modded PC). The browser runs the official release (v0.30.0 on its branch claude/tfex-0.30.0, the harness worktree tfex-0300; its cloudflare/tfex-server
+doesn't do spectator-hosted lobbies yet, belacmu/towerfall-browser#102).
 
 - **switch-online has no GitHub repository yet** (2026-11-02, the user: to fix soon): the checkout has no remote, so master is only on
   this Mac. Checked for publishing: tools/re/main.flat (the game's code) is git-ignored and was never committed; no file over 20 MB in
@@ -246,6 +249,12 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- TF.EX v0.30.0 (2026-11-14, TF.NX 0.30.0.0). Boot line `TF.NX 0.30.0.0, TF.EX 0.30.0`; an online match on TF.EX's official server
+  (only the latest version may play there). Three things the emulator run didn't cover: a team match with a revive (#321's order:
+  `[tfexgen] hook Scene.Update call 1: LevelReviverOrderPatch.Scene_Update=1`, in sync through the revive); a ghost halo in a rollback
+  match (TF.State's new HeavyPhysicsObject state reads `image` and `spin` at predicted offsets, unconfirmed: a desync or crash after a
+  ghost's halo drops points at them, tools/re/statepins.py); a spectator hosting a private lobby with LB / ZL on the lobby screen
+  (`[pause] ... Alt2 32` in menu-button lines; against TF.EX's official server, ours lacks it until deployed).
 - Teams+ teams start together on wide levels (2026-11-10, the console: teams spread over the map; its log: Moonstone `7 of 13 levels
   (PlayerSpawns >= 8)`, `no left-side markers ... Blue falls back to the anchor pool` on 4 of 5 rounds). Our wide-local GetLevels
   answered before Teams+'s GetLevels prefix and kept only FFA levels (no TeamSpawnA/B), so the spawner never had team sides. Now a

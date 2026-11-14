@@ -29,7 +29,9 @@ namespace TfexGlue
         // results over a per-layer entity index (statert::EntGetAll ...); the generic copy passes T's runtime type as the last argument
         [Cpp("tfex::gen::statert::EntGetAll($0, $1)", Include = "tfexgen_state.hpp")] public static extern System.Collections.Generic.IEnumerable<Monocle.Entity> GetAll(TowerFall.Level level, System.Type t);
         [Cpp("tfex::gen::statert::EntGet($0, $1)", Include = "tfexgen_state.hpp")] public static extern Monocle.Entity Get(TowerFall.Level level, System.Type t);
-        [Cpp("tfex::gen::statert::EntDeleteAll($0, $1)", Include = "tfexgen_state.hpp")] public static extern void DeleteAll(TowerFall.Level level, System.Type t);
+        // DeleteAll's optional filter (TF.State v0.30.0, `Func<T, bool> where = null`: LoadHeavyPhysicsObjects deletes only the tracked halos)
+        // comes before T's type: the C++ takes the type second, the filter third (null: every T)
+        [Cpp("tfex::gen::statert::EntDeleteAll($0, $2, $1)", Include = "tfexgen_state.hpp")] public static extern void DeleteAll(TowerFall.Level level, System.Func<Monocle.Entity, bool> where, System.Type t);
         [Cpp("tfex::gen::statert::EntDelete($0, $1)", Include = "tfexgen_state.hpp")] public static extern void Delete(TowerFall.Level level, System.Type t);
 
         // ActionExtensions.ToNames (the Player scheduler's actions by their method names, x.Method.Name): Delegate.Method is reflection the

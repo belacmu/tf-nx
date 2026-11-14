@@ -287,13 +287,13 @@ template <class F> bool EachOfType(void* list, void* type, F&& f) {
 }
 /* DynamicData.For(layer).Get<List<Entity>>("toAdd")?.RemoveAll(entity => entity is T): the same contents afterwards (each match removed, the
  * others in order), through List.Remove per match; nothing to do (and no delegate made) when toAdd is empty */
-void RemoveFromToAdd(void* layer, void* type) {
+void RemoveFromToAdd(void* layer, void* type, void* where = nullptr) {
     void* toAdd = gen::Fld<void*>(layer, kLayerToAdd);
     if (!toAdd || gen::Fld<int32_t>(toAdd, kListSize) <= 0) return;
     void* matches[kIdxEnts]; int n = 0;
     int32_t size = gen::Fld<int32_t>(toAdd, kListSize);
     void** data = gen::ArrData<void*>(gen::Fld<void*>(toAdd, kListItems));
-    for (int32_t i = 0; i < size; i++) if (gen::As(data[i], type)) { if (n < kIdxEnts) matches[n++] = data[i]; else gen::PoolFull("entity index: toAdd matches", kIdxEnts); }
+    for (int32_t i = 0; i < size; i++) if (gen::As(data[i], type) && (!where || gen::DlgInvoke<bool, void*>(where, data[i]))) { if (n < kIdxEnts) matches[n++] = data[i]; else gen::PoolFull("entity index: toAdd matches", kIdxEnts); }
     for (int i = 0; i < n; i++) gen::Fn<bool (*)(void*, void*)>(kListEntityRemove)(toAdd, matches[i]);
 }
 }   // namespace
@@ -313,14 +313,15 @@ void* EntGet(void* level, void* type) {
     ForLayers(level, [&](void* layer) { if (!stop) EachOfType(EntitiesOf(layer), type, [&](void* e) { found = e; stop = true; return false; }); });
     return found;
 }
-/* foreach layer: toAdd's T removed; then each T of its entities (a snapshot) removed from the list and Removed() */
-void EntDeleteAll(void* level, void* type) {
+/* foreach layer: toAdd's T removed; then each T of its entities (a snapshot) removed from the list and Removed(); with `where` (TF.State
+ * v0.30.0's filter) only the T it accepts */
+void EntDeleteAll(void* level, void* type, void* where) {
     if (!level || !type) return;
     ForLayers(level, [&](void* layer) {
-        RemoveFromToAdd(layer, type);
+        RemoveFromToAdd(layer, type, where);
         void* list = EntitiesOf(layer);
         void* snap[kIdxEnts]; int n = 0;
-        EachOfType(list, type, [&](void* e) { if (n < kIdxEnts) snap[n++] = e; else gen::PoolFull("entity index: DeleteAll snapshot", kIdxEnts); return true; });
+        EachOfType(list, type, [&](void* e) { if (where && !gen::DlgInvoke<bool, void*>(where, e)) return true; if (n < kIdxEnts) snap[n++] = e; else gen::PoolFull("entity index: DeleteAll snapshot", kIdxEnts); return true; });
         for (int i = 0; i < n; i++) {
             gen::Fn<bool (*)(void*, void*)>(kListEntityRemove)(EntitiesOf(layer), snap[i]);
             gen::Virt<void>(snap[i], kVirtRemoved);

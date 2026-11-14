@@ -2645,6 +2645,9 @@
  "f_Entity_Bottom": {
   "error": "field not resolved"
  },
+ "f_Entity_BottomCenter": {
+  "error": "field not resolved"
+ },
  "f_Entity_Collidable": {
   "off": 18,
   "via": "field record"
@@ -2930,6 +2933,16 @@
  "f_HeadhuntersRoundLogic_wasFinalKill": {
   "error": "field not resolved"
  },
+ "f_HeavyPhysicsObject_Speed": {
+  "off": 228,
+  "via": "field record"
+ },
+ "f_HeavyPhysicsObject_image": {
+  "error": "field not resolved"
+ },
+ "f_HeavyPhysicsObject_spin": {
+  "error": "field not resolved"
+ },
  "f_Ice_oldTiles": {
   "error": "field not resolved"
  },
@@ -3046,6 +3059,10 @@
  },
  "f_KeyboardConfig_Left": {
   "off": 16,
+  "via": "field record"
+ },
+ "f_KeyboardConfig_MenuAlt": {
+  "off": 88,
   "via": "field record"
  },
  "f_KeyboardConfig_Right": {
@@ -5648,6 +5665,10 @@
  "f_Sounds_sfx_corpseVanish": {
   "static": 76078240,
   "cctor": 0,
+  "via": "field record"
+ },
+ "f_Sounds_sfx_endropHalo": {
+  "off": 76079384,
   "via": "field record"
  },
  "f_Sounds_sfx_gemCollect": {
@@ -9670,6 +9691,12 @@
   "owner": "Monocle.Entity",
   "overload": 0
  },
+ "m_Entity_get_BottomCenter": {
+  "body": 9629408,
+  "static": false,
+  "owner": "Monocle.Entity",
+  "overload": 0
+ },
  "m_Entity_get_Collider": {
   "body": 9625088,
   "static": false,
@@ -10494,6 +10521,12 @@
  },
  "m_HeavyPhysicsObject_Update": {
   "body": 10843696,
+  "static": false,
+  "owner": "TowerFall.HeavyPhysicsObject",
+  "overload": 0
+ },
+ "m_HeavyPhysicsObject__ctor_909d": {
+  "body": 10841232,
   "static": false,
   "owner": "TowerFall.HeavyPhysicsObject",
   "overload": 0
@@ -14938,6 +14971,12 @@
   "owner": "TowerFall.Player",
   "overload": 0
  },
+ "m_Player_set_AimDirection_7410": {
+  "body": 11453440,
+  "static": false,
+  "owner": "TowerFall.Player",
+  "overload": 0
+ },
  "m_Player_set_Aiming_953d": {
   "body": 11454224,
   "static": false,
@@ -15792,6 +15831,12 @@
  },
  "m_Scene_TagEntityInstant_a88b": {
   "body": 9719840,
+  "static": false,
+  "owner": "Monocle.Scene",
+  "overload": 0
+ },
+ "m_Scene_Update": {
+  "body": 9716016,
   "static": false,
   "owner": "Monocle.Scene",
   "overload": 0
@@ -19809,6 +19854,9 @@
  "t_Func_2_450b": {
   "error": "no type System.Func`2[Monocle.Entity, System.Boolean]"
  },
+ "t_Func_2_6de4": {
+  "error": "no type System.Func`2[TowerFall.HeavyPhysicsObject, System.Boolean]"
+ },
  "t_Func_2_77f9": {
   "error": "no type System.Func`2[System.String, System.Boolean]"
  },
@@ -19980,6 +20028,16 @@
   "cctor": 0,
   "base": "TowerFall.RoundLogic",
   "vtbytes": 72
+ },
+ "t_HeavyPhysicsObject": {
+  "getter": 9122928,
+  "desc": 74493016,
+  "vtable": 74492632,
+  "size": 280,
+  "flags": 8,
+  "cctor": 0,
+  "base": "TowerFall.Actor",
+  "vtbytes": 368
  },
  "t_IArcherEntry_d33d": {
   "error": "no type FortRise.IArcherEntry[]"

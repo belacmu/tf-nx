@@ -343,6 +343,9 @@ constexpr uint32_t f_Hat_Speed = 0xe4;   /* TowerFall.Hat.Speed */
 constexpr uint32_t f_HeadhuntersRoundLogic_done = 0x70;   /* TowerFall.HeadhuntersRoundLogic.done */
 constexpr uint32_t f_HeadhuntersRoundLogic_roundEndCounter = 0x68;   /* TowerFall.HeadhuntersRoundLogic.roundEndCounter */
 constexpr uint32_t f_HeadhuntersRoundLogic_wasFinalKill = 0x71;   /* TowerFall.HeadhuntersRoundLogic.wasFinalKill */
+constexpr uint32_t f_HeavyPhysicsObject_Speed = 0xe4;   /* TowerFall.HeavyPhysicsObject.Speed */
+constexpr uint32_t f_HeavyPhysicsObject_image = 0xf8;   /* TowerFall.HeavyPhysicsObject.image */
+constexpr uint32_t f_HeavyPhysicsObject_spin = 0x100;   /* TowerFall.HeavyPhysicsObject.spin */
 constexpr uint32_t f_Ice_oldTiles = 0xe0;   /* TowerFall.Ice.oldTiles */
 constexpr uint32_t f_Ice_oldTilesAlpha = 0xec;   /* TowerFall.Ice.oldTilesAlpha */
 constexpr uint32_t f_Ice_oldTilesXOffset = 0xe8;   /* TowerFall.Ice.oldTilesXOffset */
@@ -879,6 +882,7 @@ constexpr uintptr_t f_Sounds_pu_wingFly = 0x488d9e8;   /* TowerFall.Sounds.pu_wi
 constexpr uintptr_t f_Sounds_sfx_bottomlessTreasure = 0x488dc58;   /* TowerFall.Sounds.sfx_bottomlessTreasure */
 constexpr uintptr_t f_Sounds_sfx_chestAppearBig = 0x488da68;   /* TowerFall.Sounds.sfx_chestAppearBig */
 constexpr uintptr_t f_Sounds_sfx_corpseVanish = 0x488dca0;   /* TowerFall.Sounds.sfx_corpseVanish */
+constexpr uint32_t f_Sounds_sfx_endropHalo = 0x488e118;   /* TowerFall.Sounds.sfx_endropHalo */
 constexpr uintptr_t f_Sounds_sfx_icicleTouch = 0x488dbf8;   /* TowerFall.Sounds.sfx_icicleTouch */
 constexpr uintptr_t f_Sounds_ui_altCostumeShift = 0x488dde0;   /* TowerFall.Sounds.ui_altCostumeShift */
 constexpr uintptr_t f_Sounds_ui_click = 0x488dcc8;   /* TowerFall.Sounds.ui_click */
@@ -1319,6 +1323,7 @@ constexpr uintptr_t m_Entity_Update = 0x92f3d0;   /* Monocle.Entity.Update */
 constexpr uintptr_t m_Entity__ctor_5ce7 = 0x92d620;   /* Monocle.Entity..ctor(Microsoft.Xna.Framework.Vector2,int32) */
 constexpr uintptr_t m_Entity__ctor_e2bf = 0x92d7f0;   /* Monocle.Entity..ctor(int32) */
 constexpr uintptr_t m_Entity_get_Bottom = 0x92e120;   /* Monocle.Entity.get_Bottom */
+constexpr uintptr_t m_Entity_get_BottomCenter = 0x92eee0;   /* Monocle.Entity.get_BottomCenter */
 constexpr uintptr_t m_Entity_get_Collider = 0x92de00;   /* Monocle.Entity.get_Collider */
 constexpr uintptr_t m_Entity_get_Components = 0x92d8f0;   /* Monocle.Entity.get_Components */
 constexpr uintptr_t m_Entity_get_Depth = 0x92d960;   /* Monocle.Entity.get_Depth */
@@ -1418,6 +1423,7 @@ constexpr uintptr_t m_HashSet_1_0151__ctor_0 = 0x9362e0;   /* System.Collections
 constexpr uintptr_t m_Hat_CreateHat_5aff = 0xa56130;   /* TowerFall.Hat.CreateHat(TowerFall.ArcherData,TowerFall.Allegiance,TowerFall.Player+HatStates,Microsoft.Xna.Framework.Vector2,TowerFall.Arrow,bool,int32) */
 constexpr uintptr_t m_Hat_get_PlayerIndex = 0xa56120;   /* TowerFall.Hat.get_PlayerIndex */
 constexpr uintptr_t m_HeavyPhysicsObject_Update = 0xa57630;   /* TowerFall.HeavyPhysicsObject.Update */
+constexpr uintptr_t m_HeavyPhysicsObject__ctor_909d = 0xa56c90;   /* TowerFall.HeavyPhysicsObject..ctor(Microsoft.Xna.Framework.Vector2,Monocle.Subtexture,Monocle.SFX) */
 constexpr uintptr_t m_Ice_BuildTiles = 0xa5a1c0;   /* TowerFall.Ice.BuildTiles */
 constexpr uintptr_t m_Ice_Update = 0xa5a8f0;   /* TowerFall.Ice.Update */
 constexpr uintptr_t m_Icicle_Explode = 0xa5b820;   /* TowerFall.Icicle.Explode */
@@ -1866,6 +1872,7 @@ constexpr uintptr_t m_Player_Update = 0xaef280;   /* TowerFall.Player.Update */
 constexpr uintptr_t m_Player_UseDuckingHitbox = 0xaf24d0;   /* TowerFall.Player.UseDuckingHitbox */
 constexpr uintptr_t m_Player_UseNormalHitbox = 0xaf26f0;   /* TowerFall.Player.UseNormalHitbox */
 constexpr uintptr_t m_Player__ctor_0ed9 = 0xae6870;   /* TowerFall.Player..ctor(int32,Microsoft.Xna.Framework.Vector2,TowerFall.Allegiance,TowerFall.Allegiance,TowerFall.PlayerInventory,TowerFall.Player+HatStates,bool,bool,bool) */
+constexpr uintptr_t m_Player_get_AimDirection = 0xaec3f0;   /* TowerFall.Player.get_AimDirection */
 constexpr uintptr_t m_Player_get_Aiming = 0xaec700;   /* TowerFall.Player.get_Aiming */
 constexpr uintptr_t m_Player_get_ArcherData = 0xaeb570;   /* TowerFall.Player.get_ArcherData */
 constexpr uintptr_t m_Player_get_ArrowHUD = 0xaec370;   /* TowerFall.Player.get_ArrowHUD */
@@ -1886,6 +1893,7 @@ constexpr uintptr_t m_Player_get_OnGround = 0xaec350;   /* TowerFall.Player.get_
 constexpr uintptr_t m_Player_get_PlayerIndex = 0xaec100;   /* TowerFall.Player.get_PlayerIndex */
 constexpr uintptr_t m_Player_get_State = 0xaec480;   /* TowerFall.Player.get_State */
 constexpr uintptr_t m_Player_get_TeamColor = 0xaec3c0;   /* TowerFall.Player.get_TeamColor */
+constexpr uintptr_t m_Player_set_AimDirection_7410 = 0xaec400;   /* TowerFall.Player.set_AimDirection(float32) */
 constexpr uintptr_t m_Player_set_Cling_e2bf = 0xaec450;   /* TowerFall.Player.set_Cling(int32) */
 constexpr uintptr_t m_Player_set_Dead_953d = 0xaec3b0;   /* TowerFall.Player.set_Dead(bool) */
 constexpr uintptr_t m_Player_set_DodgeSliding_953d = 0xaec470;   /* TowerFall.Player.set_DodgeSliding(bool) */
@@ -1982,6 +1990,7 @@ constexpr uintptr_t m_Saver__ctor_83fe = 0xb3c4f0;   /* TowerFall.Saver..ctor(bo
 constexpr uintptr_t m_Scene_CollideCheck_59d9 = 0x945630;   /* Monocle.Scene.CollideCheck(Microsoft.Xna.Framework.Vector2,Monocle.GameTags) */
 constexpr uintptr_t m_Scene_OnInterval_e2bf = 0x944910;   /* Monocle.Scene.OnInterval(int32) */
 constexpr uintptr_t m_Scene_TagEntityInstant_a88b = 0x945020;   /* Monocle.Scene.TagEntityInstant(Monocle.Entity,Monocle.GameTags) */
+constexpr uintptr_t m_Scene_Update = 0x944130;   /* Monocle.Scene.Update */
 constexpr uintptr_t m_Scene_get_Camera = 0x943c50;   /* Monocle.Scene.get_Camera */
 constexpr uintptr_t m_Scene_get_FrameCounter = 0x943c60;   /* Monocle.Scene.get_FrameCounter */
 constexpr uintptr_t m_Scene_get_Item_d271 = 0x943f10;   /* Monocle.Scene.get_Item(Monocle.GameTags) */
@@ -2562,6 +2571,11 @@ constexpr uintptr_t t_Func_2_3bce = 0;   /* UNRESOLVED System.Func`2[System.Stri
 #else
 /* UNRESOLVED t_Func_2_3bce: System.Func`2[System.String, System.String]: no type System.Func`2[System.String, System.String] (a use is a compile error) */
 #endif
+#ifdef TFEXGEN_COVERAGE
+constexpr uintptr_t t_Func_2_6de4 = 0;   /* UNRESOLVED System.Func`2[TowerFall.HeavyPhysicsObject, System.Boolean]: no type System.Func`2[TowerFall.HeavyPhysicsObject, System.Boolean] */
+#else
+/* UNRESOLVED t_Func_2_6de4: System.Func`2[TowerFall.HeavyPhysicsObject, System.Boolean]: no type System.Func`2[TowerFall.HeavyPhysicsObject, System.Boolean] (a use is a compile error) */
+#endif
 constexpr uintptr_t t_Func_2_949a = 0x845930;   /* System.Func`2[System.Object, System.Object] */
 #ifdef TFEXGEN_COVERAGE
 constexpr uintptr_t t_Func_2_f2e1 = 0;   /* UNRESOLVED System.Func`2[TowerFall.Level, System.Boolean]: no type System.Func`2[TowerFall.Level, System.Boolean] */
@@ -2607,6 +2621,7 @@ constexpr uintptr_t t_HashSet_1_e76c = 0;   /* UNRESOLVED System.Collections.Gen
 #endif
 constexpr uintptr_t t_Hat = 0x8b3270;   /* TowerFall.Hat */
 constexpr uintptr_t t_HeadhuntersRoundLogic = 0x8b33f0;   /* TowerFall.HeadhuntersRoundLogic */
+constexpr uintptr_t t_HeavyPhysicsObject = 0x8b3470;   /* TowerFall.HeavyPhysicsObject */
 constexpr uintptr_t t_Ice = 0x8b36f0;   /* TowerFall.Ice */
 constexpr uintptr_t t_Icicle = 0x8b3770;   /* TowerFall.Icicle */
 #ifdef TFEXGEN_COVERAGE
@@ -2728,11 +2743,6 @@ constexpr uintptr_t t_PlayerCorpse = 0x8ba370;   /* TowerFall.PlayerCorpse */
 constexpr uintptr_t t_PlayerGhost = 0x8ba770;   /* TowerFall.PlayerGhost */
 constexpr uintptr_t t_PlayerInput = 0x8baaf0;   /* TowerFall.PlayerInput */
 constexpr uintptr_t t_PlayerInput_efe6 = 0x8bab70;   /* TowerFall.PlayerInput[] */
-#ifdef TFEXGEN_COVERAGE
-constexpr uintptr_t t_Predicate_1_0f12 = 0;   /* UNRESOLVED System.Predicate`1[System.ValueType]: no type System.Predicate`1[System.ValueType] */
-#else
-/* UNRESOLVED t_Predicate_1_0f12: System.Predicate`1[System.ValueType]: no type System.Predicate`1[System.ValueType] (a use is a compile error) */
-#endif
 constexpr uintptr_t t_Predicate_1_81f3 = 0x8658b0;   /* System.Predicate`1[TowerFall.Pickups] */
 constexpr uintptr_t t_Predicate_1_bcb9 = 0x862bb0;   /* System.Predicate`1[Monocle.Counter] */
 constexpr uintptr_t t_Predicate_1_d730 = 0x862c30;   /* System.Predicate`1[Monocle.Entity] */

@@ -150,11 +150,12 @@ bool g_installed = false;
 }
 
 /* LightPauseMenu.Pressed(MenuButton) on the Switch (TF.EX reads XGamepadInput / KeyboardInput's raw buttons): the local JoyConInputs'
- * menu getters in TFGame.PlayerInputs (Confirm 0 = MenuConfirm, Back 1 = MenuBack, Up 2, Down 3, Start 4 = MenuStart), each through its
+ * menu getters in TFGame.PlayerInputs (Confirm 0 = MenuConfirm, Back 1 = MenuBack, Up 2, Down 3, Start 4 = MenuStart, Alt2 5 = MenuAlt2:
+ * TF.EX v0.30.0's LB / left trigger, the lobby's host role button), each through its
  * original getter: the controller's own value, without TF.EX's intercepts (and xplay's MenuConfirm rule) on top. */
 bool MenuPressed(int button) {
-    static const uint32_t kSlot[5] = { 0x38, 0x48, 0x70, 0x78, 0x50 };
-    if (button < 0 || button > 4 || !g_installed) return false;
+    static const uint32_t kSlot[6] = { 0x38, 0x48, 0x70, 0x78, 0x50, 0x68 };
+    if (button < 0 || button > 5 || !g_installed) return false;
     uintptr_t f = *reinterpret_cast<uintptr_t*>(Base() + game::TFGame::PlayerInputs);
     uintptr_t arr = f ? *reinterpret_cast<uintptr_t*>(f) : 0;
     uintptr_t* data = arr ? *reinterpret_cast<uintptr_t**>(arr + 0x10) : nullptr;

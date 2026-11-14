@@ -192,6 +192,12 @@ why = "layoutpredict.py: the layout rule between anchors; bytes: unseen"
 [pin."TowerFall.HeadhuntersRoundLogic.wasFinalKill()"]
 off = 0x71
 why = "layoutpredict.py: the layout rule between anchors; bytes: unseen"
+[pin."TowerFall.HeavyPhysicsObject.image()"]
+off = 0xf8
+why = "layoutpredict.py: the layout rule between anchors; bytes: unseen"
+[pin."TowerFall.HeavyPhysicsObject.spin()"]
+off = 0x100
+why = "layoutpredict.py: the layout rule between anchors; bytes: unseen"
 [pin."TowerFall.Icicle.canFall()"]
 off = 0xfd
 why = "layoutpredict.py: the layout rule between anchors; bytes: unseen"

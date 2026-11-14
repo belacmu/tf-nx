@@ -282,6 +282,23 @@ struct Scene_OnInterval {
     static void Wrap(void (*shell)(Scene_OnInterval&));
 };
 bool Orig_Scene_OnInterval(void* self, int32_t interval);   /* Monocle.Scene.OnInterval(int): the original under the hook */
+/* Monocle.Scene.Update(): LevelReviverOrderPatch.Scene_Update (prefix) */
+struct Scene_Update {
+    void* self;
+    uint64_t x1_;
+    uint64_t x2_;
+    uint64_t x3_;
+    uint64_t x4_;
+    uint64_t x5_;
+    uint64_t x6_;
+    uint64_t x7_;
+    bool ran_ = false;
+    void (*beforeOrig_)(Scene_Update&) = nullptr;
+    void operator()();
+    void Orig();
+    static void Wrap(void (*shell)(Scene_Update&));
+};
+void Orig_Scene_Update(void* self);   /* Monocle.Scene.Update(): the original under the hook */
 /* Monocle.Tween.Removed(): TweenPatch.Tween_Removed (postfix) */
 struct Tween_Removed {
     void* self;
@@ -871,7 +888,25 @@ struct HUD_Update {
     static void Wrap(void (*shell)(HUD_Update&));
 };
 void Orig_HUD_Update(void* self);   /* TowerFall.HUD.Update(): the original under the hook */
-/* TowerFall.HeavyPhysicsObject.Update(): HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update (prefix) */
+/* TowerFall.HeavyPhysicsObject.HeavyPhysicsObject(Microsoft.Xna.Framework.Vector2, Monocle.Subtexture, Monocle.SFX): HeavyPhysicsObjectPatch.HeavyPhysicsObject_ctor_Prefix (prefix), HeavyPhysicsObjectPatch.HeavyPhysicsObject_ctor_Postfix (postfix) */
+struct HeavyPhysicsObject_ctor {
+    void* self;
+    gen::Vector2 position;
+    void* subtexture;
+    void* sound;
+    uint64_t x3_;
+    uint64_t x4_;
+    uint64_t x5_;
+    uint64_t x6_;
+    uint64_t x7_;
+    bool ran_ = false;
+    void (*beforeOrig_)(HeavyPhysicsObject_ctor&) = nullptr;
+    void* result_{};
+    void operator()();
+    void Orig();
+    static void Wrap(void (*shell)(HeavyPhysicsObject_ctor&));
+};
+/* TowerFall.HeavyPhysicsObject.Update(): HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update_Prefix (prefix), HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update_Postfix (postfix) */
 struct HeavyPhysicsObject_Update {
     void* self;
     uint64_t x1_;
@@ -3253,7 +3288,7 @@ struct TeamReviver_FinishReviving {
     static void Wrap(void (*shell)(TeamReviver_FinishReviving&));
 };
 void* Orig_TeamReviver_FinishReviving(void* self);   /* TowerFall.TeamReviver.FinishReviving(): the original under the hook */
-/* TowerFall.TeamReviver.ReviveUpdate(): TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix (postfix) */
+/* TowerFall.TeamReviver.ReviveUpdate(): TeamReviverPatch.TeamReviver_ReviveUpdate_Prefix (prefix), TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix (postfix) */
 struct TeamReviver_ReviveUpdate {
     void* self;
     uint64_t x1_;

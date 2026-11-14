@@ -39,7 +39,7 @@ unsigned long g_testBits = 0; int g_testHold = 0, g_testStep = 0, g_testWait = 0
 }
 
 bool Pressed(int button) {
-    if (button < 0 || button > 4) return false;
+    if (button < 0 || button > 5) return false;   /* Confirm 0 Back 1 Up 2 Down 3 Start 4 Alt2 5 (TF.EX v0.30.0's RawMenuButton) */
     bool resim = false, inMatch = false;
     int f = xplay::SimFrameForServices(&resim, &inMatch);
     if (!inMatch) return InputLock::MenuPressed(button);
@@ -47,11 +47,11 @@ bool Pressed(int button) {
     static int frame = -1; static uint32_t bits = 0;
     if (frame != f) {   /* the frame's first read: its buttons, with the latched ones (a press lasts one real frame) */
         frame = f; bits = g_latch; g_latch = 0; g_recorded = true;
-        for (int b = 0; b < 5; b++) if (InputLock::MenuPressed(b)) bits |= 1u << b;
+        for (int b = 0; b < 6; b++) if (InputLock::MenuPressed(b)) bits |= 1u << b;
         {   /* a change only, the first 30; then a count every 600 (a held button repeated this line on every frame: 85% of a console log) */
             static uint32_t lastBits = 0; static int logged = 0, more = 0;
             if (bits != lastBits) {
-                if (logged < 30) { logged++; hw::Log("[pause] frame %d: menu buttons %#x (Confirm 1, Back 2, Up 4, Down 8, Start 16)", f, bits); }
+                if (logged < 30) { logged++; hw::Log("[pause] frame %d: menu buttons %#x (Confirm 1, Back 2, Up 4, Down 8, Start 16, Alt2 32)", f, bits); }
                 else if (++more % 600 == 0) hw::Log("[pause] %d more menu-button changes (not logged one by one)", more);
                 lastBits = bits;
             }
@@ -83,7 +83,7 @@ void Frame() {
         bool resim = false, inMatch = false;
         xplay::SimFrameForServices(&resim, &inMatch);
         if (!inMatch) g_latch = 0;
-        else if (!g_recorded) for (int b = 0; b < 5; b++) if (InputLock::MenuPressed(b)) g_latch |= 1u << b;
+        else if (!g_recorded) for (int b = 0; b < 6; b++) if (InputLock::MenuPressed(b)) g_latch |= 1u << b;
         g_recorded = false;
     }
     if (g_testHold > 0) g_testHold--;

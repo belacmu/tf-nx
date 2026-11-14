@@ -42,7 +42,7 @@ TFEX-DIFF S-input: the PC keyboard / mouse -> nothing pressed (5)
     Auto_JoinCodeEntry: Update: Keyboard.GetState()
     Auto_JoinCodeEntry: Update: keyboard.GetPressedKeys()
     Auto_JoinCodeEntry: Update: previousKeyboard.IsKeyDown(key)
-auto unit (a TF.EX type the code calls) (310)
+auto unit (a TF.EX type the code calls) (313)
     Auto_APIManager: state/TF.State.Domain/Services/APIManager.cs
     Auto_ActionExtensions: state/TF.State.Domain/Extensions/ActionExtensions.cs
     Auto_Alarm: state/TF.State.Domain/Models/Component/Alarm.cs
@@ -147,6 +147,8 @@ auto unit (a TF.EX type the code calls) (310)
     Auto_HUDService: state/TF.State.Domain/Services/HUDService.cs
     Auto_Hat: state/TF.State.Domain/Models/Entity/LevelEntity/Hat.cs
     Auto_HatExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Hat.cs
+    Auto_HeavyPhysicsObject: state/TF.State.Domain/Models/Entity/LevelEntity/HeavyPhysicsObject.cs
+    Auto_HeavyPhysicsObjectExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/HeavyPhysicsObject.cs
     Auto_Ice: state/TF.State.Domain/Models/Entity/LevelEntity/Ice.cs
     Auto_IceExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/Ice.cs
     Auto_Icicle: state/TF.State.Domain/Models/Entity/LevelEntity/Icicle.cs
@@ -178,6 +180,7 @@ auto unit (a TF.EX type the code calls) (310)
     Auto_Loader: fortrise/InternalMods/FortRise.Content/Implementation/LoaderAPI.cs
     Auto_Lobby: network/TF.EX.Domain/Models/WebSocket/Lobby.cs
     Auto_LobbyBuilderContext: network/TF.EX.Domain/Context/LobbyBuilderContext.cs
+    Auto_LobbyHostRoleButton: network/TF.EX.Domain/CustomComponent/LobbyHostRoleButton.cs
     Auto_LocalPlayersPanel: network/TF.EX.Domain/CustomComponent/LocalPlayersPanel.cs
     Auto_LoopPlatform: state/TF.State.Domain/Models/Entity/LevelEntity/Platform/LoopPlatform.cs
     Auto_LoopPlatformExtensions: state/TF.State.TowerFallExtensions/Entity/LevelEntity/LoopPlatform.cs
@@ -662,7 +665,7 @@ hand rule: ledger replacement (gap) (2)
 hand rule: member missing from the reference game ([invalid], S-native) (2)
     registry.SFXs.RegisterSFXLooped(id+"_"+type+"_SFX",f)
     registry.SFXs.RegisterSFXVaried(id+"_"+type+"_SFX",fallback)
-hand rule: pinned game member (translate.toml [pin]) (375)
+hand rule: pinned game member (translate.toml [pin]) (377)
     Microsoft.Xna.Framework.Audio.SoundEffectInstance.Stop: classmeta: SoundEffectInstance's first Stop (+0x47970; Stop(bool) +0x47aa0 is the same body): native stop +0x18ef0 of [this + 0x30], then the pool's Remove (+0x47f30)
     Microsoft.Xna.Framework.Audio.SoundEffectInstance.get_State: classmeta: SoundEffectInstance's get_State (native state +0x19310 of [this + 0x30], 2 = Stopped without a voice); the name's second body (+0x4d3d0) is a neighbouring XACT class's, whose `ldr [x0, #0x40]` the binder took as a field past the 0x38-byte object (TF.State's SFXService.RemoveFinishedSfx)
     Microsoft.Xna.Framework.Graphics.Texture2D..ctor: Monocle's Texture(int, int, Color) (+0x956180) and Canvas(int, int) call it with (null: allocates, the device, width, height)
@@ -776,6 +779,8 @@ hand rule: pinned game member (translate.toml [pin]) (375)
     TowerFall.HeadhuntersRoundLogic.done: the using methods' accesses (privfield.py) and the layout rule agree: 0x70
     TowerFall.HeadhuntersRoundLogic.roundEndCounter: the layout rule between RoundLogic's end (0x68) and done at 0x70 (confirmed): the reference just before it
     TowerFall.HeadhuntersRoundLogic.wasFinalKill: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: unseen
+    TowerFall.HeavyPhysicsObject.image: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: unseen
+    TowerFall.HeavyPhysicsObject.spin: MEASUREMENT LEAD, unconfirmed: layoutpredict.py: the layout rule between anchors; bytes: unseen
     TowerFall.Ice.oldTiles: private; as tiles: ClearTiles / BuildTiles copy tiles into 0xe0; the layout rule agrees
     TowerFall.Ice.oldTilesAlpha: private; privfield.py: 0xec (ClearTiles stores 1f there); the layout rule agrees
     TowerFall.Ice.oldTilesXOffset: private; privfield.py: 0xe8 (Update, Render); the layout rule agrees
@@ -1092,7 +1097,7 @@ mechanical: Delegate.CreateDelegate over a static method closed over its first a
     Auto_PlayerExtensions: ToActions: Delegate.CreateDelegate(typeof(Action), self, invisible)
     Auto_PlayerExtensions: ToActions: Delegate.CreateDelegate(typeof(Action), self, shield)
     Auto_PlayerExtensions: ToActions: Delegate.CreateDelegate(typeof(Action), self, wingsGain)
-mechanical: DynamicData member by name (626)
+mechanical: DynamicData member by name (630)
     Actor.counter (Get)
     Actor.counter (Set)
     Alarm.Duration (Set)
@@ -1274,6 +1279,9 @@ mechanical: DynamicData member by name (626)
     GraphicsComponent.Rotation (Set)
     GraphicsComponent.Scale (Set)
     HUD.Level (Set)
+    HeavyPhysicsObject.image (Get)
+    HeavyPhysicsObject.spin (Get)
+    HeavyPhysicsObject.spin (Set)
     Ice.oldTiles (Set)
     Ice.oldTilesAlpha (Get)
     Ice.oldTilesAlpha (Set)
@@ -1400,6 +1408,7 @@ mechanical: DynamicData member by name (626)
     Pickup.sine (Get)
     Pickup.timeoutCounter (Get)
     Pickup.timeoutCounter (Set)
+    Player.AimDirection (Set)
     Player.Cling (Set)
     Player.Dead (Set)
     Player.DodgeSliding (Set)
@@ -1821,7 +1830,7 @@ mechanical: Harmony Traverse member of a subclass, by the object's type (1)
     VersusMatchResults.finished
 mechanical: Harmony Traverse member that exists nowhere -> default / no-op (Traverse's own result) (1)
     HUD.HasReset
-mechanical: Harmony patch -> exlaunch hook (236)
+mechanical: Harmony patch -> exlaunch hook (238)
     Alarm.Removed: AlarmPatch.Alarm_Removed
     ArcherData.Get: ArcherDataPatch.ArcherData_Get_Postfix
     ArcherData.Get: DataHooks.GetTeamData_Prefix
@@ -1859,7 +1868,8 @@ mechanical: Harmony patch -> exlaunch hook (236)
     FightButton.MenuAction: FightButtonPatch.FightButton_MenuAction
     GameplayLayer.BatchedRender: GameplayLayerPatch.GameplayLayer_BatchedRender
     HUD.Update: HUDPatch.HUD_Update
-    HeavyPhysicsObject.Update: HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update
+    HeavyPhysicsObject..ctor: HeavyPhysicsObjectPatch.HeavyPhysicsObject_ctor_Prefix, HeavyPhysicsObjectPatch.HeavyPhysicsObject_ctor_Postfix
+    HeavyPhysicsObject.Update: HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update_Prefix, HeavyPhysicsObjectPatch.HeavyPhysicsObject_Update_Postfix
     Ice.Update: IcePatch.Ice_Update
     Icicle.OnArrowHit: IciclePatch.Icicle_OnArrowHit
     Icicle.OnExplodePush: IciclePatch.Icicle_OnExplodePush
@@ -1987,6 +1997,7 @@ mechanical: Harmony patch -> exlaunch hook (236)
     SFXInstanced.Play: SFXInstancedPatch.SFXInstanced_Play
     SaveData.Save: SaveDataPatch.Save_Prefix, SaveDataPatch.Save_Postfix
     Scene.OnInterval: SceneIntervalPatch.Scene_OnInterval
+    Scene.Update: LevelReviverOrderPatch.Scene_Update
     ScreenTitle..ctor: ScreenTitlePatch.ScreenTitle_ctor
     ScreenTitle.ChangeState: ScreenTitlePatch.ScreenTitle_ChangeState
     SensorBlock.Update: SensorBlockPatch.SensorBlock_Update
@@ -2008,7 +2019,7 @@ mechanical: Harmony patch -> exlaunch hook (236)
     TFGame.Update: TFGamePatch.TFGameUpdate_Patch
     TeamReviver..ctor: TeamReviverPatch.TeamReviver_ctor
     TeamReviver.FinishReviving: ReviveHooks.FinishReviving_Postfix
-    TeamReviver.ReviveUpdate: TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix
+    TeamReviver.ReviveUpdate: TeamReviverPatch.TeamReviver_ReviveUpdate_Prefix, TeamReviverPatch.TeamReviver_ReviveUpdate_Postfix
     TechnoMage..ctor: TechnoMagePatch.TechnoMage_ctor
     TechnoMage.AlertUpdate: TechnoMagePatch.TechnoMage_AlertUpdate
     TechnoMage.Update: TechnoMagePatch.TechnoMage_Update_Postfix
@@ -2058,7 +2069,7 @@ mechanical: Harmony patch -> exlaunch hook (236)
     WhiteArcherPrison.Spawn: WhiteArcherPrisonPatch.WhiteArcherPrison_Spawn
     WoodenHat.Update: WoodenHatRngPatch.WoodenHat_Update_Prefix, WoodenHatRngPatch.WoodenHat_Update_Postfix
     YellowArcherStatue.Update: YellowArcherStatuePatch.YellowArcherStatue_Update
-mechanical: ICollection<T> member -> the List<T> body (or the array) (53)
+mechanical: ICollection<T> member -> the List<T> body (or the array) (54)
     Auto_EventLogExtensions: ToModel: result.CrownChanges.Add(new TF.State.Domain.Models.EventLog.CrownChange
     Auto_EventLogExtensions: ToModel: result.GainPoints.Add(new TF.State.Domain.Models.EventLog.GainPoint
     Auto_EventLogExtensions: ToModel: result.LosePoints.Add(new TF.State.Domain.Models.EventLog.LosePoint
@@ -2090,6 +2101,7 @@ mechanical: ICollection<T> member -> the List<T> body (or the array) (53)
     State_Level: AddExplosions: game.Entities.Explosions.Add(exp)
     State_Level: AddGhostPlatformsState: state.Entities.GhostPlatforms.Add(ghostPlatform.GetState())
     State_Level: AddHats: game.Entities.Hats.Add(state)
+    State_Level: AddHeavyPhysicsObjectsState: gameState.Entities.HeavyPhysicsObjects.Add(state)
     State_Level: AddIciclesState: gameState.Entities.Icicles.Add(state)
     State_Level: AddJumpPadsState: state.Entities.JumpPads.Add(jumpPad.GetState())
     State_Level: AddLanternState: gameState.Entities.Lanterns.Add(lan)
@@ -2127,7 +2139,7 @@ mechanical: LINQ All -> internal iteration (7)
     NetplayMenus: EvaluateLobbyCompatibility: newLobby.GameData.Variants.All(availableVariants.Contains)
     PlayerInputPatch: PlayerInput_AssignInputs: TFGame.PlayerInputs.All(input => input == null)
     SessionPatch: Session_StartGame: lobby.Players.All(player => player.UseInstantReplay)
-mechanical: LINQ Any -> internal iteration (121)
+mechanical: LINQ Any -> internal iteration (127)
     Auto_APIManager: HasStateEvents: stateEvents.Keys.Any(key => key.StartsWith(id + "-", StringComparison.Ordinal))
     Auto_ConfirmDialog: IsPressed: _originalInputs.Any(input => input != null && IsPressed(input, button))
     Auto_ExplosionExtensions: GetSharedCounters: shared.Any(index => index >= 0)
@@ -2161,6 +2173,8 @@ mechanical: LINQ Any -> internal iteration (121)
     NetplayManager: GetEventAndUpdate: _events.Any(s => s.Contains(Event.NetworkInterrupted.ToString()))
     NetplayManager: GetEventAndUpdate: _events.Any(s => s.Contains(Event.NetworkResumed.ToString()))
     NetplayManager: GetEventAndUpdate: _events.Any(s => s.Contains(Event.Synchronized.ToString()))
+    NetplayManager: UpdatePlayers: players.Any(player => player.IsHost && player.RoomPeerId == GGRSConfig.Netplay.LocalPeerId)
+    NetplayMenus: OnJoinSuccess: newLobby.Players.Any(pl => pl.IsHost && pl.RoomPeerId == matchmakingService.GetRoomPeerId())
     NetplayMenus: OnRetrieveSuccess: reslobbies.Any()
     NetplayMenus: PrepareMatchmadeLobby: lobby.Players.Any(pl => pl.IsHost && pl.RoomPeerId == localPeerId)
     RollCallElementPatch: RollcallElement_NotJoinedUpdate_Prefix: lobby.Players.Any(pl => pl.Seat == playerIndex)
@@ -2183,6 +2197,7 @@ mechanical: LINQ Any -> internal iteration (121)
     ScenarioCatalog: : AllOf<Explosion>(level).Any()
     ScenarioCatalog: : AllOf<FeatherArrow>(level).Any()
     ScenarioCatalog: : AllOf<GhostPlatform>(level)
+    ScenarioCatalog: : AllOf<HeavyPhysicsObject>(level).Any(h =>
     ScenarioCatalog: : AllOf<Ice>(level).Any(ice => ice.Collidable)
     ScenarioCatalog: : AllOf<Icicle>(level).Any(i =>
     ScenarioCatalog: : AllOf<Icicle>(level).Any(i => DynamicData.For(i).Get<bool>("falling"))
@@ -2229,7 +2244,10 @@ mechanical: LINQ Any -> internal iteration (121)
     ScenarioCatalog: : AllOf<ShieldPickup>(level).Any(shield => shield.Collidable)
     ScenarioCatalog: : AllOf<ShockCircle>(level).Any()
     ScenarioCatalog: : AllOf<Slime>(level).Any()
+    ScenarioCatalog: : AllOf<SwitchBlock>(level).Any(b => DynamicData.For(b).Get<bool>("on")
     ScenarioCatalog: : AllOf<SwitchBlock>(level).Any(b => b.Collidable && b.X == 140f)
+    ScenarioCatalog: : AllOf<SwitchBlockControl>(level).Any(c =>
+    ScenarioCatalog: : AllOf<TeamReviver>(level).Any(r =>
     ScenarioCatalog: : AllOf<TeamReviver>(level).Any(r => DynamicData.For(r).Get<bool>("reviving"))
     ScenarioCatalog: : AllOf<ToyArrow>(level).Any()
     ScenarioCatalog: : AllOf<TreasureChest>(level).Any()
@@ -2294,15 +2312,13 @@ mechanical: LINQ ElementAtOrDefault -> internal iteration (3)
 mechanical: LINQ Empty -> internal iteration (2)
     Auto_Layer: .ctor: Enumerable.Empty<BGElement>()
     Auto_RoundLevels: .ctor: Enumerable.Empty<string>()
-mechanical: LINQ First -> internal iteration (7)
-    MatchmakingService: HandleLobbyUpdate: lobby.Players.First(pl => pl.IsHost)
-    MatchmakingService: HandleMessageContents: ownLobby.Players.First(pl => pl.IsHost)
+mechanical: LINQ First -> internal iteration (5)
+    MatchmakingService: HandleMessageContents: ownLobby.Spectators.First()
     NetplayManager: ConsumeNetplayRequest: _netplayRequests.First()
     NetplayManager: UpdatePlayers: players.First(p => p.IsHost)
-    NetplayMenus: OnJoinSuccess: newLobby.Players.First(pl => pl.IsHost)
     XGamePadInputPatch: InterceptConfirm: (TFGame.Instance.Scene as MainMenu).GetAll<RollcallElement>().First(rc =>
     XGamePadInputPatch: InterceptStart: (TFGame.Instance.Scene as MainMenu).GetAll<RollcallElement>().First(rc =>
-mechanical: LINQ FirstOrDefault -> internal iteration (109)
+mechanical: LINQ FirstOrDefault -> internal iteration (112)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex && (int)e.Type == altIndex)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex && e.Type == FortRise.ArcherEntryType.Normal)
     Auto_ArcherDataExtensions: GetCustomArcherId: entries.FirstOrDefault(e => e?.Index == archerIndex)
@@ -2354,6 +2370,8 @@ mechanical: LINQ FirstOrDefault -> internal iteration (109)
     MatchmakingService: ApplyTeamsToMatchSettings: ownLobby.SessionPlayers.FirstOrDefault(entry => entry.Seat == seat)
     MatchmakingService: GetEndGameStatus: votes.FirstOrDefault(vote => vote.RoomPeerId == player.RoomPeerId)
     MatchmakingService: GetOwnPlayer: ownLobby.Players.FirstOrDefault(player => player.RoomPeerId == peerId && !player.IsGuest)
+    MatchmakingService: HandleLobbyUpdate: lobby.Players.FirstOrDefault(pl => pl.IsHost)
+    MatchmakingService: HandleMessageContents: ownLobby.Players.FirstOrDefault(pl => pl.IsHost)
     MatchmakingService: ReconcileRollcall: rollCalls.FirstOrDefault(rc =>
     MatchmakingService: UnreadyOwnRollcall: .FirstOrDefault(pl => pl.RoomPeerId == peerId && pl.LocalIndex == ownPlayer.LocalIndex)
     MatchmakingService: UnreadyOwnRollcall: rollCalls.FirstOrDefault(rc => DynamicData.For(rc).Get<int>("playerIndex") == ownPlayer.Seat)
@@ -2363,6 +2381,7 @@ mechanical: LINQ FirstOrDefault -> internal iteration (109)
     NetplayManager: GetNameForSeat: _gameContext.GetPlayers().FirstOrDefault(entry => entry.Item1 == seat)
     NetplayMenus: ApplyLobbyWideForSpectator: .FirstOrDefault(mod => mod?.Name == WiderSetModApiData.Name)
     NetplayMenus: MainMenu_Render: lobbyPlayers.FirstOrDefault(player => player.Seat == seat)
+    NetplayMenus: OnJoinSuccess: newLobby.Players.FirstOrDefault(pl => pl.IsHost)
     NetplayMenus: OnJoinSuccess: newLobby.Players.FirstOrDefault(pl => pl.RoomPeerId == matchmakingService.GetRoomPeerId() && !pl.IsGuest)
     NetplayMenus: OnRetrieveSuccess: lobbies.Where(l => l.Lobby.RoomId == lobby.RoomId).FirstOrDefault()
     PlayerProfilePanel: AddTowerGraphics: (_profile.BestTowers ?? [])
@@ -2449,7 +2468,7 @@ mechanical: LINQ SingleOrDefault -> internal iteration (1)
 mechanical: LINQ Sum -> internal iteration (2)
     Auto_LocalPlayersPanel: DrawHint: icons.Sum(icon => icon.Width + GAP)
     InputScripter: FromScript: script.Sum(a => Math.Max(1, a.Frames))
-mechanical: LINQ ToArray -> internal iteration (62)
+mechanical: LINQ ToArray -> internal iteration (64)
     Auto_ChainExtensions: GetState: speeds.ToArray()
     Auto_ExplosionExtensions: GetSharedCounters: counters.Select((counter, index) => counters.FindIndex(0, index, other => ReferenceEquals(other, counter))).ToArray()
     Auto_ExplosionExtensions: LoadState: Enumerable.Repeat(-1, toLoadCounters.Count).ToArray()
@@ -2479,6 +2498,8 @@ mechanical: LINQ ToArray -> internal iteration (62)
     State_Level: AddExplosions: level.GetAll<TowerFall.Explosion>().ToArray()
     State_Level: AddHats: level.GetAll<TowerFall.Hat>().ToArray()
     State_Level: AddHats: level.GetAllToBeSpawned<TowerFall.Hat>().ToArray()
+    State_Level: AddHeavyPhysicsObjectsState: level.GetAll<TowerFall.HeavyPhysicsObject>().Where(halo => halo.IsTracked()).ToArray()
+    State_Level: AddHeavyPhysicsObjectsState: level.GetAllToBeSpawned<TowerFall.HeavyPhysicsObject>().Where(halo => halo.IsTracked()).ToArray()
     State_Level: AddIcesState: level.GetAll<TowerFall.Ice>().ToArray()
     State_Level: AddIciclesState: level.GetAll<TowerFall.Icicle>().ToArray()
     State_Level: AddLanternState: level.GetAll<TowerFall.Lantern>().ToArray()
@@ -2616,9 +2637,6 @@ mechanical: Layer.GetList<T>() -> the layer's entities of type T (3)
     MainMenuStale: RemoveStaleMenuItems: self.Layers[-1].GetList<TowerFall.MenuItem>()
     NetplayMenus: RemoveStaleMenuItems: self.Layers[-1].GetList<TowerFall.MenuItem>()
     Tp_Selector: Update: base.MainMenu.Layers[-1].GetList<ThreeTeamSelector>()
-mechanical: List<T>.FindIndex(predicate) on a value list -> the first index it accepts, else -1 (2)
-    Tp_RoundLogic: SpawnGroups: groups.FindIndex(g => g.Team == Allegiance.Blue)
-    Tp_RoundLogic: SpawnGroups: groups.FindIndex(g => g.Team == Allegiance.Red)
 mechanical: List<T>.Sort(comparison) on a value list -> its Sort with the comparison inline (1)
     Fr_UIModMenu: GetMods: sorted.Sort((x, y) =>
 mechanical: Math.Abs(floating) -> fabs (the sign bit cleared, as .NET) (13)
@@ -2750,7 +2768,7 @@ mechanical: a P/Invoke extern -> a direct C call into the native library (22)
     GGRSFFI.netplay_save_game_state
     GGRSFFI.netplay_set_local_inputs
     GGRSFFI.netplay_set_test_inputs
-mechanical: a TF.State generic method -> a copy per instantiation (176)
+mechanical: a TF.State generic method -> a copy per instantiation (180)
     Auto_CalcExtensions: OwnShuffle__Int32
     Auto_CalcExtensions: OwnShuffle__Vector2
     Auto_EntityExtensions: DeleteAllComponents__Alarm
@@ -2771,6 +2789,7 @@ mechanical: a TF.State generic method -> a copy per instantiation (176)
     Auto_ResultsSaveStats: CopyInto__Int32
     Auto_ResultsSaveStats: CopyInto__UInt64
     Auto_SceneExtensions: GetAllToBeSpawned__Hat
+    Auto_SceneExtensions: GetAllToBeSpawned__HeavyPhysicsObject
     Auto_SceneExtensions: GetAllToBeSpawned__Spikeball
     Auto_SceneExtensions: GetAll__Arrow
     Auto_ServiceCollections: AddToCache__TreasureChest
@@ -2785,6 +2804,7 @@ mechanical: a TF.State generic method -> a copy per instantiation (176)
     Auto_ServiceCollections: GetCachedEntity__EnemyAttack
     Auto_ServiceCollections: GetCachedEntity__Explosion
     Auto_ServiceCollections: GetCachedEntity__Hat
+    Auto_ServiceCollections: GetCachedEntity__HeavyPhysicsObject
     Auto_ServiceCollections: GetCachedEntity__Icicle
     Auto_ServiceCollections: GetCachedEntity__MoonGlassBlock
     Auto_ServiceCollections: GetCachedEntity__Pickup
@@ -2851,6 +2871,7 @@ mechanical: a TF.State generic method -> a copy per instantiation (176)
     State_Level: DeleteAll__EnemyAttack
     State_Level: DeleteAll__Explosion
     State_Level: DeleteAll__Hat
+    State_Level: DeleteAll__HeavyPhysicsObject
     State_Level: DeleteAll__Icicle
     State_Level: DeleteAll__MoonGlassBlock
     State_Level: DeleteAll__Orb
@@ -2893,6 +2914,7 @@ mechanical: a TF.State generic method -> a copy per instantiation (176)
     State_Level: GetAll__Explosion
     State_Level: GetAll__GhostPlatform
     State_Level: GetAll__Hat
+    State_Level: GetAll__HeavyPhysicsObject
     State_Level: GetAll__Ice
     State_Level: GetAll__Icicle
     State_Level: GetAll__JumpPad
@@ -2927,7 +2949,7 @@ mechanical: a TF.State generic method -> a copy per instantiation (176)
     State_Level: Get__SwitchBlockControl
     State_Level: Get__TrialsControl
     State_Level: Spawn__Orb
-mechanical: a TF.State model's sequence property -> the List<T> TF.State stores there (50)
+mechanical: a TF.State model's sequence property -> the List<T> TF.State stores there (51)
     Chest.PickupList
     EnemiesState.Bats
     EnemiesState.ChaliceGhosts
@@ -2950,6 +2972,7 @@ mechanical: a TF.State model's sequence property -> the List<T> TF.State stores 
     Entities.Explosions
     Entities.GhostPlatforms
     Entities.Hats
+    Entities.HeavyPhysicsObjects
     Entities.Ices
     Entities.Icicles
     Entities.JumpPads
@@ -3251,7 +3274,7 @@ mechanical: a delegate made by reflection over a static property setter (AccessT
     LevelPatch.SetEngineDeltaTicks: Engine.DeltaTicks
     LevelPatch.SetEngineDeltaTime: Engine.DeltaTime
     LevelPatch.SetEngineTimeMult: Engine.TimeMult
-mechanical: a delegate type the game never compiled -> one of the same register shape (13)
+mechanical: a delegate type the game never compiled -> one of the same register shape (14)
     System.Action<(string, int)> -> System.Action<object, object>
     System.Action<TowerFall.ShieldPickup> -> System.Action<object>
     System.Action<bool> -> System.Action<object>
@@ -3262,13 +3285,13 @@ mechanical: a delegate type the game never compiled -> one of the same register 
     System.Func<Monocle.SFXVaried> -> System.Func<object>
     System.Func<System.Xml.XmlElement> -> System.Func<object>
     System.Func<TowerFall.ArcherData> -> System.Func<object>
+    System.Func<TowerFall.HeavyPhysicsObject, bool> -> System.Func<object, object>
     System.Func<TowerFall.Level, bool> -> System.Func<object, object>
     System.Func<TowerFall.OptionsButton> -> System.Func<object>
     System.Func<string, string> -> System.Func<object, object>
-mechanical: a delegate type the game never compiled, of no shape it has -> a stand-in type, invoked directly (3)
+mechanical: a delegate type the game never compiled, of no shape it has -> a stand-in type, invoked directly (2)
     System.Comparison<(double, FortRise.ModuleMetadata)>
     System.Func<TF.EX.Domain.Models.Input>
-    System.Predicate<TeamsPlus.ThreeTeamRoundLogic.Group>
 mechanical: a game Stack<T> / Queue<T> as a sequence -> its ToArray (its enumeration order) (2)
     Auto_QuestSpawnPortalExtensions: GetState: dynPortal.Get<Queue<string>>("toSpawn")
     State_Level: DropLiveFromEntityPool: pool
@@ -3369,12 +3392,13 @@ mechanical: a generic local function -> a copy per instantiation (2)
 mechanical: a lazy sequence into a TF.State model property -> a List of it (2)
     Auto_PlayerArrowsInventoryExtensions: ToModel: arrowList.Arrows.Select(arrow => arrow.ToModel())
     Auto_PlayerArrowsInventoryExtensions: ToModel: sortSet.Select(arrow => arrow.ToModel())
-mechanical: a local lambdas capture and the code changes -> a one-element managed array (shared display class) (8)
+mechanical: a local lambdas capture and the code changes -> a one-element managed array (shared display class) (9)
     CreateInput: value
     CreateNumber: value
     CreateOnOff: value
     CreateOptions: index
     CreatePrivateJoinCode: joinAsPlayer
+    OnRetrieveSuccess: infos
     OrbLogic_DoOffsetWorldVariant: spaceTween
     OrbLogic_DoSpaceOrb: end
     OrbLogic_DoSpaceOrb: spaceTween
@@ -3593,7 +3617,7 @@ mechanical: array.Clone() -> a new array, the elements copied (gen::ResizeArr) (
     Auto_ResultsSaveStats: OnlyCountOnce: .Clone()
 mechanical: char.IsAscii* -> its ASCII ranges (not in the Switch's binary) (1)
     MatchReport: Sanitize: char.IsAsciiLetterOrDigit(c)
-mechanical: class of ours (MakeClass, vtable overrides) (227)
+mechanical: class of ours (MakeClass, vtable overrides) (229)
     APIManager : Object
     Alarm : Object
     ArcherEntry : Object
@@ -3662,6 +3686,7 @@ mechanical: class of ours (MakeClass, vtable overrides) (227)
     HUD : Object
     HUDService : Object
     Hat : Object
+    HeavyPhysicsObject : Object
     Ice : Object
     Icicle : Object
     IntermediateArrow : Arrow
@@ -3679,6 +3704,7 @@ mechanical: class of ours (MakeClass, vtable overrides) (227)
     Line : Object
     Loader : Object
     LobbyBorderButton : BorderButton
+    LobbyHostRoleButton : LobbyBorderButton
     LobbyInfos : MenuItem
     LobbyPanel : Entity
     LobbyUpdateFeed : Entity
@@ -3821,16 +3847,18 @@ mechanical: class of ours (MakeClass, vtable overrides) (227)
     WiderSetApi : Object
     Wiggler : Object
     patch_MainMenu : MainMenu
-mechanical: collection expression -> new List<T> + Add (10)
+mechanical: collection expression -> new List<T> + Add (12)
     Auto_Changelog: : []
     Auto_Changelog: MarkSeen: []
     Auto_Constants: : [
+    Auto_Entities: .ctor: []
     Auto_LocalPlayersPanel: RenderHints: [guests[guestIndex].BackIcon]
     Auto_Tutorial: : []
     Fr_UIModMenu: GetMods: []
     MatchVariantsPatchs: : [
     MatchmakingService: PublishSettingsChanges: [title]
     ScenarioLaunch: LaunchScenario: [path]
+    State_Level: LoadHeavyPhysicsObjects: []
     TfexModule: RegisterAndLoad: [
 mechanical: collection expression for an ICollection<string> property -> new List<string> + Add (1)
     Auto_NetplayConfig: .ctor: []
@@ -3912,17 +3940,16 @@ mechanical: double/float.IsNaN / IsInfinity -> compiler builtins (13)
     State_DeterministicMath: Pow: double.IsNaN(y)
     State_DeterministicMath: Sin: double.IsInfinity(x)
     State_DeterministicMath: Sin: double.IsNaN(x)
-mechanical: enum to string -> its names (9)
+mechanical: enum to string -> its names (8)
     System.Net.WebSockets.WebSocketCloseStatus
     TF.EX.Domain.Models.AutoAdjustInputDelayMode
     TF.EX.Domain.Models.CustomSkinMode
     TF.EX.Domain.Models.Event
     TF.EX.Domain.Models.WebSocket.LobbyKind
     TF.EX.Domain.Services.WSAction
-    TowerFall.Allegiance
     TowerFall.MatchSettings.MatchLengths
     TowerFall.Modes
-mechanical: finally -> a scope guard (gen::MakeDefer) around the try body (10)
+mechanical: finally -> a scope guard (gen::MakeDefer) around the try body (12)
     Fr_SFXVariedEntry: GetActualSFXVaried: try
     MatchmakingService: Send: try
     NetplayEntry: NetplayLogic: try
@@ -3933,6 +3960,8 @@ mechanical: finally -> a scope guard (gen::MakeDefer) around the try body (10)
     State_Api: LoadGameStateBytes: try
     State_Api: RestoreGameStateBytes: try
     State_Level: LoadHats: try
+    State_Level: LoadHeavyPhysicsObjects: try
+    State_TeamReviver: TickRevivers: try
 mechanical: foreach over Enum.GetValues(typeof(game enum)) -> the Switch's values (7)
     GlueStateSpawn: Arrows: foreach (ArrowTypes t in System.Enum.GetValues(typeof(ArrowTypes)))
     GlueStateSpawn: Entities: foreach (Pickups k in System.Enum.GetValues(typeof(Pickups)))
@@ -3953,7 +3982,7 @@ mechanical: foreach over XML nodes -> index loop over XmlNodeList.Count / Item (
 mechanical: foreach over a constant string array -> unrolled, the element a known constant (DynamicData member names) (2)
     PlayerPatch: EnsureTeamHeadTextures: foreach (var tag in new[] { "RedTexture", "BlueTexture" })
     State_Level: RestoreEnemyTags: foreach (var pending in new[] { "tagsToAdd", "tagsToRemove" })
-mechanical: foreach over a lazy sequence -> its visitor (207)
+mechanical: foreach over a lazy sequence -> its visitor (210)
     Auto_APIManager: GetStates: foreach (var pair in stateEvents.OrderBy(pair => pair.Key, StringComparer.Ordinal))
     Auto_APIManager: LoadStates: foreach (var pair in stateEvents)
     Auto_EventLogExtensions: ToTFModel: foreach (var evt in eventLog.CrownChanges)
@@ -3992,22 +4021,22 @@ mechanical: foreach over a lazy sequence -> its visitor (207)
     GlueFrMods: VanillaSubtextureIds: foreach (var kv in TFGame.MenuAtlas.SubTextures) ids.Add(kv.Key);
     GlueSkins: WriteSprite: foreach (var pair in s.ExtraData) { Str(pair.Key); Str(pair.Value); }
     GlueState: PurgeCachedPickup: foreach (var d in pickups) cache.Remove(d.ToString());
-    GlueStateMsgPack: W_Chest: foreach (var e135 in v.PickupList) n136++;
-    GlueStateMsgPack: W_Chest: foreach (var e135 in v.PickupList) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e101 in v.QuestSpawnPortals) n102++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e101 in v.QuestSpawnPortals) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e103 in v.Slimes) n104++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e103 in v.Slimes) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e105 in v.Bats) n106++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e105 in v.Bats) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e107 in v.EnemyAttacks) n108++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e107 in v.EnemyAttacks) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e109 in v.ChaliceGhosts) n110++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e109 in v.ChaliceGhosts) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e111 in v.TechnoMages) n112++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e111 in v.TechnoMages) {
-    GlueStateMsgPack: W_EnemiesState: foreach (var e113 in v.TechnoMissiles) n114++;
-    GlueStateMsgPack: W_EnemiesState: foreach (var e113 in v.TechnoMissiles) {
+    GlueStateMsgPack: W_Chest: foreach (var e137 in v.PickupList) n138++;
+    GlueStateMsgPack: W_Chest: foreach (var e137 in v.PickupList) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e103 in v.QuestSpawnPortals) n104++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e103 in v.QuestSpawnPortals) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e105 in v.Slimes) n106++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e105 in v.Slimes) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e107 in v.Bats) n108++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e107 in v.Bats) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e109 in v.EnemyAttacks) n110++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e109 in v.EnemyAttacks) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e111 in v.ChaliceGhosts) n112++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e111 in v.ChaliceGhosts) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e113 in v.TechnoMages) n114++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e113 in v.TechnoMages) {
+    GlueStateMsgPack: W_EnemiesState: foreach (var e115 in v.TechnoMissiles) n116++;
+    GlueStateMsgPack: W_EnemiesState: foreach (var e115 in v.TechnoMissiles) {
     GlueStateMsgPack: W_Entities: foreach (var e11 in v.Lanterns) n12++;
     GlueStateMsgPack: W_Entities: foreach (var e11 in v.Lanterns) {
     GlueStateMsgPack: W_Entities: foreach (var e13 in v.Chains) n14++;
@@ -4072,29 +4101,31 @@ mechanical: foreach over a lazy sequence -> its visitor (207)
     GlueStateMsgPack: W_Entities: foreach (var e68 in v.Ices) {
     GlueStateMsgPack: W_Entities: foreach (var e7 in v.Arrows) n8++;
     GlueStateMsgPack: W_Entities: foreach (var e7 in v.Arrows) {
+    GlueStateMsgPack: W_Entities: foreach (var e70 in v.HeavyPhysicsObjects) n71++;
+    GlueStateMsgPack: W_Entities: foreach (var e70 in v.HeavyPhysicsObjects) {
     GlueStateMsgPack: W_Entities: foreach (var e9 in v.Pickups) n10++;
     GlueStateMsgPack: W_Entities: foreach (var e9 in v.Pickups) {
     GlueStateMsgPack: W_Entities: foreach (var kv53 in v.RoundData) {
-    GlueStateMsgPack: W_EventLog: foreach (var e115 in v.GainPoints) n116++;
-    GlueStateMsgPack: W_EventLog: foreach (var e115 in v.GainPoints) {
-    GlueStateMsgPack: W_EventLog: foreach (var e117 in v.LosePoints) n118++;
-    GlueStateMsgPack: W_EventLog: foreach (var e117 in v.LosePoints) {
-    GlueStateMsgPack: W_EventLog: foreach (var e119 in v.CrownChanges) n120++;
-    GlueStateMsgPack: W_EventLog: foreach (var e119 in v.CrownChanges) {
-    GlueStateMsgPack: W_Explosion: foreach (var e93 in v.Counters) n94++;
-    GlueStateMsgPack: W_Explosion: foreach (var e93 in v.Counters) {
+    GlueStateMsgPack: W_EventLog: foreach (var e117 in v.GainPoints) n118++;
+    GlueStateMsgPack: W_EventLog: foreach (var e117 in v.GainPoints) {
+    GlueStateMsgPack: W_EventLog: foreach (var e119 in v.LosePoints) n120++;
+    GlueStateMsgPack: W_EventLog: foreach (var e119 in v.LosePoints) {
+    GlueStateMsgPack: W_EventLog: foreach (var e121 in v.CrownChanges) n122++;
+    GlueStateMsgPack: W_EventLog: foreach (var e121 in v.CrownChanges) {
+    GlueStateMsgPack: W_Explosion: foreach (var e95 in v.Counters) n96++;
+    GlueStateMsgPack: W_Explosion: foreach (var e95 in v.Counters) {
     GlueStateMsgPack: W_GameState: foreach (var kv2 in v.AdditionnalData) {
-    GlueStateMsgPack: W_Layer: foreach (var e70 in v.BackgroundElements) n71++;
-    GlueStateMsgPack: W_Layer: foreach (var e70 in v.BackgroundElements) {
-    GlueStateMsgPack: W_Layer: foreach (var e72 in v.ForegroundElements) n73++;
-    GlueStateMsgPack: W_Layer: foreach (var e72 in v.ForegroundElements) {
-    GlueStateMsgPack: W_Layer: foreach (var kv74 in v.GameplayLayerActualDepthLookup) {
-    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e123 in v.Arrows) n124++;
-    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e123 in v.Arrows) {
-    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e125 in v.SortSet) n126++;
-    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e125 in v.SortSet) {
-    GlueStateMsgPack: W_RoundLevels: foreach (var e121 in v.Nexts) n122++;
-    GlueStateMsgPack: W_RoundLevels: foreach (var e121 in v.Nexts) {
+    GlueStateMsgPack: W_Layer: foreach (var e72 in v.BackgroundElements) n73++;
+    GlueStateMsgPack: W_Layer: foreach (var e72 in v.BackgroundElements) {
+    GlueStateMsgPack: W_Layer: foreach (var e74 in v.ForegroundElements) n75++;
+    GlueStateMsgPack: W_Layer: foreach (var e74 in v.ForegroundElements) {
+    GlueStateMsgPack: W_Layer: foreach (var kv76 in v.GameplayLayerActualDepthLookup) {
+    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e125 in v.Arrows) n126++;
+    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e125 in v.Arrows) {
+    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e127 in v.SortSet) n128++;
+    GlueStateMsgPack: W_PlayerArrowsInventory: foreach (var e127 in v.SortSet) {
+    GlueStateMsgPack: W_RoundLevels: foreach (var e123 in v.Nexts) n124++;
+    GlueStateMsgPack: W_RoundLevels: foreach (var e123 in v.Nexts) {
     InputService: GetJoinableDevices: foreach (var input in TFGame.PlayerInputs.Concat(MenuInput.MenuInputs))
     InputService: GetLocalDevicePlacements: foreach (var player in ServiceCollections.ResolveMatchmakingService().GetLocalPlayers().Where(player => player.IsGuest))
     MainMenuStale: RemoveStaleMenuItems: foreach (var item in self.Layers[-1].GetList<TowerFall.MenuItem>())
@@ -4133,6 +4164,7 @@ mechanical: foreach over a lazy sequence -> its visitor (207)
     State_Level: LoadDummyHeads: foreach (var toLoad in gameState.Entities.DummyHeads)
     State_Level: LoadEnemyAttacks: foreach (var toLoad in gameState.Entities.Enemies.EnemyAttacks)
     State_Level: LoadGhostPlatforms: foreach (var ghostPlatform in gameState.Entities.GhostPlatforms)
+    State_Level: LoadHeavyPhysicsObjects: foreach (var toLoad in gameState.Entities.HeavyPhysicsObjects ?? [])
     State_Level: LoadIces: foreach (var toLoad in gameState.Entities.Ices)
     State_Level: LoadIcicles: foreach (var toLoad in gameState.Entities.Icicles)
     State_Level: LoadLoopPlatforms: foreach (var loopPlatform in gameState.Entities.LoopPlatforms)
@@ -4360,6 +4392,8 @@ mechanical: lambda -> delegate (function of target, args) (127)
     ScenarioCatalog: : level => AllOf<SensorBlock>(level).Any(b => b.Y > 60f)
     ScenarioCatalog: : level => AllOf<ShieldPickup>(level).Any(shield => shield.Collidable)
     ScenarioCatalog: : level => AllOf<SwitchBlock>(level).Any(b => b.Collidable && b.X == 140f)
+    ScenarioCatalog: : level => AllOf<SwitchBlockControl>(level).Any(c =>
+    ScenarioCatalog: : level => AllOf<TeamReviver>(level).Any(r =>
     ScenarioCatalog: : level => AllOf<TeamReviver>(level).Any(r => DynamicData.For(r).Get<bool>("reviving"))
     ScenarioCatalog: : level => AllOf<ToyArrow>(level).Any()
     ScenarioCatalog: : level => AllOf<TreasureChest>(level).Any() && AllOf<Pickup>(level).Any()
@@ -4379,6 +4413,7 @@ mechanical: lambda -> delegate (function of target, args) (127)
     ServerOptionsButton: .ctor: value =>
     State_Level: LoadBats: entity => entity is TowerFall.Bat
     State_Level: LoadChaliceGhosts: entity => entity is TowerFall.ChaliceGhost
+    State_Level: LoadHeavyPhysicsObjects: halo => halo.IsTracked()
     State_Level: LoadSlimes: entity => entity is TowerFall.Slime
     State_Level: LoadTechnoMages: entity => entity is TowerFall.TechnoMage
     State_Level: LoadTechnoMissiles: entity => entity is TowerFall.TechnoMage.TechnoMissile
@@ -4387,9 +4422,6 @@ mechanical: lambda -> delegate (function of target, args) (127)
     TfexModule: RegisterAndLoad: () => InternetIcon.Subtexture
     Tp_ColumnBanner: TweenIn: delegate(Tween t)
     Tp_ColumnBanner: TweenOut: delegate(Tween t)
-    Tp_RoundLogic: SpawnByPartition: (a, b) => a.X.CompareTo(b.X)
-    Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Blue
-    Tp_RoundLogic: SpawnGroups: g => g.Team == Allegiance.Red
 mechanical: lambda capturing unchanged locals -> closure (object[] target) (187)
     Auto_ArrowExtensions: LoadState: () => { entity.RemoveSelf(); }: entity
     Auto_CornerButton: TweenOut: t => Position = Vector2.Lerp(start, tweenFrom, t.Eased): start
@@ -4542,10 +4574,10 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (187)
     NetplayMenus: MainMenu_Update_Postfix: () => OnFailedToJoinLobby(__instance): __instance
     NetplayMenus: MainMenu_Update_Postfix: () => OnJoinSuccess(__instance, lobbyToSpectate, false): __instance, lobbyToSpectate
     NetplayMenus: MainMenu_Update_Postfix: () =>: __instance, inputService
-    NetplayMenus: MainMenu_Update_Postfix: () =>: inputService, __instance, netplayManager, roomUrl, matchmakingService, lobby
+    NetplayMenus: MainMenu_Update_Postfix: () =>: inputService, __instance, roomUrl, matchmakingService, netplayManager, lobby
     NetplayMenus: OnRetrieveSuccess: () => OnFailedToJoinLobby(self): self
     NetplayMenus: OnRetrieveSuccess: () => OnJoinSuccess(self, newLobby, true): self, newLobby
-    NetplayMenus: OnRetrieveSuccess: () =>: newLobby, self, logger, inputService, matchmakingService
+    NetplayMenus: OnRetrieveSuccess: () =>: infos, self, newLobby, logger, inputService, matchmakingService
     NetplayMenus: SubmitJoinCode: () =>: inputService, self
     NetplayMenus: SubmitJoinCode: () =>: matchmakingService, inputService, self, reason
     NetplayMenus: SubmitJoinCode: lobby =>: self, asPlayer, matchmakingService, inputService
@@ -4578,7 +4610,7 @@ mechanical: lambda capturing unchanged locals -> closure (object[] target) (187)
     TfexModule: CreateTutorialSlide: () => texture.Subtexture: texture
     TfexModule: RegisterAndLoad: _ =>: content
     Tp_Module: .ctor: message => logger.LogWarning("{message}", message): logger
-mechanical: method group -> delegate (43)
+mechanical: method group -> delegate (41)
     Auto_PickupExtensions: LoadState: entity.FinishUnpack
     Fr_ModArchers: .ctor: Invoke
     Fr_ModCharacterSounds: .ctor: Invoke
@@ -4618,8 +4650,6 @@ mechanical: method group -> delegate (43)
     TfexModule: RegisterAndLoad: mods.ResolveInputDisplayer
     TfexModule: RegisterAndLoad: mods.ResolveReplay
     TfexModule: RegisterAndLoad: mods.ResolveState
-    Tp_RoundLogic: SpawnGroups: SortLeft
-    Tp_RoundLogic: SpawnGroups: SortRight
     Tp_Selector: Update: TowerFall.MainMenu.GotoVersusLevelSelect
     VersusBeginButtonPatch: VersusBeginButton_ctor: matchmakingService.ResetLobby
 mechanical: method group as a LINQ argument -> a lambda calling it (5)
@@ -4670,14 +4700,11 @@ mechanical: new string(collection expression) -> its characters (gen::StrFromCha
     MatchReport: Sanitize: new string([.. value.Select(c => char.IsAsciiLetterOrDigit(c) || c == '-' ? c : '_').Take(MaxNameLength)])
 mechanical: new struct(...) of a primary constructor -> each field its parameter (1)
     State_LocalSettingsGuard: Neutralize: new Snapshot(
-mechanical: new struct(...) whose constructor assigns its fields -> each field its value (5)
+mechanical: new struct(...) whose constructor assigns its fields -> each field its value (4)
     Auto_DeterministicRandom: Snapshot: new State(_s0, _s1, _s2, _s3)
     Auto_Rng: ToState: new DeterministicRandom.State(S0, S1, S2, S3)
     Fr_ModMusics: Invoke: new TrackInfo(entry.Name, entry.MusicPath)
     Tp_RoundLogic: SpawnGroups: new Group((Allegiance)t)
-    Tp_RoundLogic: SpawnGroups: new Group(Allegiance.Neutral)
-mechanical: number.CompareTo(number) -> -1 / 0 / 1 (1)
-    Tp_RoundLogic: SpawnByPartition: a.X.CompareTo(b.X)
 mechanical: override of a FortRise virtual -> no slot (no FortRise on the Switch) (5)
     NetplaySettings.Create
     UIModMenu.Create
@@ -4756,7 +4783,7 @@ mechanical: switch expression -> arms tested in order (21)
 mechanical: try/catch around a throwing stand-in -> the body with a fault check after each call, the catch on a fault (gen::Faulted) (2)
     MatchmakingService: ConnectToServerAndListen: try
     NetplayMenus: OpenSupportPage: try
-mechanical: type pattern with a variable (is T x / case T x) (111)
+mechanical: type pattern with a variable (is T x / case T x) (112)
     Auto_ArrowBuilder: Build: BoltArrow boltArrow
     Auto_ArrowBuilder: Build: BombArrow bombArrow
     Auto_ArrowBuilder: Build: BrambleArrow brambleArrow
@@ -4860,6 +4887,7 @@ mechanical: type pattern with a variable (is T x / case T x) (111)
     State_Level: LoadState: LevelEntity entity
     State_Level: LoadTriggerArrows: TowerFall.TriggerArrow triggerArrow
     State_LevelLoaderXMLState: LevelLoaderXML_ctor: VersusLevelSystem versusLevelSystem
+    State_LevelReviverOrder: Scene_Update: TowerFall.Level level
     State_LightingLayer: LightingLayer_Update: TowerFall.Level level
     State_PlayerGhost: Enemy_SetState_Postfix: Slime slime
     State_TreasureChest: FindPreview: TreasurePreview preview
@@ -4913,7 +4941,7 @@ mechanical: x.GetType().Name -> the runtime type record's name (gen::TypeNameStr
     SeriesScreen: LogInputs: .GetType().Name
     SeriesScreen: LogInputs: input.GetType().Name
     State_Coroutine: Coroutine_ctor_IEnumerator: functionCall.GetType().Name
-rule: DynamicData state TF.EX adds to a game object -> the side table (gen::SideGet/SideSet) (49)
+rule: DynamicData state TF.EX adds to a game object -> the side table (gen::SideGet/SideSet) (51)
     Bat.enemyStateCounter
     Bat.enemyStatePhase
     Bat.enemySwoopIndex
@@ -4931,6 +4959,8 @@ rule: DynamicData state TF.EX adds to a game object -> the side table (gen::Side
     Enemy.ghostStateCounter
     Engine.FrameCounter
     Entity.Level
+    HeavyPhysicsObject.ghostHaloFadeStart
+    HeavyPhysicsObject.ghostHaloFadeStart (TryGet)
     Lantern.homeChain
     LavaControl.Level
     MatchVariants.fortrise_variants
@@ -5076,11 +5106,11 @@ rule: a collection the game has no code for -> a C++ container in scanned GC mem
     GlueState: : new System.Collections.Generic.HashSet<double>()
     GlueStateMsgPack: RC_0: new System.Collections.Generic.List<global::TF.State.Domain.Models.MatchStats>()
     GlueStateMsgPack: RC_27: new System.Collections.Generic.Dictionary<int, global::TF.State.Domain.Models.Entity.RoundData>()
-    GlueStateMsgPack: RC_39: new System.Collections.Generic.List<double>()
     GlueStateMsgPack: RC_40: new System.Collections.Generic.List<double>()
-    GlueStateMsgPack: RC_57: new System.Collections.Generic.List<global::TF.State.Domain.Models.Entity.LevelEntity.Arrows.ArrowTypes>()
-    GlueStateMsgPack: RC_62: new System.Collections.Generic.List<global::TF.State.Domain.Models.Entity.LevelEntity.Chest.PickupState>()
-    GlueStateMsgPack: RC_65: new System.Collections.Generic.List<global::TF.State.Domain.Models.Vector2f>()
+    GlueStateMsgPack: RC_41: new System.Collections.Generic.List<double>()
+    GlueStateMsgPack: RC_58: new System.Collections.Generic.List<global::TF.State.Domain.Models.Entity.LevelEntity.Arrows.ArrowTypes>()
+    GlueStateMsgPack: RC_63: new System.Collections.Generic.List<global::TF.State.Domain.Models.Entity.LevelEntity.Chest.PickupState>()
+    GlueStateMsgPack: RC_66: new System.Collections.Generic.List<global::TF.State.Domain.Models.Vector2f>()
     InputService: ClearGuestInputs: []
     InputService: GetJoinableDevices: new List<PlayerInput>()
     InputService: GetLocalDevicePlacements: new List<(int Seat, PlayerInput Device)>
@@ -5341,7 +5371,7 @@ rule: throw -> gen::Throw (fatal, as the game's own exceptions) (71)
     Tp_Selector: OnConfirm: throw new NotImplementedException()
     Tp_Selector: OnDeselect: throw new NotImplementedException()
     Tp_Selector: OnSelect: throw new NotImplementedException()
-rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (47)
+rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (49)
     Auto_ArcherDataExtensions: Exists: try
     Auto_ArcherDataExtensions: GetCustomArcherId: try
     Auto_ArcherDataExtensions: GetInstalledArcherMods: try
@@ -5387,8 +5417,10 @@ rule: try/catch -> the body (no exceptions on the Switch; catch never runs) (47)
     State_Api: LoadGameStateBytes: try
     State_Api: RestoreGameStateBytes: try
     State_Level: LoadHats: try
+    State_Level: LoadHeavyPhysicsObjects: try
     State_Level: LoadState: try
     State_Monocle: Audio_Stop: try
+    State_TeamReviver: TickRevivers: try
 rule: x == the local seat/index -> svc::IsLocalSeat(x) (several local players per device) (3)
     NetplayMenus: TryOpenLobbyEditor: seat != matchmakingService.GetLocalSeat()
     RollCallElementPatch: IsOwnOrGuestSeat: seat == matchmakingService.GetLocalSeat()
@@ -5577,7 +5609,7 @@ service map: Switch code (263)
     TF.EX.Domain.Context.IGameContext.RemoveArcher
     TF.EX.Domain.Context.IGameContext.ResetArcherSelections
     TF.EX.Domain.CustomComponent.JoinCodeEntry.OnConfirm
-    TF.EX.Domain.CustomComponent.RawMenuInput.Pressed
+    TF.EX.Domain.CustomComponent.RawMenuInput.IsButtonPressed
     TF.EX.Domain.Extensions.StatusExtension.ToModelGGrsFFI
     TF.EX.Domain.Externals.GGRSFFI.IsInInit
     TF.EX.Domain.Externals.GGRSFFI.netplay_reset
@@ -5879,6 +5911,7 @@ unresolved game member (102)
     t_Func_1_ee58: no type System.Func`1[TowerFall.ArcherData]
     t_Func_1_f591: no type System.Func`1[Monocle.SFX]
     t_Func_2_3bce: no type System.Func`2[System.String, System.String]
+    t_Func_2_6de4: no type System.Func`2[TowerFall.HeavyPhysicsObject, System.Boolean]
     t_Func_2_f2e1: no type System.Func`2[TowerFall.Level, System.Boolean]
     t_HashSet_1_076d: no type System.Collections.Generic.HashSet`1[System.String]
     t_HashSet_1_0ecb: no type System.Collections.Generic.HashSet`1[System.Object]
@@ -5895,7 +5928,6 @@ unresolved game member (102)
     t_List_1_73ad: no type System.Collections.Generic.List`1[System.Double]
     t_List_1_f4ca: no type System.Collections.Generic.List`1[TowerFall.PlayerInput]
     t_MovingPlatform_a102: no type TowerFall.MovingPlatform[]
-    t_Predicate_1_0f12: no type System.Predicate`1[System.ValueType]
     t_SnowClump_bc77: no type TowerFall.SnowClump[]
     t_WorkshopButton: no type TowerFall.WorkshopButton
     v_ChaliceGhost_Added: no type TowerFall.ChaliceGhost

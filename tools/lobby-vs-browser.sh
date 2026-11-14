@@ -25,7 +25,7 @@
 set -u
 here=$(cd "$(dirname "$0")/.." && pwd); cd "$here"
 out=${XPLAY_OUT:-/tmp/xplay-runs-$(printf '%s' "$here" | shasum | cut -c1-8)${XPLAY_RJSLOT:+-$XPLAY_RJSLOT}}; mkdir -p "$out"   # this checkout's run outputs (space-free; other agents run the same scripts)
-WT=${BROWSER_LOBBY_WT:-$HOME/Code/Towerfall Browser/.claude/worktrees/tfex-0291}   # the browser on TF.EX v0.29.1 (branch claude/tfex-0.29.1, 2026-11-07: the release pinned; v0.29.0 was tfex-0281), every lobby at TF.EX's 240 Hz, built with the browser repo's own netplay build (vendor/netplay: ggrs-ffi with several local handles); gamefiles/ links the Steam TowerFall
+WT=${BROWSER_LOBBY_WT:-$HOME/Code/Towerfall Browser/.claude/worktrees/tfex-0300}   # the browser on TF.EX v0.30.0 (branch claude/tfex-0.30.0, 2026-11-14: the release pinned, from tfex-0291; v0.29.1 was tfex-0291), every lobby at TF.EX's 240 Hz, built with the browser repo's own netplay build (vendor/netplay: ggrs-ffi with several local handles); gamefiles/ links the Steam TowerFall
 secs=
 while getopts "s:" o; do case $o in s) secs=$OPTARG;; esac; done; shift $((OPTIND-1))
 # hw.txt: the defaults, each replaced by a passed line with the same key (its first word), plus every passed line. (Before, any passed

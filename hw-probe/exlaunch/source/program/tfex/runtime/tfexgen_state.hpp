@@ -57,7 +57,7 @@ void ProfDump(int bucket, const char* tag, int n);
  * toAdd is empty (the usual case). A save / load runs ~70 of these; on the console they were a third of a save (2026-10-24 profile). */
 gen::Snap<void*> EntGetAll(void* level, void* type);
 void* EntGet(void* level, void* type);
-void EntDeleteAll(void* level, void* type);
+void EntDeleteAll(void* level, void* type, void* where = nullptr);   /* where: TF.State's Func<T, bool> filter (null: every T) */
 void EntDelete(void* level, void* type);
 /* The game's Boehm GC, watched through its GC_on_collection_event hook (no code patched; a callback it already had is still called): every
  * collection counted and timed, whole (GC_EVENT_START to GC_EVENT_END) and by phase (stopping the world, mark, starting it, finalize +

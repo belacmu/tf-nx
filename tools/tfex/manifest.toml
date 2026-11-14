@@ -20,11 +20,8 @@
 "network/TF.EX.Domain/Ports/IArcherService.cs *" = { at = "tfex/NetplayManager.cpp ResolveArchers", conf = "low", note = "", hash = "338cda5ed015" }
 "network/TF.EX.Domain/Ports/TF/IInputService.cs *" = { at = "xplay.cpp InputStoreHook", conf = "low", note = "R S-input", hash = "9f4510fc5939" }
 "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.RoomId" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "3edb40d1d271" }
-"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.MaxPlayers" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "3a145da0cfea" }
-"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.Spectators" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "e45474819219" }
 "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.EndGameChoice" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "5ac97a6167b8" }
 "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.Mods" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "a88e6edb3b3f" }
-"network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.InGame" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "1a6f0f7f0f96" }
 "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.JoinCode" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "972206ea2d20" }
 "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.MissingVariants" = { at = "tfex/Models.hpp; tfex/Models.cpp Read, Write (Lobby)", conf = "high", note = "", hash = "7895feb6cd03" }
 "network/TF.EX.Domain/Models/WebSocket/Lobby.cs Lobby.CanJoin" = { at = "tfex/MainMenuPatch.cpp WhyNotJoinable", conf = "medium", note = "partial: plus Switch v1 limits", hash = "d2a9946402f5" }
