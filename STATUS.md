@@ -55,7 +55,13 @@ loaded, the browser's 11, as on a modded PC). The browser runs the official rele
   tools/re/rawdump.tgz (memory dumps for statepins.py) to look at before going public.
 
 ## Fix queue (the user, 2026-11-07; the slowdown first)
-- **Slowdown in 8-player local Teams+ matches with 7 AIs (critical).** Being worked on. Local matches had no timing in the log (the
+- **Slowdown in 8-player local Teams+ matches with 7 AIs (critical).** The console's numbers (2026-11-10): the first 10 s of each
+  round 43-53 fps, the game at 74-90% speed; the AIs' decisions 4-11 ms a frame (1 ms later in the round), the team outlines 2-3 ms;
+  the most sampled stacks in AINova's WorldSnapshot.Capture (its Hazard). Every Nova AI read the same screen grid every frame: now
+  computed once a frame and shared (glue NovaGrid, [[rewrite]]s in WorldSnapshot; emulator: 5 of 6 cells reused, the AIs play as
+  before). Console proof: `[nova] the AIs' world grid shared: ...` and the [perf] window 1's AIs' ms. Still to see: the outlines' 2-3 ms
+  and Nova's own planning (Rollout) if window 1 stays under 60 fps.
+  Earlier notes: Local matches had no timing in the log (the
   timing split counts only while player 1 is alive). Since 2026-11-07 a local match logs `[perf] local match, 8 players, window N`
   every 600 drawn frames (fps, the game's speed against real time, ms by part: Level.Update, the AIs' decisions, team outlines, draw)
   and `[perf]   N% of M samples in updates:` (the main thread's most sampled stacks; symbolize with the build's ELF). Emulator, 1
@@ -240,6 +246,17 @@ Upstream TF.EX:
 
 ## Waiting for a console run
 Each line is the log line that proves it (published builds only; boot the build in Ryujinx first, AGENTS.md):
+- Teams+ teams start together on wide levels (2026-11-10, the console: teams spread over the map; its log: Moonstone `7 of 13 levels
+  (PlayerSpawns >= 8)`, `no left-side markers ... Blue falls back to the anchor pool` on 4 of 5 rounds). Our wide-local GetLevels
+  answered before Teams+'s GetLevels prefix and kept only FFA levels (no TeamSpawnA/B), so the spawner never had team sides. Now a
+  shell around the generated hook (pcgameplay.cpp GetLevelsShell): the tower's Levels swapped for WiderSet's level data, Teams+'s
+  rule (`PlayerSpawns + 2 TeamSpawns >= players`: every level that seats everyone) and the game's run as on the PC. Teams+ f539a78
+  (the user's: "use the defined spawn points per level, but reassign which team/player it belongs to") places every archer itself:
+  a level's PlayerSpawn and team markers are one set of points, Blue fills from the leftmost, Red from the rightmost, Yellow takes the
+  free group close together and away from them (the middle when there is one), lone wolves the points farthest from everyone; no
+  random shuffle (online-ready). Only 4-a-side levels with 3/3/2 split Yellow (no other fit). Proof: `[pc] GetLevels (wide, local
+  play): 09 - Moonstone, 13 of 13 levels, a mod's rule (Teams+)`, `[tfex] spawns: N point(s) for T team(s) and W lone wolf/wolves`
+  (no "sharing a point" with 8 players), and teams together on screen.
 - The update without the frozen main menu (2026-11-08, the console: the menu froze for the whole download, the dialog appeared at the end
   and vanished): the Switch build's managed Thread runs its work on the caller, so TF.EX's Task.Run ran the download on the game thread.
   The download now runs on the updater's own thread (tfnxupdate.cpp StartDownload), its phase and bytes shown in TF.EX's dialog (with
@@ -287,8 +304,9 @@ Each line is the log line that proves it (published builds only; boot the build 
   with its own menu gem (@Gem..._MENU: CRIMSON CO-STAR after BLIND PRINCE on the console) threw KeyNotFoundException (FortRise's
   translated sprite registry wrote "System.String" as the texture). Fixed in the translator. Proof: an AI or a player scrolls through
   the SSB archers on archer select with no `[throw]` line; a round with one plays. WiderSet's 8-slot look (two rows of four, P1-P8,
-  60 x 60 portraits; since 2026-11-07 no P labels, each input's icon and name drawn in front of its portrait: `[8player] roll call: input icons drawn in front of the portraits`) and the 8 labels: `[8player] label ... "SUPPORTS UP TO 8 ARCHERS"`, `[8player] roll call
-  portraits: WiderSet's 60 x 60 crop`.
+  60 x 60 portraits, since 2026-11-10 60 x 90 (TFEX-DIFF S-ui, the user's ask: the rows' inner edges kept, grown toward the screen's
+  edges; the join flash cut to the crop, the AI cursor in the gap between the rows); since 2026-11-07 no P labels, each input's icon and name drawn in front of its portrait: `[8player] roll call: input icons drawn in front of the portraits`) and the 8 labels: `[8player] label ... "SUPPORTS UP TO 8 ARCHERS"`, `[8player] roll call
+  portraits: 60 x 90 crops (rows at y 60 / 180)`.
 - Archer-select crash with the AI controls (console 2026-11-06 21:31, build 290915b9): a managed exception in the game's
   RollcallElement.EnterJoined (an AI slot confirming after a NOVA -> JIMMY swap on slot 6, WIDE, 29 archers), rethrown from its foreach
   cleanup, so the report loses the throw site; three emulator replays of the same steps (localaisteps) didn't crash. Every managed

@@ -36,7 +36,9 @@ jobs:
           { echo "Something TF.NX carries has a newer upstream version (tools/updates/check.py, $(date -u +%F' '%H:%M) UTC):"; echo; echo '```'; cat table.txt; echo '```'
             echo; echo "If TF.EX is newer: its official server only lets the latest version play online, so Switch players are locked out until a TF.NX release follows (tools/tfex/update.sh)."; } > body.md
           n=$(gh issue list --label update-check --state open --json number --jq '.[0].number')
-          if [ -n "$n" ]; then gh issue edit "$n" --body-file body.md; else gh issue create --title "Upstream update available" --label update-check --body-file body.md; fi
+          # A new issue mentions the repository's owner (a bot-opened issue alone notifies nobody); updates in place stay quiet.
+          if [ -n "$n" ]; then gh issue edit "$n" --body-file body.md
+          else { cat body.md; echo; echo "@${{ github.repository_owner }}"; } > new.md; gh issue create --title "Upstream update available" --label update-check --body-file new.md; fi
       - name: close the issue when everything is current
         if: steps.check.outputs.code == '0'
         env:

@@ -25,6 +25,7 @@
 #include "hwlog.hpp"
 #include "widelevels.hpp"
 #include "tfex/AiSlotButton.hpp"
+#include "tfex/gen/tfexgen_hooks.hpp"
 
 namespace hotcoals { void Install(); void Uninstall(); }
 #include "megamod/megamod.hpp"
@@ -526,65 +527,67 @@ bool LocalWide(void* matchSettings) {
     }
     return ms[0x20];
 }
-HOOK_DEFINE_TRAMPOLINE(GetLevelsHook) {
-    static void* Callback(void* tower, void* matchSettings) {
-        bool localWide = !g_on && LocalWide(matchSettings);
-        if (!g_on && !localWide) return Orig(tower, matchSettings);
-        uintptr_t b = Base();
-        if (void* sp = tfex::gen::scen::ScenarioLevelPath()) {   /* TEST ONLY (statescenario): only the scenario's map */
-            void* only = reinterpret_cast<void* (*)(void*)>(b + 0x9510)(nullptr);
-            reinterpret_cast<void (*)(void*, void*)>(b + 0x97a0)(only, sp);
-            hw::Log("[pc] GetLevels: the scenario's map only (statescenario)");
-            return only;
-        }
-        void* out = reinterpret_cast<void* (*)(void*)>(b + 0x9510)(nullptr);          /* new List<string>() */
-        uintptr_t levels = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(tower) + 0x28);   /* VersusTowerData.Levels */
-        int count = levels ? *reinterpret_cast<int32_t*>(levels + 0x18) : 0;
-        uintptr_t arr = levels ? *reinterpret_cast<uintptr_t*>(levels + 0x10) : 0;
-        uintptr_t* items = arr ? *reinterpret_cast<uintptr_t**>(arr + 0x10) : nullptr;
-        int players = reinterpret_cast<int32_t (*)()>(b + 0xb74cd0)();              /* TFGame.PlayerAmount */
-        int kept = 0;
-        if (g_wide || localWide) {   /* WiderSet's registered tower: its own files, FortRise's order (widelevels.hpp) */
-            int prefix = 0;
-            int t = (items && count > 0) ? WideTower(*reinterpret_cast<void**>(items[0] + 0x10), &prefix) : -1;
-            if (t < 0) { hw::Log("[pc] GetLevels (wide): tower not in the wide set, %d levels", count); return Orig(tower, matchSettings); }
-            /* the game's own rule (VersusTowerData.GetLevels, the PC's too): TEAM DEATHMATCH (mode 5) keeps a level whose TeamSpawns
-             * (VersusLevelData +0x1c: the fewer of TeamSpawnA / TeamSpawnB) hold the largest team (MatchSettings.GetMaxTeamSize, 8 seats:
-             * WiderSet's loop); every other mode PlayerSpawns (+0x18) >= the players. Online the mode is TF.EX's netplay mode (11): the
-             * second. Without it a local wide TDM drew levels with no team spawns (Sacred Ground 00) and SpawnPlayersTeams threw */
-            const bool tdm = localWide && *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(matchSettings) + 0x30) == 5;
-            const int need = tdm ? reinterpret_cast<int32_t (*)(void*)>(b + 0xabb5f0)(matchSettings) : players;
-            int total = 0;
-            for (int l = 0; widelevels::kTable[t].levels[l]; l++, total++) {
-                void* path = WidePath(*reinterpret_cast<void**>(items[0] + 0x10), t, l);
-                void* pc = reinterpret_cast<void* (*)(void*, void*)>(b + 0xbae420)(nullptr, path);
-                int spawns = pc ? *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(pc) + (tdm ? 0x1c : 0x18)) : 0;
-                if (spawns >= need) { reinterpret_cast<void (*)(void*, void*)>(b + 0x97a0)(out, path); kept++; }
-            }
-            static int said = 0;
-            if (!localWide || said++ < 5)
-                hw::Log("[pc] GetLevels (wide%s): %s, %d of %d levels (%s >= %d)", localWide ? ", local play" : "", widelevels::kTable[t].folder, kept, total,
-                        tdm ? "TeamSpawns" : "PlayerSpawns", need);
-            int moved = SortByFolderAndName(out);
-            LogOrder(moved ? "GetLevels order (sorted by folder and name, CHANGED)" : "GetLevels order (sorted by folder and name, as listed)", out);
-            return out;
-        }
-        int other = 0;
+/* VersusTowerData.GetLevels (+0xbc2170), around the generated hook's prefixes (Teams+'s LevelHooks.GetLevels_Prefix) and the game's body:
+ * online and in local wide play the tower's Levels (+0x28) are swapped for VersusLevelData made from the files that play (the PC's NN.oel,
+ * or WiderSet's wide set in FortRise's order: widelevels.hpp) while the hook runs, so the filter is the game's own (TDM: TeamSpawns >=
+ * the largest team; mode 7: all; else PlayerSpawns >= the players) or a mod's prefix (Teams+: PlayerSpawns + 2 TeamSpawns >= the
+ * players), as on the PC where the tower's own list holds those files. Was: our copy of the game's rule, Teams+'s never run in wide
+ * local play (2026-11-10: only the 8-PlayerSpawn FFA levels, no team sides). */
+void GetLevelsShell(tfex::gen::hooks::VersusTowerData_GetLevels& c) {
+    void* tower = c.self;
+    void* matchSettings = c.matchSettings;
+    bool localWide = !g_on && LocalWide(matchSettings);
+    if (!g_on && !localWide) { c(); return; }
+    uintptr_t b = Base();
+    if (void* sp = tfex::gen::scen::ScenarioLevelPath()) {   /* TEST ONLY (statescenario): only the scenario's map */
+        void* only = reinterpret_cast<void* (*)(void*)>(b + 0x9510)(nullptr);
+        reinterpret_cast<void (*)(void*, void*)>(b + 0x97a0)(only, sp);
+        hw::Log("[pc] GetLevels: the scenario's map only (statescenario)");
+        c.result_ = only;
+        return;
+    }
+    uintptr_t levels = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(tower) + 0x28);   /* VersusTowerData.Levels */
+    int count = levels ? *reinterpret_cast<int32_t*>(levels + 0x18) : 0;
+    uintptr_t arr = levels ? *reinterpret_cast<uintptr_t*>(levels + 0x10) : 0;
+    uintptr_t* items = arr ? *reinterpret_cast<uintptr_t**>(arr + 0x10) : nullptr;
+    void* list = reinterpret_cast<void* (*)(void*)>(b + 0xbc1fd0)(nullptr);           /* new List<VersusLevelData>() */
+    auto add = [&](void* path) {
+        void* data = reinterpret_cast<void* (*)(void*, void*)>(b + 0xbae420)(nullptr, path);   /* VersusLevelData(path): reads the file */
+        if (data) reinterpret_cast<void (*)(void*, void*)>(b + 0xbc20a0)(list, data);         /* List<VersusLevelData>.Add */
+    };
+    const bool wide = g_wide || localWide;
+    int t = -1, total = 0, other = 0;
+    if (wide) {   /* WiderSet's registered tower: its own files, FortRise's order */
+        int prefix = 0;
+        t = (items && count > 0) ? WideTower(*reinterpret_cast<void**>(items[0] + 0x10), &prefix) : -1;
+        if (t < 0) { hw::Log("[pc] GetLevels (wide): tower not in the wide set, %d levels", count); c(); return; }
+        for (int l = 0; widelevels::kTable[t].levels[l]; l++, total++) add(WidePath(*reinterpret_cast<void**>(items[0] + 0x10), t, l));
+    } else {
         for (int i = 0; items && i < count; i++) {
             void* sw = *reinterpret_cast<void**>(items[i] + 0x10);                     /* VersusLevelData.Path */
             if (!sw || !PcLevelName(sw)) { other++; continue; }
-            void* path = PcVersusPath(sw);                                              /* as the PC's text */
-            void* pc = reinterpret_cast<void* (*)(void*, void*)>(b + 0xbae420)(nullptr, path);   /* reads the PC file (redirect on) */
-            int spawns = pc ? *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(pc) + 0x18) : 0;   /* PlayerSpawns */
-            if (spawns >= players) { reinterpret_cast<void (*)(void*, void*)>(b + 0x97a0)(out, path); kept++; }   /* List<string>.Add */
+            add(PcVersusPath(sw));                                                      /* the PC's text; the PC file (redirect on) */
+            total++;
         }
-        hw::Log("[pc] GetLevels: %d of %d levels (PC files, PlayerSpawns >= %d)%s", kept, count - other, players,
-                other ? " (the tower's non-PC files left out: the megamod's tb.oel)" : "");
-        int moved = SortByFolderAndName(out);
-        LogOrder(moved ? "GetLevels order (sorted by folder and name, CHANGED)" : "GetLevels order (sorted by folder and name, as listed)", out);
-        return out;
     }
-};
+    *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(tower) + 0x28) = list;
+    c();
+    *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(tower) + 0x28) = levels;
+    void* out = c.result_;
+    int kept = out ? *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(out) + 0x18) : 0;
+    const char* rule = !c.ran_ ? "a mod's rule (Teams+)" : "the game's rule";
+    static int said = 0;
+    if (!localWide || said++ < 5) {
+        if (wide) hw::Log("[pc] GetLevels (wide%s): %s, %d of %d levels, %s (mode %d, %d players)", localWide ? ", local play" : "",
+                          widelevels::kTable[t].folder, kept, total, rule, *reinterpret_cast<int32_t*>(reinterpret_cast<uintptr_t>(matchSettings) + 0x30),
+                          reinterpret_cast<int32_t (*)()>(b + 0xb74cd0)());
+        else hw::Log("[pc] GetLevels: %d of %d levels (PC files), %s%s", kept, total, rule,
+                     other ? " (the tower's non-PC files left out: the megamod's tb.oel)" : "");
+    }
+    if (!out) return;
+    int moved = SortByFolderAndName(out);
+    LogOrder(moved ? "GetLevels order (sorted by folder and name, CHANGED)" : "GetLevels order (sorted by folder and name, as listed)", out);
+}
 
 /* LoopPlatform.Added (+0xa9cb10): a horizontal loop platform (no master, MoveDir Left/Right: +0xe8 <= 1, master +0xf0) lists the
  * row's walls, `for (i = 0; i < 32; i++) x = (i + 31) % 32`, on the Switch as `(i - 1) & 31` with a fixed bound 32. WiderSet makes
@@ -717,7 +720,7 @@ void PathsSelfTest() {
 void LevelHooks() {
     static bool hooked = false;
     if (hooked) return;
-    LoadXmlHook::InstallAtOffset(0x90c570); GetLevelsHook::InstallAtOffset(0xbc2170); LoopPlatformAddedHook::InstallAtOffset(0xa9cb10);
+    LoadXmlHook::InstallAtOffset(0x90c570); tfex::gen::hooks::VersusTowerData_GetLevels::Wrap(GetLevelsShell); LoopPlatformAddedHook::InstallAtOffset(0xa9cb10);
     hooked = true;
     PathsSelfTest();
 }
@@ -755,6 +758,8 @@ void Set(bool on) {
 }
 bool On() { return g_on; }
 bool Wide() { return g_on && g_wide; }
+/* local play on the wide set now (the 2-8 roll call and its match): VersusMatchSettings' SixPlayer with WiderSet's folder (LocalWide) */
+bool LocalWideNow() { return !g_on && LocalWide(*reinterpret_cast<void**>(*reinterpret_cast<uintptr_t*>(Base() + 0x4793398))); }   /* MainMenu.VersusMatchSettings (static slot) */
 /* A lobby match's MatchSettings.SixPlayer (+0x20) = wide, for every lobby match (a local 6-player game may have left it on); the value it
  * replaced is given back by SetWideMatch(nullptr, ...) (leaving online mode). */
 void SetWideMatch(void* matchSettings, bool wide) {

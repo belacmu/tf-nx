@@ -40,7 +40,7 @@ lobby QUIT crash fix), so it merges into master cleanly (27 commits ahead; the `
 | TF.EX v0.21.0 random-tower pool: the four unlockable towers count as unlocked while the pool is built; **the player's save is no longer changed** (the 0.19.2 port's `UnlockAll()` wrote the flags for good) | `tfex/NetplayManager.cpp` Tower | yes | Ryujinx: tower self-test (8 seeds x 4 unlock sets = TF.EX v0.21.0's C# model) on every boot; lobby matches 0 differing ticks |
 | `MapScene.NoRandom` cleared at a lobby match start | `tfex/NetplayManager.cpp` | yes | Ryujinx |
 | UnlockData getters false online (purple archer portal, moon break, Sunken City / TowerForge select): the level loader spawned the portal / moon sequence on one side only | `rnd.cpp` (4 hooks, installed from `rnd::Install`) | yes (online mode only) | Ryujinx (hooks installed, first words checked) |
-| Level list sorted by folder and name (TF.EX v0.21.0; same order as before on the official towers) | `pcgameplay.cpp` GetLevelsHook | yes | Ryujinx (order logged) |
+| Level list sorted by folder and name (TF.EX v0.21.0; same order as before on the official towers) | `pcgameplay.cpp` GetLevelsShell | yes | Ryujinx (order logged) |
 | `Lobby.MatchPlayers` / SessionPlayers (falls back to Players: no server sends it yet), NormaliseSeats | `tfex/Models.*`, `MatchmakingService.cpp`, `NetplayManager.cpp` | yes | Ryujinx |
 | TF.EX's Notification as a real Monocle.Entity subclass, made at run time | `tfex/Notification.*`, `tfex/Game.hpp`, one call site in `MainMenuPatch.cpp` (create failed) | **no: hw.txt `notif 1`** | Ryujinx only (menu, create-failed, rollback matches) |
 

@@ -422,13 +422,24 @@ void Override() {
 }  // namespace teams
 
 /* the cursor: over the highlighted slot what the click does, while a joined player is on a full controller */
+static void DrawCursor(void* self, int pi);
 HOOK_DEFINE_TRAMPOLINE(RollcallRender) {
     static void Callback(void* self) {
         Orig(self);
         int pi = gen::Fld<int32_t>(self, bind::f_RollcallElement_playerIndex);
-        if (!g_anyFull || pi != g_cursor || pi < 0 || pi >= kSlots) return;
+        if (!g_anyFull || g_cursor < 0 || g_cursor >= kSlots || pi < 0 || pi >= kSlots) return;
+        /* the 8-slot roll call: the cursor sits in the gap between the rows, where the top row's gems reach, so it is drawn after every
+         * slot (with slot 1's, the frontmost: WiderSet's eightplayer.hpp depth index - 8) and over the gems (the user, 2026-11-10) */
+        if (g_elems[6]) { if (pi == 0 && g_elems[g_cursor]) DrawCursor(g_elems[g_cursor], g_cursor); return; }
+        if (pi == g_cursor) DrawCursor(self, pi);
+    }
+};
+static void DrawCursor(void* self, int pi) {
+    {
         gen::Vector2 at = gen::Fld<gen::Vector2>(self, bind::f_Entity_Position);
-        at.Y += g_elems[6] ? 46.0f : 76.0f;   /* under the portrait, below its gem (the 8-slot roll call's 60 x 60 portraits; the user, 2026-11-07) */
+        /* under the portrait, below its gem (the user, 2026-11-07); on the 8-slot roll call (60 x 90 portraits: WiderSet's eightplayer.hpp
+         * kPortraitH) in the gap between the rows: under a top-row portrait, above a bottom-row one (its bottom is near the screen's) */
+        at.Y += !g_elems[6] ? 76.0f : pi < 4 ? 45.0f + 16.0f : -(45.0f + 16.0f);
         void* font = (gen::Cctor(bind::c_TFGame), gen::Fn<void* (*)()>(bind::m_TFGame_get_Font)());
         /* what the click does: add the first AI type, the next type, or (after the last) take the AI out */
         int k = g_slot[pi].ai ? TypeOf(pi) : -1;
@@ -444,7 +455,7 @@ HOOK_DEFINE_TRAMPOLINE(RollcallRender) {
         gen::Fn<void (*)(void*, void*, gen::Vector2, gen::Color, gen::Color, float)>(bind::m_Draw_OutlineTextCentered_cbf5)(
             font, text, gen::Vector2{left + (icon ? kIcon + kGap : 0.0f) + w / 2.0f, at.Y}, gen::Color_White, gen::Color_Black, 1.0f);
     }
-};
+}
 /* the player marker above an AI in a level ("P3" on the game's PlayerIndicator): LoaderAI's name for it (GetAIPlayerName: "JIMMY 3"), as
  * Archer's MyPlayerIndicator shows its player names there on the PC (Archer itself isn't on the Switch: its names part, for AIs only) */
 constexpr uintptr_t kPlayerIndicatorCtor = 0xb04bf0;   /* TowerFall.PlayerIndicator::.ctor(Vector2 offset, int playerIndex, bool crown) (tools/re callmap) */

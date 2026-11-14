@@ -17,7 +17,7 @@ inline constexpr const char* kOverlay2[] = { {} };
 inline constexpr CatalogReplace kReplaces2[] = { {} };
 inline constexpr CatalogMod kCatalog[] = {
     { "Switch.TowerBall", "TowerBall", "1.0.0", kNeeds0, 4, kOverlay0, 2, kReplaces0, 2, &::towerball::Boot, nullptr },
-    { "TeamsPlus", "Teams+", "0.1.2", kNeeds1, 2, kOverlay1, 0, kReplaces1, 0, &::tfex::gen::codemods::Boot_TeamsPlus, nullptr },
+    { "TeamsPlus", "Teams+", "0.1.3", kNeeds1, 2, kOverlay1, 0, kReplaces1, 0, &::tfex::gen::codemods::Boot_TeamsPlus, nullptr },
     { "Teuria.WiderSet", "Wider Set", "0.9.0", kNeeds2, 16, kOverlay2, 0, kReplaces2, 0, &::widerset::Boot, &::widerset::Early },
 };
 inline constexpr int kCatalogCount = 3;

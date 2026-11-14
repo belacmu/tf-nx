@@ -21386,6 +21386,16 @@
   "base": "System.ValueType",
   "vtbytes": 0
  },
+ "t_SByte_725d": {
+  "getter": 8872624,
+  "desc": 74169832,
+  "vtable": 74169264,
+  "size": 40,
+  "flags": 0,
+  "cctor": 0,
+  "base": "System.Array",
+  "vtbytes": 472
+ },
  "t_SFX": {
   "getter": 7285104,
   "desc": 74412744,

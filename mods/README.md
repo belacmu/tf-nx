@@ -34,6 +34,10 @@ A translated mod's code stays where the translator puts it (tools/tfex/translate
 | `[overview]` | `source`, `download`, `permission`, `works`: docs/MODS-CATALOG.md |
 | `[check]` | `with`: its runs (localrun / smoke); `expect`: log lines one of them must show |
 
+A translated mod's new release, in one command: `tools/mods/update.sh <name> [<tag>]` (its latest GitHub release by default): the vendored
+submodule at the release's tag, meta.json the release's, gen/ retranslated, the catalog regenerated, the module built; nothing edited by
+hand. Then commit, land and publish.
+
 After editing: `tools/mods/catalog.py` (the module's table, modcatalog.gen.hpp, and docs/MODS-CATALOG.md; build-probe refuses a stale one).
 
 ## Rules (lessons from Teams+, TowerBall, WiderSet; FortRise's own design)

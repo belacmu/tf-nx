@@ -74,7 +74,7 @@ Paths relative to `.cache/widerset-0.8.0b1/Teuria.WiderSet/` (identical in 0.9.0
 | area | WiderSet hook | change | Switch status (to verify per method) |
 |---|---|---|---|
 | tower / level list | 0.9.0: no hook; WiderSet's 16 towers are FortRise-registered towers (section 3.1) | levels, treasure, `arrows` 0.6, `arrowShuffle`, `procedural` from `WideLevels/Versus/<dir>` | redirect to PCWide files; tower.xml equal to the Switch's 6P ones |
-| level filter | vanilla `VersusTowerData.GetLevels` on the registered tower | `PlayerSpawns` = count of `PlayerSpawn`, `TeamSpawns` = min(count `TeamSpawnA`, count `TeamSpawnB`) (plain `TeamSpawn` not counted; FortRise `ModTowers.cs:139-160`), FFA `PlayerSpawns >= PlayerAmount`, TDM `TeamSpawns >= GetMaxTeamSize()` | same filter as pcgameplay's GetLevelsHook, on PCWide files; level order = the folder's file order (`00..NN`, then `a00` in Sacred Ground): to confirm, it feeds OwnGenLevel |
+| level filter | vanilla `VersusTowerData.GetLevels` on the registered tower | `PlayerSpawns` = count of `PlayerSpawn`, `TeamSpawns` = min(count `TeamSpawnA`, count `TeamSpawnB`) (plain `TeamSpawn` not counted; FortRise `ModTowers.cs:139-160`), FFA `PlayerSpawns >= PlayerAmount`, TDM `TeamSpawns >= GetMaxTeamSize()` | same filter as pcgameplay's GetLevelsShell, on PCWide files; level order = the folder's file order (`00..NN`, then `a00` in Sacred Ground): to confirm, it feeds OwnGenLevel |
 | load seed | `GetNextRoundLevel`: seed = sum of the level path's chars; the path is the FortRise RootPath of the mod file | LoadSeed only drives visuals (GAMEPLAY-RNG-PORT.md:164) | nothing, unless a later check finds a gameplay reader |
 | level grid | LevelLoaderXMLHooks (`32->42`) | 42x24 grids | the Switch reads 420 levels natively |
 | BG | LevelSystemHooks (GetBackground/Foreground from sixPlayerBGData) | built after `Calc.Random = new Random(LoadSeed)`: **open** whether it draws from Calc.Random | check the Switch's 6P background build |
@@ -210,9 +210,10 @@ The Switch already does the expensive part natively: a 420-wide screen, WrapMath
   mapped by title onto the Switch's 6P-Versus towers; `LobbyLevelSystem(tower, wide)` takes the 6P tower's level system.
 - **Match (xplay.cpp, pcgameplay.cpp `SetWideMatch`):** at lobby start, `MatchSettings.SixPlayer` = the lobby's wide, for every lobby
   match (a local 6-player game may have left it on); the value it replaced is given back when online mode is left (`Set(false)`).
-- **Levels (pcgameplay.cpp GetLevelsHook, widelevels.hpp, tools/pc-levels.sh):** in a wide match, GetLevels lists WiderSet's files
+- **Levels (pcgameplay.cpp GetLevelsShell, widelevels.hpp, tools/pc-levels.sh):** in a wide match, GetLevels lists WiderSet's files
   for the tower in FortRise's order (zip entries sorted by name: `00..NN`, then `a00` in Sacred Ground) from romfs
-  `Content/Levels/PCWide/<tower>/`, with the same `PlayerSpawns >= PlayerAmount` filter. pc-levels.sh copies them from the user's
+  `Content/Levels/PCWide/<tower>/`: the tower's Levels are swapped for those files' VersusLevelData while GetLevels runs, so the
+  filter is the game's (or a mod's prefix: Teams+'s `PlayerSpawns + 2 TeamSpawns`), as on the PC's registered tower. pc-levels.sh copies them from the user's
   WiderSet download (`XPLAY_WIDERSET`, default `.cache/widerset-0.9.0` of this or the main checkout; GameBanana doesn't allow
   redistribution) and refuses files that differ from widelevels.hpp. The Switch's own `Levels/6P-Versus` stays for local play.
 - **Cataclysm items (levelitems_core.hpp):** AddItems with WiderSet's IL constant remap (each `K()` is one IL constant: 20 x 16,

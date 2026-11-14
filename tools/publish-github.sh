@@ -26,6 +26,8 @@ gen=hw-probe/exlaunch/source/program/tfex/gen
 # the public worktree at <ref> (build outputs, ignored by git, are kept: incremental builds)
 if [ -d "$pub" ]; then git -C "$pub" checkout -q --detach --force "$ref" && git -C "$pub" clean -qfd
 else git worktree add -q --detach "$pub" "$ref"; fi
+# its submodules at <ref>'s commits (a stale vendored mod failed the catalog check: vendor/teamplus at 0.1.2 under master's 0.1.3)
+git -C "$pub" submodule update -q
 
 # paths that stay in this repo only: dumps of the running game's memory (tools/re: the TF.EX update's state pins read them locally)
 keep_local=(tools/re/rawdump.tgz tools/re/slotmaps.tgz)

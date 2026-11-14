@@ -24,7 +24,7 @@
 #include "../MainMenuPatch.hpp"
 #include "../InputLock.hpp"
 namespace tfex::MatchPause { bool Pressed(int button); }
-namespace pcgameplay { bool On(); }   /* pcgameplay.cpp: online mode (ApplyNetplayMode .. ClearNetplayMode) */   /* tfex/MatchPause.cpp: LightPauseMenu.Pressed, per simulated frame, replayed in resimulations */
+namespace pcgameplay { bool On(); bool LocalWideNow(); }   /* pcgameplay.cpp: online mode; local play on the wide set (ApplyNetplayMode .. ClearNetplayMode) */   /* tfex/MatchPause.cpp: LightPauseMenu.Pressed, per simulated frame, replayed in resimulations */
 #include "../Json.hpp"
 #include "../../hwlog.hpp"
 #include <cstdio>
@@ -354,7 +354,9 @@ void FortRiseArrowShuffleTail(void* list) {
  * session's rate (GGRSConfig.Fps) where it reaches ggrs_ffi, as the browser's TfexFps */
 bool IsCaptureActive() { return Logged("IsCaptureActive", 3, gen::Auto_ExFlags::IsCaptureActive); }   /* TF.EX's ExFlags.IsCaptureActive (its PublishCaptureFlag, generated) */
 bool LightPausePressed(int32_t button) { return tfex::MatchPause::Pressed(button); }
-bool IsWide() { return tfex::MainMenuPatch::IsWide(); }
+/* WiderSet's IsWide (its API, for Teams+): a TF.EX wide lobby (MainMenuPatch), or local play on the wide set, as WiderSet's own is on
+ * the PC (Teams+'s team screen laid P7/P8 out 20 px a row from 145, off the screen, in a local 8-player match: the user, 2026-11-10) */
+bool IsWide() { return tfex::MainMenuPatch::IsWide() || pcgameplay::LocalWideNow(); }
 void SetWide(bool wide) { tfex::MainMenuPatch::SetWide(wide ? 1 : 0); }
 float UIXOffset() { return IsWide() ? 50.0f : 0.0f; }   /* WiderSet: (420 - 320) / 2 on a wide screen */
 /* TF.EX's and the mods' ILogger lines. A line repeated word for word is logged 3 times, then at its 10th, 100th, 1000th... with the

@@ -8,7 +8,7 @@ entry: they load from their folder as on the PC. How to add a mod: mods/README.m
 | mod | name | TF.NX runs | logic | author | permission | works |
 |---|---|---|---|---|---|---|
 | TowerBall | `Switch.TowerBall` | 1.0.0 | native | crab (the Switch port of TowerBall 3.1's rules) | art and levels: TowerBall's authors, not asked (not shipped); code: ours | local (mode 6, 2-8 players); not online |
-| Teams+ | `TeamsPlus` | 0.1.2 | translated | crab | ours | local; online in TF.EX lobbies (mode 12 with Teams+ installed) |
+| Teams+ | `TeamsPlus` | 0.1.3 | translated | crab | ours | local; online in TF.EX lobbies (mode 12 with Teams+ installed) |
 | Wider Set | `Teuria.WiderSet` | 0.9.0 | native | Terria | levels and art: the player's own download; WiderSet's gameplay tables ported into pcgameplay.cpp: Teuria not asked | local: the 2-8 lobby on its levels; online: wide lobbies (2-4 players; 5-8 waits for TF.EX PRs A-B) |
 
 ## TowerBall 1.0.0
@@ -19,10 +19,10 @@ entry: they load from their folder as on the PC. How to add a mod: mods/README.m
 - Replaces while loaded: `arrows/squeakyArrow` with its `ball`, `gameModes/warlord` with its `banner`
 - Game files its folder supplies: `Content/Levels/Versus/*/tb.oel`, `Content/Levels/6P-Versus/*/tb.oel`
 
-## Teams+ 0.1.2
+## Teams+ 0.1.3
 
-- Source: ../three-team-mod/pc-fortrise (our own)
-- Download: release/TeamsPlus.zip of that repository (GameBanana kit ready, not posted)
+- Source: github.com/belacmu/tf-teamsplus (our own)
+- Download: TeamsPlus.zip of its GitHub releases (github.com/belacmu/tf-teamsplus; GameBanana kit ready, not posted)
 - Files its folder must have: `Content/gameModes/threeteam.png`, `Content/menu/teamC2x.png`
 
 ## Wider Set 0.9.0

@@ -284,6 +284,11 @@ file = "glue/Updates.cs"              # program/tfnxupdate.cpp underneath)
 type = "Updates"
 
 [[unit]]
+name = "GlueNovaGrid"                 # AINova's world grid once a frame for every Nova AI (translator/glue/NovaGrid.cs; the [[rewrite]]s in WorldSnapshot)
+file = "glue/NovaGrid.cs"
+type = "NovaGrid"
+
+[[unit]]
 name = "GlueAiNames"                  # LoaderAI's AI names on the round results (Archer's MyVersusRoundResults, AIs only; tfex/AiSlotButton.cpp calls it)
 file = "glue/AiNames.cs"
 type = "AiNames"
@@ -309,6 +314,20 @@ file = "network/TF.EX.Domain/CustomComponent/VersusSelectBanner.cs"
 type = "VersusSelectBanner"
 
 # ---- hand rules: calls rewritten to glue, members replaced by the ledger ----
+[[rewrite]]
+call = "Monocle.Scene.CollideCheck(Microsoft.Xna.Framework.Vector2, Monocle.GameTags)"
+in = "TFModFortRiseAiNova.WorldSnapshot"
+to = "TfexGlue.NovaGrid.Collide"
+key = "S-perf"
+why = "AINova's Capture: every Nova AI reads the same cells of the same frame (7 passes a frame, 4-11 ms on the console): computed once a frame, shared"
+
+[[rewrite]]
+call = "TFModFortRiseAiNova.WorldSnapshot.Hazard(TowerFall.Level, Microsoft.Xna.Framework.Vector2)"
+in = "TFModFortRiseAiNova.WorldSnapshot"
+to = "TfexGlue.NovaGrid.Hazard"
+key = "S-perf"
+why = "AINova's Capture's Hazard (every PlayerCollider entity a cell): once a cell a frame for all Nova AIs (the console's most sampled stacks)"
+
 [[rewrite]]
 call = "Monocle.Entity.RemoveSelf()"
 in = "TF.EX.Patchs.Engine.TFGamePatch"

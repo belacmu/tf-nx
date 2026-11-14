@@ -951,7 +951,8 @@ static void DrawnFrame(uint64_t t0, double drawMs) {
 }
 /* [perf]: a local match's cost (a Level outside a netplay session; the user's 8-player Teams+ match with 7 AIs slowed down, 2026-11-07,
  * and the timing split above counts only while player 1 is alive). Per window of 600 drawn frames: real time, the game updates run and
- * owed (FixedStepUpdates: TF.EX's 240 Hz step, at most 8 a frame, the rest dropped: the game then runs slower than real time), and the
+ * owed (FixedStepUpdates: only after a session, while the Level keeps TF.EX's 240 Hz step, at most 8 a frame, the rest dropped; a local
+ * match started from the menu runs the game's own step, one update a frame, slower than real time when a frame overruns), and the
  * frame's time by part: TFGame.Update, of it Level.Update, of that its prefixes (LoaderAI's and AIJimmy's AgentUpdate: every AI's
  * decision each update) and the team outlines, then Draw. The first 6 windows of a level, then every 10th. */
 static int LpPlayers() {
@@ -987,7 +988,8 @@ static void LpFrame(void* level, double drawMs) {
  * Switch's Level.Update (+0xb68c40). Drawing only (render targets, no game state): once a frame at the game's own 60 Hz, but at TF.EX's
  * 240 Hz four times a frame plus once per resimulated tick, ~1.5 ms a tick of a 4-player team match, past 240 Hz's 4.17 ms budget (STATUS:
  * the road to eight players). It runs once per drawn frame, just before Draw, as at 60 Hz: in a session, and since 2026-11-07 in a local
- * match too (TF.EX's 240 Hz step there as well: 4 updates a frame, 8 players' outlines each time). */
+ * match too (one update a frame there: TF.EX's ManageTimeStep sets 240 Hz only while a session runs, so a local match keeps the
+ * game's own step, as on the PC; console 2026-11-10: `game updates 600 (1.00 a frame)`). */
 static bool g_outlinesFromDraw = false;
 static int g_outlinesSkipped = 0, g_outlinesDrawn = 0;
 HOOK_DEFINE_TRAMPOLINE(TeamOutlinesHook) {

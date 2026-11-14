@@ -32,6 +32,7 @@
 #include "tfex/gen/tfexgen_GlueFrMods.hpp"   /* AliasMissingSubtexture: the controller icons for players 7-8 */
 #include "tfex/runtime/tfexgen_code_rt.hpp"
 #include "tfex/gen/tfexgen_binding.hpp"   /* the game members WiderSet's roll call look uses */
+#include <algorithm>
 #include <cstdio>   /* the generated hooks this shares a method with (Teams+'s) */
 #include "tfex/runtime/tfexgen_services.hpp"   /* the own TF.EX lobby (its MaxPlayers: roll call slots past 6 online) */
 #include "patch/code_patcher.hpp"   /* exl::patch::CodePatcher — in-place patching */
@@ -1145,6 +1146,11 @@ static int OnlineSeatsPastSix() {
     return seats > 6 ? seats : 0;
 }
 
+/* TFEX-DIFF S-ui: the 8-slot roll call's portraits are 60 x kPortraitH crops of the 60 x 120 art, not WiderSet's 60 x 60 squares (the
+ * user, 2026-11-10: the Switch screen has the room). The rows' inner edges stay where WiderSet's are (the top row's bottom at y 105, the
+ * bottom row's top at 135); the portraits grow toward the screen's top and bottom edges. */
+constexpr float kPortraitH = 90.0f;
+constexpr float kTopRowY = 105.0f - kPortraitH / 2, kBottomRowY = 135.0f + kPortraitH / 2;
 HOOK_DEFINE_TRAMPOLINE(RollcallSlotFactoryHook) {
     static void* Callback(void* self, int index, int sixVariant) {
         if (::megamod::Online() && !OnlineSeatsPastSix()) return Orig(self, index, sixVariant);   /* online: the game's, but past 6 seats */
@@ -1153,15 +1159,15 @@ HOOK_DEFINE_TRAMPOLINE(RollcallSlotFactoryHook) {
         uint32_t* mode = tf8::RollcallModeStorage();
         if (!mode || *mode != 1) return el;
         /* WiderSet's grid (its RollcallElement.GetPosition / GetTweenSource prefixes, WiderSet 0.9.0): two rows of four, x 55 + 70 * col,
-         * y 75 / 165; the top row slides in from the left, the bottom row from the right. Fits with WiderSet's 60 x 60 portraits
-         * (PortraitRenderHook below). */
+         * y 75 / 165 there (here kTopRowY / kBottomRowY: the taller portraits); the top row slides in from the left, the bottom row from
+         * the right (PortraitRenderHook below). */
         int row = index / 4, col = index % 4;
         float x = 55.0f + 70.0f * col;
-        float y = row ? 165.0f : 75.0f;
+        float y = row ? kBottomRowY : kTopRowY;
         uint8_t* f = reinterpret_cast<uint8_t*>(el);
-        /* WiderSet's ctor transpiler: the archer arrows (+0xa8 / +0xb0, Y 60 in the constructor) at 30, the small portrait's bottom */
+        /* WiderSet's ctor transpiler: the archer arrows (+0xa8 / +0xb0, Y 60 in the constructor) at the small portrait's bottom */
         for (uint32_t a : {0xa8u, 0xb0u})
-            if (void* arrow = *reinterpret_cast<void**>(f + a)) *reinterpret_cast<float*>(reinterpret_cast<uint8_t*>(arrow) + 0x28) = 30.0f;
+            if (void* arrow = *reinterpret_cast<void**>(f + a)) *reinterpret_cast<float*>(reinterpret_cast<uint8_t*>(arrow) + 0x28) = kPortraitH / 2;
         *reinterpret_cast<float*>(f + 0x14) = x;
         *reinterpret_cast<float*>(f + 0x18) = y;
         *reinterpret_cast<float*>(f + 0xd8) = x;
@@ -1185,17 +1191,32 @@ static bool EightRollcall() {
     if (!mode || *mode != 1) return false;
     return !::megamod::Online() || OnlineSeatsPastSix() > 0;
 }
-/* WiderSet's ArcherPortrait transpilers (ctor, SetCharacter, StartJoined, Leave): on the 8-slot roll call a portrait is the top 60 x 60
- * of its 60 x 120 art, from y 10 (a not-joined archer 6 from y 60: WiderSet's NotJoinedCharacterOffset[6] = (0, 50)). The game sets
+/* WiderSet's ArcherPortrait transpilers (ctor, SetCharacter, StartJoined, Leave): on the 8-slot roll call a portrait is the top
+ * 60 x kPortraitH of its 60 x 120 art, from y 10 (a not-joined archer 6 lower, as WiderSet's NotJoinedCharacterOffset[6] = (0, 50),
+ * as far as the art goes). The game sets
  * an image's ClipRect (+0x58: X Y W H in the atlas) to the whole art whenever it changes it; this crops it again before drawing. The
  * portrait (+0x68) and its flip side (+0x70). */
 static void CropPortraitImage(void* image, int yFrom) {
     if (!image) return;
     int32_t* r = reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(image) + 0x58);
-    if (r[3] <= 60) return;   /* cropped already */
-    r[1] += yFrom; r[2] = 60; r[3] = 60;
+    const int h = (int)kPortraitH;
+    if (r[3] <= h) return;   /* cropped already */
+    r[1] += yFrom; r[2] = 60; r[3] = h;
     tf8::Call<void (*)(void*)>(tfex::gen::bind::m_GraphicsComponent_CenterOrigin)(image);
 }
+/* The Switch's ArcherPortrait.Render draws its Draw.Rect (+0x9237b0) calls sized from the portrait image's texture (60 x 120), not its
+ * ClipRect: the joined frame (the archer's ColorA, 2 bigger on every side: 64 x 124, behind the portrait), the join flash and the dark
+ * overlay (60 x 120). On the 8-slot roll call they covered the uncropped art's height (the user's screen, 2026-11-10: a white 60 x 120 box
+ * on joining). While that Render runs, a rect taller than the crop loses the art's cropped-off height about its centre (where
+ * CenterOrigin puts the cropped image): the frame keeps its 2 above and below (124 -> 94), the flash fits the portrait (120 -> 90). */
+static bool g_inEightPortrait = false;
+HOOK_DEFINE_TRAMPOLINE(PortraitRectHook) {
+    static void Callback(float x, float y, float w, float h, uint32_t color) {
+        constexpr float cut = 120.0f - kPortraitH;
+        if (g_inEightPortrait && h >= 120.0f - 0.5f) { y += cut / 2; h -= cut; }
+        Orig(x, y, w, h, color);
+    }
+};
 HOOK_DEFINE_TRAMPOLINE(PortraitRenderHook) {
     static void Callback(void* self) {
         if (self && EightRollcall()) {
@@ -1204,22 +1225,26 @@ HOOK_DEFINE_TRAMPOLINE(PortraitRenderHook) {
             p[0x58] = 0;   /* ShowTitle: no archer name over the small portrait (WiderSet's Render prefix) */
             int ch = tf8::Call<int (*)(void*)>(0x96eed0)(self);   /* get_CharacterIndex */
             int alt = tf8::Call<int (*)(void*)>(0x96eee0)(self);  /* get_AltSelect: 0 normal */
-            CropPortraitImage(*reinterpret_cast<void**>(p + 0x68), (!joined && alt == 0 && ch == 6) ? 60 : 10);
+            CropPortraitImage(*reinterpret_cast<void**>(p + 0x68), (!joined && alt == 0 && ch == 6) ? std::min(60, 120 - (int)kPortraitH) : 10);
             CropPortraitImage(*reinterpret_cast<void**>(p + 0x70), 10);
             CropPortraitImage(*reinterpret_cast<void**>(p + 0x78), 10);   /* the join flash (a 60 x 120 Sprite: WiderSet's ctor 120 -> 60) */
             static bool said = false;
-            if (!said) { said = true; MMLOG("[8player] roll call portraits: WiderSet's 60 x 60 crop"); }
+            if (!said) { said = true; MMLOG("[8player] roll call portraits: 60 x %d crops (rows at y %.0f / %.0f)", (int)kPortraitH, kTopRowY, kBottomRowY); }
+            g_inEightPortrait = true;
+            Orig(self);
+            g_inEightPortrait = false;
+            return;
         }
         Orig(self);
     }
 };
-/* WiderSet's ArcherPortrait.InitGem transpiler: the gem at the 60 x 60 portrait's bottom edge (the game's +60 -> +30) */
+/* WiderSet's ArcherPortrait.InitGem transpiler: the gem at the small portrait's bottom edge (the game's +60 -> kPortraitH / 2) */
 HOOK_DEFINE_TRAMPOLINE(PortraitInitGemHook) {
     static void Callback(void* self) {
         Orig(self);
         if (!self || !EightRollcall()) return;
         void* gem = *reinterpret_cast<void**>(reinterpret_cast<uint8_t*>(self) + 0x80);   /* ArcherPortrait's gem sprite */
-        if (gem) *reinterpret_cast<float*>(reinterpret_cast<uint8_t*>(gem) + 0x28) -= 30.0f;   /* its Position.Y */
+        if (gem) *reinterpret_cast<float*>(reinterpret_cast<uint8_t*>(gem) + 0x28) -= 60.0f - kPortraitH / 2;   /* its Position.Y */
     }
 };
 /* WiderSet's HandleControlIcons / Update transpilers: RollcallElement.ControlIconPos - (15, 120) on the 8-slot roll call (the Switch
@@ -1229,11 +1254,11 @@ static void SetControlIconPos(bool eight) {
     float* pos = *reinterpret_cast<float**>(base + 0x4795ec0);
     if (!pos) return;
     pos[0] = eight ? -15.0f : 0.0f;
-    pos[1] = eight ? -30.0f : 90.0f;   /* WiderSet's: on the portrait's top edge (RollcallIconsHook draws them in front of it) */
+    pos[1] = eight ? -kPortraitH / 2 : 90.0f;   /* WiderSet's: on the portrait's top edge (RollcallIconsHook draws them in front of it) */
     /* the Switch's own costume prompt (R / ?: no PC counterpart), its static (22, 45) at GOT +0x4795ed0, read in Render: up 30 with the
-     * arrows and the gem, inside the 60 x 60 portrait */
+     * arrows and the gem, 15 above the small portrait's bottom */
     float* alt = *reinterpret_cast<float**>(base + 0x4795ed0);
-    if (alt) alt[1] = eight ? 15.0f : 45.0f;
+    if (alt) alt[1] = eight ? kPortraitH / 2 - 15.0f : 45.0f;
 }
 /* The 8-slot roll call's input icon, its name and the GameCube badge in front of the portraits. The Switch's RollcallElement.Render draws
  * them (at Position + ControlIconPos + the shake +0x108) before base.Render draws the portrait, which on the small grid covers them
@@ -1723,6 +1748,7 @@ inline void InstallAll() {
     CreateRollcallHook::InstallAtOffset(tf8::off::MainMenu_CreateRollcall);
     RollcallSlotFactoryHook::InstallAtOffset(tf8::off::RollcallSlotNew);
     PortraitRenderHook::InstallAtOffset(0x96f350);
+    PortraitRectHook::InstallAtOffset(tfex::gen::bind::m_Draw_Rect_9c33);   /* its flash / overlay rects (PortraitRenderHook) */
     PortraitInitGemHook::InstallAtOffset(tfex::gen::bind::m_ArcherPortrait_InitGem);   /* ArcherPortrait::Render (tools/re callmap) */
     RollcallIconsHook::InstallAtOffset(tfex::gen::bind::m_RollcallElement_Render);
     AssignInputsHook::InstallAtOffset(tf8::off::PlayerInput_AssignInputs);
